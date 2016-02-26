@@ -1,10 +1,11 @@
-***CLEAN INITIAL DATABASE
+*** 1)CLEAN INITIAL DATABASE
 clear
 
+global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis/"
 
 ***Clean bdd_centrale
-insheet using "/Users/Tirindelli/Google Drive/ETE/Thesis/toflit18_data/base/bdd_centrale.csv", names
-save "/Users/Tirindelli/Google Drive/ETE/Thesis/Data/bdd_centrale.dta", replace
+insheet using "/$thesis/toflit18_data/base/bdd_centrale.csv", names
+save "$thesis/Data/bdd_centrale.dta", replace
 
 clear
 
@@ -12,49 +13,47 @@ clear
 
 ***Clean bdd_pays
 
-insheet using "/Users/Tirindelli/Google Drive/ETE/Thesis/toflit18_data/base/bdd_pays.csv", names
-save "/Users/Tirindelli/Google Drive/ETE/Thesis/Data/bdd_pays.dta", replace
+insheet using "/$thesis/toflit18_data/base/bdd_pays.csv", names
+save "/$thesis/Data/bdd_pays.dta", replace
 
 clear
 
 ***Clean bdd_marchandises_normalisees_orthographique
 
-insheet using "/Users/Tirindelli/Google Drive/ETE/Thesis/toflit18_data/traitements_marchandises/bdd_marchandises_normalisees_orthographique.csv", names
+insheet using "/$thesis/toflit18_data/traitements_marchandises/bdd_marchandises_normalisees_orthographique.csv", names
 
 drop if missing(marchandises)
 duplicates drop marchandises, force
-save "/Users/Tirindelli/Google Drive/ETE/Thesis/Data/bdd_marchandises _normalisation_orthographique.dta", replace
+save "/$thesis/Data/bdd_marchandises _normalisation_orthographique.dta", replace
 clear
 
 
 ***Clean bdd_simplification
-insheet using "/Users/Tirindelli/Google Drive/ETE/Thesis/toflit18_data/traitements_marchandises/simplification_travail.csv", names
+insheet using "/$thesis/toflit18_data/traitements_marchandises/simplification_travail.csv", names
 gen marchandises_norm_ortho=orthographic_pierre
 drop orthographic_pierre
 duplicates drop marchandises_norm_ortho, force
-save "/Users/Tirindelli/Google Drive/ETE/Thesis/Data/simplification_travail.dta", replace
+save "/$thesis/Data/simplification_travail.dta", replace
 
 clear
 
 
 ***Clean bdd_marchandises_classifiees
 
-insheet using "/Users/Tirindelli/Google Drive/ETE/Thesis/Data/elisa_bdd_marchandises_classifiees.csv", names
+insheet using "/$thesis/Data/elisa_bdd_marchandises_classifiees.csv", names
 drop if missing(marchandises_norm_ortho)
 duplicates drop marchandises_norm_ortho, force
-save "/Users/Tirindelli/Google Drive/ETE/Thesis/Data/elisa_bdd_marchandises_classifiees.dta", replace
+save "/$thesis/Data/elisa_bdd_marchandises_classifiees.dta", replace
 
 clear
 
 
-****MERGE
+**** 2) MERGE
 
-cd "/Users/Tirindelli/Google Drive/ETE/Thesis/Data/"
-
-use "bdd_centrale.dta"
+use "/$thesis/Data/bdd_centrale.dta"
 
 ***merge central and pays 
-merge m:1 pays using "bdd_pays.dta"
+merge m:1 pays using "/$thesis/Data/bdd_pays.dta"
 drop if _merge==2
 drop if _merge==1
 drop source_bdc-_merge
@@ -74,24 +73,31 @@ codebook value
 
 ***merge with normalisation orthographique
 
-merge m:1 marchandises using "bdd_marchandises_normalisation_orthographique.dta"
+merge m:1 marchandises using "/$thesis/Data/bdd_marchandises_normalisation_orthographique.dta"
 drop if _merge==2
 drop _merge
 
 ***merge with simplification
-merge m:1 marchandises_norm_ortho using "simplification_travail.dta"
+merge m:1 marchandises_norm_ortho using "/$thesis/Data/simplification_travail.dta"
 drop if _merge==2
 drop if _merge==1
 drop _merge
 
 
 ***merge with classification
-merge m:1 marchandises_norm_ortho using "elisa_bdd_marchandises_classifiees.dta"
+merge m:1 marchandises_norm_ortho using "/$thesis/Data/elisa_bdd_marchandises_classifiees.dta"
 *gen not_matched=marchandises_norm_ortho
 *replace not_matched="" if _merge!=1
 drop _merge
+
+replace classification_hambourg_large="Coton" if classification_hambourg_large=="Coton ; autre et de Méditerranée"
+replace classification_hambourg_large="Vin ; de France" if simplification=="vin de Bordeaux" | simplification=="vin de France" | simplification=="vin d'amont" | simplification=="vin de Bordeaux de ville" | simplification=="vin de Languedoc"
+replace classification_hambourg_large="Indigo" if simplification=="indigo"
+replace classification_hambourg_large="Safran ; orange" if simplification=="safran"
+replace classification_hambourg_large="Gingembre" if simplification=="gingembre"
+
 replace marchandises_norm_ortho="Not classified" if classification_hambourg_large==""
-replace sitc_rev2="Not classified" if marchandises_norm_ortho=="Not classified goods"
+replace sitc_rev2="Not classified" if marchandises_norm_ortho=="Not classified"
 
 
 ****keep only years 1733-1789
@@ -100,17 +106,12 @@ destring year, replace
 drop if year<1733
 drop if year>1789
 
-replace classification_hambourg_large="Coton" if classification_hambourg_large=="Coton ; autre et de Méditerranée"
-replace classification_hambourg_large="Vin ; de France" if simplification=="vin de Bordeaux" | simplification=="vin de France" | simplification=="vin d'amont" | simplification=="vin de Bordeaux de ville" | simplification=="vin de Languedoc"
-replace classification_hambourg_large="Indigo" if simplification=="indigo"
-replace classification_hambourg_large="Safran ; orange" if simplification=="safran"
-replace classification_hambourg_large="Gingembre" if simplification=="gingembre"
 
 
 
 
 ***save temporarily
-save "elisa_bdd_courante.dta", replace
+*save "/$thesis/Data/elisa_bdd_courante.dta", replace
 
 
 ***create csv with merchandise to simplify
@@ -126,30 +127,68 @@ save "elisa_bdd_courante.dta", replace
 
 
 ***eliminate useless variables
-use "elisa_bdd_courante.dta", clear
 drop source sourcepath sourcetype total v26 pays_normalises_orthographique pays_corriges pays_regroupes mériteplusdetravail 
 drop imprimatur  nbr_dans_bdc obsolete  suggestiondesimplification status  beforeitems afteritems  marchandises_tres_simplifiees 
 drop classificationproduitsmdicinaux  remarques_marchandises wallislist  exclusion_not_medical_primarily nom_wallis  large narrow  
 drop sitc1digit sitc18thc  nbr_lignes_fr_bis classification_hambourg_etroite  ajouts_565860 commestibles_eur_grainsetsubstit  grains_ou_farine 
-drop categories_de_grains  v9 source_bdc  nbr_bdc_marchandises_simplifiees
-
-
+drop categories_de_grains  v9 source_bdc  nbr_bdc_marchandises_simplifiees remarkspourlesdroits doublecompte
+drop origine leurvaleursubtotal_1 leurvaleursubtotal_2 leurvaleursubtotal_3 probleme remarks problemes  Droitstotauxindiqués 
+drop unit_price  droitsunitaires doubleaccounts  unitépourlesdroits bureaus  v33  quantitépourlesdroits  problem  
+drop numrodeligne dataentryby direction bureaux sheet pays
 ***save clean dataset 
 
-save "elisa_bdd_courante.dta", replace
+save "/$thesis/Data/elisa_bdd_courante.dta", replace
+
+
 
 
 
 ***merge with units--> it is about quantities and database are really old so I'll leave it for now
 
+
+
 ***STUDY MARCHANDISES
 
+use "/$thesis/Data/elisa_bdd_courante.dta", clear
+
+gen notclassified_value = value if classification_hambourg_large==""
+gen classified_value = value if classification_hambourg_large!=""
+
+label var notclassified_value "Value of non classified goods"
+label var classified_value "Value of classified goods"
+
+save "/$thesis/Data/elisa_bdd_courante.dta", replace
+
+*** look at non classified and classified goods to total value ratio:
+cd "/$thesis/Data/Graph/"
+preserve
+collapse (sum) value notclassified_value classified_value
+graph pie classified_value notclassified_value, title ("French Exports (1733-1789)") subtitle ("Value in grams of silver") caption ("source : France") plabel(_all percent, format(%3.1f))
+graph save notclass_to_total.gph, replace 
+
+***REMEMBER HERE TO FIX LEGEND!
+
+restore
+
+****CLASSIFIED MARCHANDISES REPRESENT 96% OF TOTAL VALUE--> STUDY CLASSIFIED MARCH. COMPOSITION
+
+***study classified marchandises
+
+preserve
+collapse (sum) classified_value, by (classification_hambourg_large)
+gen classification_hamburg_pie= classification_hambourg_large
+replace classification_hamburg_pie="Other" if classification_hambourg_large!="Café" & classification_hambourg_large!="Vin ; de France" & classification_hambourg_large!="Sucre ; cru blanc ; du Brésil" & classification_hambourg_large!="Indigo" & classification_hambourg_large!="Eau ; de vie"
+graph pie classified_value , over (classification_hamburg_pie) title("Aggregate French Exports (1750-1789)") subtitle("Product decomposition") plabel(_all name, gap(8)) plabel(_all percent, format(%2.0f))
+graph save composition_by_prod.gph, replace  
+
+***FIX NAME IN THE PIE CHART
+
+restore
+
 ***study sugar and coffee
-cd "/Users/Tirindelli/Google Drive/ETE/Thesis/Data/"
 
-use "elisa_bdd_courante.dta", clear
 
-cd "/Users/Tirindelli/Google Drive/ETE/Thesis/Data/Graph"
+cd "/$thesis/Data/Graph"
 
 
 ***coffee
@@ -190,32 +229,31 @@ graph save sugarvalue.gph, replace
 restore 
 
 
-clear
-
-cd "/Users/Tirindelli/Google Drive/ETE/Thesis/Data/"
-use "elisa_bdd_courante.dta", replace
-
-*** study not classified marchandises
-
-cd "/Users/Tirindelli/Google Drive/ETE/Thesis/Data/Graph/"
-
-gen notclassified_value = value if classification_hambourg_large==""
+****study wine
 
 preserve
+egen valuesum=sum(value), by year
 
-gen classified_value = value if classification_hambourg_large!=""
-collapse (sum) value notclassified_value classified_value
-gen notclass_to_total=notclassified_value/value
-display notclass_to_total
-graph pie classified_value notclassified_value, title ("French Exports (1733-1789)") subtitle ("Value in grams of silver") caption ("source : France") plabel(2 percent)
-graph save notclass_to_total.gph, replace 
-
+keep if classification_hamburg_large=="Vin ; de France"
+collapse (sum) value, by (year valuesum)
+gen value_ratio=
+twoway (connected value year) title("French Exports (1733-1789)") subtitle("Wine value") caption("source : France")
+graph save winevalue.gph, replace
 restore
 
+clear
 
-* look at Marchandises which represent less than 0.1% of total value
+use "/$thesis/Data/elisa_bdd_courante.dta", replace
 
-cd "/Users/Tirindelli/Google Drive/ETE/Thesis/Data/"
+
+
+
+
+
+
+*** look at not classified marchandises which represent more than 0.1% of total value
+
+cd "/$thesis/Data/"
 
 preserve
 
@@ -223,30 +261,26 @@ egen valuesum= sum(value)
 collapse (sum) notclassified_value, by (simplification valuesum)
 gen value_non = notclassified_value/valuesum
 keep if value_non>=.0001
-outsheet using "not_classified.csv", replace
+outsheet using "/$thesis/Data/not_classified.csv", replace
 
 restore 
 
 
-* Evolution longitudinale des marchandises importantes oubliées
+*** longitudinal evolution of non classified marchandises 
 
 preserve
 
 collapse (sum) notclassified_value, by (year simplification)
 rename notclassified_value value
-gen Salt=value if marchandises_normalisees=="Sel" 
-gen Syrup=value if marchandises_normalisees=="Sirop" 
-gen Syrup_molasses=value if marchandises_normalisees=="Sirop ; mélasse" 
-gen Indienne=value if marchandises_normalisees=="Indienne ; guinée" 
-gen Misc_goods=value if marchandises_normalisees=="Marchandises" 
+gen salt=value if simplification=="sel" | simplification=="sel d'Angleterre"
+gen guinee=value if simplification=="guinée" | simplification=="indienne guinée blanc"
+gen coton_laine=value if simplification=="coton de laine" 
 
-twoway (connected Salt year) (connected Syrup year) (connected Syrup_molasses year) (connected Indienne year) (connected Misc_goods year), title("French Exports (1750-1789)") subtitle("Not classified marchandises, value") caption("source : France")
-graph export "/Users/patrickaubourg/Desktop/execute dofile/fichiers sauvegardeÃÅs/oubliees/marchandisesimportantesoubliees.png", replace 
-graph save "/Users/patrickaubourg/Desktop/execute dofile/fichiers sauvegardeÃÅs/oubliees/marchandisesimportantesoubliees.gph", replace 
-
-collapse (sum) value, by (marchandises_normalisees)
-export excel using "/Users/patrickaubourg/Desktop/execute dofile/fichiers sauvegardeÃÅs/oubliees/marchandisesoublieesssss.xls", firstrow(variables) replace
-
+cd "$thesis/Data/Graph/"
+twoway (connected salt year) (connected guinee year) (connected coton_laine year), title("French Exports (1733-1789)") subtitle("Value of major not classified goods") caption("source : France")
+graph save not_classified.gph, replace
+collapse (sum) value, by (year simplification)
+outsheet using "/$thesis/Data/year_not_classified.csv", replace
 
 restore
 
