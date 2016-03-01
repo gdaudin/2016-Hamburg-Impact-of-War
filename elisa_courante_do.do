@@ -97,8 +97,6 @@ replace classification_hamburg_large="Indigo" if simplification=="indigo"
 replace classification_hamburg_large="Safran ; orange" if simplification=="safran"
 replace classification_hamburg_large="Gingembre" if simplification=="gingembre"
 
-replace classification_hamburg_large="Marchandises non classifiées" if classification_hamburg_large==""
-replace sitc_rev2="Not classified" if simplification=="Not classified"
 
 
 ****keep only years 1733-1789
@@ -135,7 +133,7 @@ drop sitc1digit sitc18thc  nbr_lignes_fr_bis classification_hambourg_etroite  aj
 drop categories_de_grains  v9 source_bdc  nbr_bdc_marchandises_simplifiees remarkspourlesdroits doublecompte
 drop origine leurvaleursubtotal_1 leurvaleursubtotal_2 leurvaleursubtotal_3 probleme remarks problemes  Droitstotauxindiqués 
 drop unit_price  droitsunitaires doubleaccounts  unitépourlesdroits bureaus  v33  quantitépourlesdroits  problem  
-drop numrodeligne dataentryby direction bureaux sheet pays
+drop numrodeligne dataentryby direction bureaux sheet pays exportsimports marchandises quantit quantity_unit sitc_rev1
 ***save clean dataset 
 
 
