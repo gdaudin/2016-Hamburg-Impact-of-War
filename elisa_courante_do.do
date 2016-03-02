@@ -70,6 +70,10 @@ codebook value
 replace value=value*4.505/1000
 codebook value
 
+destring prix_unitaire, replace dpcomma
+replace prix_unitaire=value*4.505/1000
+codebook prix_unitaire
+
 ***merge with normalisation orthographique
 
 merge m:1 marchandises using "$thesis/Data/database_dta/bdd_marchandises_normalisation_orthographique.dta"
@@ -132,9 +136,11 @@ drop classificationproduitsmdicinaux  remarques_marchandises wallislist  exclusi
 drop sitc1digit sitc18thc  nbr_lignes_fr_bis classification_hambourg_etroite  ajouts_565860 commestibles_eur_grainsetsubstit  grains_ou_farine 
 drop categories_de_grains  v9 source_bdc  nbr_bdc_marchandises_simplifiees remarkspourlesdroits doublecompte
 drop origine leurvaleursubtotal_1 leurvaleursubtotal_2 leurvaleursubtotal_3 probleme remarks problemes  Droitstotauxindiqués 
-drop unit_price  droitsunitaires doubleaccounts  unitépourlesdroits bureaus  v33  quantitépourlesdroits  problem  
+drop unit_price droitsunitaires doubleaccounts  unitépourlesdroits bureaus  v33  quantitépourlesdroits  problem  
 drop numrodeligne dataentryby direction bureaux sheet pays exportsimports marchandises quantit quantity_unit sitc_rev1
 ***save clean dataset 
+
+rename prix_unitaire unit_price
 
 
 save "$thesis/Data/database_dta/elisa_bdd_courante.dta", replace

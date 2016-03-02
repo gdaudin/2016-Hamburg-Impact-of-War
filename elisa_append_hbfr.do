@@ -39,16 +39,7 @@ generate value_fr = .
 rename value value_hb
 generate sourceFRHB="Hamburg"
 
-order sourceFRHB classification_hamburg_large value_fr value_hb, after(year)
-
-
-***collapse values
-
-byso year : egen number=count(value_hb)
-drop if number==1
-fillin year classification_hamburg_large
-replace value_hb=0 if _fillin==1
-replace sourceFRHB="Hambourg" if _fillin==1
+order sourceFRHB classification_hamburg_large value_fr value_hb prix_unitaire, after(year)
 
 replace classification_hamburg_large="Thérébenthine" if classification_hamburg_large=="Térébenthine"
 replace classification_hamburg_large="Coton" if classification_hamburg_large=="Coton ; autre et de Méditerranée"
@@ -114,12 +105,10 @@ rename value value_fr
 generate value_hb=.
 generate sourceFRHB="France"
 
-order sourceFRHB marchandises_norm_ortho simplification sitc_rev2 classification_hamburg_large value_fr prix_unitaire, after(year)
+order sourceFRHB marchandises_norm_ortho simplification sitc_rev2 classification_hamburg_large value_fr, after(year)
 
 
-collapse (sum) value_fr, by(sitc_rev2 year classification_hamburg_large sourceFRHB)
-fillin year classification_hamburg_large
-replace value_fr=0 if _fillin==1
+collapse (sum) value_fr, by(sitc_rev2 year classification_hamburg_large sourceFRHB )
 replace sourceFRHB="France"
 
 replace sitc_rev2="5" if classification_hamburg_large=="Alun"
@@ -196,7 +185,7 @@ replace sitc_rev2 = "8: Misc. manuf. goods" if sitc_rev2=="8"
 replace sitc_rev2 = "9: Other (incl. weapons)" if sitc_rev2=="9"
 replace sitc_rev2 = "9a: Species" if sitc_rev2=="9a"
 
-order sitc_rev2 value_fr value_hb sourceFRHB classification_hamburg_large, after(year)
+order sitc_rev2 value_fr value_hb sourceFRHB classification_hamburg_large prix_unitaire, after(year)
 
 save "elisa_frhb_database.dta", replace
 

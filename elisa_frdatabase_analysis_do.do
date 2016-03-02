@@ -22,7 +22,7 @@ label var classified_value "Value of classified goods"
 
 
 
-*** LOOK AT CLASSIFIED VERSUS NON CLASSIFIED MARHCANDISES
+*******************************LOOK AT CLASSIFIED VERSUS NON CLASSIFIED MARHCANDISES**********************************
 
 cd "/$thesis/Data/Graph/"
 preserve
@@ -41,17 +41,15 @@ restore
 
 
 
-***STUDY CLASSIFIED MARCHANDISES
+*******************************STUDY CLASSIFIED MARCHANDISES***********************************************************
 
 preserve
 collapse (sum) classified_value, by (classification_hamburg_large)
 gen classification_hamburg_graph= classification_hamburg_large
-replace classification_hamburg_pie="Other" if classification_hamburg_large!="Café" & classification_hamburg_large!="Vin ; de France" & classification_hamburg_large!="Sucre ; cru blanc ; du Brésil" & classification_hamburg_large!="Indigo" & classification_hamburg_large!="Eau ; de vie"
-graph pie classified_value , over (classification_hamburg_pie) title("Aggregate French Exports (1750-1789)") subtitle("Product decomposition") plabel(1 "Coffee", gap(8)) plabel(2 "Indigo", gap(8)) plabel(3 "Sugar", gap(8)) plabel(4 "Eau de vie", gap(8)) plabel(5 "Other", gap(8)) plabel(6 "Wine", gap(8)) plabel(_all percent, format(%2.0f))
+replace classification_hamburg_large="Other" if classification_hamburg_large!="Café" & classification_hamburg_large!="Vin ; de France" & classification_hamburg_large!="Sucre ; cru blanc ; du Brésil" & classification_hamburg_large!="Indigo" & classification_hamburg_large!="Eau ; de vie"
+graph pie classified_value , over (classification_hamburg_large) title("Aggregate French Exports (1750-1789)") subtitle("Product decomposition") plabel(1 "Coffee", gap(8)) plabel(2 "Indigo", gap(8)) plabel(3 "Sugar", gap(8)) plabel(4 "Eau de vie", gap(8)) plabel(5 "Other", gap(8)) plabel(6 "Wine", gap(8)) plabel(_all percent, format(%2.0f))
 graph save composition_by_prod.gph, replace  
-
 ***FIX NAME IN THE PIE CHART
-
 restore
 
 
@@ -70,10 +68,8 @@ restore
 
 ***coffee
 preserve
-
 keep if classification_hamburg_large=="Café"
 collapse (sum) value, by (year simplification)
-
 gen coffee_=value if simplification=="café"
 gen coffee_bourbon=value if simplification=="café de Bourbon"
 gen coffee_moka=value if simplification=="café de Moka"
@@ -81,8 +77,20 @@ gen coffee_indes=value if simplification=="café des Indes"
 gen coffee_levant=value if simplification=="café du Levant"
 twoway (connected coffee_ year) (connected coffee_bourbon year)(connected coffee_moka year)(connected coffee_indes year) (connected coffee_levant year), title("French Exports (1750-1789)") subtitle("coffee, value") caption("source : France")
 graph save coffeevalue.gph, replace 
-***fix pie charte
+restore
+
+preserve
+keep if classification_hamburg_large=="Café"
+collapse (sum) unit_price, by (year simplification)
+gen coffee_=unit_price if simplification=="café"
+gen coffee_bourbon=unit_price if simplification=="café de Bourbon"
+gen coffee_moka=unit_price if simplification=="café de Moka"
+gen coffee_indes=unit_price if simplification=="café des Indes"
+gen coffee_levant=unit_price if simplification=="café du Levant"
+twoway (connected coffee_ year) (connected coffee_bourbon year)(connected coffee_moka year)(connected coffee_indes year) (connected coffee_levant year), title("French Exports (1750-1789)") subtitle("coffee, value") caption("source : France")
+graph save coffeeprice.gph, replace 
 restore 
+
 
 ***sugar
 preserve
@@ -158,7 +166,7 @@ restore
 
 
 
-***LOOK AT NON CLASSIFID MARCHANDISES 
+**********************************LOOK AT NON CLASSIFID MARCHANDISES**************************************************
 
 *** look at not classified marchandises which represent more than 0.1% of total value
 
@@ -231,7 +239,7 @@ restore
 
 
 
-
+***********************************************LOOK AT PRICES OF COFFEE AND SUGAR*******************************
 
 
 
