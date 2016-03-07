@@ -7,20 +7,75 @@ clear
 
 global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis/"
 
-use "elisa_frhb_database.dta"
+use "/$thesis/Data/database_dta/elisa_frhb_database.dta"
 
+
+
+**************************look at classified versus not classfied
+***all years
+
+cd "/$thesis/Data/Graph/Comparison/"
+preserve
+gen value=value_fr
+replace value=value_hb if sourceFRHB=="Hamburg"
+replace classification_hamburg_large="Not classified goods" if classification_hamburg_large=="Marchandises non classifiées"
+replace classification_hamburg_large="Classified goods" if classification_hamburg_large!="Not classified goods"
+collapse (sum) value, by(sourceFRHB classification_hamburg_large)
+graph pie value, over(classification_hamburg_large) by(sourceFRHB, legend(off) title("Classified versus unclassified goods") caption("All years")) plabel(_all percen, format(%2.0f) color(white) gap(8)) plabel(_all name, color(white) gap(-8))
+graph export notclass_to_total_allyear.png, replace as(png)
+*graph save notclass_to_total.gph, replace
+restore
+
+***common years
+preserve
+gen value=value_fr
+replace value=value_hb if sourceFRHB=="Hamburg"
+replace value=. if value==0
+replace classification_hamburg_large="Not classified goods" if classification_hamburg_large=="Marchandises non classifiées"
+replace classification_hamburg_large="Classified goods" if classification_hamburg_large!="Not classified goods"
+collapse (sum) value, by(sourceFRHB classification_hamburg_large year)
+keep if value!=. & value!=0
+collapse (sum) value, by(sourceFRHB classification_hamburg_large)
+graph pie value, over(classification_hamburg_large) by(sourceFRHB, legend(off) title("Classified versus unclassified goods") caption("Common years only")) plabel(_all percen, format(%2.0f) color(white) gap(8)) plabel(_all name, color(white) gap(-8))
+graph export not_class_to_total_commonyears.png, replace as(png)
+*graph save not_class_to_total_commonyears, replace as(png)
+
+
+***longitudinal evolution
+preserve
+egen total_fr=sum(value_fr), by(year)
+egen total_hb=sum(value_hb), by(year)
+gen notclass_share_fr=value_fr/total_fr if classification_hamburg_large=="Marchandises non classifiées"
+gen notclass_share_hb=value_hb/total_hb if classification_hamburg_large=="Marchandises non classifiées"
+collapse (sum) notclass_share_fr notclass_share_hb, by(year)
+replace notclass_share_fr=. if notclass_share_fr==0
+replace notclass_share_hb=. if notclass_share_hb==0
+twoway (connected notclass_share_fr year) (connected notclass_share_hb year), title("Share of not classified products")
+graph export notclass_long.png, replace as(png)
+restore
 
 **************************look at absolute value of export 
 
 ****for all years
-graph bar (sum) value_fr value_hb, over(sourceFRHB) title("Sum of French exports") subtitle ("Value in Grams of silver") caption ("All years: 1733-1789")
-graph save "value_total_fr_hb", replace
+cd "/$thesis/Data/Graph/Comparison"
+preserve 
+collapse (sum) value_fr value_hb
+gen vf=1
+gen vh=value_hb/value_fr
+graph bar vf vh, title("Sum of French exports") subtitle ("Value in Grams of silver") caption ("All years: 1733-1789")
+graph export value_total_fr_hb.png, replace as(png)
+*graph save value_total_fr_hb, replace
+restore
 
 ****for common years
-preserve 
+preserve
 keep if  year==1756 | year==1760 |  year==1769 | year==1770 | year==1771 | year==1773 | year==1776 | year==1782 | year==1787 |year==1788  | year==1789
-graph bar (sum) value_fr value_hb, over(sourceFRHB) title("Sum of French exports") subtitle ("Value in Grams of silver") caption ("Common years: 1756, 1769, 1770, 1771, 1773, 1776, 1782, 1787, 1788, 1789")
-graph save "value_total_fr_hb_commonyears", replace
+collapse (sum) value_fr value_hb
+gen vf=1
+gen vh=value_hb/value_fr
+graph bar vf vh, title("Sum of French exports") subtitle ("Value in Grams of silver") caption ("Common years: 1756, 1769, 1770, 1771, 1773, 1776, 1782, 1787, 1788, 1789")
+graph export value_total_fr_hb_commonyears.png, replace as(png)
+*graph save value_total_fr_hb_commonyears, replace
 restore
 
 * --> France value result much higher because destination is "North"
@@ -41,7 +96,8 @@ capture corr vf vh
 local corr : display %3.2f r(rho)
 
 twoway (connected vf year) (connected vh year), title("Sum of French exports") subtitle("Value in Grams of silver, correlation: `corr'")
-graph save "long_evolution", replace
+graph export long_evolution.png, replace as(png)
+*graph save long_evolution, replace
 
 restore
 
@@ -62,7 +118,8 @@ preserve
 collapse (sum) value, by(sitc_rev2 sourceFRHB)
 replace sitc_rev2="Other" if sitc_rev2!="0b: Foodstuff, Exotic" & sitc_rev2!="1: Beverages and tobacco" & sitc_rev2!="2: Raw material" & sitc_rev2!="Not classified" & sitc_rev2!="0a: Foodstuff, European"
 graph pie value, over (sitc_rev2) by(sourceFRHB, title("French Exports (1733-1789)") subtitle("Sectoral decomposition for all years. Correlation : `corr'")) plabel(_all percen, format(%2.0f) color(white) gap(8))
-graph save "allyears_sector", replace
+graph export allyears_sector.png, replace as(png)
+*graph save allyears_sector, replace
 restore
 
 
@@ -80,7 +137,8 @@ keep if value!=0
 collapse (sum) value, by(sitc_rev2 sourceFRHB)
 replace sitc_rev2="Other" if sitc_rev2!="0b: Foodstuff, Exotic" & sitc_rev2!="1: Beverages and tobacco" & sitc_rev2!="2: Raw materials" & sitc_rev2!="Not classified" & sitc_rev2!="0a: Foodstuff, European"
 graph pie value, over (sitc_rev2) by(sourceFRHB, title("French Exports (1750-1789)") subtitle("Sectoral decomposition for common years only. Correlation : `corr'")) plabel(_all percen, format(%2.0f) color(white) gap(8))
-graph save "commonyears_sector", replace
+graph export commonyears_sector.png, replace as(png)
+*graph save commonyears_sector, replace
 restore
 
 
@@ -102,7 +160,8 @@ replace vh=. if vh==0
 capture corr vf vh
 local corr : display %3.2f r(rho)
 twoway (connected vf year) (connected vh year), title("Exotic foodstuff") subtitle("Correlation: `corr'")
-graph save "exotic_food_long", replace
+graph export exotic_food_long.png, replace as(png)
+*graph save exotic_food_long, replace
 restore
 
 
@@ -122,7 +181,8 @@ replace vh=. if vh==0
 capture corr vf vh
 local corr : display %3.2f r(rho)
 twoway (connected vf year) (connected vh year), title("Beverages and tobacco") subtitle("Correlation: `corr'")
-graph save "bev_tobacco_long", replace
+graph export bev_tobacco_long.png, replace as(png)
+*graph save bev_tobacco_long, replace
 restore
 
 
@@ -142,7 +202,8 @@ replace vh=. if vh==0
 capture corr vf vh
 local corr : display %3.2f r(rho)
 twoway (connected vf year) (connected vh year), title("Raw material") subtitle("Correlation: `corr'")
-graph save "raw_mat_long", replace
+graph export raw_mat_long.png, replace as(png)
+*graph save raw_mat_long, replace
 restore
 
 *********European Foodstuff
@@ -163,7 +224,8 @@ replace vh=. if vh==0
 capture corr vf vh
 local corr : display %3.2f r(rho)
 twoway (connected vf year) (connected vh year), title("European Foodstuff") subtitle("Correlation: `corr'")
-graph save "europ_food_long", replace
+graph export europ_food_long.png, replace as(png)
+*graph save europ_food_long, replace
 restore
 
 
@@ -184,7 +246,8 @@ replace vh=. if vh==0
 capture corr vf vh
 local corr : display %3.2f r(rho)
 twoway (connected vf year) (connected vh year), title("Not classified") subtitle("Correlation: `corr'")
-graph save "not_class_long", replace
+graph export not_class_long.png, replace as(png)
+*graph save not_class_long, replace
 restore
 
 *** --> problem with data on not classified (-.34) beverages and tobacco (0.01) and on raw material (-.23) 
@@ -206,7 +269,8 @@ preserve
 collapse (sum) value, by(classification_hamburg_large sourceFRHB)
 replace classification_hamburg_large="Other" if classification_hamburg_large!="Café" & classification_hamburg_large!="Vin ; de France" & classification_hamburg_large!="Sucre ; cru blanc ; du Brésil" & classification_hamburg_large!="Indigo" & classification_hamburg_large!="Eau ; de vie"
 graph pie value, over (classification_hamburg_large) by(sourceFRHB, title("French Exports (1733-1789)") subtitle("Decomposition by products for all years. Correlation : `corr'")) plabel(_all percen, format(%2.0f) color(white) gap(8))
-graph save "allyears_products", replace
+graph export allyears_products.png, replace as(png)
+*graph save allyears_products, replace
 restore
 
 
@@ -224,7 +288,8 @@ keep if value!=0
 collapse (sum) value, by(classification_hamburg_large sourceFRHB)
 replace classification_hamburg_large="Other" if classification_hamburg_large!="Café" & classification_hamburg_large!="Vin ; de France" & classification_hamburg_large!="Sucre ; cru blanc ; du Brésil" & classification_hamburg_large!="Indigo" & classification_hamburg_large!="Eau ; de vie"
 graph pie value, over (classification_hamburg_large) by(sourceFRHB, title("French Exports (1733-1789)") subtitle("Decomposition by products for common years only. Correlation : `corr'")) plabel(_all percen, format(%2.0f) color(white) gap(8))
-graph save "commonyears_products", replace
+graph export commonyears_products.png, replace as(png)
+*graph save commonyears_products, replace
 restore
 
 
@@ -244,7 +309,8 @@ capture corr vf vh
 local corr : display %3.2f r(rho)
 twoway scatter value_fr value_hb || lfit value_fr value_hb
 twoway (connected vf year) (connected vh year), title("Coffee") subtitle("Correlation: `corr'")
-graph save "coffee_long", replace
+graph export coffee_long.png, replace as(png)
+*graph save coffee_long, replace
 restore
 
 *********evolution of wine
@@ -263,7 +329,8 @@ replace vh=. if vh==0
 capture corr vf vh
 local corr : display %3.2f r(rho)
 twoway (connected vf year) (connected vh year), title("Wine") subtitle("Correlation: `corr'")
-graph save "wine_long", replace
+graph export wine_long.png, replace as(png)
+*graph save wine_long, replace
 restore
 
 
@@ -284,7 +351,8 @@ replace vh=. if vh==0
 capture corr vf vh
 local corr : display %3.2f r(rho)
 twoway (connected vf year) (connected vh year), title("Sugar") subtitle("Correlation: `corr'")
-graph save "sugar_long", replace
+graph export sugar_long.png, replace as(png)
+*graph save  sugar_long, replace
 restore
 
 
@@ -303,7 +371,8 @@ replace vh=. if vh==0
 capture corr vf vh
 local corr : display %3.2f r(rho)
 twoway (connected vf year) (connected vh year), title("Indigo") subtitle("Correlation: `corr'")
-graph save "indigo_long", replace
+graph export indigo_long.png, replace as(png)
+*graph save indigo_long, replace
 restore
 
 
@@ -322,7 +391,8 @@ replace vh=. if vh==0
 capture corr vf vh
 local corr : display %3.2f r(rho)
 twoway (connected vf year) (connected vh year), title("Eau de vie") subtitle("Correlation: `corr'")
-graph save "eaudevie_long", replace
+graph export eaudevie_long.png, replace as(png)
+*graph save eaudevie_long, replace
 restore
 
 
@@ -370,18 +440,28 @@ gen other_share_hb=value_hb/tot_year_hb
 replace other_share_hb=. if classification_hamburg_large!="Other"| other_share_hb==0
 
 twoway (connected coffee_share_fr year) (connected coffee_share_hb year), title("Evolution of the share of Coffee")
-graph save coffee_share_long, replace
-twoway (connected wine_share_fr year) (connected coffee_share_hb year), title("Evolution of the share of Wine")
-graph save wine_share_long, replace
-twoway (connected sugar_share_fr year) (connected coffee_share_hb year), title("Evolution of the share of Sugar") 
-graph save sugar_share_long, replace
-twoway (connected indigo_share_fr year) (connected coffee_share_hb year), title("Evolution of the share of Indigo") 
-graph save indigo_share_long, replace
-twoway (connected eaudevie_share_fr year)(connected coffee_share_hb year), title("Evolution of the share of Eau de vie") 
-graph save eaudevie_share_long, replace
+graph export coffee_share_long.png, replace as(png)
+*graph save coffee_share_long, replace
+
+twoway (connected wine_share_fr year) (connected wine_share_hb year), title("Evolution of the share of Wine")
+graph export wine_share_long.png, replace as(png)
+*graph save wine_share_long, replace
+
+twoway (connected sugar_share_fr year) (connected sugar_share_hb year), title("Evolution of the share of Sugar") 
+graph export sugar_share_long.png, replace as(png)
+*graph save sugar_share_long, replace
+
+twoway (connected indigo_share_fr year) (connected indigo_share_hb year), title("Evolution of the share of Indigo") 
+graph export indigo_share_long.png, replace as(png)
+*graph save indigo_share_long, replace
+
+twoway (connected eaudevie_share_fr year)(connected eaudevie_share_hb year), title("Evolution of the share of Eau de vie") 
+graph export eaudevie_share_long.png, replace as(png)
+*graph save eaudevie_share_long, replace
 
 twoway (bar coffee_share_hb year) (bar wine_share_hb year) (bar sugar_share_hb year) (bar indigo_share_hb year) (bar eaudevie_share_hb year)(bar other_share_hb year), title("Evolution of the share of important goods") subtitle("Source: Hamburg")
-graph save long_share_product_hb, replace
+graph export long_share_product_hb.png, replace as(png)
+*graph save long_share_product_hb, replace
 
 restore
 
