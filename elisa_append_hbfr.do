@@ -16,10 +16,12 @@ insheet using "$thesis/toflit18_data/foreign_sources/Hambourg/BDD_Hambourg_21_ju
 rename marchandises classification_hamburg_large
 
 replace value=value*grammesargent_markbanco/1000
+replace value=. if value==0
+drop if year>1789
 
 
 ***quick look at classified to non classified ratio
-preserve
+/*preserve
 cd "/$thesis/Data/Graph/"
 gen notclassified_value= value if classification_hamburg_large=="Marchandises non classifiées"
 gen classified_value= value if classification_hamburg_large!="Marchandises non classifiées"
@@ -33,13 +35,13 @@ restore
 
 ***add missing values to append
 
-cd "/$thesis/Data/database_dta/"
+*/cd "/$thesis/Data/database_dta/"
 
 generate value_fr = .
 rename value value_hb
 generate sourceFRHB="Hamburg"
 
-order sourceFRHB classification_hamburg_large value_fr value_hb prix_unitaire, after(year)
+order sourceFRHB classification_hamburg_large value_fr value_hb, after(year)
 
 replace classification_hamburg_large="Thérébenthine" if classification_hamburg_large=="Térébenthine"
 replace classification_hamburg_large="Coton" if classification_hamburg_large=="Coton ; autre et de Méditerranée"
@@ -94,21 +96,19 @@ save "elisa_hb_preappend.dta", replace
 
 *******************************************FRENCH****************************************************************
 
-use "$thesis/Data/database_dta/elisa_bdd_courante"
+use "$thesis/Data/database_dta/elisa_bdd_courante", clear
 
 cd "$thesis/Data/database_dta/"
 
-replace classification_hamburg_large="Marchandises non classifiées" if classification_hamburg_large==""
-replace sitc_rev2="Not classified" if classification_hamburg_large=="Marchandises non classifiées"
 
 rename value value_fr
 generate value_hb=.
 generate sourceFRHB="France"
 
-order sourceFRHB marchandises_norm_ortho simplification sitc_rev2 classification_hamburg_large value_fr, after(year)
+order sourceFRHB marchandises_norm_ortho simplification sitc_rev2 classification_hamburg_large value_fr unit_price, after(year)
 
 
-collapse (sum) value_fr, by(sitc_rev2 year classification_hamburg_large sourceFRHB )
+collapse (sum) value_fr, by(sitc_rev2 year classification_hamburg_large sourceFRHB unit_price)
 replace sourceFRHB="France"
 
 replace sitc_rev2="5" if classification_hamburg_large=="Alun"
@@ -151,7 +151,7 @@ replace sitc_rev2="1" if classification_hamburg_large=="Vin ; de France"
 replace sitc_rev2="0a" if classification_hamburg_large=="Vinaigre"
 replace sitc_rev2="5" if classification_hamburg_large=="Vitriol ; blanc"
 replace sitc_rev2="Not classified" if classification_hamburg_large=="Marchandises non classifiées"
-collapse (sum)  value_fr, by(sitc_rev2 year classification_hamburg_large sourceFRHB)
+collapse (sum)  value_fr, by(sitc_rev2 year classification_hamburg_large sourceFRHB unit_price)
 
 save "elisa_fr_preappend.dta", replace
 
@@ -185,7 +185,9 @@ replace sitc_rev2 = "8: Misc. manuf. goods" if sitc_rev2=="8"
 replace sitc_rev2 = "9: Other (incl. weapons)" if sitc_rev2=="9"
 replace sitc_rev2 = "9a: Species" if sitc_rev2=="9a"
 
-order sitc_rev2 value_fr value_hb sourceFRHB classification_hamburg_large prix_unitaire, after(year)
+order sitc_rev2 value_fr value_hb sourceFRHB classification_hamburg_large unit_price, after(year)
+replace value_fr=. if value_fr==0
+replace value_hb=. if value_hb==0
 
 save "elisa_frhb_database.dta", replace
 

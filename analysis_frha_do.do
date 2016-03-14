@@ -9,7 +9,7 @@ global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis/"
 
 use "/$thesis/Data/database_dta/elisa_frhb_database.dta"
 
-
+drop if year==.
 
 **************************look at classified versus not classfied
 ***all years
@@ -37,11 +37,21 @@ collapse (sum) value, by(sourceFRHB classification_hamburg_large year)
 keep if value!=. & value!=0
 collapse (sum) value, by(sourceFRHB classification_hamburg_large)
 graph pie value, over(classification_hamburg_large) by(sourceFRHB, legend(off) title("Classified versus unclassified goods") caption("Common years only")) plabel(_all percen, format(%2.0f) color(white) gap(8)) plabel(_all name, color(white) gap(-8))
-graph export not_class_to_total_commonyears.png, replace as(png)
+graph export notclass_to_total_commonyears.png, replace as(png)
 *graph save not_class_to_total_commonyears, replace as(png)
+restore
 
+****evolution of ratio not classified versus classified
+preserve
+collapse (sum) value_fr value_hb, by(year)
+replace value_fr=. if value_fr==0
+replace value_hb=. if value_hb==0
+gen ratio= value_hb/value_fr
+twoway (connected ratio year), title("Evolution of the ratio of value between two database")
+graph export long_ratio.png, replace as(png)
+restore
 
-***longitudinal evolution
+***longitudinal evolution of share of not classified
 preserve
 egen total_fr=sum(value_fr), by(year)
 egen total_hb=sum(value_hb), by(year)
@@ -50,8 +60,8 @@ gen notclass_share_hb=value_hb/total_hb if classification_hamburg_large=="Marcha
 collapse (sum) notclass_share_fr notclass_share_hb, by(year)
 replace notclass_share_fr=. if notclass_share_fr==0
 replace notclass_share_hb=. if notclass_share_hb==0
-twoway (connected notclass_share_fr year) (connected notclass_share_hb year), title("Share of not classified products")
-graph export notclass_long.png, replace as(png)
+twoway (connected notclass_share_hb year) (connected notclass_share_fr year), title("Share of not classified products")
+graph export notclass_share_long.png, replace as(png)
 restore
 
 **************************look at absolute value of export 
@@ -117,7 +127,7 @@ restore
 preserve
 collapse (sum) value, by(sitc_rev2 sourceFRHB)
 replace sitc_rev2="Other" if sitc_rev2!="0b: Foodstuff, Exotic" & sitc_rev2!="1: Beverages and tobacco" & sitc_rev2!="2: Raw material" & sitc_rev2!="Not classified" & sitc_rev2!="0a: Foodstuff, European"
-graph pie value, over (sitc_rev2) by(sourceFRHB, title("French Exports (1733-1789)") subtitle("Sectoral decomposition for all years. Correlation : `corr'")) plabel(_all percen, format(%2.0f) color(white) gap(8))
+graph pie value, over (sitc_rev2) by(sourceFRHB, title("French Exports (1733-1789)") subtitle("Decomposition by sector. Correlation : `corr'")) caption("All years") plabel(_all percen, format(%2.0f) color(white) gap(8))
 graph export allyears_sector.png, replace as(png)
 *graph save allyears_sector, replace
 restore
@@ -136,7 +146,7 @@ collapse (sum) value, by(sitc_rev2 year sourceFRHB)
 keep if value!=0
 collapse (sum) value, by(sitc_rev2 sourceFRHB)
 replace sitc_rev2="Other" if sitc_rev2!="0b: Foodstuff, Exotic" & sitc_rev2!="1: Beverages and tobacco" & sitc_rev2!="2: Raw materials" & sitc_rev2!="Not classified" & sitc_rev2!="0a: Foodstuff, European"
-graph pie value, over (sitc_rev2) by(sourceFRHB, title("French Exports (1750-1789)") subtitle("Sectoral decomposition for common years only. Correlation : `corr'")) plabel(_all percen, format(%2.0f) color(white) gap(8))
+graph pie value, over (sitc_rev2) by(sourceFRHB, title("French Exports (1750-1789)") subtitle("Decomposition by sector. Correlation : `corr'")) caption("Common years only") plabel(_all percen, format(%2.0f) color(white) gap(8))
 graph export commonyears_sector.png, replace as(png)
 *graph save commonyears_sector, replace
 restore
@@ -246,7 +256,7 @@ replace vh=. if vh==0
 capture corr vf vh
 local corr : display %3.2f r(rho)
 twoway (connected vf year) (connected vh year), title("Not classified") subtitle("Correlation: `corr'")
-graph export not_class_long.png, replace as(png)
+graph export notclass_long.png, replace as(png)
 *graph save not_class_long, replace
 restore
 
@@ -268,7 +278,7 @@ restore
 preserve
 collapse (sum) value, by(classification_hamburg_large sourceFRHB)
 replace classification_hamburg_large="Other" if classification_hamburg_large!="Café" & classification_hamburg_large!="Vin ; de France" & classification_hamburg_large!="Sucre ; cru blanc ; du Brésil" & classification_hamburg_large!="Indigo" & classification_hamburg_large!="Eau ; de vie"
-graph pie value, over (classification_hamburg_large) by(sourceFRHB, title("French Exports (1733-1789)") subtitle("Decomposition by products for all years. Correlation : `corr'")) plabel(_all percen, format(%2.0f) color(white) gap(8))
+graph pie value, over (classification_hamburg_large) by(sourceFRHB, title("French Exports (1733-1789)") subtitle("Decomposition by products. Correlation : `corr'")) caption("All years") plabel(_all percen, format(%2.0f) color(white) gap(8))
 graph export allyears_products.png, replace as(png)
 *graph save allyears_products, replace
 restore
@@ -287,7 +297,7 @@ collapse (sum) value, by(classification_hamburg_large sourceFRHB year)
 keep if value!=0
 collapse (sum) value, by(classification_hamburg_large sourceFRHB)
 replace classification_hamburg_large="Other" if classification_hamburg_large!="Café" & classification_hamburg_large!="Vin ; de France" & classification_hamburg_large!="Sucre ; cru blanc ; du Brésil" & classification_hamburg_large!="Indigo" & classification_hamburg_large!="Eau ; de vie"
-graph pie value, over (classification_hamburg_large) by(sourceFRHB, title("French Exports (1733-1789)") subtitle("Decomposition by products for common years only. Correlation : `corr'")) plabel(_all percen, format(%2.0f) color(white) gap(8))
+graph pie value, over (classification_hamburg_large) by(sourceFRHB, title("French Exports (1733-1789)") subtitle("Decomposition by products. Correlation : `corr'")) caption("Common years only") plabel(_all percen, format(%2.0f) color(white) gap(8))
 graph export commonyears_products.png, replace as(png)
 *graph save commonyears_products, replace
 restore
@@ -467,11 +477,40 @@ restore
 
 
 
+**********************************testing benford's law********************************************************************
 
+***frenche dataset
 
+cd "/$thesis/Data/Graph/Benford/"
 
+replace value_fr=. if value_fr==0
 
+benford value_fr
 
+preserve
+set scheme s1color 
+gen firstdigit = real(substr(string(value_fr), 1, 1))
+contract firstdigit
+gen x = _n 
+gen expected = log10(1 + 1/x) 
+twoway histogram firstdigit [fw=_freq], barw(0.5) bfcolor(ltblue) blcolor(navy) discrete fraction || connected expected x, xla(1/9) title("observed and expected") caption("French source") yla(, ang(h) format("%02.1f")) legend(off)
+graph export benford_fr.png, as(png) replace
+restore
+
+***german dataset
+benford value_hb
+
+replace value_hb=. if value_hb==0
+
+preserve
+set scheme s1color 
+gen firstdigit = real(substr(string(value_hb), 1, 1))
+contract firstdigit
+gen x = _n 
+gen expected = log10(1 + 1/x) 
+twoway histogram firstdigit [fw=_freq], barw(0.5) bfcolor(ltblue) blcolor(navy) discrete fraction || connected expected x, xla(1/9) title("observed and expected") caption("Hamburg source") yla(, ang(h) format("%02.1f")) legend(off)
+graph export benford_hb.png, as(png) replace
+restore
 
 
 
