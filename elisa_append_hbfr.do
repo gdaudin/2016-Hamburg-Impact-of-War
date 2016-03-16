@@ -100,8 +100,14 @@ use "$thesis/Data/database_dta/elisa_bdd_courante", clear
 
 cd "$thesis/Data/database_dta/"
 
-
 rename value value_fr
+
+collapse (sum)  value_fr, by(sitc_rev2 year classification_hamburg_large)
+merge m:1 year classification_hamburg_large using prediction_product
+replace value_fr=pred_value if year<=1753
+drop pred_value _merge
+
+generate sourceFRHB="France"
 
 replace sitc_rev2="5" if classification_hamburg_large=="Alun"
 replace sitc_rev2="0a" if classification_hamburg_large=="Beurre"
@@ -144,13 +150,6 @@ replace sitc_rev2="0a" if classification_hamburg_large=="Vinaigre"
 replace sitc_rev2="5" if classification_hamburg_large=="Vitriol ; blanc"
 replace sitc_rev2="Not classified" if classification_hamburg_large=="Marchandises non classifiées"
 
-collapse (sum)  value_fr, by(sitc_rev2 year classification_hamburg_large)
-
-merge m:1 year classification_hamburg_large using prediction_product
-replace value_fr=pred_value if year<=1753
-drop pred_value _merge
-generate sourceFRHB="France"
-
 save "elisa_fr_preappend.dta", replace
 
 
@@ -165,7 +164,7 @@ order  sitc_rev2 value_fr value_hb sourceFRHB, after (year)
 ***clean finalised database
 
 replace sourceFRHB="Hamburg" if sourceFRHB=="Hambourg"
-replace sitc_rev2 = "0: Foodstuff, various" if sitc_rev2=="0"
+replace sitc_rev2 = "0: Foodstuff, various" if sitc_rev2=="0"	
 replace sitc_rev2 = "0a: Foodstuff, European" if sitc_rev2=="0a"
 replace sitc_rev2 = "0b: Foodstuff, Exotic" if sitc_rev2=="0b"
 replace sitc_rev2 = "1: Beverages and tobacco" if sitc_rev2=="1"

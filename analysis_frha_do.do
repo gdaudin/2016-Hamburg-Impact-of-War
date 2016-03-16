@@ -29,15 +29,17 @@ restore
 
 ***common years
 preserve
-gen value=value_fr
-replace value=value_hb if sourceFRHB=="Hamburg"
-replace value=. if value==0
+collapse (sum) value_fr value_hb, by(year classification_hamburg_large)
+keep if value_fr!=0 & value_hb!=0
 replace classification_hamburg_large="Not classified goods" if classification_hamburg_large=="Marchandises non classifiées"
 replace classification_hamburg_large="Classified goods" if classification_hamburg_large!="Not classified goods"
-collapse (sum) value, by(sourceFRHB classification_hamburg_large year)
-keep if value!=. & value!=0
-collapse (sum) value, by(sourceFRHB classification_hamburg_large)
-graph pie value, over(classification_hamburg_large) by(sourceFRHB, legend(off) title("Classified versus unclassified goods") caption("Common years only")) plabel(_all percen, format(%2.0f) color(white) gap(8)) plabel(_all name, color(white) gap(-8))
+collapse (sum) value_fr value_hb, by(classification_hamburg_large)
+rename value_fr value1
+rename value_hb value0
+reshape long value, i(classification_hamburg_large)
+label define source 1 "France" 0 "Hamburg"
+label values _j source
+graph pie value, over(classification_hamburg_large) by(_j, legend(off) title("Classified versus unclassified goods") caption("Common years only")) plabel(_all percen, format(%2.0f) color(white) gap(8)) plabel(_all name, color(white) gap(-8))
 graph export notclass_to_total_commonyears.png, replace as(png)
 *graph save not_class_to_total_commonyears, replace as(png)
 restore
@@ -81,7 +83,8 @@ restore
 
 ****for common years
 preserve
-keep if  year==1756 | year==1760 |  year==1769 | year==1770 | year==1771 | year==1773 | year==1776 | year==1782 | year==1787 |year==1788  | year==1789
+collapse (sum) value_fr value_hb, by(year)
+keep if value_fr!=0 & value_hb!=0
 collapse (sum) value_fr value_hb
 gen vf=1
 gen vh=value_hb/value_fr
@@ -121,14 +124,19 @@ replace value=value_hb if sourceFRHB=="Hamburg"
 
 preserve
 collapse (sum) value_fr value_hb, by(sitc_rev2)
+replace value_fr=. if value_fr==0
+replace value_hb=. if value_hb==0
+corr value_fr value_hb
 capture corr value_fr value_hb
 local corr : display %3.2f r(rho)
-restore
-
-preserve
-collapse (sum) value, by(sitc_rev2 sourceFRHB)
+rename value_fr value1
+rename value_hb value0
+reshape long value, i(sitc_rev2)
+label define source 1 "France" 0 "Hamburg"
+label values _j source
 replace sitc_rev2="Other" if sitc_rev2!="0b: Foodstuff, Exotic" & sitc_rev2!="1: Beverages and tobacco" & sitc_rev2!="2: Raw materials" & sitc_rev2!="Not classified" & sitc_rev2!="0a: Foodstuff, European"
-graph pie value, over (sitc_rev2) by(sourceFRHB, title("French Exports (1733-1789)") subtitle("Decomposition by sector. Correlation : `corr'")) caption("All years") plabel(_all percen, format(%2.0f) color(white) gap(8))
+collapse (sum) value, by(sitc_rev _j)
+graph pie value, over (sitc_rev2) by(_j, title("French Exports (1733-1789)") subtitle("Decomposition by sector. Correlation : `corr'")) caption("All years") plabel(_all percen, format(%2.0f) color(white) gap(8))
 graph export allyears_sector.png, replace as(png)
 *graph save allyears_sector, replace
 restore
@@ -136,18 +144,20 @@ restore
 
 *********only for common years
 preserve
-collapse (sum) value_fr value_hb, by(sitc_rev2 year)
+collapse (sum) value_fr value_hb , by(sitc_rev2 year)
 keep if value_fr!=0 & value_hb!=0
+collapse (sum) value_fr value_hb, by(sitc_rev)
+corr value_fr value_hb
 capture corr value_fr value_hb
 local corr : display %3.2f r(rho)
-restore
-
-preserve
-collapse (sum) value, by(sitc_rev2 year sourceFRHB)
-keep if value!=0
-collapse (sum) value, by(sitc_rev2 sourceFRHB)
 replace sitc_rev2="Other" if sitc_rev2!="0b: Foodstuff, Exotic" & sitc_rev2!="1: Beverages and tobacco" & sitc_rev2!="2: Raw materials" & sitc_rev2!="Not classified" & sitc_rev2!="0a: Foodstuff, European"
-graph pie value, over (sitc_rev2) by(sourceFRHB, title("French Exports (1750-1789)") subtitle("Decomposition by sector. Correlation : `corr'")) caption("Common years only") plabel(_all percen, format(%2.0f) color(white) gap(8))
+collapse (sum) value_fr value_hb, by(sitc_rev)
+rename value_fr value1
+rename value_hb value0
+reshape long value, i(sitc_rev2)
+label define source 1 "France" 0 "Hamburg"
+label values _j source
+graph pie value, over (sitc_rev2) by(_j, title("French Exports (1750-1789)") subtitle("Decomposition by sector. Correlation : `corr'")) caption("Common years only") plabel(_all percen, format(%2.0f) color(white) gap(8))
 graph export commonyears_sector.png, replace as(png)
 *graph save commonyears_sector, replace
 restore
@@ -188,6 +198,7 @@ replace exotic_share_hb=. if exotic_share_hb==0
 capture corr exotic_share_hb exotic_share_fr
 local corr : display %3.2f r(rho)
 twoway (bar exotic_share_fr year) (connected exotic_share_hb year), title("Evolution of the share of exotic foodstuff") subtitle("Correlation: `corr'") xlabel(1733(4)1789)
+graph export exotic_food_share.png, replace as(png)
 restore
 
 *****beverages and tobacco
@@ -223,6 +234,7 @@ replace bev_share_hb=. if bev_share_hb==0
 capture corr bev_share_hb bev_share_fr
 local corr : display %3.2f r(rho)
 twoway (bar bev_share_fr year) (connected bev_share_hb year), title("Evolution of the share of beverages and tobacco") subtitle("Correlation: `corr'") xlabel(1733(4)1789)
+graph export bev_tobacco_share.png, replace as(png)
 restore
 
 
@@ -259,6 +271,7 @@ replace rawmat_share_hb=. if rawmat_share_hb==0
 capture corr rawmat_share_hb rawmat_share_fr
 local corr : display %3.2f r(rho)
 twoway (bar rawmat_share_fr year) (connected rawmat_share_hb year), title("Evolution of the share of raw material") subtitle("Correlation: `corr'") xlabel(1733(4)1789)
+graph export rawmat_share.png, replace as(png)
 restore
 
 *********European Foodstuff
@@ -318,12 +331,13 @@ preserve
 collapse (sum) value_fr value_hb, by(classification_hamburg_large)
 capture corr value_fr value_hb
 local corr : display %3.2f r(rho)
-restore
-
-preserve
-collapse (sum) value, by(classification_hamburg_large sourceFRHB)
+rename value_fr value1
+rename value_hb value0
+reshape long value, i(classification_hamburg_large)
+label define source 1 "France" 0 "Hamburg"
+label values _j source
 replace classification_hamburg_large="Other" if classification_hamburg_large!="Café" & classification_hamburg_large!="Vin ; de France" & classification_hamburg_large!="Sucre ; cru blanc ; du Brésil" & classification_hamburg_large!="Indigo" & classification_hamburg_large!="Eau ; de vie"
-graph pie value, over (classification_hamburg_large) by(sourceFRHB, title("French Exports (1733-1789)") subtitle("Decomposition by products. Correlation : `corr'")) caption("All years") plabel(_all percen, format(%2.0f) color(white) gap(8))
+graph pie value, over (classification_hamburg_large) by(_j, title("French Exports (1733-1789)") subtitle("Decomposition by products. Correlation : `corr'")) caption("All years") plabel(_all percen, format(%2.0f) color(white) gap(8))
 graph export allyears_products.png, replace as(png)
 *graph save allyears_products, replace
 restore
@@ -335,14 +349,14 @@ collapse (sum) value_fr value_hb, by(classification_hamburg_large year)
 keep if value_fr!=0 & value_hb!=0
 capture corr value_fr value_hb
 local corr : display %3.2f r(rho)
-restore
-
-preserve
-collapse (sum) value, by(classification_hamburg_large sourceFRHB year)
-keep if value!=0
-collapse (sum) value, by(classification_hamburg_large sourceFRHB)
+collapse (sum) value_fr value_hb, by(classification_hamburg_large)
+rename value_fr value1
+rename value_hb value0
+reshape long value, i(classification_hamburg_large)
+label define source 1 "France" 0 "Hamburg"
+label values _j source
 replace classification_hamburg_large="Other" if classification_hamburg_large!="Café" & classification_hamburg_large!="Vin ; de France" & classification_hamburg_large!="Sucre ; cru blanc ; du Brésil" & classification_hamburg_large!="Indigo" & classification_hamburg_large!="Eau ; de vie"
-graph pie value, over (classification_hamburg_large) by(sourceFRHB, title("French Exports (1733-1789)") subtitle("Decomposition by products. Correlation : `corr'")) caption("Common years only") plabel(_all percen, format(%2.0f) color(white) gap(8))
+graph pie value, over (classification_hamburg_large) by(_j, title("French Exports (1733-1789)") subtitle("Decomposition by products. Correlation : `corr'")) caption("Common years only") plabel(_all percen, format(%2.0f) color(white) gap(8))
 graph export commonyears_products.png, replace as(png)
 *graph save commonyears_products, replace
 restore
