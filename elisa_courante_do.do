@@ -39,12 +39,12 @@ clear
 
 ***Clean bdd_marchandises_classifiees
 
-insheet using "/$thesis/Data/database_csv/elisa_bdd_marchandises_classifiees.csv", names
+/*insheet using "/$thesis/Data/database_csv/elisa_bdd_marchandises_classifiees.csv", names
 drop if missing(marchandises_norm_ortho)
 duplicates drop marchandises_norm_ortho, force
 save "$thesis/Data/database_dta/elisa_bdd_marchandises_classifiees.dta", replace
 
-clear
+*/clear
 
 
 **** 2) MERGE
@@ -102,54 +102,89 @@ drop _merge
 
 
 ***merge with classification
-merge m:1 marchandises_norm_ortho using "$thesis/Data/database_dta/elisa_bdd_marchandises_classifiees.dta"
-*gen not_matched=marchandises_norm_ortho
-*replace not_matched="" if _merge!=1
+/*merge m:1 marchandises_norm_ortho using "$thesis/Data/database_dta/elisa_bdd_marchandises_classifiees.dta"
 drop _merge
 
 *rename classification_hambourg_large classification_hamburg_large
 
-replace classification_hamburg_large="Coton" if classification_hamburg_large=="Coton ; autre et de Méditerranée"
+*/replace classification_hamburg_large="Coton" if classification_hamburg_large=="Coton ; autre et de Méditerranée"
 replace classification_hamburg_large="Vin ; de France" if simplification=="vin de Bordeaux" | simplification=="vin de France" | simplification=="vin d'amont" | simplification=="vin de Bordeaux de ville" | simplification=="vin de Languedoc"
 replace classification_hamburg_large="Indigo" if simplification=="indigo"
 replace classification_hamburg_large="Safran ; orange" if simplification=="safran"
 replace classification_hamburg_large="Gingembre" if simplification=="gingembre"
 
-
-
-***save temporarily
-*save "/$thesis/Data/elisa_bdd_courante.dta", replace
-
-
-***create csv with merchandise to simplify
-
-*duplicates drop marchandises_norm_ortho, force
-**codebook marchandises_norm_ortho
-*outsheet obsolete marchandises_norm_ortho simplification suggestiondesimplification imprimatur using "elisa_simplification.csv", replace
-
-***create a csv with marchandises still to classify
-*duplicates drop not_matched, force
-*outsheet not_matched using "not_matched.csv", replace
-
+replace classification_hamburg_large="Marchandises non classifiées" if classification_hamburg_large==""
+replace sitc_rev2="Not classified" if classification_hamburg_large=="Marchandises non classifiées"
 
 
 ***eliminate useless variables
-drop source sourcepath total v26 pays_normalises_orthographique pays_corriges pays_regroupes mériteplusdetravail 
-drop imprimatur  nbr_dans_bdc  marchandises_tres_simplifiees 
-drop classificationproduitsmdicinaux  remarques_marchandises wallislist  exclusion_not_medical_primarily nom_wallis  large narrow  
-drop sitc1digit sitc18thc  nbr_lignes_fr_bis classification_hambourg_etroite  ajouts_565860 commestibles_eur_grainsetsubstit  grains_ou_farine 
-drop categories_de_grains  v9 source_bdc  nbr_bdc_marchandises_simplifiees remarkspourlesdroits doublecompte
-drop origine leurvaleursubtotal_1 leurvaleursubtotal_2 leurvaleursubtotal_3 probleme remarks problemes  Droitstotauxindiqués 
-drop unit_price droitsunitaires doubleaccounts  unitépourlesdroits bureaus  v33  quantitépourlesdroits  problem  
-drop numrodeligne dataentryby bureaux sheet pays exportsimports marchandises quantit quantity_unit sitc_rev1
+drop numrodeligne dataentryby source sourcepath exportsimports bureaux sheet marchandises pays quantit origine total nbr_dans_bdc 
+drop quantity_unit leurvaleursubtotal_1 leurvaleursubtotal_2 leurvaleursubtotal_3 probleme remarks problemes doublecompte v26 
+drop Droitstotauxindiqués unit_price  droitsunitaires doubleaccounts  unitépourlesdroits bureaus  v33  quantitépourlesdroits  
+drop problem  remarkspourlesdroits  pays_normalises_orthographique  pays_corriges  pays_regroupes  mériteplusdetravail  imprimatur
+
+save "$thesis/Data/database_dta/elisa", replace
+
+use "$thesis/Data/database_dta/elisa", replace
+
+preserve
+replace direction="total" if direction==""
+drop if direction=="Amiens" | direction=="Montpellier" | direction=="Rennes"
+collapse (sum) value, by(year direction dir sourcetype)
+gen lnvalue=ln(value)
+encode direction, gen(dir)
+fillin year dir
+quietly reg lnvalue i.dir i.year [iw=value]
+predict value1
+gen value2=exp(value1)
+gen value3=. 
+replace value3=value2 if dir==8
+capture corr value value3 if dir==8
+local corr: display %3.2f r(rho)
+replace value=. if value==0
+replace value3=. if value3==0
+twoway (connected value year) (connected value3 year) if dir==8, title("Predicted versus actual value of export") subtitle("Correlation: `corr'")
+graph export predict_value.png, replace as(png) 
+collapse (sum) value3, by(year)
+keep if year>1732
+drop if year>1753
+save "/$thesis/Data/database_dta/prediction_total", replace
+restore
+
 
 preserve 
 replace direction="total" if direction==""
 drop if direction=="Amiens" | direction=="Montpellier" | direction=="Rennes"
 encode direction, gen(dir)
+collapse (sum) value, by(year classification_hamburg_large dir direction sourcetype)
 gen lnvalue=ln(value)
-save "$thesis/Data/database_dta/elisa", replace
+drop if classification_hamburg_large=="Vert-de-gris"
+fillin year dir classification_hamburg_large
+encode classification_hamburg_large, gen(class)
+foreach i of num 1/35 {
+gen lnvalue`i'=lnvalue if class==`i'
+}
+
+foreach i of num 1/35 {
+quietly reg lnvalue`i' i.dir i.year [iw=value], robust
+predict value1
+gen value2=exp(value1)
+gen pred_value`i'=. 
+replace pred_value`i'=value2 if class==`i' & dir==8 
+drop value1 value2
+}
+
+gen pred_value=.
+foreach i of num 1/35{
+replace pred_value=pred_value`i' if class==`i'
+}
+collapse (sum) pred_value, by(year classification_hamburg_large) 
+keep if year>1732
+drop if year>1753
+save "/$thesis/Data/database_dta/prediction_product", replace
 restore
+
+
 
 
 **** keep only years of interest
@@ -174,6 +209,7 @@ drop if sourcetype=="Local" & year==`i'
 
 rename prix_unitaire unit_price
 drop if year==.
+replace value=. if value==0
 drop sourcetype direction
 
 

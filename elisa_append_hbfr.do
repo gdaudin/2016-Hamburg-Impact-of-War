@@ -102,14 +102,6 @@ cd "$thesis/Data/database_dta/"
 
 
 rename value value_fr
-generate value_hb=.
-generate sourceFRHB="France"
-
-order sourceFRHB marchandises_norm_ortho simplification sitc_rev2 classification_hamburg_large value_fr unit_price, after(year)
-
-
-collapse (sum) value_fr, by(sitc_rev2 year classification_hamburg_large sourceFRHB unit_price)
-replace sourceFRHB="France"
 
 replace sitc_rev2="5" if classification_hamburg_large=="Alun"
 replace sitc_rev2="0a" if classification_hamburg_large=="Beurre"
@@ -151,7 +143,13 @@ replace sitc_rev2="1" if classification_hamburg_large=="Vin ; de France"
 replace sitc_rev2="0a" if classification_hamburg_large=="Vinaigre"
 replace sitc_rev2="5" if classification_hamburg_large=="Vitriol ; blanc"
 replace sitc_rev2="Not classified" if classification_hamburg_large=="Marchandises non classifiées"
-collapse (sum)  value_fr, by(sitc_rev2 year classification_hamburg_large sourceFRHB unit_price)
+
+collapse (sum)  value_fr, by(sitc_rev2 year classification_hamburg_large)
+
+merge m:1 year classification_hamburg_large using prediction_product
+replace value_fr=pred_value if year<=1753
+drop pred_value _merge
+generate sourceFRHB="France"
 
 save "elisa_fr_preappend.dta", replace
 
@@ -185,7 +183,7 @@ replace sitc_rev2 = "8: Misc. manuf. goods" if sitc_rev2=="8"
 replace sitc_rev2 = "9: Other (incl. weapons)" if sitc_rev2=="9"
 replace sitc_rev2 = "9a: Species" if sitc_rev2=="9a"
 
-order sitc_rev2 value_fr value_hb sourceFRHB classification_hamburg_large unit_price, after(year)
+order sitc_rev2 value_fr value_hb sourceFRHB classification_hamburg_large, after(year)
 replace value_fr=. if value_fr==0
 replace value_hb=. if value_hb==0
 

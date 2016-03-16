@@ -21,10 +21,10 @@ drop value
 rename class_value_index value
 sort year simplification
 
-*/replace classification_hamburg_large="Marchandises non classifieés" if  classification_hamburg_large==""
+*/replace classification_hamburg_large="Marchandises non classifiées" if  classification_hamburg_large==""
 replace value=. if value==0
-gen notclassified_value = value if classification_hamburg_large=="Marchandises non classifieés"
-gen classified_value = value if classification_hamburg_large!="Marchandises non classifieés"
+gen notclassified_value = value if classification_hamburg_large=="Marchandises non classifiées"
+gen classified_value = value if classification_hamburg_large!="Marchandises non classifiées"
 
 label var notclassified_value "Value of non classified goods"
 label var classified_value "Value of classified goods"
@@ -60,7 +60,6 @@ replace classification_hamburg_large="Other" if classification_hamburg_large!="C
 graph pie classified_value, over (classification_hamburg_large) title("Aggregate French Exports (1750-1789)") subtitle("Decomposition by product") caption("Classified products") plabel(1 "Coffee", gap(8)) plabel(2 "Indigo", gap(8)) plabel(3 "Sugar", gap(8)) plabel(4 "Eau de vie", gap(8)) plabel(5 "Other", gap(8)) plabel(6 "Wine", gap(8)) plabel(_all percent, format(%2.0f))
 graph export class_byproduct.png, replace as(png)
 *graph save composition_by_prod.png, replace
-***FIX NAME IN THE PIE CHART
 restore
 
 
@@ -215,18 +214,23 @@ restore
 
 collapse (sum) notclassified_value, by (year simplification)
 rename notclassified_value value
+
 replace value=. if value==0
 gen salt=value if simplification=="sel" | simplification=="sel d'Angleterre"
-gen guinee=value if simplification=="guinée" | simplification=="indienne guinée blanc"
-gen coton_laine=value if simplification=="coton de laine" 
+gen siroup=value if simplification=="sirop de mélasse"  
 
 cd "$thesis/Data/Graph/France/"
-twoway (connected salt year) (connected guinee year) (connected coton_laine year), title("Longitudinal evolution of major not classified products") caption("Major not classified products")
+twoway (connected salt year) (connected siroup year), title("Longitudinal evolution of major not classified products") caption("Major not classified products")
 graph export notclass.png, replace as(png)
 *graph save not_classified.gph, replace
-collapse (sum) value, by (year simplification)
-/*cd "/$thesis/Data/database.csv"
-outsheet using "year_not_classified.csv", replace
+
+egen notclass_total=sum(value), by(year)
+replace notclass_total=. if notclass_total==0
+gen salt_share=salt/notclass_total
+replace salt_share=. if salt_share==0
+twoway (connected salt_share year), title("Longitudinal evolution of the share of salt") caption("Major not classified products")
+graph export salt.png, replace as(png)
+*graph save salt.gph, replace
 
 */restore
 
