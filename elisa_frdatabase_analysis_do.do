@@ -212,12 +212,11 @@ restore
 
 */preserve
 
-collapse (sum) notclassified_value, by (year simplification)
-rename notclassified_value value
+collapse (sum) notclassified_value value, by (year simplification)
 
-replace value=. if value==0
-gen salt=value if simplification=="sel" | simplification=="sel d'Angleterre"
-gen siroup=value if simplification=="sirop de mélasse"  
+replace notclassified_value=. if notclassified_value==0
+gen salt=notclassified_value if simplification=="sel" | simplification=="sel d'Angleterre"
+gen siroup=notclassified_value if simplification=="sirop de mélasse"  
 
 cd "$thesis/Data/Graph/France/"
 twoway (connected salt year) (connected siroup year), title("Longitudinal evolution of major not classified products") caption("Major not classified products")

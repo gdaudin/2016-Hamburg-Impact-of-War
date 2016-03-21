@@ -102,13 +102,14 @@ cd "$thesis/Data/database_dta/"
 
 rename value value_fr
 
-collapse (sum)  value_fr, by(sitc_rev2 year classification_hamburg_large)
+collapse (sum)  value_fr, by(year classification_hamburg_large)
 merge m:1 year classification_hamburg_large using prediction_product
 replace value_fr=pred_value if year<=1753
 drop pred_value _merge
 
 generate sourceFRHB="France"
 
+gen sitc_rev2=""
 replace sitc_rev2="5" if classification_hamburg_large=="Alun"
 replace sitc_rev2="0a" if classification_hamburg_large=="Beurre"
 replace sitc_rev2="4" if classification_hamburg_large=="Blanc ; de baleine"

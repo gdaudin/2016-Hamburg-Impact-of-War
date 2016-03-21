@@ -30,7 +30,7 @@ restore
 ***common years
 preserve
 collapse (sum) value_fr value_hb, by(year classification_hamburg_large)
-keep if value_fr!=0 & value_hb!=0
+keep if year== 1733 | year==1734 | year==1736 | year==1737 | year==1738 | year==1739 | year==1740 | year==1747 | year==1753| year==1755| year==1756| year==1760| year==1762| year==1763| year==1769| year==1770| year==1771| year==1773| year==1776| year==1782| year==1787| year==1788| year==1789 
 replace classification_hamburg_large="Not classified goods" if classification_hamburg_large=="Marchandises non classifiées"
 replace classification_hamburg_large="Classified goods" if classification_hamburg_large!="Not classified goods"
 collapse (sum) value_fr value_hb, by(classification_hamburg_large)
@@ -84,7 +84,7 @@ restore
 ****for common years
 preserve
 collapse (sum) value_fr value_hb, by(year)
-keep if value_fr!=0 & value_hb!=0
+keep if year== 1733 | year==1734 | year==1736 | year==1737 | year==1738 | year==1739 | year==1740 | year==1747 | year==1753| year==1755| year==1756| year==1760| year==1762| year==1763| year==1769| year==1770| year==1771| year==1773| year==1776| year==1782| year==1787| year==1788| year==1789 
 collapse (sum) value_fr value_hb
 gen vf=1
 gen vh=value_hb/value_fr
@@ -145,7 +145,7 @@ restore
 *********only for common years
 preserve
 collapse (sum) value_fr value_hb , by(sitc_rev2 year)
-keep if value_fr!=0 & value_hb!=0
+keep if year== 1733 | year==1734 | year==1736 | year==1737 | year==1738 | year==1739 | year==1740 | year==1747 | year==1753| year==1755| year==1756| year==1760| year==1762| year==1763| year==1769| year==1770| year==1771| year==1773| year==1776| year==1782| year==1787| year==1788| year==1789 
 collapse (sum) value_fr value_hb, by(sitc_rev)
 corr value_fr value_hb
 capture corr value_fr value_hb
@@ -346,7 +346,7 @@ restore
 *********only for common years
 preserve
 collapse (sum) value_fr value_hb, by(classification_hamburg_large year)
-keep if value_fr!=0 & value_hb!=0
+keep if year== 1733 | year==1734 | year==1736 | year==1737 | year==1738 | year==1739 | year==1740 | year==1747 | year==1753| year==1755| year==1756| year==1760| year==1762| year==1763| year==1769| year==1770| year==1771| year==1773| year==1776| year==1782| year==1787| year==1788| year==1789 
 capture corr value_fr value_hb
 local corr : display %3.2f r(rho)
 collapse (sum) value_fr value_hb, by(classification_hamburg_large)
