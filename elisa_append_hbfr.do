@@ -105,6 +105,9 @@ rename value value_fr
 collapse (sum)  value_fr, by(year classification_hamburg_large)
 merge m:1 year classification_hamburg_large using prediction_product
 replace value_fr=pred_value if year<=1753
+foreach i of num 1762/1766{
+replace value_fr=pred_value if year==`i'
+}
 drop pred_value _merge
 
 generate sourceFRHB="France"
