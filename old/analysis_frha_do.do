@@ -533,7 +533,7 @@ gen other_share_hb=value_hb/tot_year_hb
 replace other_share_hb=. if classification_hamburg_large!="Other"| other_share_hb==0
 capture corr other_share_fr other_share_hb
 local corr : display %3.2f r(rho)
-twoway (bar other_share_fr)(connected other_share_hb year), title("Evolution of the share of other goods") subtitle("Correlation: `corr'") xlabel(1733(4)1789)
+twoway (bar other_share_fr year)(connected other_share_hb year), title("Evolution of the share of other goods") subtitle("Correlation: `corr'") xlabel(1733(4)1789)
 graph export other_share_long.png, replace as(png)
 *graph save eaudevie_share_long, replace
 
@@ -543,44 +543,4 @@ graph export long_share_product_hb.png, replace as(png)
 *graph save long_share_product_hb, replace
 
 restore
-
-
-
-**********************************testing benford's law********************************************************************
-
-***frenche dataset
-
-cd "/$thesis/Data/Graph/Benford/"
-
-replace value_fr=. if value_fr==0
-
-benford value_fr
-
-preserve
-set scheme s1color 
-gen firstdigit = real(substr(string(value_fr), 1, 1))
-contract firstdigit
-gen x = _n 
-gen expected = log10(1 + 1/x) 
-twoway histogram firstdigit [fw=_freq], barw(0.5) bfcolor(ltblue) blcolor(navy) discrete fraction || connected expected x, xla(1/9) title("observed and expected") caption("French source") yla(, ang(h) format("%02.1f")) legend(off)
-graph export benford_fr.png, as(png) replace
-restore
-
-***german dataset
-benford value_hb
-
-replace value_hb=. if value_hb==0
-
-preserve
-set scheme s1color 
-gen firstdigit = real(substr(string(value_hb), 1, 1))
-contract firstdigit
-gen x = _n 
-gen expected = log10(1 + 1/x) 
-twoway histogram firstdigit [fw=_freq], barw(0.5) bfcolor(ltblue) blcolor(navy) discrete fraction || connected expected x, xla(1/9) title("observed and expected") caption("Hamburg source") yla(, ang(h) format("%02.1f")) legend(off)
-graph export benford_hb.png, as(png) replace
-restore
-
-
-
 

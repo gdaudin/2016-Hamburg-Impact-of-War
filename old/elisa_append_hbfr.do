@@ -8,6 +8,7 @@ clear
 global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis/"
 
 
+
 *******************************************HAMBURG***************************************************************
 
 insheet using "$thesis/toflit18_data/foreign_sources/Hambourg/BDD_Hambourg_21_juillet_2014.csv", clear
@@ -15,8 +16,21 @@ insheet using "$thesis/toflit18_data/foreign_sources/Hambourg/BDD_Hambourg_21_ju
 
 rename marchandises classification_hamburg_large
 
+preserve
+drop if value==0
+drop if value==.
+firstdigit value, percent
+gen firstdigit = real(substr(string(value), 1, 1))
+codebook firstdigit
+contract firstdigit
+set obs 9 
+gen x = _n 
+gen expected = log10(1 + 1/x) 
+twoway histogram firstdigit [fw=_freq], barw(0.5) bfcolor(ltblue) blcolor(navy) discrete fraction || connected expected x, xla(1/9) title("observed and expected") caption("Hamburg source") yla(, ang(h) format("%02.1f")) legend(off)
+graph export "$thesis/Data/Graph/Benford/benford_hb.png", as(png) replace
+restore
+
 replace value=value*grammesargent_markbanco/1000
-replace value=. if value==0
 drop if year>1789
 
 
@@ -35,7 +49,8 @@ restore
 
 ***add missing values to append
 
-*/cd "/$thesis/Data/database_dta/"
+*/
+cd "/$thesis/Data/database_dta/"
 
 generate value_fr = .
 rename value value_hb
@@ -100,11 +115,14 @@ use "$thesis/Data/database_dta/elisa_bdd_courante", clear
 
 cd "$thesis/Data/database_dta/"
 
+drop if year<1733
+
 rename value value_fr
 
 collapse (sum)  value_fr, by(year classification_hamburg_large)
 merge m:1 year classification_hamburg_large using prediction_product
-replace value_fr=pred_value if year<=1753
+replace value_fr=pred_value if year<1752
+replace value_fr=pred_value if year==1753 
 foreach i of num 1762/1766{
 replace value_fr=pred_value if year==`i'
 }
