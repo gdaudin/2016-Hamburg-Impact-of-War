@@ -127,7 +127,7 @@ twoway histogram firstdigit [fw=_freq], barw(0.5) bfcolor(ltblue) blcolor(navy) 
 graph export "$ete/Thesis2/graph/benford/benford_fr.png", as(png) replace
 restore
 
-replace classification_hamburg_large="Not classified" if classification_hamburg_large==""
+replace classification_hamburg_large="Not classified" if classification_hamburg_large=="" & sourcetype!="Tableau Général"
 drop if classification_hamburg_large=="Blanc ; de baleine" | classification_hamburg_large=="Huile ; de baleine" | classification_hamburg_large=="Minum"
 replace classification_hamburg_large="Sugar" if classification_hamburg_large=="Sucre ; cru blanc ; du Brésil"
 replace classification_hamburg_large="Coffee" if classification_hamburg_large=="Café"
@@ -143,7 +143,7 @@ drop if sourcetype=="1792-first semestre"
 ***eliminate useless variables
 collapse (sum) value, by(sourcetype year direction pays_regroupes marchandises_simplification classification_hamburg_large sitc18_rev3)
 
-*save "$ete/Thesis2/database_dta/elisa_bdd_courante", replace
+save "$ete/Thesis2/database_dta/elisa_bdd_courante", replace
 
 use "$ete/Thesis2/database_dta/elisa_bdd_courante", replace
 
@@ -235,13 +235,15 @@ collapse (sum) pred_value, by(year pays_regroupes classification_hamburg_large)
 save "$ete/Thesis2/database_dta/product_estimation", replace
 restore
 
+***************
+
 
 collapse (sum) value, by(year sourcetype pays_regroupes classification_hamburg_large sitc18_rev3)
 drop if value==0
 
 ***** save db with no product differentiation
 preserve
-foreach i of num 1733/1751{
+foreach i of num 1716/1751{
 drop if sourcetype!="Tableau Général" & year==`i'
 }
 drop if sourcetype!="Objet Général" & year==1752
@@ -255,17 +257,39 @@ drop if sourcetype!="Tableau Général" & year==`i'
 foreach i of num 1767/1789{
 drop if sourcetype!="Objet Général" & year==`i'
 }
-save "$thesis/Data/database_dta/bdd_courante1", replace
+
+drop if sourcetype!="Résumé" & year>1789
+
+collapse (sum) value, by(year pays_regroupes)
+
+save "$ete/Thesis2/database_dta/bdd_courante1", replace
+
+keep if pays_regroupes=="Nord"
+drop pays_regroupes
+save "$ete/Thesis2/database_dta/hamburg1", replace
+
 restore
 
 **** save db with product differentiation 
-drop if sourcetype=="Colonies" | sourcetype=="Divers" | sourcetype=="Divers - in" | sourcetype=="Résumé" | sourcetype=="National par direction" 
+drop if sourcetype=="Colonies" | sourcetype=="Divers" | sourcetype=="Divers - in" | sourcetype=="National par direction" | sourcetype=="Tableau Général"
 
-foreach i of num 1754/1789{
+foreach i of num 1716/1751{
+drop if sourcetype!="Local" & year==`i'
+}
+drop if sourcetype!="Objet Général" & year==1752
+drop if sourcetype!="Local" & year==1753
+foreach i of num 1754/1761{
 drop if sourcetype!="Objet Général" & year==`i'
 }
+foreach i of num 1762/1766{
+drop if sourcetype!="Local" & year==`i'
+}
+foreach i of num 1767/1788{
+drop if sourcetype!="Objet Général" & year==`i'
+}
+drop if sourcetype!="Résumé" & year>1788
 
-collapse (sum) value, by(year pays_regroupes classification_hamburg_large sitc18_rev3)
+collapse (sum) value, by(year pays_regroupes classification_hamburg_large)
 
 merge m:1 year pays_regroupes classification_hamburg_large using "$ete/Thesis2/database_dta/product_estimation"
 drop if _merge==2
@@ -277,20 +301,15 @@ foreach i of num 1762/1766{
 replace value=pred_value if year==`i'
 }
 drop pred_value
+drop if value==.
 
+save "$ete/Thesis2/database_dta/bdd_courante2", replace
 
-save "$ete/Thesis2/database_dta/bdd_courante2"
-
-
-
-
-
-
+keep if pays_regroupes=="Nord" 
+save "$ete/Thesis2/database_dta/hamburg2", replace
 
 
 
-
-***merge with units--> it is about quantities and database are really old so I'll leave it for now
 
 
 
