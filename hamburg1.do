@@ -8,151 +8,152 @@ use "$thesis2/database_dta/hamburg1", clear
 drop if year<1733
 
 ****gen war dummies
-foreach i of num 1/8{
-gen war`i'=0
-}
+gen war_each=""
+gen war_all=""
 
 foreach i of num 1733/1738{
-replace war1=1 if year==`i'
-label var war1 Polish
+replace war_each="Polish" if year==`i'
 }
 
 foreach i of num 1740/1743{
-replace war2=1 if year==`i'
-label var war2 Austrian1
+replace war_each="Austrian1" if year==`i'
 }
 
 foreach i of num 1744/1748{
-replace war3=1 if year==`i'
-label var war3 Austrian2
+replace war_each="Austrian2" if year==`i'
 }
 
 foreach i of num 1756/1763{
-replace war4=1 if year==`i'
-label var war4 Seven
+replace war_each="Seven" if year==`i'
 }
 
 foreach i of num 1778/1782{
-replace war5=1 if year==`i'
-label var war5 American
+replace war_each="American" if year==`i'
 }
 
 foreach i of num 1792/1802{
-replace war6=1 if year==`i'
-label var war6 Revolutionary
+replace war_each="Revolutionary" if year==`i'
 }
 
 foreach i of num 1803/1814{
-replace war7=1 if year==`i'
-label var war7 Napoleonic
+replace war_each="Napoleonic" if year==`i'
 }
 
 foreach i of num 1733/1738{
-replace war8=1 if year==`i'
-label var war8 All
+replace war_all="All" if year==`i'
 }
 foreach i of num 1740/1748{
-replace war8=1 if year==`i'
+replace war_all="All" if year==`i'
 }
 foreach i of num 1756/1763{
-replace war8=1 if year==`i'
+replace war_all="All" if year==`i'
 }
 foreach i of num 1778/1782{
-replace war8=1 if year==`i'
+replace war_all="All" if year==`i'
 }
 foreach i of num 1792/1802{
-replace war8=1 if year==`i'
+replace war_all="All" if year==`i'
 }
 foreach i of num 1803/1814{
-replace war8=1 if year==`i'
+replace war_all="All" if year==`i'
 }
+
+label define order  1 Polish  2 Austrian1  3 Austrian2  4 Seven  5 American  6 Napoleonic 7 Revolutionary
+
+encode war_each, gen(each) label(order)
+replace each=0 if each==. 
+
+encode war_all, gen(all)
+replace all=0 if all==.
 
 gen year2=(year)^(2)
 
-poisson value year war8
-est2vec dummies1, e(r2 F) shvars(war8 war1-war7) replace
+eststo: xi: poisson value year i.all, vce(robust)
+eststo: xi: poisson value year year2 i.all, vce(robust)
 
-poisson value year2 war8
-est2vec dummies1, addto(dummies1) name(quadratic1)
+eststo: xi: poisson value year i.each, vce(robust)
+eststo: xi: poisson value year year2 i.each, vce(robust)
 
-poisson value year war1-war7
-est2vec dummies1, addto(dummies1) name(all)
+foreach i of num 1/7{
+label var _Ieach_`i' "`: label (each) `i'' "
+}
 
-poisson value year2 war1-war7
-est2vec dummies1, addto(dummies1) name(quadratic2)
 
-est2rowlbl year war1-war8, saving replace path("$thesis2/reg_table/hamburg1/dummies1") addto(dummies1)
-est2tex dummies1, preserve dropall path("$thesis2/reg_table/hamburg1/dummies1") mark(stars) fancy collabels(All War~by~war All~quadratic War~by~war~quadratic) replace
-
+esttab using "$thesis2/reg_table/hamburg1/dummies1/dummies1.tex",label order(year year2 _Iall_1) varlab( _Iall_1 "All wars" _cons "Constant") not pr2 nonumbers mtitles("All wars" "Quadratic" "War by war" "Quadratic") title(Regression table\label{tab1}) replace
+ 
+eststo clear
 ******* gen war lags
-foreach i in 3 4 7 8{
-foreach j of num 1/5{
-gen war`i'_lag`j'=0
-local lab `: var label war`i''
-label var war`i'_lag`j' "`j' lags `lab'"
-}
-}
 
+gen all_war_lag=""
 
 foreach i of num 1/5{
-replace war3_lag`i'=1 if year==(1748+`i')
-replace war4_lag`i'=1 if year==(1756+`i')
-replace war7_lag`i'=1 if year==(1814+`i')
-replace war8_lag`i'=1 if year==(1748+`i')
-replace war8_lag`i'=1 if year==(1756+`i')
-replace war8_lag`i'=1 if year==(1814+`i')
+replace all_war_lag="`i' lags All" if year==(1748+`i')
+replace all_war_lag="`i' lags All" if year==(1763+`i')
+replace all_war_lag="`i' lags All" if year==(1814+`i')
 }
 
-poisson value year war8 war8_lag1-war8_lag5
-est2vec lag1, e(r2 F) shvars(war8_lag1-war8_lag5 war3_lag1-war7_lag5) replace
+encode all_war_lag, gen(all_lag)
+replace all_lag=0 if all_lag==.
 
-poisson value year2 war8 war8_lag1-war8_lag5
-est2vec lag1, addto(lag1) name(lag1)
 
-poisson value year war1-war7 war3_lag1-war7_lag5
-est2vec lag1, addto(lag1) name(lag2)
+gen each_war_lag=""
 
-poisson value year2 war1-war7 war3_lag1-war7_lag5
-est2vec lag1, addto(lag1) name(lag3)
+foreach i of num 1/5{
+replace each_war_lag="`i' lags Austrian2" if year==(1748+`i')
+replace each_war_lag="`i' lags Seven" if year==(1763+`i')
+replace each_war_lag="`i' lags Napoleaonic" if year==(1814+`i')
+}
 
-est2rowlbl war3_lag1-war8_lag5, saving replace path("$thesis2/reg_table/hamburg1/lag1") addto(lag1)
-est2tex lag1, preserve dropall path("$thesis2/reg_table/hamburg1/lag1") mark(stars) fancy collabels(All War~by~war All~quadratic War~by~war~quadratic) replace
+encode each_war_lag, gen(each_lag)
+replace each_lag=0 if each_lag==.
 
+
+eststo: poisson value year i.all i.all_lag, vce(robust)
+eststo: poisson value year year2 i.all i.all_lag, vce(robust)
+
+eststo: poisson value year i.each i.each_lag, vce(robust)
+eststo: poisson value year year2 i.each i.each_lag, vce(robust)
+
+esttab using "$thesis2/reg_table/hamburg1/lag1/lag1.tex",label noomitted drop(0.*) order(year year2 _Iall_1) varlab( _Iall_1 "All wars" _cons "Constant") not pr2 nonumbers mtitles("All wars" "Quadratic" "War by war" "Quadratic") title(Regression table\label{tab1}) replace
+ 
+eststo clear
 
 
 *****gen prewar
-foreach i in 4 5 6 8{
-foreach j of num 1/4{
-gen war`i'_pre`j'=0
-local lab `:var label war`i''
-label var war`i'_pre`j' "`j' pre `lab'"
-}
-}
 
-foreach i of num 1/4{
-replace war4_pre`i'=1 if year==(1763-`i')
-replace war5_pre`i'=1 if year==(1778-`i')
-replace war6_pre`i'=1 if year==(1792-`i')
-replace war8_pre`i'=1 if year==(1763-`i')
-replace war8_pre`i'=1 if year==(1778-`i')
-replace war8_pre`i'=1 if year==(1792-`i')
+gen all_war_pre=""
+
+foreach i of num 1/5{
+replace all_war_pre="`i' lags All" if year==(1756-`i')
+replace all_war_lag="`i' lags All" if year==(1778-`i')
 }
 
-poisson value year war8 war8_pre1-war8_pre4
-est2vec pre1, e(r2 F) shvars(war8_pre1-war8_pre4 war4_pre1-war6_pre4) replace
+encode all_war_pre, gen(all_pre)
+replace all_pre=0 if all_pre==.
 
-poisson value year2 war8 war8_pre1-war8_pre4
-est2vec pre1, addto(pre1) name(pre1)
 
-poisson value year war1-war7 war4_pre1-war6_pre4
-est2vec pre1, addto(pre1) name(pre2)
+gen each_war_pre=""
 
-poisson value year war1-war7 war4_pre1-war6_pre4
-est2vec pre1, addto(pre1) name(pre3)
+foreach i of num 1/5{
+replace each_war_pre="`i' lags Austrian2" if year==(1748+`i')
+replace each_war_pre="`i' lags Seven" if year==(1763+`i')
+}
 
-est2rowlbl war4_pre1-war8_pre4, saving replace path("$thesis2/reg_table/hamburg1/pre1/") addto(pre1)
-est2tex pre1, preserve dropall path("$thesis2/reg_table/hamburg1/pre1/") mark(stars) fancy collabels(All War~by~war All~quadratic War~by~war~quadratic) replace
+encode each_war_pre, gen(each_pre)
+replace each_pre=0 if each_pre==.
+
+
+eststo: poisson value year i.all i.all_pre, vce(robust)
+eststo: poisson value year year2 i.all i.all_pre, vce(robust)
+
+eststo: poisson value year i.each i.each_pre, vce(robust)
+eststo: poisson value year year2 i.each i.each_pre, vce(robust)
+
+esttab using "$thesis2/reg_table/hamburg1/pre1/pre1.tex",label noomitted drop(0.*) order(year year2 _Iall_1) varlab( _Iall_1 "All wars" _cons "Constant") not pr2 nonumbers mtitles("All wars" "Quadratic" "War by war" "Quadratic") title(Regression table\label{tab1}) replace
  
+eststo clear
+
+
 
 
 

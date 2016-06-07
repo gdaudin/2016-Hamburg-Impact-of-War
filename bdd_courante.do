@@ -133,7 +133,7 @@ replace classification_hamburg_large="Sugar" if classification_hamburg_large=="S
 replace classification_hamburg_large="Coffee" if classification_hamburg_large=="Café"
 replace classification_hamburg_large="Wine" if classification_hamburg_large=="Vin ; de France"
 replace classification_hamburg_large="Eau de vie" if classification_hamburg_large=="Eau ; de vie"
-replace classification_hamburg_large="Zother" if classification_hamburg_large!="Sugar" & classification_hamburg_large!="Coffee" & classification_hamburg_large!="Wine" & classification_hamburg_large!="Eau de vie" 
+replace classification_hamburg_large="Other" if classification_hamburg_large!="Sugar" & classification_hamburg_large!="Coffee" & classification_hamburg_large!="Wine" & classification_hamburg_large!="Eau de vie" 
 
 replace value=prix_unitaire*quantit if value==0 & sourcetype=="Local" & prix_unitaire!=. & quantit!=.
 drop if value==0
@@ -174,7 +174,8 @@ fillin year pays_regroupes direction classification_hamburg_large
 
 encode direction, gen(dir)
 encode pays, gen(pays)
-encode classification_hamburg_large, gen(class)
+label define order 1 Coffee 2 Eau de vie 3 Sugar 4 Wine 5 Other
+encode classification_hamburg_large, gen(class) label(order)
 gen lnvalue=ln(value)
 
 foreach i of num 1/5{
