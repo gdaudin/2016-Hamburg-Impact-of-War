@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage{longtable}
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage[a4paper, left=.6in,right=.6in,top=.8in,bottom=.8in,]{geometry}
@@ -9,6 +10,8 @@
 \usepackage{setspace}
 \setstretch{1.5}
 \usepackage{tabularx, booktabs}
+\usepackage{dcolumn} 
+  \newcolumntype{d}[1]{D{.}{.}{#1}}    
 \newcolumntype{Y}{>{\centering\arraybackslash}X}
 \begin{document}
 \begin{titlepage}
@@ -17,7 +20,7 @@
  
       \vspace{0.5cm}
 		\Large     
-         \textbf{The impact of wars on trade: a case study from Hamburg between 1733 and 1789}\\~\\
+         \textbf{The impact of wars on trade: a case study from Hamburg between 1733 and 1820}\\~\\
         \vspace{2cm}
         {Elisa Maria Tirindelli}\\~\\
         {Supervisor: Professor Maria Bas}\\
@@ -51,16 +54,17 @@ In my thesis I will use trade data between France and Hamburg from 1733 to 1789 
 
 \section{Dataset}
 For conducting my analysis I will use two different datasets a French and a German one. The French datasets accounts for exports flows towards all countries whereas for the German dataset I only have flows towards France. For the French recorded flows towards Hamburg I will perform a comparison with the German recorded flows, to ensure the reliability of the data. Of course I am not expecting a precise correspondence between the sources. However, since I am dealing with an historical dataset, the first important step, where possible, is to prove that despite the obvious measurement errors, those sources are indeed reliable and they can be used for further historical research with the awareness of their reliability. 
+
 \subsection{French Dataset}
 \subsubsection{Figures}
-Between 1733 and 1789, the French dataset accounts for 79,781 observations, with missing data between 1761 and 1767 and 1782 and 1787. There are overall 82 different destinations recorded, but each one of them is not present every year. Rather then single countries they are groups of countries and most destinations get broken down into smaller destinations in later periods or even disappear to be replaced by other smaller entities. To bypass this problem I used country grouping. 11 different groups could be created and each of them comprises all the evolution of one destination, so that I can have observations for each group for each year. The groups I am considering are: Germany, England, Flanders and Habsburg Monarchy, Italy, Portugal, Spain, Switzerland, Colonies, Dutch Republic, India, Levant, North. The flows towards Hamburg in particular are 4695 and data are available for the following years: 1733-1741, 1745-1780, 1782, 1787, 1788, 1789.\\
-Values in the dataset are always expressed in livres turnois, but I will convert them in grams of fine silver to be able to compare the French dataset concerning trade towards Hamburg with the German dataset. The value of the livre has been constant at 4.505 grams of fine silver all throughout the period in consideration. 
+Between 1733 and 1820, the French dataset accounts for 146,963 observations, with incomplete data between 1761 and 1767 and missing data between 1782 and 1787 and 1789 and 1797. There are overall 82 different destinations recorded, but each one of them is not present every year. Rather then single countries they are groups of countries and most destinations get broken down into smaller destinations in later periods or even disappear to be replaced by other smaller entities. To bypass this problem I used country grouping. 11 different groups could be created and each of them comprises all the evolution of one destination, so that I can have observations for each group for each year. The groups I am considering are: Germany, England, Flanders and Habsburg Monarchy, Italy, Portugal, Spain, Switzerland, Colonies, Dutch Republic, India, Levant, North. The flows towards Hamburg in particular are 11,062 and data are available for the same period as the rest of of the dataset.\\
+Values in the dataset are always expressed in livres turnois, but I will convert them in grams of fine silver to be able to compare the French dataset concerning trade towards Hamburg with the German dataset. The value of the \textit{livre} has been constant at 4.505 grams of fine silver all throughout the period in consideration. 
 
 \subsubsection{Origin of data}
 Data come from the archives of the French Bureau de la Balance du Commerce. This institution was created in 1713, after the Treaty of Utrecht, which followed the Spanish succession war. In this circumstances, the French were positively impressed by the detailed knowledge shown by the British on their trade flows and they also decided to create an institution which would keep track of exports and imports from and to France. Before this, there were already local institutions keeping track of goods going in and out of harbour cities (only in quantity terms) but starting 1716 they started sending their records to the Bureau. The Bureau would then compute aggregate yearly figures for each direction (port) and then send them back to the local chamber of commerce, so that they could add the values. Unfortunately those documents did not survive till our days; we still have some records from local sources but they are quite incomplete. On the other hand, another kind of document survived, which reports the total value of trade for each destination for each year, so at least we have reliable figures on aggregate values. Starting from 1750 the Object Général was introduced, which was more complete, and was recording each product from and to each destination for all ports. The Objet Général survived in its entirety and this is what I have used for my estimations. For the period preceding 1733, I have estimated the data basing on local sources, as explained in section 3. 
 
 \subsubsection{Limitations of French dataset}
-As explained above, data got to us through different sources. The most complete one is the Objet General however from 1733 to 1749 it hadn’t been instituted yet and the only available information at product level from the French side are the local sources. Unfortunately, local sources tend to be incomplete and very rarely we still have records from every source and every year, which makes the first part of the dataset quite incomplete. To compensate for this problem I have tried to estimate the data in the first part of the dataset as explained in section three.
+As explained above, data got to us through different sources. The most complete one is the \textit{Objet Géneral} however from 1733 to 1749 it had not been instituted yet and the only available information at product level from the French side are the local sources. Unfortunately, local sources tend to be incomplete and very rarely we still have records from every source and every year, which makes the first part of the dataset quite incomplete. To compensate for this problem I have tried to estimate the data in the first part of the dataset as explained in section three.
 In addition to this, another major limitation of the French dataset is that Hamburg does not appear as a destination per se but as part of a broader group denominated “Nord”. Prior to 1733 the destination “Nord” was a general category that included all locations situated north of the Low Countries on the European continent. In 1733 the category “Denmark” was created, that included trade with the actual Denmark and Norway and in 1734 “Suède” was also detached from the “Nord” to form a specific geographical unit (equivalent to our modern Sweden, Finland, and a small piece of land in Western Pomerania). In 1744 “Russie” was further detached from “Nord” and finally in 1780 “Nord” disappeared completely to be replaced by three new geographical entities: “Royaume de Prusse”, “L’Allemagne et la Pologne” and “Les villes Hansèatiques”, the latter including Hamburg, Bremen, Lübeck and Dantzig (Daudin and Charles (2015)).
 As a result, in the comparison analysis, we expect the French dataset to report higher figure than what we can find in the Hamburg dataset. 
 
@@ -130,9 +134,6 @@ Despite the fact that classified and not classified goods are very close in thei
 \caption{Sum of total export according to the two sources}
 \includegraphics[scale=.28]{value_total_fr_hb_commonyears.png}
 \includegraphics[scale=.28]{value_total_fr_hb.png}
-
-
-
 Aggregate exports value in Hamburg source account for slightly less then 50\% of export value in the French source considering only common years and slightly around 30\% considering all years (1733-1789). The ratio of the two values however is far from stable; before 1740, the two sources report roughly the same value, Hamburg reports even more than France in 1735, which however might be due to the fact that the values I estimated for the period previous to 1753 for France are underestimating the real total value of exports. In the subsequent period there is a sharp decrease, and the ratio stabilizes around 5\%. Surprisingly, no major effect is evident in 1740 with the exclusion of Russia and in 1780, with the narrowing of the destination on the French dataset from “Nord” to “Hanseatic cities”. On the contrary, the ration increases. This leads me to think either to a mistake in the data, or that the share meant for Russia was only a small part of the overall export towards North.
 
 \begin{center}
@@ -207,13 +208,12 @@ where N is the frequency and $p(d)$ and $d(b)$ are the proportions of Benford’
 \includegraphics[scale=.28]{benford_hb.png}
 
 \section{Analysis of trend of exports and effect of war on export for Hamburg}
-As it is maybe evident from the graph of total export above in section 4, the trend of export from France to Hamburg was increasing during the second half of the century, both if we consider the French and the Hamburg source.
+From the series shown above, it is evident that trade towards Hamburg kept increasing according to both sources. However, if we look at the entire period, available only in the French dataset, the trend looks more quadratic and decreases starting 1800. 
 \begin{center}
 \caption{Rate of growth}
-\includegraphics[scale=.3]{growth.png}
+\includegraphics[scale=.3]{growth_rate.png}
 \end{center}
-In the Hamburg dataset, the fitting line looks less steep but it is still positively sloped and we can say that throughout the period of analysis total export between the two countries has increased, even more so if we think that from 1740 “Russia” became a destination per se and in 1780 the “Nord” had been further broken down into smaller geographical entities and our destinations reduced only to Hamburg, Bremen, Lübeck and Dantzig. \\
-I now want to look in details at the impact of historical events on exports, more precisely the effect of wars. There were four major conflicts that hit Europe between 1733 and 1789; The War of the Polish succession (1733-1738), The War of the Austrian Succession (1740-1748), The Seven Years war (1756-1763) and The American Revolutionary War (1775-1783). The Polish succession war and the first part of the Austrian succession war were mainly fought in Europe whereas the second half of Austrian succession war (1744-1748), the Seven Years War and the American Revolutionary war were so called colonial wars, which defined the start of a new period in eighteenth century (Carrière 1973). In all the cases, France was a belligerent country whereas Hamburg was a neutral city. So I am interested in the impact of conflicts on neutral countries in particular. Normally, neutral countries in wartime were allowed to continue their trade with all other countries, disregarding the presence of a conflict.  This rule, however, had induced belligerent countries to exploit neutral ships for trading their own merchandises (Carrière 1973). For this reason, in the beginning of Seven Years War the British decided to put an end to this practice and produced a law stating that the nationality of the ship was not relevant, but what made it or not an enemy ship was the nationality of the cargo. This fact had a considerable impact on the trade of France, who had started to use Dutch ships to transport colonial goods, but also for all other neutral countries, who were clearly showing their discontent against this new British law. Those countries, nonetheless, were not united in their protest and could not really concretize their disappointment as a unique voice. Only in 1780, a League of Armed Neutrality was created. This experiment however did not have much success in its purposes and was finally put to an end in 1783 with the treaty of Paris, when Catherina of Russia renamed it the \textit{Armed Nullity} (Griffiths, 1971). 
+I now want to look in details at the impact of historical events on exports, more precisely the effect of wars. There were seven major conflicts that hit Europe between 1733 and 1820; The War of the Polish succession (1733-1738), The War of the Austrian Succession (1740-1748), The Seven Years war (1756-1763), The American Revolutionary War (1775-1783), The French Revolutionary War (1792-1803) and The Napolonic War (1803-1814). The Polish succession war and the first part of the Austrian succession war were mainly fought in Europe whereas the second half of Austrian succession war (1744-1748) and the other four wars were so called colonial wars, which defined the start of a new period in eighteenth century (Carrière 1973). In all the cases, France was a belligerent country whereas Hamburg was a neutral city. So I am interested in the impact of conflicts on neutral countries in particular. Normally, neutral countries in wartime were allowed to continue their trade with all other countries, disregarding the presence of a conflict.  This rule, however, had induced belligerent countries to exploit neutral ships for trading their own merchandises (Carrière 1973). For this reason, in the beginning of Seven Years War the British decided to put an end to this practice and produced a law stating that the nationality of the ship was not relevant, but what made it or not an enemy ship was the nationality of the cargo. This fact had a considerable impact on the trade of France, who had started to use Dutch ships to transport colonial goods, but also for all other neutral countries, who were clearly showing their discontent against this new British law. Those countries, nonetheless, were not united in their protest and could not really concretize their disappointment as a unique voice. Only in 1780, a League of Armed Neutrality was created. This experiment however did not have much success in its purposes and was finally put to an end in 1783 with the treaty of Paris, when Catherina of Russia renamed it the \textit{Armed Nullity} (Griffiths, 1971). 
 All this brings me to think that I should expect a strong effect of conflicts on neutral countries. 
 In what follows I will give a brief description of the four conflicts and then I will proceed in the analysis of their effects on exports. 
 
@@ -230,239 +230,265 @@ The Seven year war was a major conflict, which took place between 1756 and 1763.
 \subsubsection{American Revolutionary War}
 The American Revolutionary War took place between 1778 and 1782. In this case the field of battle was not Europe anymore, but directly the Colonies. British North American colonies were rebelling against Britain control over their trade and were fighting for independence. Belligerent countries were England on the one side and France, Spain and British Colonies on the other (later United States). During this war the First League of Armed Neutrality was signed between Russia, Sweden and Denmark. Spain accepted this agreement however Britain demurred. When Dutch Republic was about to join this league, Britain found out before the treaty was signed and captured a Dutch ships, thus forcing the Dutch to enter war against them. Starting 1781 therefore, the Dutch Republic also became a belligerent country, allied to France. 
 
+\subsubsection{French Revolutionary Wars}
+
+
+\subsubsection{Napoleonic Wars}
+
 \subsection{Analysis}
-As a first step I will run a regression on data on trade flows towards Hamburg introducing in the equation a war dummy for all wars taken together and then running another regression with a dummy for each war separately (I have split the Austrian war in two to try to capture the difference between colonial and non colonial phase):
+As a first step I have constructed a Poisson Pseudo Maximum Likelihood model with the value of exports flows towards Hamburg as a dependent variable and introducing a war dummy to capture the effect of wars. I did so first using only one dummy for all wars and then adding one dummy for each war. 
 \begin{equation}
-\ln(exports_t)=\beta_0+\beta_1year+\beta_3war
+exports_t=\beta_0+\beta_1year+\beta_3year2 +\beta_4war
 \end{equation}
 %\begin{equation}
 %\ln(exports_t)=\beta_0+\beta_1year+\beta_3polish +\beta_4austrian1 +\beta_5 austrian2 +\beta_5seven + \beta_6american
 %\end{equation}
 
-where exports  is the value of exports per year and year is the time trend. I am using time trend rather than year fixed effects for the scarcity of data. In addition, since I am using the log, as I did for the product estimation, I have again substituted the zero flows with 0.001, so that they would not drop in the log linearization.
-From the first equation I find that wars overall had a negative impact on Hamburg trade, amounting to roughly 54\%. By breaking down the effect for each single war, I find that that the Polish war caused a reduction in trade of about 50\%, only 5\% for the first part of the Austrian war and 32\%, 68\% and 50\% for the second part of Austrian war, Seven year war and American Revolutionary war respectively. Results are quite coherent with the series observed, except for Polish war, whose huge effect is a bit surprising. It was not a major war in Europe and on top of this just by looking at the evolution of export, we do not see such a dramatic collapse in trade between 1733 and 1738. I suspect that this might be due to the fact that around that period trade was naturally at a lower level so that 
-the coefficient of the Polish war also captures this effect. On top of this, for the period preceding 1750, I am using estimated data, so it could also be the case that my estimation tends to underestimate the real trade flows.
-\captionof{table}{Hamburg - aggregate} \label{tab:title} 
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcc}		
-	& \multicolumn{1}{c}{All} &	\multicolumn{1}{c}{War~by~war} \\
-\cline{2-3}		
-	& \multicolumn{1}{c}{(1)\mbox{\ }} &	\multicolumn{1}{c}{(2)} \\
-\hline		
-All &	-.784 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.110)$^{***}$} &	\\
-Polish &	&	-.691 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.157)$^{***}$} \\
-Austrian1 &	&	-.081 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.124)} \\
-Austrian2 &	&	-.390 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.108)$^{***}$} \\
-Seven &	&	-1.137 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.146)$^{***}$} \\
-American &	&	-.694 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.106)$^{***}$} \\
-Const. &	-17.574 &	-29.470 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (5.778)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (7.002)$^{***}$} \\
-Obs. &	51 &	51 \\
-$ R^2$ &	.748 &	.883 \\
-$ F$ statistic &	99.32 &	80.899 \\
-\hline\hline		
-\end{tabular*}\\~\\
+where $exports$  is the value of exports per year,  $year$ is the time trend and $year2$ is the quadratic time trend. I am using time trend rather than year fixed effects for the scarcity of data and because time fixed effects would be collinear with the war dummy otherwise.
+In the case by case, I have considered the Austrian war as two different conflicts
+ as to to try to capture the difference between colonial and non colonial phase.\\
+From the first equation I find that wars overall had a negative impact on Hamburg trade, amounting to roughly 37\%. By breaking down the effect for each single war, I find an 8\% reduction in trade caused by the Polish war, an increase of 20\% for the first part of the Austrian war and a decrease of 22\%, 65\%, 45\%, 30\% and 34\% for the second part of Austrian war, Seven year war,  American Revolutionary war, French Revolutionary war and Napoleonic war respectively. Results are quite coherent with the series observed, with a significant drop during Seven Years war and smaller drop due to American and Napoleonic war. 
+Results from the regression with no quadratic trend reveal quite contrasting effects, with the first four wars causing the major reduction in trade and the last three with a minor and insignificant results. The quadratic trend however fits the series better and I assume that results from this regression  are more accurate.
 
-Looking at the figures for the pre war period, results are even more striking, trade fell by 80\%\ during the Seven Years War and by 70\%\ during American Revolutionary War. I also perform two different robustness checks for these results (section 7) but they do not change significantly the coefficients of the regression. \\
-On average we can say that wars were incredibly disruptive for Hamburg trade, despite it being a neutral country, which does reflect what claimed by Glick and Taylor (2005), concerning effects of war even on neutral countries. One remark should be added however; wars in the first half of eighteenth century (until 1744, separation suggested by Carrière 1973), which were mostly non-colonial, had on average a smaller impact on Hamburg trade. This is a first interesting result, in the sense that, we see here that not all wars had the same effects; most specifically wars fought in Europe had smaller effects than wars fought also/only in the colonies. In my opinion an explanation has to be found in the fact that the major source of import for Hamburg was actually colonial products, the trade of which during colonial wars was of course interrupted. On the other, I believe that the trade of European products did not have such a strong interruption and that it might even be the case that given the impossibility to trade exotic products, the commerce of other goods might have developed more to compensate for losses. \\
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Regression table\label{tab1}}
+\begin{tabular}{l*{4}{D{.}{.}{-1}}}
+\toprule
+                    &\multicolumn{1}{c}{All wars}&\multicolumn{1}{c}{Quadratic}&\multicolumn{1}{c}{War by war}&\multicolumn{1}{c}{Quadratic}\\
+\midrule
+year                &     0.00660\sym{**} &       2.017\sym{***}&    -0.00101         &       2.611\sym{***}\\
+year2               &                     &   -0.000564\sym{***}&                     &   -0.000731\sym{***}\\
+All wars            &      -0.546\sym{***}&      -0.457\sym{***}&                     &                     \\
+Polish              &                     &                     &      -1.509\sym{***}&     -0.0882         \\
+Austrian1           &                     &                     &      -0.815\sym{***}&       0.194         \\
+Austrian2           &                     &                     &      -0.977\sym{***}&      -0.244\sym{*}  \\
+Seven               &                     &                     &      -1.173\sym{***}&      -1.092\sym{***}\\
+American            &                     &                     &      -0.199         &      -0.598\sym{***}\\
+Napoleonic          &                     &                     &      -0.211         &      -0.262         \\
+Revolutionary       &                     &                     &      -0.123         &      -0.413\sym{**} \\
+Constant            &       5.907         &     -1783.9\sym{***}&       19.44\sym{***}&     -2312.3\sym{***}\\
+\midrule
+Observations        &          76         &          76         &          76         &          76         \\
+Pseudo \(R^{2}\)    &       0.322         &       0.596         &       0.493         &       0.703         \\
+\bottomrule
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}
+
+Looking at the figures for the pre war period, results are even more striking, trade fell by 80\%\ during the Seven Years War and by 70\%\ during American Revolutionary War. I also perform two different robustness checks for these results, using a log-linear model, (section 7) but they do not change significantly the coefficients of the regression. \\
+On average we can say that wars were very disruptive for Hamburg trade, despite it being a neutral country, which does reflect what claimed by Glick and Taylor (2005), concerning effects of war even on neutral countries. One remark should be added however; wars in the first half of eighteenth century (until 1744, separation suggested by Carrière 1973), which were mostly non-colonial, had a way smaller impact on Hamburg trade. This is a first interesting result, in the sense that, we see here that not all wars had the same effects; most specifically wars fought in Europe had smaller effects than wars fought also/only in the colonies. In my opinion an explanation has to be found in the fact that the major source of import for Hamburg was actually colonial products, the trade of which during colonial wars was of course interrupted. On the other, I believe that the trade of European products did not have such a strong interruption and that it might even be the case that given the impossibility to trade exotic products, the commerce of other goods might have developed more to compensate for losses. \\
 To test this hypothesis, I have looked at exports flows disaggregated by products. I only consider the main two colonial products (sugar and coffee) and the main two European products (wine and eau de vie) plus one category (other), encompassing all the remaining 35 different goods. I run the following regression, interacting the product dummies with the war dummies, first with all war together and then separately:
 \begin{equation}
-\ln(exports_i)=\beta_0+beta_1year+\beta_2product_i + \beta_3product_iyear+\beta_4product_iall
+exports_i=\beta_0+beta_1year+\beta_2year2 + 
+\beta_3product_i + \beta_4product_iyear+\beta_5product_iwar
 \end{equation}
 
 %$\ln(exports_i)=\beta_0+beta_1year+\beta_2product_i + \beta_3product_iyear+\beta_4product_ipolish + +\beta_4product_iaustrian1 + \beta_5product_iaustrian2 + \beta_6product_seven + \beta_7product_iamerican$
 
-where \textit{year} is the time trend, $product_i$ is product fixed effect, $product_iyear$ is the product time trend and $product_iall$ is the interaction of the product dummy with the war dummy, which is the coefficient of interest. Table number 4 shows the results of these two regressions. \\
-There it is shown that my guess was not completely right. Overall there was indeed a significantly greater reduction in colonial products: -86\% for coffee and -82\% on sugar, whereas the impact on wine and eau de vie is smaller (-24\% for wine) and even positive for eau de vie (+29\%).  So we can say that the major causes of disruption were given by the collapse in trade of colonial products. On the other hand, we are not able to distinguish clearly the effects of colonial and non-colonial wars anymore. There is indeed a greater reduction in goods such as coffee and sugar during Seven years War and American Revolutionary war (93\% and 97\%, 76\% and 57\% respectively), but the effect fades away in the Austrian war, whose coefficients become even positive. In addition, major looses in colonial products were evident also in the first two wars. We cannot therefore have a clear-cut distinction between effect of colonial and non-colonial wars on colonial products. It is interesting to notice however that wine has a much more negative and significant coefficient for European wars: -75\% and -73\% for Polish and Austrian versus -12\% during Seven Years War up to +17\% during American Revolutionary War. In addition, by looking at the wine time series in section 4, we also notice an interesting pattern during Seven Years War, increasing initially and then decreasing during the second half of the conflict.  I will not analyse this issue more in detail here but it could be the object of further research. 
+where$year$ and $year2$ are again the quadratic the time trend, $product_i$ is product fixed effect, $product_iyear$ is the product time trend and $product_iall$ is the interaction of the product dummy with the war dummy, which is the coefficient of interest. Table number 18 shows the results of these two regressions. \\
+As I mentioned before, it is indeed the case that the impact on colonial products was significantly greater, -86\% for coffee and -67\% on sugar, whereas the impact on wine is definitely smaller and exports of eau de vie is even positive and very big in size. Looking at the time trend of each single product however, it is the case that a quadratic trend would better explain the sugar and the coffee series. For this reason I run again the same regression introducing a quadratic time trend for coffee and sugar, and I get slightly smaller figures, but still coherent signs and greater magnitude than non colonial products. \\
+Given these first results, we can indeed say that the disruption in trade was led by the collapse of colonial products, but some European products, on the other hand, were even benefiting from conflicts.\\~\\
+\caption{Quadratic and linear time trends}
+\includegraphics[scale=.28]{coffee_qfit.png}
+\includegraphics[scale=.28]{sugar_qfit.png}
+\includegraphics[scale=.28]{wine_lfit.png}
+\includegraphics[scale=.28]{eau_lfit.png}\\
+Turning to the war by war case, results are in line with the one-dummy for-all-wars case. The impact on coffee and sugar is very big, and it is interesting to notice that, introducing the quadratic trend for these two products, the coefficients become bigger and significant for the colonial wars, whereas it is on average smaller for the first two wars.
+This is in line with my previous consideration on the difference in impact depending on the kind of war; impact is bigger on colonial products in general, but in particular during colonial conflicts. On the other hand, however, we are no more able to disentagle the colonial and non-colonial periods of the Austrian war, whose impact becomes very negative for coffee in the first part and even positive in the second, contrary to expectations. Nonetheless, it is interesting to notice that, in the case of sugar and coffee quadratic time trend, wine has a much more negative and significant coefficient for the European wars: -63\%,  -69\% and -40\% for Polish and Austrian1 and Austrian2 versus a smaller and insignificant coefficient for the subsequent wars, up to a a positive and significant impact during the Revolutionary war. 
+In addition, by looking at the wine time series in section 4, we also notice an interesting pattern during Seven Years War, increasing initially and then decreasing during the second half of the conflict.  I will not analyse this issue more in detail here but it could be the object of further research. 
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Hamburg - by product\label{tab1}}
+\begin{tabular}{l*{4}{D{.}{.}{-1}}}
+\toprule
+                    &\multicolumn{1}{c}{All wars}&\multicolumn{1}{c}{All wars}&\multicolumn{1}{c}{War by war}&\multicolumn{1}{c}{War by war}\\
+\midrule
+All Coffee          &      -2.028\sym{***}&      -1.627\sym{***}&                     &                     \\
+All Eau de vie      &       1.162\sym{***}&       1.192\sym{***}&                     &                     \\
+All Sugar           &      -1.119\sym{***}&      -0.944\sym{***}&                     &                     \\
+All Wine            &     -0.0436         &     -0.0396         &                     &                     \\
+Polish Coffee       &                     &                     &      -2.865\sym{***}&      -0.746         \\
+Polish Eau de vie   &                     &                     &       0.799         &      -0.334         \\
+Polish Sugar        &                     &                     &      -0.523         &       0.166         \\
+Polish Wine         &                     &                     &       0.246         &      -1.023\sym{**} \\
+Austrian1 Coffee    &                     &                     &      -3.109\sym{***}&      -1.358\sym{*}  \\
+Austrian1 Eau de vie&                     &                     &       0.599         &      -0.272         \\
+Austrian1 Sugar     &                     &                     &      -0.454         &      0.0531         \\
+Austrian1 Wine      &                     &                     &      -0.663         &      -1.658\sym{***}\\
+Austrian2 Coffee    &                     &                     &      -0.421         &       0.793         \\
+Austrian2 Eau de vie&                     &                     &       0.482         &      -0.124         \\
+Austrian2 Sugar     &                     &                     &       0.125         &       0.450         \\
+Austrian2 Wine      &                     &                     &       0.205         &      -0.507\sym{*}  \\
+Seven Coffee        &                     &                     &      -2.315\sym{***}&      -2.048\sym{***}\\
+Seven Eau de vie    &                     &                     &       0.282         &       0.177         \\
+Seven Sugar         &                     &                     &      -2.627\sym{***}&      -2.607\sym{***}\\
+Seven Wine          &                     &                     &      0.0224         &      -0.147         \\
+American Coffee     &                     &                     &      -1.037\sym{***}&      -1.293\sym{***}\\
+American Eau de vie &                     &                     &      -0.271         &   -0.000709         \\
+American Sugar      &                     &                     &      -0.618\sym{*}  &      -0.713\sym{*}  \\
+American Wine       &                     &                     &      -0.287\sym{*}  &     -0.0241         \\
+Napoleonic Coffee   &                     &                     &      -5.484\sym{***}&      -4.837\sym{***}\\
+Napoleonic Eau de vie&                     &                     &       2.088\sym{***}&       2.115\sym{***}\\
+Napoleonic Sugar    &                     &                     &      -4.313\sym{***}&      -3.882\sym{***}\\
+Napoleonic Wine     &                     &                     &      -0.154         &     -0.0532         \\
+Revolutionary Coffee&                     &                     &      -6.693\sym{***}&      -6.460\sym{***}\\
+Revolutionary Eau de vie&                     &                     &       1.422\sym{***}&       1.622\sym{***}\\
+Revolutionary Sugar &                     &                     &      -3.154\sym{***}&      -2.947\sym{***}\\
+Revolutionary Wine  &                     &                     &       0.127         &       0.379\sym{*}  \\
+Cons                &     -1634.2\sym{***}&     -6756.7\sym{***}&     -2589.6\sym{***}&     -6698.1\sym{***}\\
+Product FE          &         Yes         &         Yes         &         Yes         &         Yes         \\
+Product time trend  &         Yes         &         Yes         &         Yes         &         Yes         \\
+Quadratic trend     &         Yes         &         Yes         &         Yes         &         Yes         \\
+Product quadratic trend&          No         &         Yes         &          No         &         Yes         \\
+\midrule
+Observations        &         347         &         347         &         347         &         347         \\
+Pseudo \(R^{2}\)    &       0.535         &       0.593         &       0.678         &       0.720         \\
+\bottomrule
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}
 
-\newgeometry{left=0.8in,right=0.8in,top=.4in,bottom=.8in}
-{\setstretch{.9}
-\captionof{table}{Hamburg - by product} \label{tab:title} 
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcc}		
-	& \multicolumn{1}{c}{All} &	\multicolumn{1}{c}{War~by~war} \\
-\cline{2-3}		
-	& \multicolumn{1}{c}{(1)\mbox{\ }} &	\multicolumn{1}{c}{(2)} \\
-\hline		
-All: Coffee &	-1.939 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.402)$^{***}$} &	\\
-All: Eau de vie &	.254 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.190)} &	\\
-All: Sugar &	-1.713 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.483)$^{***}$} &	\\
-All: Wine &	-.271 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.181)} &	\\
-Polish: Coffee &	&	-2.968 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.778)$^{***}$} \\
-Polish: Eau de vie &	&	.033 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.366)} \\
-Polish: Sugar &	&	-1.037 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.277)$^{***}$} \\
-Polish: Wine &	&	-1.370 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.538)$^{**}$} \\
-Austrian1: Coffee &	&	-2.271 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (1.015)$^{**}$} \\
-Austrian1: Eau de vie &	&	.180 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.295)} \\
-Austrian1: Sugar &	&	-.540 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.369)} \\
-Austrian1: Wine &	&	-1.298 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.440)$^{***}$} \\
-Austrian2: Coffee &	&	.163 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.729)} \\
-Austrian2: Eau de vie &	&	.109 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.408)} \\
-Austrian2: Sugar &	&	.149 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.313)} \\
-Austrian2: Wine &	&	-.405 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.363)} \\
-Seven: Coffee &	&	-2.694 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.638)$^{***}$} \\
-Seven: Eau de vie &	&	.730 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.202)$^{***}$} \\
-Seven: Sugar &	&	-3.563 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.829)$^{***}$} \\
-Seven: Wine &	&	-.134 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.255)} \\
-American: Coffee &	&	-1.438 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.370)$^{***}$} \\
-American: Eau de vie &	&	-.215 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.242)} \\
-American: Sugar &	&	-.841 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.338)$^{**}$} \\
-American: Wine &	&	.154 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.254)} \\
-Const. &	23.908 &	16.738 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (6.872)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (10.346)} \\
-Obs. &	244 &	244 \\
-$ R^2$ &	.657 &	.806 \\
-$ F$ statistic &	73.038 &	121.589 \\
-\hline\hline		
-\end{tabular*}}
-
-\newgeometry{left=.6in,right=.6in,top=1in,bottom=1in}
 In sum, from the estimations made so far, we can conclude that there was indeed a negative impact on neutral countries, but which was mainly concentrated on colonial products. 
 
 The impact on European products was found strongly negative for European wars but not that significant in Colonial wars. These results are already in contrast with some of the literature (i. e. Glick and Taylor (2005) and Thierry, Martin and Mayer (2010)), which found generic negative impact on trade with no war-type or product-type differentiation. Only Blomberg and Hess (2004), have disentangled the impact of different kind of conflicts but they focused on external versus internal violence instead.\\
-Another interesting issue which is extensively treated in the literature is the presence of war lags and slow trade recovery after conflicts. Glick and Taylor (2005) for instance, found major war lags for both neutral and adversary countries for a period up to ten years. I have tested their findings on my Hamburg series, adding to the above regressions dummies for lag from 1 to 5 years (tables are the appendix). I have opted for 5 years of lag because in this period trade was much more unstable and effects after five years might have been due to other unrelated issues. In addition, using 10 years lags would basically mean including another war period. For this same reason I am only looking at lags for the Austrian colonial war and Seven Years War and those two wars together (no data are available for the period immediately after American Revolutionary War). I have done so again on all wars together and on wars separately as before. Results are not very coherent across regressions. 
-There is no evidence of negative war lag for the pooled war dummies; the coefficients are alternating positive and negative values, with the first year of lag being positive, but they are quite small in size, in particular those with a negative sign (at most 7\%). Splitting the one war dummy into the five different wars, we notice one interesting factor: both after Austrian war and Seven Years War there is on the contrary an increase in trade (32\% and 34\% respectively), which lead me to the product breakdown for war lags as I did for the war effects. \\
-This regression unveils interesting results. It is not possible to distinguish clearly the behaviour of colonial products from the overall war dummy; coffee has positive coefficient all throughout the five years of lag but sugar is again alternating signs (with a positive coefficient in the first year). On the other hand wine and eau-de-vie experienced a sharp increase in the immediate post war period. Turning to each war separately, results are less clear. After Seven Years War however, it is evident that the trade of European products increased substantially, eau de vie in particular. It could be the case that during the war, trade of those products developed to compensate for losses in colonial goods and that after the conflict it could flourish even further. Overall we can say than rather than a war lag we see an increase of exports at the end of the war. This was also noted by Riley (1984), who analyses the case of the Seven Years War and claims that merchants were actually forecasting the wars (using price of lead) and stocking products to sell them at the end of the conflict, thus compensating for war losses. He also claims that this was not only happening after the wars but also before, so he saw an increase in exports before and after wars. I have tested his findings on my data by adding to the main regression a dummy for up to four years preceeding the conflict, as suggested by Riley (1984). In the general case (all wars in one dummy) coefficient are positive but very small, so Riley’s claim is not really reflected here. On the other hand, in the war-by-war case, coefficients for one year preceding conflict are positive and bigger in size, however it is not a constant effect throughout the four years. 
+Another interesting issue which is extensively treated in the literature is the presence of war lags and slow trade recovery after conflicts. Glick and Taylor (2005) for instance, found major war lags for both neutral and adversary countries for a period up to ten years. I have tested their findings on my Hamburg series, adding to the above regressions dummies for lag from 1 to 5 years (tables are the appendix). I have opted for 5 years of lag because in this period trade was much more unstable and effects after five years might have been due to other unrelated issues. In addition, using 10 years lags would basically mean including another war period. For this same reason I am only looking at lags for the Austrian Succession war, Seven Years War and Napoleonic wars, and those three wars together (no data are available for the period immediately after American Revolutionary War). I have done so again on all wars together and on wars separately as before. Results are not very coherent across regressions. In the overall case, coefficients of lag dummies are negative but alternate in  sign and size, with the first year of lag being insignificant. Splitting the one war dummy into the five different wars, we do not find more revealing results; lags are alternating positive and negative coefficients, with the only exception of the Austrian war, which shows a positive and negative coefficient from the the first year after the war. Turning to the breakdown by product, we notice that there is evidence of war lags for coffee up to three years and to a minor extent on sugar, which has a two negative lags, after experiencing an increase. Wine has a very small coefficient, which becomes even positive on the second year of lag and finally eau de vie has 5 years of negative lags, however coefficients are never significant. In the war by war case, results are even less coherent, with stable figures only for coffee, which shows again 3 years of lagged effects of war. \\~\\
+****\\
+Overall we can say than rather than a war lag we see an increase of exports at the end of the war. This was also noted by Riley (1984), who analyses the case of the Seven Years War and claims that merchants were actually forecasting the wars (using price of lead) and stocking products to sell them at the end of the conflict, thus compensating for war losses. He also claims that this was not only happening after the wars but also before, so he saw an increase in exports before and after wars. I have tested his findings on my data by adding to the main regression a dummy for up to four years preceeding the conflict, as suggested by Riley (1984). In the general case (all wars in one dummy) coefficient are positive but very small, so Riley’s claim is not really reflected here. On the other hand, in the war-by-war case, coefficients for one year preceding conflict are positive and bigger in size, however it is not a constant effect throughout the four years. 
 I have then run the same regressions by adding product fixed effects, as before, and introducing pre-war dummies interacted with products. Results do not differ much from the aggregate level; there is a constant positive effect one year before the war, which in this case it is more pronounced for European goods. In the war-by-war case finally, there is no big change with the results of the other regressions. \\
 In short, I have found no evidence of war lags or loss in trade subsequent to the war, it looks more like trade increased after the war (all coefficient are positive) and even if it does not exactly overshoot, at least it recovered extremely fast its pre-war level and growth rate. 
-In this section I have made four main points on the impact of war on Hamburg; 1) war is indeed a major source of trade disruption, 2) the impact however was mainly on colonial goods such as sugar and coffee, 3) there is no evidence of war lags but on the contrary trade increased following the conflict 4) It was not possible to disentangle precisely the effect of colonial versus non colonial wars. In next section I compare these findings with the case of overall exports of France towards all countries. 
-
+In this section I have made four main points on the impact of war on Hamburg; 1) war is indeed a major source of trade disruption, 2) the impact however was mainly on colonial goods such as sugar and coffee, 3) there is no evidence of war lags but on the contrary trade increased following the conflict 4) It was not possible to disentangle precisely the effect of colonial versus non colonial wars. In next section I compare these findings with the case of overall exports of France towards all countries. \\
+*****
 \section{Comparison with French total exports}
 In this section I have compared the results obtained for Hamburg with the general case of all French trading partners in eighteenth century. I have run a difference in difference specification to see the difference in impact for neutral and adversary countries with respect to allies. As for Hamburg, I have again incomplete data on products preceding 1750, so I have estimated the value for sugar coffee, wine and eau de vie through the same technique. \\
 I started my analysis running the following equation for all wars together and separately:
 \begin{equation}
-\ln(exports_{i,t})=\beta_0+\beta_1country_i+\beta_2country_iyear+\beta_3adversaries_i+\beta_4neutral_i
+exports_{i,t}=\beta_0+\beta_1year + \beta_2country_i+\beta_3country_iyear+\beta_4adversaries_i+\beta_5neutral_i
 \end{equation}
 
-where $country$ is country fixed effects, $country_iyear$ is country time trends, $adversaries$ is a dummy variable that takes value 1 if a country is adversary to France during a conflict and $neutral$ is again a dummy indicating whether a country was neutral (rather than adversary or allied). As before, I have substituted zero trade flows with 0.001 so that they would not drop in the estimate with logs. In addition, even in this case I did not have enough data to estimate country year fixed effects so I have used time trend.\\
-From the first regression we can see that war had on average a negative impact on trade of neutral countries of around 31\%. By looking at each single war, we see that once more, there is no evidence of difference between a colonial and non colonial war, the major impact on the contrary has to be found during Polish succession war. As noted for the Hamburg series however, the coefficient of the Polish war might also reflect a general lower level of export, which makes again the coefficient of Seven Years War more striking. The coefficients do not differ greatly once we consider country-product time trends and each war separately. Results are discussed in section 7. Overall the impact for all wars is indeed negative and significant and this finding is line with Hamburg case, discussed previously. However loss estimated for neutral countries are by far less striking than the ones found looking at the Hamburg series. For neutral countries they are estimated around 36\%\ during the Seven Years, 7\%\ American Revolutionary War and 31\%\ overall while for Hamburg they are 65\%\, 54\%\ and 55\%\ respectively. Even though the sign of the coefficients expressing the war effect is the same, there is an evident stronger effect in the Hamburg case. For this reason I have looked again into the breakdown by the major products and analysed the impact of wars on different goods. I am arguing that in eighteenth century wars did not have an impact on all goods, but rather on some specific goods. Hamburg imports from France were mainly made up of colonial products, which were more vulnerable to conflicts, and this explains why its losses were so huge. On the other hand, this was not the case for other countries, whose import composition was totally different and which probably suffered to a lesser extent. Different destinations had really different patterns of exports, and it would be interesting to see whether groups of nations suffered more according to their import composition than their belligerent/neutral status. 
+where $year$ is year time trend, $country$ is country fixed effects, $country_iyear$ is country time trends, $adversaries$ is a dummy variable that takes value 1 if a country is adversary to France during a conflict and $neutral$ is again a dummy indicating whether a country was neutral (rather than adversary or allied). Even in this case I did not have enough data to estimate country year fixed effects so I have used time trend.\\
+From the first regression we can see that war had on average a negative impact on trade of neutral countries of around 22\%. As for the case of Hamburg, I have added a non linear time trend for some countries, namely Spain, Flanders, Netherlands, Italy, Levant, North, Switzerland and United States. Series with quadratic and linear fit are to be found in the appendix. 
+By looking at each single war, we notice that the difference in impact between colonial and non colonial war is not as more evident. Without considering the quadratic trend of certain countries, the Polish war is the most disruptive. However, once we account for the non linearity, this coefficient is reduced, remaining however the third strong impact found in the war by war case. We notice also that the last two wars are quite small in their impact and non significant.
+Overall the impact for all wars is indeed negative and this finding is line with Hamburg case, discussed previously. However loss estimated for neutral countries are by far less striking than the ones found looking at the Hamburg series. Even though the sign of the coefficients expressing the war effect is the same, there is an evident stronger effect in the Hamburg case. For this reason I have looked again into the breakdown by the major products and analysed the impact of wars on different goods. I am arguing that in eighteenth century wars did not have an impact on all goods, but rather on some specific goods. Hamburg imports from France were mainly made up of colonial products, which were more vulnerable to conflicts, and this explains why its losses were so huge. On the other hand, this was not the case for other countries, whose import composition was totally different and which probably suffered to a lesser extent. Different destinations had really different patterns of exports, and it would be interesting to see whether groups of nations suffered more according to their import composition than their belligerent/neutral status. 
 In this setting, however, I am only considering the four main goods analysed in the Hamburg case, as to be able to perform a comparison.\\
 More than an impact on all trade, I believe it was a matter of impact on trade of certain products. \\
 In line with this reasoning, I run again a regression with a product breakdown and analyse the impact of all conflicts together and war by war:
 \begin{multline}
-\ln(exports_{i,t})=\beta_0+\beta_1country_i+\beta_2country_iyear+\beta_3product_{i,j}+\beta_4product_jyear+\\+\beta_5product_jadversary + \beta_6product_jneutral
+exports_{i,t}=\beta_0+\beta_1year +\beta_2country_i+\beta_3country_iyear+\beta_4product_{i,j}+\beta_5product_jyear+\\+\beta_6product_jadversary + \beta_7product_jneutral
 \end{multline}
 where $country_iproduct_j$ is country product fixed effects, $country_iyear$ and $product_jyear$ are country and product time trend and $product_jadversary$ and $product_jneutral$ are adversaries and neutral dummies interacted with product dummies. This regression lies on the assumption that product fixed effects are country-specific whereas product time trend do not differ across countries. I have also run a specification where I relax this assumption and I assumes both country products fixed effects and country products specific trends, but the difference is not noticeable (section 7). 
-\captionof{table}{All countries - aggregate} \label{tab:title} 
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcc}		
-	& \multicolumn{1}{c}{All} &	\multicolumn{1}{c}{War~by~War} \\
-\cline{2-3}		
-	& \multicolumn{1}{c}{(1)\mbox{\ }} &	\multicolumn{1}{c}{(2)} \\
-\hline		
-All &	-.366 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.074)$^{***}$} &	\\
-Polish &	&	-.763 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.139)$^{***}$} \\
-Austrian1 &	&	-.337 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.162)$^{**}$} \\
-Austrian2 &	&	-.396 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.143)$^{***}$} \\
-Seven &	&	-.448 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.105)$^{***}$} \\
-American &	&	-.068 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.135)} \\
-Const. &	5.201 &	5.201 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (9.246)} &	\raisebox{.7ex}[0pt]{\scriptsize (9.004)} \\
-Obs. &	580 &	580 \\
-$ R^2$ &	.656 &	.678 \\
-$ F$ statistic &	42.251 &	34.907 \\
-\hline\hline		
-\end{tabular*}%		
-\newpage
 
-\newgeometry{left=0.8in,right=0.8in,top=.4in,bottom=.6in}
-\captionof{table}{All countries - by product} \label{tab:title} 
-{\setstretch{.9}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcc}		
-	& \multicolumn{1}{c}{All} &	\multicolumn{1}{c}{War~by~war} \\
-\cline{2-3}		
-	& \multicolumn{1}{c}{(1)\mbox{\ }} &	\multicolumn{1}{c}{(2)} \\
-\hline		
-All: Coffee &	-.825 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.221)$^{***}$} &	\\
-All: Eau-de-vie &	.324 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.248)} &	\\
-All: Sugar &	-.982 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.234)$^{***}$} &	\\
-All: Wine &	-.216 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.230)} &	\\
-Polish: Coffee &	&	-.748 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.403)$^{*}$} \\
-Polish: Eau-de-vie &	&	.473 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.493)} \\
-Polish: Sugar &	&	-.663 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.447)} \\
-Polish: Wine &	&	-.197 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.443)} \\
-Austrian1: Coffee &	&	-.586 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.708)} \\
-Austrian1: Eau-de-vie &	&	.671 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (1.192)} \\
-Austrian1: Sugar &	&	-.601 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.713)} \\
-Austrian1: Wine &	&	.895 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.859)} \\
-Austrian2: Coffee &	&	.211 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.476)} \\
-Austrian2: Eau-de-vie &	&	.540 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.790)} \\
-Austrian2: Sugar &	&	-.006 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.482)} \\
-Austrian2: Wine &	&	-1.801 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.575)$^{***}$} \\
-Seven: Coffee &	&	-1.328 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.316)$^{***}$} \\
-Seven: Eau-de-vie &	&	.409 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.337)} \\
-Seven: Sugar &	&	-1.675 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.331)$^{***}$} \\
-Seven: Wine &	&	.023 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.332)} \\
-American: Coffee &	&	-.771 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.380)$^{**}$} \\
-American: Eau-de-vie &	&	.102 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.412)} \\
-American: Sugar &	&	-.837 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.397)$^{**}$} \\
-American: Wine &	&	-.267 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.386)} \\
-Const. &	-53.847 &	-61.737 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (5.413)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (6.705)$^{***}$} \\
-Obs. &	2231 &	2231 \\
-$ R^2$ &	.74 &	.754 \\
-$ F$ statistic &	19.325 &	10.163 \\
-\hline\hline		
-\end{tabular*}}
-\newgeometry{left=0.6in,right=0.6in,top=1in,bottom=1in}
-The results on all wars are already very interesting. Overall the impact on coffee and sugar is strongly negative and significant (-56\% and -63\%) whereas only a small impact can be found on wine (-19\%) and a positive one can be see on eau de vie. These figures are now much closer to those found for Hamburg and the breakdown by product seems to be explaining it pretty well. Looking at the regression where we consider each war separately, results are even more revealing. Colonial goods always experience a decrease during war period, however, during the two colonial wars the size of the impact is much bigger and stably significant (which is not always the case for non colonial wars). In addition wine and eau de vie are positive (but insignificant), which suggest that during the war there could have a been some sort of substitution effect (on the offer side rather than on the demand side), which was pushing merchants to trade more “safer” goods and make up for war looses.\\
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{ALL COUNTRIES: Aggregate\label{tab1}}
+\begin{tabular}{l*{4}{D{.}{.}{-1}}}
+\hline\hline
+                    &\multicolumn{1}{c}{All wars}&\multicolumn{1}{c}{Quadratic}&\multicolumn{1}{c}{Quadratic}&\multicolumn{1}{c}{War by war}\\
+\hline
+Adversary           &      -0.324\sym{***}&      -0.254\sym{***}&                     &                     \\
+Neutral             &      -0.283\sym{***}&      -0.245\sym{***}&                     &                     \\
+Polish adversary    &                     &                     &      -0.859\sym{***}&       1.601\sym{***}\\
+Austrian1 adversary &                     &                     &     -0.0507         &       0.367\sym{**} \\
+Austrian2 adversary &                     &                     &      -0.334\sym{*}  &    -0.00678         \\
+Seven adversary     &                     &                     &      -0.827\sym{***}&      -0.728\sym{***}\\
+Napoleonic adversary&                     &                     &      -0.168         &      -0.165         \\
+Revolutionary adversary&                     &                     &      -1.114\sym{***}&      -1.112\sym{***}\\
+Polish neutral      &                     &                     &      -0.803\sym{***}&      -0.342\sym{***}\\
+Austrian1 neutral   &                     &                     &      -0.329\sym{***}&      0.0524         \\
+Austrian2 neutral   &                     &                     &      -0.499\sym{***}&      -0.231\sym{***}\\
+Seven neutral       &                     &                     &      -0.515\sym{***}&      -0.494\sym{***}\\
+American neutral    &                     &                     &      -0.137         &      -0.357\sym{***}\\
+Napoleonic neutral  &                     &                     &      -0.171         &      -0.155         \\
+Revolutionary neutral&                     &                     &     -0.0914         &      -0.147         \\
+Constant                &      -21.57\sym{***}&      -21.10\sym{***}&      -20.23\sym{***}&      -20.36\sym{***}\\
+Country FE          &         Yes         &         Yes         &         Yes         &         Yes         \\
+Country time trend  &         Yes         &         Yes         &         Yes         &         Yes         \\
+Country quadratic trend&          No         &         Yes         &          No         &         Yes         \\
+\hline
+Observations        &         836         &         836         &         836         &         836         \\
+Pseudo \(R^{2}\)    &       0.710         &       0.756         &       0.737         &       0.784         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{ALL COUNTRIES: all wars by product\label{tab1}}
+\begin{tabular}{l*{4}{D{.}{.}{-1}}}
+\hline\hline
+			  &\multicolumn{1}{c}{All wars}&\multicolumn{1}{c}{All wars}&\multicolumn{1}{c}{All wars}\\
+\hline
+Adversary Coffee    &      -1.170\sym{*}  &      -0.207         &      -1.123\sym{*}  \\
+Adversary Eau de vie&      0.0514         &      0.0511         &      0.0698         \\
+Adversary Sugar     &      -2.030\sym{***}&      -2.030\sym{***}&      -1.962\sym{***}\\
+Adversary Wine      &       0.283\sym{**} &       0.283\sym{**} &       0.323\sym{**} \\
+Neutral Coffee      &      -1.695\sym{***}&      -1.289\sym{***}&      -1.619\sym{***}\\
+Neutral Eau de vie  &       0.756\sym{***}&       0.756\sym{***}&       0.752\sym{***}\\
+Neutral Sugar       &      -1.448\sym{***}&      -1.448\sym{***}&      -1.382\sym{***}\\
+Neutral Wine        &     -0.0898         &     -0.0898         &     -0.0854         \\
+Constant            &      -25.55\sym{**} &     -5380.4\sym{***}&      -23.71\sym{**} \\
+Country-product FE  &         Yes         &         Yes         &         Yes         \\
+Country time trend  &         Yes         &         Yes         &         Yes         \\
+Product time trend  &         Yes         &         Yes         &         Yes         \\
+Country quadratic trend&          No         &          No         &         Yes         \\
+Product quadratic trend&          No         &         Yes         &          No         \\
+\hline
+Observations        &        3130         &        3130         &        3130         \\
+Pseudo \(R^{2}\)    &       0.743         &       0.747         &       0.747         \\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{ALL COUNTRIES:Each war by product\label{tab1}}
+\begin{tabular}{l*{3}{D{.}{.}{-1}}}
+\hline\hline
+                    &\multicolumn{1}{c}{All wars}&\multicolumn{1}{c}{All wars}&\multicolumn{1}{c}{All wars}\\
+\hline
+Polish neutral Eau de vie&       0.593\sym{*}  &       0.594\sym{*}  &       1.061\sym{***}\\
+Polish neutral Sugar&      -2.078\sym{***}&      -2.077\sym{***}&      -1.873\sym{**} \\
+Polish neutral Wine &       0.131         &       0.131         &       0.602\sym{*}  \\
+Austrian1 neutral Eau de vie&      -0.153         &      -0.153         &       0.370\sym{*}  \\
+Austrian1 neutral Sugar&      -2.198\sym{**} &      -2.197\sym{**} &      -2.025\sym{*}  \\
+Austrian1 neutral Wine&      -1.769\sym{***}&      -1.769\sym{***}&      -1.229\sym{***}\\
+Austrian2 neutral Coffee&      -0.746\sym{*}  &       1.195\sym{**} &       1.214\sym{**} \\
+Austrian2 neutral Eau de vie&     0.00109         &     0.00115         &       0.331         \\
+Austrian2 neutral Sugar&      -0.798         &      -0.797         &      -0.679         \\
+Austrian2 neutral Wine&      -0.593\sym{*}  &      -0.593\sym{*}  &      -0.246         \\
+Seven neutral Coffee&      -2.034\sym{***}&      -1.588\sym{***}&      -1.606\sym{***}\\
+Seven neutral Eau de vie&       0.544\sym{**} &       0.545\sym{**} &       0.562\sym{**} \\
+Seven neutral Sugar &      -1.266\sym{*}  &      -1.266\sym{*}  &      -1.266\sym{*}  \\
+Seven neutral Wine  &      0.0816         &      0.0825         &       0.128         \\
+American neutral Coffee&      -0.479\sym{*}  &      -1.028\sym{***}&      -1.050\sym{***}\\
+American neutral Eau de vie&      0.0448         &      0.0458         &      -0.236         \\
+American neutral Sugar&      -0.801         &      -0.801         &      -0.912\sym{*}  \\
+American neutral Wine&     -0.0337         &     -0.0328         &      -0.279\sym{*}  \\
+Napoleonic neutral Coffee&      -2.810\sym{***}&      -2.156\sym{***}&      -2.112\sym{***}\\
+Napoleonic neutral Eau de vie&       0.951\sym{***}&       0.951\sym{***}&       0.950\sym{***}\\
+Napoleonic neutral Sugar&      -4.276\sym{***}&      -4.276\sym{***}&      -4.195\sym{***}\\
+Napoleonic neutral Wine&      -0.185         &      -0.186         &      -0.201         \\
+Revolutionary neutral Coffee&      -3.536\sym{***}&      -3.512\sym{***}&      -3.492\sym{***}\\
+Revolutionary neutral Eau de vie&       0.693\sym{**} &       0.693\sym{**} &       0.589\sym{**} \\
+Revolutionary neutral Sugar&      -3.155\sym{***}&      -3.155\sym{***}&      -3.181\sym{***}\\
+Revolutionary neutral Wine&     -0.0416         &     -0.0416         &      -0.129         \\
+Constant            &      -32.16\sym{**} &     -6214.2\sym{***}&     -5227.2\sym{***}\\
+Country-product FE  &         Yes         &         Yes         &         Yes         \\
+Country time trend  &         Yes         &         Yes         &         Yes         \\
+Product time trend  &         Yes         &         Yes         &         Yes         \\
+Country quadratic trend&          No         &          No         &         Yes         \\
+Product quadratic trend&          No         &         Yes         &         Yes         \\
+\hline
+Observations        &        3130         &        3130         &        3130         \\
+Pseudo \(R^{2}\)    &       0.757         &       0.762         &       0.768         \\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}
+
+The results on all wars are already very interesting. Overall the impact on coffee and sugar is strongly negative and significant (-80\% and -75\%) whereas only a small impact can be found on wine (-8\%) and a strongly positive one can be see on eau de vie. These figures are now much closer to those found for Hamburg and the breakdown by product seems to be explaining it pretty well. Looking at the regression where we consider each war separately, results are even more revealing. Colonial goods always experience a decrease during war period, however, during the two colonial wars the size of the impact is much bigger and stably significant (which is not always the case for non colonial wars). In addition wine and eau de vie are positive (but insignificant), which suggest that during the war there could have a been some sort of substitution effect (on the offer side rather than on the demand side), which was pushing merchants to trade more “safer” goods and make up for war looses.\\
 In line with this reasoning, I turned next to analyse and compare war lags in the Hamburg case and general case. I run two regressions with and without product differentiation and for all wars together and a dummy for each war: 
 \begin{multline}
 \ln(exports_{i,t})=\beta_0+\beta_1country_i+\beta_2country_iyear+\beta_3adversaries_i+\beta_4neutral_i+\\+\beta_5adversary_ilag+\beta_6neutral_ilag+\beta_8allies_ilag
@@ -490,1092 +516,133 @@ In conclusion, I am pointing out the fact that my results are quite different fr
 \newpage
 \appendix
 \section{Appendix : war lags and prewar effects}
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{HAMBURG: lag \label{tab1}}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+                    &\multicolumn{1}{c}{All wars}&\multicolumn{1}{c}{Quadratic}&\multicolumn{1}{c}{War by war}&\multicolumn{1}{c}{Quadratic}\\
+\hline
+1 lags All          &      -0.442         &      -0.210         &                     &                     \\
+2 lags All          &      -0.516\sym{*}  &      -0.286\sym{***}&                     &                     \\
+3 lags All          &      -0.304         &     -0.0760         &                     &                     \\
+4 lags All          &      -0.504\sym{*}  &      -0.278\sym{**} &                     &                     \\
+5 lags All          &      -0.398\sym{**} &      -0.174         &                     &                     \\
+1 lags Austrian2    &                     &                     &      -0.391\sym{*}  &       0.348\sym{***}\\
+1 lags Napoleaonic  &                     &                     &      -0.889\sym{***}&      -0.566\sym{***}\\
+1 lags Seven        &                     &                     &      -0.128         &     -0.0597         \\
+2 lags Austrian2    &                     &                     &      -0.715\sym{***}&     -0.0314         \\
+2 lags Napoleaonic  &                     &                     &      -0.647\sym{**} &      -0.279\sym{*}  \\
+2 lags Seven        &                     &                     &      -0.217         &      -0.182\sym{***}\\
+3 lags Austrian2    &                     &                     &      -0.430\sym{*}  &       0.200\sym{*}  \\
+3 lags Napoleaonic  &                     &                     &      -0.852\sym{***}&      -0.439\sym{***}\\
+3 lags Seven        &                     &                     &       0.189         &       0.193\sym{***}\\
+4 lags Austrian2    &                     &                     &      -0.478\sym{**} &      0.0991         \\
+4 lags Napoleaonic  &                     &                     &      -0.791\sym{**} &      -0.330\sym{*}  \\
+4 lags Seven        &                     &                     &      -0.226\sym{*}  &      -0.252\sym{***}\\
+5 lags Austrian2    &                     &                     &      -0.372\sym{*}  &       0.155         \\
+5 lags Napoleaonic  &                     &                     &      -0.373         &       0.135         \\
+5 lags Seven        &                     &                     &      -0.368\sym{***}&      -0.422\sym{***}\\
+Constant            &       5.479         &     -1641.9\sym{***}&       14.24         &     -2388.5\sym{***}\\
+Quadratic trend     &          No         &         Yes         &          No         &         Yes         \\
+\hline
+Observations        &          76         &          76         &          76         &          76         \\
+Pseudo \(R^{2}\)    &       0.397         &       0.614         &       0.603         &       0.740         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}
 
-{\setstretch{.9}
-
-\captionof{table}{War lag - Hamburg} \label{tab:title} 
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcc}		
-	& \multicolumn{1}{c}{All} &	\multicolumn{1}{c}{War~by~war} \\
-\cline{2-3}		
-	& \multicolumn{1}{c}{(1)\mbox{\ }} &	\multicolumn{1}{c}{(2)} \\
-\hline		
-All: lag 1 &	.161 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.113)} &	\\
-All: lag 2 &	-.065 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.137)} &	\\
-All: lag 3 &	.306 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.170)$^{*}$} &	\\
-All: lag 4 &	-.015 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.092)} &	\\
-All: lag 5 &	.018 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.122)} &	\\
-Austrian2: lag 1 &	&	.278 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.145)$^{*}$} \\
-Austrian2: lag 2 &	&	-.010 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.140)} \\
-Austrian2: lag 3 &	&	.295 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.135)$^{**}$} \\
-Austrian2: lag 4 &	&	.197 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.130)} \\
-Austrian2: lag 5 &	&	.255 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.125)$^{**}$} \\
-Seven: lag 1 &	&	.295 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.073)$^{***}$} \\
-Seven: lag 2 &	&	.110 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.069)} \\
-Seven: lag 3 &	&	.527 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.065)$^{***}$} \\
-Seven: lag 4 &	&	-.036 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.062)} \\
-Seven: lag 5 &	&	-.197 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.058)$^{***}$} \\
-Const. &	-18.640 &	-35.780 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (6.562)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (9.411)$^{***}$} \\
-Obs. &	51 &	51 \\
-$ R^2$ &	.758 &	.908 \\
-$ F$ statistic &	27.214 &	. \\
-\hline\hline		
-\end{tabular*}
-\newpage
-
-\captionof{table}{Prewar effects - Hamburg} \label{tab:title} 
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcc}		
-	& \multicolumn{1}{c}{All} &	\multicolumn{1}{c}{War~by~war} \\
-\cline{2-3}		
-	& \multicolumn{1}{c}{(1)\mbox{\ }} &	\multicolumn{1}{c}{(2)} \\
-\hline		
-All: pre 1 &	.099 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.091)} &	\\
-All: pre 2 &	.014 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.129)} &	\\
-All: pre 3 &	.032 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.071)} &	\\
-All: pre 4 &	-.103 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.099)} &	\\
-Seven: pre 1 &	&	.132 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.090)} \\
-Seven: pre 2 &	&	.285 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.094)$^{***}$} \\
-Seven: pre 3 &	&	.194 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.097)$^{**}$} \\
-Seven: pre 4 &	&	.136 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.101)} \\
-American: pre 1 &	&	.074 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.063)} \\
-American: pre 2 &	&	-.230 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.061)$^{***}$} \\
-American: pre 3 &	&	-.081 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.059)} \\
-American: pre 4 &	&	-.272 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.057)$^{***}$} \\
-Const. &	-17.479 &	-35.503 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (6.070)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (8.342)$^{***}$} \\
-Obs. &	51 &	51 \\
-$ R^2$ &	.75 &	.895 \\
-$ F$ statistic &	34.821 &	. \\
-\hline\hline		
-\end{tabular*}
-
-\newpage
-\captionof{table}{Lag per product - Hamburg (all wars)} \label{tab:title} 
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lc}	
-	\multicolumn{1}{c}{All} \\
-\cline{2-2}	
-	\multicolumn{1}{c}{(1)} \\
-\hline	
-All: 1 lag for Coffee &	.386 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.381)} \\
-All: 2 lag for Coffee &	.168 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.380)} \\
-All: 3 lag for Coffee &	.931 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.341)$^{***}$} \\
-All: 4 lag for Coffee &	.327 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.590)} \\
-All: 5 lag for Coffee &	.010 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.287)} \\
-All: 1 lag for Eau de vie &	.611 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.155)$^{***}$} \\
-All: 2 lag for Eau de vie &	.446 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.352)} \\
-All: 3 lag for Eau de vie &	.667 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.205)$^{***}$} \\
-All: 4 lag for Eau de vie &	.292 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.162)$^{*}$} \\
-All: 5 lag for Eau de vie &	-.183 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.703)} \\
-All: 1 lag for Sugar &	.266 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.210)} \\
-All: 2 lag for Sugar &	-.648 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.340)$^{*}$} \\
-All: 3 lag for Sugar &	.614 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.368)$^{*}$} \\
-All: 4 lag for Sugar &	-.227 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.175)} \\
-All: 5 lag for Sugar &	-.074 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.196)} \\
-All: 1 lag for Wine &	.574 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.507)} \\
-All: 2 lag for Wine &	.806 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.206)$^{***}$} \\
-All: 3 lag for Wine &	.438 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.670)} \\
-All: 4 lag for Wine &	.797 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.230)$^{***}$} \\
-All: 5 lag for Wine &	.075 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.444)} \\
-Const. &	20.580 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (7.346)$^{***}$} \\
-Obs. &	244 \\
-$ R^2$ &	.672 \\
-$ F$ statistic &	552.901 \\
-\hline\hline	
-\end{tabular*}%
-
-
-\newpage
-\captionof{table}{Lag per product - Hamburg (war by war)} \label{tab:title}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lc}	
-	\multicolumn{1}{c}{Austrian2} \\
-\cline{2-2}	
-	\multicolumn{1}{c}{(2)} \\
-\hline	
-Austrian2: 1 lag for Coffee &	.272 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.075)} \\
-Austrian2: 2 lag for Coffee &	.385 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.035)} \\
-Austrian2: 3 lag for Coffee &	.980 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.995)} \\
-Austrian2: 4 lag for Coffee &	.989 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.956)} \\
-Austrian2: 5 lag for Coffee &	.399 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.916)} \\
-Austrian2: 1 lag for Eau de vie &	.257 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.144)$^{*}$} \\
-Austrian2: 2 lag for Eau de vie &	-.287 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.139)$^{**}$} \\
-Austrian2: 3 lag for Eau de vie &	.175 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.134)} \\
-Austrian2: 4 lag for Eau de vie &	-.102 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.130)} \\
-Austrian2: 5 lag for Eau de vie &	-1.874 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.125)$^{***}$} \\
-Austrian2: 1 lag for Sugar &	.454 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.144)$^{***}$} \\
-Austrian2: 2 lag for Sugar &	-.724 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.139)$^{***}$} \\
-Austrian2: 3 lag for Sugar &	.476 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.134)$^{***}$} \\
-Austrian2: 4 lag for Sugar &	-.050 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.128)} \\
-Austrian2: 5 lag for Sugar &	-.037 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.124)} \\
-Austrian2: 1 lag for Wine &	.799 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.640)} \\
-Austrian2: 2 lag for Wine &	.533 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.616)} \\
-Austrian2: 3 lag for Wine &	-.735 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.592)} \\
-Austrian2: 4 lag for Wine &	.304 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.567)} \\
-Austrian2: 5 lag for Wine &	.234 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.543)} \\
-Const. &	9.791 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (15.716)} \\
-Obs. &	244 \\
-$ R^2$ &	.836 \\
-$ F$ statistic &	. \\
-\hline\hline	
-\end{tabular*}%	
-
-
-\newpage
-\captionof{table}{Lag per product - Hamburg (war by war)}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lc}	
-	\multicolumn{1}{c}{Seven} \\
-\cline{2-2}	
-	\multicolumn{1}{c}{(2)} \\
-\hline	
-Seven: 1 lag for Coffee &	.544 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.487)} \\
-Seven: 2 lag for Coffee &	-.008 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.449)} \\
-Seven: 3 lag for Coffee &	.919 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.411)$^{**}$} \\
-Seven: 4 lag for Coffee &	-.300 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.374)} \\
-Seven: 5 lag for Coffee &	-.114 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.337)} \\
-Seven: 1 lag for Eau de vie &	.530 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.098)$^{***}$} \\
-Seven: 2 lag for Eau de vie &	.776 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.098)$^{***}$} \\
-Seven: 3 lag for Eau de vie &	.789 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.099)$^{***}$} \\
-Seven: 4 lag for Eau de vie &	.347 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.100)$^{***}$} \\
-Seven: 5 lag for Eau de vie &	-.058 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.102)} \\
-Seven: 1 lag for Sugar &	.482 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.087)$^{***}$} \\
-Seven: 2 lag for Sugar &	-.196 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.087)$^{**}$} \\
-Seven: 3 lag for Sugar &	1.099 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.086)$^{***}$} \\
-Seven: 4 lag for Sugar &	-.089 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.087)} \\
-Seven: 5 lag for Sugar &	-.188 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.087)$^{**}$} \\
-Seven: 1 lag for Wine &	-.139 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.294)} \\
-Seven: 2 lag for Wine &	.626 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.274)$^{**}$} \\
-Seven: 3 lag for Wine &	1.194 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.256)$^{***}$} \\
-Seven: 4 lag for Wine &	.910 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.239)$^{***}$} \\
-Seven: 5 lag for Wine &	.477 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.223)$^{**}$} \\
-Const. &	9.791 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (15.716)} \\
-Obs. &	244 \\
-$ R^2$ &	.836 \\
-$ F$ statistic &	. \\
-\hline\hline	
-\end{tabular*}%	
-
-
-\newpage
-\captionof{table}{Prewar effect by product - Hamburg (all wars)}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lc}	
-	\multicolumn{1}{c}{All} \\
-\cline{2-2}	
-	\multicolumn{1}{c}{(1)} \\
-\hline	
-All: 1 pre for Coffee &	.138 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.307)} \\
-All: 2 pre for Coffee &	.144 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.343)} \\
-All: 3 pre for Coffee &	-.147 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.415)} \\
-All: 4 pre for Coffee &	.134 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.329)} \\
-All: 1 pre for Eau de vie &	.346 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.159)$^{**}$} \\
-All: 2 pre for Eau de vie &	-.048 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.236)} \\
-All: 3 pre for Eau de vie &	-.964 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.668)} \\
-All: 4 pre for Eau de vie &	-.322 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.293)} \\
-All: 1 pre for Sugar &	.266 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.222)} \\
-All: 2 pre for Sugar &	.039 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.123)} \\
-All: 3 pre for Sugar &	.149 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.140)} \\
-All: 4 pre for Sugar &	-.051 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.156)} \\
-All: 1 pre for Wine &	.301 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.201)} \\
-All: 2 pre for Wine &	.308 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.196)} \\
-All: 3 pre for Wine &	.058 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.198)} \\
-All: 4 pre for Wine &	-.070 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.268)} \\
-Const. &	-23.666 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (13.138)$^{*}$} \\
-Obs. &	244 \\
-$ R^2$ &	.791 \\
-$ F$ statistic &	358.415 \\
-\hline\hline	
-\end{tabular*}%	
-
-
-\newpage
-\captionof{table}{Prewar effect by product - Hamburg (war by war)}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lc}	
-	\multicolumn{1}{c}{Seven} \\
-\cline{2-2}	
-	\multicolumn{1}{c}{(2)} \\
-\hline	
-Seven: 1 pre for Coffee &	.157 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.399)} \\
-Seven: 2 pre for Coffee &	.359 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.407)} \\
-Seven: 3 pre for Coffee &	-.445 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.415)} \\
-Seven: 4 pre for Coffee &	.091 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.424)} \\
-Seven: 1 pre for Eau de vie &	.485 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.182)$^{***}$} \\
-Seven: 2 pre for Eau de vie &	.232 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.188)} \\
-Seven: 3 pre for Eau de vie &	-1.749 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.195)$^{***}$} \\
-Seven: 4 pre for Eau de vie &	.045 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.201)} \\
-Seven: 1 pre for Sugar &	.064 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.184)} \\
-Seven: 2 pre for Sugar &	.068 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.191)} \\
-Seven: 3 pre for Sugar &	.106 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.199)} \\
-Seven: 4 pre for Sugar &	.106 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.206)} \\
-Seven: 1 pre for Wine &	.264 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.247)} \\
-Seven: 2 pre for Wine &	.371 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.253)} \\
-Seven: 3 pre for Wine &	.128 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.259)} \\
-Seven: 4 pre for Wine &	.197 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.266)} \\
-Const. &	-28.471 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (17.613)} \\
-Obs. &	244 \\
-$ R^2$ &	.801 \\
-$ F$ statistic &	. \\
-\hline\hline	
-\end{tabular*}%	
-
-\newpage
-\captionof{table}{Prewar effect by product - Hamburg (war by war)}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lc}	
-	\multicolumn{1}{c}{American} \\
-\cline{2-2}	
-	\multicolumn{1}{c}{(2)} \\
-\hline	
-American: 1 pre for Coffee &	.124 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.258)} \\
-American: 2 pre for Coffee &	-.061 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.262)} \\
-American: 3 pre for Coffee &	.167 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.267)} \\
-American: 4 pre for Coffee &	.198 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.271)} \\
-American: 1 pre for Eau de vie &	.212 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.183)} \\
-American: 2 pre for Eau de vie &	-.317 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.177)$^{*}$} \\
-American: 3 pre for Eau de vie &	-.162 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.172)} \\
-American: 4 pre for Eau de vie &	-.668 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.167)$^{***}$} \\
-American: 1 pre for Sugar &	.473 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.158)$^{***}$} \\
-American: 2 pre for Sugar &	.020 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.153)} \\
-American: 3 pre for Sugar &	.207 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.148)} \\
-American: 4 pre for Sugar &	-.186 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.144)} \\
-American: 1 pre for Wine &	.343 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.217)} \\
-American: 2 pre for Wine &	.256 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.214)} \\
-American: 3 pre for Wine &	.004 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.211)} \\
-American: 4 pre for Wine &	-.316 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.208)} \\
-Const. &	-28.471 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (17.613)} \\
-Obs. &	244 \\
-$ R^2$ &	.801 \\
-$ F$ statistic &	. \\
-\hline\hline	
-\end{tabular*}%	
-
-
-\newpage
-\captionof{table}{War lag - all countries}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcc}		
-	& \multicolumn{1}{c}{All} &	\multicolumn{1}{c}{War~by~War} \\
-\cline{2-3}		
-	& \multicolumn{1}{c}{(1)\mbox{\ }} &	\multicolumn{1}{c}{(2)} \\
-\hline		
-All: lag 1 &	.333 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.199)$^{*}$} &	\\
-All: lag 2 &	.383 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.198)$^{*}$} &	\\
-All: lag 3 &	.215 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.198)} &	\\
-All: lag 4 &	.009 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.197)} &	\\
-All: lag 5 &	.044 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.197)} &	\\
-Austrian2: lag 1 &	&	.181 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.281)} \\
-Austrian2: lag 2 &	&	.360 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.280)} \\
-Austrian2: lag 3 &	&	-.089 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.279)} \\
-Austrian2: lag 4 &	&	-.265 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.277)} \\
-Austrian2: lag 5 &	&	-.063 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.276)} \\
-Seven: lag 1 &	&	.310 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.267)} \\
-Seven: lag 2 &	&	.243 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.267)} \\
-Seven: lag 3 &	&	.370 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.266)} \\
-Seven: lag 4 &	&	.144 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.266)} \\
-Seven: lag 5 &	&	.025 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.266)} \\
-Const. &	5.201 &	5.201 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (9.249)} &	\raisebox{.7ex}[0pt]{\scriptsize (9.082)} \\
-Obs. &	580 &	580 \\
-$ R^2$ &	.662 &	.685 \\
-$ F$ statistic &	30.433 &	21.561 \\
-\hline\hline		
-\end{tabular*}%		
-
-
-\newpage
-\captionof{table}{Prewar effects - all countries}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcc}		
-	& \multicolumn{1}{c}{All} &	\multicolumn{1}{c}{War~by~War} \\
-\cline{2-3}		
-	& \multicolumn{1}{c}{(1)\mbox{\ }} &	\multicolumn{1}{c}{(2)} \\
-\hline		
-All: pre 1 &	.076 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.187)} &	\\
-All: pre 2 &	.068 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.187)} &	\\
-All: pre 3 &	.051 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.187)} &	\\
-All: pre 4 &	-.067 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.187)} &	\\
-Seven: pre 1 &	&	-.065 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.269)} \\
-Seven: pre 2 &	&	-.024 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.270)} \\
-Seven: pre 3 &	&	-.109 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.271)} \\
-Seven: pre 4 &	&	-.294 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.271)} \\
-American: pre 1 &	&	.190 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.247)} \\
-American: pre 2 &	&	.128 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.246)} \\
-American: pre 3 &	&	.154 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.245)} \\
-American: pre 4 &	&	.078 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.245)} \\
-Const. &	5.201 &	5.201 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (9.301)} &	\raisebox{.7ex}[0pt]{\scriptsize (9.102)} \\
-Obs. &	580 &	580 \\
-$ R^2$ &	.657 &	.681 \\
-$ F$ statistic &	31.668 &	23.089 \\
-\hline\hline		
-\end{tabular*}%		
-
-
-\newpage
-\newgeometry{left=0.8in,right=0.8in,top=.4in,bottom=.6in}
-\captionof{table}{War lag by product - all countries (all wars)}
-
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lc}	
-	\multicolumn{1}{c}{All} \\
-\cline{2-2}	
-	\multicolumn{1}{c}{(1)} \\
-\hline	
-All: 1 lag Coffee &	-1.426 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.084)} \\
-All: 1 lag Eau-de-vie &	.560 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.847)} \\
-All: 1 lag Sugar &	.678 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.084)} \\
-All: 1 lag Wine &	.269 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.846)} \\
-All: 1 lag other &	-.167 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.844)} \\
-All: 2 lag Coffee &	1.370 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.083)} \\
-All: 2 lag Eau-de-vie &	1.157 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.846)} \\
-All: 2 lag Sugar &	1.186 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.083)} \\
-All: 2 lag Wine &	-.293 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.318)} \\
-All: 2 lag other &	-.109 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.843)} \\
-All: 3 lag Coffee &	.025 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.315)} \\
-All: 3 lag Eau-de-vie &	.838 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.846)} \\
-All: 3 lag Sugar &	-1.189 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.082)} \\
-All: 3 lag Wine &	-.448 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.317)} \\
-All: 3 lag other &	-.794 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.842)} \\
-All: 4 lag Coffee &	.371 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.613)} \\
-All: 4 lag Eau-de-vie &	.377 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.644)} \\
-All: 4 lag Sugar &	.094 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.616)} \\
-All: 4 lag Wine &	.674 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.612)} \\
-All: 4 lag other &	1.175 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.606)$^{*}$} \\
-All: 5 lag Coffee &	-.354 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.675)} \\
-All: 5 lag Eau-de-vie &	-.491 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.769)} \\
-All: 5 lag Sugar &	-.465 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.676)} \\
-All: 5 lag Wine &	.006 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.767)} \\
-Const. &	-77.298 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (6.438)$^{***}$} \\
-Obs. &	2032 \\
-$ R^2$ &	.71 \\
-$ F$ statistic &	6.658 \\
-\hline\hline	
-\end{tabular*}%	
-
-
-\newpage
-\captionof{table}{War lag by product - all countries (war by war)}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lc}	
-	\multicolumn{1}{c}{Austrian2} \\
-\cline{2-2}	
-	\multicolumn{1}{c}{(2)} \\
-\hline	
-Austrian2: 1 lag Coffee &	-1.492 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.964)} \\
-Austrian2: 1 lag Eau-de-vie &	.219 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.639)} \\
-Austrian2: 1 lag Sugar &	.298 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.968)} \\
-Austrian2: 1 lag Wine &	-.563 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.172)} \\
-Austrian2: 1 lag other &	.014 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.840)} \\
-Austrian2: 2 lag Coffee &	.607 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.962)} \\
-Austrian2: 2 lag Eau-de-vie &	.108 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.637)} \\
-Austrian2: 2 lag Sugar &	.222 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.966)} \\
-Austrian2: 2 lag Wine &	-.174 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.170)} \\
-Austrian2: 2 lag other &	-.076 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.838)} \\
-Austrian2: 3 lag Coffee &	.348 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.960)} \\
-Austrian2: 3 lag Eau-de-vie &	.468 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.636)} \\
-Austrian2: 3 lag Sugar &	-1.311 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.964)} \\
-Austrian2: 3 lag Wine &	-1.395 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.168)} \\
-Austrian2: 3 lag other &	-.535 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.836)} \\
-Austrian2: 4 lag Coffee &	.747 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.758)} \\
-Austrian2: 4 lag Eau-de-vie &	.223 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.765)} \\
-Austrian2: 4 lag Sugar &	-.807 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.773)} \\
-Austrian2: 4 lag Wine &	-.194 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.758)} \\
-Austrian2: 4 lag other &	.697 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.752)} \\
-Austrian2: 5 lag Coffee &	-.429 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.956)} \\
-Austrian2: 5 lag Eau-de-vie &	-.673 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.633)} \\
-Austrian2: 5 lag Sugar &	-1.160 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.960)} \\
-Austrian2: 5 lag Wine &	1.434 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.165)} \\
-Const. &	-61.771 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (7.841)$^{***}$} \\
-Obs. &	2231 \\
-$ R^2$ &	.774 \\
-$ F$ statistic &	3.959 \\
-\hline\hline	
-\end{tabular*}%	
-
-
-\newpage
-\captionof{table}{War lag by product - all countries (war by war)}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lc}	
-	\multicolumn{1}{c}{Seven} \\
-\cline{2-2}	
-	\multicolumn{1}{c}{(2)} \\
-\hline	
-Seven: 1 lag Coffee &	-.495 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.820)} \\
-Seven: 1 lag Eau-de-vie &	.266 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.151)} \\
-Seven: 1 lag Sugar &	-.182 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.821)} \\
-Seven: 1 lag Wine &	-.160 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.149)} \\
-Seven: 2 lag Coffee &	-.601 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.819)} \\
-Seven: 2 lag Eau-de-vie &	.191 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.151)} \\
-Seven: 2 lag Sugar &	-.449 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.821)} \\
-Seven: 2 lag Wine &	.763 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.149)} \\
-Seven: 3 lag Coffee &	.069 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.819)} \\
-Seven: 3 lag Eau-de-vie &	.131 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.151)} \\
-Seven: 3 lag Sugar &	.686 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.820)} \\
-Seven: 3 lag Wine &	.596 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.149)} \\
-Seven: 4 lag Coffee &	-.488 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.735)} \\
-Seven: 4 lag Eau-de-vie &	-.925 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.820)} \\
-Seven: 4 lag Sugar &	.165 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.736)} \\
-Seven: 4 lag Wine &	-.122 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.735)} \\
-Seven: 5 lag Coffee &	-.272 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.734)} \\
-Seven: 5 lag Eau-de-vie &	-.705 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.737)} \\
-Seven: 5 lag Sugar &	-.077 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.736)} \\
-Seven: 5 lag Wine &	-.334 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.735)} \\
-Const. &	-61.771 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (7.841)$^{***}$} \\
-Obs. &	2231 \\
-$ R^2$ &	.774 \\
-$ F$ statistic &	3.959 \\
-\hline\hline	
-\end{tabular*}%	
-
-\newpage
-\caption{Prewar effects by product - all countries (all wars)}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lc}	
-	\multicolumn{1}{c}{All} \\
-\cline{2-2}	
-	\multicolumn{1}{c}{(1)} \\
-\hline	
-All: 1 pre Coffee &	.488 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.582)} \\
-All: 1 pre Eau-de-vie &	.134 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.587)} \\
-All: 1 pre Sugar &	.222 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.608)} \\
-All: 1 pre Wine &	-.067 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.609)} \\
-All: 1 pre other &	.355 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.574)} \\
-All: 2 pre Coffee &	.555 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.608)} \\
-All: 2 pre Eau-de-vie &	.023 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.587)} \\
-All: 2 pre Sugar &	.256 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.608)} \\
-All: 2 pre Wine &	.568 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.582)} \\
-All: 2 pre other &	.384 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.574)} \\
-All: 3 pre Coffee &	-.090 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.606)} \\
-All: 3 pre Eau-de-vie &	-.885 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.672)} \\
-All: 3 pre Sugar &	-.486 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.636)} \\
-All: 3 pre Wine &	-.324 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.712)} \\
-All: 3 pre other &	-.394 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.574)} \\
-All: 4 pre Coffee &	.740 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.609)} \\
-All: 4 pre Eau-de-vie &	.585 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.643)} \\
-All: 4 pre Sugar &	.355 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.609)} \\
-All: 4 pre Wine &	.397 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.611)} \\
-Const. &	-75.450 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (6.237)$^{***}$} \\
-Obs. &	2032 \\
-$ R^2$ &	.709 \\
-$ F$ statistic &	7.739 \\
-\hline\hline	
-\end{tabular*}%	
-
-\newpage
-\caption{Prewar effects by product - all countries (war by war)}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lc}	
-	\multicolumn{1}{c}{Seven} \\
-\cline{2-2}	
-	\multicolumn{1}{c}{(2)} \\
-\hline	
-Seven: 1 pre Coffee &	1.005 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.805)} \\
-Seven: 1 pre Eau-de-vie &	.820 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.812)} \\
-Seven: 1 pre Sugar &	.709 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.804)} \\
-Seven: 1 pre Wine &	.681 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.809)} \\
-Seven: 1 pre other &	.825 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.794)} \\
-Seven: 2 pre Coffee &	1.282 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.807)} \\
-Seven: 2 pre Eau-de-vie &	1.242 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.814)} \\
-Seven: 2 pre Sugar &	1.044 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.806)} \\
-Seven: 2 pre Wine &	1.610 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.811)$^{**}$} \\
-Seven: 2 pre other &	.873 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.795)} \\
-Seven: 3 pre Coffee &	-.045 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.895)} \\
-Seven: 3 pre Eau-de-vie &	-.549 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.245)} \\
-Seven: 3 pre Sugar &	-.737 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.893)} \\
-Seven: 3 pre Wine &	-.028 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (1.245)} \\
-Seven: 3 pre other &	-.971 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.796)} \\
-Seven: 4 pre Coffee &	1.399 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.812)$^{*}$} \\
-Seven: 4 pre Eau-de-vie &	1.531 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.819)$^{*}$} \\
-Seven: 4 pre Sugar &	1.158 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.810)} \\
-Seven: 4 pre Wine &	1.247 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.816)} \\
-Const. &	-82.928 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (8.570)$^{***}$} \\
-Obs. &	2032 \\
-$ R^2$ &	.752 \\
-$ F$ statistic &	5.707 \\
-\hline\hline	
-\end{tabular*}%	
-
-\newpage
-\caption{Prewar effects by products - all countries (war by war)}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lc}	
-	\multicolumn{1}{c}{American} \\
-\cline{2-2}	
-	\multicolumn{1}{c}{(2)} \\
-\hline	
-American: 1 pre Coffee &	.017 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.736)} \\
-American: 1 pre Eau-de-vie &	-.414 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.736)} \\
-American: 1 pre Sugar &	-.345 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.800)} \\
-American: 1 pre Wine &	-.697 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.799)} \\
-American: 1 pre other &	-.250 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.730)} \\
-American: 2 pre Coffee &	-.183 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.798)} \\
-American: 2 pre Eau-de-vie &	-.947 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.735)} \\
-American: 2 pre Sugar &	-.571 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.798)} \\
-American: 2 pre Wine &	-.224 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.730)} \\
-American: 2 pre other &	-.249 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.728)} \\
-American: 3 pre Coffee &	-.154 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.734)} \\
-American: 3 pre Eau-de-vie &	-1.103 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.734)} \\
-American: 3 pre Sugar &	-.324 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.797)} \\
-American: 3 pre Wine &	-.452 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.796)} \\
-American: 3 pre other &	-.149 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.727)} \\
-American: 4 pre Coffee &	.111 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.795)} \\
-American: 4 pre Eau-de-vie &	-.351 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.886)} \\
-American: 4 pre Sugar &	-.405 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.796)} \\
-American: 4 pre Wine &	-.307 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.795)} \\
-Const. &	-82.928 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (8.570)$^{***}$} \\
-Obs. &	2032 \\
-$ R^2$ &	.752 \\
-$ F$ statistic &	5.707 \\
-\hline\hline	
-\end{tabular*}%	
-
-\newpage
-\section{Appendix : Robustness check}
-\caption{PPML specification - Hamburg}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccc}				
-	& \multicolumn{1}{c}{All} &	\multicolumn{1}{c}{War~by~war} &	\multicolumn{1}{c}{PPML~All} &	\multicolumn{1}{c}{PPML~war~by~war} \\
-\cline{2-5}				
-	& \multicolumn{1}{c}{(1)\mbox{\ }} &	\multicolumn{1}{c}{(2)\mbox{\ }} &	\multicolumn{1}{c}{(3)\mbox{\ }} &	\multicolumn{1}{c}{(4)} \\
-\hline				
-All &	-.784 &	&	-.737 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.110)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.084)$^{***}$} &	\\
-Polish &	&	-.691 &	&	-.747 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.157)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.124)$^{***}$} \\
-Austrian1 &	&	-.081 &	&	-.136 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.124)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.104)} \\
-Austrian2 &	&	-.390 &	&	-.432 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.108)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.095)$^{***}$} \\
-Seven &	&	-1.137 &	&	-1.119 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.146)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.132)$^{***}$} \\
-American &	&	-.694 &	&	-.680 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.106)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.093)$^{***}$} \\
-Const. &	-17.574 &	-29.470 &	-20.607 &	-26.381 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (5.778)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (7.002)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (4.156)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (4.550)$^{***}$} \\
-Obs. &	51 &	51 &	51 &	51 \\
-$ R^2$ &	.748 &	.883 &	&	\\
-$ F$ statistic &	99.32 &	80.899 &	&	\\
-\hline\hline				
-\end{tabular*}\\~\\~\\		
-
-\caption{PPML specification - all countries}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccc}				
-	& \multicolumn{1}{c}{All} &	\multicolumn{1}{c}{War~by~War} &	\multicolumn{1}{c}{PPML} &	\multicolumn{1}{c}{PPML~war~by~war} \\
-\cline{2-5}				
-	& \multicolumn{1}{c}{(1)\mbox{\ }} &	\multicolumn{1}{c}{(2)\mbox{\ }} &	\multicolumn{1}{c}{(3)\mbox{\ }} &	\multicolumn{1}{c}{(4)} \\
-\hline				
-All &	-.366 &	&	-.466 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.074)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.0004)$^{***}$} &	\\
-Polish &	&	-.763 &	&	-.789 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.139)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.001)$^{***}$} \\
-Austrian1 &	&	-.337 &	&	-.232 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.162)$^{**}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.001)$^{***}$} \\
-Austrian2 &	&	-.396 &	&	-.430 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.143)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.0009)$^{***}$} \\
-Seven &	&	-.448 &	&	-.522 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.105)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.0006)$^{***}$} \\
-American &	&	-.068 &	&	-.331 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.135)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.0008)$^{***}$} \\
-Const. &	5.201 &	5.201 &	-2.427 &	-2.427 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (9.246)} &	\raisebox{.7ex}[0pt]{\scriptsize (9.004)} &	\raisebox{.7ex}[0pt]{\scriptsize (.044)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (.044)$^{***}$} \\
-Obs. &	580 &	580 &	580 &	580 \\
-$ R^2$ &	.656 &	.678 &	&	\\
-$ F$ statistic &	42.251 &	34.907 &	&	\\
-\hline\hline				
-\end{tabular*}%	
-
-\newpage
-\caption{PPML specification by product- Hamburg }
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccc}				
-	& \multicolumn{1}{c}{All} &	\multicolumn{1}{c}{War~by~war} &	\multicolumn{1}{c}{PPML} &	\multicolumn{1}{c}{PPML - war by war} \\
-\cline{2-5}				
-	& \multicolumn{1}{c}{(1)\mbox{\ }} &	\multicolumn{1}{c}{(2)\mbox{\ }} &	\multicolumn{1}{c}{(3)\mbox{\ }} &	\multicolumn{1}{c}{(4)} \\
-\hline				
-All: Coffee &	-2.112 &	&	-1.353 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.441)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.341)$^{***}$} &	\\
-All: Eau de vie &	.052 &	&	-.063 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.263)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.282)} &	\\
-All: Sugar &	-1.887 &	&	-.970 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.513)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.312)$^{***}$} &	\\
-All: Wine &	-.421 &	&	-.814 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.264)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.345)$^{**}$} &	\\
-Polish: Coffee &	&	-4.095 &	&	-4.866 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.819)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.426)$^{***}$} \\
-Polish: Eau de vie &	&	-.746 &	&	-1.109 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.487)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.350)$^{***}$} \\
-Polish: Sugar &	&	-1.566 &	&	-1.704 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.339)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.312)$^{***}$} \\
-Polish: Wine &	&	-2.032 &	&	-2.852 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.755)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.571)$^{***}$} \\
-Austrian1: Coffee &	&	-2.643 &	&	-2.725 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (1.250)$^{**}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.704)$^{***}$} \\
-Austrian1: Eau de vie &	&	-.518 &	&	-.925 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.410)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.287)$^{***}$} \\
-Austrian1: Sugar &	&	-.672 &	&	-.623 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.636)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.519)} \\
-Austrian1: Wine &	&	-1.550 &	&	-2.293 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.705)$^{**}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.545)$^{***}$} \\
-Austrian2: Coffee &	&	.165 &	&	-.012 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.795)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.479)} \\
-Austrian2: Eau de vie &	&	.130 &	&	.130 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.612)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.463)} \\
-Austrian2: Sugar &	&	.353 &	&	.216 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.299)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.304)} \\
-Austrian2: Wine &	&	-.304 &	&	-.925 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.583)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.443)$^{**}$} \\
-Seven: Coffee &	&	-2.924 &	&	-2.471 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.639)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.471)$^{***}$} \\
-Seven: Eau de vie &	&	.564 &	&	.322 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.290)$^{*}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.290)} \\
-Seven: Sugar &	&	-3.851 &	&	-3.015 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.835)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.389)$^{***}$} \\
-Seven: Wine &	&	-.262 &	&	-.724 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.307)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.279)$^{***}$} \\
-American: Coffee &	&	-1.507 &	&	-1.315 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.385)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.295)$^{***}$} \\
-American: Eau de vie &	&	-.277 &	&	-.545 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.275)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.295)$^{*}$} \\
-American: Sugar &	&	-.925 &	&	-.930 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.345)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.381)$^{**}$} \\
-American: Wine &	&	.064 &	&	-.063 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.277)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.276)} \\
-Const. &	19.751 &	24.546 &	24.826 &	29.860 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (9.093)$^{**}$} &	\raisebox{.7ex}[0pt]{\scriptsize (15.770)} &	\raisebox{.7ex}[0pt]{\scriptsize (10.173)$^{**}$} &	\raisebox{.7ex}[0pt]{\scriptsize (15.071)$^{**}$} \\
-Obs. &	241 &	241 &	241 &	241 \\
-$ R^2$ &	.546 &	.739 &	&	\\
-$ F$ statistic &	34.613 &	75.492 &	&	\\
-\hline\hline				
-\end{tabular*}
-
-
-
-\newpage
-\caption{PPML specification by product - all countries}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccc}				
-	& \multicolumn{1}{c}{All} &	\multicolumn{1}{c}{War~by~war} &	\multicolumn{1}{c}{PPML} &	\multicolumn{1}{c}{PPML war by war} \\
-\cline{2-5}				
-	& \multicolumn{1}{c}{(1)\mbox{\ }} &	\multicolumn{1}{c}{(2)\mbox{\ }} &	\multicolumn{1}{c}{(3)\mbox{\ }} &	\multicolumn{1}{c}{(4)} \\
-\hline				
-All: Coffee &	-.992 &	&	-.985 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.260)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.001)$^{***}$} &	\\
-All: Eau-de-vie &	.094 &	&	.307 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.271)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.002)$^{***}$} &	\\
-All: Sugar &	-.996 &	&	-.506 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.264)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.001)$^{***}$} &	\\
-All: Wine &	-.261 &	&	-.178 &	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.262)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.001)$^{***}$} &	\\
-Polish: Coffee &	&	-1.689 &	&	-1.475 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.529)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.007)$^{***}$} \\
-Polish: Eau-de-vie &	&	-.957 &	&	.702 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.462)$^{**}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.004)$^{***}$} \\
-Polish: Sugar &	&	-.957 &	&	-.723 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.476)$^{**}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.002)$^{***}$} \\
-Polish: Wine &	&	-1.572 &	&	-.233 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.471)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.002)$^{***}$} \\
-Austrian1: Coffee &	&	-1.229 &	&	-2.006 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.821)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.013)$^{***}$} \\
-Austrian1: Eau-de-vie &	&	.004 &	&	.620 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (1.263)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.009)$^{***}$} \\
-Austrian1: Sugar &	&	-.677 &	&	-.076 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.823)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.003)$^{***}$} \\
-Austrian1: Wine &	&	-1.291 &	&	-1.563 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.908)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.009)$^{***}$} \\
-Austrian2: Coffee &	&	-.186 &	&	.218 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.512)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.003)$^{***}$} \\
-Austrian2: Eau-de-vie &	&	-.813 &	&	.890 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.712)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.005)$^{***}$} \\
-Austrian2: Sugar &	&	.223 &	&	.837 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.511)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.002)$^{***}$} \\
-Austrian2: Wine &	&	-1.330 &	&	-.217 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.713)$^{*}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.003)$^{***}$} \\
-Seven: Coffee &	&	-1.194 &	&	-1.721 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.358)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.004)$^{***}$} \\
-Seven: Eau-de-vie &	&	.765 &	&	.444 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.366)$^{**}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.004)$^{***}$} \\
-Seven: Sugar &	&	-1.478 &	&	-1.358 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.374)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.003)$^{***}$} \\
-Seven: Wine &	&	.593 &	&	-.103 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.363)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.002)$^{***}$} \\
-American: Coffee &	&	-.990 &	&	-1.051 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.407)$^{**}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.002)$^{***}$} \\
-American: Eau-de-vie &	&	.074 &	&	-.036 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.438)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.005)$^{***}$} \\
-American: Sugar &	&	-1.322 &	&	-.848 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.422)$^{***}$} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.002)$^{***}$} \\
-American: Wine &	&	-.235 &	&	-.066 \\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.411)} &	&	\raisebox{.7ex}[0pt]{\scriptsize (.002)$^{***}$} \\
-Const. &	-75.420 &	-66.919 &	-146.067 &	-143.121 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (6.141)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (7.320)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (.101)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (.113)$^{***}$} \\
-Obs. &	2032 &	2032 &	2032 &	2032 \\
-$ R^2$ &	.703 &	.741 &	&	\\
-$ F$ statistic &	23.939 &	15.377 &	&	\\
-\hline\hline				
-\end{tabular*}%	
-
-\newpage
-\captionof{table}{Regression on disaggregate by product - Hamburg}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccccc}						
-	& \multicolumn{1}{c}{Dummies} &	\multicolumn{1}{c}{Lag} &	\multicolumn{1}{c}{Prewar} &	\multicolumn{1}{c}{Dummies2} &	\multicolumn{1}{c}{Lag2} &	\multicolumn{1}{c}{Prewar2} \\
-\cline{2-7}						
-	& \multicolumn{1}{c}{(1)\mbox{\ }} &	\multicolumn{1}{c}{(2)\mbox{\ }} &	\multicolumn{1}{c}{(3)\mbox{\ }} &	\multicolumn{1}{c}{(4)\mbox{\ }} &	\multicolumn{1}{c}{(5)\mbox{\ }} &	\multicolumn{1}{c}{(6)} \\
-\hline						
-Polish &	-1.153 &	-.945 &	-1.087 &	&	&	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.338)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (.481)$^{**}$} &	\raisebox{.7ex}[0pt]{\scriptsize (.391)$^{***}$} &	&	&	\\
-Austrian1 &	-.804 &	-.614 &	-.750 &	&	&	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.417)$^{*}$} &	\raisebox{.7ex}[0pt]{\scriptsize (.518)} &	\raisebox{.7ex}[0pt]{\scriptsize (.454)$^{*}$} &	&	&	\\
-Austrian2 &	.009 &	.178 &	.049 &	&	&	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.230)} &	\raisebox{.7ex}[0pt]{\scriptsize (.341)} &	\raisebox{.7ex}[0pt]{\scriptsize (.269)} &	&	&	\\
-Seven &	-1.212 &	-1.088 &	-1.203 &	&	&	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.293)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (.337)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (.309)$^{***}$} &	&	&	\\
-American &	-.569 &	-.515 &	-.609 &	&	&	\\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.193)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (.201)$^{**}$} &	\raisebox{.7ex}[0pt]{\scriptsize (.210)$^{***}$} &	&	&	\\
-All &	&	&	&	-.822 &	-.672 &	-.832 \\
-&	&	&	&	\raisebox{.7ex}[0pt]{\scriptsize (.157)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (.190)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (.170)$^{***}$} \\
-Austrian2: 1 year of lag &	&	.470 &	&	&	&	\\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.311)} &	&	&	&	\\
-Austrian2: 2 years of lag &	&	-.038 &	&	&	&	\\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.301)} &	&	&	&	\\
-Seven: 1 year of lag &	&	.393 &	&	&	&	\\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.302)} &	&	&	&	\\
-Seven: 2 years of lag&	&	.305 &	&	&	&	\\
-&	&	\raisebox{.7ex}[0pt]{\scriptsize (.178)$^{*}$} &	&	&	&	\\
-All: 1 year of lag &	&	&	&	&	.458 &	\\
-&	&	&	&	&	\raisebox{.7ex}[0pt]{\scriptsize (.203)$^{**}$} &	\\
-All: 2 years of lag &	&	&	&	&	.159 &	\\
-&	&	&	&	&	\raisebox{.7ex}[0pt]{\scriptsize (.168)} &	\\
-Seven: 1 year pre &	&	&	.252 &	&	&	\\
-&	&	&	\raisebox{.7ex}[0pt]{\scriptsize (.231)} &	&	&	\\
-Seven: 2 years pre &	&	&	.339 &	&	&	\\
-&	&	&	\raisebox{.7ex}[0pt]{\scriptsize (.271)} &	&	&	\\
-American: 1 year pre &	&	&	.066 &	&	&	\\
-&	&	&	\raisebox{.7ex}[0pt]{\scriptsize (.367)} &	&	&	\\
-American: 2 years pre &	&	&	-.239 &	&	&	\\
-&	&	&	\raisebox{.7ex}[0pt]{\scriptsize (.380)} &	&	&	\\
-All: 1 year pre &	&	&	&	&	&	.159 \\
-&	&	&	&	&	&	\raisebox{.7ex}[0pt]{\scriptsize (.214)} \\
-All: 2 years pre &	&	&	&	&	&	.049 \\
-&	&	&	&	&	&	\raisebox{.7ex}[0pt]{\scriptsize (.246)} \\
-Const. &	-24.055 &	-30.315 &	-28.280 &	-27.728 &	-32.409 &	-27.481 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (12.553)$^{*}$} &	\raisebox{.7ex}[0pt]{\scriptsize (18.787)} &	\raisebox{.7ex}[0pt]{\scriptsize (15.693)$^{*}$} &	\raisebox{.7ex}[0pt]{\scriptsize (8.407)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (9.090)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (8.526)$^{***}$} \\
-Obs. &	244 &	244 &	244 &	244 &	244 &	244 \\
-$ R^2$ &	.501 &	.513 &	.505 &	.457 &	.467 &	.459 \\
-$ F$ statistic &	28.826 &	16.09 &	16.26 &	58.167 &	33.743 &	35.05 \\
-\hline\hline						
-\end{tabular*}
-
-\newpage
-\caption{Regression with country-product time trends}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccc}				
-	& \multicolumn{1}{c}{Coffee} &	\multicolumn{1}{c}{Eau~de~vie} &	\multicolumn{1}{c}{Sugar} &	\multicolumn{1}{c}{Wine} \\
-\cline{2-5}				
-	& \multicolumn{1}{c}{(1)\mbox{\ }} &	\multicolumn{1}{c}{(2)\mbox{\ }} &	\multicolumn{1}{c}{(3)\mbox{\ }} &	\multicolumn{1}{c}{(4)} \\
-\hline				
-Polish &	-1.545 &	-.396 &	-.912 &	-.750 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.457)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (.363)} &	\raisebox{.7ex}[0pt]{\scriptsize (.425)$^{**}$} &	\raisebox{.7ex}[0pt]{\scriptsize (.501)} \\
-Austrian1 &	-1.158 &	-.108 &	-.606 &	-.329 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.523)$^{**}$} &	\raisebox{.7ex}[0pt]{\scriptsize (.370)} &	\raisebox{.7ex}[0pt]{\scriptsize (.538)} &	\raisebox{.7ex}[0pt]{\scriptsize (1.289)} \\
-Austrian2 &	-.107 &	-.525 &	.041 &	-.993 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.561)} &	\raisebox{.7ex}[0pt]{\scriptsize (.556)} &	\raisebox{.7ex}[0pt]{\scriptsize (.709)} &	\raisebox{.7ex}[0pt]{\scriptsize (.700)} \\
-Seven &	-1.507 &	.692 &	-1.965 &	.564 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.266)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (.225)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (.388)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (.259)$^{**}$} \\
-American &	-.870 &	-.014 &	-.949 &	-.461 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (.217)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (.348)} &	\raisebox{.7ex}[0pt]{\scriptsize (.224)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (.274)$^{*}$} \\
-Cons &	-163.829 &	-108.569 &	-67.862 &	-112.333 \\
-&	\raisebox{.7ex}[0pt]{\scriptsize (25.452)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (52.212)$^{**}$} &	\raisebox{.7ex}[0pt]{\scriptsize (26.651)$^{**}$} &	\raisebox{.7ex}[0pt]{\scriptsize (51.954)$^{**}$} \\
-Obs &	352 &	399 &	355 &	404 \\
-$R^2$ &	.851 &	.785 &	.803 &	.81 \\
-$F$ &	. &	63.1 &	. &	88.525 \\
-\hline\hline				
-\end{tabular*}%		
-
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{longtable}{l*{4}{c}}
+\caption{Regression table\label{tab1}}\\
+\toprule\endfirsthead\midrule\endhead\midrule\endfoot\endlastfoot
+                    &\multicolumn{1}{c}{All wars}&\multicolumn{1}{c}{All wars}&\multicolumn{1}{c}{War by war}&\multicolumn{1}{c}{War by war}\\
+\midrule
+1 lags All Coffee   &      -1.073\sym{*}  &      -0.797\sym{**} &                     &                     \\
+1 lags All Eau de vie&      -0.364         &      -0.475         &                     &                     \\
+1 lags All Sugar    &      -0.352         &      -0.315         &                     &                     \\
+1 lags All Wine     &      0.0888         &     -0.0247         &                     &                     \\
+2 lags All Coffee   &      -1.601\sym{***}&      -1.039\sym{***}&                     &                     \\
+2 lags All Eau de vie&      -0.205         &      -0.322         &                     &                     \\
+2 lags All Sugar    &      -0.987\sym{***}&      -0.890\sym{***}&                     &                     \\
+2 lags All Wine     &       0.349\sym{*}  &       0.233         &                     &                     \\
+3 lags All Coffee   &      -0.976\sym{*}  &      -0.452\sym{**} &                     &                     \\
+3 lags All Eau de vie&      -0.253         &      -0.376         &                     &                     \\
+3 lags All Sugar    &       0.388         &       0.401         &                     &                     \\
+3 lags All Wine     &       0.258         &       0.139         &                     &                     \\
+4 lags All Coffee   &      -0.917\sym{***}&      -0.742         &                     &                     \\
+4 lags All Eau de vie&      -0.580         &      -0.709         &                     &                     \\
+4 lags All Sugar    &      -0.371\sym{*}  &      -0.370\sym{**} &                     &                     \\
+4 lags All Wine     &       0.233         &       0.112         &                     &                     \\
+5 lags All Coffee   &      -1.062\sym{***}&      -0.918\sym{***}&                     &                     \\
+5 lags All Eau de vie&      -0.159         &      -0.294         &                     &                     \\
+5 lags All Sugar    &      -0.556\sym{**} &      -0.496\sym{***}&                     &                     \\
+5 lags All Wine     &       0.244         &       0.121         &                     &                     \\
+1 lags Austrian2 Coffee&                     &                     &      -1.971\sym{***}&      -2.268\sym{***}\\
+1 lags Austrian2 Eau de vie&                     &                     &      -0.631         &       1.507         \\
+1 lags Austrian2 Sugar&                     &                     &      -0.583\sym{***}&      -0.243         \\
+1 lags Austrian2 Wine&                     &                     &      -0.245         &      -0.196         \\
+1 lags Napoleaonic Eau de vie&                     &                     &       0.615         &       1.605         \\
+1 lags Napoleaonic Wine&                     &                     &       0.485         &       0.494         \\
+1 lags Seven Coffee &                     &                     &      -0.274\sym{*}  &      -0.249\sym{*}  \\
+1 lags Seven Sugar  &                     &                     &       0.105         &       0.115         \\
+1 lags Seven Wine   &                     &                     &      -0.312\sym{*}  &      -0.300\sym{**} \\
+2 lags Austrian2 Coffee&                     &                     &      -0.510\sym{**} &      -0.776\sym{***}\\
+2 lags Austrian2 Sugar&                     &                     &      -0.832\sym{***}&      -0.521         \\
+2 lags Austrian2 Wine&                     &                     &       0.705\sym{**} &       0.751\sym{**} \\
+2 lags Napoleaonic Coffee&                     &                     &      -7.129\sym{***}&      -8.274\sym{***}\\
+2 lags Napoleaonic Sugar&                     &                     &      -6.515\sym{***}&      -5.882\sym{***}\\
+2 lags Napoleaonic Wine&                     &                     &       0.284         &       0.295         \\
+2 lags Seven Coffee &                     &                     &      -0.784\sym{***}&      -0.749\sym{***}\\
+2 lags Seven Sugar  &                     &                     &      -0.545\sym{***}&      -0.550\sym{***}\\
+2 lags Seven Wine   &                     &                     &       0.472\sym{***}&       0.481\sym{***}\\
+3 lags Austrian2 Coffee&                     &                     &     -0.0413         &      -0.278         \\
+3 lags Austrian2 Eau de vie&                     &                     &      -0.352         &       1.521         \\
+3 lags Austrian2 Sugar&                     &                     &       0.281\sym{*}  &       0.563         \\
+3 lags Austrian2 Wine&                     &                     &      -0.523\sym{*}  &      -0.479\sym{*}  \\
+3 lags Napoleaonic Coffee&                     &                     &      -10.38\sym{***}&      -11.59\sym{***}\\
+3 lags Napoleaonic Eau de vie&                     &                     &       0.257         &       1.458         \\
+3 lags Napoleaonic Wine&                     &                     &     -0.0567         &     -0.0436         \\
+3 lags Seven Coffee &                     &                     &      -0.155         &      -0.110         \\
+3 lags Seven Eau de vie&                     &                     &     -0.0850         &       0.255         \\
+3 lags Seven Sugar  &                     &                     &       0.756\sym{***}&       0.739\sym{***}\\
+3 lags Seven Wine   &                     &                     &       0.891\sym{***}&       0.898\sym{***}\\
+4 lags Austrian2 Coffee&                     &                     &       0.133         &     -0.0762         \\
+4 lags Austrian2 Eau de vie&                     &                     &      -0.743\sym{*}  &       1.002         \\
+4 lags Austrian2 Sugar&                     &                     &      -0.241         &      0.0140         \\
+4 lags Austrian2 Wine&                     &                     &       0.408         &       0.448         \\
+4 lags Napoleaonic Eau de vie&                     &                     &       0.480         &       1.792         \\
+4 lags Napoleaonic Wine&                     &                     &      0.0871         &       0.102         \\
+4 lags Seven Coffee &                     &                     &      -0.892\sym{***}&      -0.839\sym{***}\\
+4 lags Seven Eau de vie&                     &                     &      -0.619\sym{***}&      -0.352         \\
+4 lags Seven Sugar  &                     &                     &      -0.161\sym{*}  &      -0.190\sym{*}  \\
+4 lags Seven Wine   &                     &                     &       0.509\sym{***}&       0.514\sym{***}\\
+5 lags Austrian2 Coffee&                     &                     &      -0.594\sym{***}&      -0.777\sym{***}\\
+5 lags Austrian2 Eau de vie&                     &                     &      -1.457\sym{***}&       0.164         \\
+5 lags Austrian2 Sugar&                     &                     &      -0.271\sym{*}  &     -0.0421         \\
+5 lags Austrian2 Wine&                     &                     &      -0.310         &      -0.272         \\
+5 lags Napoleaonic Eau de vie&                     &                     &       1.782         &       3.208         \\
+5 lags Napoleaonic Sugar&                     &                     &      -4.225\sym{***}&      -3.473\sym{***}\\
+5 lags Napoleaonic Wine&                     &                     &       0.663\sym{*}  &       0.680         \\
+5 lags Seven Coffee &                     &                     &      -0.678\sym{***}&      -0.618\sym{***}\\
+5 lags Seven Eau de vie&                     &                     &      -0.768\sym{***}&      -0.571         \\
+5 lags Seven Sugar  &                     &                     &      -0.311\sym{***}&      -0.351\sym{***}\\
+5 lags Seven Wine   &                     &                     &      0.0906         &      0.0947         \\
+Constant            &     -1449.8\sym{***}&     -5617.4\sym{***}&     -1941.3\sym{***}&       119.3         \\
+Product FE          &         Yes         &         Yes         &         Yes         &         Yes         \\
+Product time trend  &         Yes         &         Yes         &         Yes         &         Yes         \\
+Product quadratic trend&          No         &         Yes         &          No         &         Yes         \\
+Quadratic trend     &         Yes         &         Yes         &         Yes         &         Yes         \\
+\midrule
+Observations        &         347         &         347         &         347         &         347         \\
+Pseudo \(R^{2}\)    &       0.588         &       0.622         &       0.766         &                     \\
+\bottomrule
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{longtable}
 }
+
 
 
 

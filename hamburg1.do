@@ -79,7 +79,7 @@ label var _Ieach_`i' "`: label (each) `i'' "
 }
 
 
-esttab using "$thesis2/reg_table/hamburg1/dummies1/dummies1.tex",label order(year year2 _Iall_1) varlab( _Iall_1 "All wars" _cons "Constant") not pr2 nonumbers mtitles("All wars" "Quadratic" "War by war" "Quadratic") title(Regression table\label{tab1}) replace
+esttab using "$thesis2/reg_table/hamburg1/dummies1/dummies1.tex",label booktabs alignment(D{.}{.}{-1})order(year year2 _Iall_1) varlab( _Iall_1 "All wars" _cons "Constant") not pr2 nonumbers mtitles("All wars" "Quadratic" "War by war" "Quadratic") title(Regression table\label{tab1}) replace
  
 eststo clear
 ******* gen war lags
@@ -114,7 +114,7 @@ eststo: poisson value year year2 i.all i.all_lag, vce(robust)
 eststo: poisson value year i.each i.each_lag, vce(robust)
 eststo: poisson value year year2 i.each i.each_lag, vce(robust)
 
-esttab using "$thesis2/reg_table/hamburg1/lag1/lag1.tex",label noomitted drop(0.*) order(year year2 _Iall_1) varlab( _Iall_1 "All wars" _cons "Constant") not pr2 nonumbers mtitles("All wars" "Quadratic" "War by war" "Quadratic") title(Regression table\label{tab1}) replace
+esttab using "$thesis2/reg_table/hamburg1/lag1/lag1.tex",label noomitted drop(0.* year *.all *.each) indicate("Quadratic trend=year2") varlab( _cons "Constant") not pr2 nonumbers mtitles("All wars" "Quadratic" "War by war" "Quadratic") title(Regression table\label{tab1}) replace
  
 eststo clear
 
@@ -149,7 +149,7 @@ eststo: poisson value year year2 i.all i.all_pre, vce(robust)
 eststo: poisson value year i.each i.each_pre, vce(robust)
 eststo: poisson value year year2 i.each i.each_pre, vce(robust)
 
-esttab using "$thesis2/reg_table/hamburg1/pre1/pre1.tex",label noomitted drop(0.*) order(year year2 _Iall_1) varlab( _Iall_1 "All wars" _cons "Constant") not pr2 nonumbers mtitles("All wars" "Quadratic" "War by war" "Quadratic") title(Regression table\label{tab1}) replace
+esttab using "$thesis2/reg_table/hamburg1/pre1/pre1.tex",label noomitted indicate("Quadratic trend=year2") drop(0.* year *.all *.each) varlab( _cons "Constant") not pr2 nonumbers mtitles("All wars" "Quadratic" "War by war" "Quadratic") title(Regression table\label{tab1}) replace
  
 eststo clear
 

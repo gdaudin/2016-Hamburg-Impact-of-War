@@ -174,7 +174,7 @@ fillin year pays_regroupes direction classification_hamburg_large
 
 encode direction, gen(dir)
 encode pays, gen(pays)
-label define order 1 Coffee 2 Eau de vie 3 Sugar 4 Wine 5 Other
+label define order 1 Coffee 2 "Eau de vie" 3 Sugar 4 Wine 5 Other
 encode classification_hamburg_large, gen(class) label(order)
 gen lnvalue=ln(value)
 
@@ -259,7 +259,7 @@ foreach i of num 1767/1789{
 drop if sourcetype!="Objet Général" & year==`i'
 }
 
-drop if sourcetype!="Résumé" & year>1789
+drop if sourcetype!="Résumé" & year>1788
 
 collapse (sum) value, by(year pays_regroupes)
 

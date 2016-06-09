@@ -4,7 +4,7 @@ global thesis2 "/Users/Tirindelli/Google Drive/ETE/Thesis2"
 
 set more off
 
-use "$thesis2/database_dta/hamburg2"
+use "$thesis2/database_dta/hamburg2", clear
 
 drop if value==.
 drop pays_regroupes
@@ -86,25 +86,26 @@ gen year_class`i'=0
 replace year_class`i'=year if class==`i'
 }
 
+gen year2=(year)^(2)
+
 foreach i of num 1/5{
 gen year2_class`i'=0
-replace year2_class`i'=(year_class`i')^(2) if class==`i'
+replace year2_class`i'=year2*class if class==`i'
 }
 
-gen year2=(year)^(2)
 
 local macro 5.* 10.* 15.* 20.* 25.* 30.* 35.*
 
 ****reg all wars
-eststo: poisson value i.class year_class1-year_class5 i.all_class, vce(robust)
-eststo: poisson value i.class year_class1-year_class5 year2_class1-year2_class5 i.all_class, vce(robust)
+eststo: poisson value year year2 i.class year_class1-year_class5 i.all_class, vce(robust)
+eststo: poisson value year year2 i.class year_class1-year_class5 year2_class1 year2_class3 i.all_class, vce(robust)
 
 
 ****reg each war separately
-eststo: poisson value i.class year_class1-year_class5 i.each_class, vce(robust)
-eststo: poisson value i.class year_class1-year_class5 year2_class1-year2_class5 i.each_class, vce(robust)
+eststo: poisson value year year2 i.class year_class1-year_class5 i.each_class, vce(robust)
+eststo: poisson value year year2 i.class year_class1-year_class5 year2_class1 year2_class3 i.each_class, vce(robust)
 
-esttab using "$thesis2/reg_table/hamburg2/dummies1/dummies1.tex",label noomitted varlab( _cons "Cons") not indicate("Product FE= *.class" "Product time trend=*year_class*" "Quadratic trend= *year2_class*") drop(0.* `macro') pr2 nonumbers mtitles("All wars" "Quadratic" "War by war" "Qaudratic" "Quadratic") title(Regression table\label{tab1}) replace
+esttab using "$thesis2/reg_table/hamburg2/dummies1/dummies1.tex",label booktabs noomitted varlab( _cons "Cons") not indicate("Product FE= *.class" "Product time trend=*year_class*" "Quadratic trend= *year2" "Product quadratic trend= *year2_class*") drop(0.* year `macro') pr2 nonumbers mtitles("All wars" "All wars" "War by war" "War by war") title(Regression table\label{tab1}) replace
 eststo clear
 
 ****gen war lags
@@ -137,13 +138,14 @@ replace each_lag_class=0 if each_lag_class==.
 
 local macro1 5.each_lag_class 8.each_lag_class 13.each_lag_class 18.each_lag_class 23.each_lag_class 28.* 33.* 37.* 42.* 47.* 50.* 55.* 60.* 64.* 69.* 
 local macro2 5.* 10.* 15.* 20.* 25.*
-eststo: poisson value i.class year_class1-year_class5 i.all_class i.all_lag_class, vce(robust)
-*eststo: poisson value i.class year_class1-year_class5 year2_class1-year2_class5 i.all_class i.all_lag_class, vce(robust)
+eststo: poisson value i.class year year2 year_class1-year_class5 i.all_class i.all_lag_class, vce(robust)
+eststo: poisson value i.class year year2 year_class1-year_class5 year2_class1 year2_class3 i.all_class i.all_lag_class, vce(robust)
 
-eststo: poisson value i.class year_class1-year_class5 i.each_class i.each_lag_class, vce(robust)
-*eststo: poisson value i.class year_class1-year_class5 year2_class1-year2_class5 i.each_class i.each_lag_class, vce(robust)
+eststo: poisson value i.class year year2 year_class1-year_class5 i.each_class i.each_lag_class, vce(robust)
+*eststo: poisson value i.class year year2 year_class1-year_class5 year2_class1 year2_class3 i.each_class i.each_lag_class, vce(robust)
+eststo: glm value i.class year year2 year_class1-year_class5 year2_class1-year2_class5 i.each_class i.each_lag_class, vce(robust) family(poisson) link(log) irls
 
-esttab using "$thesis2/reg_table/hamburg2/lag1/lag1.tex",label longtable noomitted varlab( _cons "Cons") not indicate("Product FE= *.class" "Product time trend=*year_class*") drop(0.* `macro1' `macro2' *each_class* *all_class*) pr2 nonumbers mtitles("All wars" "War by war") title(Regression table\label{tab1}) replace
+esttab using "$thesis2/reg_table/hamburg2/lag1/lag1.tex",label booktabs longtable noomitted varlab( _cons "Constant") not indicate("Product FE= *.class" "Product time trend=*year_class*" "Product quadratic trend=*year2_class*" "Quadratic trend=year2" ) drop(0.* `macro1' `macro2' *each_class* *all_class* year) pr2 nonumbers mtitles("All wars" "All wars" "War by war" "War by war") title(Regression table\label{tab1}) replace
 
 eststo clear
 
@@ -169,7 +171,7 @@ gen each_war_pre=""
 foreach i of num 1/4{
 replace each_war_pre="`i' pre Seven" if year==(1756-`i')
 replace each_war_pre="`i' pre America" if year==(1778-`i')
-replace each_war_pre="`i' pre Revolutionary" if year==(1792-`i')
+*replace each_war_pre="`i' pre Revolutionary" if year==(1792-`i')
 }
 
 encode each_war_pre, gen(each_pre)
@@ -179,13 +181,14 @@ replace each_pre_class=0 if each_pre_class==.
 
 local macro 5.* 10.* 15.* 20.* 25.* 30.* 35.* 40.* 45.* 50.*
 
-eststo: poisson value i.class year_class1-year_class5 i.all_class i.all_pre_class, vce(robust)
-eststo: poisson value i.class year_class1-year_class5 year2_class1-year2_class5 i.all_class i.all_pre_class, vce(robust)
+eststo: poisson value i.class year year2 year_class1-year_class5 i.all_class i.all_pre_class, vce(robust)
+eststo: poisson value i.class year year2 year_class1-year_class5 year2_class1 year2_class3 i.all_class i.all_pre_class, vce(robust)
 
-eststo: poisson value i.class year_class1-year_class5 i.each_class i.each_pre_class, vce(robust)
-eststo: poisson value i.class year_class1-year_class5 year2_class1-year2_class5 i.each_class i.each_pre_class, vce(robust)
+eststo: poisson value i.class year year2 year_class1-year_class5 i.each_class i.each_pre_class, vce(robust)
 
-esttab using "$thesis2/reg_table/hamburg2/pre1/pre1.tex",label longtable noomitted varlab( _cons "Cons") not indicate("Product FE= *.class" "Product time trend=*year_class*" "Quadratic trend= *year2_class*") drop(0.* `macro' *each_class* *all_class*) pr2 nonumbers mtitles("All wars" "Quadratic" "War by war" "Quadratic") title(Regression table\label{tab1}) replace
+*eststo: glm value i.class year year2 year_class1-year_class5 year2_class1 year2_class3 i.each_class i.each_pre_class, vce(robust) family(poisson) link(log) irls
+
+esttab using "$thesis2/reg_table/hamburg2/pre1/pre1.tex",label booktabs longtable noomitted varlab( _cons "Constant") not indicate("Product FE= *.class" "Product time trend=*year_class*" "Product quadratic trend=*year2_class*" "Quadratic trend=year2" ) drop(0.* `macro' *each_class* *all_class* year) pr2 nonumbers mtitles("All wars" "War by war") title(Regression table\label{tab1}) replace
 
 eststo clear
 

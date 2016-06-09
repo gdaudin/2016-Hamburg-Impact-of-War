@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.11.8)  19 MAY 2016 13:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.11.8)  9 JUN 2016 00:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -305,6 +305,24 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 )
+(/usr/local/texlive/2015basic/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
+\LTleft=\skip46
+\LTright=\skip47
+\LTpre=\skip48
+\LTpost=\skip49
+\LTchunksize=\count99
+\LTcapwidth=\dimen112
+\LT@head=\box28
+\LT@firsthead=\box29
+\LT@foot=\box30
+\LT@lastfoot=\box31
+\LT@cols=\count100
+\LT@rows=\count101
+\c@LT@tables=\count102
+\c@LT@chunks=\count103
+\LT@p@ftn=\toks21
+)
 (/usr/local/texlive/2015basic/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 )
@@ -313,7 +331,7 @@ Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/local/texlive/2015basic/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks21
+\KV@toks@=\toks22
 )
 (/usr/local/texlive/2015basic/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
@@ -335,10 +353,10 @@ Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
 (/usr/local/texlive/2015basic/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
 Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 )
-\Gread@gobject=\count99
+\Gread@gobject=\count104
 ))
-\Gin@req@height=\dimen112
-\Gin@req@width=\dimen113
+\Gin@req@height=\dimen113
+\Gin@req@width=\dimen114
 )
 (/usr/local/texlive/2015basic/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2010/09/12 v5.6 Page Geometry
@@ -354,37 +372,37 @@ Package ifvtex Info: VTeX not detected.
 (/usr/local/texlive/2015basic/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
-\Gm@cnth=\count100
-\Gm@cntv=\count101
-\c@Gm@tempcnt=\count102
-\Gm@bindingoffset=\dimen114
-\Gm@wd@mp=\dimen115
-\Gm@odd@mp=\dimen116
-\Gm@even@mp=\dimen117
-\Gm@layoutwidth=\dimen118
-\Gm@layoutheight=\dimen119
-\Gm@layouthoffset=\dimen120
-\Gm@layoutvoffset=\dimen121
-\Gm@dimlist=\toks22
+\Gm@cnth=\count105
+\Gm@cntv=\count106
+\c@Gm@tempcnt=\count107
+\Gm@bindingoffset=\dimen115
+\Gm@wd@mp=\dimen116
+\Gm@odd@mp=\dimen117
+\Gm@even@mp=\dimen118
+\Gm@layoutwidth=\dimen119
+\Gm@layoutheight=\dimen120
+\Gm@layouthoffset=\dimen121
+\Gm@layoutvoffset=\dimen122
+\Gm@dimlist=\toks23
 )
 (/usr/local/texlive/2015basic/texmf-dist/tex/latex/tools/tabularx.sty
 Package: tabularx 2014/10/28 v2.10 `tabularx' package (DPC)
 
 (/usr/local/texlive/2015basic/texmf-dist/tex/latex/tools/array.sty
 Package: array 2014/10/28 v2.4c Tabular extension package (FMi)
-\col@sep=\dimen122
-\extrarowheight=\dimen123
-\NC@list=\toks23
-\extratabsurround=\skip46
-\backup@length=\skip47
+\col@sep=\dimen123
+\extrarowheight=\dimen124
+\NC@list=\toks24
+\extratabsurround=\skip50
+\backup@length=\skip51
 )
-\TX@col@width=\dimen124
-\TX@old@table=\dimen125
-\TX@old@col=\dimen126
-\TX@target=\dimen127
-\TX@delta=\dimen128
-\TX@cols=\count103
-\TX@ftn=\toks24
+\TX@col@width=\dimen125
+\TX@old@table=\dimen126
+\TX@old@col=\dimen127
+\TX@target=\dimen128
+\TX@delta=\dimen129
+\TX@cols=\count108
+\TX@ftn=\toks25
 )
 (/usr/local/texlive/2015basic/texmf-dist/tex/latex/ms/ragged2e.sty
 Package: ragged2e 2009/05/21 v2.1 ragged2e Package (MS)
@@ -392,40 +410,40 @@ Package: ragged2e 2009/05/21 v2.1 ragged2e Package (MS)
 (/usr/local/texlive/2015basic/texmf-dist/tex/latex/ms/everysel.sty
 Package: everysel 2011/10/28 v1.2 EverySelectfont Package (MS)
 )
-\CenteringLeftskip=\skip48
-\RaggedLeftLeftskip=\skip49
-\RaggedRightLeftskip=\skip50
-\CenteringRightskip=\skip51
-\RaggedLeftRightskip=\skip52
-\RaggedRightRightskip=\skip53
-\CenteringParfillskip=\skip54
-\RaggedLeftParfillskip=\skip55
-\RaggedRightParfillskip=\skip56
-\JustifyingParfillskip=\skip57
-\CenteringParindent=\skip58
-\RaggedLeftParindent=\skip59
-\RaggedRightParindent=\skip60
-\JustifyingParindent=\skip61
+\CenteringLeftskip=\skip52
+\RaggedLeftLeftskip=\skip53
+\RaggedRightLeftskip=\skip54
+\CenteringRightskip=\skip55
+\RaggedLeftRightskip=\skip56
+\RaggedRightRightskip=\skip57
+\CenteringParfillskip=\skip58
+\RaggedLeftParfillskip=\skip59
+\RaggedRightParfillskip=\skip60
+\JustifyingParfillskip=\skip61
+\CenteringParindent=\skip62
+\RaggedLeftParindent=\skip63
+\RaggedRightParindent=\skip64
+\JustifyingParindent=\skip65
 )
 (/usr/local/texlive/2015basic/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2005/04/14 v1.61803 publication quality tables
-\heavyrulewidth=\dimen129
-\lightrulewidth=\dimen130
-\cmidrulewidth=\dimen131
-\belowrulesep=\dimen132
-\belowbottomsep=\dimen133
-\aboverulesep=\dimen134
-\abovetopsep=\dimen135
-\cmidrulesep=\dimen136
-\cmidrulekern=\dimen137
-\defaultaddspace=\dimen138
-\@cmidla=\count104
-\@cmidlb=\count105
-\@aboverulesep=\dimen139
-\@belowrulesep=\dimen140
-\@thisruleclass=\count106
-\@lastruleclass=\count107
-\@thisrulewidth=\dimen141
+\heavyrulewidth=\dimen130
+\lightrulewidth=\dimen131
+\cmidrulewidth=\dimen132
+\belowrulesep=\dimen133
+\belowbottomsep=\dimen134
+\aboverulesep=\dimen135
+\abovetopsep=\dimen136
+\cmidrulesep=\dimen137
+\cmidrulekern=\dimen138
+\defaultaddspace=\dimen139
+\@cmidla=\count109
+\@cmidlb=\count110
+\@aboverulesep=\dimen140
+\@belowrulesep=\dimen141
+\@thisruleclass=\count111
+\@lastruleclass=\count112
+\@thisrulewidth=\dimen142
 )
 (/usr/local/texlive/2015basic/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
@@ -433,46 +451,47 @@ Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
 (/usr/local/texlive/2015basic/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 57.
-\captionmargin=\dimen142
-\captionmargin@=\dimen143
-\captionwidth=\dimen144
-\caption@tempdima=\dimen145
-\caption@indent=\dimen146
-\caption@parindent=\dimen147
-\caption@hangindent=\dimen148
+\captionmargin=\dimen143
+\captionmargin@=\dimen144
+\captionwidth=\dimen145
+\caption@tempdima=\dimen146
+\caption@indent=\dimen147
+\caption@parindent=\dimen148
+\caption@hangindent=\dimen149
 )
-\c@ContinuedFloat=\count108
-)
+\c@ContinuedFloat=\count113
+Package caption Info: longtable package is loaded.
+
+(/usr/local/texlive/2015basic/texmf-dist/tex/latex/caption/ltcaption.sty
+Package: ltcaption 2013/02/03 v1.3-62 longtable captions (AR)
+))
 (/usr/local/texlive/2015basic/texmf-dist/tex/latex/setspace/setspace.sty
 Package: setspace 2011/12/19 v6.7a set line spacing
+)
+(/usr/local/texlive/2015basic/texmf-dist/tex/latex/tools/dcolumn.sty
+Package: dcolumn 2014/10/28 v1.06 decimal alignment package (DPC)
 )
 (./thesis2.aux
 
 LaTeX Warning: Label `tab:title' multiply defined.
 
 
-LaTeX Warning: Label `tab:title' multiply defined.
+LaTeX Warning: Label `tab1' multiply defined.
 
 
-LaTeX Warning: Label `tab:title' multiply defined.
+LaTeX Warning: Label `tab1' multiply defined.
 
 
-LaTeX Warning: Label `tab:title' multiply defined.
+LaTeX Warning: Label `tab1' multiply defined.
 
 
-LaTeX Warning: Label `tab:title' multiply defined.
+LaTeX Warning: Label `tab1' multiply defined.
 
 
-LaTeX Warning: Label `tab:title' multiply defined.
+LaTeX Warning: Label `tab1' multiply defined.
 
 
-LaTeX Warning: Label `tab:title' multiply defined.
-
-
-LaTeX Warning: Label `tab:title' multiply defined.
-
-
-LaTeX Warning: Label `tab:title' multiply defined.
+LaTeX Warning: Label `tab1' multiply defined.
 
 
 LaTeX Warning: Label `' multiply defined.
@@ -543,31 +562,31 @@ LaTeX Warning: Label `' multiply defined.
 )
 \openout1 = `thesis2.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
  (/usr/local/texlive/2015basic/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count109
-\scratchdimen=\dimen149
-\scratchbox=\box28
-\nofMPsegments=\count110
-\nofMParguments=\count111
-\everyMPshowfont=\toks25
-\MPscratchCnt=\count112
-\MPscratchDim=\dimen150
-\MPnumerator=\count113
-\makeMPintoPDFobject=\count114
-\everyMPtoPDFconversion=\toks26
+\scratchcounter=\count114
+\scratchdimen=\dimen150
+\scratchbox=\box32
+\nofMPsegments=\count115
+\nofMParguments=\count116
+\everyMPshowfont=\toks26
+\MPscratchCnt=\count117
+\MPscratchDim=\dimen151
+\MPnumerator=\count118
+\makeMPintoPDFobject=\count119
+\everyMPtoPDFconversion=\toks27
 ) (/usr/local/texlive/2015basic/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -646,7 +665,7 @@ e
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 ABD: EverySelectfont initializing macros
-LaTeX Info: Redefining \selectfont on input line 13.
+LaTeX Info: Redefining \selectfont on input line 16.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
  [1
@@ -655,14 +674,14 @@ Package caption Info: End \AtBeginDocument code.
 ] [1] [1] [2] [3]
 (/usr/local/texlive/2015basic/texmf-dist/tex/latex/amsfonts/umsa.fd)
 (/usr/local/texlive/2015basic/texmf-dist/tex/latex/amsfonts/umsb.fd)
-Underfull \hbox (badness 10000) in paragraph at lines 86--87
+Underfull \hbox (badness 10000) in paragraph at lines 90--91
 
  []
 
 [4] [5]
 
 Package caption Warning: \captionsetup{type*=...} or \captionof
-(caption)                outside box or environment on input line 104.
+(caption)                outside box or environment on input line 108.
 See the caption package documentation for explanation.
 
 [6] <value_total_fr_hb_commonyears.png, id=38, 910.40125pt x 661.47125pt>
@@ -670,503 +689,358 @@ File: value_total_fr_hb_commonyears.png Graphic file (type png)
 
 <use value_total_fr_hb_commonyears.png>
 Package pdftex.def Info: value_total_fr_hb_commonyears.png used on input line 1
-31.
+35.
 (pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
 
 <value_total_fr_hb.png, id=40, 910.40125pt x 661.47125pt>
 File: value_total_fr_hb.png Graphic file (type png)
 
 <use value_total_fr_hb.png>
-Package pdftex.def Info: value_total_fr_hb.png used on input line 132.
+Package pdftex.def Info: value_total_fr_hb.png used on input line 136.
 (pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
 
-Overfull \hbox (1.64926pt too wide) in paragraph at lines 131--133
-[][] [] 
- []
-
-[7 <./value_total_fr_hb_commonyears.png> <./value_total_fr_hb.png>]
-<long_ratio.png, id=46, 910.40125pt x 661.47125pt>
-File: long_ratio.png Graphic file (type png)
- <use long_ratio.png>
-Package pdftex.def Info: long_ratio.png used on input line 140.
-(pdftex.def)             Requested size: 273.12248pt x 198.4429pt.
-
-[8 <./long_ratio.png>] <long_evolution.png, id=51, 910.40125pt x 661.47125pt>
-File: long_evolution.png Graphic file (type png)
-
-<use long_evolution.png>
-Package pdftex.def Info: long_evolution.png used on input line 151.
-(pdftex.def)             Requested size: 273.12248pt x 198.4429pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 156--157
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 156--157
-
- []
-
-<commonyears_sector.png, id=52, 910.40125pt x 661.47125pt>
-File: commonyears_sector.png Graphic file (type png)
-
-<use commonyears_sector.png>
-Package pdftex.def Info: commonyears_sector.png used on input line 158.
-(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
-
-<allyears_sector.png, id=53, 910.40125pt x 661.47125pt>
-File: allyears_sector.png Graphic file (type png)
-
-<use allyears_sector.png>
-Package pdftex.def Info: allyears_sector.png used on input line 159.
-(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
-
-Overfull \hbox (1.64926pt too wide) in paragraph at lines 158--160
-[][] [] 
- []
-
-[9 <./long_evolution.png> <./commonyears_sector.png> <./allyears_sector.png>]
-<exotic_food_long.png, id=60, 910.40125pt x 661.47125pt>
-File: exotic_food_long.png Graphic file (type png)
-
-<use exotic_food_long.png>
-Package pdftex.def Info: exotic_food_long.png used on input line 164.
-(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
-
-<exotic_food_share.png, id=61, 910.40125pt x 661.47125pt>
-File: exotic_food_share.png Graphic file (type png)
-
-<use exotic_food_share.png>
-Package pdftex.def Info: exotic_food_share.png used on input line 165.
-(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
-
-Overfull \hbox (1.64926pt too wide) in paragraph at lines 164--166
-[][] [] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 164--166
-
- []
-
-<bev_tobacco_long.png, id=62, 910.40125pt x 661.47125pt>
-File: bev_tobacco_long.png Graphic file (type png)
-
-<use bev_tobacco_long.png>
-Package pdftex.def Info: bev_tobacco_long.png used on input line 167.
-(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
-
-<bev_tobacco_share.png, id=63, 910.40125pt x 661.47125pt>
-File: bev_tobacco_share.png Graphic file (type png)
-
-<use bev_tobacco_share.png>
-Package pdftex.def Info: bev_tobacco_share.png used on input line 168.
-(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
-
-Overfull \hbox (1.64926pt too wide) in paragraph at lines 167--169
-[][] [] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 167--169
-
- []
-
-[10 <./exotic_food_long.png> <./exotic_food_share.png> <./bev_tobacco_long.png>
- <./bev_tobacco_share.png>]
-<raw_mat_long.png, id=72, 910.40125pt x 661.47125pt>
-File: raw_mat_long.png Graphic file (type png)
- <use raw_mat_long.png>
-Package pdftex.def Info: raw_mat_long.png used on input line 171.
-(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
-
-<rawmat_share.png, id=73, 910.40125pt x 661.47125pt>
-File: rawmat_share.png Graphic file (type png)
- <use rawmat_share.png>
-Package pdftex.def Info: rawmat_share.png used on input line 172.
-(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
-
-Overfull \hbox (1.64926pt too wide) in paragraph at lines 171--173
-[][] [] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 176--177
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 176--177
-
- []
-
-<coffee_long.png, id=74, 910.40125pt x 661.47125pt>
-File: coffee_long.png Graphic file (type png)
- <use coffee_long.png>
-Package pdftex.def Info: coffee_long.png used on input line 178.
-(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
-
-<coffee_share_long.png, id=75, 910.40125pt x 661.47125pt>
-File: coffee_share_long.png Graphic file (type png)
-
-<use coffee_share_long.png>
-Package pdftex.def Info: coffee_share_long.png used on input line 179.
-(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
-
-Overfull \hbox (1.64926pt too wide) in paragraph at lines 178--180
-[][] [] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 178--180
-
- []
-
-[11 <./raw_mat_long.png> <./rawmat_share.png> <./coffee_long.png> <./coffee_sha
-re_long.png>] <sugar_long.png, id=83, 910.40125pt x 661.47125pt>
-File: sugar_long.png Graphic file (type png)
-
-<use sugar_long.png>
-Package pdftex.def Info: sugar_long.png used on input line 182.
-(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
- <sugar_share_long.png, id=84, 910.40125pt x 661.47125pt>
-File: sugar_share_long.png Graphic file (type png)
-
-<use sugar_share_long.png>
-Package pdftex.def Info: sugar_share_long.png used on input line 183.
-(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
-
-Overfull \hbox (1.64926pt too wide) in paragraph at lines 182--184
-[][] [] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 182--184
-
- []
-
-<indigo_long.png, id=85, 910.40125pt x 661.47125pt>
-File: indigo_long.png Graphic file (type png)
- <use indigo_long.png>
-Package pdftex.def Info: indigo_long.png used on input line 185.
-(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
-
-<indigo_share_long.png, id=86, 910.40125pt x 661.47125pt>
-File: indigo_share_long.png Graphic file (type png)
-
-<use indigo_share_long.png>
-Package pdftex.def Info: indigo_share_long.png used on input line 186.
-(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
-
-Overfull \hbox (1.64926pt too wide) in paragraph at lines 185--187
-[][] [] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 185--187
-
- []
-
-<eaudevie_long.png, id=87, 910.40125pt x 661.47125pt>
-File: eaudevie_long.png Graphic file (type png)
- <use eaudevie_long.png>
-Package pdftex.def Info: eaudevie_long.png used on input line 188.
-(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
-
-<eaudevie_share_long.png, id=88, 910.40125pt x 661.47125pt>
-File: eaudevie_share_long.png Graphic file (type png)
-
-<use eaudevie_share_long.png>
-Package pdftex.def Info: eaudevie_share_long.png used on input line 189.
-(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
-
-Overfull \hbox (1.64926pt too wide) in paragraph at lines 188--190
-[][] [] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 188--190
-
- []
-
-[12 <./sugar_long.png> <./sugar_share_long.png> <./indigo_long.png> <./indigo_s
-hare_long.png> <./eaudevie_long.png> <./eaudevie_share_long.png>]
-<wine_long.png, id=98, 910.40125pt x 661.47125pt>
-File: wine_long.png Graphic file (type png)
- <use wine_long.png>
-Package pdftex.def Info: wine_long.png used on input line 191.
-(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
-
-<wine_share_long.png, id=99, 910.40125pt x 661.47125pt>
-File: wine_share_long.png Graphic file (type png)
-
-<use wine_share_long.png>
-Package pdftex.def Info: wine_share_long.png used on input line 192.
-(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
-
-Overfull \hbox (1.64926pt too wide) in paragraph at lines 191--194
+Overfull \hbox (1.64926pt too wide) in paragraph at lines 135--138
 [][] []
  []
 
-[13 <./wine_long.png> <./wine_share_long.png>]
-<benford_fr.png, id=107, 910.40125pt x 661.47125pt>
-File: benford_fr.png Graphic file (type png)
- <use benford_fr.png>
-Package pdftex.def Info: benford_fr.png used on input line 206.
+[7] <long_ratio.png, id=44, 910.40125pt x 661.47125pt>
+File: long_ratio.png Graphic file (type png)
+ <use long_ratio.png>
+Package pdftex.def Info: long_ratio.png used on input line 141.
+(pdftex.def)             Requested size: 273.12248pt x 198.4429pt.
+
+[8 <./value_total_fr_hb_commonyears.png> <./value_total_fr_hb.png> <./long_rati
+o.png>] <long_evolution.png, id=51, 910.40125pt x 661.47125pt>
+File: long_evolution.png Graphic file (type png)
+
+<use long_evolution.png>
+Package pdftex.def Info: long_evolution.png used on input line 152.
+(pdftex.def)             Requested size: 273.12248pt x 198.4429pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 157--158
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 157--158
+
+ []
+
+[9 <./long_evolution.png>]
+<commonyears_sector.png, id=56, 910.40125pt x 661.47125pt>
+File: commonyears_sector.png Graphic file (type png)
+
+<use commonyears_sector.png>
+Package pdftex.def Info: commonyears_sector.png used on input line 159.
 (pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
 
-<benford_hb.png, id=108, 910.40125pt x 661.47125pt>
-File: benford_hb.png Graphic file (type png)
- <use benford_hb.png>
-Package pdftex.def Info: benford_hb.png used on input line 207.
+<allyears_sector.png, id=57, 910.40125pt x 661.47125pt>
+File: allyears_sector.png Graphic file (type png)
+
+<use allyears_sector.png>
+Package pdftex.def Info: allyears_sector.png used on input line 160.
 (pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
 
-Overfull \hbox (1.64926pt too wide) in paragraph at lines 206--208
+Overfull \hbox (1.64926pt too wide) in paragraph at lines 159--161
 [][] [] 
  []
 
-<growth.png, id=109, 719.68875pt x 522.95375pt>
-File: growth.png Graphic file (type png)
- <use growth.png>
-Package pdftex.def Info: growth.png used on input line 213.
-(pdftex.def)             Requested size: 215.9083pt x 156.88733pt.
- [14 <./benford_fr.png> <./benford_hb.png> <./growth.png>] [15] [16]
-Underfull \hbox (badness 10000) in paragraph at lines 246--270
+<exotic_food_long.png, id=58, 910.40125pt x 661.47125pt>
+File: exotic_food_long.png Graphic file (type png)
+
+<use exotic_food_long.png>
+Package pdftex.def Info: exotic_food_long.png used on input line 165.
+(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
+
+<exotic_food_share.png, id=59, 910.40125pt x 661.47125pt>
+File: exotic_food_share.png Graphic file (type png)
+
+<use exotic_food_share.png>
+Package pdftex.def Info: exotic_food_share.png used on input line 166.
+(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
+
+Overfull \hbox (1.64926pt too wide) in paragraph at lines 165--167
+[][] [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 165--167
+
+ []
+
+<bev_tobacco_long.png, id=60, 910.40125pt x 661.47125pt>
+File: bev_tobacco_long.png Graphic file (type png)
+
+<use bev_tobacco_long.png>
+Package pdftex.def Info: bev_tobacco_long.png used on input line 168.
+(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
+
+<bev_tobacco_share.png, id=61, 910.40125pt x 661.47125pt>
+File: bev_tobacco_share.png Graphic file (type png)
+
+<use bev_tobacco_share.png>
+Package pdftex.def Info: bev_tobacco_share.png used on input line 169.
+(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
+
+Overfull \hbox (1.64926pt too wide) in paragraph at lines 168--170
+[][] [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 168--170
+
+ []
+
+[10 <./commonyears_sector.png> <./allyears_sector.png> <./exotic_food_long.png>
+ <./exotic_food_share.png>] [11 <./bev_tobacco_long.png> <./bev_tobacco_share.p
+ng>] <raw_mat_long.png, id=75, 910.40125pt x 661.47125pt>
+File: raw_mat_long.png Graphic file (type png)
+
+<use raw_mat_long.png>
+Package pdftex.def Info: raw_mat_long.png used on input line 172.
+(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
+ <rawmat_share.png, id=76, 910.40125pt x 661.47125pt>
+File: rawmat_share.png Graphic file (type png)
+
+<use rawmat_share.png>
+Package pdftex.def Info: rawmat_share.png used on input line 173.
+(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
+
+Overfull \hbox (1.64926pt too wide) in paragraph at lines 172--174
+[][] [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 177--178
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 246--270
+Underfull \hbox (badness 10000) in paragraph at lines 177--178
 
  []
 
-[17] [18] [19]
-*geometry* verbose mode - [ newgeometry ] result:
-* driver: pdftex
-* paper: a4paper
-* layout: <same size as paper>
-* layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: 
-* h-part:(L,W,R)=(57.81621pt, 481.87546pt, 57.81621pt)
-* v-part:(T,H,B)=(28.90755pt, 758.32309pt, 57.81621pt)
-* \paperwidth=597.50787pt
-* \paperheight=845.04684pt
-* \textwidth=481.87546pt
-* \textheight=758.32309pt
-* \oddsidemargin=-14.45378pt
-* \evensidemargin=-14.45378pt
-* \topmargin=-80.36244pt
-* \headheight=12.0pt
-* \headsep=25.0pt
-* \topskip=12.0pt
-* \footskip=30.0pt
-* \marginparwidth=35.0pt
-* \marginparsep=10.0pt
-* \columnsep=10.0pt
-* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
-* \hoffset=0.0pt
-* \voffset=0.0pt
-* \mag=1000
-* \@twocolumnfalse
-* \@twosidefalse
-* \@mparswitchfalse
-* \@reversemarginfalse
-* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+<coffee_long.png, id=77, 910.40125pt x 661.47125pt>
+File: coffee_long.png Graphic file (type png)
+ <use coffee_long.png>
+Package pdftex.def Info: coffee_long.png used on input line 179.
+(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
 
- [20
+<coffee_share_long.png, id=78, 910.40125pt x 661.47125pt>
+File: coffee_share_long.png Graphic file (type png)
 
-]
-*geometry* verbose mode - [ newgeometry ] result:
-* driver: pdftex
-* paper: a4paper
-* layout: <same size as paper>
-* layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: 
-* h-part:(L,W,R)=(43.36243pt, 510.78302pt, 43.36243pt)
-* v-part:(T,H,B)=(72.26999pt, 700.50687pt, 72.26999pt)
-* \paperwidth=597.50787pt
-* \paperheight=845.04684pt
-* \textwidth=510.78302pt
-* \textheight=700.50687pt
-* \oddsidemargin=-28.90756pt
-* \evensidemargin=-28.90756pt
-* \topmargin=-37.0pt
-* \headheight=12.0pt
-* \headsep=25.0pt
-* \topskip=12.0pt
-* \footskip=30.0pt
-* \marginparwidth=35.0pt
-* \marginparsep=10.0pt
-* \columnsep=10.0pt
-* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
-* \hoffset=0.0pt
-* \voffset=0.0pt
-* \mag=1000
-* \@twocolumnfalse
-* \@twosidefalse
-* \@mparswitchfalse
-* \@reversemarginfalse
-* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+<use coffee_share_long.png>
+Package pdftex.def Info: coffee_share_long.png used on input line 180.
+(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
 
- [21
-
-] [22] [23] [24]
-*geometry* verbose mode - [ newgeometry ] result:
-* driver: pdftex
-* paper: a4paper
-* layout: <same size as paper>
-* layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: 
-* h-part:(L,W,R)=(57.81621pt, 481.87546pt, 57.81621pt)
-* v-part:(T,H,B)=(28.90755pt, 772.77687pt, 43.36243pt)
-* \paperwidth=597.50787pt
-* \paperheight=845.04684pt
-* \textwidth=481.87546pt
-* \textheight=772.77687pt
-* \oddsidemargin=-14.45378pt
-* \evensidemargin=-14.45378pt
-* \topmargin=-80.36244pt
-* \headheight=12.0pt
-* \headsep=25.0pt
-* \topskip=12.0pt
-* \footskip=30.0pt
-* \marginparwidth=35.0pt
-* \marginparsep=10.0pt
-* \columnsep=10.0pt
-* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
-* \hoffset=0.0pt
-* \voffset=0.0pt
-* \mag=1000
-* \@twocolumnfalse
-* \@twosidefalse
-* \@mparswitchfalse
-* \@reversemarginfalse
-* (1in=72.27pt=25.4mm, 1cm=28.453pt)
-
- [25
-
-]
-*geometry* verbose mode - [ newgeometry ] result:
-* driver: pdftex
-* paper: a4paper
-* layout: <same size as paper>
-* layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: 
-* h-part:(L,W,R)=(43.36243pt, 510.78302pt, 43.36243pt)
-* v-part:(T,H,B)=(72.26999pt, 700.50687pt, 72.26999pt)
-* \paperwidth=597.50787pt
-* \paperheight=845.04684pt
-* \textwidth=510.78302pt
-* \textheight=700.50687pt
-* \oddsidemargin=-28.90756pt
-* \evensidemargin=-28.90756pt
-* \topmargin=-37.0pt
-* \headheight=12.0pt
-* \headsep=25.0pt
-* \topskip=12.0pt
-* \footskip=30.0pt
-* \marginparwidth=35.0pt
-* \marginparsep=10.0pt
-* \columnsep=10.0pt
-* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
-* \hoffset=0.0pt
-* \voffset=0.0pt
-* \mag=1000
-* \@twocolumnfalse
-* \@twosidefalse
-* \@mparswitchfalse
-* \@reversemarginfalse
-* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+Overfull \hbox (1.64926pt too wide) in paragraph at lines 179--181
+[][] [] 
+ []
 
 
-Overfull \hbox (2.6994pt too wide) detected at line 472
+Underfull \hbox (badness 10000) in paragraph at lines 179--181
+
+ []
+
+[12 <./raw_mat_long.png> <./rawmat_share.png> <./coffee_long.png> <./coffee_sha
+re_long.png>] <sugar_long.png, id=86, 910.40125pt x 661.47125pt>
+File: sugar_long.png Graphic file (type png)
+
+<use sugar_long.png>
+Package pdftex.def Info: sugar_long.png used on input line 183.
+(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
+ <sugar_share_long.png, id=87, 910.40125pt x 661.47125pt>
+File: sugar_share_long.png Graphic file (type png)
+
+<use sugar_share_long.png>
+Package pdftex.def Info: sugar_share_long.png used on input line 184.
+(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
+
+Overfull \hbox (1.64926pt too wide) in paragraph at lines 183--185
+[][] [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 183--185
+
+ []
+
+<indigo_long.png, id=88, 910.40125pt x 661.47125pt>
+File: indigo_long.png Graphic file (type png)
+ <use indigo_long.png>
+Package pdftex.def Info: indigo_long.png used on input line 186.
+(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
+
+<indigo_share_long.png, id=89, 910.40125pt x 661.47125pt>
+File: indigo_share_long.png Graphic file (type png)
+
+<use indigo_share_long.png>
+Package pdftex.def Info: indigo_share_long.png used on input line 187.
+(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
+
+Overfull \hbox (1.64926pt too wide) in paragraph at lines 186--188
+[][] [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 186--188
+
+ []
+
+<eaudevie_long.png, id=90, 910.40125pt x 661.47125pt>
+File: eaudevie_long.png Graphic file (type png)
+ <use eaudevie_long.png>
+Package pdftex.def Info: eaudevie_long.png used on input line 189.
+(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
+
+<eaudevie_share_long.png, id=91, 910.40125pt x 661.47125pt>
+File: eaudevie_share_long.png Graphic file (type png)
+
+<use eaudevie_share_long.png>
+Package pdftex.def Info: eaudevie_share_long.png used on input line 190.
+(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
+
+Overfull \hbox (1.64926pt too wide) in paragraph at lines 189--191
+[][] [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 189--191
+
+ []
+
+[13 <./sugar_long.png> <./sugar_share_long.png> <./indigo_long.png> <./indigo_s
+hare_long.png> <./eaudevie_long.png> <./eaudevie_share_long.png>]
+<wine_long.png, id=101, 910.40125pt x 661.47125pt>
+File: wine_long.png Graphic file (type png)
+ <use wine_long.png>
+Package pdftex.def Info: wine_long.png used on input line 192.
+(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
+
+<wine_share_long.png, id=102, 910.40125pt x 661.47125pt>
+File: wine_share_long.png Graphic file (type png)
+
+<use wine_share_long.png>
+Package pdftex.def Info: wine_share_long.png used on input line 193.
+(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
+
+Overfull \hbox (1.64926pt too wide) in paragraph at lines 192--195
+[][] []
+ []
+
+[14 <./wine_long.png> <./wine_share_long.png>]
+<benford_fr.png, id=110, 910.40125pt x 661.47125pt>
+File: benford_fr.png Graphic file (type png)
+ <use benford_fr.png>
+Package pdftex.def Info: benford_fr.png used on input line 207.
+(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
+
+<benford_hb.png, id=111, 910.40125pt x 661.47125pt>
+File: benford_hb.png Graphic file (type png)
+ <use benford_hb.png>
+Package pdftex.def Info: benford_hb.png used on input line 208.
+(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
+
+Overfull \hbox (1.64926pt too wide) in paragraph at lines 207--209
+[][] [] 
+ []
+
+<growth_rate.png, id=112, 910.40125pt x 661.47125pt>
+File: growth_rate.png Graphic file (type png)
+ <use growth_rate.png>
+Package pdftex.def Info: growth_rate.png used on input line 214.
+(pdftex.def)             Requested size: 273.12248pt x 198.4429pt.
+
+[15 <./benford_fr.png> <./benford_hb.png> <./growth_rate.png>] [16] [17]
+[18]
+Underfull \hbox (badness 10000) in paragraph at lines 289--292
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 289--292
+
+ []
+
+[19] <coffee_qfit.png, id=136, 910.40125pt x 661.47125pt>
+File: coffee_qfit.png Graphic file (type png)
+
+<use coffee_qfit.png>
+Package pdftex.def Info: coffee_qfit.png used on input line 293.
+(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
+ <sugar_qfit.png, id=137, 910.40125pt x 661.47125pt>
+File: sugar_qfit.png Graphic file (type png)
+
+<use sugar_qfit.png>
+Package pdftex.def Info: sugar_qfit.png used on input line 294.
+(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
+ <wine_lfit.png, id=138, 910.40125pt x 661.47125pt>
+File: wine_lfit.png Graphic file (type png)
+
+<use wine_lfit.png>
+Package pdftex.def Info: wine_lfit.png used on input line 295.
+(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
+ <eau_lfit.png, id=139, 910.40125pt x 661.47125pt>
+File: eau_lfit.png Graphic file (type png)
+
+<use eau_lfit.png>
+Package pdftex.def Info: eau_lfit.png used on input line 296.
+(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
+
+Overfull \hbox (1.64926pt too wide) in paragraph at lines 293--351
+[][] []
+ []
+
+
+Overfull \hbox (1.64926pt too wide) in paragraph at lines 293--351
+[] [] 
+ []
+
+[20 <./coffee_qfit.png> <./sugar_qfit.png> <./wine_lfit.png> <./eau_lfit.png>]
+[21]
+Underfull \hbox (badness 10000) in paragraph at lines 354--362
+
+ []
+
+[22] [23] [24] [25]
+Overfull \hbox (2.6994pt too wide) detected at line 498
  []$[] \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 ^^L[]product[]adversary \OT1/cmr/m/n/
 12 + \OML/cmm/m/it/12 ^^L[]product[]neutral \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 
 ^^L[]product[]adversary[]lag \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 ^^L[]neutral[]l
 ag \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 ^^L[]allies[]lag$ []  
  []
 
-[26
-
-] [27] [28] [29] [30] [31] [32] [33] [34] [35] [36] [37] [38] [39]
-*geometry* verbose mode - [ newgeometry ] result:
-* driver: pdftex
-* paper: a4paper
-* layout: <same size as paper>
-* layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: 
-* h-part:(L,W,R)=(57.81621pt, 481.87546pt, 57.81621pt)
-* v-part:(T,H,B)=(28.90755pt, 772.77687pt, 43.36243pt)
-* \paperwidth=597.50787pt
-* \paperheight=845.04684pt
-* \textwidth=481.87546pt
-* \textheight=772.77687pt
-* \oddsidemargin=-14.45378pt
-* \evensidemargin=-14.45378pt
-* \topmargin=-80.36244pt
-* \headheight=12.0pt
-* \headsep=25.0pt
-* \topskip=12.0pt
-* \footskip=30.0pt
-* \marginparwidth=35.0pt
-* \marginparsep=10.0pt
-* \columnsep=10.0pt
-* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
-* \hoffset=0.0pt
-* \voffset=0.0pt
-* \mag=1000
-* \@twocolumnfalse
-* \@twosidefalse
-* \@mparswitchfalse
-* \@reversemarginfalse
-* (1in=72.27pt=25.4mm, 1cm=28.453pt)
-
- [40
-
-]
-[41] [42] [43] [44] [45]
-Underfull \hbox (badness 10000) in paragraph at lines 1323--1347
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1323--1347
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1323--1347
-
- []
-
-[46] [47] [48] [49] [50] [51] [52] [53] (./thesis2.aux)
+[26] [27] [28] [29] [30] [31] [32] [33] [34] [35] [36] [37] (./thesis2.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4489 strings out of 494501
- 66844 string characters out of 6167030
- 138144 words of memory out of 5000000
- 7666 multiletter control sequences out of 15000+600000
- 10795 words of font info for 41 fonts, out of 8000000 for 9000
+ 4652 strings out of 494501
+ 69227 string characters out of 6167030
+ 158618 words of memory out of 5000000
+ 7816 multiletter control sequences out of 15000+600000
+ 11849 words of font info for 46 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 38i,10n,38p,4333b,306s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,16n,44p,4333b,300s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx1
 2.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mex10.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmmi12.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmmi8.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmr12.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr17.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmti12.pfb>
-Output written on thesis2.pdf (56 pages, 1699694 bytes).
+cm/cmmi10.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmmi12.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmmi8.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmr12.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015basic/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015basic/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2015basic/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on thesis2.pdf (40 pages, 2029159 bytes).
 PDF statistics:
- 277 PDF objects out of 1000 (max. 8388607)
- 157 compressed objects within 2 object streams
+ 246 PDF objects out of 1000 (max. 8388607)
+ 131 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 126 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 146 words of extra memory for PDF output out of 10000 (max. 10000000)
 
