@@ -68,7 +68,7 @@ foreach i of num 1803/1814{
 replace war_all="All" if year==`i'
 }
 
-label define order_war  1 Polish  2 Austrian1  3 Austrian2  4 Seven  5 American  6 Napoleonic 7 Revolutionary
+label define order_war  1 Polish  2 Austrian1  3 Austrian2  4 Seven  5 American  6 Revolutionary 7 NapoleonicRevolutionary
 
 encode war_each, gen(each) label(order_war)
 egen each_class=group(each class), label
@@ -93,20 +93,33 @@ gen year2_class`i'=0
 replace year2_class`i'=year2*class if class==`i'
 }
 
+gen c1=(year<1745 & class==1)
+gen c2=(year>1744 & year<1790 & class==1)
+gen c3=(year>1789 & class==1)
+
+gen s1=(year<1745 & class==3)
+gen s2=(year>1744 & year<1790 & class==3)
+gen s3=(year>1789 & class==3)
+
+foreach i of num 1/3{
+gen year_class1_c`i'=year_class1*c`i'
+gen year_class3_s`i'=year_class3*s`i'
+}
 
 local macro 5.* 10.* 15.* 20.* 25.* 30.* 35.*
 
 ****reg all wars
-eststo: poisson value year year2 i.class year_class1-year_class5 i.all_class, vce(robust)
-eststo: poisson value year year2 i.class year_class1-year_class5 year2_class1 year2_class3 i.all_class, vce(robust)
-
+eststo: poisson value year year2 i.class year_class1-year_class4 i.all_class, vce(robust)
+eststo: poisson value year year2 i.class year_class1-year_class4 year2_class1 year2_class3 i.all_class, vce(robust)
 
 ****reg each war separately
-eststo: poisson value year year2 i.class year_class1-year_class5 i.each_class, vce(robust)
-eststo: poisson value year year2 i.class year_class1-year_class5 year2_class1 year2_class3 i.each_class, vce(robust)
+eststo: poisson value year year2 i.class year_class1-year_class4 i.each_class, vce(robust)
+eststo: poisson value year year2 i.class year_class1-year_class4 year2_class1 year2_class3 i.each_class, vce(robust)
 
 esttab using "$thesis2/reg_table/hamburg2/dummies1/dummies1.tex",label booktabs noomitted varlab( _cons "Cons") not indicate("Product FE= *.class" "Product time trend=*year_class*" "Quadratic trend= *year2" "Product quadratic trend= *year2_class*") drop(0.* year `macro') pr2 nonumbers mtitles("All wars" "All wars" "War by war" "War by war") title(Regression table\label{tab1}) replace
 eststo clear
+
+poisson value class2 class4 year_class2 year_class4 year_class5 d1 year_class1_d1 d2 year_class1_d2 d3 year_class1_d3 s1 year_class3_s1 s2 year_class3_s2 s3 year_class3_s3 i.each_class, vce(robust) 
 
 ****gen war lags
 gen all_war_lag=""

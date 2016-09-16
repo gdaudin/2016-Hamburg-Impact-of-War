@@ -2,7 +2,7 @@ global thesis2 "/Users/Tirindelli/Google Drive/ETE/Thesis2"
 
 set more off
 
-use "$thesis2/database_dta/bdd_courante1", clear
+use "$thesis2/database_dta/bdd_courante2", clear
 
 drop if year<1733
 drop if pays_regroupes=="France"
@@ -160,31 +160,31 @@ replace all_war_status="Adversary" if pays_regroupes=="Italie" & year==`i'
 
 replace each_war_status="Revolutionary neutral" if pays_regroupes=="Levant" & year==`i'
 replace each_war_status="Revolutionary neutral" if pays_regroupes=="Nord" & year==`i'
-replace each_war_status="Revolutionary neutral" if pays_regroupes=="Suisse" & year==`i'
 replace each_war_status="Revolutionary neutral" if pays_regroupes=="Allemagne et Pologne (par terre)" & year==`i'
-replace each_war_status="Revolutionary neutral" if pays_regroupes=="Hollande" & year==`i'
 
 replace all_war_status="Neutral" if pays_regroupes=="Levant" & year==`i'
 replace all_war_status="Neutral" if pays_regroupes=="Nord" & year==`i'
-replace all_war_status="Neutral" if pays_regroupes=="Suisse" & year==`i'
-replace all_war_status="Neutral" if pays_regroupes=="Hollande" & year==`i'
 replace all_war_status="Neutral" if pays_regroupes=="Allemagne et Pologne (par terre)" & year==`i'
 }
 
 
-
 foreach i of num 1803/1814{
 replace each_war_status="Napoleonic adversary" if pays_regroupes=="Angleterre" & year==`i'
-replace each_war_status="Napoleonic adversary" if pays_regroupes=="Italie" & year==`i'
+*replace each_war_status="Napoleonic adversary" if pays_regroupes=="Italie" & year==`i'
 
 replace all_war_status="Adversary" if pays_regroupes=="Angleterre" & year==`i'
-replace all_war_status="Adversary" if pays_regroupes=="Italie" & year==`i'
+*replace all_war_status="Adversary" if pays_regroupes=="Italie" & year==`i'
 }
 
 foreach i in 1805 1809{
 replace each_war_status="Napoleonic adversary" if pays_regroupes=="Flandre et autres états de l'Empereur" & year==`i'
 replace all_war_status="Adversary" if pays_regroupes=="Flandre et autres états de l'Empereur" & year==`i'
 }
+
+foreach i in 1806 1807{
+austria is neutral
+}
+
 foreach i of num 1813/1815{
 replace each_war_status="Napoleonic adversary" if pays_regroupes=="Flandre et autres états de l'Empereur" & year==`i'
 replace all_war_status="Adversary" if pays_regroupes=="Flandre et autres états de l'Empereur" & year==`i'
@@ -199,9 +199,10 @@ replace each_war_status="Napoleonic adversary" if pays_regroupes=="Portugal" & y
 replace all_war_status="Adversary" if pays_regroupes=="Portugal" & year==`i'
 }
 
-replace each_war_status="Napoleonic neutral" if pays_regroupes=="Portugal" & year==1808
-replace all_war_status="Adversary" if pays_regroupes=="Portugal" & year==1808
+*replace each_war_status="Napoleonic neutral" if pays_regroupes=="Portugal" & year==1808
+*replace all_war_status="Adversary" if pays_regroupes=="Portugal" & year==1808
 
+*****1806-1812 germany is allied
 foreach i of num 1806/1807{
 replace each_war_status="Napoleonic adversary" if pays_regroupes=="Allemagne et Pologne (par terre)" & year==`i'
 replace all_war_status="Adversary" if pays_regroupes=="Allemagne et Pologne (par terre)" & year==`i'
@@ -219,18 +220,26 @@ replace all_war_status="Adversary" if pays_regroupes=="Espagne" & year==`i'
 foreach i of num 1803/1815{
 replace each_war_status="Napoleonic neutral" if pays_regroupes=="Levant" & year==`i'
 replace each_war_status="Napoleonic neutral" if pays_regroupes=="Nord" & year==`i'
-replace each_war_status="Napoleonic neutral" if pays_regroupes=="Suisse" & year==`i'
-replace each_war_status="Napoleonic neutral" if pays_regroupes=="Hollande" & year==`i'
+*replace each_war_status="Napoleonic neutral" if pays_regroupes=="Suisse" & year==`i'
+*replace each_war_status="Napoleonic neutral" if pays_regroupes=="Hollande" & year==`i'
 replace each_war_status="Napoleonic neutral" if pays_regroupes=="États-Unis d'Amérique" & year==`i'
 
 replace all_war_status="Neutral" if pays_regroupes=="Levant" & year==`i'
 replace all_war_status="Neutral" if pays_regroupes=="Nord" & year==`i'
-replace all_war_status="Neutral" if pays_regroupes=="Suisse" & year==`i'
-replace all_war_status="Neutral" if pays_regroupes=="Hollande" & year==`i'
+*replace all_war_status="Neutral" if pays_regroupes=="Suisse" & year==`i'
+*replace all_war_status="Neutral" if pays_regroupes=="Hollande" & year==`i'
 replace all_war_status="Neutral" if pays_regroupes=="États-Unis d'Amérique" & year==`i'
 }
 
-label define order_war  1 "Polish adversary"  2 "Austrian1 adversary"  3 "Austrian2 adversary" 4 "Seven adversary" 5 "American adversary"  6 "Napoleonic adversary" 7 "Revolutionary adversary" 8 "Polish neutral"  9 "Austrian1 neutral"  10 "Austrian2 neutral" 11 "Seven neutral" 12 "American neutral"  13 "Napoleonic neutral" 14 "Revolutionary neutral"
+replace each_war_status="Napoleonic advversary" if pays_regroupes=="Suisse" & year==1815
+replace each_war_status="Napoleonic advversary" if pays_regroupes=="Hollande" & year==1815
+
+replace all_war_status="Advversary" if pays_regroupes=="Suisse" & year==1815
+replace all_war_status="Advversary" if pays_regroupes=="Hollande" & year==1815
+
+
+
+label define order_war  1 "Polish adversary"  2 "Austrian1 adversary"  3 "Austrian2 adversary" 4 "Seven adversary" 5 "American adversary"  6 "Revolutionary adversary" 7 "Napoleonic adversary" 8 "Polish neutral"  9 "Austrian1 neutral"  10 "Austrian2 neutral" 11 "Seven neutral" 12 "American neutral"  13 "Revolutionary neutral" 14 "Napoleonic neutral"
 
 encode each_war_status, gen(each_status) label(order_war)
 tab each_war_status, gen(each_status)
