@@ -78,20 +78,26 @@ gen g3=(group==3)
 gen year2=g2*year
 gen year3=g3*year
 
+twoway (connected value year)
+graph export hamburg_trend.png, as(png) replace
+
 eststo: xi: poisson value year i.all, vce(robust)
 eststo: xi: poisson value year g2 year2 g3 year3 i.all, vce(robust)
 
 eststo: xi: poisson value year i.each, vce(robust)
 eststo: xi: poisson value year g2 year2 g3 year3 i.each, vce(robust)
 
+esttab
+
 foreach i of num 1/7{
 label var _Ieach_`i' "`: label (each) `i'' "
 }
 
 
-esttab using "$thesis2/reg_table/hamburg1/dummies1/dummies1.tex",label booktabs alignment(D{.}{.}{-1})order(year year2 _Iall_1) ///
-varlab( _Iall_1 "All wars" _cons "Constant") not pr2 nonumbers mtitles("All wars" "All wars" "War by war" "War by war") ///
-indicate("Chow test=year*" "Chow test Intercept=g*") title(Regression table\label{tab1}) replace
+esttab using "$thesis2/reg_table/hamburg1/dummies1/dummies1.tex",label booktabs alignment(D{.}{.}{-1}) ///
+	order(year year2 _Iall_1) varlab( _Iall_1 "All wars" _cons "Constant") not pr2 nonumbers ///
+	mtitles("All wars" "All wars" "War by war" "War by war") indicate("Chow test=year*" "Chow test Intercept=g*") ///
+	title(Regression table\label{tab1}) replace
  
 eststo clear
 ******* gen war lags
@@ -126,9 +132,11 @@ eststo: poisson value year g2 year2 g3 year3 i.all i.all_lag, vce(robust)
 eststo: poisson value year i.each i.each_lag, vce(robust)
 eststo: poisson value year g2 year2 g3 year3 i.each i.each_lag, vce(robust)
 
-esttab using "$thesis2/reg_table/hamburg1/lag1/lag1.tex",label noomitted drop(0.* year *.all *.each) ///
-indicate("Chow test=year*" "Chow test Intercept=g*") varlab( _cons "Constant") not pr2 nonumbers ///
-mtitles("All wars" "All wars" "War by war" "War by war") title(Regression table\label{tab1}) replace
+esttab
+
+esttab using "$thesis2/reg_table/hamburg1/lag1/lag1.tex",label noomitted drop(0.* *.all *.each) ///
+	indicate("Chow test=year*" "Chow test Intercept=g*") varlab( _cons "Constant") not pr2 nonumbers ///
+	mtitles("All wars" "All wars" "War by war" "War by war") title(Regression table\label{tab1}) replace
  
 eststo clear
 
@@ -163,9 +171,12 @@ eststo: poisson value year g2 year2 g3 year3  i.all i.all_pre, vce(robust)
 eststo: poisson value year i.each i.each_pre, vce(robust)
 eststo: poisson value year g2 year2 g3 year3  i.each i.each_pre, vce(robust)
 
-esttab using "$thesis2/reg_table/hamburg1/pre1/pre1.tex",label noomitted indicate("Chow test=year*" "Chow test Intercept=g*") ///
-drop(0.* year *.all *.each) varlab( _cons "Constant") not pr2 nonumbers mtitles("All wars" "All wars" "War by war" "War by war") ///
-title(Regression table\label{tab1}) replace
+esttab
+
+esttab using "$thesis2/reg_table/hamburg1/pre1/pre1.tex",label noomitted ///
+	indicate("Chow test=year*" "Chow test Intercept=g*") drop(0.* *.all *.each) varlab( _cons "Constant") ///
+	not pr2 nonumbers mtitles("All wars" "All wars" "War by war" "War by war") ///
+	title(Regression table\label{tab1}) replace
  
 eststo clear
 
