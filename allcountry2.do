@@ -5,6 +5,7 @@ set more off
 use "$thesis2/database_dta/bdd_courante2", clear
 
 drop if year<1733
+drop if year==1766 & classification_hamburg_large=="Sugar"
 drop if pays_regroupes=="France"
 drop if pays_regroupes=="Indes"
 drop if pays_regroupes=="Espagne-Portugal"
@@ -34,6 +35,12 @@ replace all_war_status="Neutral" if pays_regroupes=="Angleterre" & year==`i'
 replace all_war_status="Neutral" if pays_regroupes=="Italie" & year==`i'
 }
 
+foreach i of num 1733/1738{
+replace each_war_status="Polish allied" if each_war_status!="Polish neutral" & each_war_status!="Polish adversary" & year==`i'
+replace all_war_status="Allied" if all_war_status!="Adversary" & all_war_status!="Neutral" & year==`i'
+}
+
+
 foreach i of num 1740/1743{
 replace each_war_status="Austrian1 adversary" if pays_regroupes=="Angleterre" & year==`i'
 replace each_war_status="Austrian1 adversary" if pays_regroupes=="Flandre et autres états de l'Empereur" & year==`i'
@@ -56,6 +63,12 @@ replace all_war_status="Neutral" if pays_regroupes=="Italie" & year==`i'
 replace all_war_status="Neutral" if pays_regroupes=="Portugal" & year==`i'
 }
 
+foreach i of num 1740/1743{
+replace each_war_status="Austrian1 allied" if each_war_status!="Austrian1 neutral" & each_war_status!="Austrian1 adversary" & year==`i'
+replace all_war_status="Allied" if all_war_status!="Adversary" & all_war_status!="Neutral" & year==`i'
+}
+
+
 foreach i of num 1744/1748{
 replace each_war_status="Austrian2 adversary" if pays_regroupes=="Angleterre" & year==`i'
 replace each_war_status="Austrian2 adversary" if pays_regroupes=="Flandre et autres états de l'Empereur" & year==`i'
@@ -76,6 +89,11 @@ replace all_war_status="Neutral" if pays_regroupes=="Nord" & year==`i'
 replace all_war_status="Neutral" if pays_regroupes=="Suisse" & year==`i'
 replace all_war_status="Neutral" if pays_regroupes=="Italie" & year==`i'
 replace all_war_status="Neutral" if pays_regroupes=="Portugal" & year==`i'
+}
+
+foreach i of num 1744/1748{
+replace each_war_status="Austrian2 allied" if each_war_status!="Austrian2 neutral" & each_war_status!="Austrian2 adversary" & year==`i'
+replace all_war_status="Allied" if all_war_status!="Adversary" & all_war_status!="Neutral" & year==`i'
 }
 
 foreach i of num 1756/1763{
@@ -100,6 +118,11 @@ replace all_war_status="Neutral" if pays_regroupes=="Nord" & year==`i'
 replace all_war_status="Neutral" if pays_regroupes=="Suisse" & year==`i'
 }
 
+foreach i of num 1756/1763{
+replace each_war_status="Seven allied" if each_war_status!="Seven neutral" & each_war_status!="Seven adversary" & year==`i'
+replace all_war_status="Allied" if all_war_status!="Adversary" & all_war_status!="Neutral" & year==`i'
+}
+
 foreach i of num 1778/1782{
 replace each_war_status="American adversary" if pays_regroupes=="Angleterre" & year==`i'
 replace all_war_status="Adversary" if pays_regroupes=="Angleterre" & year==`i'
@@ -117,6 +140,11 @@ replace all_war_status="Neutral" if pays_regroupes=="Levant" & year==`i'
 replace all_war_status="Neutral" if pays_regroupes=="Nord" & year==`i'
 replace all_war_status="Neutral" if pays_regroupes=="Suisse" & year==`i'
 replace all_war_status="Neutral" if pays_regroupes=="Portugal" & year==`i'
+}
+
+foreach i of num 1778/1782{
+replace each_war_status="American allied" if each_war_status!="American neutral" & each_war_status!="American adversary" & year==`i'
+replace all_war_status="Allied" if all_war_status!="Adversary" & all_war_status!="Neutral" & year==`i'
 }
 
 foreach i of num 1792/1795{
@@ -147,6 +175,11 @@ replace all_war_status="Neutral" if pays_regroupes=="Nord" & year==`i'
 replace all_war_status="Neutral" if pays_regroupes=="Suisse" & year==`i'
 }
 
+foreach i of num 1792/1795{
+replace each_war_status="Revolutionary allied" if each_war_status!="Revolutionary neutral" & each_war_status!="Revolutionary adversary" & year==`i'
+replace all_war_status="Allied" if all_war_status!="Adversary" & all_war_status!="Neutral" & year==`i'
+}
+
 foreach i of num 1796/1802{
 replace each_war_status="Revolutionary adversary" if pays_regroupes=="Angleterre" & year==`i'
 replace each_war_status="Revolutionary adversary" if pays_regroupes=="Flandre et autres états de l'Empereur" & year==`i'
@@ -160,25 +193,27 @@ replace all_war_status="Adversary" if pays_regroupes=="Italie" & year==`i'
 
 replace each_war_status="Revolutionary neutral" if pays_regroupes=="Levant" & year==`i'
 replace each_war_status="Revolutionary neutral" if pays_regroupes=="Nord" & year==`i'
-replace each_war_status="Revolutionary neutral" if pays_regroupes=="Suisse" & year==`i'
 replace each_war_status="Revolutionary neutral" if pays_regroupes=="Allemagne et Pologne (par terre)" & year==`i'
-replace each_war_status="Revolutionary neutral" if pays_regroupes=="Hollande" & year==`i'
 
 replace all_war_status="Neutral" if pays_regroupes=="Levant" & year==`i'
 replace all_war_status="Neutral" if pays_regroupes=="Nord" & year==`i'
-replace all_war_status="Neutral" if pays_regroupes=="Suisse" & year==`i'
-replace all_war_status="Neutral" if pays_regroupes=="Hollande" & year==`i'
 replace all_war_status="Neutral" if pays_regroupes=="Allemagne et Pologne (par terre)" & year==`i'
 }
 
-****switzerland and holland become allies at some point 1796(bit sooner)
+foreach i of num 1796/1802{
+replace each_war_status="Revolutionary allied" if each_war_status!="Revolutionary neutral" & each_war_status!="Revolutionary adversary" & year==`i'
+replace all_war_status="Allied" if all_war_status!="Adversary" & all_war_status!="Neutral" & year==`i'
+}
+
+
+foreach i of num 1803/1814{
+replace each_war_status="Napoleonic allied" if year==`i'
+replace all_war_status="Allied" if year==`i'
+}
 
 foreach i of num 1803/1814{
 replace each_war_status="Napoleonic adversary" if pays_regroupes=="Angleterre" & year==`i'
-*replace each_war_status="Napoleonic adversary" if pays_regroupes=="Italie" & year==`i'
-
 replace all_war_status="Adversary" if pays_regroupes=="Angleterre" & year==`i'
-*replace all_war_status="Adversary" if pays_regroupes=="Italie" & year==`i'
 }
 
 foreach i in 1805 1809{
@@ -186,8 +221,14 @@ replace each_war_status="Napoleonic adversary" if pays_regroupes=="Flandre et au
 replace all_war_status="Adversary" if pays_regroupes=="Flandre et autres états de l'Empereur" & year==`i'
 }
 
+foreach i of num 1805/1809{
+replace each_war_status="Napoleonic allied" if each_war_status!="Napoleonic neutral" & each_war_status!="Napoleonic adversary" & year==`i'
+replace all_war_status="Allied" if all_war_status!="Adversary" & all_war_status!="Neutral" & year==`i'
+}
+
 foreach i in 1806 1807{
-austria is neutral
+replace each_war_status="Napoleonic neutral" if pays_regroupes=="Flandre et autres états de l'Empereur" & year==`i'
+replace all_war_status="Neutral" if pays_regroupes=="Flandre et autres états de l'Empereur" & year==`i'
 }
 
 foreach i of num 1813/1815{
@@ -203,9 +244,6 @@ foreach i of num 1809/1815{
 replace each_war_status="Napoleonic adversary" if pays_regroupes=="Portugal" & year==`i'
 replace all_war_status="Adversary" if pays_regroupes=="Portugal" & year==`i'
 }
-
-*replace each_war_status="Napoleonic neutral" if pays_regroupes=="Portugal" & year==1808
-*replace all_war_status="Adversary" if pays_regroupes=="Portugal" & year==1808
 
 *****1806-1812 germany is allied
 foreach i of num 1806/1807{
@@ -225,18 +263,19 @@ replace all_war_status="Adversary" if pays_regroupes=="Espagne" & year==`i'
 foreach i of num 1803/1815{
 replace each_war_status="Napoleonic neutral" if pays_regroupes=="Levant" & year==`i'
 replace each_war_status="Napoleonic neutral" if pays_regroupes=="Nord" & year==`i'
-*replace each_war_status="Napoleonic neutral" if pays_regroupes=="Suisse" & year==`i'
-*replace each_war_status="Napoleonic neutral" if pays_regroupes=="Hollande" & year==`i'
 replace each_war_status="Napoleonic neutral" if pays_regroupes=="États-Unis d'Amérique" & year==`i'
 
 replace all_war_status="Neutral" if pays_regroupes=="Levant" & year==`i'
 replace all_war_status="Neutral" if pays_regroupes=="Nord" & year==`i'
-*replace all_war_status="Neutral" if pays_regroupes=="Suisse" & year==`i'
-*replace all_war_status="Neutral" if pays_regroupes=="Hollande" & year==`i'
 replace all_war_status="Neutral" if pays_regroupes=="États-Unis d'Amérique" & year==`i'
 }
 
-****suisse holland allied till 1814, adversary in 1815
+replace each_war_status="Napoleonic adversary" if pays_regroupes=="Suisse" & year==1815
+replace each_war_status="Napoleonic adversary" if pays_regroupes=="Hollande" & year==1815
+
+replace all_war_status="Adversary" if pays_regroupes=="Suisse" & year==1815
+replace all_war_status="Adversary" if pays_regroupes=="Hollande" & year==1815
+
 
 ****gen country dummies and year trend
 encode pays_regroupes, gen(pays)
@@ -266,48 +305,84 @@ egen pays_class=group(pays class), label
 
 
 ***gen war dummies
-label define order_war  1 "Polish adversary"  2 "Austrian1 adversary"  3 "Austrian2 adversary" 4 "Seven adversary" 5 "American adversary"  6 "Napoleonic adversary" 7 "Revolutionary adversary" 8 "Polish neutral"  9 "Austrian1 neutral"  10 "Austrian2 neutral" 11 "Seven neutral" 12 "American neutral"  13 "Napoleonic neutral" 14 "Revolutionary neutral"
+label define order_war  1 "Polish adversary"  2 "Austrian1 adversary"  3 "Austrian2 adversary" 4 "Seven adversary" 5 "American adversary"  6 "Revolutionary adversary" 7 "Napoleonic adversary" 8 "Polish neutral"  9 "Austrian1 neutral"  10 "Austrian2 neutral" 11 "Seven neutral" 12 "American neutral"  13 "Revolutionary neutral" 14 "Napoleonic neutral"
 encode each_war_status, gen(each_status) label(order_war)
 egen each_status_class=group(each_status class), label
+
+/*
 tab each_status_class, gen(each_status_class)
 foreach i of num 1/68{
 replace each_status_class`i'=0 if each_status_class`i'==.
 label var each_status_class`i' "`: label (each_status_class) `i''"
 }
+*/
 replace each_status=0 if each_status==.
 replace each_status_class=0 if each_status_class==.
 
 encode all_war_status, gen(all_status)
 egen all_status_class=group(all_status class), label
+/*
 tab all_status_class, gen(all_status_class)
 foreach i of num 1/10{
 replace all_status_class`i'=0 if all_status_class`i'==.
 label var all_status_class`i' "`: label (all_status_class) `i''"
 }
+*/
 replace all_status=0 if all_status==.
 replace all_status_class=0 if all_status_class==.
 
 local macro1 each_status_class4 each_status_class9 each_status_class14 each_status_class19 each_status_class24 each_status_class29 each_status_class34 each_status_class39 each_status_class43 each_status_class48 each_status_class53 each_status_class58 each_status_class63 each_status_class68
 local macro2 all_status_class5 all_status_class10
 
+/*
 local pays_qfit year2_pays3 year2_pays4 year2_pays5 year2_pays8 year2_pays9 year2_pays11 year2_pays12
-
-****regress
-eststo: poisson value year i.pays_class year_pays1-year_pays12 year_class1-year_class5 all_status_class1-all_status_class10, vce(robust)
 eststo: poisson value year i.pays_class year_pays1-year_pays12 year_class1-year_class5 year2_class1 all_status_class1-all_status_class10, vce(robust) 
 eststo: poisson value year i.pays_class year_pays1-year_pays12 year_class1-year_class5 `pays_qfit' all_status_class1-all_status_class10, vce(robust) difficult
-
-esttab using "$thesis2/reg_table/allcountry2/dummies1/dummies1.tex",label drop(`macro2') longtable noomitted not indicate("Country-product FE= *.pays_class" "Country time trend= *year_pays*" "Product time trend=*year_class*" "Country quadratic trend= *year2_pays*" "Product quadratic trend=*year2_class*") pr2 nonumbers mtitles("All wars" "Quadratic" "War by war" "Qaudratic" "Quadratic") title(Regression table\label{tab1}) replace
-
-eststo clear
-
-eststo: poisson value year i.pays_class year_pays1-year_pays12 year_class1-year_class5 each_status_class1-each_status_class68, vce(robust)
 eststo: poisson value year i.pays_class year_pays1-year_pays12 year_class1-year_class5 year2_class1 each_status_class1-each_status_class68, vce(robust) difficult
 eststo: poisson value year i.pays_class year_pays1-year_pays12 year_class1-year_class5 year2_class1 `pays_qfit' each_status_class1-each_status_class68, vce(robust) difficult
+*/
 
-esttab using "$thesis2/reg_table/allcountry2/dummies1/dummies2.tex",label drop(`macro1') longtable noomitted not indicate("Country-product FE= *.pays_class" "Country time trend= *year_pays*" "Product time trend=*year_class*" "Country quadratic trend= *year2_pays*" "Product quadratic trend=*year2_class*") pr2 nonumbers mtitles("All wars" "Quadratic" "War by war" "Qaudratic" "Quadratic") title(Regression table\label{tab1}) replace
+gen coffee=(year>1795 & class==1)
+gen sugar=(year>1795 & class==3)
+
+foreach i in 2 3 5 8 9 10{
+gen country`i'=(year>1795 & pays==`i')
+gen year_country`i'=country`i'*year_pays`i'
+}
+
+****regress
+eststo: poisson value year i.pays_class year_pays1-year_pays12 year_class1-year_class5 i.all_status_class, vce(robust)
+eststo: poisson value i.pays_class 0.coffee#pays 0.sugar#pays year_pays1-year_pays12 year_class1-year_class5 ///
+	0.coffee#c.year_class1 0.sugar#c.year_class3 i.all_status_class, vce(robust) difficult 
+eststo: poisson value i.pays_class 0.coffee#pays year_pays1-year_pays12 year_class1-year_class5 ///
+	0.coffee#c.year_class1 i.all_status_class, vce(robust) difficult 
+eststo: poisson value i.pays_class 0.coffee#pays 0.sugar#pays year_pays1-year_pays12 year_class1-year_class5 ///
+	0.coffee#c.year_class1 0.sugar#c.year_class3 year_country2-year_country10 i.all_status_class, vce(robust) difficult 
+esttab, label
+
+esttab using "$thesis2/reg_table/allcountry2/dummies1/dummies1.tex",label longtable noomitted not ///
+	indicate("Country-product FE= *.pays_class" "Country time trend= *year_pays*" "Product time trend=*year_class*") ///
+	pr2 nonumbers mtitles("All wars" "Quadratic" "War by war" "Qaudratic" "Quadratic") ///
+	title(Regression table\label{tab1}) replace
 
 eststo clear
+
+eststo: poisson value year i.pays_class year_pays1-year_pays12 year_class1-year_class5 i.each_status_class, vce(robust)
+eststo: poisson value i.pays_class 0.coffee#pays 0.sugar#pays year_pays1-year_pays12 year_class1-year_class5 ///
+	0.coffee#c.year_class1 0.sugar#c.year_class3 i.each_status_class, vce(robust) difficult 
+eststo: poisson value i.pays_class 0.coffee#pays year_pays1-year_pays12 year_class1-year_class5 ///
+	0.coffee#c.year_class1 i.each_status_class, vce(robust) difficult 
+eststo: poisson value i.pays_class 0.coffee#pays 0.sugar#pays year_pays1-year_pays12 year_class1-year_class5 ///
+	0.coffee#c.year_class1 0.sugar#c.year_class3 year_country2-year_country10 i.each_status_class, vce(robust) difficult 
+esttab, label
+
+esttab using "$thesis2/reg_table/allcountry2/dummies1/dummies2.tex",label longtable noomitted not ///
+	indicate("Country-product FE= *.pays_class" "Country time trend= *year_pays*" "Product time trend=*year_class*") ///
+	pr2 nonumbers mtitles("All wars" "Quadratic" "War by war" "Qaudratic" "Quadratic") ///
+	title(Regression table\label{tab1}) replace
+
+eststo clear
+
 
 ****gen war lags
 
