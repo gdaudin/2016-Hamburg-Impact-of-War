@@ -71,7 +71,7 @@ replace all=0 if all==.
 gen group=0 
 replace group=1 if year<1740
 replace group=2 if year>1739
-replace group=3 if year>1789
+replace group=3 if year>1795
 
 gen g2=(group==2)
 gen g3=(group==3)
@@ -83,9 +83,12 @@ graph export hamburg_trend.png, as(png) replace
 
 eststo: xi: poisson value year i.all, vce(robust)
 eststo: xi: poisson value year g2 year2 g3 year3 i.all, vce(robust)
+eststo: xi: poisson value year g3 year3 i.all, vce(robust)
+
 
 eststo: xi: poisson value year i.each, vce(robust)
 eststo: xi: poisson value year g2 year2 g3 year3 i.each, vce(robust)
+eststo: xi: poisson value year2 g3 year3 i.each, vce(robust)
 
 esttab
 

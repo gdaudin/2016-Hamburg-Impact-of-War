@@ -119,7 +119,7 @@ eststo: poisson value i.class year_class1-year_class5 i.each_class, vce(robust)
 eststo: poisson value i.class year_class1-year_class5 c2 year_c2 c3 year_c3 s2 year_s2 s3 year_s3 i.each_class, vce(robust)
 eststo: poisson value i.class year_class1-year_class5 c3 year_c3 s3 year_s3 i.each_class, vce(robust)
 
-esttab
+esttab label
 
 esttab using "$thesis2/reg_table/hamburg2/dummies1/dummies1.tex",label booktabs noomitted varlab( _cons "Cons") not ///
 	indicate("Product FE= *.class" "Product time trend=*year_class*" "Chow test Coffee=*year_c*" "Chow test Sugar=*year_s*") ///
