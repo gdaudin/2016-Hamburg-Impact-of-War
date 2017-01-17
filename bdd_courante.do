@@ -1,19 +1,20 @@
 *** 1)CLEAN INITIAL DATABASE
 clear
 
-global ete "/Users/Tirindelli/Google Drive/ETE/"
+*global ete "/Users/Tirindelli/Google Drive/ETE/"
+global ete "C:\Users\TIRINDEE\Google Drive\ETE"
 
 set more off
 
 ***Clean bdd_centrale
-insheet using "/$ete/Thesis/toflit18_data/base/bdd_centrale.csv", names
+import delimited "$ete/Thesis/toflit18_data/base/bdd_centrale.csv", encoding(UTF-8) clear varname(1) stringcols(_all)
 save "$ete/Thesis2/database_dta/bdd_centrale.dta", replace
 clear
 
 
 ***Clean bdd_pays
 
-insheet using "/$ete/Thesis/toflit18_data/base/bdd_pays.csv", names
+import delimited "$ete/Thesis/toflit18_data/base/bdd_pays.csv", encoding(UTF-8) clear varname(1) stringcols(_all)
 rename pays_normalises_orthographique pays_norm_ortho
 save "$ete/Thesis2/database_dta/bdd_pays.dta", replace
 
@@ -22,26 +23,26 @@ clear
 
 ***Clean bdd_marchandises_normalisees_orthographique
 
-insheet using "/$ete/Thesis/toflit18_data/base/bdd_revised_marchandises_normalisees_orthographique.csv", names
+import delimited "$ete/Thesis/toflit18_data/base/bdd_marchandises_normalisees_orthographique.csv", encoding(UTF-8) clear varname(1) stringcols(_all)
 duplicates drop marchandises, force
 save "$ete/Thesis2/database_dta/bdd_marchandises_normalisation_orthographique.dta", replace
 clear
 
 ***Clean bdd_marchandises_simplifiees
 
-insheet using "/$ete/Thesis/toflit18_data/base/bdd_revised_marchandises_simplifiees.csv", names
+import delimited "$ete/Thesis/toflit18_data/base/bdd_marchandises_simplifiees.csv", encoding(UTF-8) clear varname(1) stringcols(_all)
 duplicates drop marchandises_norm_ortho, force
 save "$ete/Thesis2/database_dta/bdd_revised_marchandises_simplifiees.dta", replace
 clear
 
 ***clean marchandises classification hamburg
-insheet using "/$ete/Thesis/toflit18_data/base/bdd_revised_classification_hamburg.csv", names
+import delimited "$ete/Thesis/toflit18_data/base/bdd_marchandises_hamburg.csv", encoding(UTF-8) clear varname(1) stringcols(_all)
 duplicates drop marchandises_simplification, force
 save "$ete/Thesis2/database_dta/bdd_revised_classification_hamburg.dta", replace
 clear
 
 ***clean sitc
-insheet using "/$ete/Thesis/toflit18_data/traitements_marchandises/SITC/travail_sitcrev3.csv", names
+import delimited "$ete/Thesis/toflit18_data/base/bdd_marchandises_sitc.csv", encoding(UTF-8) clear varname(1) stringcols(_all)
 duplicates drop marchandises_simplification, force
 save "$ete/Thesis2/database_dta/travail_sitcrev3.dta", replace
 clear
@@ -60,7 +61,7 @@ drop _merge
 
 
 ***clean database
-keep if exportsimports=="Exports" |  exportsimports=="Exportations" |  exportsimports=="Export" |  exportsimports=="Sortie" |  exportsimports=="exports" |  exportsimports=="export"
+keep if exportsimports=="Exports" |  exportsimports=="Exportations" |  exportsimports=="Export" | exportsimports=="Sortie" |  exportsimports=="exports" |  exportsimports=="export"
 drop if pays_regroupes=="?"
 
 
@@ -104,13 +105,19 @@ replace year="1799" if year=="An 7"
 replace year="1798" if year=="An 6"
 replace year="1797" if year=="An 5"
 replace year="1792" if year=="1792-1er semestre"
+replace year="1787" if year=="10 mars-31 décembre 1787"
 destring year, replace
 drop if year==.
 
-foreach var of varlist value prix_unitaire quantit{
-replace `var'  =usubinstr(`var'," ","",.)
-destring `var', replace dpcomma
+foreach variable of var quantit value prix_unitaire { 
+	replace `variable'  =usubinstr(`variable',",",".",.)
+	replace `variable'  =usubinstr(`variable'," ","",.)
+	replace `variable'  =usubinstr(`variable'," ","",.)
+	display "---------Loop-----------------"
 }
+
+
+destring quantit prix_unitaire value, replace
 
 ***test Benford
 preserve

@@ -1,9 +1,10 @@
 
-global thesis2 "/Users/Tirindelli/Google Drive/ETE/Thesis2"
+*global ete "/Users/Tirindelli/Google Drive/ETE"
+global ete "C:\Users\TIRINDEE\Google Drive\ETE"
 
 set more off
 
-use "$thesis2/database_dta/hamburg1", clear
+use "$ete/Thesis2/database_dta/hamburg1", clear
 
 drop if year<1733
 
@@ -58,7 +59,7 @@ foreach i of num 1803/1814{
 replace war_all="All" if year==`i'
 }
 
-label define order  1 Polish  2 Austrian1  3 Austrian2  4 Seven  5 American  6 Revolutionary 7 Napoleonic
+local label define order  1 Polish  2 Austrian1  3 Austrian2  4 Seven  5 American  6 Revolutionary 7 Napoleonic
 
 encode war_each, gen(each) label(order)
 replace each=0 if each==. 
@@ -78,31 +79,32 @@ gen g3=(group==3)
 gen year2=g2*year
 gen year3=g3*year
 
+label var value Value
+
+/*
 twoway (connected value year)
 graph export hamburg_trend.png, as(png) replace
+*/
 
-eststo: xi: poisson value year i.all, vce(robust)
-eststo: xi: poisson value year g2 year2 g3 year3 i.all, vce(robust)
-eststo: xi: poisson value year g3 year3 i.all, vce(robust)
+eststo p1: poisson value year i.all, vce(robust)
+eststo p2: poisson value year g2 year2 g3 year3 i.all, vce(robust)
+eststo p3: poisson value year g3 year3 i.all, vce(robust)
 
 
-eststo: xi: poisson value year i.each, vce(robust)
-eststo: xi: poisson value year g2 year2 g3 year3 i.each, vce(robust)
-eststo: xi: poisson value year2 g3 year3 i.each, vce(robust)
+eststo p4: poisson value year i.each, vce(robust)
+eststo p5: poisson value year g2 year2 g3 year3 i.each, vce(robust)
+eststo p6: poisson value year2 g3 year3 i.each, vce(robust)
 
 esttab
 
-foreach i of num 1/7{
-label var _Ieach_`i' "`: label (each) `i'' "
-}
-
-
-esttab using "$thesis2/reg_table/hamburg1/dummies1/dummies1.tex",label booktabs alignment(D{.}{.}{-1}) ///
-	order(year year2 _Iall_1) varlab( _Iall_1 "All wars" _cons "Constant") not pr2 nonumbers ///
-	mtitles("All wars" "All wars" "War by war" "War by war") indicate("Chow test=year*" "Chow test Intercept=g*") ///
-	title(Regression table\label{tab1}) replace
+esttab p1 p2 p3 p4 p5 p6 using "$ete/Thesis/Data/do_files/Hamburg/tex/hamburg1_reg.tex",label booktabs alignment(D{.}{.}{-1}) ///
+	varlab(_cons "Constant" 1.all "All" 1.each "Polish" 2.each "Austrian1" 3.each "Austrian2" 4.each "Seven" ///
+	5.each "American" 6.each "Revolutionary" 7.each "Napoleonic") drop(0b.all 0b.each year _cons *2 *3) not pr2 nonumbers ///
+	 mtitles("No breaks" "One break" "Two breaks" "No breaks" "One break" "Two breaks") ///
+	title(Hamburg Aggregate\label{tab1}) replace
  
 eststo clear
+
 ******* gen war lags
 
 gen all_war_lag=""
@@ -125,9 +127,14 @@ replace each_war_lag="`i' lags Seven" if year==(1763+`i')
 replace each_war_lag="`i' lags Napoleaonic" if year==(1814+`i')
 }
 
-encode each_war_lag, gen(each_lag)
-replace each_lag=0 if each_lag==.
+local label define order  1 "1 lags Austrian2"  2 "1 lags Seven"  3 "1 lags Napoleonic"  /// 
+	4 "2 lags Austrian2"  5 "2 lags Seven"  6 "2 lags Napoleonic" ///
+	7 "3 lags Austrian2"  8 "3 lags Seven"  9 "3 lags Napoleonic" ///
+	10 "4 lags Austrian2"  11 "4 lags Seven"  12 "4 lags Napoleonic" ///
+	13 "5 lags Austrian2"  14 "5 lags Seven"  15 "5 lags Napoleonic" ///
 
+encode each_war_lag, gen(each_lag) label(order)
+replace each_lag=0 if each_lag==.
 
 eststo: poisson value year i.all i.all_lag, vce(robust)
 eststo: poisson value year g2 year2 g3 year3 i.all i.all_lag, vce(robust)
@@ -137,12 +144,18 @@ eststo: poisson value year g2 year2 g3 year3 i.each i.each_lag, vce(robust)
 
 esttab
 
-esttab using "$thesis2/reg_table/hamburg1/lag1/lag1.tex",label noomitted drop(0.* *.all *.each) ///
-	indicate("Chow test=year*" "Chow test Intercept=g*") varlab( _cons "Constant") not pr2 nonumbers ///
-	mtitles("All wars" "All wars" "War by war" "War by war") title(Regression table\label{tab1}) replace
+esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/hamburg1_lag.tex",label booktabs alignment(D{.}{.}{-1}) ///
+	varlab(1.all_lag "1 lag" 2.all_lag "2 lags" 3.all_lag "3 lags" 4.all_lag "4 lags" 5.all_lag "5 lags" ///
+	1.each_lag "1 lag Austrian2" 2.each_lag "1 lag Seven" 3.each_lag "1 lag Napoleonic" ///
+	4.each_lag "2 lags Austrian2" 5.each_lag "2 lags Seven" 6.each_lag "2 lags Napoleonic" ///
+	7.each_lag "3 lags Austrian2" 8.each_lag "3 lags Seven" 9.each_lag "3 lags Napoleonic" ///
+	10.each_lag "4 lags Austrian2" 11.each_lag "4 lags Seven" 12.each_lag "4 lags Napoleonic" ///
+	13.each_lag "5 lags Austrian2" 14.each_lag "5 lags Seven" 15.each_lag "5 lags Napoleonic") ///
+	keep(*all_lag *each_lag) drop(0b.all_lag 0b.each_lag) not pr2 nonumbers ///
+	mtitles("No breaks" "Two breaks" "No breaks" "Two breaks") ///
+	title(Lags Hamburg Aggregate\label{tab1}) replace	
  
 eststo clear
-
 
 *****gen prewar
 
@@ -176,11 +189,16 @@ eststo: poisson value year g2 year2 g3 year3  i.each i.each_pre, vce(robust)
 
 esttab
 
-esttab using "$thesis2/reg_table/hamburg1/pre1/pre1.tex",label noomitted ///
-	indicate("Chow test=year*" "Chow test Intercept=g*") drop(0.* *.all *.each) varlab( _cons "Constant") ///
-	not pr2 nonumbers mtitles("All wars" "All wars" "War by war" "War by war") ///
-	title(Regression table\label{tab1}) replace
- 
+esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/hamburg1_pre.tex",label booktabs alignment(D{.}{.}{-1}) ///
+	varlab(1.all_pre "1 pre" 2.all_pre "2 pre" 3.all_pre "3 pre" 4.all_pre "4 pre" 5.all_pre "5 pre" ///
+	1.each_pre "1 pre Austrian2" 2.each_pre "1 pre Seven" ///
+	3.each_pre "2 pre Austrian2" 4.each_pre "2 pre Seven" ///
+	5.each_pre "3 pre Austrian2" 6.each_pre "3 pre Seven" ///
+	7.each_pre "4 pre Austrian2" 8.each_pre "4 pre Seven" ///
+	9.each_pre "5 pre Austrian2" 10.each_pre "5 pre Seven") ///	
+	keep(*all_pre *each_pre) drop(0b.all_pre 0b.each_pre) not pr2 nonumbers ///
+	mtitles("No breaks" "Two breaks" "No breaks" "Two breaks") ///
+	title(Prewar Hamburg Aggregate\label{tab1}) replace	
 eststo clear
 
 

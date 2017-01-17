@@ -68,7 +68,7 @@ foreach i of num 1803/1814{
 replace war_all="All" if year==`i'
 }
 
-label define order_war  1 Polish  2 Austrian1  3 Austrian2  4 Seven  5 American  6 Revolutionary 7 Napoleonic
+local label define order_war  1 Polish  2 Austrian1  3 Austrian2  4 Seven  5 American  6 Revolutionary 7 Napoleonic
 
 encode war_each, gen(each) label(order_war)
 egen each_class=group(each class), label

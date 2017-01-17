@@ -35,12 +35,6 @@
         
 \end{center}
 \end{titlepage}
-\begin{center}
-\vspace*{\fill}
- \textit{l'Université de paris I Panthéon Sorbonne n'entend donner aucune approbation,
-ni désapprobation aux opinions émises dans ce mémoire ; elle doivent être considérées comme propres à leur auteur}
-\vspace{\fill}
-\end{center}
 \newpage
 
 \begin{abstract}
@@ -249,32 +243,7 @@ In the case by case, I have considered the Austrian war as two different conflic
  as to to try to capture the difference between colonial and non colonial phase.\\
 From the first equation I find that wars overall had a negative impact on Hamburg trade, amounting to roughly 37\%. By breaking down the effect for each single war, I find an 8\% reduction in trade caused by the Polish war, an increase of 20\% for the first part of the Austrian war and a decrease of 22\%, 65\%, 45\%, 30\% and 34\% for the second part of Austrian war, Seven year war,  American Revolutionary war, French Revolutionary war and Napoleonic war respectively. Results are quite coherent with the series observed, with a significant drop during Seven Years war and smaller drop due to American and Napoleonic war. 
 Results from the regression with no quadratic trend reveal quite contrasting effects, with the first four wars causing the major reduction in trade and the last three with a minor and insignificant results. The quadratic trend however fits the series better and I assume that results from this regression  are more accurate.
-
-\begin{table}[htbp]\centering
-\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\caption{Regression table\label{tab1}}
-\begin{tabular}{l*{4}{D{.}{.}{-1}}}
-\toprule
-                    &\multicolumn{1}{c}{All wars}&\multicolumn{1}{c}{Quadratic}&\multicolumn{1}{c}{War by war}&\multicolumn{1}{c}{Quadratic}\\
-\midrule
-year                &     0.00660\sym{**} &       2.017\sym{***}&    -0.00101         &       2.611\sym{***}\\
-year2               &                     &   -0.000564\sym{***}&                     &   -0.000731\sym{***}\\
-All wars            &      -0.546\sym{***}&      -0.457\sym{***}&                     &                     \\
-Polish              &                     &                     &      -1.509\sym{***}&     -0.0882         \\
-Austrian1           &                     &                     &      -0.815\sym{***}&       0.194         \\
-Austrian2           &                     &                     &      -0.977\sym{***}&      -0.244\sym{*}  \\
-Seven               &                     &                     &      -1.173\sym{***}&      -1.092\sym{***}\\
-American            &                     &                     &      -0.199         &      -0.598\sym{***}\\
-Napoleonic          &                     &                     &      -0.211         &      -0.262         \\
-Revolutionary       &                     &                     &      -0.123         &      -0.413\sym{**} \\
-Constant            &       5.907         &     -1783.9\sym{***}&       19.44\sym{***}&     -2312.3\sym{***}\\
-\midrule
-Observations        &          76         &          76         &          76         &          76         \\
-Pseudo \(R^{2}\)    &       0.322         &       0.596         &       0.493         &       0.703         \\
-\bottomrule
-\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
-\end{tabular}
-\end{table}
+\input{hamburg1_reg}
 
 Looking at the figures for the pre war period, results are even more striking, trade fell by 80\%\ during the Seven Years War and by 70\%\ during American Revolutionary War. I also perform two different robustness checks for these results, using a log-linear model, (section 7) but they do not change significantly the coefficients of the regression. \\
 On average we can say that wars were very disruptive for Hamburg trade, despite it being a neutral country, which does reflect what claimed by Glick and Taylor (2005), concerning effects of war even on neutral countries. One remark should be added however; wars in the first half of eighteenth century (until 1744, separation suggested by Carrière 1973), which were mostly non-colonial, had a way smaller impact on Hamburg trade. This is a first interesting result, in the sense that, we see here that not all wars had the same effects; most specifically wars fought in Europe had smaller effects than wars fought also/only in the colonies. In my opinion an explanation has to be found in the fact that the major source of import for Hamburg was actually colonial products, the trade of which during colonial wars was of course interrupted. On the other, I believe that the trade of European products did not have such a strong interruption and that it might even be the case that given the impossibility to trade exotic products, the commerce of other goods might have developed more to compensate for losses. \\
@@ -516,42 +485,7 @@ In conclusion, I am pointing out the fact that my results are quite different fr
 \newpage
 \appendix
 \section{Appendix : war lags and prewar effects}
-\begin{table}[htbp]\centering
-\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\caption{HAMBURG: lag \label{tab1}}
-\begin{tabular}{l*{4}{c}}
-\hline\hline
-                    &\multicolumn{1}{c}{All wars}&\multicolumn{1}{c}{Quadratic}&\multicolumn{1}{c}{War by war}&\multicolumn{1}{c}{Quadratic}\\
-\hline
-1 lags All          &      -0.442         &      -0.210         &                     &                     \\
-2 lags All          &      -0.516\sym{*}  &      -0.286\sym{***}&                     &                     \\
-3 lags All          &      -0.304         &     -0.0760         &                     &                     \\
-4 lags All          &      -0.504\sym{*}  &      -0.278\sym{**} &                     &                     \\
-5 lags All          &      -0.398\sym{**} &      -0.174         &                     &                     \\
-1 lags Austrian2    &                     &                     &      -0.391\sym{*}  &       0.348\sym{***}\\
-1 lags Napoleaonic  &                     &                     &      -0.889\sym{***}&      -0.566\sym{***}\\
-1 lags Seven        &                     &                     &      -0.128         &     -0.0597         \\
-2 lags Austrian2    &                     &                     &      -0.715\sym{***}&     -0.0314         \\
-2 lags Napoleaonic  &                     &                     &      -0.647\sym{**} &      -0.279\sym{*}  \\
-2 lags Seven        &                     &                     &      -0.217         &      -0.182\sym{***}\\
-3 lags Austrian2    &                     &                     &      -0.430\sym{*}  &       0.200\sym{*}  \\
-3 lags Napoleaonic  &                     &                     &      -0.852\sym{***}&      -0.439\sym{***}\\
-3 lags Seven        &                     &                     &       0.189         &       0.193\sym{***}\\
-4 lags Austrian2    &                     &                     &      -0.478\sym{**} &      0.0991         \\
-4 lags Napoleaonic  &                     &                     &      -0.791\sym{**} &      -0.330\sym{*}  \\
-4 lags Seven        &                     &                     &      -0.226\sym{*}  &      -0.252\sym{***}\\
-5 lags Austrian2    &                     &                     &      -0.372\sym{*}  &       0.155         \\
-5 lags Napoleaonic  &                     &                     &      -0.373         &       0.135         \\
-5 lags Seven        &                     &                     &      -0.368\sym{***}&      -0.422\sym{***}\\
-Constant            &       5.479         &     -1641.9\sym{***}&       14.24         &     -2388.5\sym{***}\\
-Quadratic trend     &          No         &         Yes         &          No         &         Yes         \\
-\hline
-Observations        &          76         &          76         &          76         &          76         \\
-Pseudo \(R^{2}\)    &       0.397         &       0.614         &       0.603         &       0.740         \\
-\hline\hline
-\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
-\end{tabular}
-\end{table}
+\input{hamburg1_lag}
 
 {
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
