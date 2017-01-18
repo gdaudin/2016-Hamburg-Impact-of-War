@@ -25,26 +25,26 @@ clear
 
 import delimited "$ete/Thesis/toflit18_data/base/bdd_marchandises_normalisees_orthographique.csv", encoding(UTF-8) clear varname(1) stringcols(_all)
 duplicates drop marchandises, force
-save "$ete/Thesis2/database_dta/bdd_marchandises_normalisation_orthographique.dta", replace
+save "$ete/Thesis2/database_dta/bdd_marchandises_normalisees_orthographique.dta", replace
 clear
 
 ***Clean bdd_marchandises_simplifiees
 
 import delimited "$ete/Thesis/toflit18_data/base/bdd_marchandises_simplifiees.csv", encoding(UTF-8) clear varname(1) stringcols(_all)
 duplicates drop marchandises_norm_ortho, force
-save "$ete/Thesis2/database_dta/bdd_revised_marchandises_simplifiees.dta", replace
+save "$ete/Thesis2/database_dta/bdd_marchandises_simplifiees.dta", replace
 clear
 
 ***clean marchandises classification hamburg
 import delimited "$ete/Thesis/toflit18_data/base/bdd_marchandises_hamburg.csv", encoding(UTF-8) clear varname(1) stringcols(_all)
 duplicates drop marchandises_simplification, force
-save "$ete/Thesis2/database_dta/bdd_revised_classification_hamburg.dta", replace
+save "$ete/Thesis2/database_dta/bdd_marchandises_hamburg.dta", replace
 clear
 
 ***clean sitc
 import delimited "$ete/Thesis/toflit18_data/base/bdd_marchandises_sitc.csv", encoding(UTF-8) clear varname(1) stringcols(_all)
 duplicates drop marchandises_simplification, force
-save "$ete/Thesis2/database_dta/travail_sitcrev3.dta", replace
+save "$ete/Thesis2/database_dta/bdd_marchandises_sitc.dta", replace
 clear
 
 
@@ -67,25 +67,25 @@ drop if pays_regroupes=="?"
 
 ***merge with normalisation orthographique
 
-merge m:1 marchandises using "$ete/Thesis2/database_dta/bdd_marchandises_normalisation_orthographique.dta"
+merge m:1 marchandises using "$ete/Thesis2/database_dta/bdd_marchandises_normalisees_orthographique.dta"
 drop if _merge==2
 drop if _merge==1 & sourcetype!="Tableau Général"
 drop _merge
 
 ***merge with simplification
-merge m:1 marchandises_norm_ortho using "$ete/Thesis2/database_dta/bdd_revised_marchandises_simplifiees.dta"
+merge m:1 marchandises_norm_ortho using "$ete/Thesis2/database_dta/bdd_marchandises_simplifiees.dta"
 drop if _merge==2
 drop if _merge==1 & sourcetype!="Tableau Général"
 drop _merge
 
 ***merge with classification
-merge m:1 marchandises_simplification using "$ete/Thesis2/database_dta/bdd_revised_classification_hamburg.dta"
+merge m:1 marchandises_simplification using "$ete/Thesis2/database_dta/bdd_marchandises_hamburg.dta"
 drop if _merge==2
 drop if _merge==1 & sourcetype!="Tableau Général"
 drop _merge
 
 ***merge with sitc
-merge m:1 marchandises_simplification using "$ete/Thesis2/database_dta/travail_sitcrev3.dta"
+merge m:1 marchandises_simplification using "$ete/Thesis2/database_dta/bdd_marchandises_sitc.dta"
 drop if _merge==2
 drop if _merge==1 & sourcetype!="Tableau Général"
 drop _merge
