@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/W32TeX) (preloaded format=pdflatex 2016.11.28)  23 JAN 2017 20:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/W32TeX) (preloaded format=pdflatex 2016.11.28)  24 JAN 2017 20:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1093,14 +1093,14 @@ Overfull \hbox (1.64867pt too wide) in paragraph at lines 191--193
 [][] [] 
  []
 
-<growth_rate.png, id=113, 910.40125pt x 661.47125pt>
+<growth_rate.png, id=113, 657.45625pt x 478.78876pt>
 File: growth_rate.png Graphic file (type png)
  <use growth_rate.png>
 Package pdftex.def Info: growth_rate.png used on input line 198.
-(pdftex.def)             Requested size: 273.12248pt x 198.4429pt.
+(pdftex.def)             Requested size: 230.11313pt x 167.57857pt.
 
-[15 <./benford_fr.png> <./benford_hb.png> <./growth_rate.png>] [16] [17]
-(./hamburg1_reg.tex) [18] [19]
+[15 <./benford_fr.png> <./benford_hb.png> <./growth_rate.png (PNG copy)>]
+[16] [17] (./hamburg1_reg.tex) [18]
 Underfull \hbox (badness 10000) in paragraph at lines 250--253
 
  []
@@ -1110,75 +1110,66 @@ Underfull \hbox (badness 10000) in paragraph at lines 250--253
 
  []
 
-<coffee_qfit.png, id=138, 910.40125pt x 661.47125pt>
-File: coffee_qfit.png Graphic file (type png)
- <use coffee_qfit.png>
-Package pdftex.def Info: coffee_qfit.png used on input line 254.
-(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
+[19] <hamburg_product_1780.png, id=137, 657.45625pt x 478.78876pt>
+File: hamburg_product_1780.png Graphic file (type png)
 
-<sugar_qfit.png, id=139, 910.40125pt x 661.47125pt>
-File: sugar_qfit.png Graphic file (type png)
- <use sugar_qfit.png>
-Package pdftex.def Info: sugar_qfit.png used on input line 255.
-(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
+<use hamburg_product_1780.png>
+Package pdftex.def Info: hamburg_product_1780.png used on input line 254.
+(pdftex.def)             Requested size: 262.97784pt x 191.5121pt.
 
-<wine_lfit.png, id=140, 910.40125pt x 661.47125pt>
-File: wine_lfit.png Graphic file (type png)
- <use wine_lfit.png>
-Package pdftex.def Info: wine_lfit.png used on input line 256.
-(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
+<hamburg_product_1820.png, id=138, 657.45625pt x 478.78876pt>
+File: hamburg_product_1820.png Graphic file (type png)
 
-<eau_lfit.png, id=141, 910.40125pt x 661.47125pt>
-File: eau_lfit.png Graphic file (type png)
- <use eau_lfit.png>
-Package pdftex.def Info: eau_lfit.png used on input line 257.
-(pdftex.def)             Requested size: 254.9106pt x 185.21068pt.
-
-(./hamburg2_all_reg.tex) (./hamburg2_each_reg.tex)
-Overfull \hbox (1.64867pt too wide) in paragraph at lines 254--263
-[][] []
+<use hamburg_product_1820.png>
+Package pdftex.def Info: hamburg_product_1820.png used on input line 255.
+(pdftex.def)             Requested size: 262.97784pt x 191.5121pt.
+ (./hamburg2_all_reg.tex)
+(./hamburg2_each_reg.tex)
+Overfull \hbox (17.78316pt too wide) in paragraph at lines 254--261
+[][] [] 
  []
 
 
-Overfull \hbox (1.64867pt too wide) in paragraph at lines 254--263
-[] [] 
+Underfull \hbox (badness 10000) in paragraph at lines 254--261
+
  []
 
-[20 <./coffee_qfit.png> <./sugar_qfit.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 265--276
+[20 <./hamburg_product_1780.png (PNG copy)> <./hamburg_product_1820.png (PNG co
+py)>]
+Underfull \hbox (badness 10000) in paragraph at lines 263--274
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 265--276
+Underfull \hbox (badness 10000) in paragraph at lines 263--274
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 265--276
+Underfull \hbox (badness 10000) in paragraph at lines 263--274
 
  []
 
-[21 <./wine_lfit.png> <./eau_lfit.png>] [22] [23] [24] (./allcountry1_reg.tex)
-(./allcountry2_all_reg.tex) (./allcountry2_each_reg.tex)
-Underfull \hbox (badness 10000) in paragraph at lines 302--319
+[21] [22] [23] [24] (./allcountry1_reg.tex) (./allcountry2_all_reg.tex)
+(./allcountry2_each_reg.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 300--317
 
  []
 
-[25] [26] [27] [28] [29] [30] (./hamburg1_lag.tex) (./hamburg1_pre.tex)
-(./hamburg2_all_lag.tex) (./hamburg2_each_lag.tex [31] [32])
-(./hamburg2_all_pre.tex) (./hamburg2_each_pre.tex [33] [34]) [35]
-(./allcountry1_lag.tex) (./allcountry2_all_lag.tex) [36] [37] [38] [39]
-[40] [41] [42] [43] (./thesis2.aux)
+[25] [26] [27] [28] [29] (./hamburg1_lag.tex) (./hamburg1_pre.tex)
+(./hamburg2_all_lag.tex) (./hamburg2_each_lag.tex [30] [31])
+(./hamburg2_all_pre.tex) (./hamburg2_each_pre.tex [32] [33]) [34]
+(./allcountry1_lag.tex) (./allcountry2_all_lag.tex) [35] [36] [37] [38]
+[39] [40] [41] [42] (./thesis2.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 5453 strings out of 493013
- 76628 string characters out of 6136992
+ 5443 strings out of 493013
+ 76560 string characters out of 6136992
  202332 words of memory out of 5000000
- 8812 multiletter control sequences out of 15000+600000
+ 8804 multiletter control sequences out of 15000+600000
  18376 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  40i,16n,46p,4338b,308s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1199,10 +1190,10 @@ sfrm1000.pfb><c:/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1200.p
 fb><c:/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb><c:/tex
 live/2016/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb><c:/texlive/2016/
 texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on thesis2.pdf (45 pages, 2129249 bytes).
+Output written on thesis2.pdf (44 pages, 1822218 bytes).
 PDF statistics:
- 283 PDF objects out of 1000 (max. 8388607)
- 158 compressed objects within 2 object streams
+ 273 PDF objects out of 1000 (max. 8388607)
+ 156 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 146 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 136 words of extra memory for PDF output out of 10000 (max. 10000000)
 
