@@ -1,0 +1,23 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Hamburg: All wars on each product\label{tab1}}
+\begin{tabular}{l*{3}{D{.}{.}{-1}}}
+\toprule
+                    &\multicolumn{1}{c}{No breaks}&\multicolumn{1}{c}{One break}&\multicolumn{1}{c}{Two breaks}\\
+\midrule
+Value               &                     &                     &                     \\
+Coffee              &      -2.436\sym{***}&      -1.403\sym{***}&      -1.444\sym{***}\\
+Eau de vie          &       1.387\sym{***}&       1.387\sym{***}&       1.387\sym{***}\\
+Sugar               &      -1.874\sym{***}&      -1.874\sym{***}&      -1.136\sym{***}\\
+Wine                &      0.0711         &      0.0711         &      0.0711         \\
+Product FE          &         Yes         &         Yes         &         Yes         \\
+Product time trend  &         Yes         &         Yes         &         Yes         \\
+Break Coffee        &          No         &         Yes         &         Yes         \\
+Break Sugar         &          No         &          No         &         Yes         \\
+\midrule
+Observations        &         347         &         347         &         347         \\
+Pseudo \(R^{2}\)    &       0.460         &       0.559         &       0.645         \\
+\bottomrule
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}

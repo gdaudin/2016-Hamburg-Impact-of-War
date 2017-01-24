@@ -1,0 +1,52 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{longtable}{l*{3}{D{.}{.}{-1}}}
+\caption{Hamburg: Pre of each wars on each product\label{tab1}}\\
+\toprule\endfirsthead\midrule\endhead\midrule\endfoot\endlastfoot
+                    &\multicolumn{1}{c}{No breaks}&\multicolumn{1}{c}{One breaks}&\multicolumn{1}{c}{Two breaks}\\
+\midrule
+Value               &                     &                     &                     \\
+1 pre Seven Coffee  &      -0.120         &       1.579\sym{***}&       0.829\sym{*}  \\
+1 pre Seven Eau de vie&      0.0419         &       0.185         &      0.0419         \\
+1 pre Seven Sugar   &       0.219         &       1.072\sym{***}&       1.017\sym{***}\\
+1 pre Seven Wine    &       0.271         &       0.510\sym{**} &       0.271         \\
+1 pre American Coffee&       0.302         &       0.263         &     -0.0740         \\
+1 pre American Eau de vie&       1.145\sym{***}&       0.537\sym{***}&       1.145\sym{***}\\
+1 pre American Sugar&       1.184\sym{***}&       1.853\sym{***}&       0.679\sym{***}\\
+1 pre American Wine &       0.411\sym{*}  &       0.478\sym{***}&       0.411\sym{*}  \\
+2 pre Seven Coffee  &      0.0603         &       1.837\sym{***}&       1.069\sym{**} \\
+2 pre Seven Eau de vie&     -0.0138         &       0.163         &     -0.0138         \\
+2 pre Seven Sugar   &       0.207         &       1.069\sym{***}&       1.065\sym{***}\\
+2 pre Seven Wine    &       0.463         &       0.710\sym{***}&       0.463         \\
+2 pre American Coffee&       0.134         &       0.174         &      -0.181         \\
+2 pre American Eau de vie&      0.0391         &      -0.535\sym{***}&      0.0391         \\
+2 pre American Sugar&       0.731\sym{**} &       1.408\sym{***}&       0.285\sym{*}  \\
+2 pre American Wine &       0.284         &       0.359\sym{**} &       0.284         \\
+3 pre Seven Coffee  &      -5.023\sym{***}&      -3.167\sym{***}&      -3.954\sym{***}\\
+3 pre Seven Eau de vie&      -5.596\sym{***}&      -5.385\sym{***}&      -5.596\sym{***}\\
+3 pre Seven Sugar   &      -2.794\sym{***}&      -1.924\sym{***}&      -1.877\sym{***}\\
+3 pre Seven Wine    &      -9.996\sym{***}&      -9.742\sym{***}&      -9.996\sym{***}\\
+3 pre American Coffee&       0.397         &       0.516\sym{**} &       0.142         \\
+3 pre American Eau de vie&      -0.135         &      -0.675\sym{***}&      -0.135         \\
+3 pre American Sugar&       0.954\sym{***}&       1.639\sym{***}&       0.567\sym{***}\\
+3 pre American Wine &       0.132         &       0.215         &       0.132         \\
+4 pre Seven Coffee  &      -0.196         &       1.739\sym{***}&       0.934\sym{*}  \\
+4 pre Seven Eau de vie&      -0.346         &      -0.101         &      -0.346         \\
+4 pre Seven Sugar   &       0.194         &       1.072\sym{***}&       1.170\sym{***}\\
+4 pre Seven Wine    &       0.369         &       0.631\sym{***}&       0.369         \\
+4 pre American Coffee&       0.473         &       0.671\sym{***}&       0.278         \\
+4 pre American Eau de vie&      -0.408         &      -0.913\sym{***}&      -0.408         \\
+4 pre American Sugar&       0.509\sym{*}  &       1.203\sym{***}&       0.181         \\
+4 pre American Wine &     -0.0436         &      0.0469         &     -0.0436         \\
+Constant            &      -9.642         &      -149.9\sym{***}&      -116.2\sym{***}\\
+Product FE          &         Yes         &         Yes         &         Yes         \\
+Product time trend  &         Yes         &         Yes         &         Yes         \\
+Chow test Coffee    &          No         &         Yes         &         Yes         \\
+Chow test Sugar     &          No         &          No         &         Yes         \\
+\midrule
+Observations        &         347         &         347         &         347         \\
+Pseudo \(R^{2}\)    &       0.627         &       0.509         &       0.746         \\
+\bottomrule
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{longtable}
+}

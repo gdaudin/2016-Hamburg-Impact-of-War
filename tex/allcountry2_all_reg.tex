@@ -1,0 +1,24 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{All countries: All wars on each product\label{tab1}}
+\begin{tabular}{l*{3}{c}}
+\hline\hline
+                    &\multicolumn{1}{c}{No breaks}&\multicolumn{1}{c}{One break}&\multicolumn{1}{c}{Two breaks}\\
+\hline
+Value               &                     &                     &                     \\
+Neutral Coffee      &      -1.991\sym{***}&      -1.188\sym{***}&      -1.188\sym{***}\\
+Neutral Eau de vie  &       0.953\sym{***}&       0.952\sym{***}&       0.953\sym{***}\\
+Neutral Sugar       &      -1.657\sym{***}&      -1.656\sym{***}&      -1.066\sym{***}\\
+Neutral Wine        &      0.0614         &      0.0612         &      0.0621         \\
+Country-product FE  &         Yes         &         Yes         &         Yes         \\
+Country time trend  &         Yes         &         Yes         &         Yes         \\
+Product time trend  &         Yes         &         Yes         &         Yes         \\
+Coffee break        &          No         &         Yes         &         Yes         \\
+Sugar break         &          No         &          No         &         Yes         \\
+\hline
+Observations        &        3145         &        3145         &        3145         \\
+Pseudo \(R^{2}\)    &       0.787         &       0.800         &       0.815         \\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}

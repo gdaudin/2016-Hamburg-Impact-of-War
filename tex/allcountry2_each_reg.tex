@@ -1,0 +1,48 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{All countries: Each war on each product\label{tab1}}
+\begin{tabular}{l*{3}{c}}
+\hline\hline
+                    &\multicolumn{1}{c}{No breaks}&\multicolumn{1}{c}{One break}&\multicolumn{1}{c}{Two breaks}\\
+\hline
+Value               &                     &                     &                     \\
+Polish Neutral Coffee&      -5.409\sym{***}&      -3.640\sym{***}&      -3.647\sym{***}\\
+Polish Neutral Eau de vie&      -1.142\sym{**} &      -1.112\sym{**} &      -1.132\sym{**} \\
+Polish Neutral Sugar&      -4.029\sym{***}&      -2.607\sym{***}&      -4.027\sym{***}\\
+Polish Neutral Wine &      -1.876\sym{***}&      -1.846\sym{***}&      -1.865\sym{***}\\
+Austrian1 Neutral Coffee&      -6.351\sym{***}&      -4.758\sym{***}&      -4.766\sym{***}\\
+Austrian1 Neutral Eau de vie&      -5.464\sym{***}&      -5.434\sym{***}&      -5.455\sym{***}\\
+Austrian1 Neutral Sugar&      -4.112\sym{***}&      -2.924\sym{***}&      -4.112\sym{***}\\
+Austrian1 Neutral Wine&      -6.945\sym{***}&      -6.925\sym{***}&      -6.940\sym{***}\\
+Austrian2 Neutral Coffee&      -4.090\sym{***}&      -2.809\sym{***}&      -2.814\sym{***}\\
+Austrian2 Neutral Eau de vie&      -4.309\sym{***}&      -4.282\sym{***}&      -4.301\sym{***}\\
+Austrian2 Neutral Sugar&      -3.194\sym{***}&      -2.253\sym{***}&      -3.194\sym{***}\\
+Austrian2 Neutral Wine&      -8.948\sym{***}&      -8.930\sym{***}&      -8.943\sym{***}\\
+Seven Neutral Coffee&      -2.060\sym{***}&      -1.510\sym{***}&      -1.511\sym{***}\\
+Seven Neutral Eau de vie&       0.429         &       0.446         &       0.436         \\
+Seven Neutral Sugar &      -1.544\sym{***}&      -1.203\sym{**} &      -1.544\sym{***}\\
+Seven Neutral Wine  &       0.197         &       0.210         &       0.203         \\
+American Neutral Coffee&      -0.412         &      -0.950\sym{***}&      -0.951\sym{***}\\
+American Neutral Eau de vie&       0.242         &       0.247         &       0.244         \\
+American Neutral Sugar&      -0.137         &      -0.720\sym{***}&      -0.135         \\
+American Neutral Wine&       0.116         &       0.117         &       0.117         \\
+Revolutionary Neutral Coffee&      -5.724\sym{***}&      -1.578         &      -1.581         \\
+Revolutionary Neutral Eau de vie&       1.066\sym{***}&       1.064\sym{***}&       1.066\sym{***}\\
+Revolutionary Neutral Sugar&      -3.112\sym{***}&       0.126         &      -3.110\sym{***}\\
+Revolutionary Neutral Wine&       0.356\sym{*}  &       0.354\sym{*}  &       0.356\sym{*}  \\
+Napoleonic Neutral Coffee&      -5.452\sym{***}&      -0.719         &      -0.721         \\
+Napoleonic Neutral Eau de vie&       1.364\sym{***}&       1.358\sym{***}&       1.363\sym{***}\\
+Napoleonic Neutral Sugar&      -4.616\sym{***}&      -1.288         &      -4.614\sym{***}\\
+Napoleonic Neutral Wine&     -0.0201         &     -0.0259         &     -0.0210         \\
+Country-product FE  &         Yes         &         Yes         &         Yes         \\
+Country time trend  &         Yes         &         Yes         &         Yes         \\
+Product time trend  &         Yes         &         Yes         &         Yes         \\
+Coffee break        &          No         &         Yes         &         Yes         \\
+Sugar break         &          No         &         Yes         &          No         \\
+\hline
+Observations        &        3145         &        3145         &        3145         \\
+Pseudo \(R^{2}\)    &       0.827         &       0.847         &       0.838         \\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}

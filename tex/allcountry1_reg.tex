@@ -1,0 +1,26 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{All countries: aggregate\label{tab1}}
+\begin{tabular}{l*{4}{D{.}{.}{-1}}}
+\hline\hline
+                    &\multicolumn{1}{c}{No breaks}&\multicolumn{1}{c}{One break}&\multicolumn{1}{c}{No breaks}&\multicolumn{1}{c}{One break}\\
+\hline
+Value               &                     &                     &                     &                     \\
+Neutral             &      -0.373\sym{***}&      -0.427\sym{***}&                     &                     \\
+Polish Neutral      &                     &                     &      -2.844\sym{***}&      -1.947\sym{***}\\
+Austrian1 Neutral   &                     &                     &      -4.004\sym{***}&      -3.111\sym{***}\\
+Austrian2 Neutral   &                     &                     &      -3.532\sym{***}&      -2.831\sym{***}\\
+Seven Neutral       &                     &                     &      -0.497\sym{***}&      -0.264         \\
+American Neutral    &                     &                     &      0.0694         &      -0.375\sym{***}\\
+Revolutionary Neutral&                     &                     &      -0.106         &      -0.668\sym{**} \\
+Napoleonic Neutral  &                     &                     &      -0.216         &      -0.218         \\
+Country FE          &         Yes         &         Yes         &         Yes         &         Yes         \\
+Country time trend  &         Yes         &         Yes         &         Yes         &         Yes         \\
+Chow test           &          No         &         Yes         &          No         &         Yes         \\
+\hline
+Observations        &         789         &         789         &         789         &         789         \\
+Pseudo \(R^{2}\)    &       0.623         &       0.763         &       0.703         &       0.802         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}

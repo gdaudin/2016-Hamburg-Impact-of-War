@@ -1,8 +1,10 @@
-global thesis2 "/Users/Tirindelli/Google Drive/ETE/Thesis2"
+*global ete "/Users/Tirindelli/Google Drive/ETE"
+global ete "C:\Users\TIRINDEE\Google Drive\ETE"
+
 
 set more off
 
-use "$thesis2/database_dta/bdd_courante2", clear
+use "$ete/thesis2/database_dta/bdd_courante2", clear
 
 drop if year<1733
 drop if year==1766 & classification_hamburg_large=="Sugar"
@@ -345,25 +347,41 @@ eststo: poisson value year i.pays_class year_pays1-year_pays12 year_class1-year_
 gen coffee=(year>1795 & class==1)
 gen sugar=(year>1795 & class==3)
 
+/*
+find countries which export more sugar and coffee
+foreach i of num 1/12{
+local label : label (pays) `i'
+graph pie value if pays==`i', over(class) title("`i'`label'") plabel(_all percent)
+graph export "$ete/Thesis/Data/Graph/Product_pays/pays`i'.ps", replace
+}
+find countries with trend break?? 
 foreach i in 2 3 5 8 9 10{
 gen country`i'=(year>1795 & pays==`i')
 gen year_country`i'=country`i'*year_pays`i'
 }
+*/
 
-****regress
-eststo: poisson value year i.pays_class year_pays1-year_pays12 year_class1-year_class5 i.all_status_class, vce(robust)
+label var value Value
+****regress first no break, then break for coffee only and then both sugar and coffee (=experiment)
+eststo: poisson value i.pays_class year_pays1-year_pays12 year_class1-year_class5 i.all_status_class, vce(robust)
+eststo: poisson value i.pays_class 0.coffee#pays year_pays1-year_pays12 year_class1-year_class5 ///
+	0.coffee#c.year_class1 i.all_status_class, vce(robust) difficult
 eststo: poisson value i.pays_class 0.coffee#pays 0.sugar#pays year_pays1-year_pays12 year_class1-year_class5 ///
 	0.coffee#c.year_class1 0.sugar#c.year_class3 i.all_status_class, vce(robust) difficult 
-eststo: poisson value i.pays_class 0.coffee#pays year_pays1-year_pays12 year_class1-year_class5 ///
-	0.coffee#c.year_class1 i.all_status_class, vce(robust) difficult 
-eststo: poisson value i.pays_class 0.coffee#pays 0.sugar#pays year_pays1-year_pays12 year_class1-year_class5 ///
+/*eststo: poisson value i.pays_class 0.coffee#pays 0.sugar#pays year_pays1-year_pays12 year_class1-year_class5 ///
 	0.coffee#c.year_class1 0.sugar#c.year_class3 year_country2-year_country10 i.all_status_class, vce(robust) difficult 
+*/
 esttab, label
 
-esttab using "$thesis2/reg_table/allcountry2/dummies1/dummies1.tex",label longtable noomitted not ///
-	indicate("Country-product FE= *.pays_class" "Country time trend= *year_pays*" "Product time trend=*year_class*") ///
-	pr2 nonumbers mtitles("All wars" "Quadratic" "War by war" "Qaudratic" "Quadratic") ///
-	title(Regression table\label{tab1}) replace
+esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/allcountry2_all_reg.tex",label not ///
+	indicate("Country-product FE= *.pays_class" "Country time trend= *year_pays*" "Product time trend=*year_class*" ///
+	"Coffee break=*coffee*" "Sugar break=*sugar*") ///
+	pr2 nonumbers mtitles("No breaks" "One break" "Two breaks") varlab(_cons Constant ///
+	1.all_status_class "Adversary Coffee" 2.all_status_class "Adversary Eau de vie" 3.all_status_class "Adversary Sugar" 4.all_status_class "Adversary Wine" ///
+	6.all_status_class "Allied Coffee" 7.all_status_class "Allied Eau de vie" 8.all_status_class "Allied Sugar" 9.all_status_class "Allied Wine" ///
+	11.all_status_class "Neutral Coffee" 12.all_status_class "Neutral Eau de vie" 13.all_status_class "Neutral Sugar" 14.all_status_class "Neutral Wine")	///
+	keep(11.all_status_class 12.all_status_class 13.all_status_class 14.all_status_class)	///
+	title(All countries: All wars on each product\label{tab1}) replace
 
 eststo clear
 
@@ -372,14 +390,25 @@ eststo: poisson value i.pays_class 0.coffee#pays 0.sugar#pays year_pays1-year_pa
 	0.coffee#c.year_class1 0.sugar#c.year_class3 i.each_status_class, vce(robust) difficult 
 eststo: poisson value i.pays_class 0.coffee#pays year_pays1-year_pays12 year_class1-year_class5 ///
 	0.coffee#c.year_class1 i.each_status_class, vce(robust) difficult 
-eststo: poisson value i.pays_class 0.coffee#pays 0.sugar#pays year_pays1-year_pays12 year_class1-year_class5 ///
+/*eststo: poisson value i.pays_class 0.coffee#pays 0.sugar#pays year_pays1-year_pays12 year_class1-year_class5 ///
 	0.coffee#c.year_class1 0.sugar#c.year_class3 year_country2-year_country10 i.each_status_class, vce(robust) difficult 
+*/
 esttab, label
-
-esttab using "$thesis2/reg_table/allcountry2/dummies1/dummies2.tex",label longtable noomitted not ///
-	indicate("Country-product FE= *.pays_class" "Country time trend= *year_pays*" "Product time trend=*year_class*") ///
-	pr2 nonumbers mtitles("All wars" "Quadratic" "War by war" "Qaudratic" "Quadratic") ///
-	title(Regression table\label{tab1}) replace
+local macro 34.* 35.* 36.* 37.* 39.* 40.* 41.* 42.* 44.* 45.* 46.* 47.* 49.* 50.* 51.* 52.* 54.* 55.* 56.* 57.* ///
+	59.* 60.* 61.* 62.* 64.* 65.* 66.* 67.*
+esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/allcountry2_each_reg.tex",label not ///
+	indicate("Country-product FE= *.pays_class" "Country time trend= *year_pays*" "Product time trend=*year_class*" ///
+	"Coffee break=*coffee*" "Sugar break=*sugar*") ///
+	pr2 nonumbers mtitles("No breaks" "One break" "Two breaks") varlab(_cons Constant ///
+	34.each_status_class "Polish Neutral Coffee" 35.each_status_class "Polish Neutral Eau de vie" 36.each_status_class "Polish Neutral Sugar" 37.each_status_class "Polish Neutral Wine" ///
+	39.each_status_class "Austrian1 Neutral Coffee" 40.each_status_class "Austrian1 Neutral Eau de vie" 41.each_status_class "Austrian1 Neutral Sugar" 42.each_status_class "Austrian1 Neutral Wine" ///
+	44.each_status_class "Austrian2 Neutral Coffee" 45.each_status_class "Austrian2 Neutral Eau de vie" 46.each_status_class "Austrian2 Neutral Sugar" 47.each_status_class "Austrian2 Neutral Wine" ///
+	49.each_status_class "Seven Neutral Coffee" 50.each_status_class "Seven Neutral Eau de vie" 51.each_status_class "Seven Neutral Sugar" 52.each_status_class "Seven Neutral Wine" ///
+	54.each_status_class "American Neutral Coffee" 55.each_status_class "American Neutral Eau de vie" 56.each_status_class "American Neutral Sugar" 57.each_status_class "American Neutral Wine" ///
+	59.each_status_class "Revolutionary Neutral Coffee" 60.each_status_class "Revolutionary Neutral Eau de vie" 61.each_status_class "Revolutionary Neutral Sugar" 62.each_status_class "Revolutionary Neutral Wine" ///
+	64.each_status_class "Napoleonic Neutral Coffee" 65.each_status_class "Napoleonic Neutral Eau de vie" 66.each_status_class "Napoleonic Neutral Sugar" 67.each_status_class "Napoleonic Neutral Wine") ///
+	keep(`macro') ///
+	title(All countries: Each war on each product\label{tab1}) replace
 
 eststo clear
 
@@ -399,6 +428,8 @@ replace each_war_lag="`i' lags Austrian2 neutral" if pays_regroupes=="Suisse" & 
 replace each_war_lag="`i' lags Austrian2 neutral" if pays_regroupes=="Italie" & year==1748+`i'
 replace each_war_lag="`i' lags Austrian2 neutral" if pays_regroupes=="Portugal" & year==1748+`i'
 
+replace each_war_lag="`i' lags Austrian2 allies" if each_war_lag=="" & year==1748+`i'
+
 ****seven
 replace each_war_lag="`i' lags Seven adversary" if pays_regroupes=="Angleterre" & year==1763+`i'
 replace each_war_lag="`i' lags Seven adversary" if pays_regroupes=="Portugal" & year==1763+`i'
@@ -409,6 +440,8 @@ replace each_war_lag="`i' lags Seven neutral" if pays_regroupes=="Levant" & year
 replace each_war_lag="`i' lags Seven neutral" if pays_regroupes=="Nord" & year==1763+`i'
 replace each_war_lag="`i' lags Seven neutral" if pays_regroupes=="Suisse" & year==1763+`i'
 
+replace each_war_lag="`i' lags Seven allies" if each_war_lag=="" & year==1763+`i'
+
 ****napoleonic
 replace each_war_lag="`i' lags Napoleonic adversary" if pays_regroupes=="Angleterre" & year==1814+`i'
 
@@ -418,6 +451,8 @@ replace each_war_lag="`i' lags Napoleonic neutral" if pays_regroupes=="Levant" &
 replace each_war_lag="`i' lags Napoleonic neutral" if pays_regroupes=="Nord" & year==1814+`i'
 replace each_war_lag="`i' lags Napoleonic neutral" if pays_regroupes=="Suisse" & year==1814+`i'
 replace each_war_lag="`i' lags Napoleonic neutral" if pays_regroupes=="Portuga" & year==1814+`i'
+
+replace each_war_lag="`i' lags Napoleonic allies" if each_war_lag=="" & year==1814+`i'
 }
 
 gen all_war_lag=""
@@ -433,6 +468,8 @@ replace all_war_lag="`i' lags Neutral" if pays_regroupes=="Suisse" & year==1748+
 replace all_war_lag="`i' lags Neutral" if pays_regroupes=="Italie" & year==1748+`i'
 replace all_war_lag="`i' lags Neutral" if pays_regroupes=="Portugal" & year==1748+`i'
 
+replace all_war_lag="`i' lags Allies" if all_war_lag=="" & year==1748+`i'
+
 ***seven
 replace all_war_lag="`i' lags Adversary" if pays_regroupes=="Angleterre" & year==1763+`i'
 replace all_war_lag="`i' lags Adversary" if pays_regroupes=="Portugal" & year==1763+`i'
@@ -443,6 +480,8 @@ replace all_war_lag="`i' lags Neutral" if pays_regroupes=="Levant" & year==1763+
 replace all_war_lag="`i' lags Neutral" if pays_regroupes=="Nord" & year==1763+`i'
 replace all_war_lag="`i' lags Neutral" if pays_regroupes=="Suisse" & year==1763+`i'
 
+replace all_war_lag="`i' lags Allies" if all_war_lag=="" & year==1763+`i'
+
 ***napoleonic
 replace all_war_lag="`i' lags Adversary" if pays_regroupes=="Angleterre" & year==1814+`i'
 
@@ -452,33 +491,96 @@ replace all_war_lag="`i' lags Neutral" if pays_regroupes=="Levant" & year==1814+
 replace all_war_lag="`i' lags Neutral" if pays_regroupes=="Nord" & year==1814+`i'
 replace all_war_lag="`i' lags Neutral" if pays_regroupes=="Suisse" & year==1814+`i'
 replace all_war_lag="`i' lags Neutral" if pays_regroupes=="Portugal" & year==1814+`i'
+
+replace all_war_lag="`i' lags Allies" if all_war_lag=="" & year==1814+`i'
 }
 
-encode each_war_lag, gen(each_lag)
+label define order_each_lag  1 "1 lags Austrian2 neutral"  2 "2 lags Austrian2 neutral"  3 "3 lags Austrian2 neutral" ///
+	4 "4 lags Austrian2 neutral" 5 "5 lags Austrian2 neutral"  ///
+	6 "1 lags Seven neutral" 7 "2 lags Seven neutral"  8 "3 lags Seven neutral"  ///
+	9 "4 lags Seven neutral"  10 "5 lags Seven neutral" ///
+	11 "1 lags Napoleonic neutral" 12 "2 lags Napoleonic neutral" 13 "3 lags Napoleonic neutral" ///
+	14 "4 lags Napoleonic neutral" 15 "5 lags Napoleonic neutral"  ///
+
+encode each_war_lag, gen(each_lag) label(order_each_lag)
 egen each_lag_class=group(each_lag class), label
 replace each_lag=0 if each_lag==.
 replace each_lag_class=0 if each_lag_class==.
 
-encode all_war_lag, gen(all_lag)
+label define order_all_lag  1 "1 lags Neutral"  2 "2 lags Neutral"  3 "3 lags Neutral" ///
+	4 "4 lags Neutral" 5 "5 lags Neutral"  ///
+	
+encode all_war_lag, gen(all_lag) label(order_all_lag)
 egen all_lag_class=group(all_lag class), label
 replace all_lag=0 if all_lag==.
 replace all_lag_class=0 if all_lag_class==.
 
-local macro1 14.each_lag_class 19.each_lag_class 23.each_lag_class 27.each_lag_class 32.each_lag_class 37.each_lag_class 41.each_lag_class 46.each_lag_class 49.each_lag_class 54.* 59.* 64.* 68.* 73.* 77.* 81.* 86.* 91.* 96.* 101.* 104.* 107.* 112.* 117.* 122.* 127.* 130.* 134.*
 local macro2 15.all_lag_class 20.all_lag_class 25.all_lag_class 30.all_lag_class 35.all_lag_class 40.all_lag_class 45.all_lag_class 50.all_lag_class
+
 ****reg with lags
-
 eststo: poisson value i.pays_class year_pays1-year_pays12 year_class1-year_class5 i.all_status_class i.all_lag_class, vce(robust)
-eststo: poisson value i.pays_class year_pays1-year_pays12 year_class1-year_class5 year2_class1-year2_class5 all_status_class1-all_status_class10 i.all_lag_class, vce(robust) difficult
-eststo: poisson value i.pays_class year_pays1-year_pays12 year_class1-year_class5 year2_pays1-year2_pays12 all_status_class1-all_status_class10 i.all_lag_class, vce(robust) difficult
+eststo: poisson value i.pays_class 0.coffee#pays year_pays1-year_pays12 year_class1-year_class5 ///
+	0.coffee#c.year_class1 i.all_status_class i.all_lag_class, vce(robust) difficult
+eststo: poisson value i.pays_class 0.coffee#pays 0.sugar#pays year_pays1-year_pays12 year_class1-year_class5 ///
+	0.coffee#c.year_class1 0.sugar#c.year_class3 i.all_status_class i.all_lag_class, vce(robust) difficult 
+/*eststo: poisson value i.pays_class 0.coffee#pays 0.sugar#pays year_pays1-year_pays12 year_class1-year_class5 ///
+	0.coffee#c.year_class1 0.sugar#c.year_class3 year_country2-year_country10 i.all_status_class i.all_lag_class, vce(robust) difficult 
+*/
+esttab, label
 
-eststo: poisson value i.pays_class year_pays1-year_pays12 year_class1-year_class5 i.each_status_class i.each_lag_class, vce(robust)
-eststo: poisson value i.pays_class year_pays1-year_pays12 year_class1-year_class5 year2_class1-year2_class5 i.each_status_class i.each_lag_class, vce(robust) difficult
-eststo: poisson value i.pays_class year_pays1-year_pays12 year_class1-year_class5 year2_pays1-year2_pays12 i.each_status_class i.each_lag_class, vce(robust) difficult
-
-esttab using "$thesis2/reg_table/allcountry2/lag1/lag1.tex",label longtable noomitted not drop(0.* 5.* 10.* `macro1' `macro2' *.all_status* *.each_status*) indicate("Country-product FE= *.pays_class" "Country time trend= *year_pays*" "Product time trend=*year_class*" "Country quadratic trend= *year2_pays*" "Product quadratic trend= *year2_class*") pr2 nonumbers mtitles("All wars" "Quadratic" "War by war" "Qaudratic" "Quadratic") title(Regression table\label{tab1}) replace
+local macro1 1.all_lag_class 2.all_lag_class  ///
+	3.all_lag_class 4.all_lag_class  6.all_lag_class 7.all_lag_class  ///
+	8.all_lag_class  9.all_lag_class 11.all_lag_class  12.all_lag_class ///
+	13.all_lag_class  14.all_lag_class 	16.all_lag_class  17.all_lag_class  ///
+	18.all_lag_class  19.all_lag_class 21.all_lag_class 22.all_lag_class ///
+	23.all_lag_class  24.all_lag_class
+		
+esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/allcountry2_all_lag.tex",label not ///
+	indicate("Country-product FE= *.pays_class" "Country time trend= *year_pays*" "Product time trend=*year_class*" ///
+	"Coffee break=*coffee*" "Sugar break=*sugar*") ///
+	pr2 nonumbers mtitles("No breaks" "One break" "Two breaks") varlab(_cons Constant ///
+	1.all_lag_class "1 lag neutral Coffee" 2.all_lag_class "1 lag neutral Eau de vie" ///
+	3.all_lag_class "1 lag neutral Sugar" 4.all_lag_class "1 lag neutral Wine" ///
+	6.all_lag_class "2 lags neutral Coffee" 7.all_lag_class "2 lags neutral Eau de vie" ///
+	8.all_lag_class "2 lags neutral Sugar" 9.all_lag_class "2 lags neutral Wine" ///
+	11.all_lag_class "3 lags neutral Coffee" 12.all_lag_class "3 lags neutral Eau de vie" ///
+	13.all_lag_class "3 lags neutral Sugar" 14.all_lag_class "3 lags neutral Wine"	///
+	16.all_lag_class "4 lags neutral Coffee" 17.all_lag_class "4 lags neutral Eau de vie" ///
+	18.all_lag_class "4 lags neutral Sugar" 19.all_lag_class "4 lags neutral Wine" ///
+	21.all_lag_class "5 lags neutral Coffee" 22.all_lag_class "5 lags neutral Eau de vie" ///
+	23.all_lag_class "5 lags neutral Sugar" 24.all_lag_class "5 lags neutral Wine")	///
+	drop(*.all_status_class 0b.* 5.* 10.* 15.* 20.*)	keep(`macro') ///
+	title(All countries: Lag of all wars on each product\label{tab1}) replace
 
 eststo clear
+exit
+eststo: poisson value year i.pays_class year_pays1-year_pays12 year_class1-year_class5 i.each_status_class i.each_lag_class, vce(robust)
+eststo: poisson value i.pays_class 0.coffee#pays 0.sugar#pays year_pays1-year_pays12 year_class1-year_class5 ///
+	0.coffee#c.year_class1 0.sugar#c.year_class3 i.each_status_class i.each_lag_class, vce(robust) difficult 
+eststo: poisson value i.pays_class 0.coffee#pays year_pays1-year_pays12 year_class1-year_class5 ///
+	0.coffee#c.year_class1 i.each_status_class i.each_lag_class, vce(robust) difficult 
+/*eststo: poisson value i.pays_class 0.coffee#pays 0.sugar#pays year_pays1-year_pays12 year_class1-year_class5 ///
+	0.coffee#c.year_class1 0.sugar#c.year_class3 year_country2-year_country10 i.each_status_class i.each_lag_class, vce(robust) difficult 
+*/
+esttab, label
+local macro 34.* 35.* 36.* 37.* 39.* 40.* 41.* 42.* 44.* 45.* 46.* 47.* 49.* 50.* 51.* 52.* 54.* 55.* 56.* 57.* ///
+	59.* 60.* 61.* 62.* 64.* 65.* 66.* 67.*
+esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/allcountry2_each_lag.tex",label not ///
+	indicate("Country-product FE= *.pays_class" "Country time trend= *year_pays*" "Product time trend=*year_class*" ///
+	"Coffee break=*coffee*" "Sugar break=*sugar*") ///
+	pr2 nonumbers mtitles("No breaks" "One break" "Two breaks") varlab(_cons Constant ///
+	34.each_status_class "Polish Neutral Coffee" 35.each_status_class "Polish Neutral Eau de vie" 36.each_status_class "Polish Neutral Sugar" 37.each_status_class "Polish Neutral Wine" ///
+	39.each_status_class "Austrian1 Neutral Coffee" 40.each_status_class "Austrian1 Neutral Eau de vie" 41.each_status_class "Austrian1 Neutral Sugar" 42.each_status_class "Austrian1 Neutral Wine" ///
+	44.each_status_class "Austrian2 Neutral Coffee" 45.each_status_class "Austrian2 Neutral Eau de vie" 46.each_status_class "Austrian2 Neutral Sugar" 47.each_status_class "Austrian2 Neutral Wine" ///
+	49.each_status_class "Seven Neutral Coffee" 50.each_status_class "Seven Neutral Eau de vie" 51.each_status_class "Seven Neutral Sugar" 52.each_status_class "Seven Neutral Wine" ///
+	54.each_status_class "American Neutral Coffee" 55.each_status_class "American Neutral Eau de vie" 56.each_status_class "American Neutral Sugar" 57.each_status_class "American Neutral Wine" ///
+	59.each_status_class "Revolutionary Neutral Coffee" 60.each_status_class "Revolutionary Neutral Eau de vie" 61.each_status_class "Revolutionary Neutral Sugar" 62.each_status_class "Revolutionary Neutral Wine" ///
+	64.each_status_class "Napoleonic Neutral Coffee" 65.each_status_class "Napoleonic Neutral Eau de vie" 66.each_status_class "Napoleonic Neutral Sugar" 67.each_status_class "Napoleonic Neutral Wine") ///
+	keep(`macro') ///
+	title(All countries: Each war on each product\label{tab1}) replace
+
+eststo clear
+
 ****gen prewar effects
 
 gen each_war_pre=""

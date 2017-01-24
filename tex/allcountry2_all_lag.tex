@@ -1,0 +1,42 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{All countries: Lag of all wars on each product\label{tab1}}
+\begin{tabular}{l*{3}{c}}
+\hline\hline
+                    &\multicolumn{1}{c}{No breaks}&\multicolumn{1}{c}{One break}&\multicolumn{1}{c}{Two breaks}\\
+\hline
+Value               &                     &                     &                     \\
+1 lag neutral Coffee&      -4.326\sym{***}&      -3.851\sym{***}&      -3.850\sym{***}\\
+1 lag neutral Eau de vie&      -1.963\sym{***}&      -1.966\sym{***}&      -1.964\sym{***}\\
+1 lag neutral Sugar &      -3.204\sym{***}&      -3.202\sym{***}&      -2.638\sym{***}\\
+1 lag neutral Wine  &      -0.444         &      -0.444         &      -0.441         \\
+2 lags neutral Coffee&      -5.297\sym{***}&      -3.661\sym{***}&      -3.660\sym{***}\\
+2 lags neutral Eau de vie&      -1.330\sym{**} &      -1.331\sym{**} &      -1.327\sym{**} \\
+2 lags neutral Sugar&      -3.417\sym{***}&      -3.418\sym{***}&      -2.678\sym{***}\\
+2 lags neutral Wine &      -0.575\sym{*}  &      -0.576\sym{*}  &      -0.571\sym{*}  \\
+3 lags neutral Coffee&      -5.164\sym{***}&      -3.567\sym{***}&      -3.566\sym{***}\\
+3 lags neutral Eau de vie&      -1.654\sym{***}&      -1.655\sym{***}&      -1.651\sym{***}\\
+3 lags neutral Sugar&      -2.784\sym{***}&      -2.781\sym{***}&      -1.863\sym{***}\\
+3 lags neutral Wine &      -0.955\sym{***}&      -0.956\sym{***}&      -0.951\sym{***}\\
+4 lags neutral Coffee&      -0.721\sym{***}&      -0.336         &      -0.335         \\
+4 lags neutral Eau de vie&      -0.827\sym{*}  &      -0.829         &      -0.826         \\
+4 lags neutral Sugar&      -0.138         &      -0.137         &       0.281\sym{**} \\
+4 lags neutral Wine &     -0.0227         &     -0.0251         &     -0.0223         \\
+5 lags neutral Coffee&      -0.971\sym{**} &      -0.614\sym{*}  &      -0.613\sym{*}  \\
+5 lags neutral Eau de vie&      -0.600\sym{**} &      -0.602\sym{**} &      -0.599\sym{**} \\
+5 lags neutral Sugar&      -0.851\sym{*}  &      -0.853\sym{*}  &      -0.254         \\
+5 lags neutral Wine &     -0.0775         &     -0.0796         &     -0.0757         \\
+
+Constant            &      -50.98\sym{***}&      -18.32         &       128.3         \\
+Country-product FE  &         Yes         &         Yes         &         Yes         \\
+Country time trend  &         Yes         &         Yes         &         Yes         \\
+Product time trend  &         Yes         &         Yes         &         Yes         \\
+Coffee break        &          No         &         Yes         &         Yes         \\
+Sugar break         &          No         &          No         &         Yes         \\
+\hline
+Observations        &        3145         &        3145         &        3145         \\
+Pseudo \(R^{2}\)    &       0.817         &       0.822         &       0.833         \\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}

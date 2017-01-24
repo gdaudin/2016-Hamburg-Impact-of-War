@@ -1,0 +1,36 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Hamburg: Pre of all wars on each product\label{tab1}}
+\begin{tabular}{l*{3}{D{.}{.}{-1}}}
+\hline\hline
+                    &\multicolumn{1}{c}{No breaks}&\multicolumn{1}{c}{One break}&\multicolumn{1}{c}{Two breaks}\\
+\hline
+Value               &                     &                     &                     \\
+1 pre Coffee        &       0.401         &      0.0516         &      0.0516         \\
+1 pre Eau de vie    &       1.947\sym{***}&       1.947\sym{***}&       1.947\sym{***}\\
+1 pre Sugar         &       1.102\sym{**} &       1.102\sym{**} &       0.699\sym{***}\\
+1 pre Wine          &       0.630\sym{**} &       0.630\sym{**} &       0.630\sym{**} \\
+2 pre Coffee        &       0.360         &      0.0699         &      0.0699         \\
+2 pre Eau de vie    &       1.260\sym{**} &       1.260\sym{**} &       1.260\sym{**} \\
+2 pre Sugar         &       0.798\sym{**} &       0.798\sym{**} &       0.449         \\
+2 pre Wine          &       0.640\sym{**} &       0.640\sym{**} &       0.640\sym{**} \\
+3 pre Coffee        &       0.625         &      -0.277         &      -0.277         \\
+3 pre Eau de vie    &       1.038\sym{*}  &       1.038\sym{*}  &       1.038\sym{*}  \\
+3 pre Sugar         &       0.892\sym{*}  &       0.892\sym{*}  &      0.0135         \\
+3 pre Wine          &       0.153         &       0.153         &       0.153         \\
+4 pre Coffee        &       0.854\sym{*}  &      0.0111         &      0.0111         \\
+4 pre Eau de vie    &       0.985\sym{**} &       0.985\sym{**} &       0.985\sym{**} \\
+4 pre Sugar         &       0.851\sym{**} &       0.851\sym{**} &      0.0270         \\
+4 pre Wine          &       0.389         &       0.389         &       0.389         \\
+Cons                &      -12.40         &      -116.2\sym{***}&      -116.2\sym{***}\\
+Product FE          &         Yes         &         Yes         &         Yes         \\
+Product time trend  &         Yes         &         Yes         &         Yes         \\
+Break Coffee        &          No         &         Yes         &         Yes         \\
+Break Sugar         &          No         &          No         &         Yes         \\
+\hline
+Observations        &         347         &         347         &         347         \\
+Pseudo \(R^{2}\)    &       0.500         &       0.586         &       0.661         \\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}

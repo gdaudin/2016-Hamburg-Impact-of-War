@@ -1,0 +1,38 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{All countries: lags\label{tab1}}
+\begin{tabular}{l*{4}{D{.}{.}{-1}}}
+\hline\hline
+                    &\multicolumn{1}{c}{No breaks}&\multicolumn{1}{c}{One break}&\multicolumn{1}{c}{No breaks}&\multicolumn{1}{c}{One break}\\
+\hline
+Value               &                     &                     &                     &                     \\
+1 lag neutral       &      -1.097\sym{**} &      -0.826\sym{*}  &                     &                     \\
+2 lags neutral      &      -1.264\sym{***}&      -0.884\sym{**} &                     &                     \\
+3 lags neutral      &      -1.436\sym{***}&      -1.059\sym{***}&                     &                     \\
+4 lags neutral      &      -0.130         &       0.214         &                     &                     \\
+5 lags neutral      &      -0.424\sym{*}  &     -0.0842         &                     &                     \\
+1 lag Austrian2 neutral&                     &                     &      -3.837\sym{***}&      -3.416\sym{***}\\
+2 lags Austrian2 neutral&                     &                     &      -3.919\sym{***}&      -3.515\sym{***}\\
+3 lags Austrian2 neutral&                     &                     &      -3.554\sym{***}&      -3.169\sym{***}\\
+4 lags Austrian2 neutral&                     &                     &      -0.155         &       0.212         \\
+5 lags Austrian2 neutral&                     &                     &      -4.108\sym{***}&      -3.760\sym{***}\\
+1 lag Seven neutral &                     &                     &      -3.515\sym{***}&      -3.381\sym{***}\\
+2 lags Seven neutral&                     &                     &      -3.331\sym{***}&      -3.216\sym{***}\\
+3 lags Seven neutral&                     &                     &      -3.161\sym{***}&      -3.064\sym{***}\\
+4 lags Seven neutral&                     &                     &     -0.0502         &      0.0135         \\
+5 lags Seven neutral&                     &                     &      -0.121         &     -0.0747         \\
+1 lag Napoleonic neutral&                     &                     &      -0.280         &     0.00700         \\
+2 lags Napoleonic neutral&                     &                     &      -0.413\sym{*}  &       0.170         \\
+3 lags Napoleonic neutral&                     &                     &      -0.528\sym{**} &      0.0898         \\
+4 lags Napoleonic neutral&                     &                     &      -0.367         &       0.285         \\
+5 lags Napoleonic neutral&                     &                     &      -0.219         &       0.467\sym{*}  \\
+Country FE          &         Yes         &         Yes         &         Yes         &         Yes         \\
+Country time trend  &         Yes         &         Yes         &         Yes         &         Yes         \\
+Chow test           &          No         &         Yes         &          No         &         Yes         \\
+\hline
+Observations        &         789         &         789         &         789         &         789         \\
+Pseudo \(R^{2}\)    &       0.670         &       0.785         &       0.808         &       0.881         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}
