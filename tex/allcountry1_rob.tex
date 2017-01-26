@@ -1,0 +1,25 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Robustness check: All countries: aggregate\label{tab1}}
+\begin{tabular}{l*{4}{D{.}{.}{-1}}}
+\hline\hline
+                    &\multicolumn{1}{c}{No breaks}&\multicolumn{1}{c}{One break}&\multicolumn{1}{c}{No breaks}&\multicolumn{1}{c}{One break}\\
+\hline
+Neutral             &      -0.585\sym{***}&      -0.257         &                     &                     \\
+Polish Neutral      &                     &                     &      -1.348\sym{***}&      -0.250         \\
+Austrian1 Neutral   &                     &                     &      -1.776\sym{***}&      -0.765\sym{*}  \\
+Austrian2 Neutral   &                     &                     &      -1.926\sym{***}&      -1.186\sym{**} \\
+Seven Neutral       &                     &                     &      -0.112         &      0.0319         \\
+American Neutral    &                     &                     &       0.619\sym{***}&      -0.241\sym{*}  \\
+Revolutionary Neutral&                     &                     &      -0.553\sym{*}  &      -1.051\sym{**} \\
+Napoleonic Neutral  &                     &                     &      -0.606\sym{**} &      -0.495\sym{*}  \\
+Country FE          &         Yes         &         Yes         &         Yes         &         Yes         \\
+Country time trend  &         Yes         &         Yes         &         Yes         &         Yes         \\
+Chow test           &          No         &         Yes         &          No         &         Yes         \\
+\hline
+Observations        &         789         &         789         &         789         &         789         \\
+Pseudo \(R^{2}\)    &                     &                     &                     &                     \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}

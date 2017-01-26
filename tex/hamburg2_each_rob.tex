@@ -1,0 +1,47 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Robustness check: Hamburg: Each wars on each product\label{tab1}}
+\begin{tabular}{l*{3}{D{.}{.}{-1}}}
+\hline\hline
+                    &\multicolumn{1}{c}{No breaks}&\multicolumn{1}{c}{One break}&\multicolumn{1}{c}{Two breaks}\\
+\hline
+Polish Coffee       &      -6.539\sym{**} &      -0.221         &      -2.681\sym{*}  \\
+Polish Eau de vie   &      -2.482\sym{**} &      -2.482\sym{**} &      -2.482\sym{**} \\
+Polish Sugar        &      -4.057\sym{***}&      -4.057\sym{***}&      -1.026         \\
+Polish Wine         &      -4.704\sym{**} &      -4.704\sym{**} &      -4.704\sym{**} \\
+Austrian1 Coffee    &      -6.479\sym{***}&      -0.167         &      -3.148\sym{**} \\
+Austrian1 Eau de vie&      -2.547\sym{**} &      -2.547\sym{**} &      -2.547\sym{**} \\
+Austrian1 Sugar     &      -3.586\sym{***}&      -3.586\sym{***}&      -1.116\sym{*}  \\
+Austrian1 Wine      &      -5.669\sym{***}&      -5.669\sym{***}&      -5.669\sym{***}\\
+Austrian2 Coffee    &      -4.359\sym{*}  &      -1.689         &      -1.853         \\
+Austrian2 Eau de vie&      -2.146\sym{*}  &      -2.146\sym{*}  &      -2.146\sym{*}  \\
+Austrian2 Sugar     &      -4.210\sym{**} &      -4.210\sym{**} &      -2.354         \\
+Austrian2 Wine      &      -5.188\sym{***}&      -5.188\sym{***}&      -5.188\sym{***}\\
+Seven Coffee        &      -2.263         &      -2.096         &      -1.772         \\
+Seven Eau de vie    &       1.291         &       1.291         &       1.291         \\
+Seven Sugar         &      -3.411\sym{**} &      -3.411\sym{**} &      -3.048\sym{*}  \\
+Seven Wine          &       1.616         &       1.616         &       1.616         \\
+American Coffee     &       1.179         &      -1.114\sym{**} &      -1.324\sym{**} \\
+American Eau de vie &       1.406\sym{**} &       1.406\sym{**} &       1.406\sym{**} \\
+American Sugar      &       1.108\sym{*}  &       1.108\sym{*}  &      -0.767\sym{*}  \\
+American Wine       &       2.424\sym{***}&       2.424\sym{***}&       2.424\sym{***}\\
+Revolutionary Coffee&      -5.172\sym{*}  &       1.036         &      -0.447         \\
+Revolutionary Eau de vie&       1.796\sym{***}&       1.796\sym{***}&       1.796\sym{***}\\
+Revolutionary Sugar &      -4.370\sym{**} &      -4.370\sym{**} &       3.024         \\
+Revolutionary Wine  &       0.886         &       0.886         &       0.886         \\
+Napoleonic Coffee   &      -4.732         &       1.463         &       0.605         \\
+Napoleonic Eau de vie&       0.663         &       0.663         &       0.663         \\
+Napoleonic Sugar    &      -4.250\sym{**} &      -4.250\sym{**} &       0.856         \\
+Napoleonic Wine     &      -1.534         &      -1.534         &      -1.534         \\
+Cons                &      -167.4         &      -197.1         &     -2122.7\sym{***}\\
+Product FE          &         Yes         &         Yes         &         Yes         \\
+Product time trend  &         Yes         &         Yes         &         Yes         \\
+Break Coffee        &          No         &         Yes         &         Yes         \\
+Break Sugar         &          No         &          No         &         Yes         \\
+\hline
+Observations        &         347         &         347         &         347         \\
+Pseudo \(R^{2}\)    &                     &                     &                     \\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}

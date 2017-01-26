@@ -99,7 +99,7 @@ esttab
 
 esttab p1 p3 p4 p6 using "$ete/Thesis/Data/do_files/Hamburg/tex/hamburg1_reg.tex",label booktabs alignment(D{.}{.}{-1}) ///
 	varlab(_cons "Constant" 1.all "All" 1.each "Polish" 2.each "Austrian1" 3.each "Austrian2" 4.each "Seven" ///
-	5.each "American" 6.each "Revolutionary" 7.each "Napoleonic") drop(0b.all 0b.each year _cons *2 *3) not pr2 nonumbers ///
+	5.each "American" 6.each "Revolutionary" 7.each "Napoleonic") drop(0b.all 0b.each year _cons *3) not pr2 nonumbers ///
 	 mtitles("No breaks" "One break" "No breaks" "One break") ///
 	title(Hamburg Aggregate\label{tab1}) replace
  

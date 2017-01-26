@@ -1,0 +1,23 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Robustness check: All countries: All wars on each product\label{tab1}}
+\begin{tabular}{l*{3}{c}}
+\hline\hline
+                    &\multicolumn{1}{c}{No breaks}&\multicolumn{1}{c}{One break}&\multicolumn{1}{c}{Two breaks}\\
+\hline
+Neutral Coffee      &      -2.044\sym{***}&      -1.123\sym{***}&      -1.115\sym{***}\\
+Neutral Eau de vie  &       0.521\sym{**} &       0.509\sym{**} &       0.488\sym{*}  \\
+Neutral Sugar       &      -2.189\sym{***}&      -2.183\sym{***}&      -1.421\sym{***}\\
+Neutral Wine        &      -0.134         &      -0.151         &      -0.172         \\
+Country-product FE  &         Yes         &         Yes         &         Yes         \\
+Country time trend  &         Yes         &         Yes         &         Yes         \\
+Product time trend  &         Yes         &         Yes         &         Yes         \\
+Coffee break        &          No         &         Yes         &         Yes         \\
+Sugar break         &          No         &          No         &         Yes         \\
+\hline
+Observations        &        3145         &        3145         &        3145         \\
+Pseudo \(R^{2}\)    &                     &                     &                     \\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}
