@@ -103,6 +103,103 @@ esttab p1 p3 p4 p6 using "$ete/Thesis/Data/do_files/Hamburg/tex/hamburg1_rob.tex
  
 eststo clear
 
+***rereun hamburg1 regressions on  the disaggregate by products
+use "$ete/Thesis2/database_dta/hamburg2", clear
+
+drop if year<1733
+
+****gen war dummies
+gen war_each=""
+gen war_all=""
+
+foreach i of num 1733/1738{
+replace war_each="Polish" if year==`i'
+}
+
+foreach i of num 1740/1743{
+replace war_each="Austrian1" if year==`i'
+}
+
+foreach i of num 1744/1748{
+replace war_each="Austrian2" if year==`i'
+}
+
+foreach i of num 1756/1763{
+replace war_each="Seven" if year==`i'
+}
+
+foreach i of num 1778/1782{
+replace war_each="American" if year==`i'
+}
+
+foreach i of num 1792/1802{
+replace war_each="Revolutionary" if year==`i'
+}
+
+foreach i of num 1803/1814{
+replace war_each="Napoleonic" if year==`i'
+}
+
+foreach i of num 1733/1738{
+replace war_all="All" if year==`i'
+}
+foreach i of num 1740/1748{
+replace war_all="All" if year==`i'
+}
+foreach i of num 1756/1763{
+replace war_all="All" if year==`i'
+}
+foreach i of num 1778/1782{
+replace war_all="All" if year==`i'
+}
+foreach i of num 1792/1802{
+replace war_all="All" if year==`i'
+}
+foreach i of num 1803/1814{
+replace war_all="All" if year==`i'
+}
+
+label define order  1 Polish  2 Austrian1  3 Austrian2  4 Seven  5 American  6 Revolutionary 7 Napoleonic
+
+encode war_each, gen(each) label(order)
+replace each=0 if each==. 
+
+encode war_all, gen(all)
+replace all=0 if all==.
+
+
+gen group=0 
+replace group=1 if year<1740
+replace group=2 if year>1739
+replace group=3 if year>1795
+
+gen g2=(group==2)
+gen g3=(group==3)
+gen year2=g2*year
+gen year3=g3*year
+
+label var value Value
+
+
+eststo p1: poisson value year i.all, vce(robust)
+eststo p2: poisson value year g2 year2 g3 year3 i.all, vce(robust)
+eststo p3: poisson value year g3 year3 i.all, vce(robust)
+
+
+eststo p4: poisson value year i.each, vce(robust)
+eststo p5: poisson value year g2 year2 g3 year3 i.each, vce(robust)
+eststo p6: poisson value g3 year3 i.each, vce(robust)
+
+esttab
+
+esttab p1 p3 p4 p6 using "$ete/Thesis/Data/do_files/Hamburg/tex/hamburg1_rob2.tex",label booktabs alignment(D{.}{.}{-1}) ///
+	varlab(_cons "Constant" 1.all "All" 1.each "Polish" 2.each "Austrian1" 3.each "Austrian2" 4.each "Seven" ///
+	5.each "American" 6.each "Revolutionary" 7.each "Napoleonic") drop(0b.all 0b.each year _cons *3) not pr2 nonumbers ///
+	 mtitles("No breaks" "One break" "No breaks" "One break") ///
+	title(Robustness check: Hamburg Aggregate on the disaggregate by products\label{tab1}) replace
+ 
+eststo clear
+
 
 ********************************************************************************
 ***********************HAMBURG2*************************************************
@@ -986,13 +1083,53 @@ esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/allcountry2_each_rob.tex",la
 
 eststo clear
 
+*****reg with country-product fe
+label var value Value
+eststo: poisson value i.pays_class i.pays_class#c.year i.all_status_class, vce(robust)
+eststo: poisson value i.pays_class 0.coffee#pays i.pays_class#c.year ///
+	0.coffee#i.pays#c.year i.all_status_class, vce(robust) 
+eststo: poisson value i.pays_class 0.coffee#pays 0.sugar#pays i.pays_class#c.year ///
+	0.coffee#i.pays#c.year 0.sugar#i.pays#c.year i.all_status_class, vce(robust)  iterate(40)
+
+esttab, label
+
+esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/allcountry2_all_rob2.tex",label not ///
+	indicate("Country-product FE= *.pays_class"  ///
+	"Coffee break=*coffee*" "Sugar break=*sugar*") ///
+	pr2 nonumbers mtitles("No breaks" "One break" "Two breaks") varlab(_cons Constant ///
+	1.all_status_class "Adversary Coffee" 2.all_status_class "Adversary Eau de vie" 3.all_status_class "Adversary Sugar" 4.all_status_class "Adversary Wine" ///
+	6.all_status_class "Allied Coffee" 7.all_status_class "Allied Eau de vie" 8.all_status_class "Allied Sugar" 9.all_status_class "Allied Wine" ///
+	11.all_status_class "Neutral Coffee" 12.all_status_class "Neutral Eau de vie" 13.all_status_class "Neutral Sugar" 14.all_status_class "Neutral Wine")	///
+	keep(11.all_status_class 12.all_status_class 13.all_status_class 14.all_status_class)	///
+	title(Robustness check: All countries: country product FE\label{tab1}) replace
+
+	eststo clear
+
+eststo: poisson value i.pays_class i.pays_class#c.year i.each_status_class, vce(robust)
+eststo: poisson value i.pays_class 0.coffee#pays i.pays_class#c.year ///
+	0.coffee#i.pays#c.year i.each_status_class, vce(robust) 
+eststo: poisson value i.pays_class 0.coffee#pays 0.sugar#pays i.pays_class#c.year ///
+	0.coffee#i.pays#c.year 0.sugar#i.pays#c.year i.each_status_class, vce(robust)  iterate(40)
 
 
+esttab, label
+local macro 34.* 35.* 36.* 37.* 39.* 40.* 41.* 42.* 44.* 45.* 46.* 47.* 49.* 50.* 51.* 52.* 54.* 55.* 56.* 57.* ///
+	59.* 60.* 61.* 62.* 64.* 65.* 66.* 67.*
+esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/allcountry2_each_rob2.tex",label not ///
+	indicate("Country-product FE= *pays_class*" ///
+	"Coffee break=*coffee*" "Sugar break=*sugar*") ///
+	pr2 nonumbers mtitles("No breaks" "One break" "Two breaks") varlab(_cons Constant ///
+	34.each_status_class "Polish Neutral Coffee" 35.each_status_class "Polish Neutral Eau de vie" 36.each_status_class "Polish Neutral Sugar" 37.each_status_class "Polish Neutral Wine" ///
+	39.each_status_class "Austrian1 Neutral Coffee" 40.each_status_class "Austrian1 Neutral Eau de vie" 41.each_status_class "Austrian1 Neutral Sugar" 42.each_status_class "Austrian1 Neutral Wine" ///
+	44.each_status_class "Austrian2 Neutral Coffee" 45.each_status_class "Austrian2 Neutral Eau de vie" 46.each_status_class "Austrian2 Neutral Sugar" 47.each_status_class "Austrian2 Neutral Wine" ///
+	49.each_status_class "Seven Neutral Coffee" 50.each_status_class "Seven Neutral Eau de vie" 51.each_status_class "Seven Neutral Sugar" 52.each_status_class "Seven Neutral Wine" ///
+	54.each_status_class "American Neutral Coffee" 55.each_status_class "American Neutral Eau de vie" 56.each_status_class "American Neutral Sugar" 57.each_status_class "American Neutral Wine" ///
+	59.each_status_class "Revolutionary Neutral Coffee" 60.each_status_class "Revolutionary Neutral Eau de vie" 61.each_status_class "Revolutionary Neutral Sugar" 62.each_status_class "Revolutionary Neutral Wine" ///
+	64.each_status_class "Napoleonic Neutral Coffee" 65.each_status_class "Napoleonic Neutral Eau de vie" 66.each_status_class "Napoleonic Neutral Sugar" 67.each_status_class "Napoleonic Neutral Wine") ///
+	keep(`macro') ///
+	title(Robustness check: All countries: country product FE\label{tab1}) replace
 
-
-
-
-
+eststo clear
 
 
 
