@@ -1,0 +1,23 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Robustness check: Hamburg Aggregate on the disaggregate by products\label{tab1}}
+\begin{tabular}{l*{4}{D{.}{.}{-1}}}
+\toprule
+                    &\multicolumn{1}{c}{No breaks}&\multicolumn{1}{c}{One break}&\multicolumn{1}{c}{No breaks}&\multicolumn{1}{c}{One break}\\
+\midrule
+Value               &                     &                     &                     &                     \\
+All                 &      -0.526\sym{***}&      -0.611\sym{***}&                     &                     \\
+Polish              &                     &                     &      -4.788\sym{***}&      -5.259\sym{***}\\
+Austrian1           &                     &                     &      -4.661\sym{***}&      -5.078\sym{***}\\
+Austrian2           &                     &                     &      -3.971\sym{***}&      -4.327\sym{***}\\
+Seven               &                     &                     &      -1.034\sym{***}&      -1.241\sym{***}\\
+American            &                     &                     &     -0.0827         &     -0.0642         \\
+Revolutionary       &                     &                     &      -0.143         &      -1.181         \\
+Napoleonic          &                     &                     &      -0.199         &      -0.569         \\
+\midrule
+Observations        &         347         &         347         &         347         &         347         \\
+Pseudo \(R^{2}\)    &       0.212         &       0.382         &       0.309         &       0.292         \\
+\bottomrule
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}

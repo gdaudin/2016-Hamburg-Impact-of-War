@@ -93,7 +93,7 @@ eststo p3: poisson value year g3 year3 i.all, vce(robust)
 
 eststo p4: poisson value year i.each, vce(robust)
 eststo p5: poisson value year g2 year2 g3 year3 i.each, vce(robust)
-eststo p6: poisson value year2 g3 year3 i.each, vce(robust)
+eststo p6: poisson value g3 year3 i.each, vce(robust)
 
 esttab
 
