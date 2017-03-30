@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.11.8)  15 FEB 2017 13:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.11.8)  15 FEB 2017 13:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**abstract.tex
-(./abstract.tex
+**Abstract_Daudin_Tirindelli.tex
+(./Abstract_Daudin_Tirindelli.tex
 LaTeX2e <2015/01/01>
 Babel <3.9l> and hyphenation patterns for 21 languages loaded.
 (/usr/local/texlive/2015basic/texmf-dist/tex/latex/base/article.cls
@@ -425,8 +425,8 @@ Package caption3 Info: TeX engine: e-TeX on input line 57.
 (/usr/local/texlive/2015basic/texmf-dist/tex/latex/setspace/setspace.sty
 Package: setspace 2011/12/19 v6.7a set line spacing
 )
-(./abstract.aux)
-\openout1 = `abstract.aux'.
+No file Abstract_Daudin_Tirindelli.aux.
+\openout1 = `Abstract_Daudin_Tirindelli.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
 LaTeX Font Info:    ... okay on input line 12.
@@ -440,7 +440,6 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
 LaTeX Font Info:    ... okay on input line 12.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
 LaTeX Font Info:    ... okay on input line 12.
-
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -492,23 +491,23 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {/usr/local/texlive/2015basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2
 ]
-(./abstract.aux) ) 
+(./Abstract_Daudin_Tirindelli.aux) ) 
 Here is how much of TeX's memory you used:
- 3340 strings out of 494501
- 47166 string characters out of 6167030
+ 3338 strings out of 494501
+ 47266 string characters out of 6167030
  112195 words of memory out of 5000000
  6598 multiletter control sequences out of 15000+600000
  11162 words of font info for 32 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 36i,6n,38p,731b,193s stack positions out of 5000i,500n,10000p,200000b,80000s
- </Users/Tirindelli/Library/texlive/2015basic/texmf-var/fonts
-/pk/ljfour/jknappen/ec/ecbx1200.600pk> </Users/Tirindelli/Library/texlive/2015b
-asic/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </Users/Tirindelli/L
-ibrary/texlive/2015basic/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1728.600pk> 
-</Users/Tirindelli/Library/texlive/2015basic/texmf-var/fonts/pk/ljfour/jknappen
-/ec/ecrm1440.600pk> </Users/Tirindelli/Library/texlive/2015basic/texmf-var/font
-s/pk/ljfour/jknappen/ec/ecrm2074.600pk>
-Output written on abstract.pdf (2 pages, 49603 bytes).
+ 36i,6n,38p,749b,193s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </Users/Tirindelli/Library/texlive/2015bas
+ic/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </Users/Tirindelli/Lib
+rary/texlive/2015basic/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </
+Users/Tirindelli/Library/texlive/2015basic/texmf-var/fonts/pk/ljfour/jknappen/e
+c/ecbx1728.600pk> </Users/Tirindelli/Library/texlive/2015basic/texmf-var/fonts/
+pk/ljfour/jknappen/ec/ecrm1440.600pk> </Users/Tirindelli/Library/texlive/2015ba
+sic/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm2074.600pk>
+Output written on Abstract_Daudin_Tirindelli.pdf (2 pages, 49609 bytes).
 PDF statistics:
  172 PDF objects out of 1000 (max. 8388607)
  26 compressed objects within 1 object stream
