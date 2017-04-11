@@ -1,12 +1,12 @@
 ********************************************************************************
 ***********************HAMBURG1*************************************************
 ********************************************************************************
-*global ete "/Users/Tirindelli/Google Drive/ETE"
-global ete "C:\Users\TIRINDEE\Google Drive\ETE"
+*global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
+global thesis "C:\Users\TIRINDEE\Google Drive\ETE\Thesis"
 
 set more off
 
-use "$ete/Thesis2/database_dta/hamburg1", clear
+use "$thesis/database_dta/hamburg1", clear
 
 drop if year<1733
 gen lnvalue=ln(value)
@@ -95,7 +95,7 @@ eststo p6: reg lnvalue lnyear g3 year3 i.each, vce(robust)
 
 esttab
 
-esttab p1 p3 p4 p6 using "$ete/Thesis/Data/do_files/Hamburg/tex/hamburg1_rob.tex",label booktabs alignment(D{.}{.}{-1}) ///
+esttab p1 p3 p4 p6 using "$thesis/Data/do_files/Hamburg/tex/hamburg1_rob.tex",label booktabs alignment(D{.}{.}{-1}) ///
 	varlab(_cons "Constant" 1.all "All" 1.each "Polish" 2.each "Austrian1" 3.each "Austrian2" 4.each "Seven" ///
 	5.each "American" 6.each "Revolutionary" 7.each "Napoleonic") drop(0b.all 0b.each lnyear _cons *3 ) not pr2 nonumbers ///
 	 mtitles("No breaks" "One break" "No breaks" "One break") ///
@@ -104,7 +104,7 @@ esttab p1 p3 p4 p6 using "$ete/Thesis/Data/do_files/Hamburg/tex/hamburg1_rob.tex
 eststo clear
 
 ***rereun hamburg1 regressions on  the disaggregate by products
-use "$ete/Thesis2/database_dta/hamburg2", clear
+use "$thesis/database_dta/hamburg2", clear
 
 drop if year<1733
 
@@ -192,7 +192,7 @@ eststo p6: poisson value g3 year3 i.each, vce(robust)
 
 esttab
 
-esttab p1 p3 p4 p6 using "$ete/Thesis/Data/do_files/Hamburg/tex/hamburg1_rob2.tex",label booktabs alignment(D{.}{.}{-1}) ///
+esttab p1 p3 p4 p6 using "$thesis/Data/do_files/Hamburg/tex/hamburg1_rob2.tex",label booktabs alignment(D{.}{.}{-1}) ///
 	varlab(_cons "Constant" 1.all "All" 1.each "Polish" 2.each "Austrian1" 3.each "Austrian2" 4.each "Seven" ///
 	5.each "American" 6.each "Revolutionary" 7.each "Napoleonic") drop(0b.all 0b.each year _cons *3) not pr2 nonumbers ///
 	 mtitles("No breaks" "One break" "No breaks" "One break") ///
@@ -207,12 +207,12 @@ eststo clear
 
 clear
 
-*global ete "/Users/Tirindelli/Google Drive/ETE"
-global ete "C:\Users\TIRINDEE\Google Drive\ETE"
+*global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
+global thesis "C:\Users\TIRINDEE\Google Drive\ETE\Thesis"
 
 set more off
 
-use "$ete/Thesis2/database_dta/hamburg2", clear
+use "$thesis/database_dta/hamburg2", clear
 
 drop if value==.
 drop pays_regroupes
@@ -321,7 +321,7 @@ eststo: reg lnvalue i.class year_class1-year_class5 i.all_class, vce(robust)
 eststo: reg lnvalue i.class year_class1-year_class5 c2 year_c2 i.all_class, vce(robust) 
 eststo: reg lnvalue i.class year_class1-year_class5 c3 year_c3 s3 year_s3 i.all_class, vce(robust)
 
-esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/hamburg2_all_rob.tex", label booktabs alignment(D{.}{.}{-1}) ///
+esttab using "$thesis/Data/do_files/Hamburg/tex/hamburg2_all_rob.tex", label booktabs alignment(D{.}{.}{-1}) ///
 	indicate("Product FE= *.class" "Product time trend=*year_class*" "Break Coffee=*year_c*" "Break Sugar=*year_s*") ///
 	varlab( _cons "Cons" 1.all_class "Coffee" 2.all_class "Eau de vie" 3.all_class "Sugar" 4.all_class "Wine") ///
 	keep(1.all_class 2.all_class 3.all_class 4.all_class) pr2 not nonumbers mtitles("No breaks" "One break" "Two breaks") ///
@@ -335,7 +335,7 @@ eststo: reg lnvalue i.class year_class1-year_class5 c3 year_c3 s3 year_s3 i.each
 
 esttab, label
 local macro 5.* 10.* 15.* 20.* 25.* 30.* 35.* s* c*
-esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/hamburg2_each_rob.tex",label alignment(D{.}{.}{-1}) not ///
+esttab using "$thesis/Data/do_files/Hamburg/tex/hamburg2_each_rob.tex",label alignment(D{.}{.}{-1}) not ///
 	indicate("Product FE= *.class" "Product time trend=*year_class*" "Break Coffee=*year_c*" "Break Sugar=*year_s*") ///
 	varlab(_cons "Cons" 1.each_class "Polish Coffee" 2.each_class "Polish Eau de vie" 3.each_class "Polish Sugar" 4.each_class "Polish Wine" ///
 	6.each_class "Austrian1 Coffee" 7.each_class "Austrian1 Eau de vie" 8.each_class "Austrian1 Sugar" 9.each_class "Austrian1 Wine" ///
@@ -356,12 +356,12 @@ eststo clear
 ********************************************************************************
 
 
-*global ete "/Users/Tirindelli/Google Drive/ETE"
-global ete "C:\Users\TIRINDEE\Google Drive\ETE"
+*global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
+global thesis "C:\Users\TIRINDEE\Google Drive\ETE\Thesis"
 
 set more off
 
-use "$ete/thesis2/database_dta/bdd_courante2", clear
+use "$thesis/database_dta/bdd_courante2", clear
 
 drop if year<1733
 drop if pays_regroupes=="France"
@@ -687,7 +687,7 @@ eststo: reg lnvalue year_pays1-year_pays12 i.pays break#pays break_year_pays1-br
 
 esttab, label
 
-esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/allcountry1_rob.tex", label not alignment(D{.}{.}{-1}) ///
+esttab using "$thesis/Data/do_files/Hamburg/tex/allcountry1_rob.tex", label not alignment(D{.}{.}{-1}) ///
 	indicate("Country FE= *.pays" "Country time trend=year_pays*" "Chow test=*break_year_pays*") varlab( _cons "Cons" ///
 	1.all_status "Adversary" 2.all_status "Allied" 3.all_status "Neutral" ///
 	1.each_status "Polish Adversary" 2.each_status "Austrian1 Adversary" 3.each_status "Austrian2 Adversary" ///
@@ -710,12 +710,12 @@ eststo clear
 ********************************************************************************
 ***********************ALLCOUNTRIES2********************************************
 ********************************************************************************
-global ete "C:\Users\TIRINDEE\Google Drive\ETE"
-
+global thesis "C:\Users\TIRINDEE\Google Drive\ETE\Thesis"
+*global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
 
 set more off
 
-use "$ete/thesis2/database_dta/bdd_courante2", clear
+use "$thesis/database_dta/bdd_courante2", clear
 
 drop if year<1733
 drop if year==1766 & classification_hamburg_large=="Sugar"
@@ -1046,7 +1046,7 @@ eststo: reg lnvalue i.pays_class 0.coffee#pays 0.sugar#pays year_pays1-year_pays
 
 esttab, label
 
-esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/allcountry2_all_rob.tex",label not ///
+esttab using "$thesis/Data/do_files/Hamburg/tex/allcountry2_all_rob.tex",label not ///
 	indicate("Country-product FE= *.pays_class" "Country time trend= *year_pays*" "Product time trend=*year_class*" ///
 	"Coffee break=*coffee*" "Sugar break=*sugar*") ///
 	pr2 nonumbers mtitles("No breaks" "One break" "Two breaks") varlab(_cons Constant ///
@@ -1067,7 +1067,7 @@ eststo: reg lnvalue i.pays_class 0.coffee#pays year_pays1-year_pays12 year_class
 esttab, label
 local macro 34.* 35.* 36.* 37.* 39.* 40.* 41.* 42.* 44.* 45.* 46.* 47.* 49.* 50.* 51.* 52.* 54.* 55.* 56.* 57.* ///
 	59.* 60.* 61.* 62.* 64.* 65.* 66.* 67.*
-esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/allcountry2_each_rob.tex",label not ///
+esttab using "$thesis/Data/do_files/Hamburg/tex/allcountry2_each_rob.tex",label not ///
 	indicate("Country-product FE= *.pays_class" "Country time trend= *year_pays*" "Product time trend=*year_class*" ///
 	"Coffee break=*coffee*" "Sugar break=*sugar*") ///
 	pr2 nonumbers mtitles("No breaks" "One break" "Two breaks") varlab(_cons Constant ///
@@ -1093,7 +1093,7 @@ eststo: poisson value i.pays_class 0.coffee#pays 0.sugar#pays i.pays_class#c.yea
 
 esttab, label
 
-esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/allcountry2_all_rob2.tex",label not ///
+esttab using "$thesis/Data/do_files/Hamburg/tex/allcountry2_all_rob2.tex",label not ///
 	indicate("Country-product FE= *.pays_class"  ///
 	"Coffee break=*coffee*" "Sugar break=*sugar*") ///
 	pr2 nonumbers mtitles("No breaks" "One break" "Two breaks") varlab(_cons Constant ///
@@ -1115,7 +1115,7 @@ eststo: poisson value i.pays_class 0.coffee#pays 0.sugar#pays i.pays_class#c.yea
 esttab, label
 local macro 34.* 35.* 36.* 37.* 39.* 40.* 41.* 42.* 44.* 45.* 46.* 47.* 49.* 50.* 51.* 52.* 54.* 55.* 56.* 57.* ///
 	59.* 60.* 61.* 62.* 64.* 65.* 66.* 67.*
-esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/allcountry2_each_rob2.tex",label not ///
+esttab using "$thesis/Data/do_files/Hamburg/tex/allcountry2_each_rob2.tex",label not ///
 	indicate("Country-product FE= *pays_class*" ///
 	"Coffee break=*coffee*" "Sugar break=*sugar*") ///
 	pr2 nonumbers mtitles("No breaks" "One break" "Two breaks") varlab(_cons Constant ///

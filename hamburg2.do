@@ -1,14 +1,13 @@
 clear
 
-*global ete "/Users/Tirindelli/Google Drive/ETE"
-global ete "C:\Users\TIRINDEE\Google Drive\ETE"
+*global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
+global thesis "C:\Users\TIRINDEE\Google Drive\ETE\Thesis"
 
 set more off
 
-use "$ete/Thesis2/database_dta/hamburg2", clear
+use "$thesis/database_dta/hamburg2", clear
 
 drop if value==.
-drop pays_regroupes
 drop if year<1733
 label define order_class 1 Coffee 2 "Eau de vie" 3 Sugar 4 Wine 5 Other
 encode classification_hamburg_large, gen(class) label(order_class)
@@ -50,28 +49,29 @@ replace war_each="Napoleonic" if year==`i'
 ****gen one dummy for all wars
 gen war_all=""
 foreach i of num 1733/1738{
-replace war_all="All" if year==`i'
+replace war_all="War" if year==`i'
 }
 
 foreach i of num 1740/1748{
-replace war_all="All" if year==`i'
+replace war_all="War" if year==`i'
 }
 
 foreach i of num 1756/1763{
-replace war_all="All" if year==`i'
+replace war_all="War" if year==`i'
 }
 foreach i of num 1778/1782{
-replace war_all="All" if year==`i'
+replace war_all="War" if year==`i'
 }
 
 foreach i of num 1792/1802{
-replace war_all="All" if year==`i'
+replace war_all="War" if year==`i'
 }
 
 foreach i of num 1803/1814{
-replace war_all="All" if year==`i'
+replace war_all="War" if year==`i'
 }
 
+replace war_all="Peace" if war_all==""
 
 label define order_war  1 Polish  2 Austrian1  3 Austrian2  4 Seven  5 American  6 Revolutionary 7 Napoleonic
 
@@ -81,7 +81,7 @@ replace each_class=0 if each_class==.
 
 encode war_all, gen(all)
 egen all_class=group(all class), label
-replace all=0 if all==.
+*replace all=0 if all==.
 replace all_class=0 if all_class==.
 
 foreach i of num 1/5{
@@ -112,12 +112,14 @@ gen year_s`i'=year_class3*s`i'
 
 
 ****reg all wars
-eststo: poisson value i.class year_class1-year_class5 i.all_class, vce(robust)
+eststo: poisson value i.class year_class1-year_class5 i.all#i.class, vce(robust)
 *eststo: poisson value i.class year_class1-year_class5 c2 year_c2 c3 year_c3 s2 year_s2 s3 year_s3 i.all_class, noconstant vce(robust) iterate(40)
-eststo: poisson value i.class year_class1-year_class5 c2 year_c2 i.all_class, vce(robust) iterate(40)
-eststo: poisson value i.class year_class1-year_class5 c3 year_c3 s3 year_s3 i.all_class, vce(robust)
+eststo: poisson value i.class year_class1-year_class5 c2 year_c2 i.all#i.class, vce(robust) iterate(40)
+eststo: poisson value i.class year_class1-year_class5 c3 year_c3 s3 year_s3 i.all#i.class, vce(robust)
 
-esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/hamburg2_all_reg.tex", label booktabs alignment(D{.}{.}{-1}) ///
+esttab, label
+
+esttab using "$thesis/Data/do_files/Hamburg/tex/hamburg2_all_reg.tex", label booktabs alignment(D{.}{.}{-1}) ///
 	indicate("Product FE= *.class" "Product time trend=*year_class*" "Break Coffee=*year_c*" "Break Sugar=*year_s*") ///
 	varlab( _cons "Cons" 1.all_class "Coffee" 2.all_class "Eau de vie" 3.all_class "Sugar" 4.all_class "Wine") ///
 	keep(1.all_class 2.all_class 3.all_class 4.all_class) pr2 not nonumbers mtitles("No breaks" "One break" "Two breaks") ///
@@ -131,7 +133,7 @@ eststo: poisson value i.class year_class1-year_class5 c3 year_c3 s3 year_s3 i.ea
 
 esttab, label
 local macro 5.* 10.* 15.* 20.* 25.* 30.* 35.* s* c*
-esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/hamburg2_each_reg.tex",label alignment(D{.}{.}{-1}) not ///
+esttab using "$thesis/Data/do_files/Hamburg/tex/hamburg2_each_reg.tex",label alignment(D{.}{.}{-1}) not ///
 	indicate("Product FE= *.class" "Product time trend=*year_class*" "Break Coffee=*year_c*" "Break Sugar=*year_s*") ///
 	varlab(_cons "Cons" 1.each_class "Polish Coffee" 2.each_class "Polish Eau de vie" 3.each_class "Polish Sugar" 4.each_class "Polish Wine" ///
 	6.each_class "Austrian1 Coffee" 7.each_class "Austrian1 Eau de vie" 8.each_class "Austrian1 Sugar" 9.each_class "Austrian1 Wine" ///
@@ -140,7 +142,7 @@ esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/hamburg2_each_reg.tex",label
 	21.each_class "American Coffee" 22.each_class "American Eau de vie" 23.each_class "American Sugar" 24.each_class "American Wine" ///
 	26.each_class "Revolutionary Coffee" 27.each_class "Revolutionary Eau de vie" 28.each_class "Revolutionary Sugar" 29.each_class "Revolutionary Wine" ///
 	31.each_class "Napoleonic Coffee" 32.each_class "Napoleonic Eau de vie" 33.each_class "Napoleonic Sugar" 34.each_class "Napoleonic Wine") ///
-	drop(0b.* `macro') pr2 nonumbers mtitles("No breaks" "One break" "Two breaks") ///
+	drop(`macro') pr2 nonumbers mtitles("No breaks" "One break" "Two breaks") ///
 	title(Hamburg: Each wars on each product\label{tab1}) replace
 
 eststo clear
@@ -187,14 +189,14 @@ eststo: poisson value i.class year_class1-year_class5 i.all_class i.all_lag_clas
 eststo: poisson value i.class year_class1-year_class5 c3 year_c3 i.all_class i.all_lag_class, vce(robust) iterate(40)
 eststo: poisson value i.class year_class1-year_class5 c3 year_c3 s3 year_s3 i.all_class i.all_lag_class, vce(robust)
 
-esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/hamburg2_all_lag.tex",label alignment(D{.}{.}{-1}) not ///
+esttab using "$thesis/Data/do_files/Hamburg/tex/hamburg2_all_lag.tex",label alignment(D{.}{.}{-1}) not ///
 	indicate("Product FE= *.class" "Product time trend=*year_class*" "Break Coffee=*year_c*" "Break Sugar=*year_s*") varlab( _cons "Cons" ///
 	1.all_lag_class "1 lag Coffee" 2.all_lag_class "1 lag Eau de vie" 3.all_lag_class "1 lag Sugar" 4.all_lag_class "1 lag Wine" ///
 	6.all_lag_class "2 lags Coffee" 7.all_lag_class "2 lags Eau de vie" 8.all_lag_class "2 lags Sugar" 9.all_lag_class "2 lags Wine" ///
 	11.all_lag_class "3 lags Coffee" 12.all_lag_class "3 lags Eau de vie" 13.all_lag_class "3 lags Sugar" 14.all_lag_class "3 lags Wine" ///
 	16.all_lag_class "4 lags Coffee" 17.all_lag_class "4 lags Eau de vie" 18.all_lag_class "4 lags Sugar" 19.all_lag_class "4 lags Wine" ///
 	21.all_lag_class "5 lags Coffee" 22.all_lag_class "5 lags Eau de vie" 23.all_lag_class "5 lags Sugar" 24.all_lag_class "5 lags Wine") ///
-	drop(*.all_class 0b.* `macro') pr2 nonumbers mtitles("No breaks" "One break" "Two breaks") ///
+	drop(*.all_class `macro') pr2 nonumbers mtitles("No breaks" "One break" "Two breaks") ///
 	title(Hamburg: Lag of all wars on each product\label{tab1}) replace
 eststo clear	
 
@@ -208,7 +210,7 @@ local macro 5.each_lag_class 10.each_lag_class 13.each_lag_class 18.each_lag_cla
 	drop(0.* `macro1' `macro2' *each_class* *all_class*) pr2 nonumbers mtitles("All wars" "All wars" "War by war" "War by war") ///
 	title(Regression table\label{tab1}) replace
 */	
-esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/hamburg2_each_lag.tex",label alignment(D{.}{.}{-1}) not longtable ///
+esttab using "$thesis/Data/do_files/Hamburg/tex/hamburg2_each_lag.tex",label alignment(D{.}{.}{-1}) not longtable ///
 	indicate("Product FE= *.class" "Product time trend=*year_class*" "Break Coffee=*year_c*" "Break Sugar=*year_s*") varlab(_cons "Cons" ///
 	1.each_lag_class "1 lag Austrian2 Coffee" 2.each_lag_class "1 lag Austrian2 Eau de vie" 3.each_lag_class "1 lag Austrian2 Sugar" 4.each_lag_class "1 lag Austrian2 Wine" ///
 	6.each_lag_class "1 lag Seven Coffee" 7.each_lag_class "1 lag Seven Eau de vie"  8.each_lag_class "1 lag Seven Sugar" 9.each_lag_class "1 lag Seven Wine" ///
@@ -225,7 +227,7 @@ esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/hamburg2_each_lag.tex",label
 	56.each_lag_class "5 lags Austrian2 Coffee" 57.each_lag_class "5 lags Austrian2 Eau de vie" 58.each_lag_class "5 lags Austrian2 Sugar" 59.each_lag_class "5 lags Austrian2 Wine" ///
 	61.each_lag_class "5 lags Seven Coffee" 62.each_lag_class "5 lags Seven Eau de vie"  63.each_lag_class "5 lags Seven Sugar" 64.each_lag_class "5 lags Seven Wine" ///
 	66.each_lag_class "5 lags Napoleonic Eau de vie" 67.each_lag_class "5 lags Napoleonic Sugar" 68.each_lag_class "5 lags Napoleonic Wine") ///
-	drop(0b.* `macro' *.each_class c* s* 39o.*) pr2 nonumbers mtitles("No breaks" "One break" "Two breaks") ///
+	drop(`macro' *.each_class c* s* 39o.*) pr2 nonumbers mtitles("No breaks" "One break" "Two breaks") ///
 	title(Hamburg: Lag of each wars on each product\label{tab1}) replace
 
 eststo clear
@@ -267,13 +269,13 @@ eststo: poisson value i.class year_class1-year_class5 i.all_class i.all_pre_clas
 eststo: poisson value i.class year_class1-year_class5 c3 year_c3 i.all_class i.all_pre_class, vce(robust) iterate(40)
 eststo: poisson value i.class year_class1-year_class5 c3 year_c3 s3 year_s3 i.all_class i.all_pre_class, vce(robust)
 local macro 5.* 10.* 15.* 20.* c* s*
-esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/hamburg2_all_pre.tex",label alignment(D{.}{.}{-1}) not ///
+esttab using "$thesis/Data/do_files/Hamburg/tex/hamburg2_all_pre.tex",label alignment(D{.}{.}{-1}) not ///
 	indicate("Product FE= *.class" "Product time trend=*year_class*" "Break Coffee=*year_c*" "Break Sugar=*year_s*") varlab( _cons "Cons" ///
 	1.all_pre_class "1 pre Coffee" 2.all_pre_class "1 pre Eau de vie" 3.all_pre_class "1 pre Sugar" 4.all_pre_class "1 pre Wine" ///
 	6.all_pre_class "2 pre Coffee" 7.all_pre_class "2 pre Eau de vie" 8.all_pre_class "2 pre Sugar" 9.all_pre_class "2 pre Wine" ///
 	11.all_pre_class "3 pre Coffee" 12.all_pre_class "3 pre Eau de vie" 13.all_pre_class "3 pre Sugar" 14.all_pre_class "3 pre Wine" ///
 	16.all_pre_class "4 pre Coffee" 17.all_pre_class "4 pre Eau de vie" 18.all_pre_class "4 pre Sugar" 19.all_pre_class "4 pre Wine") ///
-	drop(*.all_class 0b.* `macro') pr2 nonumbers mtitles("No breaks" "One break" "Two breaks") ///
+	drop(*.all_class `macro') pr2 nonumbers mtitles("No breaks" "One break" "Two breaks") ///
 	title(Hamburg: Pre of all wars on each product\label{tab1}) replace
 eststo clear
 
@@ -281,7 +283,7 @@ eststo: poisson value i.class year_class1-year_class5 i.each_class i.each_pre_cl
 eststo: poisson value i.class year_class1-year_class5 c3 year_c3 i.each_pre_class, vce(robust) iterate(40)
 eststo: poisson value i.class year_class1-year_class5 c3 year_c3 s3 year_s3 i.each_class i.each_pre_class, vce(robust)
 local macro 5.* 10.* 15.* 20.* 25.* 30.* 35.* 40.* c* s*
-esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/hamburg2_each_pre.tex", label booktabs longtable alignment(D{.}{.}{-1}) not ///
+esttab using "$thesis/Data/do_files/Hamburg/tex/hamburg2_each_pre.tex", label booktabs longtable alignment(D{.}{.}{-1}) not ///
 	indicate("Product FE= *.class" "Product time trend=*year_class*" "Chow test Coffee=*year_c*" "Chow test Sugar=*year_s*") varlab(_cons "Constant"  ///
 	1.each_pre_class "1 pre Seven Coffee" 2.each_pre_class "1 pre Seven Eau de vie" 3.each_pre_class "1 pre Seven Sugar" 4.each_pre_class "1 pre Seven Wine"  ///
 	6.each_pre_class "1 pre American Coffee" 7.each_pre_class "1 pre American Eau de vie" 8.each_pre_class "1 pre American Sugar" 9.each_pre_class "1 pre American Wine"  ///
@@ -291,7 +293,7 @@ esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/hamburg2_each_pre.tex", labe
 	26.each_pre_class "3 pre American Coffee" 27.each_pre_class "3 pre American Eau de vie" 28.each_pre_class "3 pre American Sugar" 29.each_pre_class "3 pre American Wine"  ///
 	31.each_pre_class "4 pre Seven Coffee" 32.each_pre_class "4 pre Seven Eau de vie" 33.each_pre_class "4 pre Seven Sugar" 34.each_pre_class "4 pre Seven Wine"  ///
 	36.each_pre_class "4 pre American Coffee" 37.each_pre_class "4 pre American Eau de vie" 38.each_pre_class "4 pre American Sugar" 39.each_pre_class "4 pre American Wine")  ///
-	drop(`macro' *each_class* 0b.*) pr2 nonumbers mtitles("No breaks" "One breaks" "Two breaks") ///
+	drop(`macro' *each_class*) pr2 nonumbers mtitles("No breaks" "One breaks" "Two breaks") ///
 	title(Hamburg: Pre of each wars on each product\label{tab1}) replace
 
 eststo clear

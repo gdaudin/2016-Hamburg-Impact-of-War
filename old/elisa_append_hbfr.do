@@ -5,8 +5,8 @@
 
 clear
 
-global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis/"
-
+*global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis/"
+global thesis "C:\Users\TIRINDEE\Google Drive\ETE/Thesis"
 
 
 *******************************************HAMBURG***************************************************************
@@ -26,8 +26,11 @@ contract firstdigit
 set obs 9 
 gen x = _n 
 gen expected = log10(1 + 1/x) 
-twoway histogram firstdigit [fw=_freq], barw(0.5) bfcolor(ltblue) blcolor(navy) discrete fraction || connected expected x, xla(1/9) title("observed and expected") caption("Hamburg source") yla(, ang(h) format("%02.1f")) legend(off)
-graph export "$thesis/Data/Graph/Benford/benford_hb.png", as(png) replace
+twoway histogram firstdigit [fw=_freq], barw(0.5) bfcolor(ltblue) blcolor(navy) ///
+ discrete fraction || connected expected x, xla(1/9) title("observed and expected") ///
+ caption("Hamburg source") yla(, ang(h) format("%02.1f")) legend(off) ///
+ plotregion(fcolor(white)) graphregion(fcolor(white))
+graph export "$thesis/Graph/Benford/benford_hb.png", as(png) replace
 restore
 
 replace value=value*grammesargent_markbanco/1000
@@ -50,7 +53,6 @@ restore
 ***add missing values to append
 
 */
-cd "/$thesis/Data/database_dta/"
 
 generate value_fr = .
 rename value value_hb
@@ -106,29 +108,52 @@ replace sitc_rev2="5" if classification_hamburg_large=="Vitriol ; blanc"
 replace sitc_rev2="Not classified" if classification_hamburg_large=="Marchandises non classifiées"
 collapse (sum) value_hb, by(year sitc_rev2 sourceFRHB classification_hamburg_large)
 
-save "elisa_hb_preappend.dta", replace
+save "$thesis/database_dta/elisa_hb_preappend.dta", replace
 
 
 *******************************************FRENCH****************************************************************
 
-use "$thesis/Data/database_dta/elisa_bdd_courante", clear
+use "$thesis/database_dta/elisa_bdd_courante", clear
 
-cd "$thesis/Data/database_dta/"
-
+keep if pays_regroupes=="Nord"
 drop if year<1733
+drop if year>1789
 
+drop if value==0
+replace value=value*4.505/1000
+
+drop if sourcetype=="Colonies" | sourcetype=="Divers" | sourcetype=="Divers - in" ///
+| sourcetype=="National par direction" | sourcetype=="Tableau Général" ///
+| sourcetype=="Tableau des quantités"
+
+foreach i of num 1733/1751{
+drop if sourcetype!="Local" & year==`i'
+}
+drop if sourcetype!="Objet Général" & year==1752
+drop if sourcetype!="Local" & year==1753
+foreach i of num 1754/1761{
+drop if sourcetype!="Objet Général" & year==`i'
+}
+foreach i of num 1762/1766{
+drop if sourcetype!="Local" & year==`i'
+}
+foreach i of num 1767/1780{
+drop if sourcetype!="Objet Général" & year==`i'
+}
+
+foreach i in 1782 1787 1788{
+drop if sourcetype!="Objet Général" & year==`i'
+}
+
+drop if sourcetype!="Résumé" & year==1789
+
+replace classification_hamburg_large="Marchandises non classifiées" if classification_hamburg_large==""
 rename value value_fr
 
 collapse (sum)  value_fr, by(year classification_hamburg_large)
-merge m:1 year classification_hamburg_large using prediction_product
-replace value_fr=pred_value if year<1752
-replace value_fr=pred_value if year==1753 
-foreach i of num 1762/1766{
-replace value_fr=pred_value if year==`i'
-}
-drop pred_value _merge
 
 generate sourceFRHB="France"
+
 
 gen sitc_rev2=""
 replace sitc_rev2="5" if classification_hamburg_large=="Alun"
@@ -172,14 +197,13 @@ replace sitc_rev2="0a" if classification_hamburg_large=="Vinaigre"
 replace sitc_rev2="5" if classification_hamburg_large=="Vitriol ; blanc"
 replace sitc_rev2="Not classified" if classification_hamburg_large=="Marchandises non classifiées"
 
-save "elisa_fr_preappend.dta", replace
-
+save "$thesis/database_dta/elisa_fr_preappend.dta", replace
 
 
 *******************************************APPEND***************************************************************
 
-use "elisa_hb_preappend.dta", clear
-append using "elisa_fr_preappend.dta"
+use "$thesis/database_dta/elisa_hb_preappend.dta", clear
+append using "$thesis/database_dta/elisa_fr_preappend.dta"
 order  sitc_rev2 value_fr value_hb sourceFRHB, after (year)
 
 
@@ -208,7 +232,7 @@ order sitc_rev2 value_fr value_hb sourceFRHB classification_hamburg_large, after
 replace value_fr=. if value_fr==0
 replace value_hb=. if value_hb==0
 
-save "elisa_frhb_database.dta", replace
+save "$thesis/database_dta/elisa_frhb_database.dta", replace
 
 
 

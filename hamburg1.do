@@ -1,10 +1,10 @@
 
-*global ete "/Users/Tirindelli/Google Drive/ETE"
-global ete "C:\Users\TIRINDEE\Google Drive\ETE"
+*global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
+global thesis "C:\Users\TIRINDEE\Google Drive\ETE\Thesis"
 
 set more off
 
-use "$ete/Thesis2/database_dta/hamburg1", clear
+use "$thesis/database_dta/hamburg1", clear
 
 drop if year<1733
 
@@ -97,9 +97,9 @@ eststo p6: poisson value g3 year3 i.each, vce(robust)
 
 esttab
 
-esttab p1 p3 p4 p6 using "$ete/Thesis/Data/do_files/Hamburg/tex/hamburg1_reg.tex",label booktabs alignment(D{.}{.}{-1}) ///
+esttab p1 p3 p4 p6 using "$thesis/Data/do_files/Hamburg/tex/hamburg1_reg.tex",label booktabs alignment(D{.}{.}{-1}) ///
 	varlab(_cons "Constant" 1.all "All" 1.each "Polish" 2.each "Austrian1" 3.each "Austrian2" 4.each "Seven" ///
-	5.each "American" 6.each "Revolutionary" 7.each "Napoleonic") drop(0b.all 0b.each year _cons *3) not pr2 nonumbers ///
+	5.each "American" 6.each "Revolutionary" 7.each "Napoleonic") drop(year _cons *3) not pr2 nonumbers ///
 	 mtitles("No breaks" "One break" "No breaks" "One break") ///
 	title(Hamburg Aggregate\label{tab1}) replace
  
@@ -146,14 +146,14 @@ eststo: poisson value year i.each i.each_lag, vce(robust)
 eststo: poisson value year g3 year3 i.each i.each_lag, vce(robust)
 
 esttab
-esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/hamburg1_lag.tex",label booktabs alignment(D{.}{.}{-1}) ///
+esttab using "$thesis/Data/do_files/Hamburg/tex/hamburg1_lag.tex",label booktabs alignment(D{.}{.}{-1}) ///
 	varlab(1.all_lag "1 lag" 2.all_lag "2 lags" 3.all_lag "3 lags" 4.all_lag "4 lags" 5.all_lag "5 lags" ///
 	1.each_lag "1 lag Austrian2" 2.each_lag "1 lag Seven" 3.each_lag "1 lag Napoleonic" ///
 	4.each_lag "2 lags Austrian2" 5.each_lag "2 lags Seven" 6.each_lag "2 lags Napoleonic" ///
 	7.each_lag "3 lags Austrian2" 8.each_lag "3 lags Seven" 9.each_lag "3 lags Napoleonic" ///
 	10.each_lag "4 lags Austrian2" 11.each_lag "4 lags Seven" 12.each_lag "4 lags Napoleonic" ///
 	13.each_lag "5 lags Austrian2" 14.each_lag "5 lags Seven" 15.each_lag "5 lags Napoleonic") ///
-	keep(*all_lag *each_lag) drop(0b.all_lag 0b.each_lag) not pr2 nonumbers ///
+	keep(*all_lag *each_lag) not pr2 nonumbers ///
 	mtitles("No breaks" "One break" "No breaks" "One break") ///
 	title(Lags Hamburg Aggregate\label{tab1}) replace	
  
@@ -191,14 +191,14 @@ eststo: poisson value year g3 year3  i.each i.each_pre, vce(robust)
 
 esttab
 
-esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/hamburg1_pre.tex",label booktabs alignment(D{.}{.}{-1}) ///
+esttab using "$thesis/Data/do_files/Hamburg/tex/hamburg1_pre.tex",label booktabs alignment(D{.}{.}{-1}) ///
 	varlab(1.all_pre "1 pre" 2.all_pre "2 pre" 3.all_pre "3 pre" 4.all_pre "4 pre" 5.all_pre "5 pre" ///
 	1.each_pre "1 pre Austrian2" 2.each_pre "1 pre Seven" ///
 	3.each_pre "2 pre Austrian2" 4.each_pre "2 pre Seven" ///
 	5.each_pre "3 pre Austrian2" 6.each_pre "3 pre Seven" ///
 	7.each_pre "4 pre Austrian2" 8.each_pre "4 pre Seven" ///
 	9.each_pre "5 pre Austrian2" 10.each_pre "5 pre Seven") ///	
-	keep(*all_pre *each_pre) drop(0b.all_pre 0b.each_pre) not pr2 nonumbers ///
+	keep(*all_pre *each_pre) not pr2 nonumbers ///
 	mtitles("No breaks" "One break" "No breaks" "One break") ///
 	title(Prewar Hamburg Aggregate\label{tab1}) replace	
 eststo clear

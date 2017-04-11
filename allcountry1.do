@@ -1,9 +1,9 @@
-*global ete "/Users/Tirindelli/Google Drive/ETE"
-global ete "C:\Users\TIRINDEE\Google Drive\ETE"
+*global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
+global thesis "C:\Users\TIRINDEE\Google Drive\ETE/Thesis"
 
 set more off
 
-use "$ete/thesis2/database_dta/bdd_courante2", clear
+use "$thesis/database_dta/bdd_courante2", clear
 
 drop if year<1733
 drop if pays_regroupes=="France"
@@ -357,7 +357,7 @@ esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/allcountry1_reg.tex", label 
 	drop(0b.*) pr2 nonumbers mtitles("No breaks" "One break" "No breaks" "One break") ///
 	title(All countries: aggregate\label{tab1}) replace	
 */
-esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/allcountry1_reg.tex", label not alignment(D{.}{.}{-1}) ///
+esttab using "$thesis/Data/do_files/Hamburg/tex/allcountry1_reg.tex", label not alignment(D{.}{.}{-1}) ///
 	indicate("Country FE= *.pays" "Country time trend=year_pays*" "Chow test=*break_year_pays*") varlab( _cons "Cons" ///
 	1.all_status "Adversary" 2.all_status "Allied" 3.all_status "Neutral" ///
 	1.each_status "Polish Adversary" 2.each_status "Austrian1 Adversary" 3.each_status "Austrian2 Adversary" ///
@@ -480,7 +480,7 @@ eststo: poisson value year_pays1-year_pays12 i.pays break#pays break_year_pays1-
 
 local macro 1.each_lag 2.each_lag 3.each_lag 4.each_lag 5.each_lag 6.each_lag 7.each_lag 8.each_lag 9.each_lag 10.each_lag ///
 	 11.each_lag 12.each_lag 13.each_lag 14.each_lag 15.each_lag
-esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/allcountry1_lag.tex", label not alignment(D{.}{.}{-1}) ///
+esttab using "$thesis/Data/do_files/Hamburg/tex/allcountry1_lag.tex", label not alignment(D{.}{.}{-1}) ///
 	indicate("Country FE= *.pays" "Country time trend=year_pays*" "Chow test=*break_year_pays*") varlab( _cons "Cons" ///
 	3.all_lag "1 lag neutral" 6.all_lag "2 lags neutral" 9.all_lag "3 lags neutral" 12.all_lag "4 lags neutral" 15.all_lag "5 lags neutral" ///
 	1.each_lag "1 lag Austrian2 neutral" 2.each_lag "2 lags Austrian2 neutral" 3.each_lag "3 lags Austrian2 neutral" ///
@@ -494,7 +494,6 @@ esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/allcountry1_lag.tex", label 
 	title(All countries: lags\label{tab1}) replace
 eststo clear
 
-exit
 ****gen prewar effects
 
 gen each_war_pre=""
@@ -580,8 +579,14 @@ eststo: poisson value year i.pays year_pays1-year_pays11 i.all_status  i.all_pre
 eststo: poisson value year i.pays i.each_status i.each_pre, vce(robust)
 eststo: poisson value year i.pays year_pays1-year_pays11 i.each_status i.each_pre, vce(robust)
 
-
-esttab using "$thesis2/reg_table/allcountry1/pre1/pre1.tex",label noomitted varlab( _cons "Cons") not indicate("Country FE= *.pays" "Country time trend=*year_pays*"  "Country quadratic trend=*year2_pays*" "Total quadratic trend=year2") drop(0.* 5.* year *each_status* *all_status*) pr2 nonumbers mtitles("All wars" "Quadratic" "Quadratic" "War by war" "Quadratic" "Qaudratic") title(Regression table\label{tab1}) replace
+/*
+esttab using "$thesis2/reg_table/allcountry1/pre1/pre1.tex",label ///
+noomitted varlab( _cons "Cons") not indicate("Country FE= *.pays" ///
+"Country time trend=*year_pays*"  "Country quadratic trend=*year2_pays*" ///
+"Total quadratic trend=year2") drop(0.* 5.* year *each_status* *all_status*) ///
+pr2 nonumbers mtitles("All wars" "Quadratic" "Quadratic" "War by war" ///
+"Quadratic" "Qaudratic") title(Regression table\label{tab1}) replace
+*/
 
 eststo clear
 
