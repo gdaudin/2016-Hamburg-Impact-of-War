@@ -1,10 +1,10 @@
-*global ete "/Users/Tirindelli/Google Drive/ETE"
-global ete "C:\Users\TIRINDEE\Google Drive\ETE"
+*global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
+global thesis "C:\Users\TIRINDEE\Google Drive\ETE\Thesis"
 
 
 set more off
 
-use "$ete/thesis2/database_dta/bdd_courante2", clear
+use "$thesis/database_dta/bdd_courante2", clear
 
 drop if year<1733
 drop if year==1766 & classification_hamburg_large=="Sugar"
@@ -307,7 +307,11 @@ egen pays_class=group(pays class), label
 
 
 ***gen war dummies
-label define order_war  1 "Polish adversary"  2 "Austrian1 adversary"  3 "Austrian2 adversary" 4 "Seven adversary" 5 "American adversary"  6 "Revolutionary adversary" 7 "Napoleonic adversary" 8 "Polish neutral"  9 "Austrian1 neutral"  10 "Austrian2 neutral" 11 "Seven neutral" 12 "American neutral"  13 "Revolutionary neutral" 14 "Napoleonic neutral"
+label define order_war  1 "Polish adversary"  2 "Austrian1 adversary"  ///
+3 "Austrian2 adversary" 4 "Seven adversary" 5 "American adversary"  ///
+6 "Revolutionary adversary" 7 "Napoleonic adversary" 8 "Polish neutral"  ///
+9 "Austrian1 neutral"  10 "Austrian2 neutral" 11 "Seven neutral" 12 "American neutral"  ///
+13 "Revolutionary neutral" 14 "Napoleonic neutral"
 encode each_war_status, gen(each_status) label(order_war)
 egen each_status_class=group(each_status class), label
 
@@ -333,7 +337,10 @@ label var all_status_class`i' "`: label (all_status_class) `i''"
 replace all_status=0 if all_status==.
 replace all_status_class=0 if all_status_class==.
 
-local macro1 each_status_class4 each_status_class9 each_status_class14 each_status_class19 each_status_class24 each_status_class29 each_status_class34 each_status_class39 each_status_class43 each_status_class48 each_status_class53 each_status_class58 each_status_class63 each_status_class68
+local macro1 each_status_class4 each_status_class9 each_status_class14 ///
+each_status_class19 each_status_class24 each_status_class29 each_status_class34 ///
+each_status_class39 each_status_class43 each_status_class48 each_status_class53 ///
+each_status_class58 each_status_class63 each_status_class68
 local macro2 all_status_class5 all_status_class10
 
 /*
@@ -373,7 +380,7 @@ eststo: poisson value i.pays_class 0.coffee#pays 0.sugar#pays year_pays1-year_pa
 */
 esttab, label
 
-esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/allcountry2_all_reg.tex",label not ///
+esttab using "$thesis/Data/do_files/Hamburg/tex/allcountry2_all_reg.tex",label not ///
 	indicate("Country-product FE= *.pays_class" "Country time trend= *year_pays*" "Product time trend=*year_class*" ///
 	"Coffee break=*coffee*" "Sugar break=*sugar*") ///
 	pr2 nonumbers mtitles("No breaks" "One break" "Two breaks") varlab(_cons Constant ///
@@ -396,7 +403,7 @@ eststo: poisson value i.pays_class 0.coffee#pays year_pays1-year_pays12 year_cla
 esttab, label
 local macro 34.* 35.* 36.* 37.* 39.* 40.* 41.* 42.* 44.* 45.* 46.* 47.* 49.* 50.* 51.* 52.* 54.* 55.* 56.* 57.* ///
 	59.* 60.* 61.* 62.* 64.* 65.* 66.* 67.*
-esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/allcountry2_each_reg.tex",label not ///
+esttab using "$thesis/Data/do_files/Hamburg/tex/allcountry2_each_reg.tex",label not ///
 	indicate("Country-product FE= *.pays_class" "Country time trend= *year_pays*" "Product time trend=*year_class*" ///
 	"Coffee break=*coffee*" "Sugar break=*sugar*") ///
 	pr2 nonumbers mtitles("No breaks" "One break" "Two breaks") varlab(_cons Constant ///
@@ -535,7 +542,7 @@ local macro1 1.all_lag_class 2.all_lag_class  ///
 	18.all_lag_class  19.all_lag_class 21.all_lag_class 22.all_lag_class ///
 	23.all_lag_class  24.all_lag_class
 		
-esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/allcountry2_all_lag.tex",label not ///
+esttab using "$thesis/Data/do_files/Hamburg/tex/allcountry2_all_lag.tex",label not ///
 	indicate("Country-product FE= *.pays_class" "Country time trend= *year_pays*" "Product time trend=*year_class*" ///
 	"Coffee break=*coffee*" "Sugar break=*sugar*") ///
 	pr2 nonumbers mtitles("No breaks" "One break" "Two breaks") varlab(_cons Constant ///
@@ -565,7 +572,7 @@ eststo: poisson value i.pays_class 0.coffee#pays year_pays1-year_pays12 year_cla
 esttab, label
 local macro 34.* 35.* 36.* 37.* 39.* 40.* 41.* 42.* 44.* 45.* 46.* 47.* 49.* 50.* 51.* 52.* 54.* 55.* 56.* 57.* ///
 	59.* 60.* 61.* 62.* 64.* 65.* 66.* 67.*
-esttab using "$ete/Thesis/Data/do_files/Hamburg/tex/allcountry2_each_lag.tex",label not ///
+esttab using "$thesis/Data/do_files/Hamburg/tex/allcountry2_each_lag.tex",label not ///
 	indicate("Country-product FE= *.pays_class" "Country time trend= *year_pays*" "Product time trend=*year_class*" ///
 	"Coffee break=*coffee*" "Sugar break=*sugar*") ///
 	pr2 nonumbers mtitles("No breaks" "One break" "Two breaks") varlab(_cons Constant ///
@@ -673,5 +680,5 @@ eststo: poisson value i.pays_class year_pays1-year_pays12 year_class1-year_class
 eststo: poisson value i.pays_class year_pays1-year_pays12 year_class1-year_class5 year2_class1-year2_class5 i.each_status_class i.each_pre_class, vce(robust) difficult
 eststo: poisson value i.pays_class year_pays1-year_pays12 year_class1-year_class5 year2_pays1-year2_pays12 i.each_status_class i.each_pre_class, vce(robust) difficult
 
-esttab using "$thesis2/reg_table/allcountry2/pre1/pre1.tex",label longtable noomitted not drop(0.* 5.* 10.* `macro' all_status_class* *all_status* *.each_status*) indicate("Country-product FE= *.pays_class" "Country time trend= *year_pays*" "Product time trend=*year_class*" "Country quadratic trend= *year2_pays*" "Product quadratic trend= *year2_class*") pr2 nonumbers mtitles("All wars" "Quadratic" "War by war" "Qaudratic" "Quadratic") title(Regression table\label{tab1}) replace
+*esttab using "$thesis/reg_table/allcountry2/pre1/pre1.tex",label longtable noomitted not drop(0.* 5.* 10.* `macro' all_status_class* *all_status* *.each_status*) indicate("Country-product FE= *.pays_class" "Country time trend= *year_pays*" "Product time trend=*year_class*" "Country quadratic trend= *year2_pays*" "Product quadratic trend= *year2_class*") pr2 nonumbers mtitles("All wars" "Quadratic" "War by war" "Qaudratic" "Quadratic") title(Regression table\label{tab1}) replace
 
