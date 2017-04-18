@@ -6,8 +6,8 @@
 
 clear
 
-*global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
-global thesis "C:\Users\TIRINDEE\Google Drive\ETE\Thesis"
+global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
+*global thesis "C:\Users\TIRINDEE\Google Drive\ETE\Thesis"
 
 set more off
 
@@ -64,12 +64,6 @@ drop if _merge==1
 drop _merge
 
 
-
-***clean database
-keep if exportsimports=="Exports" |  exportsimports=="Exportations" |  exportsimports=="Export" | exportsimports=="Sortie" |  exportsimports=="exports" |  exportsimports=="export"
-drop if pays_regroupes=="?"
-
-
 ***merge with normalisation orthographique
 
 merge m:1 marchandises using "$thesis/database_dta/bdd_marchandises_normalisees_orthographique.dta"
@@ -96,6 +90,10 @@ drop if _merge==1 & sourcetype!="Tableau Général"
 drop _merge
 
 
+
+***clean database
+keep if exportsimports=="Exports" 
+drop if pays_regroupes=="?"
 
 
 ****destring years
@@ -125,8 +123,7 @@ foreach variable of var quantit value prix_unitaire {
 destring quantit prix_unitaire value, replace
 
 replace value=prix_unitaire*quantit if value==0 & sourcetype=="Local" & prix_unitaire!=. & quantit!=.
-drop if value==0
-drop if sourcetype=="1792-both semester"
+drop if sourcetype=="1792-both semestre"
 drop if sourcetype=="1792-first semestre"
 
 

@@ -5,13 +5,13 @@
 
 clear
 
-*global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis/"
-global thesis "C:\Users\TIRINDEE\Google Drive\ETE/Thesis"
+global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
+*global thesis "C:\Users\TIRINDEE\Google Drive\ETE/Thesis"
 
 
 *******************************************HAMBURG***************************************************************
 
-insheet using "$thesis/toflit18_data/foreign_sources/Hambourg/BDD_Hambourg_21_juillet_2014.csv", clear
+insheet using "$thesis/toflit18_data_GIT/foreign_sources/Hambourg/BDD_Hambourg_21_juillet_2014.csv", clear
 
 
 rename marchandises classification_hamburg_large
@@ -115,18 +115,18 @@ save "$thesis/database_dta/elisa_hb_preappend.dta", replace
 
 use "$thesis/database_dta/elisa_bdd_courante", clear
 
-keep if pays_regroupes=="Nord"
+keep if pays_grouping=="Nord"
 drop if year<1733
 drop if year>1789
+keep if exportsimports=="Exports"
 
-drop if value==0
 replace value=value*4.505/1000
 
 drop if sourcetype=="Colonies" | sourcetype=="Divers" | sourcetype=="Divers - in" ///
 | sourcetype=="National par direction" | sourcetype=="Tableau Général" ///
 | sourcetype=="Tableau des quantités"
 
-foreach i of num 1733/1751{
+foreach i of num 1716/1751{
 drop if sourcetype!="Local" & year==`i'
 }
 drop if sourcetype!="Objet Général" & year==1752
@@ -144,8 +144,13 @@ drop if sourcetype!="Objet Général" & year==`i'
 foreach i in 1782 1787 1788{
 drop if sourcetype!="Objet Général" & year==`i'
 }
+foreach i of num 1789/1821{
+drop if sourcetype!="Résumé" & year==`i'
+}
 
-drop if sourcetype!="Résumé" & year==1789
+
+collapse (sum) value, by(year pays_grouping ///
+classification_hamburg_large exportsimports)
 
 replace classification_hamburg_large="Marchandises non classifiées" if classification_hamburg_large==""
 rename value value_fr

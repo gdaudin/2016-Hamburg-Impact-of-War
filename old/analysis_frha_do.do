@@ -5,10 +5,10 @@
 
 clear
 
-*global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
-global thesis "C:\Users\TIRINDEE\Google Drive\ETE\Thesis"
+global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
+*global thesis "C:\Users\TIRINDEE\Google Drive\ETE\Thesis"
 
-use "$thesis\database_dta\elisa_frhb_database.dta", clear
+use "$thesis/database_dta/elisa_frhb_database.dta", clear
 
 drop if year==.
 
@@ -18,7 +18,7 @@ replace value=value_hb if sourceFRHB=="Hamburg"
 **************************look at classified versus not classfied
 ***all years
 
-cd "$thesis\Graph\Comparison_new/"
+cd "$thesis/Graph/Comparison_new/"
 
 preserve
 replace classification_hamburg_large="Not classified goods" if classification_hamburg_large=="Marchandises non classifiées"
@@ -560,7 +560,7 @@ restore
 
 **********************************evolution of share of main products********************************************************************
 
-preserve
+*preserve
 replace classification_hamburg_large="Other" if classification_hamburg_large!="Café" ///
 & classification_hamburg_large!="Vin ; de France" & ///
 classification_hamburg_large!="Sucre ; cru blanc ; du Brésil" ///
@@ -569,23 +569,20 @@ collapse (sum) value_fr value_hb, by(year classification_hamburg_large)
 egen tot_year_fr=sum(value_fr), by(year)
 egen tot_year_hb=sum(value_hb), by(year)
 
-gen coffee_share_fr=value_fr/tot_year_fr
-replace coffee_share_fr=. if classification_hamburg_large!="Café"| coffee_share_fr==0
-gen coffee_share_hb=value_hb/tot_year_hb
-replace coffee_share_hb=. if classification_hamburg_large!="Café"| coffee_share_hb==0
+gen coffee_share_fr=value_fr/tot_year_fr if classification_hamburg_large=="Café"
+gen coffee_share_hb=value_hb/tot_year_hb if classification_hamburg_large=="Café"
 capture corr coffee_share_hb coffee_share_fr
 local corr : display %3.2f r(rho)
 twoway (bar coffee_share_fr year) (connected coffee_share_hb year), ///
-title("Evolution of the share of Coffee") subtitle("Correlation: `corr'") xlabel(1733(4)1789) ///
-plotregion(fcolor(white)) graphregion(fcolor(white)) ///
+title("Evolution of the share of Coffee") subtitle("Correlation: `corr'") ///
+xlabel(1733(4)1789) plotregion(fcolor(white)) ///
+graphregion(fcolor(white)) ///
 legend(label(1 "France") label(2 "Hamburg"))
 graph export coffee_share_long.png, replace as(png)
 *graph save coffee_share_long, replace
 
-gen wine_share_fr=value_fr/tot_year_fr
-replace wine_share_fr=. if classification_hamburg_large!="Vin ; de France"| wine_share_fr==0
-gen wine_share_hb=value_hb/tot_year_hb
-replace wine_share_hb=. if classification_hamburg_large!="Vin ; de France"| wine_share_hb==0
+gen wine_share_fr=value_fr/tot_year_fr if classification_hamburg_large=="Vin ; de France"
+gen wine_share_hb=value_hb/tot_year_hb if classification_hamburg_large=="Vin ; de France"
 capture corr wine_share_hb wine_share_fr
 local corr : display %3.2f r(rho)
 twoway (bar wine_share_fr year) (connected wine_share_hb year), ///
@@ -595,10 +592,8 @@ legend(label(1 "France") label(2 "Hamburg"))
 graph export wine_share_long.png, replace as(png)
 *graph save wine_share_long, replace
 
-gen sugar_share_fr=value_fr/tot_year_fr
-replace sugar_share_fr=. if classification_hamburg_large!="Sucre ; cru blanc ; du Brésil"| sugar_share_fr==0
-gen sugar_share_hb=value_hb/tot_year_hb
-replace sugar_share_hb=. if classification_hamburg_large!="Sucre ; cru blanc ; du Brésil"| sugar_share_hb==0
+gen sugar_share_fr=value_fr/tot_year_fr if classification_hamburg_large=="Sucre ; cru blanc ; du Brésil"
+gen sugar_share_hb=value_hb/tot_year_hb if classification_hamburg_large=="Sucre ; cru blanc ; du Brésil"
 capture corr sugar_share_hb sugar_share_fr
 local corr : display %3.2f r(rho)
 twoway (bar sugar_share_fr year) (connected sugar_share_hb year), ///
@@ -608,9 +603,8 @@ legend(label(1 "France") label(2 "Hamburg"))
 graph export sugar_share_long.png, replace as(png)
 *graph save sugar_share_long, replace
 
-gen indigo_share_fr=value_fr/tot_year_fr
-replace indigo_share_fr=. if classification_hamburg_large!="Indigo"| indigo_share_fr==0
-gen indigo_share_hb=value_hb/tot_year_hb
+gen indigo_share_fr=value_fr/tot_year_fr if classification_hamburg_large=="Indigo"
+gen indigo_share_hb=value_hb/tot_year_hb if classification_hamburg_large=="Indigo"
 replace indigo_share_hb=. if classification_hamburg_large!="Indigo"| indigo_share_hb==0
 capture corr indigo_share_hb indigo_share_fr
 local corr : display %3.2f r(rho)
@@ -621,10 +615,8 @@ legend(label(1 "France") label(2 "Hamburg"))
 graph export indigo_share_long.png, replace as(png)
 *graph save indigo_share_long, replace
 
-gen eaudevie_share_fr=value_fr/tot_year_fr
-replace eaudevie_share_fr=. if classification_hamburg_large!="Eau ; de vie"| eaudevie_share_fr==0
-gen eaudevie_share_hb=value_hb/tot_year_hb
-replace eaudevie_share_hb=. if classification_hamburg_large!="Eau ; de vie"| eaudevie_share_hb==0
+gen eaudevie_share_fr=value_fr/tot_year_fr if classification_hamburg_large=="Eau ; de vie"
+gen eaudevie_share_hb=value_hb/tot_year_hb if classification_hamburg_large=="Eau ; de vie"
 capture corr eaudevie_share_hb eaudevie_share_fr
 local corr : display %3.2f r(rho)
 twoway (bar eaudevie_share_fr year)(connected eaudevie_share_hb year), ///
@@ -634,10 +626,8 @@ legend(label(1 "France") label(2 "Hamburg"))
 graph export eaudevie_share_long.png, replace as(png)
 *graph save eaudevie_share_long, replace
 
-gen other_share_fr=value_fr/tot_year_fr
-replace other_share_fr=. if classification_hamburg_large!="Other"| other_share_fr==0
-gen other_share_hb=value_hb/tot_year_hb
-replace other_share_hb=. if classification_hamburg_large!="Other"| other_share_hb==0
+gen other_share_fr=value_fr/tot_year_fr if classification_hamburg_large=="Other"
+gen other_share_hb=value_hb/tot_year_hb if classification_hamburg_large=="Other"
 capture corr other_share_fr other_share_hb
 local corr : display %3.2f r(rho)
 twoway (bar other_share_fr year)(connected other_share_hb year), ///
@@ -659,11 +649,11 @@ label(4 "Indigo") label(5 "Eau de vie") label(6 "Other"))
 graph export long_share_product_hb.png, replace as(png)
 *graph save long_share_product_hb, replace
 
-twoway (bar coffee_share_fr year) (bar wine_share_fr year) ///
-(bar sugar_share_fr year) (bar indigo_share_fr year) ///
-(bar eaudevie_share_fr year)(bar other_share_fr year), ///
+twoway (connected coffee_share_fr year) (connected wine_share_fr year) ///
+(connected sugar_share_fr year) (connected indigo_share_fr year) ///
+(connected eaudevie_share_fr year)(connected other_share_fr year), ///
 title("Evolution of the share of important goods") ///
-subtitle("Source: Hamburg") xlabel(1733(4)1789) ///
+subtitle("Source: France") xlabel(1733(4)1789) ///
 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 legend(label(1 "Coffee") label(2 "Wine") label(3 "Sugar") ///
 label(4 "Indigo") label(5 "Eau de vie") label(6 "Other"))
@@ -671,6 +661,7 @@ graph export long_share_product_fr.png, replace as(png)
 *graph save long_share_product_hb, replace
 
 restore
+
 
 **********************************evolution of share of main sectors********************************************************************
 
@@ -706,22 +697,27 @@ twoway (bar european_food_fr year) (bar exotic_food_fr year) ///
 (bar manuf_mix_fr year) (bar not_class_fr year), ///
 title("Evolution of the share of sectors") ///
 subtitle("Source: France") xlabel(1733(4)1789) ///
+legend(label(1 "Foodstuff, European") label(2 "Foodstuff, Exotic") ///
+label(3 "Beverages and tobacco") label(4 "Raw materials") ///
+label(5 "Oils") label(6 "5b") label(7 "Manuf. goods, by material") ///
+label(8 "Misc. manuf. goods") label(9 "Not classified")) ///
 plotregion(fcolor(white)) graphregion(fcolor(white)) 
 graph export long_share_sector_fr.png, replace as(png)
 *graph save long_share_product_hb, replace
 
-/*
-twoway (bar coffee_share_fr year) (bar wine_share_fr year) ///
-(bar sugar_share_fr year) (bar indigo_share_fr year) ///
-(bar eaudevie_share_fr year)(bar other_share_fr year), ///
-title("Evolution of the share of important goods") ///
+twoway (bar european_food_hb year) (bar exotic_food_hb year) ///
+(bar bev_tobacco_hb year) (bar raw_mat_hb year) ///
+(bar oil_hb year)(bar fiveb_hb year) (bar manuf_material_hb year) ///
+(bar manuf_mix_hb year) (bar not_class_hb year), ///
+title("Evolution of the share of sectors") ///
 subtitle("Source: Hamburg") xlabel(1733(4)1789) ///
-plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-legend(label(1 "Coffee") label(2 "Wine") label(3 "Sugar") ///
-label(4 "Indigo") label(5 "Eau de vie") label(6 "Other"))
-graph export long_share_product_fr.png, replace as(png)
+legend(label(1 "Foodstuff, European") label(2 "Foodstuff, Exotic") ///
+label(3 "Beverages and tobacco") label(4 "Raw materials") ///
+label(5 "Oils") label(6 "5b") label(7 "Manuf. goods, by material") ///
+label(8 "Misc. manuf. goods") label(9 "Not classified")) ///
+plotregion(fcolor(white)) graphregion(fcolor(white)) 
+graph export long_share_sector_hb.png, replace as(png)
 *graph save long_share_product_hb, replace
-*/
 
 restore
 

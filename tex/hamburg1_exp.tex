@@ -1,0 +1,21 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Hamburg Aggregate\label{tab1}}
+\begin{tabular}{l*{4}{D{.}{.}{-1}}}
+\toprule
+                    &\multicolumn{1}{c}{No breaks}&\multicolumn{1}{c}{One break}&\multicolumn{1}{c}{No breaks}&\multicolumn{1}{c}{One break}\\
+\midrule
+Value               &                     &                     &                     &                     \\
+all=0               &           0         &           0         &                     &                     \\
+All                 &      -0.420\sym{**} &      -0.494\sym{***}&                     &                     \\
+Group 1             &                     &                     &           0         &           0         \\
+Group 2             &                     &                     &      -0.430\sym{**} &      -0.820\sym{***}\\
+Group 3             &                     &                     &      -0.393\sym{**} &      -0.480\sym{**} \\
+War3                &                     &                     &      -0.435\sym{*}  &      -0.395         \\
+\midrule
+Observations        &          90         &          90         &          90         &          90         \\
+Pseudo \(R^{2}\)    &       0.352         &       0.752         &       0.352         &       0.151         \\
+\bottomrule
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}

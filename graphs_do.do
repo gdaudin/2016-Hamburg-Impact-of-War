@@ -18,7 +18,6 @@ graph export "$thesis/Data/do_files/Hamburg/tex/growth_rate.png", replace as(png
 ****hamburg2
 use "$thesis/database_dta/hamburg2", clear
 drop if value==.
-drop pays_regroupes
 drop if year<1734
 label define order_class 1 Coffee 2 "Eau de vie" 3 Sugar 4 Wine 5 Other
 encode classification_hamburg_large, gen(class) label(order_class)
