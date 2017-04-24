@@ -152,6 +152,7 @@ levelsof pays, local(levels) 	/*levelsof is just in case we add more pays
 foreach i of num 1/5{
 foreach j of num 1/`: word count `levels''{
 su lnvalue if class==`i' & pays==`j' & exportsimports=="Exports"
+if r(N)>1{
 quietly reg lnvalue i.year i.dir [iw=value] if ///
 	exportsimports=="Exports" & pays==`j' & class==`i', robust 
 predict value2 
@@ -163,6 +164,8 @@ quietly su dir if direction=="total"	/*just in case we add more direction
 replace pred_value=value3 if class==`i' & pays==`j' ///
 	& dir==r(mean) & exportsimports=="Exports"
 drop value2 value3
+continue
+}
 }
 }
 
@@ -172,11 +175,12 @@ drop value2 value3
 
 
 levelsof pays, local(levels)
-di "`: word count `levels''"
+*di "`: word count `levels''"
 foreach i of num 1/5{
 foreach j of num 1/`: word count `levels''{
 di "`: label (pays) `j'' `: label (class) `i''"
 su lnvalue if class==`i' & pays==`j' & exportsimports=="Imports"
+if r(N)>1{
 quietly reg lnvalue i.year i.dir [iw=value] if ///
 	exportsimports=="Imports" & pays==`j' & ///
 	class==`i', robust 
@@ -186,6 +190,8 @@ quietly su dir if direction=="total"
 replace pred_value=value3 if class==`i' & pays==`j' ///
 	& dir==r(mean) & exportsimports=="Imports" 
 drop value2 value3
+continue
+}
 }
 }
 
@@ -312,6 +318,7 @@ levelsof pays, local(levels)
 foreach i of num 1/6{
 foreach j of num 1/`: word count `levels''{
 su lnvalue if sitc==`i' & pays==`j' & exportsimports=="Exports"
+if r(N)>1{
 quietly reg lnvalue i.year i.dir [iw=value] if ///
 	exportsimports=="Exports" & pays==`j' & sitc==`i', robust 
 predict value2 
@@ -320,6 +327,8 @@ quietly su dir if direction=="total"
 replace pred_value=value3 if sitc==`i' & pays==`j' ///
 	& dir==r(mean) & exportsimports=="Exports"
 drop value2 value3
+continue
+}
 }
 }
 
@@ -333,6 +342,7 @@ foreach i of num 1/6{
 foreach j of num 1/`: word count `levels''{
 di "`: label (pays) `j'' `: label (sitc) `i''"
 su lnvalue if sitc==`i' & pays==`j' & exportsimports=="Imports"
+if r(N)>1{
 quietly reg lnvalue i.year i.dir [iw=value] if ///
 	exportsimports=="Imports" & pays==`j' & ///
 	sitc==`i', robust 
@@ -342,6 +352,8 @@ quietly su dir if direction=="total"
 replace pred_value=value3 if sitc==`i' & pays==`j' ///
 	& dir==r(mean) & exportsimports=="Imports" 
 drop value2 value3
+continue
+}
 }
 }
 
@@ -481,8 +493,8 @@ collapse (sum) value, by(year pays_grouping ///
 sitc18_en exportsimports)
 
 *****merge with imputed data 
-merge m:1 exportsimports year pays_grouping sict18_en ///
-using "$thesis/database_dta/product_estimation"
+merge m:1 exportsimports year pays_grouping sitc18_en ///
+using "$thesis/database_dta/sector_estimation"
 drop if _merge==2
 drop _merge
 

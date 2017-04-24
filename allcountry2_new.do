@@ -163,7 +163,8 @@ label variable `variable'`value' "`l`variable'' `sitcvl`value''"
 }
 }
 
-export delimited using "$thesis/Tables/group_shares", replace
+export delimited using "$thesis/Data/do_files/Hamburg/Tables/group_shares", ///
+label replace
 restore
 
 
@@ -230,7 +231,10 @@ eststo export_sitc2: poisson value i.pays#i.sitc c.year#i.pays ///
 esttab export_groupsitc1 export_groupsitc2 export_group1 export_group2 ///
 		export_sitc1 export_sitc2 using ///
 		"$thesis/Tables/allcountry2_groupsitc_export.csv", label replace
-
+		mtitles("SITC#group#war no breaks" "SITC#group#war 1795 break" ///
+		"group#war no breaks" "group#war 1795 breaks" ///
+		"SITC#war no breaks" "SITC#war 1795 breaks")
+		
 /*------------------------------------------------------------------------------
 								regress with IMPORTS
 ------------------------------------------------------------------------------*/
@@ -263,5 +267,9 @@ eststo import_sitc2: poisson value i.pays#i.sitc c.year#i.pays ///
 
 esttab import_groupsitc1 import_groupsitc2 import_group1 import_group2 ///
 		import_sitc1 import_sitc2 using ///
-		"$thesis/Tables/allcountry2_groupsitc_import.csv", label replace
+		"$thesis/Data/do_files/Hamburg/Tables/allcountry2_groupsitc_import.csv", ///
+		label replace mtitles("SITC#group#war no breaks" ///
+		"SITC#group#war 1795 break" ///
+		"group#war no breaks" "group#war 1795 breaks" ///
+		"SITC#war no breaks" "SITC#war 1795 breaks")
 

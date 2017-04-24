@@ -419,7 +419,8 @@ eststo export_all3: poisson value i.pays_class i.coffee#i.pays ///
 */
 esttab export_all1 export_all2 export_all3, label
 esttab export_all1 export_all2 export_all3 ///
-	using "$thesis/Tables/allcountry2_all_export.csv", label
+	using "$thesis/Data/do_files/Hamburg/Tables/allcountry2_all_export.csv", ///
+	replace label mtitles("No breaks" "Break coffee" "Break coffee & sugar")
 
 
 /*
@@ -462,7 +463,8 @@ eststo export_each3: poisson value i.pays_class 0.coffee#i.pays ///
 	
 esttab, label
 esttab export_each1 export_each2 export_each3 ///
-	using "$thesis/Tables/allcountry2_each_export.csv", label
+	using "$thesis/Data/do_files/Hamburg/Tables/allcountry2_each_export.csv", ///
+	replace label mtitles("No breaks" "Break coffee" "Break coffee & sugar")
 
 
 /*
@@ -525,7 +527,8 @@ eststo import_all3: poisson value i.pays_class c.year#i.pays ///
 */
 esttab import_all1 import_all2 import_all3, label
 esttab import_all1 import_all2 import_all3 ///
-	using "$thesis/Tables/allcountry2_all_import.csv", label replace
+	using "$thesis/Data/do_files/Hamburg/Tables/allcountry2_all_import.csv", ///
+	label replace mtitles("No breaks" "Break coffee" "Break coffee & sugar")
 
 /*Regress first no break, then break for coffee only and then both sugar and 
 coffee (+experiment) with on dummy for each of the three groups of wars*/
@@ -549,7 +552,8 @@ eststo import_each3: poisson value i.pays_class 0.coffee#pays ///
 	
 esttab import_each1 import_each2 import_each3, label
 esttab import_each1 import_each2 import_each3 ///
-	using "$thesis/Tables/allcountry2_each_import.csv", label replace
+	using "$thesis/Data/do_files/Hamburg/Tables/allcountry2_each_import.csv", ///
+	label replace mtitles("No breaks" "Break coffee" "Break coffee & sugar")
 
 
 /*
