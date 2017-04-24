@@ -471,10 +471,10 @@ using "$thesis/database_dta/product_estimation"
 drop if _merge==2
 drop _merge
 
-replace value = pred_value if year<1752
-replace value=pred_value if year==1753
-replace value = pred_value if year>1761 & year<1768
-replace value = pred_value if year==1781
+replace value = pred_value if year<1752 & pred_value!=.
+replace value=pred_value if year==1753 & pred_value!=.
+replace value = pred_value if year>1761 & year<1768 & pred_value!=.
+replace value = pred_value if year==1781 & pred_value!=.
 drop pred_value
 drop if value==.
 
@@ -498,10 +498,10 @@ using "$thesis/database_dta/sector_estimation"
 drop if _merge==2
 drop _merge
 
-replace value = pred_value if year<1752
-replace value=pred_value if year==1753
-replace value = pred_value if year>1761 & year<1768
-replace value = pred_value if year==1781
+replace value = pred_value if year<1752 & pred_value!=.
+replace value=pred_value if year==1753 & pred_value!=.
+replace value = pred_value if year>1761 & year<1768 & pred_value!=.
+replace value = pred_value if year==1781 & pred_value!=.
 drop pred_value
 drop if value==.
 
