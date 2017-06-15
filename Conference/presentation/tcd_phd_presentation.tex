@@ -1,0 +1,294 @@
+\documentclass[11pt]{beamer}
+\usetheme{Warsaw}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{caption}
+\setbeamertemplate{footline}[frame number]
+%\setbeamertemplate{caption}[numbered]
+\author{Elisa Tirindelli, Guillaume Daudin}
+\title{The futility of mercantilist wars. A case study of France and Hamburg between 1713 and 1820}
+%\setbeamercovered{transparent} 
+%\setbeamertemplate{navigation symbols}{} 
+\logo{PhD Working Group} 
+%\institute{} 
+\date{6 April 2017} 
+\subject{PhD Working Group} 
+\begin{document}
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+\begin{enumerate}
+\item{Literature}\\~\\
+\item{Contribution}\\~\\
+\item{Data}
+\begin{itemize}
+\item{French dataset}
+\item{German dataset}\\~\\
+\end{itemize}
+\item{Econometric Specification and Results}
+\begin{itemize}
+\item{Hamburg}
+\item{All neutral trading partners}\\~\\
+\end{itemize}
+\item{Conclusion - so far}
+\item{Next steps}\\~\\
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{Literature}
+\begin{itemize}
+\item{Glick and Taylor 2005: \textit{Collateral damage: trade disruption and the economic impact of war}}\\~\\
+\item{Riley 1984 \textit{Seven Years War and the Old Regime in France}}\\~\\
+\item{Rahman 2004. \textit{Fighting the Forces of Gravity - Seapower and Maritime Trade between the 18th and 20th Centuries}}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Contribution to the Literature}
+\begin{itemize}
+\item{I am using a unique dataset spanning from beginning to 18th century to mid 19th century.}\\~\\
+\item{I am analysing the specific case of neutral countries.}\\~\\
+\item{I do a breakdown by product and find strikingly different results depending on the product.}\\~\\
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Data}
+\begin{itemize}
+\item{French dataset:}
+\begin{itemize}
+\item{Data from the \textit{Bureau de la Balance du Commerce}}
+\item{3407 bilateral flows between 1713 and 1815}
+\item{868 different goods are found in the dataset only 4 of which appear more than 31 times}\\~\\
+\end{itemize}
+\item{German dataset:}
+\begin{itemize}
+\item{The data come from the Hamburg import toll register}
+\item{1609 observations of aggregate exports flows between 1733 and 1798}
+\item{They appear as category of goods, not as single products}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\begin{center}
+\includegraphics[scale=.3]{long_evolution.png}
+\end{center}
+
+\end{frame}
+
+\begin{frame}{Econometric Specification}
+\begin{itemize}
+\item{I use the French database.}\\~\\
+\item{I run a first regression on trade with Hamburg on aggregate and disaggregate flows.}\\~\\
+\item{I then run another regression on aggregate and disagregate trade of all France trading partners.}\\
+\end{itemize}
+
+
+\end{frame}
+
+
+
+\begin{frame}{Impact of wars on Hamburg series (1)}
+\begin{itemize}
+\item{I first run a regression on the aggregate exports:
+\begin{center}
+$\exp(Exports_{i,t})=\beta_0+\beta_1Year+\beta_2War$\\~\\
+\end{center} }
+\item{I then split exports into  different products:
+\begin{center}
+$\exp(Exports_{i,t})=\beta_0+\beta_1Year+\beta_2WarCoffee + \beta_3WarEauDeVie+\beta_4WarSugar +\beta_5WarWine +\beta_6WarOther$
+\end{center}}
+\end{itemize}
+\end{frame}
+
+
+
+%
+%\begin{frame}{Impact of wars on Hamburg series (2)}
+%\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccccc}						
+%	& \multicolumn{1}{c}{Aggregate} &	\multicolumn{1}{c}{By product} \\
+%\cline{2-7}						
+%	& \multicolumn{1}{c}{(1)\mbox{\ }} &	\multicolumn{1}{c}{(2)\mbox{\ }}  \\
+%\hline		
+%All	&-.784 & \\
+%&	\raisebox{.7ex}[0pt]{\scriptsize (.110)$^{***}$}  \\				
+%Coffee &	 & -.691 &	\\
+%&	&\raisebox{.7ex}[0pt]{\scriptsize (.157)$^{***}$} 	\\
+%Eau de Vie & &	-.081 	&	\\
+%&	&\raisebox{.7ex}[0pt]{\scriptsize (.124)} &	&	\\
+%Sugar & &	-.390 	&	\\
+%&	&\raisebox{.7ex}[0pt]{\scriptsize (.108)$^{***}$} 	&	&	\\
+%Wine & & 	-1.137	&	\\
+%&	&\raisebox{.7ex}[0pt]{\scriptsize (.146)$^{***}$} 	&	&	\\
+%
+%Obs. &	51 &	51 \\
+%$ R^2$ &	.883 &		.748  \\
+%\hline\hline						
+%\end{tabular*}%		
+%\end{frame}
+
+
+
+
+\begin{frame}{Impact of wars on Hamburg series (2)}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccccc}						
+	& \multicolumn{1}{c}{Aggregate} &	\multicolumn{1}{c}{No breaks} &	\multicolumn{1}{c}{One Break} & \multicolumn{1}{c}{Two Breaks} & \\
+\hline					
+\hline \\		
+All wars &	-0.545 &	 & & & & \\
+&	\raisebox{.7ex}[0pt]{\scriptsize (-4.57)$^{***}$} 	& &	& &	& \\				
+Coffee &	 & -2.436 & -1.403 &	-1.444  &\\
+& &	\raisebox{.7ex}[0pt]{\scriptsize (-5.08)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (-5.25)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (-5.20)$^{***}$} &\\
+Eau de vie  & &	1.387 &1.387 &	1.387  &\\
+& &	\raisebox{.7ex}[0pt]{\scriptsize (4.34)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (4.34)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (4.34)$^{***}$} \\
+Sugar	& &	-1.874 &-1.874 &	-1.136  \\
+& &	\raisebox{.7ex}[0pt]{\scriptsize (-4.25)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (-4.25)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (-3.45)$^{***}$} \\
+Wine&	 &	0.0711 & 0.0711 &	0.0711 \\
+& &	\raisebox{.7ex}[0pt]{\scriptsize (.41)} &	\raisebox{.7ex}[0pt]{\scriptsize (0.41)} &	\raisebox{.7ex}[0pt]{\scriptsize (0.41)} \\
+Cons &	6.022 &	-10.14 &	-26.70  &	-111.3 \\
+&	\raisebox{.7ex}[0pt]{\scriptsize (1.56)} &	\raisebox{.7ex}[0pt]{\scriptsize (-0.59)} &	\raisebox{.7ex}[0pt]{\scriptsize (-1.61)} &	\raisebox{.7ex}[0pt]{\scriptsize (-7.55)} \\
+\hline 
+Obs &	76 &	347 &	347  & 347 \\
+$ R^2$ &	.319 &	.460 &	.556  & .645 \\
+
+\hline\hline						
+\end{tabular*}%
+\end{frame}
+
+\begin{frame}{Impact of wars on Hamburg series (3)}
+\begin{center}
+\includegraphics[scale=.3]{hamburg_product_1780.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{Impact of wars on Hamburg series (4)}
+\begin{center}
+\includegraphics[scale=.3]{hamburg_product_1820.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{Impact of wars on all neutral trading partners (1)}
+\begin{itemize}
+\item{I first run a regression on the aggregate exports:
+\begin{center}
+$\exp(Exports_{i,t})=\beta_0+\beta_1Year+\beta_2Adversaries+ \beta_3Allies+ \beta_4Neutral+ \sum_{i}\gamma_iCountry_i+\sum_{i}\delta_iCountry_iYear$\\~\\
+\end{center} }
+\item{I then split exports into  different products:
+\begin{center}
+$\exp(Exports_{i,t})=\alpha+ \sum_{i}\beta_{i}Product_iNeutral +\sum_i \gamma_iProduct_iAllies +\sum_i\delta_iProduct_iAdversaries + \sum_{ij}\lambda_iCountry_iProduct_j+\sum_{i}\theta_iCountry_iYear+ \sum_{i}\phi_iProduct_iYear$
+\end{center}}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Impact of wars on all neutral trading partners (2)}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccccc}						
+	& \multicolumn{1}{c}{Aggregate} &	\multicolumn{1}{c}{No breaks} &	\multicolumn{1}{c}{One Break} & \multicolumn{1}{c}{Two Breaks} & \\
+\hline					
+\hline \\		
+All wars &	-0.373 &	 & & & & \\
+&	\raisebox{.7ex}[0pt]{\scriptsize (-3.92)$^{***}$} 	& &	& &	& \\				
+Coffee &	 & -1.991 & -1.188 &	-1.188  &\\
+& &	\raisebox{.7ex}[0pt]{\scriptsize (-6.67)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (-7.32)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (-7.32)$^{***}$} &\\
+Eau de vie  & &	0.953 &0.952 &	0.953  &\\
+& &	\raisebox{.7ex}[0pt]{\scriptsize (5.50)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (5.50)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (5.50)$^{***}$} \\
+Sugar	& &	-1.657 &-1.656 &	-1.066  \\
+& &	\raisebox{.7ex}[0pt]{\scriptsize (-6.12)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (-6.12)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (-5.12)$^{***}$} \\
+Wine&	 &	0.061 & 0.061 &	0.062 \\
+& &	\raisebox{.7ex}[0pt]{\scriptsize (0.49)} &	\raisebox{.7ex}[0pt]{\scriptsize (0.49)} &	\raisebox{.7ex}[0pt]{\scriptsize (0.50)} \\
+Cons &	-40.993 &	-23.09 &	109.7  &	278.7 \\
+&	\raisebox{.7ex}[0pt]{\scriptsize (-7.19)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (-2.01)$^{*}$} &	\raisebox{.7ex}[0pt]{\scriptsize (1.94)} &	\raisebox{.7ex}[0pt]{\scriptsize (3.03)$^{**}$} \\
+\hline 
+Obs &	789 &	3145 &	3145  & 3145 \\
+$ R^2$ &	.623 &	.787 &	.800  & .815 \\
+
+\hline\hline						
+\end{tabular*}%
+\end{frame}
+
+\begin{frame}{Impact of wars on all neutral trading partners (3)}
+\begin{center}
+\includegraphics[scale=.3]{allcountry_product_1780.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{Impact of wars on all neutral trading partners (4)}
+\begin{center}
+\includegraphics[scale=.3]{allcountry_product_1820.png}
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}{Conclusion - so far}
+\begin{itemize}
+\item{Mercantilist war overall had a strong negative and significant impact on trade, for neutral countries.}\\~\\
+\item{On each single product however, results are not so coherent.}\\~\\
+\item{I found negative impact on major colonial products but positive effects on European goods.}\\~\\
+\item{I do not always find stronger impact for adversary countries.}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Next steps: (1)}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccccc}						
+	& \multicolumn{1}{c}{Aggregate} &	\multicolumn{1}{c}{No breaks} &	\multicolumn{1}{c}{One Break} & \multicolumn{1}{c}{Two Breaks} & \\
+\hline					
+\hline \\		
+All wars &	-0.505 &	 & & & & \\
+&	\raisebox{.7ex}[0pt]{\scriptsize (-4.86)$^{***}$} 	& &	& &	& \\				
+Coffee &	 & -2.811 & -1.347 &	-1.348  &\\
+& &	\raisebox{.7ex}[0pt]{\scriptsize (-6.08)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (-2.96)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (-2.96)$^{***}$} &\\
+Eau de vie  & &	0.098 &0.098 &	0.098  &\\
+& &	\raisebox{.7ex}[0pt]{\scriptsize (0.44)} &	\raisebox{.7ex}[0pt]{\scriptsize (0.44)} &	\raisebox{.7ex}[0pt]{\scriptsize (0.44)} \\
+Sugar	& &	-2.572 &2.577 &	-1.238  \\
+& &	\raisebox{.7ex}[0pt]{\scriptsize (-5.69)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (-5.71)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (-2.99)$^{***}$} \\
+Wine&	 &	0.074 & 0.074 &	0.075 \\
+& &	\raisebox{.7ex}[0pt]{\scriptsize (0.59)} &	\raisebox{.7ex}[0pt]{\scriptsize (0.59)} &	\raisebox{.7ex}[0pt]{\scriptsize (0.60)} \\
+Cons &	-40.99 &	-23.09 &	109.7  &	278.7 \\
+&	\raisebox{.7ex}[0pt]{\scriptsize (-7.19)$^{***}$} &	\raisebox{.7ex}[0pt]{\scriptsize (-2.01)$^{*}$} &	\raisebox{.7ex}[0pt]{\scriptsize (1.94)} &	\raisebox{.7ex}[0pt]{\scriptsize (3.03)$^{**}$} \\
+\hline 
+Obs &	789 &	3145 &	3145  & 3145 \\
+$ R^2$ &	.623 &	.787 &	.800  & .815 \\
+
+\hline\hline						
+\end{tabular*}%
+\end{frame}
+
+
+\begin{frame}{Next steps: (2)}
+\begin{itemize}
+
+\item{Cluster countries by trade composition:}
+\begin{itemize}
+\item{K-clustering}
+\item{Correlation of total trade by product}\\~\\
+\end{itemize}
+\item{Look at war by war case. }\\~\\
+\item{Robustness checks and existence of of maximum in poisson regression.}\\~\\
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\Huge{Thank you!}
+\end{center}
+
+\end{frame}
+
+
+\end{document}
+
