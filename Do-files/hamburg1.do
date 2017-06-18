@@ -2,6 +2,23 @@
 global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
 *global thesis "C:\Users\TIRINDEE\Google Drive\ETE\Thesis"
 
+
+
+if "`c(username)'" =="guillaumedaudin" {
+	global thesis ~/Documents/Recherche/2016 Hamburg
+}
+
+
+set more off
+
+capture use "$thesis/Données Stata/bdd courante.dta", clear
+
+if "`c(username)'" =="guillaumedaudin" {
+	use "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta", clear
+}
+
+
+
 set more off
 
 use "$thesis/database_dta/hamburg1", clear
