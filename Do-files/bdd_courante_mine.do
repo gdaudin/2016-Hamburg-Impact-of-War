@@ -19,7 +19,7 @@ set more off
 capture use "$thesis/Données Stata/bdd courante.dta", clear
 
 if "`c(username)'" =="guillaumedaudin" {
-	use "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta"
+	use "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta", clear
 }
 
 
