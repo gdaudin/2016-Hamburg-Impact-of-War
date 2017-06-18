@@ -1,21 +1,39 @@
+
+
+
+
+
+
+
 global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
 *global thesis "C:\Users\TIRINDEE\Google Drive\ETE\Thesis"
 
+
+if "`c(username)'" =="guillaumedaudin" {
+	global thesis ~/Documents/Recherche/2016 Hamburg
+}
+
+
 set more off
 
-use "$thesis/Données Stata/bdd courante.dta", clear
+capture use "$thesis/Données Stata/bdd courante.dta", clear
+
+if "`c(username)'" =="guillaumedaudin" {
+	use "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta"
+}
+
 
 
 ********************************************************************************
 *****************************TEST BENFORD***************************************
 ********************************************************************************
 
-preserve
+
 drop if value==0
 drop if value==.
 gen firstdigit = real(substr(string(value), 1, 1))
 drop if firstdigit==.
-firstdigit value, percent
+*firstdigit value, percent
 contract firstdigit
 set obs 9 
 gen x = _n 
@@ -27,12 +45,20 @@ twoway histogram firstdigit [fw=_freq], plotregion(fcolor(white)) ///
 	format("%02.1f")) legend(off) plotregion(fcolor(white)) ///
 	graphregion(fcolor(white))
 graph export "$thesis/Graph/Benford/benford_fr.png", as(png) replace
-restore
+
 
 
 ********************************************************************************
 *****************************CLEAN DATABASE*************************************
 ********************************************************************************
+
+
+
+capture use "$thesis/Données Stata/bdd courante.dta", clear
+
+if "`c(username)'" =="guillaumedaudin" {
+	use "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta"
+}
 
 drop if year==1805.75
 drop if yearstr=="10 mars-31 décembre 1787"
@@ -99,14 +125,14 @@ collapse (sum) value, by(sourcetype year direction ///
 
 ***save temporary database for comparison with hamburg dataset
 save "$thesis/database_dta/elisa_bdd_courante", replace
-use "$thesis/database_dta/elisa_bdd_courante", replace
+
 
 
 
 ********************************************************************************
 *************************ESTIMATE PRODUCTS BEFORE 1750**************************
 ********************************************************************************
-preserve 
+use "$thesis/database_dta/elisa_bdd_courante", replace
 
 *****keep only sources where I have both national and direction data
 replace direction="total" if direction==""
@@ -236,13 +262,13 @@ drop if class==4 & pays==11
 collapse (sum) pred_value, by(year pays_grouping ///
 	exportsimports classification_hamburg_large)
 save "$thesis/database_dta/product_estimation", replace
-restore
+
 
 
 ********************************************************************************
 *************************ESTIMATE SECTORS BEFORE 1750**************************
 ********************************************************************************
-preserve 
+use "$thesis/database_dta/elisa_bdd_courante", replace
 
 *****keep only sources where I have both national and direction data
 replace direction="total" if direction==""
@@ -382,12 +408,12 @@ drop if year>1786
 
 collapse (sum) pred_value, by(year pays_grouping sitc18_en exportsimports)
 save "$thesis/database_dta/sector_estimation", replace
-restore
+
 
 ********************************************************************************
 ***************************CREATE 4 DATABASES***********************************
 ********************************************************************************
-
+use "$thesis/database_dta/elisa_bdd_courante", replace
 /* LEGEND OF SOURCETYPE
 - Colonies: 1787, 1788, 1789
 - Divers: 1839
