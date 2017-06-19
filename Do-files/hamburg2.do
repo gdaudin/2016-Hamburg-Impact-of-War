@@ -3,48 +3,67 @@ clear
 global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
 *global thesis "C:\Users\TIRINDEE\Google Drive\ETE\Thesis"
 
+
+
+if "`c(username)'" =="guillaumedaudin" {
+	global thesis ~/Documents/Recherche/2016 Hamburg
+}
+
+
+set more off
+
+capture use "$thesis/Données Stata/bdd courante.dta", clear
+
+if "`c(username)'" =="guillaumedaudin" {
+	use "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta", clear
+}
+
+
+
 set more off
 
 use "$thesis/database_dta/hamburg2", clear
 
 drop if value==.
-drop if year<1733
+drop if year<1718
 label define order_class 1 Coffee 2 "Eau de vie" 3 Sugar 4 Wine 5 Other
 encode classification_hamburg_large, gen(class) label(order_class)
 
 label var value Value
 
 ****GEN 7 WAR DUMMIES	
-gen war_each="Peace"
+gen war_each="0Peace"
 
 foreach i of num 1733/1738{
-replace war_each="War1" if year==`i'
+replace war_each="Land_war" if year==`i'
 }
 
 foreach i of num 1740/1743{
-replace war_each="War1" if year==`i'
+replace war_each="Land_war" if year==`i'
 }
 
 foreach i of num 1744/1748{
-replace war_each="War2" if year==`i'
+replace war_each="Mercantilist_war" if year==`i'
 }
 
 foreach i of num 1756/1763{
-replace war_each="War2" if year==`i'
+replace war_each="Mercantilist_war" if year==`i'
 }
 
 foreach i of num 1778/1782{
-replace war_each="War2" if year==`i'
+replace war_each="Mercantilist_war" if year==`i'
 }
 
 foreach i of num 1792/1802{
-replace war_each="War3" if year==`i'
+replace war_each="R&N_war" if year==`i'
 }
 
 foreach i of num 1803/1814{
-replace war_each="War3" if year==`i'
+replace war_each="R&N_war" if year==`i'
 }
 
+
+encode war_each, gen(each)
 
 ****gen one dummy for all wars
 gen all=0
@@ -72,7 +91,9 @@ replace all=1 if year==`i'
 }
 
 
-encode war_each, gen(each)
+label define War0_1 0 "Peace" 1 "War"
+label value all War0_1 
+
 
 gen c1=(year<1745 & class==1)
 gen c2=(year>1744 & year<1790 & class==1)
@@ -92,17 +113,30 @@ gen year_c`i'=year_class1*c`i'
 gen year_s`i'=year_class3*s`i'
 }
 
+gen ln_value = ln(value)
+
+gen group=0 
+replace group=1 if year<1740
+replace group=2 if year>1739
+replace group=3 if year>1795
+
+gen g2=(group==2)
+gen g3=(group==3)
+gen year2=g2*year
+gen year3=g3*year
+
+eststo clear
 
 ****reg all wars exports
-eststo: poisson value i.class i.class#c.year i.all#i.class if ///
-	exportsimports=="Exports", vce(robust)
-*eststo: poisson value i.class year_class1-year_class5 c2 ///
-	year_c2 c3 year_c3 s2 year_s2 s3 year_s3 i.all_class, ///
+eststo p1: reg ln_value i.class i.class#c.year i.all#i.class if ///
+	exportsimports=="Exports"
+*eststo: reg ln_value i.class year_class1-year_class5 c2 ///
+	year_c3  year_s3 i.all_class, ///
 	noconstant vce(robust) iterate(40)
-eststo: poisson value i.class i.class#c.year c2 year_c2 ///
-	i.all#i.class if exportsimports=="Exports", vce(robust) iterate(40)
-eststo: poisson value i.class i.class#c.year c3 year_c3 s3 ///
-	year_s3 i.all#i.class if exportsimports=="Exports", vce(robust)
+*eststo p2: reg ln_value i.class i.class#c.year c2 year_c2 ///
+	i.all#i.class if exportsimports=="Exports"
+eststo p3: reg ln_value i.class i.class#c.year  i.class#c.year3  ///
+	i.all#i.class if exportsimports=="Exports"
 
 esttab, label
 /*
@@ -115,17 +149,41 @@ esttab using "$thesis/Data/do_files/Hamburg/tex/hamburg2_all_reg.tex", ///
 	nonumbers mtitles("No breaks" "One break" "Two breaks") ///
 	title(Hamburg: All wars on each product\label{tab1}) replace
 */
-eststo clear
+
+
+
+
+
 
 ****reg each war separately
-eststo: poisson value i.class i.class#c.year i.each#i.class if ///
-	exportsimports=="Exports", vce(robust)
-eststo: poisson value i.class i.class#c.year c2 year_c2 i.each#i.class if ///
-	exportsimports=="Exports", vce(robust) iterate(40)
-eststo: poisson value i.class i.class#c.year c3 year_c3 s3 year_s3 ///
-	i.each#i.class if exportsimports=="Exports", vce(robust)
+eststo p4 : reg ln_value i.class i.class#c.year i.each#i.class if ///
+	exportsimports=="Exports"
+*eststo: reg ln_value i.class i.class#c.year c2 year_c2 i.each#i.class if ///
+	exportsimports=="Exports"
+eststo p6: reg ln_value i.class i.class#c.year i.class#c.year3 ///
+	i.each#i.class if exportsimports=="Exports"
 
-esttab, label
+
+esttab , label ///
+	keep (1.all#*.class *.each#*.class) drop(1.each#*.class) ///
+	r2(%9.2f) not nonumbers nodepvar b(%9.2f) ///
+	mtitles("goods FE and time-trends" "goods FE and time-trends with break in 1795" /// 
+			"goods FE and time-trends" "goods FE and time-trends with break in 1795")
+	
+	
+
+	
+esttab using "~/Dropbox/Partage ET-GD/Results Hamburg/hamburg2_exp.csv",replace label csv ///
+	keep (1.all#*.class *.each#*.class) drop(1.each#*.class) ///
+	r2(%9.2f) not nonumbers nodepvar b(%9.2f) ///
+	mtitles("goods FE and time-trends" "goods FE and time-trends with break in 1795" /// 
+			"goods FE and time-trends" "goods FE and time-trends with break in 1795") ///
+	title("French exports to the North in logs")
+	
+
+break
+
+/*
 
 /*
 local macro 5.* 10.* 15.* 20.* 25.* 30.* 35.* s* c*
@@ -153,15 +211,15 @@ esttab using "$thesis/Data/do_files/Hamburg/tex/hamburg2_each_reg.tex", ///
 eststo clear
 
 ****reg all wars imports
-eststo: poisson value i.class i.class#c.year i.all#i.class if ///
-	exportsimports=="Imports", vce(robust)
-*eststo: poisson value i.class year_class1-year_class5 c2 ///
+eststo: reg ln_value i.class i.class#c.year i.all#i.class if ///
+	exportsimports=="Imports"
+*eststo: reg ln_value i.class year_class1-year_class5 c2 ///
 	year_c2 c3 year_c3 s2 year_s2 s3 year_s3 i.all_class, ///
-	noconstant vce(robust) iterate(40)
-eststo: poisson value i.class i.class#c.year c2 year_c2 ///
-	i.all#i.class if exportsimports=="Imports", vce(robust) iterate(40)
-eststo: poisson value i.class i.class#c.year c3 year_c3 s3 year_s3 ///
-	i.all#i.class if exportsimports=="Imports", vce(robust)
+	noconstant 
+eststo: reg ln_value i.class i.class#c.year c2 year_c2 ///
+	i.all#i.class if exportsimports=="Imports"
+eststo: reg ln_value i.class i.class#c.year c3 year_c3 s3 year_s3 ///
+	i.all#i.class if exportsimports=="Imports"
 
 esttab, label
 /*
@@ -177,12 +235,12 @@ esttab using "$thesis/Data/do_files/Hamburg/tex/hamburg2_all_reg.tex", ///
 eststo clear
 
 ****reg each war separately
-eststo: poisson value i.class i.class#c.year i.each#i.class if ///
-	exportsimports=="Imports", vce(robust)
-eststo: poisson value i.class i.class#c.year c2 year_c2 ///
-	i.each#i.class if exportsimports=="Imports", vce(robust) iterate(40)
-eststo: poisson value i.class i.class#c.year c3 year_c3 s3 ///
-	year_s3 i.each#i.class if exportsimports=="Imports", vce(robust)
+eststo: reg ln_value i.class i.class#c.year i.each#i.class if ///
+	exportsimports=="Imports" 
+eststo: reg ln_value i.class i.class#c.year c2 year_c2 ///
+	i.each#i.class if exportsimports=="Imports"
+eststo: reg ln_value i.class i.class#c.year c3 year_c3 s3 ///
+	year_s3 i.each#i.class if exportsimports=="Imports"
 
 esttab, label
 
