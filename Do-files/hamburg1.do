@@ -142,7 +142,7 @@ eststo p6: reg ln_value year3 i.each if exportsimports=="Imports"
 
 esttab
 
-esttab p1 p3 p4 p6 using "$thesis/Data/do_files/Hamburg/tex/hamburg1_imp.tex",label booktabs alignment(D{.}{.}{-1}) ///
+capture esttab p1 p3 p4 p6 using "$thesis/Data/do_files/Hamburg/tex/hamburg1_imp.tex",label booktabs alignment(D{.}{.}{-1}) ///
 	varlab(_cons "Constant" 1.all "All" 1.each "Group 1" 2.each "Group 2" 3.each "Group 3") ///
 	drop(year _cons *3) not pr2 nonumbers ///
 	mtitles("No breaks" "One break" "No breaks" "One break") ///
