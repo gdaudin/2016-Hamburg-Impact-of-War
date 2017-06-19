@@ -106,13 +106,13 @@ graph export hamburg_trend.png, as(png) replace
 */
 
 
-eststo p1: reg ln_value year i.all if exportsimports=="Exports", vce(robust)
-eststo p2: reg ln_value year year2 year3 i.all if exportsimports=="Exports", vce(robust)
-eststo p3: reg ln_value year year3 i.all if exportsimports=="Exports", vce(robust)
+eststo p1: reg ln_value year i.all if exportsimports=="Exports"
+eststo p2: reg ln_value year year2 year3 i.all if exportsimports=="Exports"
+eststo p3: reg ln_value year year3 i.all if exportsimports=="Exports"
 
-eststo p4: reg ln_value year i.each if exportsimports=="Exports", vce(robust)
-eststo p5: reg ln_value year year2 year3 i.each if exportsimports=="Exports", vce(robust)
-eststo p6: reg ln_value year year3 i.each if exportsimports=="Exports", vce(robust)
+eststo p4: reg ln_value year i.each if exportsimports=="Exports"
+eststo p5: reg ln_value year year2 year3 i.each if exportsimports=="Exports"
+eststo p6: reg ln_value year year3 i.each if exportsimports=="Exports"
 
 esttab
 
@@ -132,13 +132,13 @@ esttab p1 p3 p4 p6 using "~/Dropbox/Partage ET-GD/Results Hamburg/hamburg1_exp.c
  
 eststo clear
 
-eststo p1: reg ln_value year i.all if exportsimports=="Imports", vce(robust)
-eststo p2: reg ln_value year year2 year3 i.all if exportsimports=="Imports", vce(robust)
-eststo p3: reg ln_value year year3 i.all if exportsimports=="Imports", vce(robust)
+eststo p1: reg ln_value year i.all if exportsimports=="Imports"
+eststo p2: reg ln_value year year2 year3 i.all if exportsimports=="Imports"
+eststo p3: reg ln_value year year3 i.all if exportsimports=="Imports"
 
-eststo p4: reg ln_value year i.each if exportsimports=="Imports", vce(robust)
-eststo p5: reg ln_value year year2 year3 i.each if exportsimports=="Imports", vce(robust)
-eststo p6: reg ln_value year3 i.each if exportsimports=="Imports", vce(robust)
+eststo p4: reg ln_value year i.each if exportsimports=="Imports"
+eststo p5: reg ln_value year year2 year3 i.each if exportsimports=="Imports"
+eststo p6: reg ln_value year3 i.each if exportsimports=="Imports"
 
 esttab
 
