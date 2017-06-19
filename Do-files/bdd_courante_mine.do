@@ -47,7 +47,6 @@ twoway histogram firstdigit [fw=_freq], plotregion(fcolor(white)) ///
 graph export "$thesis/Graph/Benford/benford_fr.png", as(png) replace
 
 
-
 ********************************************************************************
 *****************************CLEAN DATABASE*************************************
 ********************************************************************************
@@ -57,10 +56,10 @@ graph export "$thesis/Graph/Benford/benford_fr.png", as(png) replace
 capture use "$thesis/Données Stata/bdd courante.dta", clear
 
 if "`c(username)'" =="guillaumedaudin" {
-	use "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta"
+	use "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta", clear
 }
 
-drop if year==1805.75
+drop if year==1805.75 | year==1839
 drop if yearstr=="10 mars-31 décembre 1787"
 drop if direction=="France"
 drop if year<1718
