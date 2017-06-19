@@ -8,18 +8,23 @@ generate log10_value = log10(value)
 
 local maxvalue 9.4
 
+
+generate wara=`maxvalue' if year >=1733 & year <=1738 
+generate warb=`maxvalue' if year >=1740 & year <=1744
 generate war1=`maxvalue' if year >=1744 & year <=1748
 generate war2=`maxvalue' if year >=1756 & year <=1763
 generate war3=`maxvalue' if year >=1778 & year <=1783
-generate war4=`maxvalue' if year >=1793 & year <=1815
+generate war4=`maxvalue' if year >=1793 & year <=1802
+generate war5=`maxvalue' if year >=1803 & year <=1815
 
-graph twoway (area war1 year, color(gs12)) (area war2 year, color(gs12)) ///
- (area war3 year, color(gs12)) (area war4 year, color(gs12))  ///
- (connected log10_value year, msize(small)) (lfit log10_value year), ///
- legend(off) ytitle("Value of French trade in livres, log10") xtitle("Year: Anglo-French wars are shaded.")
+graph twoway (area wara year, color(gs14)) (area warb year, color(gs14)) ///
+ (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
+ (area war3 year, color(gs9)) (area war4 year, color(gs4)) (area war5 year, color(gs4))  ///
+ (connected log10_value year, msize(small) color(black)) (lfit log10_value year, lpattern(dash)), ///
+ legend(off) ytitle("Value of French trade in livres, log10") xtitle("Year: Land, Mercantilist and R&N wars")
  
  
- graph export "/Users/guillaumedaudin/Documents/Recherche/2016-Hamburg-Impact-of-War/tex/Total French trade and wars.png", replace
+ graph export "/Users/guillaumedaudin/Documents/Recherche/2016 Hamburg/2016-Hamburg-Impact-of-War/tex/Total French trade and wars.png", replace
 
 
 
