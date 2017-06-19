@@ -95,37 +95,50 @@ gen year3=g3*year
 
 label var value Value
 
+gen ln_value = ln(value)
+
+
 /*
 twoway (connected value year)
+twoway (connected value year if exportsimports=="Exports") (lfit value year if exportsimports=="Exports")
+
 graph export hamburg_trend.png, as(png) replace
 */
 
 
-eststo p1: poisson value year i.all if exportsimports=="Exports", vce(robust)
-eststo p2: poisson value year g2 year2 g3 year3 i.all if exportsimports=="Exports", vce(robust)
-eststo p3: poisson value year g3 year3 i.all if exportsimports=="Exports", vce(robust)
+eststo p1: reg ln_value year i.all if exportsimports=="Exports", vce(robust)
+eststo p2: reg ln_value year year2 year3 i.all if exportsimports=="Exports", vce(robust)
+eststo p3: reg ln_value year year3 i.all if exportsimports=="Exports", vce(robust)
 
-eststo p4: poisson value year i.each if exportsimports=="Exports", vce(robust)
-eststo p5: poisson value year g2 year2 g3 year3 i.each if exportsimports=="Exports", vce(robust)
-eststo p6: poisson value g3 year3 i.each if exportsimports=="Exports", vce(robust)
+eststo p4: reg ln_value year i.each if exportsimports=="Exports", vce(robust)
+eststo p5: reg ln_value year year2 year3 i.each if exportsimports=="Exports", vce(robust)
+eststo p6: reg ln_value year year3 i.each if exportsimports=="Exports", vce(robust)
 
 esttab
 
-esttab p1 p3 p4 p6 using "$thesis/Data/do_files/Hamburg/tex/hamburg1_exp.tex",label booktabs alignment(D{.}{.}{-1}) ///
+capture esttab p1 p3 p4 p6 using "$thesis/Data/do_files/Hamburg/tex/hamburg1_exp.tex",label booktabs alignment(D{.}{.}{-1}) ///
 	varlab(_cons "Constant" 1.all "All" 1.each "Group 1" 2.each "Group 2" 3.each "Group 3") ///
 	drop(year _cons *3) not pr2 nonumbers ///
 	mtitles("No breaks" "One break" "No breaks" "One break") ///
 	title(Hamburg Aggregate\label{tab1}) replace
+	
+esttab p1 p3 p4 p6 using "~/Dropbox/Partage ET-GD/Results Hamburg/hamburg1_exp.csv",label csv alignment(D{.}{.}{-1}) ///
+	varlab(_cons "Constant" year "Time trend" year3 "Time trend after 1795" 1.all "All wars" 2.each "Land wars" 3.each "Mercantilist wars" 4.each "R&N wars") ///
+	order (year year3 1.all 2.each 3.each 4.each _cons) ///
+	drop (1.each 0.all) ///
+	mtitles("No breaks" "One break" "No breaks" "One break") ///
+	r2(%9.2f) nonumbers depvar se(%9.2f)  b(%9.2f)  ///
+	title("French exports to the North in logs") replace 
  
 eststo clear
 
-eststo p1: poisson value year i.all if exportsimports=="Imports", vce(robust)
-eststo p2: poisson value year g2 year2 g3 year3 i.all if exportsimports=="Imports", vce(robust)
-eststo p3: poisson value year g3 year3 i.all if exportsimports=="Imports", vce(robust)
+eststo p1: reg ln_value year i.all if exportsimports=="Imports", vce(robust)
+eststo p2: reg ln_value year year2 year3 i.all if exportsimports=="Imports", vce(robust)
+eststo p3: reg ln_value year year3 i.all if exportsimports=="Imports", vce(robust)
 
-eststo p4: poisson value year i.each if exportsimports=="Imports", vce(robust)
-eststo p5: poisson value year g2 year2 g3 year3 i.each if exportsimports=="Imports", vce(robust)
-eststo p6: poisson value g3 year3 i.each if exportsimports=="Imports", vce(robust)
+eststo p4: reg ln_value year i.each if exportsimports=="Imports", vce(robust)
+eststo p5: reg ln_value year year2 year3 i.each if exportsimports=="Imports", vce(robust)
+eststo p6: reg ln_value year3 i.each if exportsimports=="Imports", vce(robust)
 
 esttab
 
