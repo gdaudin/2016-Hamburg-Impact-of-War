@@ -5,8 +5,12 @@ drop if sitc18_rev3=="9a"
 
 collapse (sum) value, by (year)
 generate log10_value = log10(value)
+insobs 1
+replace year=1793 if year==.
+sort year
 
 local maxvalue 9.4
+
 
 
 generate wara=`maxvalue' if year >=1733 & year <=1738 
