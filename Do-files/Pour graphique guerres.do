@@ -63,7 +63,21 @@ save "$hamburg/database_dta/FRfederico_tena.dta", replace
 ------------------------------------------------------------------------------*/
 
 
-import delimited "$thesis/Data/do_files/Hamburg/csv_files/Silver equivalent of the lt and franc (Hoffman).csv", clear
+import delimited "$hamburg/Data/do_files/Hamburg/csv_files/Silver equivalent of the lt and franc (Hoffman).csv", clear
+
+rename v1 year
+rename v4 FR_silver
+drop v5-v12 
+drop v2 v3
+drop if year=="Source:"
+drop if year==""
+drop if FR_silver==""
+destring year, replace
+destring FR_silver, replace
+drop if year<1716 
+drop if year>1840
+
+save "$hamburg/database_dta/FR_silver.dta", replace
 
 /*------------------------------------------------------------------------------
 				GRAPHIQUES GUERRE
@@ -88,8 +102,15 @@ sort year
 append using "$hamburg/database_dta/FRfederico_tena.dta"
 drop if year>1840
 
+merge m:1 year using "$hamburg/database_dta/FR_silver.dta"
 
-local maxvalue 9.4
+replace FR_silver=4.5 if year==1805.75
+drop if _merge==2
+drop _merge
+replace value=FR_silver*value
+replace log10_value = log10(value)
+
+local maxvalue 10
 
 
 
@@ -108,7 +129,7 @@ graph twoway (area wara year, color(gs14)) (area warb year, color(gs14)) ///
  (area war3 year, color(gs9)) (area war4 year, color(gs4)) (area war5 year, color(gs4))  ///
  (connected log10_value year, msize(small) color(black)) (lfit log10_value year, lpattern(dash)), ///
  plotregion(fcolor(white)) graphregion(fcolor(white)) ///
- legend(off) ytitle("Value of French trade in livres, log10") xtitle("Year: Land, Mercantilist and R&N wars")
+ legend(off) ytitle("Value of French trade in grams of silver, log10") xtitle("Year: Land, Mercantilist and R&N wars")
  
 graph export "$tex/Total French trade and wars.png", as(png) replace
 
