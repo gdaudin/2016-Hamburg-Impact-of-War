@@ -14,13 +14,13 @@ if "`c(username)'" =="guillaumedaudin" {
 
 if "`c(username)'" =="TIRINDEE" {
 	global hamburg "C:\Users\TIRINDEE\Google Drive\ETE/Thesis"
-	global hamburggit "C:\Users\TIRINDEE\Google Drive\ETE/Thesis/Data/do_files/Hamburg/"
+	global hamburggit "C:\Users\TIRINDEE\Google Drive\ETE/Thesis/Data/do_files/Hamburg"
 }
 
 
 if "`c(username)'" =="Tirindelli" {
-	global hamburg "\Users\Tirindelli\Google Drive\ETE/Thesis"
-	global hamburggit "\Users\Tirindelli\Google Drive\ETE/Thesis/Data/do_files/Hamburg/"
+	global hamburg "/Users/Tirindelli/Google Drive/ETE/Thesis"
+	global hamburggit "/Users/Tirindelli/Google Drive/ETE/Thesis/Data/do_files/Hamburg"
 }
 
 
@@ -88,8 +88,58 @@ drop if year>1840
 
 save "$hamburg/database_dta/FR_silver.dta", replace
 
+import delimited "$hamburggit/External Data/Silver equivalent of the pound sterling (see colum CI _ CH).csv", clear
+drop v1-v85
+drop v90-v172
+drop v88
+drop v86
+rename v89 year
+rename v87 ST_silver
+drop if ST_silver=="market price"
+drop if year=="Year"
+drop if year==""
+drop if  ST_silver==""
+destring year, replace
+destring ST_silver, replace
+drop if year<1716
+save "$hamburg/database_dta/ST_silver.dta", replace
+
+
 /*------------------------------------------------------------------------------
-				GRAPHIQUES GUERRE
+				BRITISH DATA
+------------------------------------------------------------------------------*/
+
+import delimited "$hamburggit/External Data/English and Brisith trade 1697-1800.csv", clear
+sort year
+keep if year>1715
+collapse (sum) value, by(year)
+
+preserve 
+import delimited "$hamburggit/External Data/RICardo - Country - UnitedKingdom - 1796 - 1938.csv", clear
+keep if partner=="WorldFedericoTena"
+drop if year>1840
+drop if year==1800
+collapse (sum) total, by(year)
+rename total value
+save "$hamburg/database_dta/UKfederico_tena.dta", replace
+restore
+
+append using "$hamburg/database_dta/UKfederico_tena.dta"
+
+merge m:1 year using "$hamburg/database_dta/ST_silver.dta"
+
+drop if _merge==2
+drop _merge
+
+gen vaulueST_silver=value*ST_silver
+rename value valueST
+gen log10_valueST_silver=log10(vaulueST_silver)
+
+save "$hamburg/database_dta/UKfederico_tena.dta", replace
+
+
+/*------------------------------------------------------------------------------
+				VOLUME OF TRADE BETWEEN 1716 AND 1820
 ------------------------------------------------------------------------------*/
 
 if "`c(username)'" =="guillaumedaudin" {
@@ -106,20 +156,32 @@ collapse (sum) value, by (year)
 generate log10_value = log10(value)
 insobs 1
 replace year=1793 if year==.
-sort year
 append using "$hamburg/database_dta/FRfederico_tena.dta"
 drop if year>1840
+replace year=1806 if year==1805.75
 
 merge m:1 year using "$hamburg/database_dta/FR_silver.dta"
 
-replace FR_silver=4.5 if year==1805.75
 drop if _merge==2
 drop _merge
-replace value=FR_silver*value
-replace log10_value = log10(value)
+gen valueFR_silver=FR_silver*value
+gen log10_valueFR_silver = log10(valueFR_silver)
 
+rename value valueFR
+rename log10_value log10_valueFR
 
-save "$hamburg/database_dta/Total silver trade FR GB.dta"
+merge m:1 year using "$hamburg/database_dta/UKfederico_tena.dta"
+
+drop _merge
+
+sort year
+
+twoway (connected log10_valueFR_silver year) ///
+	(lfit log10_valueST_silver year if year < 1772) ///
+	(connected log10_valueST_silver year if year >= 1772 & year <1801) ///
+	(connected log10_valueST_silver year if year >1800)
+
+save "$hamburg/database_dta/Total silver trade FR GB.dta", replace
 
 
 
