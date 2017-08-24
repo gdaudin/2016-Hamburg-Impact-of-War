@@ -520,7 +520,7 @@ esttab using "$thesis/Data/do_files/Hamburg/tex/allcountry2_each_export.tex", //
 */
 
 /*------------------------------------------------------------------------------
-								regress with exports
+								regress with imports
 ------------------------------------------------------------------------------*/
 
 /*Regress first no break, then break for coffee only and then both sugar and 
