@@ -214,9 +214,9 @@ graph twoway (area wara year, color(gs14)) ///
 			 legend(order(8 "French trade" 9 "English/GB/UK trade")) ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			 ytitle("Log 10 of grams of silver")
-graph export "$hamburg/Total French British trade and wars.png", as(png) replace			 
+graph export "$hamburggit/tex/Paper/Total silver trade FR GB.dta", as(png) replace			 
 	
-save "$hamburggit/tex/Paper/Total silver trade FR GB.dta", replace
+save "$hamburg/database_dta/Total silver trade FR GB.dta", replace
 
 
 
