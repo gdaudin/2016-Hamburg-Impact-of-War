@@ -54,6 +54,7 @@ if "`c(username)'" =="guillaumedaudin" {
 }
 
 drop if year==1805.75 | year==1839
+replace year=1780 if year==17780
 drop if yearstr=="10 mars-31 décembre 1787"
 drop if direction=="France"
 drop if year<1718
