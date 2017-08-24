@@ -67,27 +67,31 @@ graph export "$thesis/Graph/factor_cluster/dendrogram_share3.png", ///
 	as(png) replace
 cluster singlelinkage share* if pays!=1 & pays!=13, ///
 	name(clust4) 
-cluster dendrogram clust4
-graph export "$thesis/Graph/factor_cluster/dendrogram_share4.png", ///
-	as(png) replace
+cluster dendrogram clust4 plotregion(fcolor(white)) graphregion(fcolor(white)) 
+graph export "$thesis/Graph/factor_cluster/dendrogram_share4.png", as(png) replace
 
 /*----------------------------factor analysis-------------------------------*/
 factor share*
 rotate
 predict factor1 factor2 factor3 factor4
-scatter factor1 factor2 in 1/13, mlabel(pays)
+scatter factor1 factor2 in 1/13, mlabel(pays) ///
+	plotregion(fcolor(white)) graphregion(fcolor(white))
 graph export "$thesis/Graph/factor_cluster/factor1_2.png", as(png) replace
-scatter factor1 factor3 in 1/13, mlabel(pays)
+scatter factor1 factor3 in 1/13, mlabel(pays) ///
+	plotregion(fcolor(white)) graphregion(fcolor(white))
 graph export "$thesis/Graph/factor_cluster/factor1_3.png", as(png) replace
-scatter factor1 factor4 in 1/13, mlabel(pays)
+scatter factor1 factor4 in 1/13, mlabel(pays) ///
+	plotregion(fcolor(white)) graphregion(fcolor(white))
 graph export "$thesis/Graph/factor_cluster/factor1_4.png", as(png) replace
-scatter factor2 factor3 in 1/13, mlabel(pays)
+scatter factor2 factor3 in 1/13, mlabel(pays) ///
+	plotregion(fcolor(white)) graphregion(fcolor(white))
 graph export "$thesis/Graph/factor_cluster/factor2_3.png", as(png) replace
-scatter factor2 factor4 in 1/13, mlabel(pays)
+scatter factor2 factor4 in 1/13, mlabel(pays) ///
+	plotregion(fcolor(white)) graphregion(fcolor(white))
 graph export "$thesis/Graph/factor_cluster/factor2_4.png", as(png) replace
-scatter factor3 factor4 in 1/13, mlabel(pays)
+scatter factor3 factor4 in 1/13, mlabel(pays) ///
+	plotregion(fcolor(white)) graphregion(fcolor(white))
 graph export "$thesis/Graph/factor_cluster/factor3_4.png", as(png) replace
-
 restore
 
 

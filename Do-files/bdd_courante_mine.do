@@ -1,10 +1,4 @@
 
-
-
-
-
-
-
 global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
 *global thesis "C:\Users\TIRINDEE\Google Drive\ETE\Thesis"
 
@@ -16,7 +10,7 @@ if "`c(username)'" =="guillaumedaudin" {
 
 set more off
 
-capture use "$thesis/Données Stata/bdd courante.dta", clear
+capture use "/Users/Tirindelli/Desktop/hambourg/bdd courante.dta", clear
 
 if "`c(username)'" =="guillaumedaudin" {
 	use "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta", clear
@@ -53,7 +47,7 @@ graph export "$thesis/Graph/Benford/benford_fr.png", as(png) replace
 
 
 
-capture use "$thesis/Données Stata/bdd courante.dta", clear
+capture use "/Users/Tirindelli/Desktop/hambourg/bdd courante.dta", clear
 
 if "`c(username)'" =="guillaumedaudin" {
 	use "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta", clear
@@ -138,7 +132,6 @@ replace direction="total" if direction==""
 drop if sourcetype!="Local" & sourcetype!="National par direction" ///
 	& sourcetype!="National par direction (-)" ///
 	& sourcetype!="Objet Général" & sourcetype!="Résumé" 
-drop if year>1789
 
 
 collapse (sum) value, by(sourcetype year direction pays_grouping ///
@@ -163,7 +156,8 @@ encode pays, gen(pays)
 label define order 1 Coffee 2 "Eau de vie" 3 Sugar 4 Wine 5 Other
 encode classification_hamburg_large, gen(class) label(order)
 gen lnvalue=ln(value)
-gen pred_value=.
+gen pred_value_exp=.
+gen pred_value_imp=.
 
 /*------------------------------------------------------------------------------
 								Estimate exports
@@ -178,7 +172,7 @@ foreach i of num 1/5{
 foreach j of num 1/`: word count `levels''{
 su lnvalue if class==`i' & pays==`j' & exportsimports=="Exports"
 if r(N)>1{
-quietly reg lnvalue i.year i.dir [iw=value] if ///
+reg lnvalue i.year i.dir [iw=value] if ///
 	exportsimports=="Exports" & pays==`j' & class==`i', robust 
 predict value2 
 gen value3=exp(value2)
@@ -186,13 +180,32 @@ quietly su dir if direction=="total"	/*just in case we add more direction
 										and I do not update this do_file, 
 										not important*/ 
 
-replace pred_value=value3 if class==`i' & pays==`j' ///
+replace pred_value_exp=value3 if class==`i' & pays==`j' ///
 	& dir==r(mean) & exportsimports=="Exports"
 drop value2 value3
 continue
 }
 }
 }
+
+
+*have a look at imputed export data
+collapse (sum) pred_value_exp value, by(year pays_grouping pays ///
+			   classification_hamburg_large class exportsimports)
+replace pred_value=. if pred_value==0
+levelsof pays, local(levels)
+foreach i of num 1/5{
+foreach j of num 1/`: word count `levels''{
+twoway (connected pred_value_exp year) if pays==`j' ///
+	& class==`i' & exportsimports=="Exports", ///
+	title(`: label (pays) `j'') ///
+	subtitle( `: label (class) `i'') ///
+	plotregion(fcolor(white)) graphregion(fcolor(white))
+graph export "$thesis/Graph/Estimation_product/class`i'_pay`j'.png", as(png) replace
+}
+}
+
+codebook year
 
 /*------------------------------------------------------------------------------
 								Estimate imports
@@ -212,7 +225,7 @@ quietly reg lnvalue i.year i.dir [iw=value] if ///
 predict value2 
 gen value3=exp(value2)
 quietly su dir if direction=="total"
-replace pred_value=value3 if class==`i' & pays==`j' ///
+replace pred_value_imp=value3 if class==`i' & pays==`j'  ///
 	& dir==r(mean) & exportsimports=="Imports" 
 drop value2 value3
 continue
@@ -221,19 +234,7 @@ continue
 }
 
 
-/*
-have a look at imputed data
-collapse (sum) pred_value value, by(year pays_grouping pays ///
-	direction dir classification_hamburg_large class)
-foreach i of num 1/5{
-foreach j of num 1/12{
-twoway (connected pred_value year) (connected value year) if pays==`j' ///
-	& class==`i' & dir==21, title(`: label (pays) `j'') ///
-	subtitle( `: label (class) `i'')
-graph export class`i'_pay`j'.png, as(png) replace
-}
-}
-*/
+
 quietly su dir if direction=="total"
 keep if dir==r(mean)
 

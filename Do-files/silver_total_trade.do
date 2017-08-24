@@ -101,7 +101,6 @@ drop if year==""
 drop if  ST_silver==""
 destring year, replace
 destring ST_silver, replace
-drop if year<1716
 save "$hamburg/database_dta/ST_silver.dta", replace
 
 
@@ -111,8 +110,7 @@ save "$hamburg/database_dta/ST_silver.dta", replace
 
 import delimited "$hamburggit/External Data/English and Brisith trade 1697-1800.csv", clear
 sort year
-keep if year>1715
-collapse (sum) value, by(year)
+collapse (sum) value, by(year country)
 
 preserve 
 import delimited "$hamburggit/External Data/RICardo - Country - UnitedKingdom - 1796 - 1938.csv", clear
@@ -120,7 +118,6 @@ keep if partner=="WorldFedericoTena"
 drop if year>1840
 drop if year==1800
 collapse (sum) total, by(year)
-rename total value
 save "$hamburg/database_dta/UKfederico_tena.dta", replace
 restore
 
@@ -131,9 +128,24 @@ merge m:1 year using "$hamburg/database_dta/ST_silver.dta"
 drop if _merge==2
 drop _merge
 
-gen vaulueST_silver=value*ST_silver
-rename value valueST
-gen log10_valueST_silver=log10(vaulueST_silver)
+gen vaulueST_silver_tena=total*ST_silver
+gen vaulueST_silverGB= value*ST_silver if country=="Great-Britain"
+gen vaulueST_silverEN= value*ST_silver if country=="England"
+
+gen log10_valueST_silverGB=log10(vaulueST_silverGB)
+gen log10_valueST_silverEN=log10(vaulueST_silverEN)
+gen log10_valueST_silver_tena=log10(vaulueST_silver_tena)
+
+
+collapse (sum) log10_valueST_silverGB log10_valueST_silverEN ///
+				log10_valueST_silver_tena ///
+				vaulueST_silverGB vaulueST_silverEN ///
+				vaulueST_silver_tena, by(year)
+				
+replace log10_valueST_silverGB=. if log10_valueST_silverGB==0
+replace log10_valueST_silverEN=. if log10_valueST_silverEN==0
+replace log10_valueST_silver_tena=. if log10_valueST_silver_tena==0
+
 
 save "$hamburg/database_dta/UKfederico_tena.dta", replace
 
@@ -176,12 +188,35 @@ drop _merge
 
 sort year
 
-twoway (connected log10_valueFR_silver year) ///
-	(lfit log10_valueST_silver year if year < 1772) ///
-	(connected log10_valueST_silver year if year >= 1772 & year <1801) ///
-	(connected log10_valueST_silver year if year >1800)
+local maxvalue 10.5
 
-save "$hamburg/database_dta/Total silver trade FR GB.dta", replace
+
+generate wara=`maxvalue' if year >=1733 & year <=1738 
+generate warb=`maxvalue' if year >=1740 & year <=1744
+generate war1=`maxvalue' if year >=1744 & year <=1748
+generate war2=`maxvalue' if year >=1756 & year <=1763
+generate war3=`maxvalue' if year >=1778 & year <=1783
+generate war4=`maxvalue' if year >=1793 & year <=1802
+generate war5=`maxvalue' if year >=1803 & year <=1815
+
+sort year
+
+graph twoway (area wara year, color(gs14)) ///
+			 (area warb year, color(gs14)) ///
+			 (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
+			 (area war3 year, color(gs9)) (area war4 year, color(gs4)) ///
+			 (area war5 year, color(gs4))  ///
+			 (connected log10_valueFR_silver year, lcolor(blue) ///
+			 msize(tiny) mcolor(blue) ) ///
+			 (line log10_valueST_silverEN year, lcolor(black)) ///
+			 (line log10_valueST_silverGB year, lcolor(black)) ///
+			 (line log10_valueST_silver_tena year, lcolor(black)), ///
+			 legend(order(8 "French trade" 9 "English/GB/UK trade")) ///
+			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
+			 ytitle("Log 10 of grams of silver")
+graph export "$hamburg/Total French British trade and wars.png", as(png) replace			 
+	
+save "$hamburggit/tex/Paper/Total silver trade FR GB.dta", replace
 
 
 
