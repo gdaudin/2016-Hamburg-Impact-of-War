@@ -109,3 +109,8 @@ drop if _merge==2
 drop _merge
 replace value=FR_silver*value
 replace log10_value = log10(value)
+
+rename value valueFR
+rename log10_value log10_valueFR
+
+
