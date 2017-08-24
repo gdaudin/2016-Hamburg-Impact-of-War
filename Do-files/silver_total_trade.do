@@ -1,23 +1,32 @@
-
+***This create a .dta (FR_silver.dta") of total French trade in silver
 /*------------------------------------------------------------------------------
 				FEDERICO TENA POST 1820 VALUES
 ------------------------------------------------------------------------------*/
 
 
 
-global hamburg "/Users/Tirindelli/Google Drive/ETE/Thesis"
+*global hamburg "/Users/Tirindelli/Google Drive/ETE/Thesis"
 
 if "`c(username)'" =="guillaumedaudin" {
-	global hamburg ~/Documents/Recherche/2016 Hamburg
+	global hamburg "~/Documents/Recherche/2016 Hamburg/"
+	global hamburggit "~/Documents/Recherche/2016 Hamburg/2016-Hamburg-Impact-of-War"
 }
 
 if "`c(username)'" =="TIRINDEE" {
-	global hamburg"C:\Users\TIRINDEE\Google Drive\ETE/Thesis/Data/do_files/Hamburg"
+	global hamburg "C:\Users\TIRINDEE\Google Drive\ETE/Thesis"
+	global hamburggit "C:\Users\TIRINDEE\Google Drive\ETE/Thesis/Data/do_files/Hamburg/"
 }
+
+
+if "`c(username)'" =="Tirindelli" {
+	global hamburg "\Users\Tirindelli\Google Drive\ETE/Thesis"
+	global hamburggit "\Users\Tirindelli\Google Drive\ETE/Thesis/Data/do_files/Hamburg/"
+}
+
 
 *******import database with US dollars
 
-import delimited "$hamburg/Data/do_files/Hamburg/csv_files/RICardo - Country - France - 1787 - 1850 - Original currency.csv", clear 
+import delimited "$hamburggit/External Data/RICardo - Country - France - 1787 - 1850 - Original currency.csv", clear 
 
 drop if year<1820
 
@@ -31,7 +40,7 @@ save "$hamburg/database_dta/USfederico_tena.dta", replace
 
 ********importa database with pound sterling conversion
 
-import delimited "$hamburg/Data/do_files/Hamburg/csv_files/RICardo - Country - France - 1787 - 1850.csv", clear 
+import delimited "$hamburggit/External Data/RICardo - Country - France - 1787 - 1850.csv", clear 
 
 drop if year<1820
 
@@ -63,7 +72,7 @@ save "$hamburg/database_dta/FRfederico_tena.dta", replace
 ------------------------------------------------------------------------------*/
 
 
-import delimited "$hamburg/Data/do_files/Hamburg/csv_files/Silver equivalent of the lt and franc (Hoffman).csv", clear
+import delimited "$hamburggit/External Data/Silver equivalent of the lt and franc (Hoffman).csv", clear
 
 rename v1 year
 rename v4 FR_silver
@@ -85,10 +94,9 @@ save "$hamburg/database_dta/FR_silver.dta", replace
 
 if "`c(username)'" =="guillaumedaudin" {
 use "/Users/guillaumedaudin/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta", clear
-global hamburg "/Users/guillaumedaudin/Documents/Recherche/2016 Hamburg/2016-Hamburg-Impact-of-War/tex/Paper"
 }
 
-use "/Users/Tirindelli/Desktop/hambourg/bdd courante.dta", clear
+if "`c(username)'" =="Tirindelli" use "/Users/Tirindelli/Desktop/hambourg/bdd courante.dta", clear
 
  
 keep if sourcetype == "Tableau Général" | sourcetype=="Résumé"
@@ -110,7 +118,11 @@ drop _merge
 replace value=FR_silver*value
 replace log10_value = log10(value)
 
-rename value valueFR
-rename log10_value log10_valueFR
+
+save "$hamburg/database_dta/Total silver trade FR GB.dta"
+
+
+
+
 
 
