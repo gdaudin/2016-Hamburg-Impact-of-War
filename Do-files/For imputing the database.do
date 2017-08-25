@@ -104,7 +104,6 @@ replace sitc18_en="Textile manuf" if sitc18_en=="Linen threads and fabrics" ///
 	| sitc18_en=="Other vegetal threads and fabrics" ///
 	| sitc18_en=="Other threads and fabrics" 	
 
-
 collapse (sum) value, by(sourcetype year direction ///
 	pays_grouping exportsimports marchandises_simplification ///
 	classification_hamburg_large sitc18_en)
@@ -160,6 +159,8 @@ use "$hamburg/database_dta/elisa_bdd_courante", replace
 *****keep only sources where I have both national and direction data
 
 *codebook value if pays_grouping=="Afrique" & exportsimports=="Imports" & classification_hamburg_large=="Coffee"
+
+
 
 
 collapse (sum) value, by(sourcetype year direction pays_grouping ///
