@@ -184,18 +184,14 @@ bys exportsimports direction: drop if _N==1
 su value if value!=0
 local min_value=r(min)
 
-
 *codebook value if pays_grouping=="Afrique" & exportsimports=="Imports" & classification_hamburg_large=="Coffee"
-
-
 
 preserve
 keep if sourcetype!="National par direction (-)"
 fillin exportsimport year pays_grouping direction classification_hamburg_large
-gen value_test=value 
-bysort year direction exportsimports: egen test_year=total(value_test), missing
+bysort year direction exportsimports: egen test_year=total(value), missing
 replace value=`min_value'/100 if test_year!=. & value==. 
-drop value_test test_year
+drop test_year
 save blif.dta
 
 
@@ -203,10 +199,9 @@ save blif.dta
 restore
 keep if sourcetype=="National par direction (-)"
 fillin exportsimport year pays_grouping direction classification_hamburg_large
-gen value_test=value 
-bysort year pays exportsimports: egen test_year=total(value_test), missing
+bysort year pays exportsimports: egen test_year=total(value), missing
 replace value=`min_value'/100 if test_year!=. & value==. 
-drop value_test test_year
+drop test_year
 
 append using blif.dta
 
@@ -215,6 +210,10 @@ erase blif.dta
 duplicates drop year direction exportsimports pays_grouping classification_hamburg_large, force
 *keep year direction exportsimports pays_grouping classification_hamburg_large value
 
+replace sourcetype = "imputed" if _fillin==1 & value !=.
+tab direction year if value !=.
+
+save fortest.dat, replace
 
 
 gen lnvalue=ln(value)
