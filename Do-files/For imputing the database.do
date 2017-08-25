@@ -46,7 +46,7 @@ drop if year==1805.75 | year==1839
 replace year=1780 if year==17780
 drop if yearstr=="10 mars-31 décembre 1787"
 drop if direction=="France"
-drop if year<1718
+*drop if year<1718
 drop if sourcepath=="Divers/AD 44/Nantes - Exports - 1734 - bis.csv"
 
 
@@ -125,7 +125,7 @@ drop if sourcetype=="Objet Général" & year==1787
 *drop if sourcetype=="Résumé" & (year==1789)
 
 
-replace direction="total" if direction=="" & (sourcetype =="Objet Général" | sourcetype !="Résumé")
+replace direction="total" if direction=="" & (sourcetype =="Objet Général" | sourcetype =="Résumé")
 *list if direction==""
 
 
@@ -144,14 +144,14 @@ erase blif.dta
 **Parce que dans l'objet général de 1788, les importations coloniales sont par direction : je le transforme en total d'une part.
 **et National par direction(-) d'autre part
 preserve
-keep if year==1788 & sourcetype=="Objet Général" & pays_grouping=="Colonies françaises" & exporsimports=="Imports"
+keep if year==1788 & sourcetype=="Objet Général" & pays_grouping=="Colonies françaises" & exportsimports=="Imports"
 collapse (sum) value, by(year pays_grouping classification_hamburg_large exportsimports marchandises_simplification sitc18_en)
 gen direction="total"
 save blif.dta, replace
 
 restore
 replace sourcetype="National par direction (-)" if year==1788 & sourcetype=="Objet Général" & pays_grouping=="Colonies françaises" ///
-		& exporsimports=="Imports" & direction !="total"
+		& exportsimports=="Imports" & direction !="total"
 append using blif.dta
 erase blif.dta
 
@@ -227,7 +227,6 @@ duplicates drop year direction exportsimports pays_grouping classification_hambu
 *keep year direction exportsimports pays_grouping classification_hamburg_large value
 
 replace sourcetype = "imputed" if _fillin==1 & value !=.
-tab direction year if value !=.
 
 save fortest.dat, replace
 
@@ -252,7 +251,8 @@ drop forweight
 gen share = value/weight_total
 *br if share >1 & share!=.
 bysort exportsimports pays class direction: egen weight=mean(share)
-drop value_test
+replace weight = max(1,weight) /* Pour enlever les valeurs trop élevées */
+drop value_test*
 
 *tab weight direction
 
@@ -266,6 +266,24 @@ encode classification_hamburg_large, gen(class) label(order)
 
 levelsof exportsimports, local(exportsimports)
 *local exportsimports Imports
+
+
+
+*For the graphs, calcul de la valeur observée
+bysort year exportsimports pays class: gen value_for_obs = value if direction=="total"
+		
+gen blink = value if direction !="total" 
+			
+bysort year exportsimports pays class: egen blouf=total(blink), missing
+replace value_for_obs=blouf if value_for_obs==.
+drop blink blouf
+			
+by year exportsimports pays class:replace value_for_obs=. if _n!=1
+replace value_for_obs = `min_value'/100 if value_for_obs<`min_value'
+sort year
+
+
+
 foreach ciao in `exportsimports'{
 gen pred_value_`ciao'=.
 
@@ -276,10 +294,10 @@ levelsof pays, local(levels) 	/*levelsof is just in case we add more pays
 								`: word count `levels''*/
 
 foreach i of num 1/1{
-	foreach j of num 4/4 {
+	foreach j of num 1/1 {
 		summarize lnvalue if class==`i' & pays==`j' & exportsimports=="`ciao'"
 		if r(N)>1{
-			reg lnvalue i.year i.dir [iw=value] if ///
+			reg lnvalue i.year i.dir [iw=weight] if ///
 			exportsimports=="`ciao'" & pays==`j' & class==`i', robust 
 			predict value2 if ///
 			exportsimports=="`ciao'" & pays==`j' & class==`i'
@@ -298,37 +316,25 @@ foreach i of num 1/1{
 			replace pred_value_`ciao'=value3 if class==`i' & pays==`j' ///
 			& dir==r(mean) & exportsimports=="`ciao'"
 			drop value2* value_test value3 test*
-			continue
+			
+			twoway (scatter pred_value_`ciao' value) 
+
+ 			sort year
+			*have a look at imputed export data			
+			twoway (connected pred_value_`ciao' year, msize(tiny) legend(label(1 "Predicted"))) ///
+					(connected value_for_obs year, msize(tiny) legend(label(2 "Observed"))) ///
+					if pays==`j' & class==`i' & exportsimports=="`ciao'", title(`ciao') ///
+					subtitle("`: label (pays) `j'', `: label (class) `i''") ///
+					plotregion(fcolor(white)) graphregion(fcolor(white)) ///
+					caption("Values in tons of silver") 
+			graph export "$hamburg/Graph/Estimation_product/`ciao'_class`i'_pay`j'.png", as(png) replace
+			blif
+									
+			}
+*drop value_test*
+drop value_graphcl
 		}
 	}
-}
-
-
-
-twoway (scatter pred_value_`ciao' value) 
-
-
-
-*have a look at imputed export data
-bysort year exportsimports pays class: egen value_graph=total(value_test2), missing
-by year exportsimports pays class:replace value_graph=. if _n!=1
-replace value_graph = `min_value'/100 if value_graph<`min_value'
-sort year
-levelsof pays, local(levels)
-foreach i of num 1/1{
-foreach j of num 1/1{
-twoway (connected pred_value_`ciao' year, msize(tiny) legend(label(1 "Predicted"))) ///
-	(connected value_graph year, msize(tiny) legend(label(2 "Observed"))) ///
-	if pays==`j' & class==`i' & exportsimports=="`ciao'", title(`ciao') ///
-	subtitle("`: label (pays) `j'', `: label (class) `i''") ///
-	plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-	caption("Values in tons of silver") 
-graph export "$hamburg/Graph/Estimation_product/`ciao'_class`i'_pay`j'.png", as(png) replace
-
-*drop value_test*
-drop value_graph
-}
-}
 
 
 }
