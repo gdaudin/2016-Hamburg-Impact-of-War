@@ -120,8 +120,9 @@ drop if sourcetype!="Local" & sourcetype!="National par direction" ///
 	& sourcetype!="National par direction (-)" ///
 	& sourcetype!="Objet Général" & sourcetype!="Résumé" 
 drop if year==1750 & sourcetype=="Local"
-drop if sourcetype=="Résumé" & (year==1788 | year== 1787)
-drop if sourcetype=="Résumé" & (year==1789)
+drop if sourcetype=="Résumé" & (year==1788)
+drop if sourcetype=="Objet Général" & year==1787
+*drop if sourcetype=="Résumé" & (year==1789)
 
 
 replace direction="total" if direction=="" & (sourcetype =="Objet Général" | sourcetype !="Résumé")
@@ -129,7 +130,7 @@ replace direction="total" if direction=="" & (sourcetype =="Objet Général" | s
 
 
 preserve
-keep if year==1750 | year==1789
+keep if year==1750
 assert sourcetype=="National par direction"
 collapse (sum) value, by(year pays_grouping classification_hamburg_large exportsimports marchandises_simplification sitc18_en)
 gen direction="total"
@@ -140,16 +141,17 @@ append using blif.dta
 erase blif.dta
 
 
-**Parce que dans l'objet général de 1788, le commerce colonial est par direction : je le transforme en total d'une part.
+**Parce que dans l'objet général de 1788, les importations coloniales sont par direction : je le transforme en total d'une part.
 **et National par direction(-) d'autre part
 preserve
-keep if year==1788 & sourcetype=="Objet Général" & pays_grouping=="Colonies françaises"
+keep if year==1788 & sourcetype=="Objet Général" & pays_grouping=="Colonies françaises" & exporsimports=="Imports"
 collapse (sum) value, by(year pays_grouping classification_hamburg_large exportsimports marchandises_simplification sitc18_en)
 gen direction="total"
 save blif.dta, replace
 
 restore
-replace sourcetype="National par direction (-)" if year==1788 & sourcetype=="Objet Général" & pays_grouping=="Colonies françaises"
+replace sourcetype="National par direction (-)" if year==1788 & sourcetype=="Objet Général" & pays_grouping=="Colonies françaises" ///
+		& exporsimports=="Imports" & direction !="total"
 append using blif.dta
 erase blif.dta
 
