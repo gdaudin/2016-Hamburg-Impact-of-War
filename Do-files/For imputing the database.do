@@ -101,7 +101,6 @@ replace sitc18_en="Textile manuf" if sitc18_en=="Linen threads and fabrics" ///
 	| sitc18_en=="Other vegetal threads and fabrics" ///
 	| sitc18_en=="Other threads and fabrics" 	
 
-
 collapse (sum) value, by(sourcetype year direction ///
 	pays_grouping exportsimports marchandises_simplification ///
 	classification_hamburg_large sitc18_en)
@@ -132,6 +131,8 @@ drop if sourcetype!="Local" & sourcetype!="National par direction" ///
 drop if year==1750 & sourcetype=="Local"
 replace direction="total" if direction=="" & sourcetype !="Local" & sourcetype !="National par direction (-)"
 list if direction==""
+
+
 
 
 collapse (sum) value, by(sourcetype year direction pays_grouping ///
