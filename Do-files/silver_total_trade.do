@@ -213,8 +213,8 @@ graph twoway (area wara year, color(gs14)) ///
 			 (line log10_valueST_silver_tena year, lcolor(black)), ///
 			 legend(order(8 "French trade" 9 "English/GB/UK trade")) ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-			 ytitle("Log 10 tons of silver")
-graph export "$hamburggit/tex/Paper/Total silver trade FR GB.dta", as(png) replace			 
+			 ytitle("Tons of silver, log10")
+graph export "$hamburggit/tex/Paper/Total silver trade FR GB.png", as(png) replace			 
 	
 save "$hamburg/database_dta/Total silver trade FR GB.dta", replace
 
