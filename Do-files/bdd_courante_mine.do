@@ -136,10 +136,12 @@ save "$thesis/database_dta/elisa_bdd_courante", replace
 use "$thesis/database_dta/elisa_bdd_courante", replace
 
 *****keep only sources where I have both national and direction data
-replace direction="total" if direction==""
+
 drop if sourcetype!="Local" & sourcetype!="National par direction" ///
 	& sourcetype!="National par direction (-)" ///
 	& sourcetype!="Objet Général" & sourcetype!="Résumé" 
+	
+replace direction="total" if direction=="" & sourcetype !="Local" & sourcetype !="National par direction (-)"
 
 
 collapse (sum) value, by(sourcetype year direction pays_grouping ///
@@ -157,12 +159,6 @@ by exportsimports direction: replace nvals = nvals[_N]
 drop if nvals==1
 drop nvals
 
-fillin exportsimport year pays_grouping direction classification_hamburg_large
-gen value_test=value 
-bysort year direction exportsimports: egen test_year=total(value_test), missing
-su value if value!=0
-replace value=r(min)/100 if test_year!=. & value==. 
-drop value_test test_year
 
 encode direction, gen(dir)
 encode pays, gen(pays)
@@ -170,9 +166,49 @@ label define order 1 Coffee 2 "Eau de vie" 3 Sugar 4 Wine 5 Other
 encode classification_hamburg_large, gen(class) label(order)
 gen lnvalue=ln(value)
 
+***gen weight
+gen value_test=1
+replace value_test=. if year==1787 & sourcetype=="Résumé"
+replace value_test=. if year==1788 & sourcetype=="Résumé"
+replace value_test=. if year==1777 & sourcetype=="National par direction (-)"
+*replace value_test=. if year>1751 & sourcetype=="Local"
+
+
+gen value_test2=value*value_test
+
+gen forweight=value_test2 if direction=="total"
+tab forweight if year==1721
+bysort year exportsimports pays class: egen weight_total=max(forweight)
+
+drop forweight
+gen share = value/weight_total
+
+br if share >1
+
+aieaie
+bysort exportsimports pays class direction: egen weight=mean(share)
+tab weight direction
+
+
+bysort year exportsimports pays class: egen weight_total=total(value_test2), missing
+bysort year exportsimports dir pays class: egen weight_dir=total(value_test2), missing
+gen value_weight1=weight_total/weight_dir
+bysort year exportsimports dir pays class: egen value_weight=mean(value_weight1)
+
+
 /*------------------------------------------------------------------------------
 						Estimate exports and imports
 ------------------------------------------------------------------------------*/
+
+
+fillin exportsimport year pays_grouping direction classification_hamburg_large
+gen value_test=value 
+bysort year direction exportsimports: egen test_year=total(value_test), missing
+su value if value!=0
+replace value=r(min)/100 if test_year!=. & value==. 
+drop value_test test_year
+
+
 
 *levelsof exportsimports, local(exportsimports)
 local exportsimports Imports
@@ -218,19 +254,8 @@ twoway (scatter pred_value_`ciao' value)
 
 
 *have a look at imputed export data
-*****gen var to graph properly
-
-gen value_test=1
-replace value_test=. if year==1787 & sourcetype=="Résumé"
-replace value_test=. if year==1788 & sourcetype=="Résumé"
-replace value_test=. if year==1777 & sourcetype=="National par direction (-)"
-replace value_test=. if year>1751 & sourcetype=="Local"
-
-gen value_test2=value*value_test
-
 bysort year exportsimports pays class: egen value_graph=total(value_test2), missing
 by year exportsimports pays class:replace value_graph=. if _n!=1
-
 sort year
 levelsof pays, local(levels)
 foreach i of num 1/1{
@@ -330,7 +355,8 @@ drop nvals
 fillin exportsimport year pays_grouping direction sitc18_en
 gen value_test=value 
 bysort year direction exportsimports: egen test_year=total(value_test), missing
-replace value=0.01 if test_year!=. & value==. 
+su value if value!=0
+replace value=r(min)/100 if test_year!=. & value==. 
 drop value_test test_year
 
 encode direction, gen(dir)
