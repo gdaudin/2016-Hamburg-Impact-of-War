@@ -128,9 +128,9 @@ merge m:1 year using "$hamburg/database_dta/ST_silver.dta"
 drop if _merge==2
 drop _merge
 
-gen vaulueST_silver_tena=total*ST_silver
-gen vaulueST_silverGB= value*ST_silver if country=="Great-Britain"
-gen vaulueST_silverEN= value*ST_silver if country=="England"
+gen vaulueST_silver_tena=total*ST_silver/(1000*1000) 
+gen vaulueST_silverGB= value*ST_silver/(1000*1000) if country=="Great-Britain"
+gen vaulueST_silverEN= value*ST_silver/(1000*1000) if country=="England"
 
 gen log10_valueST_silverGB=log10(vaulueST_silverGB)
 gen log10_valueST_silverEN=log10(vaulueST_silverEN)
@@ -176,7 +176,7 @@ merge m:1 year using "$hamburg/database_dta/FR_silver.dta"
 
 drop if _merge==2
 drop _merge
-gen valueFR_silver=FR_silver*value
+gen valueFR_silver=FR_silver*value/(1000*1000)
 gen log10_valueFR_silver = log10(valueFR_silver)
 
 rename value valueFR
@@ -188,7 +188,7 @@ drop _merge
 
 sort year
 
-local maxvalue 10.5
+local maxvalue 4.5
 
 
 generate wara=`maxvalue' if year >=1733 & year <=1738 
@@ -213,7 +213,7 @@ graph twoway (area wara year, color(gs14)) ///
 			 (line log10_valueST_silver_tena year, lcolor(black)), ///
 			 legend(order(8 "French trade" 9 "English/GB/UK trade")) ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-			 ytitle("Log 10 of grams of silver")
+			 ytitle("Log 10 tons of silver")
 graph export "$hamburggit/tex/Paper/Total silver trade FR GB.dta", as(png) replace			 
 	
 save "$hamburg/database_dta/Total silver trade FR GB.dta", replace

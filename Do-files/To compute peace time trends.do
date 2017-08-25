@@ -25,7 +25,7 @@ use "$hamburg/database_dta/Total silver trade FR GB.dta", clear
 
 
 
-gen ln_value=ln(value)
+gen ln_value=ln(valueFR)
 
 reg ln_value year if year <= 1744
 reg ln_value year if year >= 1749 & year <=1755
@@ -46,21 +46,11 @@ encode peace_str, gen(peace)
 reg ln_value i.peace#c.year i.peace year
 
 
-gen log10_value_peace1=log10_value if year <= 1744
-gen log10_value_peace2=log10_value if year >= 1749 & year <=1755
-gen log10_value_peace3=log10_value if year >= 1763 & year <=1777
-gen log10_value_peace4=log10_value if year >= 1784 & year <=1792
-gen log10_value_peace5=log10_value if year >= 1816
-
-local maxvalue 10
-
-generate wara=`maxvalue' if year >=1733 & year <=1738 
-generate warb=`maxvalue' if year >=1740 & year <=1744
-generate war1=`maxvalue' if year >=1744 & year <=1748
-generate war2=`maxvalue' if year >=1756 & year <=1763
-generate war3=`maxvalue' if year >=1778 & year <=1783
-generate war4=`maxvalue' if year >=1793 & year <=1802
-generate war5=`maxvalue' if year >=1803 & year <=1815
+gen log10_value_peace1=log10_valueFR_silver if year <= 1744
+gen log10_value_peace2=log10_valueFR_silver if year >= 1749 & year <=1755
+gen log10_value_peace3=log10_valueFR_silver if year >= 1763 & year <=1777
+gen log10_value_peace4=log10_valueFR_silver if year >= 1784 & year <=1792
+gen log10_value_peace5=log10_valueFR_silver if year >= 1816
 
 
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
@@ -72,7 +62,7 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (lfit log10_value_peace4 year, lpattern(line) lcolor(black)) ///
 			 (lfit log10_value_peace5 year, lpattern(line) lcolor(black)), ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-			 legend (off) ytitle("Peace-time trends of French trade in grams of silver, log10") xtitle("Year: Mercantilist and R&N wars") 
+			 legend (off) ytitle("Peace-time trends of French trade in tons of silver, log10") xtitle("Year: Mercantilist and R&N wars") 
 
 graph export "$hamburggit/tex/Paper/Peace-time trends of French trade.png", as(png) replace
 
