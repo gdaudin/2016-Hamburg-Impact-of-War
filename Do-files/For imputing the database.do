@@ -47,6 +47,9 @@ replace year=1780 if year==17780
 drop if yearstr=="10 mars-31 décembre 1787"
 drop if direction=="France"
 drop if year<1718
+drop if sourcepath=="Divers/AD 44/Nantes - Exports - 1734 - bis.csv"
+
+
 drop if pays_grouping=="?" | pays_grouping=="????" ///
 	| pays_grouping=="Prises" | pays_grouping=="Épaves et échouements" ///
 	| pays_grouping=="France" | pays_grouping=="Indes" ///
@@ -113,6 +116,33 @@ drop _merge
 replace value=value*FR_silver
 replace value=value/1000000
 
+
+drop if sourcetype!="Local" & sourcetype!="National par direction" ///
+	& sourcetype!="National par direction (-)" ///
+	& sourcetype!="Objet Général" & sourcetype!="Résumé" 
+drop if year==1750 & sourcetype=="Local"
+drop if sourcetype=="Résumé" & (year==1788 | year== 1787)
+drop if sourcetype=="Résumé" & (year==1789)
+
+
+replace direction="total" if direction=="" & (sourcetype =="Objet Général" | sourcetype !="Résumé")
+*list if direction==""
+
+
+preserve
+keep if year==1750 | year==1789
+assert sourcetype=="National par direction"
+collapse (sum) value, by(year pays_grouping classification_hamburg_large exportsimports marchandises_simplification sitc18_en)
+gen direction="total"
+save blif.dta, replace
+
+restore
+append using blif.dta
+erase blif.dta
+
+
+
+
 ***save temporary database for comparison with hamburg dataset
 save "$hamburg/database_dta/elisa_bdd_courante", replace
 
@@ -124,37 +154,71 @@ save "$hamburg/database_dta/elisa_bdd_courante", replace
 ********************************************************************************
 use "$hamburg/database_dta/elisa_bdd_courante", replace
 
+*codebook value if pays_grouping=="Afrique" & exportsimports=="Imports" & classification_hamburg_large=="Coffee"
+
+
 *****keep only sources where I have both national and direction data
 
-drop if sourcetype!="Local" & sourcetype!="National par direction" ///
-	& sourcetype!="National par direction (-)" ///
-	& sourcetype!="Objet Général" & sourcetype!="Résumé" 
-drop if year==1750 & sourcetype=="Local"
-replace direction="total" if direction=="" & sourcetype !="Local" & sourcetype !="National par direction (-)"
-list if direction==""
+*codebook value if pays_grouping=="Afrique" & exportsimports=="Imports" & classification_hamburg_large=="Coffee"
 
 
 collapse (sum) value, by(sourcetype year direction pays_grouping ///
 		classification_hamburg_large exportsimports)
 
 ****drop pays if there are too few obs
-egen _count=count(value), by(exportsimports pays_grouping)
-drop if _count<21
-drop _count
+bys pays_grouping direction: drop if _N<=2
+*codebook value if pays_grouping=="Afrique" & exportsimports=="Imports" & classification_hamburg_large=="Coffee"
  
 *****drop direction that appear only once
-by exportsimports direction year, sort: gen nvals = _n == 1
-by exportsimports direction: replace nvals=sum(nvals)
-by exportsimports direction: replace nvals = nvals[_N]
-drop if nvals==1
-drop nvals
+bys exportsimports direction: drop if _N==1
+*codebook value if pays_grouping=="Afrique" & exportsimports=="Imports" & classification_hamburg_large=="Coffee"
 
 
-encode direction, gen(dir)
-encode pays, gen(pays)
-label define order 1 Coffee 2 "Eau de vie" 3 Sugar 4 Wine 5 Other
-encode classification_hamburg_large, gen(class) label(order)
+
+
+/*------------------------------------------------------------------------------
+						Estimate exports and imports
+------------------------------------------------------------------------------*/
+
+su value if value!=0
+local min_value=r(min)
+
+
+*codebook value if pays_grouping=="Afrique" & exportsimports=="Imports" & classification_hamburg_large=="Coffee"
+
+
+
+preserve
+keep if sourcetype!="National par direction (-)"
+fillin exportsimport year pays_grouping direction classification_hamburg_large
+gen value_test=value 
+bysort year direction exportsimports: egen test_year=total(value_test), missing
+replace value=`min_value'/100 if test_year!=. & value==. 
+drop value_test test_year
+save blif.dta
+
+
+
+restore
+keep if sourcetype=="National par direction (-)"
+fillin exportsimport year pays_grouping direction classification_hamburg_large
+gen value_test=value 
+bysort year pays exportsimports: egen test_year=total(value_test), missing
+replace value=`min_value'/100 if test_year!=. & value==. 
+drop value_test test_year
+
+append using blif.dta
+
+erase blif.dta
+
+duplicates drop year direction exportsimports pays_grouping classification_hamburg_large, force
+*keep year direction exportsimports pays_grouping classification_hamburg_large value
+
+
+
 gen lnvalue=ln(value)
+*codebook lnvalue
+
 
 ***gen weight
 gen value_test=1
@@ -165,43 +229,27 @@ replace value_test=. if year==1777 & sourcetype=="National par direction (-)"
 
 
 gen value_test2=value*value_test
-
 gen forweight=value_test2 if direction=="total"
 tab forweight if year==1721
 bysort year exportsimports pays class: egen weight_total=max(forweight)
-
 drop forweight
 gen share = value/weight_total
-
-br if share >1 & share!=.
-
-aieaie
+*br if share >1 & share!=.
 bysort exportsimports pays class direction: egen weight=mean(share)
-tab weight direction
+drop value_test
+
+*tab weight direction
 
 
-bysort year exportsimports pays class: egen weight_total=total(value_test2), missing
-bysort year exportsimports dir pays class: egen weight_dir=total(value_test2), missing
-gen value_weight1=weight_total/weight_dir
-bysort year exportsimports dir pays class: egen value_weight=mean(value_weight1)
-
-
-/*------------------------------------------------------------------------------
-						Estimate exports and imports
-------------------------------------------------------------------------------*/
-
-
-fillin exportsimport year pays_grouping direction classification_hamburg_large
-gen value_test=value 
-bysort year direction exportsimports: egen test_year=total(value_test), missing
-su value if value!=0
-replace value=r(min)/100 if test_year!=. & value==. 
-drop value_test test_year
+encode direction, gen(dir)
+encode pays_grouping, gen(pays)
+label define order 1 Coffee 2 "Eau de vie" 3 Sugar 4 Wine 5 Other
+encode classification_hamburg_large, gen(class) label(order)
 
 
 
-*levelsof exportsimports, local(exportsimports)
-local exportsimports Imports
+levelsof exportsimports, local(exportsimports)
+*local exportsimports Imports
 foreach ciao in `exportsimports'{
 gen pred_value_`ciao'=.
 
@@ -212,32 +260,34 @@ levelsof pays, local(levels) 	/*levelsof is just in case we add more pays
 								`: word count `levels''*/
 
 foreach i of num 1/1{
-foreach j of num 1/1{
-su lnvalue if class==`i' & pays==`j' & exportsimports=="`ciao'"
-if r(N)>1{
-qui reg lnvalue i.year i.dir [iw=value] if ///
-	exportsimports=="`ciao'" & pays==`j' & class==`i', robust 
-predict value2 if ///
-	exportsimports=="`ciao'" & pays==`j' & class==`i'
-gen value_test=value if ///
-	exportsimports=="`ciao'" & pays==`j' & class==`i'
-gen value2_bis=value2
-bysort year: egen test_year=total(value_test), missing
-replace value2_bis=. if test_year==.
-bysort dir: egen test_dir=total(value_test), missing
-replace value2_bis=. if test_dir==.
-gen value3=exp(value2_bis)
-quietly su dir if direction=="total"	/*just in case we add more direction 
-										and I do not update this do_file, 
-										not important*/ 
+	foreach j of num 4/4 {
+		summarize lnvalue if class==`i' & pays==`j' & exportsimports=="`ciao'"
+		if r(N)>1{
+			reg lnvalue i.year i.dir [iw=value] if ///
+			exportsimports=="`ciao'" & pays==`j' & class==`i', robust 
+			predict value2 if ///
+			exportsimports=="`ciao'" & pays==`j' & class==`i'
+			gen value_test=value if ///
+			exportsimports=="`ciao'" & pays==`j' & class==`i'
+			gen value2_bis=value2
+			bysort year: egen test_year=total(value_test), missing
+			replace value2_bis=. if test_year==.
+			bysort dir: egen test_dir=total(value_test), missing
+			replace value2_bis=. if test_dir==.
+			gen value3=exp(value2_bis)
+			quietly su dir if direction=="total"	/*just in case we add more direction 
+											and I do not update this do_file, 
+											not important*/ 
+	
+			replace pred_value_`ciao'=value3 if class==`i' & pays==`j' ///
+			& dir==r(mean) & exportsimports=="`ciao'"
+			drop value2* value_test value3 test*
+			continue
+		}
+	}
+}
 
-replace pred_value_`ciao'=value3 if class==`i' & pays==`j' ///
-	& dir==r(mean) & exportsimports=="`ciao'"
-drop value2* value_test value3 test*
-continue
-}
-}
-}
+
 
 twoway (scatter pred_value_`ciao' value) 
 
@@ -260,7 +310,7 @@ twoway (connected pred_value_`ciao' year, msize(tiny) legend(label(1 "Predicted"
 graph export "$hamburg/Graph/Estimation_product/`ciao'_class`i'_pay`j'.png", as(png) replace
 
 *drop value_test*
-*drop value_graph
+drop value_graph
 }
 }
 
@@ -277,10 +327,10 @@ drop if year>1767 & year<1783
 drop if year>1786
 
 
-collapse (sum) pred_value_`ciao', by(year pays_grouping classification_hamburg_large exportsimports)
+collapse (sum) pred_value_Exports pred_value_Imports, by(year pays_grouping classification_hamburg_large exportsimports)
 save "$hamburg/database_dta/product_estimation", replace
 
-
+blif
 ********************************************************************************
 *************************ESTIMATE SECTORS BEFORE 1750**************************
 ********************************************************************************
