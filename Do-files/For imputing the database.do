@@ -1,4 +1,28 @@
 
+
+
+
+if "`c(username)'" =="guillaumedaudin" {
+	global hamburg "~/Documents/Recherche/2016 Hamburg/"
+	global hamburggit "~/Documents/Recherche/2016 Hamburg/2016-Hamburg-Impact-of-War"
+}
+
+if "`c(username)'" =="TIRINDEE" {
+	global hamburg "C:\Users\TIRINDEE\Google Drive\ETE/Thesis"
+	global hamburggit "C:\Users\TIRINDEE\Google Drive\ETE/Thesis/Data/do_files/Hamburg"
+}
+
+
+if "`c(username)'" =="Tirindelli" {
+	global hamburg "/Users/Tirindelli/Google Drive/ETE/Thesis"
+	global hamburggit "/Users/Tirindelli/Google Drive/ETE/Thesis/Data/do_files/Hamburg"
+}
+
+
+
+
+
+
 global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
 *global thesis "C:\Users\TIRINDEE\Google Drive\ETE\Thesis"
 
@@ -10,48 +34,17 @@ if "`c(username)'" =="guillaumedaudin" {
 
 set more off
 
-capture use "/Users/Tirindelli/Desktop/hambourg/bdd courante.dta", clear
+if  "`c(username)'" =="TIRINDEE" capture use "/Users/Tirindelli/Desktop/hambourg/bdd courante.dta", clear
 
 if "`c(username)'" =="guillaumedaudin" {
 	use "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta", clear
 }
-
-
-
-********************************************************************************
-*****************************TEST BENFORD***************************************
-********************************************************************************
-
-
-drop if value==0
-drop if value==.
-gen firstdigit = real(substr(string(value), 1, 1))
-drop if firstdigit==.
-*firstdigit value, percent
-contract firstdigit
-set obs 9 
-gen x = _n 
-gen expected = log10(1 + 1/x) 
-twoway histogram firstdigit [fw=_freq], plotregion(fcolor(white)) ///
-	graphregion(fcolor(white)) barw(0.5) bfcolor(ltblue) blcolor(navy) ///
-	discrete fraction || connected expected x, xla(1/9) ///
-	title("observed and expected") caption("French source") yla(, ang(h) ///
-	format("%02.1f")) legend(off) plotregion(fcolor(white)) ///
-	graphregion(fcolor(white))
-graph export "$thesis/Graph/Benford/benford_fr.png", as(png) replace
 
 
 ********************************************************************************
 *****************************CLEAN DATABASE*************************************
 ********************************************************************************
 
-
-
-capture use "/Users/Tirindelli/Desktop/hambourg/bdd courante.dta", clear
-
-if "`c(username)'" =="guillaumedaudin" {
-	use "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta", clear
-}
 
 drop if year==1805.75 | year==1839
 replace year=1780 if year==17780
@@ -117,7 +110,7 @@ collapse (sum) value, by(sourcetype year direction ///
 	pays_grouping exportsimports marchandises_simplification ///
 	classification_hamburg_large sitc18_en)
 
-merge m:1 year using "$thesis/database_dta/FR_silver.dta"
+merge m:1 year using "$hamburg/database_dta/FR_silver.dta"
 drop if _merge==2
 drop _merge
 
@@ -125,7 +118,7 @@ replace value=value*FR_silver
 replace value=value/1000000
 
 ***save temporary database for comparison with hamburg dataset
-save "$thesis/database_dta/elisa_bdd_courante", replace
+save "$hamburg/database_dta/elisa_bdd_courante", replace
 
 
 
@@ -133,7 +126,7 @@ save "$thesis/database_dta/elisa_bdd_courante", replace
 ********************************************************************************
 *************************ESTIMATE PRODUCTS BEFORE 1750**************************
 ********************************************************************************
-use "$thesis/database_dta/elisa_bdd_courante", replace
+use "$hamburg/database_dta/elisa_bdd_courante", replace
 
 *****keep only sources where I have both national and direction data
 replace direction="total" if direction==""
@@ -162,6 +155,7 @@ gen value_test=value
 bysort year direction exportsimports: egen test_year=total(value_test), missing
 su value if value!=0
 replace value=r(min)/100 if test_year!=. & value==. 
+local min_value=r(min)
 drop value_test test_year
 
 encode direction, gen(dir)
@@ -231,6 +225,8 @@ gen value_test2=value*value_test
 bysort year exportsimports pays class: egen value_graph=total(value_test2), missing
 by year exportsimports pays class:replace value_graph=. if _n!=1
 
+replace value_graph = `min_value'/100 if value_graph<`min_value'
+
 sort year
 levelsof pays, local(levels)
 foreach i of num 1/1{
@@ -241,7 +237,7 @@ twoway (connected pred_value_`ciao' year, msize(tiny) legend(label(1 "Predicted"
 	subtitle("`: label (pays) `j'', `: label (class) `i''") ///
 	plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 	caption("Values in tons of silver") 
-graph export "$thesis/Graph/Estimation_product/`ciao'_class`i'_pay`j'.png", as(png) replace
+graph export "$hamburg/Graph/Estimation_product/`ciao'_class`i'_pay`j'.png", as(png) replace
 
 *drop value_test*
 *drop value_graph
@@ -262,13 +258,13 @@ drop if year>1786
 
 
 collapse (sum) pred_value_`ciao', by(year pays_grouping classification_hamburg_large exportsimports)
-save "$thesis/database_dta/product_estimation", replace
+save "$hamburg/database_dta/product_estimation", replace
 
 
 ********************************************************************************
 *************************ESTIMATE SECTORS BEFORE 1750**************************
 ********************************************************************************
-use "$thesis/database_dta/elisa_bdd_courante", replace
+use "$hamburg/database_dta/elisa_bdd_courante", replace
 
 *****keep only sources where I have both national and direction data
 replace direction="total" if direction==""
@@ -402,7 +398,7 @@ twoway (connected pred_value_`ciao' year, msize(tiny) legend(label(1 "Predicted"
 	subtitle("`: label (pays) `j'', `: label (sitc) `i''") ///
 	plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 	caption("Values in tons of silver") 
-graph export "$thesis/Graph/Estimation_product/`ciao'_sitc`i'_pay`j'.png", as(png) replace
+graph export "$hamburg/Graph/Estimation_product/`ciao'_sitc`i'_pay`j'.png", as(png) replace
 
 drop value_test*
 drop value_graph
@@ -436,13 +432,13 @@ drop if year>1786
 
 
 collapse (sum) pred_value`ciao', by(year pays_grouping sitc18_en exportsimports)
-save "$thesis/database_dta/sector_estimation", replace
+save "$hamburg/database_dta/sector_estimation", replace
 
 
 ********************************************************************************
 ***************************CREATE 4 DATABASES***********************************
 ********************************************************************************
-use "$thesis/database_dta/elisa_bdd_courante", replace
+use "$hamburg/database_dta/elisa_bdd_courante", replace
 /* LEGEND OF SOURCETYPE
 - Colonies: 1787, 1788, 1789
 - Divers: 1839
@@ -477,11 +473,11 @@ drop if sourcetype!="Résumé" & year==`i'
 
 collapse (sum) value, by(year pays_grouping exportsimports)
 
-save "$thesis/database_dta/allcountry1", replace
+save "$hamburg/database_dta/allcountry1", replace
 
 keep if pays_grouping=="Nord"
 drop pays_grouping
-save "$thesis/database_dta/hamburg1", replace
+save "$hamburg/database_dta/hamburg1", replace
 restore
 
 /*------------------------------------------------------------------------------
@@ -522,7 +518,7 @@ classification_hamburg_large exportsimports)
 
 *****merge with imputed data 
 merge m:1 exportsimports year pays_grouping classification_hamburg_large ///
-using "$thesis/database_dta/product_estimation"
+using "$hamburg/database_dta/product_estimation"
 drop if _merge==2
 drop _merge
 
@@ -533,11 +529,11 @@ replace value = pred_value if year==1781 & pred_value!=.
 drop pred_value
 drop if value==.
 
-save "$thesis/database_dta/allcountry2", replace
+save "$hamburg/database_dta/allcountry2", replace
 
 keep if pays_grouping=="Nord" 
 drop pays_grouping 
-save "$thesis/database_dta/hamburg2", replace
+save "$hamburg/database_dta/hamburg2", replace
 restore
 /*------------------------------------------------------------------------------
 				save db with sict classification
@@ -549,7 +545,7 @@ sitc18_en exportsimports)
 
 *****merge with imputed data 
 merge m:1 exportsimports year pays_grouping sitc18_en ///
-using "$thesis/database_dta/sector_estimation"
+using "$hamburg/database_dta/sector_estimation"
 drop if _merge==2
 drop _merge
 
@@ -561,7 +557,7 @@ drop pred_value
 drop if value==.
 
 
-save "$thesis/database_dta/allcountry2_new", replace
+save "$hamburg/database_dta/allcountry2_new", replace
 restore
 
 
