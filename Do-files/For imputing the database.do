@@ -140,6 +140,20 @@ append using blif.dta
 erase blif.dta
 
 
+**Parce que dans l'objet général de 1788, le commerce colonial est par direction : je le transforme en total d'une part.
+**et National par direction(-) d'autre part
+preserve
+keep if year==1788 & sourcetype=="Objet Général" & pays_grouping=="Colonies françaises"
+collapse (sum) value, by(year pays_grouping classification_hamburg_large exportsimports marchandises_simplification sitc18_en)
+gen direction="total"
+save blif.dta, replace
+
+restore
+replace sourcetype="National par direction (-)" if year==1788 & sourcetype=="Objet Général" & pays_grouping=="Colonies françaises"
+append using blif.dta
+erase blif.dta
+
+
 
 
 ***save temporary database for comparison with hamburg dataset
