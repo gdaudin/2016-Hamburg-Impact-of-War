@@ -1,7 +1,5 @@
 
 
-
-
 if "`c(username)'" =="guillaumedaudin" {
 	global hamburg "~/Documents/Recherche/2016 Hamburg/"
 	global hamburggit "~/Documents/Recherche/2016 Hamburg/2016-Hamburg-Impact-of-War"
@@ -23,18 +21,9 @@ if "`c(username)'" =="Tirindelli" {
 
 
 
-global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
-*global thesis "C:\Users\TIRINDEE\Google Drive\ETE\Thesis"
-
-
-if "`c(username)'" =="guillaumedaudin" {
-	global thesis ~/Documents/Recherche/2016 Hamburg
-}
-
-
 set more off
 
-if  "`c(username)'" =="TIRINDEE" capture use "/Users/Tirindelli/Desktop/hambourg/bdd courante.dta", clear
+capture use "/Users/Tirindelli/Desktop/hambourg/bdd courante.dta", clear
 
 if "`c(username)'" =="guillaumedaudin" {
 	use "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta", clear
@@ -45,6 +34,13 @@ if "`c(username)'" =="guillaumedaudin" {
 *****************************CLEAN DATABASE*************************************
 ********************************************************************************
 
+
+
+capture use "/Users/Tirindelli/Desktop/hambourg/bdd courante.dta", clear
+
+if "`c(username)'" =="guillaumedaudin" {
+	use "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta", clear
+}
 
 drop if year==1805.75 | year==1839
 replace year=1780 if year==17780
@@ -133,8 +129,9 @@ use "$hamburg/database_dta/elisa_bdd_courante", replace
 drop if sourcetype!="Local" & sourcetype!="National par direction" ///
 	& sourcetype!="National par direction (-)" ///
 	& sourcetype!="Objet Général" & sourcetype!="Résumé" 
-	
+drop if year==1750 & sourcetype=="Local"
 replace direction="total" if direction=="" & sourcetype !="Local" & sourcetype !="National par direction (-)"
+list if direction==""
 
 
 collapse (sum) value, by(sourcetype year direction pays_grouping ///
@@ -152,16 +149,6 @@ by exportsimports direction: replace nvals = nvals[_N]
 drop if nvals==1
 drop nvals
 
-<<<<<<< HEAD:Do-files/bdd_courante_mine.do
-=======
-fillin exportsimport year pays_grouping direction classification_hamburg_large
-gen value_test=value 
-bysort year direction exportsimports: egen test_year=total(value_test), missing
-su value if value!=0
-replace value=r(min)/100 if test_year!=. & value==. 
-local min_value=r(min)
-drop value_test test_year
->>>>>>> origin/master:Do-files/For imputing the database.do
 
 encode direction, gen(dir)
 encode pays, gen(pays)
@@ -186,7 +173,7 @@ bysort year exportsimports pays class: egen weight_total=max(forweight)
 drop forweight
 gen share = value/weight_total
 
-br if share >1
+br if share >1 & share!=.
 
 aieaie
 bysort exportsimports pays class direction: egen weight=mean(share)
@@ -259,12 +246,7 @@ twoway (scatter pred_value_`ciao' value)
 *have a look at imputed export data
 bysort year exportsimports pays class: egen value_graph=total(value_test2), missing
 by year exportsimports pays class:replace value_graph=. if _n!=1
-<<<<<<< HEAD:Do-files/bdd_courante_mine.do
-=======
-
 replace value_graph = `min_value'/100 if value_graph<`min_value'
-
->>>>>>> origin/master:Do-files/For imputing the database.do
 sort year
 levelsof pays, local(levels)
 foreach i of num 1/1{
