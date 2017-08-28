@@ -209,10 +209,9 @@ bysort year direction exportsimports: egen test_year=total(value), missing
 replace value=`min_value'/100 if test_year!=. & value==. 
 drop test_year
 save blif.dta
-
-
-
 restore
+
+
 keep if sourcetype=="National par direction (-)"
 fillin exportsimport year pays_grouping direction classification_hamburg_large
 bysort year pays exportsimports: egen test_year=total(value), missing
@@ -251,7 +250,7 @@ drop forweight
 gen share = value/weight_total
 *br if share >1 & share!=.
 bysort exportsimports pays class direction: egen weight=mean(share)
-replace weight = max(1,weight) /* Pour enlever les valeurs trop élevées */
+replace weight = min(1,weight) /* Pour enlever les valeurs trop élevées */
 drop value_test*
 
 *tab weight direction
@@ -269,7 +268,7 @@ levelsof exportsimports, local(exportsimports)
 
 
 
-*For the graphs, calcul de la valeur observée
+*For the graphs, compute observed value
 bysort year exportsimports pays class: gen value_for_obs = value if direction=="total"
 		
 gen blink = value if direction !="total" 
