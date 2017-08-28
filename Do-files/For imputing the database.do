@@ -144,13 +144,13 @@ erase blif.dta
 **Parce que dans l'objet général de 1788, les importations coloniales sont par direction : je le transforme en total d'une part.
 **et National par direction(-) d'autre part
 preserve
-keep if year==1788 & sourcetype=="Objet Général" & pays_grouping=="Colonies françaises" & exportsimports=="Imports"
+keep if year==1788 & sourcetype=="Objet Général" & pays_grouping=="Outre-mers" & exportsimports=="Imports"
 collapse (sum) value, by(year pays_grouping classification_hamburg_large exportsimports marchandises_simplification sitc18_en)
 gen direction="total"
 save blif.dta, replace
 
 restore
-replace sourcetype="National par direction (-)" if year==1788 & sourcetype=="Objet Général" & pays_grouping=="Colonies françaises" ///
+replace sourcetype="National par direction (-)" if year==1788 & sourcetype=="Objet Général" & pays_grouping=="Outre-mers" ///
 		& exportsimports=="Imports" & direction !="total"
 append using blif.dta
 erase blif.dta
@@ -235,6 +235,8 @@ gen lnvalue=ln(value)
 
 
 ***gen weight
+
+**value_test sert à décider qui va dans le calcul du commerce total
 gen value_test=1
 replace value_test=. if year==1787 & sourcetype=="Résumé"
 replace value_test=. if year==1788 & sourcetype=="Résumé"
@@ -297,11 +299,11 @@ levelsof pays, local(levels) 	/*levelsof is just in case we add more pays
 								not update this do_file, not important
 								`: word count `levels''*/
 
-foreach i of num 1/5{
-	foreach j of num 1/`: word count `levels''{
+foreach i of num 5/5{
+	foreach j of num 12/12 /*`: word count `levels''*/{
 		summarize lnvalue if class==`i' & pays==`j' & exportsimports=="`ciao'"
 		if r(N)>1{
-			qui reg lnvalue i.year i.dir [iw=weight] if ///
+			reg lnvalue i.year i.dir [iw=weight] if ///
 			exportsimports=="`ciao'" & pays==`j' & class==`i', robust 
 			predict value2 if ///
 			exportsimports=="`ciao'" & pays==`j' & class==`i'
