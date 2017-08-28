@@ -289,6 +289,8 @@ sort year
 
 drop value_test*
 
+bling
+
 
 foreach ciao in `exportsimports'{
 gen pred_value_`ciao'=.
@@ -304,25 +306,42 @@ foreach i of num 5/5{
 		summarize lnvalue if class==`i' & pays==`j' & exportsimports=="`ciao'"
 		if r(N)>1{
 			reg lnvalue i.year i.dir [iw=weight] if ///
-			exportsimports=="`ciao'" & pays==`j' & class==`i', robust 
-			predict value2 if ///
-			exportsimports=="`ciao'" & pays==`j' & class==`i'
+				exportsimports=="`ciao'" & pays==`j' & class==`i', robust 
+				
+			
+			predict value_pred if ///
+				exportsimports=="`ciao'" & pays==`j' & class==`i'
+			
+			*value_test vérifie s'il y a des observations de flux pour cette année 
+			*	pour ce produit, ce sens et ce pays.
+				
 			gen value_test=value if ///
-			exportsimports=="`ciao'" & pays==`j' & class==`i'
-			gen value2_bis=value2
+				exportsimports=="`ciao'" & pays==`j' & class==`i'
+				
 			bysort year: egen test_year=total(value_test), missing
-			replace value2_bis=. if test_year==.
+			replace value_test = 0 if value_test==.
+			replace value_test = 1 if value_test !=0
+			
+			
+			*Cela annule la prédiction s'il n'y a pas d'observation pour cette année ///
+				/// pour ce produit, ce sens et ce pays
+			
+			replace value_pred=. if test_year==0
+			
+			
+			*Idem, mais mais par direction
 			bysort dir: egen test_dir=total(value_test), missing
-			replace value2_bis=. if test_dir==.
-			gen value3=exp(value2_bis)
-			quietly su dir if direction=="total"	/*just in case we add more direction 
-											and I do not update this do_file, 
-											not important*/ 
-	
-			replace pred_value_`ciao'=value3 if class==`i' & pays==`j' ///
-			& dir==r(mean) & exportsimports=="`ciao'"
-			drop value2* value_test value3 test*
-			/*
+			replace value_pred=. if test_dir==.
+			
+			
+			replace value_pred = exp(value_pred)
+			
+			
+		
+			replace pred_value_`ciao'=value_pred if class==`i' & pays==`j' ///
+			& direction=="total" & exportsimports=="`ciao'"
+			*drop value2* value_test value3 test*
+			
 			twoway (scatter pred_value_`ciao' value) 
 
  			sort year
@@ -334,7 +353,9 @@ foreach i of num 5/5{
 					plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 					caption("Values in tons of silver") 
 			graph export "$hamburg/Graph/Estimation_product/`ciao'_class`i'_pay`j'.png", as(png) replace
-			*/
+			
+			bling
+			
 									
 			}
 		}
