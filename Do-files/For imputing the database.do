@@ -236,16 +236,7 @@ gen lnvalue=ln(value)
 
 ***gen weight
 
-**value_test sert à décider qui va dans le calcul du commerce total
-gen value_test=1
-replace value_test=. if year==1787 & sourcetype=="Résumé"
-replace value_test=. if year==1788 & sourcetype=="Résumé"
-replace value_test=. if year==1777 & sourcetype=="National par direction (-)"
-*replace value_test=. if year>1751 & sourcetype=="Local"
-
-
-gen value_test2=value*value_test
-gen forweight=value_test2 if direction=="total"
+gen forweight=value if direction=="total"
 tab forweight if year==1721
 bysort year exportsimports pays class: egen weight_total=max(forweight)
 drop forweight
