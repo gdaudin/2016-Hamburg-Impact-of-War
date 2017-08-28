@@ -320,7 +320,7 @@ foreach i of num 1/5{
 			replace pred_value_`ciao'=value3 if class==`i' & pays==`j' ///
 			& dir==r(mean) & exportsimports=="`ciao'"
 			drop value2* value_test value3 test*
-			
+			/*
 			twoway (scatter pred_value_`ciao' value) 
 
  			sort year
@@ -332,7 +332,7 @@ foreach i of num 1/5{
 					plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 					caption("Values in tons of silver") 
 			graph export "$hamburg/Graph/Estimation_product/`ciao'_class`i'_pay`j'.png", as(png) replace
-			
+			*/
 									
 			}
 		}
@@ -354,168 +354,166 @@ drop if year>1786
 collapse (sum) pred_value_Exports pred_value_Imports, by(year pays_grouping classification_hamburg_large exportsimports)
 save "$hamburg/database_dta/product_estimation", replace
 
-blif
+
 ********************************************************************************
 *************************ESTIMATE SECTORS BEFORE 1750**************************
 ********************************************************************************
 use "$hamburg/database_dta/elisa_bdd_courante", replace
 
-*****keep only sources where I have both national and direction data
-replace direction="total" if direction==""
-drop if sourcetype!="Local" & sourcetype!="National par direction" ///
-	& sourcetype!="National par direction (-)" ///
-	& sourcetype!="Objet Général" & sourcetype!="Résumé" 
-drop if year>1789
-
-
 collapse (sum) value, by(sourcetype year direction pays_grouping ///
 		sitc18_en exportsimports)
 
-/* HAVE A LOOK AT COUNTRIES SITC EXPORTS/IMPORTS COMPOSITION
-cd "/Users/Tirindelli/Google Drive/ETE/Thesis/Graph/Sector_pays"
-preserve 
-collapse (sum) value, by(sitc18_en)
-graph pie value, over(sitc18_en) plabel(_all percent) ///
-	title("Aggregate total trade")
-graph export total_trade.png, as(png) replace
-restore
-
-***find countries for sitc export composition
-
-foreach i of num 1/13{
-local label : label (pays) `i'
-graph pie value if pays==`i', over(sitc) title("`i'`label'") ///
-	plabel(_all percent) subtitle("Total")
-graph export "pays`i'_tot.png", replace as(png)
-}
-foreach i of num 1/13{
-local label : label (pays) `i'
-graph pie value if pays==`i' & exportsimports=="Exports", over(sitc) ///
-	title("`i'`label'") plabel(_all percent) subtitle("Exports")
-graph export "pays`i'_export.png", replace as(png)
-}
-
-foreach i of num 1/13{
-local label : label (pays) `i'
-graph pie value if pays==`i' & exportsimports=="Imports", over(sitc) ///
-	title("`i'`label'") plabel(_all percent) subtitle("Imports")
-graph export "pays`i'_import.png", replace as(png)
-}
-*/
-
-
-
 ****drop pays if there are too few obs
-egen _count=count(value), by(exportsimports pays_grouping)
-drop if _count<21
-drop _count
+bys pays_grouping direction: drop if _N<=2
  
 *****drop direction that appear only once
-by exportsimports direction year, sort: gen nvals = _n == 1
-by exportsimports direction: replace nvals=sum(nvals)
-by exportsimports direction: replace nvals = nvals[_N]
-drop if nvals==1
-drop nvals
+bys exportsimports direction: drop if _N==1
 
-fillin exportsimport year pays_grouping direction sitc18_en
-gen value_test=value 
-bysort year direction exportsimports: egen test_year=total(value_test), missing
-su value if value!=0
-replace value=r(min)/100 if test_year!=. & value==. 
-drop value_test test_year
 
-encode direction, gen(dir)
-encode pays, gen(pays)
-encode sitc18_en, gen(sitc) label(order)
-gen lnvalue=ln(value)
+
 
 /*------------------------------------------------------------------------------
-					Estimate exports and imports
+						Estimate exports and imports
 ------------------------------------------------------------------------------*/
 
-levelsof exportsimports, local(exportsimports)
-foreach ciao in `exportsimports'{
+su value if value!=0
+local min_value=r(min)
 
-gen pred_value_`ciao'=.
+*codebook value if pays_grouping=="Afrique" & exportsimports=="Imports" & classification_hamburg_large=="Coffee"
 
-levelsof pays, local(levels)
+preserve
+keep if sourcetype!="National par direction (-)"
+fillin exportsimport year pays_grouping direction sitc18_en
+bysort year direction exportsimports: egen test_year=total(value), missing
+replace value=`min_value'/100 if test_year!=. & value==. 
+drop test_year
+save blif.dta, replace
+restore
 
-foreach i of num 1/6{
-foreach j of num 1/`: word count `levels''{
-su lnvalue if sitc==`i' & pays==`j' & exportsimports=="`ciao'"
-if r(N)>1{
-qui reg lnvalue i.year i.dir [iw=value] if ///
-	exportsimports=="`ciao'" & pays==`j' & sitc==`i', robust 
-predict value2 if ///
-	exportsimports=="`ciao'" & pays==`j' & sitc==`i'
-gen value_test=value if ///
-	exportsimports=="`ciao'" & pays==`j' & sitc==`i'
-gen value2_bis=value2
-bysort year: egen test_year=total(value_test), missing
-replace value2_bis=. if test_year==.
-bysort dir: egen test_dir=total(value_test), missing
-replace value2_bis=. if test_dir==.
-gen value3=exp(value2_bis)
-quietly su dir if direction=="total"	/*just in case we add more direction 
-										and I do not update this do_file, 
-										not important*/ 
 
-replace pred_value_`ciao'=value3 if sitc==`i' & pays==`j' ///
-	& dir==r(mean) & exportsimports=="`ciao'"
-drop value2* value_test value3 test*
-continue
-}
-}
-}
+keep if sourcetype=="National par direction (-)"
+fillin exportsimport year pays_grouping direction sitc18_en
+bysort year pays exportsimports: egen test_year=total(value), missing
+replace value=`min_value'/100 if test_year!=. & value==. 
+drop test_year
 
-*****gen var to graph properly
-/*
+append using blif.dta
+
+erase blif.dta
+
+duplicates drop year direction exportsimports pays_grouping sitc18_en, force
+
+replace sourcetype = "imputed" if _fillin==1 & value !=.
+
+save fortest.dta, replace
+
+
+gen lnvalue=ln(value)
+*codebook lnvalue
+
+
+***gen weight
 gen value_test=1
-replace value_test=0 if year==1787 & sourcetype=="Résumé"
-replace value_test=0 if year==1788 & sourcetype=="Résumé"
-replace value_test=0 if year==1777 & sourcetype=="National par direction (-)"
-replace value_test=0 if year>1751 & sourcetype=="Local"
+replace value_test=. if year==1787 & sourcetype=="Résumé"
+replace value_test=. if year==1788 & sourcetype=="Résumé"
+replace value_test=. if year==1777 & sourcetype=="National par direction (-)"
+*replace value_test=. if year>1751 & sourcetype=="Local"
+
 
 gen value_test2=value*value_test
+gen forweight=value_test2 if direction=="total"
+tab forweight if year==1721
+bysort year exportsimports pays sitc: egen weight_total=max(forweight)
+drop forweight
+gen share = value/weight_total
+*br if share >1 & share!=.
+bysort exportsimports pays sitc direction: egen weight=mean(share)
+replace weight = min(1,weight) /* Pour enlever les valeurs trop élevées */
 
-bysort year exportsimports pays sitc: egen value_graph=total(value_test2)
-by year exportsimports pays sitc:replace value_graph=. if _n!=1
 
-replace value_graph=ln(value_graph)
+*tab weight direction
 
+
+encode direction, gen(dir)
+encode pays_grouping, gen(pays)
+encode sitc18_en, gen(sitc) 
+
+levelsof exportsimports, local(exportsimports)
+*local exportsimports Imports
+
+*For the graphs, compute observed value
+bysort year exportsimports pays sitc: gen value_for_obs = value if direction=="total"
+replace value_for_obs=value_for_obs*value_test 		/*avoid double counting Resume and 
+													Objet for 1788 and 1789*/
+		
+gen blink = value if direction !="total" 
+replace blink=. if sourcetype=="National par direction (-)" &  ///
+				(year==1749 | year==1751 | year==1777 )
+
+bysort year exportsimports pays sitc: egen blouf=total(blink), missing
+replace value_for_obs=blouf if value_for_obs==.
+drop blink blouf
+			
+by year exportsimports pays sitc:replace value_for_obs=. if _n!=1
+replace value_for_obs = `min_value'/100 if value_for_obs<`min_value'
 sort year
-levelsof pays, local(levels)
-foreach i of num 1/5{
-foreach j of num 1/`: word count `levels''{
-twoway (connected pred_value_`ciao' year, msize(tiny) legend(label(1 "Predicted")) ///
-	(connected value_graph year, msize(tiny) legend(label(2 "Observed")) ///
-	if pays==`j' & sitc==`i' & exportsimports=="`ciao'", title(`ciao') ///
-	subtitle("`: label (pays) `j'', `: label (sitc) `i''") ///
-	plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-	caption("Values in tons of silver") 
-graph export "$hamburg/Graph/Estimation_product/`ciao'_sitc`i'_pay`j'.png", as(png) replace
 
 drop value_test*
-drop value_graph
-}
-}
-*/
-
-}
 
 
-/* HAVE A LOOK AT IMPUTED SITC VALUES
-collapse (sum) pred_value value, by(year pays_grouping pays ///
-	direction dir sitc)
+foreach ciao in `exportsimports'{
+gen pred_value_`ciao'=.
+
+
+levelsof pays, local(levels) 	/*levelsof is just in case we add more pays 
+								to pays_grouping and I do 
+								not update this do_file, not important
+								`: word count `levels''*/
+
 foreach i of num 1/5{
-foreach j of num 1/12{
-twoway (connected pred_value year) (connected value year) if pays==`j' ///
-	& sitc==`i' & dir==21, title(`: label (pays) `j'') ///
-	subtitle( `: label (sitc) `i'')
-graph export sict`i'_pay`j'.png, as(png) replace
+	foreach j of num 1/`: word count `levels''{
+		summarize lnvalue if sitc==`i' & pays==`j' & exportsimports=="`ciao'"
+		if r(N)>1{
+			qui reg lnvalue i.year i.dir [iw=weight] if ///
+			exportsimports=="`ciao'" & pays==`j' & sitc==`i', robust 
+			predict value2 if ///
+			exportsimports=="`ciao'" & pays==`j' & sitc==`i'
+			gen value_test=value if ///
+			exportsimports=="`ciao'" & pays==`j' & sitc==`i'
+			gen value2_bis=value2
+			bysort year: egen test_year=total(value_test), missing
+			replace value2_bis=. if test_year==.
+			bysort dir: egen test_dir=total(value_test), missing
+			replace value2_bis=. if test_dir==.
+			gen value3=exp(value2_bis)
+			quietly su dir if direction=="total"	/*just in case we add more direction 
+											and I do not update this do_file, 
+											not important*/ 
+	
+			replace pred_value_`ciao'=value3 if sitc==`i' & pays==`j' ///
+			& dir==r(mean) & exportsimports=="`ciao'"
+			drop value2* value_test value3 test*
+			
+			twoway (scatter pred_value_`ciao' value) 
+			/*
+ 			sort year
+			*have a look at imputed export data			
+			twoway (connected pred_value_`ciao' year, msize(tiny) legend(label(1 "Predicted"))) ///
+					(connected value_for_obs year, msize(tiny) legend(label(2 "Observed"))) ///
+					if pays==`j' & class==`i' & exportsimports=="`ciao'", title(`ciao') ///
+					subtitle("`: label (pays) `j'', `: label (class) `i''") ///
+					plotregion(fcolor(white)) graphregion(fcolor(white)) ///
+					caption("Values in tons of silver") 
+			graph export "$hamburg/Graph/Estimation_product/`ciao'_class`i'_pay`j'.png", as(png) replace
+			*/
+									
+			}
+		}
+	}
+
+
 }
-}
-*/
+
 
 quietly su dir if direction=="total"
 keep if dir==r(mean)
@@ -526,7 +524,7 @@ drop if year>1767 & year<1783
 drop if year>1786
 
 
-collapse (sum) pred_value`ciao', by(year pays_grouping sitc18_en exportsimports)
+collapse (sum) pred_value_Exports pred_value_Imports, by(year pays_grouping sitc18_en exportsimports)
 save "$hamburg/database_dta/sector_estimation", replace
 
 

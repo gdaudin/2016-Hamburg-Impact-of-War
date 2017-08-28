@@ -644,6 +644,7 @@ replace all_status_sitc=0 if all_status_sitc==.   /* I do this to have peace
 gen lnvalue=ln(value)
 
 levelsof exportsimports, local(exportsimports) 
+local exportsimports Exports
 
 foreach inourout in `exportsimports'{
 
@@ -653,8 +654,12 @@ eststo `inourout'_eachsitc1: reg lnvalue i.pays#i.sitc c.year#i.pays ///
 	if exportsimports=="`inourout'", vce(robust) 
 eststo `inourout'_eachsitc2: reg lnvalue i.pays#i.sitc c.year#i.pays ///
 	c.year#i.sitc i.each_status_sitc i.pays#1.break c.year#1.break ///
-	if exportsimports=="`inourout'", vce(robust) 
+	if exportsimports=="`inourout'", vce(robust) 	
+eststo `inourout'_allsitc3: reg lnvalue i.pays#i.sitc c.year#i.pays ///
+	c.year#i.sitc i.each_status i.pays#1.break c.year#1.break if ///
+	exportsimports=="`inourout'", vce(robust) 
 
+ashdf	
 ****wars interacted with groups only
 eststo `inourout'_allsitc1: reg lnvalue i.pays#i.sitc c.year#i.pays ///
 	c.year#i.sitc i.all_status_sitc ///
@@ -664,8 +669,9 @@ eststo `inourout'_allsitc2: reg lnvalue i.pays#i.sitc c.year#i.pays ///
 	exportsimports=="`inourout'", vce(robust) 
 
 
+
 esttab `inourout'_eachsitc1 `inourout'_eachsitc2 ///
-	`inourout'_allsitc1 `inourout'_allsitc2 using///
+	`inourout'_allsitc1 `inourout'_allsitc2 using ///
 	"$thesis/Data/do_files/Hamburg/Tables/allcountry2_groupsitc_export.csv", ///
 	label replace mtitles("SITC#group#war no breaks" ///
 	"SITC#group#war 1795 break" "group#war no breaks" "group#war 1795 breaks" ///
