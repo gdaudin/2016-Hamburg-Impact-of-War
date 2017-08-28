@@ -324,11 +324,14 @@ foreach i of num 1/5{
 				/// pour ce produit, ce sens et ce pays
 			
 			replace value_pred=. if test_year==0
+			drop test_year
 			
 			
 			*Idem, mais mais par direction
 			bysort dir: egen test_dir=total(value_test), missing
+			drop value_test
 			replace value_pred=. if test_dir==.
+			drop test_dir
 			
 			
 			replace value_pred = exp(value_pred)
@@ -350,7 +353,7 @@ foreach i of num 1/5{
 					plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 					caption("Values in tons of silver") 
 			graph export "$hamburg/Graph/Estimation_product/`ciao'_class`i'_pay`j'.png", as(png) replace
-			
+			drop value_pred*
 			
 									
 			}
