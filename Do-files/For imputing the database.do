@@ -612,15 +612,11 @@ classification_hamburg_large exportsimports)
 *****merge with imputed data 
 merge m:1 exportsimports year pays_grouping classification_hamburg_large ///
 using "$hamburg/database_dta/product_estimation"
-drop if _merge==2
 drop _merge
 
-replace value = pred_value if year<1752 & pred_value!=.
-replace value=pred_value if year==1753 & pred_value!=.
-replace value = pred_value if year>1761 & year<1768 & pred_value!=.
-replace value = pred_value if year==1781 & pred_value!=.
-drop pred_value
-drop if value==.
+replace value = pred_value_Exports if exportsimports=="Exports"
+replace value=pred_value_Imports if exportsimports=="Imports"
+drop pred_value*
 
 save "$hamburg/database_dta/allcountry2", replace
 
@@ -639,16 +635,11 @@ sitc18_en exportsimports)
 *****merge with imputed data 
 merge m:1 exportsimports year pays_grouping sitc18_en ///
 using "$hamburg/database_dta/sector_estimation"
-drop if _merge==2
 drop _merge
 
-replace value = pred_value if year<1752 & pred_value!=.
-replace value=pred_value if year==1753 & pred_value!=.
-replace value = pred_value if year>1761 & year<1768 & pred_value!=.
-replace value = pred_value if year==1781 & pred_value!=.
-drop pred_value
-drop if value==.
-
+replace value = pred_value_Exports if exportsimports=="Exports"
+replace value=pred_value_Imports if exportsimports=="Imports"
+drop pred_value*
 
 save "$hamburg/database_dta/allcountry2_new", replace
 restore
