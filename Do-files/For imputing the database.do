@@ -228,7 +228,7 @@ duplicates drop year direction exportsimports pays_grouping classification_hambu
 
 replace sourcetype = "imputed" if _fillin==1 & value !=.
 
-save fortest.dat, replace
+save fortest.dta, replace
 
 
 gen lnvalue=ln(value)
