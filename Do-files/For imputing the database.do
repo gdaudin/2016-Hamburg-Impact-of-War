@@ -263,8 +263,6 @@ levelsof exportsimports, local(exportsimports)
 
 *For the graphs, compute observed value
 bysort year exportsimports pays class: gen value_for_obs = value if direction=="total"
-replace value_for_obs=value_for_obs*value_test 		/*avoid double counting Resume and 
-													Objet for 1788 and 1789*/
 		
 gen blink = value if direction !="total" 
 replace blink=. if sourcetype=="National par direction (-)" &  ///
@@ -273,6 +271,9 @@ replace blink=. if sourcetype=="National par direction (-)" &  ///
 bysort year exportsimports pays class: egen blouf=total(blink), missing
 replace value_for_obs=blouf if value_for_obs==.
 drop blink blouf
+
+
+bling
 			
 by year exportsimports pays class:replace value_for_obs=. if _n!=1
 replace value_for_obs = `min_value'/100 if value_for_obs<`min_value'
