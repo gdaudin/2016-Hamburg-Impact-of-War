@@ -190,7 +190,21 @@ bys pays_grouping direction: drop if _N<=2
 bys exportsimports direction: drop if _N==1
 *codebook value if pays_grouping=="Afrique" & exportsimports=="Imports" & classification_hamburg_large=="Coffee"
 
+*Drop direction if 6 years or less
 
+levelsof direction, local(liste_de_direction)
+foreach dir of local liste_de_direction {
+	tab year if direction=="`dir'"
+	if r(r)<=7 drop if direction=="`dir'"
+}
+
+*Drop year if only one direction
+levelsof year, local(liste_of_year)
+foreach yr of local liste_of_year {
+	tab direction if year==`yr' & direction !="total"
+	display "`r(r)'"
+	if r(r)<=1 & r(r)!=. drop if year==`yr' & direction !="total"
+}
 
 
 /*------------------------------------------------------------------------------
@@ -285,8 +299,8 @@ levelsof pays, local(levels) 	/*levelsof is just in case we add more pays
 								not update this do_file, not important
 								`: word count `levels''*/
 
-foreach i of num 5/5{
-	foreach j of num 12/12 /*`: word count `levels''*/{
+foreach i of num 4/4{
+	foreach j of num 11/11 /*`: word count `levels''*/{
 		summarize lnvalue if class==`i' & pays==`j' & exportsimports=="`ciao'"
 		if r(N)>1{
 			reg lnvalue i.year i.dir [iw=weight] if ///
