@@ -208,7 +208,7 @@ fillin exportsimport year pays_grouping direction classification_hamburg_large
 bysort year direction exportsimports: egen test_year=total(value), missing
 replace value=`min_value'/100 if test_year!=. & value==. 
 drop test_year
-save blif.dta
+save blif.dta, replace
 restore
 
 
@@ -251,7 +251,7 @@ gen share = value/weight_total
 *br if share >1 & share!=.
 bysort exportsimports pays class direction: egen weight=mean(share)
 replace weight = min(1,weight) /* Pour enlever les valeurs trop élevées */
-drop value_test*
+
 
 *tab weight direction
 
@@ -270,9 +270,13 @@ levelsof exportsimports, local(exportsimports)
 
 *For the graphs, compute observed value
 bysort year exportsimports pays class: gen value_for_obs = value if direction=="total"
+replace value_for_obs=value_for_obs*value_test 		/*avoid double counting Resume and 
+													Objet for 1788 and 1789*/
 		
 gen blink = value if direction !="total" 
-			
+replace blink=. if sourcetype=="National par direction (-)" &  ///
+				(year==1749 | year==1751 | year==1777 )
+
 bysort year exportsimports pays class: egen blouf=total(blink), missing
 replace value_for_obs=blouf if value_for_obs==.
 drop blink blouf
@@ -281,6 +285,7 @@ by year exportsimports pays class:replace value_for_obs=. if _n!=1
 replace value_for_obs = `min_value'/100 if value_for_obs<`min_value'
 sort year
 
+drop value_test*
 
 
 foreach ciao in `exportsimports'{
@@ -292,11 +297,11 @@ levelsof pays, local(levels) 	/*levelsof is just in case we add more pays
 								not update this do_file, not important
 								`: word count `levels''*/
 
-foreach i of num 1/1{
-	foreach j of num 1/1 {
+foreach i of num 1/5{
+	foreach j of num 1/`: word count `levels''{
 		summarize lnvalue if class==`i' & pays==`j' & exportsimports=="`ciao'"
 		if r(N)>1{
-			reg lnvalue i.year i.dir [iw=weight] if ///
+			qui reg lnvalue i.year i.dir [iw=weight] if ///
 			exportsimports=="`ciao'" & pays==`j' & class==`i', robust 
 			predict value2 if ///
 			exportsimports=="`ciao'" & pays==`j' & class==`i'
@@ -327,11 +332,9 @@ foreach i of num 1/1{
 					plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 					caption("Values in tons of silver") 
 			graph export "$hamburg/Graph/Estimation_product/`ciao'_class`i'_pay`j'.png", as(png) replace
-			blif
+			
 									
 			}
-*drop value_test*
-drop value_graphcl
 		}
 	}
 
