@@ -351,7 +351,6 @@ foreach i of num 1/5{
 					caption("Values in tons of silver") 
 			graph export "$hamburg/Graph/Estimation_product/`ciao'_class`i'_pay`j'.png", as(png) replace
 			
-			bling
 			
 									
 			}
