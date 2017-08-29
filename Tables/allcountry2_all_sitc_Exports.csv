@@ -1,0 +1,377 @@
+
+="",="(1)",="(2)"
+="",="SITC#all_war no breaks",="SITC#all_war 1795 break"
+
+="Allemagne # European foodstuff and beverage",="0",="0"
+="",="(.)",="(.)"
+
+="Allemagne # Other",="21.06***",="20.96***"
+="",="(3.30)",="(3.30)"
+
+="Allemagne # Plantation foodstuff",="36.17***",="-88.61***"
+="",="(3.93)",="(-6.94)"
+
+="Allemagne # Raw mat fuel oils",="-0.407",="-0.400"
+="",="(-0.06)",="(-0.06)"
+
+="Allemagne # Textile manuf",="22.10**",="22.00**"
+="",="(3.22)",="(3.22)"
+
+="Allemagne # Various manuf",="7.758",="7.694"
+="",="(1.17)",="(1.15)"
+
+="Angleterre # European foodstuff and beverage",="25.61*",="11.50"
+="",="(2.12)",="(0.95)"
+
+="Angleterre # Other",="43.66**",="29.45*"
+="",="(3.14)",="(2.12)"
+
+="Angleterre # Plantation foodstuff",="65.00***",="-72.81***"
+="",="(4.33)",="(-4.23)"
+
+="Angleterre # Raw mat fuel oils",="24.10",="10.000"
+="",="(1.80)",="(0.75)"
+
+="Angleterre # Textile manuf",="45.00**",="30.79*"
+="",="(3.19)",="(2.19)"
+
+="Angleterre # Various manuf",="33.25*",="19.09"
+="",="(2.57)",="(1.49)"
+
+="Espagne # European foodstuff and beverage",="35.27***",="22.51*"
+="",="(3.36)",="(2.23)"
+
+="Espagne # Other",="56.34***",="43.47***"
+="",="(4.67)",="(3.72)"
+
+="Espagne # Plantation foodstuff",="75.16***",="-61.32***"
+="",="(5.36)",="(-3.78)"
+
+="Espagne # Raw mat fuel oils",="34.61**",="21.85"
+="",="(2.85)",="(1.86)"
+
+="Espagne # Textile manuf",="58.45***",="45.59***"
+="",="(4.84)",="(3.92)"
+
+="Espagne # Various manuf",="43.78***",="30.96**"
+="",="(3.77)",="(2.78)"
+
+="Flandre et autres états de l'Empereur # European foodstuff and beverage",="92.57***",="80.16***"
+="",="(8.13)",="(7.06)"
+
+="Flandre et autres états de l'Empereur # Other",="114.0***",="101.5***"
+="",="(9.47)",="(8.53)"
+
+="Flandre et autres états de l'Empereur # Plantation foodstuff",="135.1***",="-1.169"
+="",="(9.66)",="(-0.07)"
+
+="Flandre et autres états de l'Empereur # Raw mat fuel oils",="94.32***",="81.92***"
+="",="(7.62)",="(6.68)"
+
+="Flandre et autres états de l'Empereur # Textile manuf",="115.5***",="103.0***"
+="",="(9.38)",="(8.47)"
+
+="Flandre et autres états de l'Empereur # Various manuf",="101.4***",="88.90***"
+="",="(8.47)",="(7.55)"
+
+="Hollande # European foodstuff and beverage",="77.12***",="54.23***"
+="",="(7.10)",="(5.06)"
+
+="Hollande # Other",="95.55***",="72.56***"
+="",="(7.30)",="(5.60)"
+
+="Hollande # Plantation foodstuff",="118.3***",="-27.61"
+="",="(8.44)",="(-1.70)"
+
+="Hollande # Raw mat fuel oils",="76.89***",="54.01***"
+="",="(6.22)",="(4.43)"
+
+="Hollande # Textile manuf",="96.83***",="73.83***"
+="",="(7.30)",="(5.63)"
+
+="Hollande # Various manuf",="84.46***",="61.51***"
+="",="(7.10)",="(5.30)"
+
+="Italie # European foodstuff and beverage",="41.68***",="23.35*"
+="",="(4.27)",="(2.46)"
+
+="Italie # Other",="62.72***",="44.29***"
+="",="(5.46)",="(3.95)"
+
+="Italie # Plantation foodstuff",="83.27***",="-58.31***"
+="",="(6.27)",="(-3.70)"
+
+="Italie # Raw mat fuel oils",="41.20***",="22.88"
+="",="(3.45)",="(1.96)"
+
+="Italie # Textile manuf",="63.79***",="45.37***"
+="",="(5.44)",="(3.97)"
+
+="Italie # Various manuf",="50.55***",="32.16**"
+="",="(4.61)",="(3.04)"
+
+="Levant et Barbarie # European foodstuff and beverage",="60.15***",="48.69***"
+="",="(5.89)",="(5.15)"
+
+="Levant et Barbarie # Other",="82.01***",="70.44***"
+="",="(6.90)",="(6.28)"
+
+="Levant et Barbarie # Plantation foodstuff",="101.7***",="-33.69*"
+="",="(7.09)",="(-2.06)"
+
+="Levant et Barbarie # Raw mat fuel oils",="60.66***",="49.21***"
+="",="(5.07)",="(4.36)"
+
+="Levant et Barbarie # Textile manuf",="84.61***",="73.05***"
+="",="(6.99)",="(6.40)"
+
+="Levant et Barbarie # Various manuf",="70.49***",="58.96***"
+="",="(6.22)",="(5.60)"
+
+="Nord # European foodstuff and beverage",="19.13",="-8.498"
+="",="(1.70)",="(-0.76)"
+
+="Nord # Other",="37.78**",="10.04"
+="",="(2.85)",="(0.76)"
+
+="Nord # Plantation foodstuff",="61.73***",="-88.49***"
+="",="(4.36)",="(-5.40)"
+
+="Nord # Raw mat fuel oils",="17.64",="-9.985"
+="",="(1.37)",="(-0.78)"
+
+="Nord # Textile manuf",="37.75**",="10.01"
+="",="(2.72)",="(0.72)"
+
+="Nord # Various manuf",="26.82*",="-0.868"
+="",="(2.19)",="(-0.07)"
+
+="Outre-mers # European foodstuff and beverage",="79.93***",="73.14***"
+="",="(7.68)",="(6.87)"
+
+="Outre-mers # Other",="100.2***",="93.26***"
+="",="(8.35)",="(7.65)"
+
+="Outre-mers # Plantation foodstuff",="116.8***",="-13.95"
+="",="(8.84)",="(-0.87)"
+
+="Outre-mers # Raw mat fuel oils",="78.76***",="71.97***"
+="",="(6.56)",="(5.90)"
+
+="Outre-mers # Textile manuf",="100.8***",="93.94***"
+="",="(8.23)",="(7.56)"
+
+="Outre-mers # Various manuf",="87.58***",="80.72***"
+="",="(7.61)",="(6.95)"
+
+="Portugal # European foodstuff and beverage",="15.52",="7.990"
+="",="(1.37)",="(0.69)"
+
+="Portugal # Other",="39.04**",="31.41*"
+="",="(3.15)",="(2.51)"
+
+="Portugal # Plantation foodstuff",="55.55***",="-75.97***"
+="",="(4.00)",="(-4.67)"
+
+="Portugal # Raw mat fuel oils",="15.34",="7.816"
+="",="(1.22)",="(0.61)"
+
+="Portugal # Textile manuf",="39.97**",="32.34*"
+="",="(3.15)",="(2.53)"
+
+="Portugal # Various manuf",="27.16*",="19.57"
+="",="(2.24)",="(1.61)"
+
+="Suisse # European foodstuff and beverage",="-2.677",="-11.44"
+="",="(-0.22)",="(-0.96)"
+
+="Suisse # Other",="17.89",="9.022"
+="",="(1.36)",="(0.70)"
+
+="Suisse # Plantation foodstuff",="37.39*",="-95.34***"
+="",="(2.45)",="(-5.49)"
+
+="Suisse # Raw mat fuel oils",="-1.371",="-10.13"
+="",="(-0.10)",="(-0.77)"
+
+="Suisse # Textile manuf",="19.12",="10.26"
+="",="(1.41)",="(0.78)"
+
+="Suisse # Various manuf",="5.821",="-3.004"
+="",="(0.45)",="(-0.24)"
+
+="États-Unis d'Amérique # European foodstuff and beverage",="-303.8***",="-322.6***"
+="",="(-29.65)",="(-31.94)"
+
+="États-Unis d'Amérique # Other",="-282.4***",="-301.3***"
+="",="(-23.65)",="(-25.53)"
+
+="États-Unis d'Amérique # Plantation foodstuff",="-263.0***",="-404.7***"
+="",="(-19.40)",="(-25.03)"
+
+="États-Unis d'Amérique # Raw mat fuel oils",="-303.9***",="-322.7***"
+="",="(-25.54)",="(-27.47)"
+
+="États-Unis d'Amérique # Textile manuf",="-282.3***",="-301.2***"
+="",="(-23.39)",="(-25.35)"
+
+="États-Unis d'Amérique # Various manuf",="-295.5***",="-314.3***"
+="",="(-26.00)",="(-28.33)"
+
+="Allemagne # year",="0.0535***",="0.0457***"
+="",="(9.86)",="(8.37)"
+
+="Angleterre # year",="0.0392***",="0.0395***"
+="",="(7.16)",="(7.18)"
+
+="Espagne # year",="0.0336***",="0.0330***"
+="",="(7.50)",="(7.77)"
+
+="Flandre et autres états de l'Empereur # year",="-0.000290",="-0.00104"
+="",="(-0.06)",="(-0.20)"
+
+="Hollande # year",="0.0107*",="0.0159***"
+="",="(2.34)",="(3.57)"
+
+="Italie # year",="0.0299***",="0.0325***"
+="",="(7.79)",="(8.90)"
+
+="Levant et Barbarie # year",="0.0179***",="0.0166***"
+="",="(4.34)",="(4.59)"
+
+="Nord # year",="0.0426***",="0.0505***"
+="",="(8.79)",="(10.40)"
+
+="Outre-mers # year",="0.00869",="0.00475"
+="",="(1.94)",="(1.02)"
+
+="Portugal # year",="0.0425***",="0.0390***"
+="",="(8.29)",="(7.40)"
+
+="Suisse # year",="0.0544***",="0.0515***"
+="",="(9.80)",="(9.48)"
+
+="États-Unis d'Amérique # year",="0.219***",="0.222***"
+="",="(51.27)",="(52.74)"
+
+="European foodstuff and beverage # year",="0.00477",="0.00474"
+="",="(1.30)",="(1.29)"
+
+="Other # year",="-0.00758*",="-0.00756*"
+="",="(-2.10)",="(-2.10)"
+
+="Plantation foodstuff # year",="-0.0192***",="0.0517***"
+="",="(-3.68)",="(7.13)"
+
+="Raw mat fuel oils # year",="0.00406",="0.00402"
+="",="(1.09)",="(1.08)"
+
+="Textile manuf # year",="-0.00721",="-0.00719"
+="",="(-1.87)",="(-1.87)"
+
+="Various manuf # year",="0",="0"
+="",="(.)",="(.)"
+
+="0",="0",="0"
+="",="(.)",="(.)"
+
+="Adversary European foodstuff and beverage",="-1.167**",="-1.146**"
+="",="(-2.82)",="(-2.76)"
+
+="Adversary Other",="-0.392",="-0.371"
+="",="(-1.37)",="(-1.30)"
+
+="Adversary Plantation foodstuff",="-1.240**",="-1.009*"
+="",="(-2.71)",="(-2.09)"
+
+="Adversary Raw mat fuel oils",="-1.287***",="-1.266***"
+="",="(-3.61)",="(-3.54)"
+
+="Adversary Textile manuf",="-0.600",="-0.578"
+="",="(-1.90)",="(-1.84)"
+
+="Adversary Various manuf",="-1.490***",="-1.469***"
+="",="(-4.55)",="(-4.48)"
+
+="Allied European foodstuff and beverage",="-0.120",="-0.123"
+="",="(-0.78)",="(-0.80)"
+
+="Allied Other",="0.148",="0.146"
+="",="(0.94)",="(0.94)"
+
+="Allied Plantation foodstuff",="0.0588",="0.141"
+="",="(0.18)",="(0.39)"
+
+="Allied Raw mat fuel oils",="0.0473",="0.0444"
+="",="(0.27)",="(0.25)"
+
+="Allied Textile manuf",="0.223",="0.221"
+="",="(1.30)",="(1.30)"
+
+="Allied Various manuf",="0.441*",="0.440*"
+="",="(2.12)",="(2.12)"
+
+="Neutral European foodstuff and beverage",="0.896***",="0.862***"
+="",="(3.72)",="(3.57)"
+
+="Neutral Other",="0.00926",="-0.0209"
+="",="(0.03)",="(-0.08)"
+
+="Neutral Plantation foodstuff",="-0.472",="-0.535"
+="",="(-1.21)",="(-1.41)"
+
+="Neutral Raw mat fuel oils",="0.590*",="0.557*"
+="",="(2.17)",="(2.05)"
+
+="Neutral Textile manuf",="0.681*",="0.651*"
+="",="(2.27)",="(2.18)"
+
+="Neutral Various manuf",="0.434",="0.401"
+="",="(1.94)",="(1.78)"
+
+="Allemagne # break=1",="",="257.8***"
+="",="",="(5.92)"
+
+="Angleterre # break=1",="",="252.4***"
+="",="",="(5.78)"
+
+="Espagne # break=1",="",="254.0***"
+="",="",="(5.83)"
+
+="Flandre et autres états de l'Empereur # break=1",="",="253.6***"
+="",="",="(5.81)"
+
+="Hollande # break=1",="",="250.9***"
+="",="",="(5.76)"
+
+="Italie # break=1",="",="252.4***"
+="",="",="(5.78)"
+
+="Levant et Barbarie # break=1",="",="254.5***"
+="",="",="(5.84)"
+
+="Nord # break=1",="",="249.7***"
+="",="",="(5.74)"
+
+="Outre-mers # break=1",="",="255.3***"
+="",="",="(5.85)"
+
+="Portugal # break=1",="",="255.2***"
+="",="",="(5.85)"
+
+="Suisse # break=1",="",="255.1***"
+="",="",="(5.84)"
+
+="États-Unis d'Amérique # break=1",="",="251.7***"
+="",="",="(5.80)"
+
+="break=1 # year",="",="-0.144***"
+="",="",="(-5.95)"
+
+="Constant",="-100.5***",="-86.72***"
+="",="(-11.71)",="(-10.24)"
+
+="Observations",="6033",="6033"
+
+="t statistics in parentheses"
+="* p<0.05, ** p<0.01, *** p<0.001"

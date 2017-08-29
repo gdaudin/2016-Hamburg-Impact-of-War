@@ -402,12 +402,12 @@ eststo `inourout'_allsitc2: reg lnvalue i.pays#i.sitc c.year#i.pays ///
 
 esttab `inourout'_eachsitc1 `inourout'_eachsitc2 ///
 	`inourout'_eachsitc3 using ///
-	"$thesis/Data/do_files/Hamburg/Tables/allcountry2_each_sitc_`inourout.csv", ///
+	"$thesis/Data/do_files/Hamburg/Tables/allcountry2_each_sitc_`inourout'.csv", ///
 	label replace mtitles("SITC#each_war no breaks" ///
 	"SITC#each_war 1795 break" "each_war no breaks")
 	
 esttab `inourout'_allsitc1 `inourout'_allsitc2 using ///
-	"$thesis/Data/do_files/Hamburg/Tables/allcountry2_all_sitc_`inourout.csv", ///
+	"$thesis/Data/do_files/Hamburg/Tables/allcountry2_all_sitc_`inourout'.csv", ///
 	label replace mtitles("SITC#all_war no breaks" ///
 	"SITC#all_war 1795 break" )
 

@@ -127,7 +127,7 @@ drop _merge
 replace value = pred_value if pred_value!=.
 drop pred_value*
 
-save "$hamburg/database_dta/allcountry2_new", replace
+save "$hamburg/database_dta/allcountry2_sitc", replace
 restore
 
 
