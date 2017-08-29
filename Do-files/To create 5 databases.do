@@ -35,12 +35,11 @@ use "$hamburg/database_dta/elisa_bdd_courante", replace
 */
 
 
-collapse (sum) value, by(year sourcetype pays_grouping sitc18_en ///
-	classification_hamburg_large exportsimports)
 
 /*------------------------------------------------------------------------------
 				save db with no product differentiation
 ------------------------------------------------------------------------------*/
+
 
 preserve
 ***drop double counting 
@@ -61,9 +60,84 @@ drop pays_grouping
 save "$hamburg/database_dta/hamburg1", replace
 restore
 
+
 /*------------------------------------------------------------------------------
 					save db with classification hamburg
 ------------------------------------------------------------------------------*/
+
+collapse (sum) value, by(sourcetype year direction pays_grouping ///
+		classification_hamburg_large exportsimports)
+
+****drop pays if there are too few obs
+bys pays_grouping direction: drop if _N<=2
+ 
+*****drop direction that appear only once
+bys exportsimports direction: drop if _N==1
+
+*Drop direction if 6 years or less
+
+levelsof direction, local(liste_de_direction)
+foreach dir of local liste_de_direction {
+	tab year if direction=="`dir'"
+	if r(r)<=7 drop if direction=="`dir'"
+}
+
+*Drop year if only one direction
+levelsof year, local(liste_of_year)
+foreach yr of local liste_of_year {
+	quietly tab direction if year==`yr' & direction !="total"
+	if r(r)<=1 & r(r)!=. drop if year==`yr' & direction !="total"
+}
+
+su value if value!=0
+local min_value=r(min)
+
+preserve
+keep if sourcetype!="National par direction (-)"
+fillin exportsimport year pays_grouping direction classification_hamburg_large
+bysort year direction exportsimports: egen test_year=total(value), missing
+drop if value==0 & test_year==.
+drop test_year
+save blif.dta, replace
+restore
+
+
+keep if sourcetype=="National par direction (-)"
+fillin exportsimport year pays_grouping direction classification_hamburg_large
+bysort year pays exportsimports: egen test_year=total(value), missing
+drop if value==0 & test_year==.
+drop test_year
+
+append using blif.dta
+erase blif.dta
+
+
+***drop double counting 
+drop if sourcetype=="Colonies" | sourcetype=="Divers" ///
+	| sourcetype=="Divers - in" | sourcetype=="National par direction" ///
+	| sourcetype=="Tableau Général" | sourcetype=="Tableau des quantités"
+
+foreach i of num 1716/1751{
+drop if sourcetype!="Local" & year==`i'
+}
+drop if sourcetype!="Objet Général" & year==1752
+drop if sourcetype!="Local" & year==1753
+foreach i of num 1754/1761{
+drop if sourcetype!="Objet Général" & year==`i'
+}
+foreach i of num 1762/1766{
+drop if sourcetype!="Local" & year==`i'
+}
+foreach i of num 1767/1780{
+drop if sourcetype!="Objet Général" & year==`i'
+}
+
+foreach i in 1782 1787 1788{
+drop if sourcetype!="Objet Général" & year==`i'
+}
+foreach i of num 1789/1821{
+drop if sourcetype!="Résumé" & year==`i'
+}
 
 ***drop double counting 
 drop if sourcetype=="Colonies" | sourcetype=="Divers" ///
@@ -93,7 +167,7 @@ drop if sourcetype!="Résumé" & year==`i'
 }
 
 
-preserve
+
 collapse (sum) value, by(year pays_grouping ///
 classification_hamburg_large exportsimports)
 
@@ -110,12 +184,113 @@ save "$hamburg/database_dta/allcountry2", replace
 keep if pays_grouping=="Nord" 
 drop pays_grouping 
 save "$hamburg/database_dta/hamburg2", replace
-restore
+
 /*------------------------------------------------------------------------------
 				save db with sict classification
 ------------------------------------------------------------------------------*/
+use "$hamburg/database_dta/elisa_bdd_courante", replace
+
+collapse (sum) value, by(sourcetype year direction pays_grouping ///
+		sitc18_en exportsimports)
+
+****drop pays if there are too few obs
+bys pays_grouping direction: drop if _N<=2
+ 
+*****drop direction that appear only once
+bys exportsimports direction: drop if _N==1
+
+*Drop direction if 6 years or less
+
+levelsof direction, local(liste_de_direction)
+foreach dir of local liste_de_direction {
+	tab year if direction=="`dir'"
+	if r(r)<=7 drop if direction=="`dir'"
+}
+
+*Drop year if only one direction
+levelsof year, local(liste_of_year)
+foreach yr of local liste_of_year {
+	quietly tab direction if year==`yr' & direction !="total"
+	if r(r)<=1 & r(r)!=. drop if year==`yr' & direction !="total"
+}
+
+su value if value!=0
+local min_value=r(min)
 
 preserve
+keep if sourcetype!="National par direction (-)"
+fillin exportsimport year pays_grouping direction sitc18_en
+bysort year direction exportsimports: egen test_year=total(value), missing
+drop if value==0 & test_year==.
+drop test_year
+save blif.dta, replace
+restore
+
+
+keep if sourcetype=="National par direction (-)"
+fillin exportsimport year pays_grouping direction sitc18_en
+bysort year pays exportsimports: egen test_year=total(value), missing
+drop if value==0 & test_year==.
+drop test_year
+
+append using blif.dta
+erase blif.dta
+
+***drop double counting 
+drop if sourcetype=="Colonies" | sourcetype=="Divers" ///
+	| sourcetype=="Divers - in" | sourcetype=="National par direction" ///
+	| sourcetype=="Tableau Général" | sourcetype=="Tableau des quantités"
+
+foreach i of num 1716/1751{
+drop if sourcetype!="Local" & year==`i'
+}
+drop if sourcetype!="Objet Général" & year==1752
+drop if sourcetype!="Local" & year==1753
+foreach i of num 1754/1761{
+drop if sourcetype!="Objet Général" & year==`i'
+}
+foreach i of num 1762/1766{
+drop if sourcetype!="Local" & year==`i'
+}
+foreach i of num 1767/1780{
+drop if sourcetype!="Objet Général" & year==`i'
+}
+
+foreach i in 1782 1787 1788{
+drop if sourcetype!="Objet Général" & year==`i'
+}
+foreach i of num 1789/1821{
+drop if sourcetype!="Résumé" & year==`i'
+}
+
+***drop double counting 
+drop if sourcetype=="Colonies" | sourcetype=="Divers" ///
+	| sourcetype=="Divers - in" | sourcetype=="National par direction" ///
+	| sourcetype=="Tableau Général" | sourcetype=="Tableau des quantités"
+
+foreach i of num 1716/1751{
+drop if sourcetype!="Local" & year==`i'
+}
+drop if sourcetype!="Objet Général" & year==1752
+drop if sourcetype!="Local" & year==1753
+foreach i of num 1754/1761{
+drop if sourcetype!="Objet Général" & year==`i'
+}
+foreach i of num 1762/1766{
+drop if sourcetype!="Local" & year==`i'
+}
+foreach i of num 1767/1780{
+drop if sourcetype!="Objet Général" & year==`i'
+}
+
+foreach i in 1782 1787 1788{
+drop if sourcetype!="Objet Général" & year==`i'
+}
+foreach i of num 1789/1821{
+drop if sourcetype!="Résumé" & year==`i'
+}
+
+
 collapse (sum) value, by(year pays_grouping ///
 sitc18_en exportsimports)
 
@@ -128,6 +303,6 @@ replace value = pred_value if pred_value!=.
 drop pred_value*
 
 save "$hamburg/database_dta/allcountry2_sitc", replace
-restore
+
 
 
