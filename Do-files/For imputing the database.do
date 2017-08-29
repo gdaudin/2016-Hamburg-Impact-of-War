@@ -335,15 +335,16 @@ foreach i of num 1/5{
 			replace value_pred=. if test_dir==.
 			drop test_dir
 			
-			
+			*Passage de log en normal
 			replace value_pred = exp(value_pred)
 			
 			
-		
+			*Restreint aux observations d'intérêt
 			replace pred_value_`ciao'=value_pred if class==`i' & pays==`j' ///
 			& direction=="total" & exportsimports=="`ciao'"
 			*drop value2* value_test value3 test*
 			
+			*Graphique pour vérifier
 			twoway (scatter pred_value_`ciao' value) 
 
  			sort year
