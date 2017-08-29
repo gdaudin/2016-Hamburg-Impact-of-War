@@ -204,6 +204,9 @@ drop if year>1753 & year<1762
 drop if year>1767 & year<1783
 drop if year>1786
 
+su pred_value
+replace pred_value=0 if pred_value==r(min)
+
 collapse (sum) pred_value, by(year exportsimports pays_grouping sitc18_en)
 
 save "$hamburg/database_dta/sector_estimation", replace

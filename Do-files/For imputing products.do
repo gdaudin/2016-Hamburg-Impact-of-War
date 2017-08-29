@@ -64,6 +64,7 @@ foreach yr of local liste_of_year {
 
 su value if value!=0
 local min_value=r(min)
+gen value_for_log=value
 
 *codebook value if pays_grouping=="Afrique" & exportsimports=="Imports" & classification_hamburg_large=="Coffee"
 
@@ -71,7 +72,8 @@ preserve
 keep if sourcetype!="National par direction (-)"
 fillin exportsimport year pays_grouping direction classification_hamburg_large
 bysort year direction exportsimports: egen test_year=total(value), missing
-replace value=`min_value'/100 if test_year!=. & value==. 
+replace value_for_log=`min_value'/100 if test_year!=. & value==. 
+replace value=. if value==0 & test_year==.
 drop test_year
 save blif.dta, replace
 restore
@@ -80,7 +82,8 @@ restore
 keep if sourcetype=="National par direction (-)"
 fillin exportsimport year pays_grouping direction classification_hamburg_large
 bysort year pays exportsimports: egen test_year=total(value), missing
-replace value=`min_value'/100 if test_year!=. & value==. 
+replace value_for_log=`min_value'/100 if test_year!=. & value==. 
+replace value=. if value==0 & test_year==.
 drop test_year
 
 append using blif.dta
@@ -97,7 +100,7 @@ replace value =. if pays_grouping=="États-Unis d'Amérique" & year <=1778
 save fortest.dta, replace
 
 
-gen lnvalue=ln(value)
+gen lnvalue=ln(value_for_log)
 *codebook lnvalue
 
 
@@ -235,6 +238,9 @@ drop if year==1752 |year==1754
 drop if year>1753 & year<1762
 drop if year>1767 & year<1783
 drop if year>1786
+
+su pred_value
+replace pred_value=0 if pred_value==r(min)
 
 collapse (sum) pred_value, by(year exportsimports pays_grouping classification_hamburg_large)
 
