@@ -380,23 +380,23 @@ levelsof exportsimports, local(exportsimports)
 foreach inourout in `exportsimports'{
 
 ****groups of wars interacted with sitc and with groups
-eststo `inourout'_eachsitc1: reg lnvalue i.pays#i.sitc c.year#i.pays ///
+eststo `inourout'_eachsitc1: poisson value i.pays#i.sitc c.year#i.pays ///
 	c.year#i.sitc i.each_status_sitc ///
-	if exportsimports=="`inourout'", vce(robust) 
-eststo `inourout'_eachsitc2: reg lnvalue i.pays#i.sitc c.year#i.pays ///
+	if exportsimports=="`inourout'", vce(robust) iterate(40)
+eststo `inourout'_eachsitc2: poisson value i.pays#i.sitc c.year#i.pays ///
 	c.year#i.sitc i.each_status_sitc i.pays#1.break c.year#1.break ///
-	if exportsimports=="`inourout'", vce(robust) 	
-eststo `inourout'_eachsitc3: reg lnvalue i.pays#i.sitc c.year#i.pays ///
+	if exportsimports=="`inourout'", vce(robust) iterate(40)	
+eststo `inourout'_eachsitc3: poisson value i.pays#i.sitc c.year#i.pays ///
 	c.year#i.sitc i.each_status i.pays#1.break c.year#1.break if ///
-	exportsimports=="`inourout'", vce(robust) 
+	exportsimports=="`inourout'", vce(robust) iterate(40)
 	
 ****wars interacted with groups only
-eststo `inourout'_allsitc1: reg lnvalue i.pays#i.sitc c.year#i.pays ///
+eststo `inourout'_allsitc1: poisson value i.pays#i.sitc c.year#i.pays ///
 	c.year#i.sitc i.all_status_sitc ///
-	if exportsimports=="`inourout'", vce(robust) 
-eststo `inourout'_allsitc2: reg lnvalue i.pays#i.sitc c.year#i.pays ///
+	if exportsimports=="`inourout'", vce(robust) iterate(40)
+eststo `inourout'_allsitc2: poisson value i.pays#i.sitc c.year#i.pays ///
 	c.year#i.sitc i.all_status_sitc i.pays#1.break c.year#1.break if ///
-	exportsimports=="`inourout'", vce(robust) 
+	exportsimports=="`inourout'", vce(robust) iterate(40)
 
 
 
