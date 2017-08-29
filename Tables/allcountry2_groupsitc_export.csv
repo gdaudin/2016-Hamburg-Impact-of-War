@@ -11,7 +11,7 @@
 ="Afrique # Plantation foodstuff",="0",="0",="0",="0"
 ="",="(.)",="(.)",="(.)",="(.)"
 
-="Afrique # Raw mat; fuel; oils",="50.33*",="53.73*",="35.12",="38.65"
+="Afrique # Raw mat fuel oils",="50.33*",="53.73*",="35.12",="38.65"
 ="",="(2.28)",="(2.43)",="(1.56)",="(1.79)"
 
 ="Afrique # Textile manuf",="60.18**",="63.57**",="59.18*",="62.41**"
@@ -29,7 +29,7 @@
 ="Allemagne et Pologne (par terre) # Plantation foodstuff",="10.58",="-17.46",="-14.88",="-27.00"
 ="",="(0.45)",="(-0.71)",="(-0.63)",="(-1.11)"
 
-="Allemagne et Pologne (par terre) # Raw mat; fuel; oils",="16.99",="29.38",="7.915",="22.18"
+="Allemagne et Pologne (par terre) # Raw mat fuel oils",="16.99",="29.38",="7.915",="22.18"
 ="",="(0.77)",="(1.32)",="(0.35)",="(1.01)"
 
 ="Allemagne et Pologne (par terre) # Textile manuf",="33.39",="45.78*",="38.65",="52.62*"
@@ -47,7 +47,7 @@
 ="Angleterre # Plantation foodstuff",="40.25",="11.91",="11.74",="-4.022"
 ="",="(1.75)",="(0.50)",="(0.50)",="(-0.17)"
 
-="Angleterre # Raw mat; fuel; oils",="44.81*",="56.54**",="32.90",="42.66*"
+="Angleterre # Raw mat fuel oils",="44.81*",="56.54**",="32.90",="42.66*"
 ="",="(2.07)",="(2.61)",="(1.47)",="(1.98)"
 
 ="Angleterre # Textile manuf",="57.84*",="69.58**",="60.19**",="69.65**"
@@ -65,7 +65,7 @@
 ="Colonies françaises # Plantation foodstuff",="67.36**",="24.39",="40.93",="10.46"
 ="",="(2.86)",="(1.02)",="(1.70)",="(0.44)"
 
-="Colonies françaises # Raw mat; fuel; oils",="66.61**",="62.39**",="56.66*",="50.62*"
+="Colonies françaises # Raw mat fuel oils",="66.61**",="62.39**",="56.66*",="50.62*"
 ="",="(2.99)",="(2.82)",="(2.47)",="(2.31)"
 
 ="Colonies françaises # Textile manuf",="76.49**",="72.25**",="80.73***",="74.38**"
@@ -83,7 +83,7 @@
 ="Espagne # Plantation foodstuff",="35.97",="5.327",="8.566",="-8.182"
 ="",="(1.55)",="(0.22)",="(0.36)",="(-0.34)"
 
-="Espagne # Raw mat; fuel; oils",="41.93",="50.91*",="31.07",="39.64"
+="Espagne # Raw mat fuel oils",="41.93",="50.91*",="31.07",="39.64"
 ="",="(1.92)",="(2.34)",="(1.38)",="(1.84)"
 
 ="Espagne # Textile manuf",="53.69*",="62.67**",="57.03*",="65.32**"
@@ -101,7 +101,7 @@
 ="Flandre et autres états de l'Empereur # Plantation foodstuff",="139.5***",="98.11***",="111.9***",="84.99**"
 ="",="(5.52)",="(3.77)",="(4.33)",="(3.24)"
 
-="Flandre et autres états de l'Empereur # Raw mat; fuel; oils",="143.5***",="141.0***",="132.5***",="130.2***"
+="Flandre et autres états de l'Empereur # Raw mat fuel oils",="143.5***",="141.0***",="132.5***",="130.2***"
 ="",="(5.94)",="(5.87)",="(5.31)",="(5.41)"
 
 ="Flandre et autres états de l'Empereur # Textile manuf",="159.6***",="157.1***",="162.8***",="160.2***"
@@ -119,7 +119,7 @@
 ="Hollande # Plantation foodstuff",="55.75*",="15.89",="27.63",="1.779"
 ="",="(2.44)",="(0.67)",="(1.18)",="(0.08)"
 
-="Hollande # Raw mat; fuel; oils",="57.74**",="56.80**",="46.21*",="44.92*"
+="Hollande # Raw mat fuel oils",="57.74**",="56.80**",="46.21*",="44.92*"
 ="",="(2.67)",="(2.64)",="(2.06)",="(2.11)"
 
 ="Hollande # Textile manuf",="72.59**",="71.64**",="75.12**",="73.54***"
@@ -137,7 +137,7 @@
 ="Italie # Plantation foodstuff",="25.18",="-10.31",="-4.884",="-26.25"
 ="",="(1.06)",="(-0.42)",="(-0.20)",="(-1.07)"
 
-="Italie # Raw mat; fuel; oils",="32.40",="36.29",="19.09",="22.73"
+="Italie # Raw mat fuel oils",="32.40",="36.29",="19.09",="22.73"
 ="",="(1.47)",="(1.67)",="(0.84)",="(1.05)"
 
 ="Italie # Textile manuf",="46.41*",="50.30*",="46.98*",="50.33*"
@@ -155,7 +155,7 @@
 ="Levant et Barbarie # Plantation foodstuff",="103.8***",="59.85*",="76.27**",="46.89"
 ="",="(4.49)",="(2.48)",="(3.25)",="(1.95)"
 
-="Levant et Barbarie # Raw mat; fuel; oils",="109.7***",="104.4***",="98.70***",="93.60***"
+="Levant et Barbarie # Raw mat fuel oils",="109.7***",="104.4***",="98.70***",="93.60***"
 ="",="(4.98)",="(4.72)",="(4.36)",="(4.29)"
 
 ="Levant et Barbarie # Textile manuf",="123.3***",="118.0***",="126.5***",="121.1***"
@@ -173,7 +173,7 @@
 ="Nord # Plantation foodstuff",="35.35",="0.704",="4.163",="-12.63"
 ="",="(1.55)",="(0.03)",="(0.18)",="(-0.53)"
 
-="Nord # Raw mat; fuel; oils",="41.27",="46.02*",="26.38",="35.01"
+="Nord # Raw mat fuel oils",="41.27",="46.02*",="26.38",="35.01"
 ="",="(1.92)",="(2.13)",="(1.18)",="(1.63)"
 
 ="Nord # Textile manuf",="55.22*",="59.97**",="54.47*",="62.81**"
@@ -191,7 +191,7 @@
 ="Portugal # Plantation foodstuff",="27.43",="-7.558",="-4.035",="-25.76"
 ="",="(1.17)",="(-0.31)",="(-0.17)",="(-1.05)"
 
-="Portugal # Raw mat; fuel; oils",="30.89",="35.36",="16.16",="19.41"
+="Portugal # Raw mat fuel oils",="30.89",="35.36",="16.16",="19.41"
 ="",="(1.40)",="(1.59)",="(0.70)",="(0.88)"
 
 ="Portugal # Textile manuf",="43.21",="47.68*",="42.55",="45.51"
@@ -209,7 +209,7 @@
 ="Suisse # Plantation foodstuff",="28.74",="1.257",="6.546",="-6.520"
 ="",="(1.21)",="(0.05)",="(0.27)",="(-0.27)"
 
-="Suisse # Raw mat; fuel; oils",="35.60",="48.81*",="29.95",="43.22*"
+="Suisse # Raw mat fuel oils",="35.60",="48.81*",="29.95",="43.22*"
 ="",="(1.58)",="(2.19)",="(1.29)",="(1.96)"
 
 ="Suisse # Textile manuf",="52.71*",="65.90**",="60.94*",="73.92**"
@@ -227,7 +227,7 @@
 ="États-Unis d'Amérique # Plantation foodstuff",="-1.060",="-42.71***",="-23.79**",="-52.06***"
 ="",="(-0.12)",="(-3.71)",="(-3.21)",="(-4.76)"
 
-="États-Unis d'Amérique # Raw mat; fuel; oils",="2.184",="2.160",="-4.890",="-4.845"
+="États-Unis d'Amérique # Raw mat fuel oils",="2.184",="2.160",="-4.890",="-4.845"
 ="",="(0.42)",="(0.42)",="(-1.09)",="(-1.08)"
 
 ="États-Unis d'Amérique # Textile manuf",="16.93*",="16.89*",="24.22***",="23.96***"
@@ -284,7 +284,7 @@
 ="Plantation foodstuff # year",="-0.000176",="0.0223***",="0.0133**",="0.0276***"
 ="",="(-0.04)",="(3.47)",="(3.25)",="(4.52)"
 
-="Raw mat; fuel; oils # year",="-0.000877",="-0.000864",="0.00321",="0.00318"
+="Raw mat fuel oils # year",="-0.000877",="-0.000864",="0.00321",="0.00318"
 ="",="(-0.31)",="(-0.30)",="(1.31)",="(1.30)"
 
 ="Textile manuf # year",="-0.0101*",="-0.0100*",="-0.0140***",="-0.0138***"
@@ -305,7 +305,7 @@
 ="Land_war adversary Plantation foodstuff",="0.674**",="0.760*",="",=""
 ="",="(3.25)",="(2.54)",="",=""
 
-="Land_war adversary Raw mat; fuel; oils",="-0.575",="-0.557",="",=""
+="Land_war adversary Raw mat fuel oils",="-0.575",="-0.557",="",=""
 ="",="(-1.15)",="(-1.14)",="",=""
 
 ="Land_war adversary Textile manuf",="0.880*",="0.859*",="",=""
@@ -323,7 +323,7 @@
 ="Land_war allied Plantation foodstuff",="0.504",="0.511",="",=""
 ="",="(1.15)",="(1.19)",="",=""
 
-="Land_war allied Raw mat; fuel; oils",="-0.109",="-0.0611",="",=""
+="Land_war allied Raw mat fuel oils",="-0.109",="-0.0611",="",=""
 ="",="(-0.46)",="(-0.27)",="",=""
 
 ="Land_war allied Textile manuf",="0.645",="0.688",="",=""
@@ -341,7 +341,7 @@
 ="Land_war neutral Plantation foodstuff",="-1.127",="-0.812",="",=""
 ="",="(-1.82)",="(-1.34)",="",=""
 
-="Land_war neutral Raw mat; fuel; oils",="-0.0578",="-0.0757",="",=""
+="Land_war neutral Raw mat fuel oils",="-0.0578",="-0.0757",="",=""
 ="",="(-0.33)",="(-0.44)",="",=""
 
 ="Land_war neutral Textile manuf",="0.0440",="0.0252",="",=""
@@ -359,7 +359,7 @@
 ="Mercantilist_war adversary Plantation foodstuff",="0.135",="0.310",="",=""
 ="",="(0.34)",="(0.76)",="",=""
 
-="Mercantilist_war adversary Raw mat; fuel; oils",="-1.314***",="-1.306***",="",=""
+="Mercantilist_war adversary Raw mat fuel oils",="-1.314***",="-1.306***",="",=""
 ="",="(-6.33)",="(-6.27)",="",=""
 
 ="Mercantilist_war adversary Textile manuf",="-0.949",="-0.937",="",=""
@@ -377,7 +377,7 @@
 ="Mercantilist_war allied Plantation foodstuff",="0.211",="-0.137",="",=""
 ="",="(0.86)",="(-0.57)",="",=""
 
-="Mercantilist_war allied Raw mat; fuel; oils",="-0.569***",="-0.561***",="",=""
+="Mercantilist_war allied Raw mat fuel oils",="-0.569***",="-0.561***",="",=""
 ="",="(-3.61)",="(-3.60)",="",=""
 
 ="Mercantilist_war allied Textile manuf",="1.213***",="1.204***",="",=""
@@ -395,7 +395,7 @@
 ="Mercantilist_war neutral Plantation foodstuff",="1.210***",="1.130***",="",=""
 ="",="(4.84)",="(4.69)",="",=""
 
-="Mercantilist_war neutral Raw mat; fuel; oils",="0.296*",="0.276*",="",=""
+="Mercantilist_war neutral Raw mat fuel oils",="0.296*",="0.276*",="",=""
 ="",="(2.14)",="(1.99)",="",=""
 
 ="Mercantilist_war neutral Textile manuf",="0.452",="0.428",="",=""
@@ -413,7 +413,7 @@
 ="R&N_war adversary Plantation foodstuff",="1.237***",="-0.348",="",=""
 ="",="(3.40)",="(-0.72)",="",=""
 
-="R&N_war adversary Raw mat; fuel; oils",="-0.243",="-0.170",="",=""
+="R&N_war adversary Raw mat fuel oils",="-0.243",="-0.170",="",=""
 ="",="(-1.01)",="(-0.71)",="",=""
 
 ="R&N_war adversary Textile manuf",="-1.446***",="-1.388***",="",=""
@@ -431,7 +431,7 @@
 ="R&N_war allied Plantation foodstuff",="1.303***",="0.0668",="",=""
 ="",="(3.79)",="(0.13)",="",=""
 
-="R&N_war allied Raw mat; fuel; oils",="-0.0628",="-0.0817",="",=""
+="R&N_war allied Raw mat fuel oils",="-0.0628",="-0.0817",="",=""
 ="",="(-0.39)",="(-0.50)",="",=""
 
 ="R&N_war allied Textile manuf",="-0.620",="-0.633",="",=""
@@ -449,7 +449,7 @@
 ="R&N_war neutral Plantation foodstuff",="3.428***",="1.554**",="",=""
 ="",="(8.14)",="(3.02)",="",=""
 
-="R&N_war neutral Raw mat; fuel; oils",="0.000860",="0.0252",="",=""
+="R&N_war neutral Raw mat fuel oils",="0.000860",="0.0252",="",=""
 ="",="(0.00)",="(0.08)",="",=""
 
 ="R&N_war neutral Textile manuf",="0.623",="0.651",="",=""
@@ -512,7 +512,7 @@
 ="Adversary Plantation foodstuff",="",="",="0.712**",="0.0176"
 ="",="",="",="(2.67)",="(0.07)"
 
-="Adversary Raw mat; fuel; oils",="",="",="-0.732***",="-0.694***"
+="Adversary Raw mat fuel oils",="",="",="-0.732***",="-0.694***"
 ="",="",="",="(-4.29)",="(-4.06)"
 
 ="Adversary Textile manuf",="",="",="-0.995***",="-0.964**"
@@ -530,7 +530,7 @@
 ="Allied Plantation foodstuff",="",="",="0.620**",="0.0267"
 ="",="",="",="(3.02)",="(0.13)"
 
-="Allied Raw mat; fuel; oils",="",="",="-0.262*",="-0.264*"
+="Allied Raw mat fuel oils",="",="",="-0.262*",="-0.264*"
 ="",="",="",="(-2.48)",="(-2.52)"
 
 ="Allied Textile manuf",="",="",="0.276",="0.269"
@@ -548,7 +548,7 @@
 ="Neutral Plantation foodstuff",="",="",="1.168***",="0.687**"
 ="",="",="",="(4.41)",="(2.78)"
 
-="Neutral Raw mat; fuel; oils",="",="",="0.117",="0.123"
+="Neutral Raw mat fuel oils",="",="",="0.117",="0.123"
 ="",="",="",="(0.97)",="(1.02)"
 
 ="Neutral Textile manuf",="",="",="0.429*",="0.434*"

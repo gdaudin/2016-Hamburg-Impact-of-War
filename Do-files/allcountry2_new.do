@@ -6,6 +6,8 @@ set more off
 
 use "$thesis/database_dta/allcountry2_new", clear
 
+replace sitc18_en="Raw mat fuel oils" if sitc18_en=="Raw mat; fuel; oils"
+
 encode pays_grouping, gen(pays)
 encode sitc18_en, gen(sitc)
 
@@ -642,9 +644,9 @@ replace all_status_sitc=0 if all_status_sitc==.   /* I do this to have peace
 /*	ALL	REGRESSIONS ARE FIRST RUN WITH NO BREAKS AND THEN WITH ONE BREAK	*/
 
 gen lnvalue=ln(value)
+replace exportsimports="Exports" if exportsimports=="Exportations"
 
 levelsof exportsimports, local(exportsimports) 
-local exportsimports Exports
 
 foreach inourout in `exportsimports'{
 
@@ -658,8 +660,7 @@ eststo `inourout'_eachsitc2: reg lnvalue i.pays#i.sitc c.year#i.pays ///
 eststo `inourout'_allsitc3: reg lnvalue i.pays#i.sitc c.year#i.pays ///
 	c.year#i.sitc i.each_status i.pays#1.break c.year#1.break if ///
 	exportsimports=="`inourout'", vce(robust) 
-
-ashdf	
+	
 ****wars interacted with groups only
 eststo `inourout'_allsitc1: reg lnvalue i.pays#i.sitc c.year#i.pays ///
 	c.year#i.sitc i.all_status_sitc ///
