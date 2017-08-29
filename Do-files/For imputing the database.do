@@ -240,6 +240,8 @@ duplicates drop year direction exportsimports pays_grouping classification_hambu
 
 replace sourcetype = "imputed" if _fillin==1 & value !=.
 
+replace value =. if pays_grouping=="États-Unis d'Amérique" & year <=1778
+
 save fortest.dta, replace
 
 
@@ -376,7 +378,7 @@ drop if year>1786
 collapse (sum) pred_value_Exports pred_value_Imports, by(year pays_grouping classification_hamburg_large exportsimports)
 save "$hamburg/database_dta/product_estimation", replace
 
-
+blif
 ********************************************************************************
 *************************ESTIMATE SECTORS BEFORE 1750**************************
 ********************************************************************************
