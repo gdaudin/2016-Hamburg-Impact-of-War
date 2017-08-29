@@ -306,8 +306,8 @@ levelsof pays, local(levels) 	/*levelsof is just in case we add more pays
 								not update this do_file, not important
 								`: word count `levels''*/
 
-foreach i of num 4/4{
-	foreach j of num 10/10 /*`: word count `levels''*/{
+foreach i of num 1/5{
+	foreach j of num 1/`: word count `levels''{
 		summarize lnvalue if class==`i' & pays==`j' & exportsimports=="`ciao'"
 		if r(N)>1{
 			reg lnvalue i.year i.dir [iw=weight] if ///
