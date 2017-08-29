@@ -232,8 +232,8 @@ replace value=`min_value'/100 if test_year!=. & value==.
 drop test_year
 
 append using blif.dta
-
 erase blif.dta
+
 
 duplicates drop year direction exportsimports pays_grouping classification_hamburg_large, force
 *keep year direction exportsimports pays_grouping classification_hamburg_large value
@@ -290,9 +290,15 @@ bysort year exportsimports pays class direction:replace value_for_obs=. if _n!=1
 replace value_for_obs = `min_value'/100 if value_for_obs<`min_value'
 
 
+*I introduce a max admissible predicted value, which is twice the max observed flow
+bys class exportsimports pays : egen max_admiss_pred = max(value)
+replace max_admiss_pred=max_admiss_pred*2
+
+gen pred_value=.
+
+
 sort year
 foreach ciao in `exportsimports'{
-gen pred_value_`ciao'=.
 
 
 levelsof pays, local(levels) 	/*levelsof is just in case we add more pays 
@@ -300,8 +306,8 @@ levelsof pays, local(levels) 	/*levelsof is just in case we add more pays
 								not update this do_file, not important
 								`: word count `levels''*/
 
-foreach i of num 1/5{
-	foreach j of num 1/`: word count `levels''{
+foreach i of num 4/4{
+	foreach j of num 10/10 /*`: word count `levels''*/{
 		summarize lnvalue if class==`i' & pays==`j' & exportsimports=="`ciao'"
 		if r(N)>1{
 			reg lnvalue i.year i.dir [iw=weight] if ///
@@ -338,25 +344,36 @@ foreach i of num 1/5{
 			*Passage de log en normal
 			replace value_pred = exp(value_pred)
 			
+			*J'introduit le max admissible value
+			replace value_pred = max_admiss_pred if value_pred >= max_admiss_pred
+			
 			
 			*Restreint aux observations d'intérêt
-			replace pred_value_`ciao'=value_pred if class==`i' & pays==`j' ///
-			& direction=="total" & exportsimports=="`ciao'"
+			replace pred_value=value_pred if class==`i' & pays==`j' ///
+				& direction=="total" & exportsimports=="`ciao'"
 			*drop value2* value_test value3 test*
+			drop value_pred*
 			
 			*Graphique pour vérifier
-			twoway (scatter pred_value_`ciao' value) 
-
- 			sort year
-			*have a look at imputed export data			
-			twoway (connected pred_value_`ciao' year, msize(tiny) legend(label(1 "Predicted"))) ///
+			twoway (scatter pred_value value) 
+			
+			
+			
+			
+			
+ 			
+			*have a look at imputed export data
+			sort year
+			twoway (connected pred_value year, msize(tiny) legend(label(1 "Predicted"))) ///
 					(connected value_for_obs year, msize(tiny) legend(label(2 "Observed"))) ///
 					if pays==`j' & class==`i' & exportsimports=="`ciao'" & direction=="total", title(`ciao') ///
 					subtitle("`: label (pays) `j'', `: label (class) `i''") ///
 					plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 					caption("Values in tons of silver") 
 			graph export "$hamburg/Graph/Estimation_product/`ciao'_class`i'_pay`j'.png", as(png) replace
-			drop value_pred*
+			list  value value_for_obs pred_value direction year exportsimports sourcetype  if pays==`j' & class==`i' & exportsimports=="`ciao'"
+			blif
+	
 			
 									
 			}
@@ -376,7 +393,7 @@ drop if year>1767 & year<1783
 drop if year>1786
 
 
-collapse (sum) pred_value_Exports pred_value_Imports, by(year pays_grouping classification_hamburg_large exportsimports)
+*collapse (sum) pred_value, by(year pays_grouping classification_hamburg_large exportsimports)
 save "$hamburg/database_dta/product_estimation", replace
 
 blif
