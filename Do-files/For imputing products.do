@@ -162,7 +162,7 @@ foreach i of num 1/5{
 	foreach j of num 1/`: word count `levels''{
 		summarize lnvalue if class==`i' & pays==`j' & exportsimports=="`ciao'"
 		if r(N)>1{
-			reg lnvalue i.year i.dir [iw=weight] if ///
+			qui reg lnvalue i.year i.dir [iw=weight] if ///
 				exportsimports=="`ciao'" & pays==`j' & class==`i', robust 
 				
 			
@@ -207,13 +207,8 @@ foreach i of num 1/5{
 			drop value_pred*
 			
 			*Graphique pour vérifier
-			twoway (scatter pred_value value) 
+			/*twoway (scatter pred_value value) 
 			
-			
-			
-			
-			
- 			
 			*have a look at imputed export data
 			sort year
 			twoway (connected pred_value year, msize(tiny) legend(label(1 "Predicted"))) ///
@@ -223,10 +218,8 @@ foreach i of num 1/5{
 					plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 					caption("Values in tons of silver") 
 			graph export "$hamburg/Graph/Estimation_product/`ciao'_class`i'_pay`j'.png", as(png) replace
-			list  value value_for_obs pred_value direction year exportsimports sourcetype  if pays==`j' & class==`i' & exportsimports=="`ciao'"
-			blif
 	
-			
+			*/
 									
 			}
 		}
@@ -242,6 +235,8 @@ drop if year==1752 |year==1754
 drop if year>1753 & year<1762
 drop if year>1767 & year<1783
 drop if year>1786
+
+collapse (sum) pred_value, by(year exportsimports pays_grouping classification_hamburg_large)
 
 save "$hamburg/database_dta/product_estimation", replace
 

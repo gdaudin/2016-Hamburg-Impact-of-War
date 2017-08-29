@@ -102,8 +102,7 @@ merge m:1 exportsimports year pays_grouping classification_hamburg_large ///
 using "$hamburg/database_dta/product_estimation"
 drop _merge
 
-replace value = pred_value_Exports if exportsimports=="Exports"
-replace value=pred_value_Imports if exportsimports=="Imports"
+replace value = pred_value if pred_value!=.
 drop pred_value*
 
 save "$hamburg/database_dta/allcountry2", replace
@@ -125,8 +124,7 @@ merge m:1 exportsimports year pays_grouping sitc18_en ///
 using "$hamburg/database_dta/sector_estimation"
 drop _merge
 
-replace value = pred_value_Exports if exportsimports=="Exports"
-replace value=pred_value_Imports if exportsimports=="Imports"
+replace value = pred_value if pred_value!=.
 drop pred_value*
 
 save "$hamburg/database_dta/allcountry2_new", replace

@@ -132,7 +132,7 @@ foreach i of num 1/6{
 	foreach j of num 1/`: word count `levels''{
 		summarize lnvalue if sitc==`i' & pays==`j' & exportsimports=="`ciao'"
 		if r(N)>1{
-			reg lnvalue i.year i.dir [iw=weight] if ///
+			qui reg lnvalue i.year i.dir [iw=weight] if ///
 				exportsimports=="`ciao'" & pays==`j' & sitc==`i', robust 
 				
 			
@@ -188,7 +188,7 @@ foreach i of num 1/6{
 					subtitle("`: label (pays) `j'', `: label (sitc) `i''") ///
 					plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 					caption("Values in tons of silver") 
-			graph export "$hamburg/Graph/Estimation_product/`ciao'_sitc`i'_pay`j'.png", as(png) replace			
+			graph export "$hamburg/Graph/Estimation_sector/`ciao'_sitc`i'_pay`j'.png", as(png) replace			
 			*/						
 			}
 		}
@@ -203,5 +203,7 @@ drop if year==1752 |year==1754
 drop if year>1753 & year<1762
 drop if year>1767 & year<1783
 drop if year>1786
+
+collapse (sum) pred_value, by(year exportsimports pays_grouping sitc18_en)
 
 save "$hamburg/database_dta/sector_estimation", replace
