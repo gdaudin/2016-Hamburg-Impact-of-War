@@ -49,14 +49,18 @@ gen break=(year>1795)
 
 if `outremer'==0 drop if pays_grouping=="Outre-mers"
 
+if "`inourout'"=="XI" {
+	order exportsimports 
+	collapse (sum) value, by(year-break)
+	gen exportsimports=="XI"
+}
+
 
 
 
 if `predicted'==0 drop if predicted==1
 
 encode war_status, gen(war_status_num)
-gen war_peace=0
-gen war_peace=1 if war_status_num!=. & year>=1744
 
 gen year_of_war=year
 replace year_of_war=year_of_war-1744 if year >=1744 & year<=1748
@@ -64,7 +68,7 @@ replace year_of_war=year_of_war-1756 if year >=1756 & year<=1763
 replace year_of_war=year_of_war-1778 if year >=1778 & year<=1783
 replace year_of_war=year_of_war-1793 if year >=1793 & year<=1815
 
-
+gen war_peace =""
 
 if "`interet'" =="R&N" {
 	replace war_peace = "Mercantilist_War" if war_status_num!=. & year>=1744
@@ -124,5 +128,7 @@ end
 
 reg_choc_diff sitc Blockade Exports 0 1
 reg_choc_diff sitc Blockade Imports 0 1 
+reg_choc_diff sitc Blockade XI 0 1 
 reg_choc_diff sitc R&N Exports 0 1
 reg_choc_diff sitc R&N Imports 0 1 
+reg_choc_diff sitc R&N XI 0 1 
