@@ -34,11 +34,13 @@ args product_class interet inourout weight outremer predicted
 
 
 if "`product_class'"=="sitc" use "$hamburg/database_dta/allcountry2_sitc.dta", clear
+if "`product_class'"=="hamburg" use "$hamburg/database_dta/allcountry2.dta", clear
 
-replace sitc18_en="Raw mat fuel oils" if sitc18_en=="Raw mat; fuel; oils"
+capture replace sitc18_en="Raw mat fuel oils" if sitc18_en=="Raw mat; fuel; oils"
 
 encode pays_grouping, gen(pays)
-encode sitc18_en, gen(sitc)
+if "`product_class'"=="sitc" encode sitc18_en, gen(product)
+if "`product_class'"=="hamburg" encode classification_hamburg_large, gen(product)
 
 merge m:1 pays_grouping year using "$hamburg/database_dta/WarAndPeace.dta"
 
@@ -94,21 +96,21 @@ if "`interet'" =="Blockade" {
 
 eststo choc_diff_status: poisson value  /// 
 	i.war_status_num#i.war_peace_num  c.year_of_war#i.war_status_num#i.war_peace_num ///
-	i.pays#i.sitc  c.year#i.pays#i.sitc ///	
+	i.pays#i.product  c.year#i.pays#i.product ///	
 	if exportsimports=="`inourout'" ///
 	[iweight=`weight'], vce(robust) iterate(40)
 
 	
 eststo choc_diff_goods: poisson value /// 
-	i.sitc#i.war_peace_num  c.year_of_war#i.sitc#i.war_peace_num ///
-	i.pays#i.sitc  c.year#i.pays#i.sitc ///	
+	i.product#i.war_peace_num c.year_of_war#i.product#i.war_peace_num ///
+	i.pays#i.product  c.year#i.pays#i.product ///	
 	if exportsimports=="`inourout'" ///
 	[iweight=`weight'], vce(robust) iterate(40)
 		
 	
 	/*
 	
-eststo `inourout'_eachsitc2: poisson value i.pays#i.sitc c.year#i.pays ///
+eststo `inourout'_eachproduct2: poisson value i.pays#i.sitc c.year#i.pays ///
 	c.year#i.sitc i.each_status_sitc i.pays#1.break c.year#1.break ///
 	if exportsimports=="`inourout'", vce(robust) iterate(40)	
 eststo `inourout'_eachsitc3: poisson value i.pays#i.sitc c.year#i.pays ///
@@ -132,8 +134,17 @@ eststo clear
 
 end
 
-reg_choc_diff sitc Blockade Exports value 0 1
-reg_choc_diff sitc Blockade Imports value 0 1
+
+reg_choc_diff hamburg Blockade Exports noweight 0 0 
+
+/*
+
+
+
+reg_choc_diff sitc Blockade Exports value 1 1 
+
+
+reg_choc_diff sitc Blockade Imports value 1 1
 
 reg_choc_diff sitc Blockade Exports noweight 0 1
 reg_choc_diff sitc Blockade Imports noweight 0 1
@@ -144,3 +155,5 @@ reg_choc_diff sitc Blockade XI 0 1
 reg_choc_diff sitc R&N Exports 0 1
 reg_choc_diff sitc R&N Imports 0 1 
 reg_choc_diff sitc R&N XI 0 1 
+
+*args product_class interet inourout weight outremer predicted
