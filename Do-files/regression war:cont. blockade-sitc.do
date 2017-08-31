@@ -67,12 +67,17 @@ levelsof exportsimports, local(exportsimports)
 
 foreach inourout in `exportsimports'{
 
-****groups of wars interacted with sitc and with groups
-eststo `inourout'_eachsitc_blockade: poisson value /// 
-	i.war_peace_num#war_status_num  c.year#i.war_peace_num#war_status_num ///
-	i.pays#i.sitc  c.year#i.pays#i.sitc ///
+eststo `inourout'_eachsitc_war_status: poisson value /// 
+	i.war_peace_num#war_status_num  c.year#i.war_peace_num#i.war_status_num ///
+	i.pays#i.sitc  c.year#i.pays#i.sitc ///	
 	if exportsimports=="`inourout'", vce(robust) iterate(40)
+
 	
+eststo `inourout'_eachsitc_war_goods: poisson value /// 
+	i.war_peace_num#i.sitc  c.year#i.war_peace_num#i.sitc ///
+	i.pays#i.sitc  c.year#i.pays#i.sitc ///	
+	if exportsimports=="`inourout'", vce(robust) iterate(40)
+		
 	
 	/*
 	
@@ -85,12 +90,14 @@ eststo `inourout'_eachsitc3: poisson value i.pays#i.sitc c.year#i.pays ///
 	
 */
 
-esttab `inourout'_eachsitc_blockade ///
+esttab `inourout'_eachsitc_war_status ///
+	`inourout'_eachsitc_war_goods ///
 /*	`inourout'_eachsitc2 ///
 	`inourout'_eachsitc3  ///
 */	using "$hamburggit/Tables/allcountry2_2wars_sitc_`inourout'blockade.csv", ///
 	label replace mtitles("SITC#each_war no breaks" ///
 	"SITC#each_war 1795 break" "each_war no breaks")
+	
 eststo clear
 
 
@@ -112,11 +119,17 @@ levelsof exportsimports, local(exportsimports)
 foreach inourout in `exportsimports'{
 
 ****groups of wars interacted with sitc and with groups
-eststo `inourout'_eachsitc_war_RN: poisson value /// 
-	i.war_peace_num#war_status_num  c.year#i.war_peace_num#war_status_num ///
+eststo `inourout'_eachsitc_war_status: poisson value /// 
+	i.war_peace_num#war_status_num  c.year#i.war_peace_num#i.war_status_num ///
 	i.pays#i.sitc  c.year#i.pays#i.sitc ///	
 	if exportsimports=="`inourout'", vce(robust) iterate(40)
+
 	
+eststo `inourout'_eachsitc_war_goods: poisson value /// 
+	i.war_peace_num#i.sitc  c.year#i.war_peace_num#i.sitc ///
+	i.pays#i.sitc  c.year#i.pays#i.sitc ///	
+	if exportsimports=="`inourout'", vce(robust) iterate(40)
+		
 	
 	/*
 	
@@ -129,7 +142,8 @@ eststo `inourout'_eachsitc3: poisson value i.pays#i.sitc c.year#i.pays ///
 	
 */
 
-esttab `inourout'_eachsitc_war_RN ///
+esttab `inourout'_eachsitc_war_status ///
+	`inourout'_eachsitc_war_goods ///
 /*	`inourout'_eachsitc2 ///
 	`inourout'_eachsitc3  ///
 */	using "$hamburggit/Tables/allcountry2_2wars_sitc_`inourout'RN.csv", ///
