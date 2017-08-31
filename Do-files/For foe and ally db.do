@@ -21,7 +21,7 @@ insheet using "$hamburg/2016-Hamburg-Impact-of-War/External Data/WarAndPeace.csv
 
 
 reshape long p_,i(year) j(pays_grouping) string
-rename p_ War_Status
+rename p_ war_status
 
 replace pays_grouping="Flandre et autres états de l'Empereur" if strmatch(pays_grouping,"*Flandre*")==1
 replace pays_grouping="Levant et Barbarie" if strmatch(pays_grouping,"*Levant*")==1

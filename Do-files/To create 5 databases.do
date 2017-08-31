@@ -87,8 +87,9 @@ tab year if value!=.
 gen imputed = 0		
 fillin exportsimport year pays_grouping `class_goods'
 bysort year exportsimports: egen test_year=total(value), missing
-replace value=0 if value==. & test_year!=.
 replace imputed = 1 if value==. & test_year!=.
+replace value=0 if value==. & test_year!=.
+
 
 drop test_year
 
