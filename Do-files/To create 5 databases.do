@@ -88,14 +88,11 @@ gen imputed = 0
 fillin exportsimport year pays_grouping `class_goods'
 bysort year exportsimports: egen test_year=total(value), missing
 replace value=0 if value==. & test_year!=.
-gen imputed = 1 if value==. & test_year!=.
+replace imputed = 1 if value==. & test_year!=.
 
 drop test_year
 
 tab year if value!=.
-
-collapse (sum) value, by(year pays_grouping ///
-`class_goods' exportsimports)
 
 *****merge with imputed data 
 
@@ -110,7 +107,7 @@ drop if pays_grouping=="États-Unis d'Amérique" & year <=1777
 drop _merge
 
 gen predicted=0
-gen predicted = 1 if value==.
+replace predicted = 1 if value==.
 replace value = pred_value if value==.
 drop pred_value*
 
