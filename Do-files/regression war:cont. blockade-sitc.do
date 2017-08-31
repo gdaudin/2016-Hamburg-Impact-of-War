@@ -1,10 +1,28 @@
-global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
-*global thesis "C:\Users\TIRINDEE\Google Drive\ETE\Thesis"
+
+
+
+if "`c(username)'" =="guillaumedaudin" {
+	global hamburg "~/Documents/Recherche/2016 Hamburg/"
+	global hamburggit "~/Documents/Recherche/2016 Hamburg/2016-Hamburg-Impact-of-War"
+}
+
+if "`c(username)'" =="TIRINDEE" {
+	global hamburg "C:\Users\TIRINDEE\Google Drive\ETE/Thesis"
+	global hamburggit "C:\Users\TIRINDEE\Google Drive\ETE/Thesis/Data/do_files/Hamburg"
+}
+
+
+if "`c(username)'" =="Tirindelli" {
+	global hamburg "/Users/Tirindelli/Google Drive/ETE/Thesis"
+	global hamburggit "/Users/Tirindelli/Google Drive/ETE/Thesis/Data/do_files/Hamburg"
+}
+
 
 
 set more off
 
-use "$thesis/database_dta/allcountry2_sitc", clear
+
+use "$hamburg/database_dta/allcountry2_sitc", clear
 
 replace sitc18_en="Raw mat fuel oils" if sitc18_en=="Raw mat; fuel; oils"
 
@@ -394,7 +412,7 @@ eststo `inourout'_eachsitc3: poisson value i.pays#i.sitc c.year#i.pays ///
 
 esttab `inourout'_eachsitc1 `inourout'_eachsitc2 ///
 	`inourout'_eachsitc3 using ///
-	"$thesis/Data/do_files/Hamburg/Tables/allcountry2_2wars_sitc_`inourout'.csv", ///
+	"$hamburggit/Tables/allcountry2_2wars_sitc_`inourout'.csv", ///
 	label replace mtitles("SITC#each_war no breaks" ///
 	"SITC#each_war 1795 break" "each_war no breaks")
 eststo clear
