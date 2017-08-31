@@ -62,99 +62,69 @@ restore
 
 
 /*------------------------------------------------------------------------------
-					save db with classification hamburg
+				save db with classification
 ------------------------------------------------------------------------------*/
 
+capture program drop integrate_predicted
+program integrate_predicted
+args class_goods
+
+*exemple integrate_predicted sitc18_en
+use "$hamburg/database_dta/elisa_bdd_courante", replace
+
 collapse (sum) value, by(sourcetype year direction pays_grouping ///
-		classification_hamburg_large exportsimports)
+		`class_goods' exportsimports)
 
+keep if direction=="total" | (source=="National par direction" & year==1750)
 
-
-su value if value!=0
-local min_value=r(min)
-
-preserve
-keep if sourcetype!="National par direction (-)"
-fillin exportsimport year pays_grouping direction classification_hamburg_large
-bysort year direction exportsimports: egen test_year=total(value), missing
-drop if value==0 & test_year==.
-drop test_year
-save blif.dta, replace
-restore
-
-
-keep if sourcetype=="National par direction (-)"
-fillin exportsimport year pays_grouping direction classification_hamburg_large
-bysort year pays exportsimports: egen test_year=total(value), missing
-drop if value==0 & test_year==.
-drop test_year
-
-append using blif.dta
-erase blif.dta
-
+tab sourcetype if year==1750
 
 collapse (sum) value, by(year pays_grouping ///
-classification_hamburg_large exportsimports)
+		`class_goods' exportsimports)
+
+tab year if value!=.
+		
+fillin exportsimport year pays_grouping `class_goods'
+bysort year exportsimports: egen test_year=total(value), missing
+replace value=0 if value==. & test_year!=.
+drop test_year
+drop if pays_grouping=="États-Unis d'Amérique" & year <=1777
+
+tab year if value!=.
+
+collapse (sum) value, by(year pays_grouping ///
+`class_goods' exportsimports)
 
 *****merge with imputed data 
-merge m:1 exportsimports year pays_grouping classification_hamburg_large ///
+
+if "`class_goods'"=="sitc18_en" merge m:1 exportsimports year pays_grouping `class_goods' ///
+using "$hamburg/database_dta/sector_estimation"
+
+if "`class_goods'"=="classification_hamburg_large" merge m:1 exportsimports year pays_grouping `class_goods' ///
 using "$hamburg/database_dta/product_estimation"
+
+
 drop _merge
 
-replace value = pred_value if pred_value!=.
+replace value = pred_value if value==.
 drop pred_value*
 
-save "$hamburg/database_dta/allcountry2", replace
+if "`class_goods'"=="sitc18_en" save "$hamburg/database_dta/allcountry2_sitc", replace
+if "`class_goods'"=="classification_hamburg_large" save "$hamburg/database_dta/allcountry2", replace
 
 keep if pays_grouping=="Nord" 
 drop pays_grouping 
 save "$hamburg/database_dta/hamburg2", replace
 
-/*------------------------------------------------------------------------------
-				save db with sict classification
-------------------------------------------------------------------------------*/
-use "$hamburg/database_dta/elisa_bdd_courante", replace
-
-collapse (sum) value, by(sourcetype year direction pays_grouping ///
-		sitc18_en exportsimports)
+if "`class_goods'"=="sitc18_en" save "$hamburg/database_dta/hamburg2_sitc", replace
+if "`class_goods'"=="classification_hamburg_large" save "$hamburg/database_dta/hamburg2", replace
 
 
-su value if value!=0
-local min_value=r(min)
-
-preserve
-keep if sourcetype!="National par direction (-)"
-fillin exportsimport year pays_grouping direction sitc18_en
-bysort year direction exportsimports: egen test_year=total(value), missing
-drop if value==0 & test_year==.
-drop test_year
-save blif.dta, replace
-restore
+end
 
 
-keep if sourcetype=="National par direction (-)"
-fillin exportsimport year pays_grouping direction sitc18_en
-bysort year pays exportsimports: egen test_year=total(value), missing
-drop if value==0 & test_year==.
-drop test_year
 
-append using blif.dta
-
-erase blif.dta
-
-
-collapse (sum) value, by(year pays_grouping ///
-sitc18_en exportsimports)
-
-*****merge with imputed data 
-merge m:1 exportsimports year pays_grouping sitc18_en ///
-using "$hamburg/database_dta/sector_estimation"
-drop _merge
-
-replace value = pred_value if pred_value!=.
-drop pred_value*
-
-save "$hamburg/database_dta/allcountry2_sitc", replace
-
+ integrate_predicted sitc18_en
+ integrate_predicted classification_hamburg_large
 
 
