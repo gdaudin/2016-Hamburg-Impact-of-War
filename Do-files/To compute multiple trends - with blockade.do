@@ -42,8 +42,8 @@ replace period_str ="War 1756-1763" if year   >= 1756 & year <=1763
 replace period_str ="Peace 1763-1777" if year >= 1763 & year <=1777
 replace period_str ="War 1778-1783" if year   >= 1778 & year <=1783
 replace period_str ="Peace 1784-1792" if year >= 1784 & year <=1792
-replace period_str ="War 1793-1815" if year   >= 1793 & year <=1815
-*replace period_str ="Blockade 1808-1815" if year   >= 1808 & year <=1815
+replace period_str ="War 1793-1807" if year   >= 1793 & year <=1807
+replace period_str ="Blockade 1808-1815" if year   >= 1808 & year <=1815
 replace period_str ="Peace 1816-1840" if year >= 1816
 
 encode period_str, gen(period)
@@ -67,11 +67,11 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (lfit log10_value_period7 year, lpattern(line) lcolor(black)) ///
 			 (lfit log10_value_period8 year, lpattern(line) lcolor(black)) ///
 			 (lfit log10_value_period9 year, lpattern(line) lcolor(black)) ///
-			 , ///
+			 (lfit log10_value_period10 year, lpattern(line) lcolor(black)), ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			 legend (off) ytitle("Time trends of French trade in tons of silver, log10") xtitle("Year: Mercantilist and R&N wars") 
 
-graph export "$hamburggit/tex/Paper/Time trends of French trade.png", as(png) replace
+graph export "$hamburggit/tex/Paper/Time trends of French trade - with blockade.png", as(png) replace
 
 
 
