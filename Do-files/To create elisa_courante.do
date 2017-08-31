@@ -48,6 +48,7 @@ drop if yearstr=="10 mars-31 décembre 1787"
 drop if direction=="France"
 *drop if year<1718
 drop if sourcepath=="Divers/AD 44/Nantes - Exports - 1734 - bis.csv"
+drop if sitc18_rev3=="9a" /*To remove flows of species*/
 
 
 drop if pays_grouping=="?" | pays_grouping=="????" ///
