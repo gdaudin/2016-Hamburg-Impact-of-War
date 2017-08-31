@@ -28,4 +28,4 @@ replace pays_grouping="Levant et Barbarie" if strmatch(pays_grouping,"*Levant*")
 replace pays_grouping="Outre-mers" if strmatch(pays_grouping,"*Outre*")==1
 replace pays_grouping="États-Unis d'Amérique" if strmatch(pays_grouping,"*ÉtatsUnis*")==1
 
-save "$hamburg/2016-Hamburg-Impact-of-War/External Data/WarAndPeace.dta",  replace
+save "$hamburg/database_dta/WarAndPeace.dta",  replace
