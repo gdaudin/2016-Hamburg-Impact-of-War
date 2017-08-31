@@ -3,32 +3,23 @@
 ="",="SITC#each_war no breaks"
 
 ="(sum) value",=""
-="Blockade # ally",="0"
+="Mercantilist_War # ally",="0"
 ="",="(.)"
 
-="Blockade # foe",="-422.0***"
-="",="(-5.45)"
+="Mercantilist_War # foe",="78.50***"
+="",="(5.70)"
 
-="Blockade # neutral",="-447.2***"
-="",="(-3.75)"
+="Mercantilist_War # neutral",="-13.44"
+="",="(-1.05)"
 
-="Mercantilist_War # ally",="-143.6*"
-="",="(-2.48)"
+="aR&N War # ally",="143.6*"
+="",="(2.48)"
 
-="Mercantilist_War # foe",="-65.08"
-="",="(-1.11)"
+="aR&N War # foe",="-278.4***"
+="",="(-5.27)"
 
-="Mercantilist_War # neutral",="-157.0**"
-="",="(-2.70)"
-
-="Blockade # ally # year",="-0.00408"
-="",="(-0.11)"
-
-="Blockade # foe # year",="0.229***"
-="",="(6.27)"
-
-="Blockade # neutral # year",="0.243***"
-="",="(3.89)"
+="aR&N War # neutral",="-303.7**"
+="",="(-2.91)"
 
 ="Mercantilist_War # ally # year",="0.0751***"
 ="",="(3.31)"
@@ -38,6 +29,15 @@
 
 ="Mercantilist_War # neutral # year",="0.0827***"
 ="",="(3.61)"
+
+="aR&N War # ally # year",="-0.00408"
+="",="(-0.11)"
+
+="aR&N War # foe # year",="0.229***"
+="",="(6.27)"
+
+="aR&N War # neutral # year",="0.243***"
+="",="(3.89)"
 
 ="Allemagne # European foodstuff and beverage",="0"
 ="",="(.)"
@@ -471,8 +471,8 @@
 ="États-Unis d'Amérique # Various manuf # year",="0"
 ="",="(.)"
 
-="Constant",="56.87"
-="",="(0.99)"
+="Constant",="-86.70***"
+="",="(-12.69)"
 
 ="Observations",="2370"
 
