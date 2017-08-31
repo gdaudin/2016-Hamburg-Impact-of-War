@@ -109,9 +109,7 @@ eststo clear
 
 end
 
-codebook value
-codebook value
-codebook value
-codebook value
-
 reg_choc_diff sitc Blockade Exports 1 1 
+reg_choc_diff sitc Blockade Imports 1 1 
+reg_choc_diff sitc R&N Exports 1 1 
+reg_choc_diff sitc R&N Imports 1 1 
