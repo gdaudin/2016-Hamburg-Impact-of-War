@@ -72,13 +72,13 @@ if "`interet'" =="Blockade" {
 
 
 eststo choc_diff_status: poisson value /// 
-	i.war_peace_num#war_status_num  c.year#i.war_peace_num#i.war_status_num ///
+	i.war_status_num#i.war_peace_num  c.year#i.war_status_num#i.war_peace_num ///
 	i.pays#i.sitc  c.year#i.pays#i.sitc ///	
 	if exportsimports=="`inourout'", vce(robust) iterate(40)
 
 	
 eststo choc_diff_goods: poisson value /// 
-	i.war_peace_num#i.sitc  c.year#i.war_peace_num#i.sitc ///
+	i.sitc#i.war_peace_num  c.year#i.sitc#i.war_peace_num ///
 	i.pays#i.sitc  c.year#i.pays#i.sitc ///	
 	if exportsimports=="`inourout'", vce(robust) iterate(40)
 		
@@ -99,8 +99,9 @@ esttab choc_diff_status ///
 /*	`inourout'_eachsitc2 ///
 	`inourout'_eachsitc3  ///
 */	using "$hamburggit/Tables/reg_choc_diff_`product_class'_`interet'_`inourout'_`predicted'.csv", ///
-	label replace mtitles("SITC#each_war no breaks" ///
-	"SITC#each_war 1795 break" "each_war no breaks")
+	label replace mtitles("war # status" ///
+	"war #goods") ///
+
 	
 eststo clear
 
