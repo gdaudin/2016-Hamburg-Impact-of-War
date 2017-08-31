@@ -88,7 +88,6 @@ fillin exportsimport year pays_grouping `class_goods'
 bysort year exportsimports: egen test_year=total(value), missing
 replace value=0 if value==. & test_year!=.
 drop test_year
-drop if pays_grouping=="États-Unis d'Amérique" & year <=1777
 
 tab year if value!=.
 
@@ -103,6 +102,7 @@ using "$hamburg/database_dta/sector_estimation"
 if "`class_goods'"=="classification_hamburg_large" merge m:1 exportsimports year pays_grouping `class_goods' ///
 using "$hamburg/database_dta/product_estimation"
 
+drop if pays_grouping=="États-Unis d'Amérique" & year <=1777
 
 drop _merge
 

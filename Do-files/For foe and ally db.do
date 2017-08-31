@@ -27,5 +27,6 @@ replace pays_grouping="Flandre et autres états de l'Empereur" if strmatch(pays_
 replace pays_grouping="Levant et Barbarie" if strmatch(pays_grouping,"*Levant*")==1
 replace pays_grouping="Outre-mers" if strmatch(pays_grouping,"*Outre*")==1
 replace pays_grouping="États-Unis d'Amérique" if strmatch(pays_grouping,"*ÉtatsUnis*")==1
+drop if pays_grouping=="États-Unis d'Amérique" & year <=1777
 
 save "$hamburg/database_dta/WarAndPeace.dta",  replace
