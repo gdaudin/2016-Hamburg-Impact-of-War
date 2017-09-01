@@ -26,15 +26,22 @@ set more off
 
 capture program drop reg_choc_diff
 program reg_choc_diff
-args product_class interet inourout weight outremer predicted
+args  reg_type product_class interet inourout weight outremer predicted
 
-*Exemple : reg_choc_dif sitc noweight Blockade Exports 0 1 
-*Exemple : reg_choc_dif sitc value Blockade Exports 0 1 
+*Exemple : reg_choc_dif poisson sitc noweight Blockade Exports 0 1 
+*Exemple : reg_choc_dif reg sitc value Blockade Exports 0 1 
+clear
 
+if "`reg_type'"=="poisson" local reg_option "vce(robust) iterate(40)" 
+if "`reg_type'"=="poisson" local explained_variable "value" 
+if "`reg_type'"=="reg" local explained_variable "lnvalue" 
 
 
 if "`product_class'"=="sitc" use "$hamburg/database_dta/allcountry2_sitc.dta", clear
 if "`product_class'"=="hamburg" use "$hamburg/database_dta/allcountry2.dta", clear
+
+gen lnvalue=ln(value)
+replace lnvalue=ln(0.00000000000001) if value==0
 
 capture replace sitc18_en="Raw mat fuel oils" if sitc18_en=="Raw mat; fuel; oils"
 
@@ -52,7 +59,7 @@ replace war_status_num=0 if war_status=="Peace"
 
 gen break=(year>1795)
 
-*gen lnvalue=ln(value)
+
 
 if `outremer'==0 drop if pays_grouping=="Outre-mers"
 
@@ -105,35 +112,35 @@ encode war_peace, gen(war_peace_num)
 replace war_peace_num=0 if war_peace=="Peace"
 
 
-eststo choc_diff_status: poisson value  /// 
+eststo choc_diff_status: `reg_type' `explained_variable'  /// 
 	i.war_status_num  c.year_of_war#i.war_status_num ///
 	i.pays#i.product  c.year#i.pays#i.product ///	
 	if exportsimports=="`inourout'" ///
-	[iweight=`weight'], vce(robust) iterate(40)
+	[iweight=`weight'], `reg_option'
 	
 
 	
-eststo choc_diff_goods: poisson value /// 
+eststo choc_diff_goods: `reg_type' `explained_variable' /// 
 	i.product#i.war_peace_num c.year_of_war#i.product#i.war_peace_num ///
 	i.pays#i.product  c.year#i.pays#i.product ///	
 	if exportsimports=="`inourout'" ///
-	[iweight=`weight'], vce(robust) iterate(40)
+	[iweight=`weight'], `reg_option'
 	
 	
 	
 	
-eststo choc_diff_status_no_wart: poisson value  /// 
+eststo choc_diff_status_no_wart: `reg_type' `explained_variable'  /// 
 	i.war_status_num  ///
 	i.pays#i.product  c.year#i.pays#i.product ///	
 	if exportsimports=="`inourout'" ///
-	[iweight=`weight'], vce(robust) iterate(40)
+	[iweight=`weight'], `reg_option'
 
 	
-eststo choc_diff_goods_no_wart: poisson value /// 
+eststo choc_diff_goods_no_wart: `reg_type' `explained_variable' /// 
 	i.war_peace_num#i.product  ///
 	i.pays#i.product  c.year#i.pays#i.product ///	
 	if exportsimports=="`inourout'" ///
-	[iweight=`weight'], vce(robust) iterate(40)
+	[iweight=`weight'], `reg_option'
 
 		
 	
@@ -154,7 +161,7 @@ esttab choc_diff_status ///
 		choc_diff_goods_no_wart ///
 /*	`inourout'_eachsitc2 ///
 	`inourout'_eachsitc3  ///
-*/	using "$hamburggit/Tables/reg_choc_diff_`product_class'_`interet'_`inourout'_`weight'_`outremer'_`predicted'.csv", ///
+*/	using "$hamburggit/Tables/reg_choc_diff_`reg_type'_`product_class'_`interet'_`inourout'_`weight'_`outremer'_`predicted'.csv", ///
 	label replace mtitles("war # status" ///
 	"war #goods") ///
 
@@ -167,7 +174,7 @@ end
 
 
 
-reg_choc_diff hamburg Blockade Imports noweight 1 0 
+reg_choc_diff reg hamburg Blockade Imports value 0 0 
 
 *reg_choc_diff sitc Blockade Exports noweight 0 0 
 
