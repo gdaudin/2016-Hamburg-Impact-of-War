@@ -97,7 +97,7 @@ if "`interet'" =="R&N" {
 
 if "`interet'" =="Blockade" {
 	replace war_peace = "Mercantilist_War" if war_status!="Peace" & year>=1744
-	replace war_peace = "Blockade" if war_status_num!=. & year>=1808
+	replace war_peace = "Blockade" if war_status_num!=. & year>=1808 & year <=1815
 	replace year_of_war=year-1808 if year >=1808 & year<=1815
 }
 
@@ -113,7 +113,7 @@ replace war_peace_num=0 if war_peace=="Peace"
 
 
 eststo choc_diff_status: `reg_type' `explained_variable'  /// 
-	i.war_status_num  c.year_of_war#i.war_status_num ///
+	i.war_status_num#i.war_peace_num  c.year_of_war#i.war_status_num#i.war_peace_num ///
 	i.pays#i.product  c.year#i.pays#i.product ///	
 	if exportsimports=="`inourout'" ///
 	[iweight=`weight'], `reg_option'
@@ -130,7 +130,7 @@ eststo choc_diff_goods: `reg_type' `explained_variable' ///
 	
 	
 eststo choc_diff_status_no_wart: `reg_type' `explained_variable'  /// 
-	i.war_status_num  ///
+	i.war_status_num#i.war_peace_num  ///
 	i.pays#i.product  c.year#i.pays#i.product ///	
 	if exportsimports=="`inourout'" ///
 	[iweight=`weight'], `reg_option'
@@ -163,7 +163,9 @@ esttab choc_diff_status ///
 	`inourout'_eachsitc3  ///
 */	using "$hamburggit/Tables/reg_choc_diff_`reg_type'_`product_class'_`interet'_`inourout'_`weight'_`outremer'_`predicted'.csv", ///
 	label replace mtitles("war # status" ///
-	"war #goods") ///
+	"war # status no wart" ///
+	"war # goods") ///
+	"war # goods no wart") ///
 
 	
 eststo clear
