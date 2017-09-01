@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.11.8)  1 SEP 2017 22:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.11.8)  1 SEP 2017 23:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1214,12 +1214,12 @@ Overfull \hbox (8.89061pt too wide) in paragraph at lines 54--54
  <./Total_silver_trade_FRGB.png>] [5
 
 ]
-LaTeX Font Info:    Try loading font information for U+msa on input line 77.
+LaTeX Font Info:    Try loading font information for U+msa on input line 81.
 
 (/usr/local/texlive/2015basic/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 77.
+LaTeX Font Info:    Try loading font information for U+msb on input line 81.
 
 (/usr/local/texlive/2015basic/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1234,60 +1234,81 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: long_evolution.png Graphic file (type png)
 
 <use long_evolution.png>
-Package pdftex.def Info: long_evolution.png used on input line 115.
+Package pdftex.def Info: long_evolution.png used on input line 119.
 (pdftex.def)             Requested size: 273.12248pt x 198.4429pt.
  [9
 
- <./long_evolution.png>] [10
+ <./long_evolution.png>]
+<source1.png, id=269, 1049.9225pt x 486.81876pt>
+File: source1.png Graphic file (type png)
+ <use source1.png>
+Package pdftex.def Info: source1.png used on input line 124.
+(pdftex.def)             Requested size: 314.97917pt x 146.04675pt.
 
-]
-Overfull \hbox (13.83096pt too wide) in alignment at lines 182--182
-[] [] [] [] [] [] []
+Overfull \hbox (7.6893pt too wide) in paragraph at lines 124--124
+[][]  
+ []
+
+[10
+
+ <./source1.png>] <source2.png, id=296, 1059.96pt x 508.90125pt>
+File: source2.png Graphic file (type png)
+
+<use source2.png>
+Package pdftex.def Info: source2.png used on input line 128.
+(pdftex.def)             Requested size: 317.99045pt x 152.67155pt.
+
+Overfull \hbox (10.70058pt too wide) in paragraph at lines 128--128
+[][]  
  []
 
 [11
 
+ <./source2.png>] <source3.png, id=323, 1126.2075pt x 885.3075pt>
+File: source3.png Graphic file (type png)
+
+<use source3.png>
+Package pdftex.def Info: source3.png used on input line 135.
+(pdftex.def)             Requested size: 281.5512pt x 221.32632pt.
+ [12
+
+ <./source3.png>] [13
+
 ]
-Overfull \hbox (13.83096pt too wide) in alignment at lines 232--232
-[] [] [] [] [] [] []
- []
-
-[12
-
-] <coffee.png, id=347, 973.6375pt x 707.64375pt>
+<coffee.png, id=378, 973.6375pt x 707.64375pt>
 File: coffee.png Graphic file (type png)
  <use coffee.png>
-Package pdftex.def Info: coffee.png used on input line 238.
+Package pdftex.def Info: coffee.png used on input line 259.
 (pdftex.def)             Requested size: 292.0935pt x 212.29475pt.
- [13
+ [14
 
- <./coffee.png>] <sugar.png, id=376, 973.6375pt x 707.64375pt>
+ <./coffee.png>] <sugar.png, id=405, 973.6375pt x 707.64375pt>
 File: sugar.png Graphic file (type png)
  <use sugar.png>
-Package pdftex.def Info: sugar.png used on input line 244.
+Package pdftex.def Info: sugar.png used on input line 265.
 (pdftex.def)             Requested size: 292.0935pt x 212.29475pt.
+ [15
 
-[14
-
- <./sugar.png>] <wine.png, id=403, 973.6375pt x 707.64375pt>
+ <./sugar.png>] <wine.png, id=432, 973.6375pt x 707.64375pt>
 File: wine.png Graphic file (type png)
  <use wine.png>
-Package pdftex.def Info: wine.png used on input line 250.
-(pdftex.def)             Requested size: 292.0935pt x 212.29475pt.
-
-[15
-
- <./wine.png>] <eau_de_vie.png, id=430, 973.6375pt x 707.64375pt>
-File: eau_de_vie.png Graphic file (type png)
-
-<use eau_de_vie.png>
-Package pdftex.def Info: eau_de_vie.png used on input line 256.
+Package pdftex.def Info: wine.png used on input line 271.
 (pdftex.def)             Requested size: 292.0935pt x 212.29475pt.
  [16
 
- <./eau_de_vie.png>] [17
+ <./wine.png>] <eau_de_vie.png, id=459, 973.6375pt x 707.64375pt>
+File: eau_de_vie.png Graphic file (type png)
+ <use eau_de_vie.png>
+Package pdftex.def Info: eau_de_vie.png used on input line 277.
+(pdftex.def)             Requested size: 292.0935pt x 212.29475pt.
 
-] [18
+[17
+
+ <./eau_de_vie.png>] [18
+
+] [19
+
+] [20
 
 ]
 \tf@nav=\write6
@@ -1299,11 +1320,11 @@ Package pdftex.def Info: eau_de_vie.png used on input line 256.
 \tf@snm=\write8
 \openout8 = `EHES.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 329.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 329.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 350.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 350.
  (./EHES.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 329.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 329.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 350.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 350.
 Package rerunfilecheck Info: File `EHES.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
@@ -1311,31 +1332,34 @@ Package rerunfilecheck Info: File `EHES.out' has not changed.
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 329.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 350.
  ) 
 Here is how much of TeX's memory you used:
- 17914 strings out of 494501
- 344023 string characters out of 6167030
- 413545 words of memory out of 5000000
- 20734 multiletter control sequences out of 15000+600000
+ 17940 strings out of 494501
+ 344343 string characters out of 6167030
+ 409545 words of memory out of 5000000
+ 20752 multiletter control sequences out of 15000+600000
  12580 words of font info for 46 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
  48i,14n,59p,401b,553s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
-0.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mmi8.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmss10.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmss12.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmss17.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmss8.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmssi12.pfb></usr/local/texlive/2015basic/texmf-dist/font
-s/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2015basic/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmsy6.pfb>
-Output written on EHES.pdf (18 pages, 527597 bytes).
+pdfTeX warning (dest): name{Navigation21} has been referenced but does not ex
+ist, replaced by a fixed one
+
+</usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.
+pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
+i8.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmss10.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmss12.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmss17.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmss8.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmssi12.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2015basic/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmsy6.pfb>
+Output written on EHES.pdf (20 pages, 2964514 bytes).
 PDF statistics:
- 551 PDF objects out of 1000 (max. 8388607)
- 491 compressed objects within 5 object streams
- 37 named destinations out of 1000 (max. 500000)
- 115 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 609 PDF objects out of 1000 (max. 8388607)
+ 541 compressed objects within 6 object streams
+ 42 named destinations out of 1000 (max. 500000)
+ 130 words of extra memory for PDF output out of 10000 (max. 10000000)
 
