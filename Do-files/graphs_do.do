@@ -48,9 +48,9 @@ graph export "$thesis/Data/do_files/Hamburg/tex/hamburg_product_1820.png", repla
 
 
 ****allcountry2
-use "$thesis/database_dta/bdd_courante2", clear
+use "$thesis/database_dta/allcountry2", clear
 
-drop if year<1733
+drop if year<1752
 drop if year==1766 & classification_hamburg_large=="Sugar"
 drop if pays_grouping=="France"
 drop if pays_grouping=="Indes"
@@ -87,7 +87,7 @@ twoway (connected indexed_1 year) (connected indexed_2 year) ///
 	subtitle("All countries")
 graph export "$thesis/Data/do_files/Hamburg/tex/allcountry_product_1820.png", replace as(png) 
 
-replace value=ln(value)
+replace value=log10(value)
 
 foreach i of num 1/5{
 
