@@ -112,6 +112,23 @@ encode war_peace, gen(war_peace_num)
 replace war_peace_num=0 if war_peace=="Peace"
 
 
+preserve
+
+
+collapse (sum) value, by(pays year exportsimports war_status_num year_of_war war_peace_num)
+
+generate lnvalue=ln(value)
+
+eststo choc_diff_status_noprod: `reg_type' `explained_variable'  ///
+    i.war_status_num#i.war_peace_num  c.year_of_war#i.war_status_num#i.war_peace_num ///
+	i.pays c.year#i.pays ///	
+	if exportsimports=="`inourout'" ///
+    [iweight=`weight'], `reg_option'
+	
+	
+	
+restore
+
 eststo choc_diff_status: `reg_type' `explained_variable'  /// 
 	i.war_status_num#i.war_peace_num  c.year_of_war#i.war_status_num#i.war_peace_num ///
 	i.pays#i.product  c.year#i.pays#i.product ///	
@@ -126,8 +143,19 @@ eststo choc_diff_goods: `reg_type' `explained_variable' ///
 	if exportsimports=="`inourout'" ///
 	[iweight=`weight'], `reg_option'
 	
+preserve
+
+collapse (sum) value, by(product year exportsimports year_of_war war_peace_num)
+gen lnvalue=ln(value)
+
+eststo choc_diff_goods_nopays: `reg_type' `explained_variable' ///
+	i.product#i.war_peace_num c.year_of_war#i.product#i.war_peace_num ///
+	i.product  c.year#i.product ///	
+	if exportsimports=="`inourout'" ///
+    [iweight=`weight'], `reg_option'
 	
 	
+restore
 	
 eststo choc_diff_status_no_wart: `reg_type' `explained_variable'  /// 
 	i.war_status_num#i.war_peace_num  ///
@@ -155,16 +183,20 @@ eststo `inourout'_eachsitc3: poisson value i.pays#i.sitc c.year#i.pays ///
 	
 */
 
-esttab choc_diff_status ///
+esttab choc_diff_status_noprod ///
+        choc_diff_status ///
 		choc_diff_status_no_wart ///
+		choc_diff_goods_nopays ///
 		choc_diff_goods ///
 		choc_diff_goods_no_wart ///
 /*	`inourout'_eachsitc2 ///
 	`inourout'_eachsitc3  ///
 */	using "$hamburggit/Tables/reg_choc_diff_`reg_type'_`product_class'_`interet'_`inourout'_`weight'_`outremer'_`predicted'.csv", ///
-	label replace mtitles("war # status" ///
+	label replace mtitles("war # status_noprod" /// 
+	"war # status" ///
 	"war # status no wart" ///
-	"war # goods") ///
+	"war # goods_noprod" ///
+	"war # goods" ///
 	"war # goods no wart") ///
 
 	
