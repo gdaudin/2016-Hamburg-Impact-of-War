@@ -54,8 +54,7 @@ merge m:1 pays_grouping year using "$hamburg/database_dta/WarAndPeace.dta"
 drop if _merge==2
 
 replace war_status = "Peace" if war_status==""
-encode  war_status, gen(war_status_num)
-replace war_status_num=0 if war_status=="Peace"
+
 
 gen break=(year>1795)
 
@@ -74,7 +73,8 @@ if "`inourout'"=="XI" {
 
 if `predicted'==0 drop if predicted==1
 
-
+encode  war_status, gen(war_status_num)
+replace war_status_num=0 if war_status=="Peace"
 
 gen year_of_war=year
 replace year_of_war=year_of_war-1744 if year >=1744 & year<=1748
@@ -110,6 +110,14 @@ if "`interet'" =="War" {
 replace war_peace="Peace" if war_peace==""
 encode war_peace, gen(war_peace_num)
 replace war_peace_num=0 if war_peace=="Peace"
+
+replace war_status="Peace" if war_peace=="Peace"
+replace war_status_num=0 if war_peace=="Peace"
+
+
+tabulate war_status_num war_status if war_peace=="Peace"
+
+
 
 
 preserve
@@ -208,7 +216,7 @@ end
 
 
 
-reg_choc_diff reg hamburg Blockade XI noweight 0 0 
+reg_choc_diff reg hamburg Blockade XI noweight 0 1
 
 *reg_choc_diff sitc Blockade Exports noweight 0 0 
 
