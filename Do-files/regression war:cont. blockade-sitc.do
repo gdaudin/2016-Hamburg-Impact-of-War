@@ -115,7 +115,7 @@ replace war_peace_num=0 if war_peace=="Peace"
 preserve
 
 
-collapse (sum) value, by(pays year exportsimports war_status_num year_of_war war_peace_num)
+collapse (sum) value, by(pays year exportsimports war_status_num year_of_war war_peace_num noweight)
 
 generate lnvalue=ln(value)
 
@@ -145,7 +145,7 @@ eststo choc_diff_goods: `reg_type' `explained_variable' ///
 	
 preserve
 
-collapse (sum) value, by(product year exportsimports year_of_war war_peace_num)
+collapse (sum) value, by(product year exportsimports year_of_war war_peace_num noweight)
 gen lnvalue=ln(value)
 
 eststo choc_diff_goods_nopays: `reg_type' `explained_variable' ///
@@ -208,7 +208,7 @@ end
 
 
 
-reg_choc_diff reg hamburg Blockade Imports value 0 0 
+reg_choc_diff reg hamburg Blockade XI noweight 0 0 
 
 *reg_choc_diff sitc Blockade Exports noweight 0 0 
 
