@@ -146,7 +146,9 @@ graph twoway (area war1 year, color(gs9)) ///
 			 msize(tiny) mcolor(blue)), ///
 			 title("`: label (class) `i''") ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-			 ytitle("Tons of silver, log10")
+			 ytitle("Tons of silver, log10") ///
+			 legend(off)
+			 
 graph export "$hamburggit/tex/Paper/class`i'_trend_p`predicted'.png", as(png) replace	
 
 drop war*		 
