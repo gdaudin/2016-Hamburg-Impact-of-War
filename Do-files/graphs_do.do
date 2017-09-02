@@ -1,22 +1,40 @@
 ****Various graphs
 
-global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
-*global thesis "C:\Users\TIRINDEE\Google Drive\ETE\Thesis"
+
+
+
+if "`c(username)'" =="guillaumedaudin" {
+	global hamburg "~/Documents/Recherche/2016 Hamburg/"
+	global hamburggit "~/Documents/Recherche/2016 Hamburg/2016-Hamburg-Impact-of-War"
+}
+
+if "`c(username)'" =="TIRINDEE" {
+	global hamburg "C:\Users\TIRINDEE\Google Drive\ETE/Thesis"
+	global hamburggit "C:\Users\TIRINDEE\Google Drive\ETE/Thesis/Data/do_files/Hamburg"
+}
+
+
+if "`c(username)'" =="Tirindelli" {
+	global hamburg "/Users/Tirindelli/Google Drive/ETE/Thesis"
+	global hamburggit "/Users/Tirindelli/Google Drive/ETE/Thesis/Data/do_files/Hamburg"
+}
+
+
 
 set more off
 
 ****hamburg1
-use "$thesis/database_dta/hamburg1", clear
+use "$hamburg/database_dta/hamburg1", clear
 
 drop if year<1752
 
 label var value Value
 twoway (connected value year), title("Hamburg series") ///
 yscale(off) plotregion(fcolor(white)) graphregion(fcolor(white))
-graph export "$thesis/Data/do_files/Hamburg/tex/growth_rate.png", replace as(png) 
+graph export "$hamburggit/Data/do_files/Hamburg/tex/growth_rate.png", replace as(png) 
 
 ****hamburg2
-use "$thesis/database_dta/hamburg2", clear
+use "$hamburg/database_dta/hamburg2", clear
 drop if value==.
 drop if year<1752
 label define order_class 1 Coffee 2 "Eau de vie" 3 Sugar 4 Wine 5 Other
@@ -38,17 +56,17 @@ twoway (connected indexed_1 year) (connected indexed_2 year) ///
 	year<1780 & year>1752, title("Product trend between 1750 and 1780") ///
 	caption("Values indexed at product average") plotregion(fcolor(white)) ///
 	graphregion(fcolor(white)) subtitle("Hamburg")
-graph export "$thesis/Data/do_files/Hamburg/tex/hamburg_product_1780.png", replace as(png) 
+graph export "$hamburggit/Data/do_files/Hamburg/tex/hamburg_product_1780.png", replace as(png) 
 	
 twoway (connected indexed_1 year) (connected indexed_2 year) ///
 	(connected indexed_3 year) (connected indexed_4 year) if year>1779, ///
 	title("Product trend between 1780 and 1820") subtitle("Hamburg") plotregion(fcolor(white)) ///
 	graphregion(fcolor(white)) caption("Values indexed at product average")
-graph export "$thesis/Data/do_files/Hamburg/tex/hamburg_product_1820.png", replace as(png) 
+graph export "$hamburggit/Data/do_files/Hamburg/tex/hamburg_product_1820.png", replace as(png) 
 
 
 ****allcountry2
-use "$thesis/database_dta/allcountry2", clear
+use "$hamburg/database_dta/allcountry2", clear
 
 drop if year<1752
 drop if year==1766 & classification_hamburg_large=="Sugar"
@@ -78,14 +96,14 @@ twoway (connected indexed_1 year) (connected indexed_2 year) ///
 	year<1780 & year>1749, title("Product trend between 1750 and 1780") ///
 	caption("Values indexed at product average") plotregion(fcolor(white)) ///
 	graphregion(fcolor(white)) subtitle("All countries")
-graph export "$thesis/Data/do_files/Hamburg/tex/allcountry_product_1780.png", replace as(png) 
+graph export "$hamburggit/Data/do_files/Hamburg/tex/allcountry_product_1780.png", replace as(png) 
 	
 twoway (connected indexed_1 year) (connected indexed_2 year) ///
 	(connected indexed_3 year) (connected indexed_4 year) if year>1779, ///
 	title("Product trend between 1780 and 1820") plotregion(fcolor(white)) ///
 	graphregion(fcolor(white)) caption("Values indexed at product average") ///
 	subtitle("All countries")
-graph export "$thesis/Data/do_files/Hamburg/tex/allcountry_product_1820.png", replace as(png) 
+graph export "$hamburggit/Data/do_files/Hamburg/tex/allcountry_product_1820.png", replace as(png) 
 
 replace value=log10(value)
 
