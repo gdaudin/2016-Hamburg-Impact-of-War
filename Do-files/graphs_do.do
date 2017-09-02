@@ -50,7 +50,6 @@ graph export "$thesis/Data/do_files/Hamburg/tex/hamburg_product_1820.png", repla
 ****allcountry2
 use "$thesis/database_dta/allcountry2", clear
 
-drop if year<1752
 drop if year==1766 & classification_hamburg_large=="Sugar"
 drop if pays_grouping=="France"
 drop if pays_grouping=="Indes"
@@ -91,9 +90,12 @@ replace value=log10(value)
 
 foreach i of num 1/5{
 
-su value
+su value if class==`i'
 local maxvalue r(max)
 
+generate wara=`maxvalue' if year >=1733 & year <=1738 
+generate warb=`maxvalue' if year >=1740 & year <=1744
+generate war1=`maxvalue' if year >=1744 & year <=1748
 generate war2=`maxvalue' if year >=1756 & year <=1763
 generate war3=`maxvalue' if year >=1778 & year <=1783
 generate war4=`maxvalue' if year >=1793 & year <=1802
@@ -101,11 +103,13 @@ generate war5=`maxvalue' if year >=1803 & year <=1815
 
 sort year
 
-graph twoway (area war2 year, color(gs9)) ///
+graph twoway (area wara year, color(gs14)) ///
+			 (area warb year, color(gs14)) ///
+			 (area war1 year, color(gs9))(area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs4)) ///
 			 (area war5 year, color(gs4))  ///
 			 (connected value year if class==`i', lcolor(blue) ///
-			 msize(tiny) mcolor(blue)), ///
+			 msize(tiny) mcolor(blue)), legend(off) ///
 			 title("`: label (class) `i''") ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			 ytitle("Tons of silver, log10")
