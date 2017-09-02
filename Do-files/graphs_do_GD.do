@@ -168,7 +168,7 @@ graph twoway (area war1 year, color(gs9)) ///
 			 ytitle("Tons of silver, log10") ///
 			 legend(off)
 			 
-graph export "$hamburggit/tex/Paper/class`i'_`prod_typo'_trend_p`predicted'.png", as(png) replace	
+graph export "$hamburggit/tex/Paper/class_`prod_typo'_`prod'_chrono_p`predicted'.png", as(png) replace	
 
 drop war*		 
 	
