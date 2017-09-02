@@ -147,7 +147,7 @@ levelsof `prod_var', local(prod_list)
 
 foreach prod of local prod_list{
 
-*su value if class==`i'
+su value if `prod_var'=="`prod'"
 local maxvalue r(max)
 
 
@@ -186,9 +186,9 @@ drop war*
 end
 
 graph_per_goods sitc 0
-graph_per_goods sitc 1
-graph_per_goods hamburg 0
-graph_per_goods hamburg 1
+*graph_per_goods sitc 1
+*graph_per_goods hamburg 0
+*graph_per_goods hamburg 1
 
 
 
