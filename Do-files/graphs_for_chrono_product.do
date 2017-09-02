@@ -148,7 +148,8 @@ levelsof `prod_var', local(prod_list)
 foreach prod of local prod_list{
 
 su value if `prod_var'=="`prod'"
-local maxvalue r(max)
+local maxvalue =r(max)+0.2
+local minvalue =r(min)+0.2
 
 
 generate wara=`maxvalue' if year >=1733 & year <=1738 
@@ -161,6 +162,8 @@ generate war5=`maxvalue' if year >=1803 & year <=1815
 
 sort year
 display "`prod'"
+display `maxvalue'
+display "yscale(range(`minvalue' `maxvalue'))"
 
 
 graph twoway (area wara year, color(gs14)) ///
@@ -174,7 +177,15 @@ graph twoway (area wara year, color(gs14)) ///
 			 title("`prod'") ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			 ytitle("Tons of silver, log10") ///
+			 yscale(range(`minvalue' `maxvalue')) ///
+			 ylabel(`minvalue' (0.5) `maxvalue') ///
 			 legend(off)
+			 
+local prod=subinstr("`prod'"," ","_",10)
+local prod=subinstr("`prod'",";","_",10)
+local prod=subinstr("`prod'","__","_",10)
+local prod=subinstr("`prod'","__","_",10)
+local prod=subinstr("`prod'","__","_",10)
 			 
 graph export "$hamburggit/tex/Paper/class_`prod_typo'_`prod'_chrono_p`predicted'.png", as(png) replace	
 
@@ -186,9 +197,9 @@ drop war*
 end
 
 graph_per_goods sitc 0
-*graph_per_goods sitc 1
-*graph_per_goods hamburg 0
-*graph_per_goods hamburg 1
+graph_per_goods sitc 1
+graph_per_goods hamburg 0
+graph_per_goods hamburg 1
 
 
 
