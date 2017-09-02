@@ -22,7 +22,7 @@ if "`c(username)'" =="Tirindelli" {
 
 
 set more off
-
+/*
 ****hamburg1
 use "$hamburg/database_dta/hamburg1", clear
 
@@ -64,17 +64,24 @@ twoway (connected indexed_1 year) (connected indexed_2 year) ///
 	graphregion(fcolor(white)) caption("Values indexed at product average")
 graph export "$hamburggit/tex/hamburg_product_1820.png", replace as(png) 
 
-
+*/
 ****allcountry2
 
 capture program drop graph_per_goods
 program graph_per_goods
-args predicted
+args prod_typo predicted
 
-*exemple graph_per_goods 0 without the predicted
-*graph_per_goods 1 with the predicted
+*exemple graph_per_goods hamburg/sitc 0/1 without the predicted
+*graph_per_goods hamburg 1 with the predicted
 
-use "$hamburg/database_dta/allcountry2", clear
+display "`prod_typo'"
+
+if "`prod_typo'" == "hamburg" use "$hamburg/database_dta/allcountry2.dta", clear
+if "`prod_typo'" == "sitc" use "$hamburg/database_dta/allcountry2_sitc.dta", clear
+
+if "`prod_typo'" == "hamburg" local prod_var classification_hamburg_large
+if "`prod_typo'" == "sitc" local prod_var sitc18_en
+
 
 /*
 drop if year<1752
@@ -89,7 +96,16 @@ local obs_num=_N+1
 set obs `obs_num'
 replace year=1793 if year==.
 
-collapse (sum) value, by(year classification_hamburg_large predicted)
+
+
+collapse (sum) value, by(year `prod_var' predicted)
+
+if `predicted' == 0 {
+	keep if predicted==0
+}
+
+
+/*
 
 label define order_class 1 Coffee 2 "Eau de vie" 3 Sugar 4 Wine 5 Other
 encode classification_hamburg_large, gen(class) label(order_class)
@@ -105,9 +121,6 @@ label var indexed_2 "Eau de vie"
 label var indexed_3 Sugar
 label var indexed_4 Wine
 
-if `predicted' == 0 {
-	keep if predicted==0
-}
 
 twoway (connected indexed_1 year) (connected indexed_2 year) ///
 	(connected indexed_3 year) (connected indexed_4 year) if ///
@@ -123,9 +136,14 @@ twoway (connected indexed_1 year) (connected indexed_2 year) ///
 	subtitle("All countries")
 graph export "$hamburggit/tex/allcountry_product_1820.png", replace as(png) 
 
+
+*/
 replace value=log10(value)
 
-foreach i of num 1/5{
+
+levelsof `prod_var', local(prod_list)
+
+foreach prod of local prod_list{
 
 su value
 local maxvalue r(max)
@@ -137,19 +155,20 @@ generate war4=`maxvalue' if year >=1793 & year <=1802
 generate war5=`maxvalue' if year >=1803 & year <=1815
 
 sort year
+display "`prod'"
 
 graph twoway (area war1 year, color(gs9)) ///
 			 (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs4)) ///
 			 (area war5 year, color(gs4))  ///
-			 (connected value year if class==`i', lcolor(blue) ///
+			 (connected value year if `prod_var'=="`prod'", lcolor(blue) ///
 			 msize(tiny) mcolor(blue)), ///
-			 title("`: label (class) `i''") ///
+			 title("`prod'") ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			 ytitle("Tons of silver, log10") ///
 			 legend(off)
 			 
-graph export "$hamburggit/tex/Paper/class`i'_trend_p`predicted'.png", as(png) replace	
+graph export "$hamburggit/tex/Paper/class`i'_`prod_typo'_trend_p`predicted'.png", as(png) replace	
 
 drop war*		 
 	
@@ -158,7 +177,10 @@ drop war*
 
 end
 
-graph_per_goods 0
+graph_per_goods sitc 0
+graph_per_goods sitc 1
+graph_per_goods hamburg 0
+graph_per_goods hamburg 1
 
 
 
