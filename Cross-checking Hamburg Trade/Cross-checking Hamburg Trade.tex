@@ -12,7 +12,7 @@
 \usepackage{tabularx, booktabs}
 
 \usepackage{dcolumn} 
-  \newcolumntype{d}[1]{D{.}{.}{#1}}    
+\newcolumntype{d}[1]{D{.}{.}{#1}}    
 \newcolumntype{Y}{>{\centering\arraybackslash}X}
 \usepackage[T1]{fontenc}
 \usepackage{babel}
@@ -46,10 +46,20 @@ This suggests that the recently collected sources for eighteenth century trade f
 
 
 \section{Introduction}
-In my thesis I will use trade data between France and Hamburg from 1733 to 1821 in order to analyse the impact of wars on trade of neutral countries. There exists a vast literature focusing on the relationship between trade and war. A first strand of this literature concentrates on the impact of trade on wars. Within this strand, two major perspectives have emerged: a liberal and a realist one. The first supports a vision of interdependence between trade and war, pointing out that trade promotes peace since it is a better method of expansion than wars. The second opposes this view by claiming that there is no impact of trade on wars, and if any, then it will be a positive impact, as countries will be pushed to move war to maintain trade supremacy. The second strand of the literature, on the other hand, focuses on the impact of conflicts on trade. The works following this perspective are more homogeneous, and most authors agree to the disruptive effects on trade caused by wars. Barbieri and Levy (1999) analyse the impact of war on trade with adversary countries using seven dyads between 1870-1992, and they find that, although different across dyads, the general impact of conflict on trade is not particularly strong and mostly only temporary. Blomberg and Hess (2004) analyse more specifically the effect of all kind of conflicts, distinguishing between internal and external, and find that peace has a large and positive impact on trade. Anderton and Carter (2001) look at the effect of wars on global trade, and find that when major world power are at war significant pre and post war effects are observed, whereas impact is much smaller for conflicts between minor powers. Martin, Mayer and Thenig (2008) construct a theoretical model describing the likelihood of war and test it empirically; they find that likelihood of war is much smaller for countries involved in bilateral trade than for those involved in multilateral. Finally Glick and Taylor (2005) try to quantify the economic impact of the two world wars and claim that conflicts had negative effects on both belligerent and neutral countries with lags up to ten years. Altogether, the papers mentioned above do not always find coherent results, and such results were obtained from data from the last century only. The only exception is Rahman (2007) who uses British trade data from eighteen century, but concentrates manly on the impact of naval conflicts on trade. The majority of scholars (apart from Katherine and Levy) also finds long lasting effects of war; they claim commerce took several years before restoring its prewar level. The only exception is Riley (1984), who concentrates on the case study of the Seven Years War. He observes French trade series and he notices that there were no lags but on the contrary pre and post war loss compensation effects, however, he makes no rigorous analysis to prove his point. The aim of my thesis is to extend Riley’s work by analysing the available French data in the eighteenth century. So far the scholars have analysed the impact on trade of twentieth century wars and generalized the results. I believe that the effect of wars in twentieth century is different from that of other wars throughout history, and related data offer only a partial point of view. Thus, I am convinced that analysing less recent data is crucial to understand the general mechanisms relating trade and conflicts. I focus on the particular case of neutral countries and I look into the product breakdown of trade to observe the difference in impact between goods. I find indeed a general negative impact on trade, but looking at the product breakdown, the effect is much stronger in the case of colonial products, whereas in the case of European products the impact was even positive. In addition, I have also checked for the presence of war lags, as Glick and Taylor (2005) suggest. I find no evidence of war lag in the Hamburg series, nor in the general case. On the contrary, I find a positive and significant coefficient for the two years following the war for all countries (around 40\%) and for Hamburg a particular increase in European goods. Finally, I have tested my series for pre-war effects, as suggested by Riley (1984) but in this case I could not find coherent and significant results.  
+This paper cross checks two eighteenth century trade data sources from Hamburg and France that have been recently digitized.
+Both sources respect the Benford's law.
+The value of French exports to Hamburg recorded by France is quite different from the value the same exports recorded by Hamburg.
+This can be explained by the shortcomings of the two data sources.
+Reassuringly, the evolution and composition of trade are well matched.
+This suggests that the recently collected sources for eighteenth century trade flows (France, Austrian Netherlands, Britain, Sound...) can be cautiously used to improve our knowledge of the eighteenth century economy.  
+
+Much information on past economies may be gained through the systematic collection of trade data.
+These are comparatively abundant as foreign trade has long been a sizable source of income for states and the latter have been careful in collecting information on it: series on international trade starting in the eighteenth century exist for several countries and regions such as England, France, Sweden, the Austrian Netherlands, Venice, Portugal, Spain. \cite{charles2015eighteenth}. The Sound records go back even further. This calls for the creation of large databases and there are a number of active projects, under different states of readiness: Ireland, Norway, UK, World, France, Germany, the Sound…
+
 
 
 \section{Dataset}
+\cite{daudin_toflit18_????}
 For conducting my analysis I will use two different datasets: a French and a German one. The French datasets accounts for exports flows towards all countries whereas for the German dataset I only have flows towards France. For the French recorded flows towards Hamburg I will perform a comparison with the German recorded flows, to ensure the reliability of the data. Of course I am not expecting a precise correspondence between the sources. However, since I am dealing with an historical dataset, the first important step, where possible, is to prove that despite the obvious measurement errors, those sources are indeed reliable and they can be used for further historical research with the awareness of their reliability. 
 
 \subsection{French Dataset}
@@ -220,133 +230,8 @@ The evolution of sugar is not too precise comparing the two sources but overall 
 \input{class_sitc}
 \input{mark_banco}
 
-\clearpage
-\begin{thebibliography}{9}
 
-\bibitem{}
-Reuven Glick, Alan M. Taylor 
-\textit{Collateral damage: trade disruption and the economic impact of war}. 
-The Review of Economics and Statistics, February 2010, 92(1): 102–127
-
-\bibitem{}
-J. C. Riley
-\textit{The Seven Years War and the Old Regime in France}. 
-Series: Princeton Legacy Library, 1986, Published by: Princeton University Press, Pages: 280
-
-\bibitem{}
-Ahmed S. Rahman
-\textit{Fighting the Forces of Gravity - Seapower and Maritime Trade between the 18th and 20th Centuries}. 
-Explorations in Economic History Volume 47, Issue 1, January 2010, Pages 28–48
-
-
-\bibitem{}
-Rafael Reuveny. 
-\textit{Bilateral Import, Export, and Conflict/Cooperation Simultaneity}. 
-International Studies Quarterly, Vol. 45, No. 1 (Mar., 2001), pp. 131-158
-
-\bibitem{}
-Guillaume Daudin. 
-\textit{Domestic trade and market size in late eighteen century France}. 
-The Journal of Economic History / Volume 70 / Issue	03 / September 2010, pp 716-743
-
-
-\bibitem{}
-S. Brock Blomberg, Gregory D. Hess
-\textit{How much does violence tax trade?}. 
-The Review of Economics and Statistics (Impact Factor:2.66). 11/2006; 88(4):599:612
-
-\bibitem{}
-Charles H. Anderton, John R. Carter
-\textit{The Impact of War on Trade: An Interrupted Times-Series Study}. 
-2001 Journal of Peace Research, vol. 38, no. 4, 2001, pp. 445–457
-
-\bibitem{}
-Loic Charles and Guillaume Daudin
-\textit{Eighteen century international trade statistics sources and method}. 
-Revue de l’OFCE
-
-\bibitem{}
-Katherine Barbieri and Jack S. Levy
-\textit{Sleeping with the Enemy: The Impact of War on Trade}. 
-Journal of Peace Research, Vol. 36, No. 4, Special Issue on Trade and Conflict (Jul., 1999), pp. 463-479
-
-\bibitem{}
-Jennings
-\textit{Les marches du Nord dans le commerce francais au xvme siecle}. 
-Rennes, Presses Universitaires de Rennes, 2006, 390 p
-
-
-\bibitem{}
-Ahmed S. Rahman, Darrell J. Glaser
-\textit{Ex Tridenti Mercatus?- Sea-power and Maritime Trade in the Age of Globalization}. 
-Journal of International Economics Volume 100, May 2016, Pages 95–111
-
-\bibitem{}
-Ahmed S. Rahman
-\textit{Fighting the Forces of Gravity - Seapower and Maritime Trade between the 18th and 20th Centuries}. 
-Explorations in Economic History Volume 47, Issue 1, January 2010, Pages 28–48
-
-\bibitem{}
-Scott L. Baier, Jeffrey H. Bergstrand
-\textit{Do free trade agreements actually increase members' international trade?} 
-Journal of International Economics 71 (2007) 72–95
-
-\bibitem{}
-Philip Martin, Thierry Mayer, Mathias Thoenig
-\textit{Make Trade Not War?} 
-Review of Economic Studies (2008) 75, 865–900
-
-\bibitem{}
-Mary Lindemann
-\textit{The merchants republics: Amsterdam, Antwerp and Hamburg 1648-1790} 
-Cambridge:	Cambridge University Press, 2015. 374 pp. ISBN 978-1-107-07443-9.
-
-\bibitem{}
-S. Brock Blomberg, Gregory D. Hess , and Siddarth Thacker
-\textit{On the conflict-poverty nexus} 
-ECONOMICS \&\ POLITICS 0954-1985 Volume 18 November 2006 No.3
-
-\bibitem{}
-Patrick Villiers
-\textit{Marine Royale, corsaires et trafic dans l'Atlantique de Louis XIV à Louis XVI} 
-Diffusion Septentrion, Press universitaires, Thèse à la carte
-
-\bibitem{}
-Francois Crouzet
-\textit{La guèrre économique franco-anglaise au XVIII siècle} 
-Paris, ed. Fayard, 2008 ISBN 978-2-213-63601-6
-
-\bibitem{}
-Charles Carrière
-\textit{Negociants marseillais au XVIII siècle} 
-Marseille, A. Robert, 1973. 2 vol. gr. in-8, 1.111 pages. (Institut historique de Provence.)
-
-\bibitem{}
-Pierrick Pourchasse
-\textit{Le commerce du Nord. Les échanges commerciaux entre la France et l’Europe septentrionale au XVIIIe siècle, Rennes} Presses Universitaires de Rennes, 2006, 390 p., ISBN 978-2753500976.
-
-\bibitem{}
-Lagerqvist L. and E Nathorst-Boos, 
-\textit{Mynt}, Bokforlaget PAN /Norstedts, Stockholm, 1968, p.78
-
-\bibitem{}
-Anne Husted Burleigh
-\textit{John Adams} American presidents series, Transaction Publishers 2009, p. 189
-
-\bibitem{}
-Griffiths, David M. \textit{An American Contribution to the Armed Neutrality of 1780.} Russian Review 30, no. 2 (April 1971).
-
-\end{thebibliography}
-
-
-
-
-
-
-
-
-
-
-
+\bibliographystyle{authordate4}
+\bibliography{bibliography_CSFHT}
 
 \end{document}
