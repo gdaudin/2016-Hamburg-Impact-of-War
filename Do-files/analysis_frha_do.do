@@ -18,7 +18,7 @@ replace value=value_hb if sourceFRHB=="Hamburg"
 **************************look at classified versus not classfied
 ***all years
 
-cd "$thesis/Graph/Comparison_new/"
+cd "$thesis/Data/do_files/Hamburg/tex2"
 
 preserve
 replace classification_hamburg_large="Not classified goods" if classification_hamburg_large=="Marchandises non classifiées"
@@ -28,7 +28,7 @@ graph pie value, over(classification_hamburg_large) by(sourceFRHB, ///
 legend(off) title("Classified versus unclassified goods") ///
 caption("All years")) plabel(_all percen, format(%2.0f) color(white) ///
 gap(8)) plabel(_all name, color(white) gap(-8)) ///
-scheme(s1color)
+scheme(s1color) plotregion(fcolor(white)) graphregion(fcolor(white))
 graph export notclass_to_total_allyear.png, replace as(png)
 *graph save notclass_to_total.gph, replace
 restore
@@ -47,7 +47,7 @@ graph pie value, over(classification_hamburg_large) by(sourceFRHB, ///
 legend(off) title("Classified versus unclassified goods") ///
 caption("Common years only")) plabel(_all percen, format(%2.0f) color(white) ///
 gap(8)) plabel(_all name, color(white) gap(-8)) ///
-scheme(s1color)
+scheme(s1color) plotregion(fcolor(white)) graphregion(fcolor(white))
 graph export notclass_to_total_commonyears.png, replace as(png)
 restore
 
@@ -158,7 +158,7 @@ label values _j source
 graph pie value, over (sitc_rev2) by(_j, title("French Exports (1750-1789)") ///
 subtitle("Decomposition by sector. Correlation : `corr'")) ///
 caption("All years") plabel(_all percen, format(%2.0f) color(white) gap(8)) ///
-scheme(s1color)
+scheme(s1color) plotregion(fcolor(white)) graphregion(fcolor(white))
 graph export allyears_sector.png, replace as(png)
 *graph save commonyears_sector, replace
 restore
@@ -186,7 +186,7 @@ label values _j source
 graph pie value, over (sitc_rev2) by(_j, title("French Exports (1750-1789)") ///
 subtitle("Decomposition by sector. Correlation : `corr'")) ///
 caption("Common years only") plabel(_all percen, format(%2.0f) color(white) gap(8)) ///
-scheme(s1color)
+scheme(s1color) plotregion(fcolor(white)) graphregion(fcolor(white))
 graph export commonyears_sector.png, replace as(png)
 *graph save commonyears_sector, replace
 restore
@@ -560,7 +560,7 @@ restore
 
 **********************************evolution of share of main products********************************************************************
 
-*preserve
+preserve
 replace classification_hamburg_large="Other" if classification_hamburg_large!="Café" ///
 & classification_hamburg_large!="Vin ; de France" & ///
 classification_hamburg_large!="Sucre ; cru blanc ; du Brésil" ///

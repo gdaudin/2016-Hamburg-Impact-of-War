@@ -33,6 +33,8 @@ set more off
 
 if  "`c(username)'" =="TIRINDEE" capture use "/Users/Tirindelli/Desktop/hambourg/bdd courante.dta", clear
 
+if  "`c(username)'" =="Tirindelli" capture use "/Users/Tirindelli/Desktop/hambourg/bdd courante.dta", clear
+
 if "`c(username)'" =="guillaumedaudin" {
 	use "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta", clear
 }
@@ -56,7 +58,7 @@ gen expected = log10(1 + 1/x)
 twoway histogram firstdigit [fw=_freq], plotregion(fcolor(white)) ///
 	graphregion(fcolor(white)) barw(0.5) bfcolor(ltblue) blcolor(navy) ///
 	discrete fraction || connected expected x, xla(1/9) ///
-	title("observed and expected") caption("French source") yla(, ang(h) ///
+	title("Observed and Expected") caption("French source") yla(, ang(h) ///
 	format("%02.1f")) legend(off) plotregion(fcolor(white)) ///
 	graphregion(fcolor(white))
-graph export "$hamburg/Graph/Benford/benford_fr.png", as(png) replace
+graph export "$hamburggit/tex2/benford_fr.png", as(png) replace
