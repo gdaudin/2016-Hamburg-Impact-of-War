@@ -1,0 +1,337 @@
+\documentclass[12pt,a4paper,titlepage,english]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{longtable}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[a4paper, left=.6in,right=.6in,top=.8in,bottom=.8in,]{geometry}
+\usepackage{tabularx,ragged2e,booktabs,caption}
+\usepackage{setspace}
+\setstretch{1.5}
+\usepackage{tabularx, booktabs}
+
+\usepackage{dcolumn} 
+  \newcolumntype{d}[1]{D{.}{.}{#1}}    
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+
+\author{
+  Guillaume Daudin \\ Université Paris-Dauphine
+  \and
+  Elisa Tirindelli \\ Trinity College Dublin 
+}
+\title{Cross-checking sources on eighteenth century trade between France and Hamburg}
+\begin{document}
+
+\maketitle
+
+
+\begin{abstract}
+This paper cross checks two eighteenth century trade data sources from Hamburg and France that have been recently retranscribed.
+Both sources respect the Benford's law.
+The value of French exports to Hamburg recorded by France is quite different from the value the same exports recorded by Hamburg.
+This can be explained by the shortcomings of the two data sources.
+Reassuringly, the evolution and composition of trade are well matched.
+This suggests that the recently collected sources for eighteenth century trade flows (France, Austrian Netherlands, Britain, Sound...) can be cautiously used to improve our knowledge of the eighteenth century economy.  
+\end{abstract}
+
+
+\section{Introduction}
+In my thesis I will use trade data between France and Hamburg from 1733 to 1821 in order to analyse the impact of wars on trade of neutral countries. There exists a vast literature focusing on the relationship between trade and war. A first strand of this literature concentrates on the impact of trade on wars. Within this strand, two major perspectives have emerged: a liberal and a realist one. The first supports a vision of interdependence between trade and war, pointing out that trade promotes peace since it is a better method of expansion than wars. The second opposes this view by claiming that there is no impact of trade on wars, and if any, then it will be a positive impact, as countries will be pushed to move war to maintain trade supremacy. The second strand of the literature, on the other hand, focuses on the impact of conflicts on trade. The works following this perspective are more homogeneous, and most authors agree to the disruptive effects on trade caused by wars. Barbieri and Levy (1999) analyse the impact of war on trade with adversary countries using seven dyads between 1870-1992, and they find that, although different across dyads, the general impact of conflict on trade is not particularly strong and mostly only temporary. Blomberg and Hess (2004) analyse more specifically the effect of all kind of conflicts, distinguishing between internal and external, and find that peace has a large and positive impact on trade. Anderton and Carter (2001) look at the effect of wars on global trade, and find that when major world power are at war significant pre and post war effects are observed, whereas impact is much smaller for conflicts between minor powers. Martin, Mayer and Thenig (2008) construct a theoretical model describing the likelihood of war and test it empirically; they find that likelihood of war is much smaller for countries involved in bilateral trade than for those involved in multilateral. Finally Glick and Taylor (2005) try to quantify the economic impact of the two world wars and claim that conflicts had negative effects on both belligerent and neutral countries with lags up to ten years. Altogether, the papers mentioned above do not always find coherent results, and such results were obtained from data from the last century only. The only exception is Rahman (2007) who uses British trade data from eighteen century, but concentrates manly on the impact of naval conflicts on trade. The majority of scholars (apart from Katherine and Levy) also finds long lasting effects of war; they claim commerce took several years before restoring its prewar level. The only exception is Riley (1984), who concentrates on the case study of the Seven Years War. He observes French trade series and he notices that there were no lags but on the contrary pre and post war loss compensation effects, however, he makes no rigorous analysis to prove his point. The aim of my thesis is to extend Riley’s work by analysing the available French data in the eighteenth century. So far the scholars have analysed the impact on trade of twentieth century wars and generalized the results. I believe that the effect of wars in twentieth century is different from that of other wars throughout history, and related data offer only a partial point of view. Thus, I am convinced that analysing less recent data is crucial to understand the general mechanisms relating trade and conflicts. I focus on the particular case of neutral countries and I look into the product breakdown of trade to observe the difference in impact between goods. I find indeed a general negative impact on trade, but looking at the product breakdown, the effect is much stronger in the case of colonial products, whereas in the case of European products the impact was even positive. In addition, I have also checked for the presence of war lags, as Glick and Taylor (2005) suggest. I find no evidence of war lag in the Hamburg series, nor in the general case. On the contrary, I find a positive and significant coefficient for the two years following the war for all countries (around 40\%) and for Hamburg a particular increase in European goods. Finally, I have tested my series for pre-war effects, as suggested by Riley (1984) but in this case I could not find coherent and significant results.  
+
+
+\section{Dataset}
+For conducting my analysis I will use two different datasets: a French and a German one. The French datasets accounts for exports flows towards all countries whereas for the German dataset I only have flows towards France. For the French recorded flows towards Hamburg I will perform a comparison with the German recorded flows, to ensure the reliability of the data. Of course I am not expecting a precise correspondence between the sources. However, since I am dealing with an historical dataset, the first important step, where possible, is to prove that despite the obvious measurement errors, those sources are indeed reliable and they can be used for further historical research with the awareness of their reliability. 
+
+\subsection{French Dataset}
+\subsubsection{Figures}
+Between 1733 and 1820, the French dataset accounts for 146,963 observations, with incomplete data between 1761 and 1767 and missing data between 1782 and 1787, in 1789 and in 1797. There are overall 82 different destinations recorded, but each one of them is not present every year. Rather then single countries they are groups of countries and most destinations get broken down into smaller destinations in later periods or even disappeared to be replaced by other smaller entities. To bypass this problem I used country grouping. 11 different groups could be created and each of them comprises all the evolution of one destination, so that I can have observations for each group for each year. The groups I am considering are: Germany, England, Flanders and Habsburg Monarchy, Italy, Portugal, Spain, Switzerland, Colonies, Dutch Republic, India, Levant, North. The flows towards Hamburg in particular are 11,062 and data are available for the same period as the rest of of the dataset.\\
+Values in the dataset are always expressed in \textit{livres turnois}, but I will convert them in grams of fine silver to be able to compare the French dataset concerning trade towards Hamburg with the German dataset. The value of the \textit{livre} has been constant at 4.505 grams of fine silver all throughout the period in consideration. 
+
+\subsubsection{Origin of data}
+Data come from the archives of the French \textit{Bureau de la Balance du Commerce}. This institution was created in 1713, after the Treaty of Utrecht, which followed the Spanish succession war. In this circumstances, the French were positively impressed by the detailed knowledge shown by the British on their trade flows and they also decided to create an institution which would keep track of exports and imports from and to France. Before this, there were already local institutions keeping track of goods going in and out of harbour cities (only in quantity terms) but starting 1716 they started sending their records to the \textit{Bureau}. The \textit{Bureau} would then compute aggregate yearly figures for each \textit{direction} (port) and then send them back to the local chamber of commerce, so that they could add the values. Unfortunately those documents did not survive till our days; we still have some records from local sources but they are quite incomplete. On the other hand, another kind of document survived, which reports the total value of trade for each destination for each year, so at least we have reliable figures on aggregate values. Starting from 1750 the \textit{Object Général} was introduced, which was more complete, and was recording each product from and to each destination for all ports. The \textit{Objet Général} survived in its entirety and this is what I have used for my estimations. For the period preceding 1733, I have estimated the data basing on local sources, as explained in section 3. 
+
+\subsubsection{Limitations of French dataset}
+As explained above, data got to us through different sources. The most complete one is the \textit{Objet Géneral} however from 1733 to 1749 it had not been instituted yet and the only available information at product level from the French side are the local sources. Unfortunately, local sources tend to be incomplete and very rarely we still have records from every source and every year, which makes the first part of the dataset quite incomplete. To compensate for this problem I have tried to estimate the data in the first part of the dataset as explained in section three.
+In addition to this, another major limitation of the French dataset is that Hamburg does not appear as a destination per se but as part of a broader group denominated “Nord”. Prior to 1733 the destination “Nord” was a general category that included all locations situated north of the Low Countries on the European continent. In 1733 the category “Denmark” was created, that included trade with the actual Denmark and Norway and in 1734 “Suède” was also detached from the “Nord” to form a specific geographical unit (equivalent to our modern Sweden, Finland, and a small piece of land in Western Pomerania). In 1744 “Russie” was further detached from “Nord” and finally in 1780 “Nord” disappeared completely to be replaced by three new geographical entities: “Royaume de Prusse”, “L’Allemagne et la Pologne” and “Les villes Hansèatiques”, the latter including Hamburg, Bremen, Lübeck and Dantzig (Daudin and Charles (2015)).
+As a result, in the comparison analysis, we expect the French dataset to report higher figure than what we can find in the Hamburg dataset. 
+
+\subsection{German Dataset}
+\subsubsection{Figures}
+The German dataset is unfortunately less complete than the French one, on several points of view. First all of all it comprises of only 1609 observations and it covers the following years: 1736-1740, 1742, 1747, 1753, 1755, 1756, 1760, 1762, 1763, 1769, 1770, 1771, 1773, 1776, 1781-92, 1794, 1795, 1797 and 1798. The flows recorded however are not as detailed as in the French dataset. In this case we find broader categories of products, which correspond to several goods in the French dataset. We count 39 categories, to which we add a fortieth one that includes all the French goods that cannot be classified in the Hamburg categories. 
+%\newpage
+\begin{center}
+\captionof{table}{Classification Hamburg} \label{tab:title} 
+\begin{tabularx}{1\textwidth}{|c *{5}{|Y}|}
+\hline
+	Eau de vie & Saffron & Tar & Turpentine & Cacao \\ \hline
+	Tobacco & Spermaceti & Indigo & Verdigris & Coffee \\ \hline
+	Wine & Olive Oil & Minium  & Vitriol & Ginger \\ \hline
+	Pernambouc Wood & Tallow & Lead Oxyde & Candles & Pepper \\ \hline
+	Painting Wood & Whale Oil & Potassium & Butter & Sugar \\ \hline
+	Cotton & Alun & Soap & Fruits & Tea \\ \hline
+	Gum & Cochineal & Sumac & Rice & Iron \\ \hline
+	Lead & Gal & Potassium Bitartre & Vinegar & \  \\ \hline
+\end{tabularx}\\~\\
+\end{center}
+
+Values are expressed in \textit{Mark Banco}, which, on the contrary of \textit{livre tourois}, was not constant in terms of grams of silver over the period of analysis. For this reason, I had to use a different conversion value for each year. In general however, \textit{Mark Banco} was on average worth twice as much as French \textit{livres}. A table of conversion for \textit{Mark Banco} can be found in the appendix. \\
+
+
+
+\subsubsection{Limitations}
+As mentioned before, the data come from the Hamburg import toll register, so all taxable goods were recorded in the data. However there were some exemptions for taxes so that some goods were not registered. According to Pfister (2015), only goods coming into the city were liable to paying tolls, coal and grain were exempted and most of dyestuff was not being tracked either. In addition to this, there is the issue of categories rather than products. Unfortunately only a minor share of products can be matched, but on the other hand they represent a vary high share in value terms. 
+
+\subsection{Estimation of French missing data}
+As mentioned above, for the whole period preceding 1749, the only available data we have from the French source is either the yearly aggregate figures by destination, or the incomplete local sources, which on the other hand contains information on each product. For this reason, in order to perform the comparison between the two datasets and the subsequent analysis, it will be necessary to estimate the full value of exports from the available data. In order to do this, I run the following regression:
+\begin{center}
+$\ln(product_{i,j,k,t})=\beta_0 + \beta_1year_t+\beta_3direction_k$
+\end{center}
+where the dependent variable products stands for the value of exports of one product, for each port reported in the local source and for each year. Year is a set of year dummies and direction is also a set of dummies that indicates in which port the data were recorded (direction also includes “France”, meaning all ports). This model aims to predict the export value of single products per year basing on the yearly changes in export and on the export composition by source, with the assumption that the composition is constant through time. I run the model on the whole available data including those recorded after 1789 and before 1733 but I only do so for coffee, sugar, wine, eau vie and an aggregate category of all other goods (other), except in the case of Hamburg for which I was able to estimate the value of all products. In addition, to avoid the problem of log of zero trade flows, I have substituted them with 0.001, so that observations would not drop but the zero flows in the estimation could be taken into account as a value really close to zero. Finally, I also added weights on value, as to give more importance to flows higher in value. The results are pretty satisfactory; the correlation is very close to 1 for most goods and the pattern of estimated and actual value are very similar. 
+
+\subsection{Testing Benford’s law}
+As a last step in my validation of the data, I have tested Benford’s law or the first-digit law on both datasets. Benford’s law is a law providing the frequency distribution of the first digit in most real life datasets. According to Benford the leading digit $d$, with $d \in \{1,...,9\}$ should follow the probability distribution: 
+\begin{center}
+$P(d)=\log_b(1+\frac{1}{d})$
+\end{center}
+where $P(d)$ is proportional to the distance between $d$ and $d+1$ on a logarithmic scale, which is the case when the logarithm of the numbers and not the numbers themselves are uniformly and randomly distributed. I run the following Pearsons’s chi square test:
+\begin{center}
+$$\chi^2=N\sum_{d=1}^{9}\frac{(p(d)-d(b))^2}{d(b)}$$
+\end{center}
+where N is the frequency and $p(d)$ and $d(b)$ are the proportions of Benford’s law and my data respectively. For both dataset I cannot reject the null hypothesis that the leading digit is actually distributed according to Benford’s law.
+\caption{Benford'law}
+\includegraphics[scale=.28]{benford_fr.png}
+\includegraphics[scale=.28]{benford_hb.png}
+
+
+
+
+\section{Reliability of dataset}
+\subsubsection{Method}
+As mention before, an important step of my work is to ensure the reliability of the data. In order to do so I have looked at three different aspects of comparison: the composition of exports by products, by sector and total exports. For the comparison by product I will use the categories present in the Hamburg dataset and compare goods in the French dataset that can be classified within those categories. As per the comparison by sector, I will use the Standard International Trade Classification (SITC revue 3), which is a classification maintained by United Nations and used to compare trade flows across countries and across years. It is based on the materials used in production, the processing stage, its use, its importance in terms on world trade and finally its technological changes.  A table with the category is displayed below. Details of classification of goods into SITC can be found in the appendix.
+
+\captionof{table}{SITC Rev. 3} \label{tab:title} 
+\begin{center}
+\begin{tabular}{ | l | l | l | l | }
+\hline
+	0a & European foodstuff and live animals & 6e & Wool products \\ \hline
+	0b & Extra-European foodstuff & 6f & Silk products \\ \hline
+	1 & Drinks and tobacco & 6g & Coton products \\ \hline
+	2 & Crude materials, inedible, except fuels & 6h & Other mixed cloths \\ \hline
+	3 & Fuels & 6i & Other mixed textiles \\ \hline
+	4 & Oils & 6j & Metal products \\ \hline
+	5 & Chemical products & 6k & Other industrial product by composition \\ \hline
+	6a & Leather products & 7 & Machines and transport \\ \hline
+	6b & Wood products & 8 & Various manufactures \\ \hline
+	6c & Paper products & 9a & Precious metals \\ \hline
+	6d & Linen products & 9b & Mixed flows \\ \hline
+\end{tabular}\\~\\
+\end{center}
+
+The composition of exports by products and sector can be analysed both as an aggregate over the available years or in their evolution in time (i.e. looking at total export per year of each products and its evolution). Total exports of course can only be looked at in their longitudinal evolution. In addition, since in some years we have the value from one source but we do not have the value from the other, all comparison can be done either on all the whole period or only on years common to both datasets. As a general results in the analyses we do not see a major difference between results from the latter two cases, which leads us to conclude that common years are a good proxy for the entire period. 
+
+\subsubsection{Classified versus non classified products}
+As a first step, I will look at the ratio of the products that can be classified to those that find no match in the other dataset. As mentioned before, it was necessary to regroup French goods into Hamburg categories to make comparison possible. This results in the matching of 1,913 French goods out of 4,695. At first sight this might be a discouraging result, however if we now look at the share of value of classified goods to total, according to both sources we can see that they actually represent 96\% of the total export. This result holds both if we consider only common years (i.e. excluding years for which only one source is available) and the whole period. \\
+The share of not classified goods however varies over the period. As mentioned above, the average is around 4\%, however for most of the period it is below this level. This is compensated by three peaks in 1733 to 1739, 1757 to 1663 and 1780 to 1781 (the latter on a smaller scale), which coincide with the major conflict that occurred in that period. I will analyse the impact of conflict on trade flows more in details in sections 5 and 6.
+
+\subsubsection{Absolute value of exports from the two sources}
+Despite the fact that classified and not classified goods are very close in their share according to both dataset, there is a problem arising while considering the absolute value of export. Since the geographical scope of the two datasets is considerably different at least until 1780, we expect France to overestimate exports, which is exactly what the graph below suggests.
+\caption{Sum of total export according to the two sources}
+\includegraphics[scale=.28]{value_total_fr_hb_commonyears.png}
+\includegraphics[scale=.28]{value_total_fr_hb.png}
+Aggregate exports value in Hamburg source account for slightly less then 50\% of export value in the French source considering only common years and slightly around 30\% considering all years (1733-1789). The ratio of the two values however is far from stable; before 1740, the two sources report roughly the same value, Hamburg reports even more than France in 1735, which however might be due to the fact that the values I estimated for the period previous to 1753 for France are underestimating the real total value of exports. In the subsequent period there is a sharp decrease, and the ratio stabilizes around 5\%. Surprisingly, no major effect is evident in 1740 with the exclusion of Russia and in 1780, with the narrowing of the destination on the French dataset from “Nord” to “Hanseatic cities”. On the contrary, the ratio increases. This leads me to think either to a mistake in the data, or that the share meant for Russia was only a small part of the overall export towards North.
+
+\begin{center}
+\caption{Evolution of the ratio of datasets}
+\includegraphics[scale=.3]{long_ratio.png}
+\end{center}
+
+
+\subsection{Comparison of total exports}
+I will now turn to the evolution of aggregate exports per year.  For simplicity in comparison I have used value indexed at values in year 1787, which is the most complete for both sources. In this way I can observe better  the pattern of the two series, without considering the discrepancy in absolute value. 
+From the graph below it is evident that the two sources move quite well together, with a correlation between the two series of 0.88. Also the data preceding 1740, which are an estimate, are in line with the Hamburg series. 
+The overall trend of both series looks like an increasing one even though the growth is interrupted during war period. The Polish succession war between 1733 and 1738, did not seem to impact trade as much as colonial wars, whose effect on the other hand is very evident in the sharp decrease in 1761 and 1781. In this respect, I will go more into details in subsequent sections.
+
+\begin{center}
+\caption{Comparison of longitudinal evolution of aggregate exports}
+\includegraphics[scale=.3]{long_evolution.png}\\~\\
+\end{center}
+
+\subsection{Comparison at sector level}
+\subsubsection{Comparison of aggregate export by sector}
+The comparison at sector level brings contrasting results. At aggregate level the two sources are very close, both for the whole period and common years. It is evident that the major sector is exotic foodstuff, followed by beverages and tobacco and then by raw material, which however represents a significantly smaller share. Colonial imports are actually representing the biggest source of trade, which explains why then colonial wars were the cause of trade collapse. \\~\\
+\caption{Comparison of total exports}
+\includegraphics[scale=.28]{commonyears_sector.png}
+\includegraphics[scale=.28]{allyears_sector.png}
+
+\subsubsection{Comparison of the evolution of major sectors overtime}
+As mentioned above the three major sectors are Exotic foodstuffs, beverages and tobacco and raw material, with a higher importance given to the first two. The tables below plot the longitudinal evolution of these sectors according to the two different sources. Results are not as satisfactory as in the total exports longitudinal evolution above and it might be the case the estimation on the values of product pre-1750 was not too accurate because of lack of data. In all the three cases displayed below, I plotted both the share of the sector on the total and the absolute value (indexed at the 1787 value). 
+\caption{Evolution of Exotic foodstuff}
+\includegraphics[scale=.28]{exotic_food_long.png}
+\includegraphics[scale=.28]{exotic_food_share.png}\\
+\caption{Evolution of Beverages and Tobacco}
+\includegraphics[scale=.28]{bev_tobacco_long.png}
+\includegraphics[scale=.28]{bev_tobacco_share.png}\\
+\newpage
+\caption{Evolution of Raw material}
+\includegraphics[scale=.28]{raw_mat_long.png}
+\includegraphics[scale=.28]{rawmat_share.png}
+
+\subsection{Comparison at product}
+\subsubsection{Comparison of aggregate export by product}
+As for the case of sectors, products do not always give the results we would expect. At aggregate level both on all years and common years the two databases are quite close:\\~\\
+\caption{Evolution of coffee}
+\includegraphics[scale=.28]{coffee_long.png}
+\includegraphics[scale=.28]{coffee_share_long.png}\\
+\newpage
+\caption{Evolution of Sugar}
+\includegraphics[scale=.28]{sugar_long.png}
+\includegraphics[scale=.28]{sugar_share_long.png}\\
+\caption{Evolution of Indigo}
+\includegraphics[scale=.28]{indigo_long.png}
+\includegraphics[scale=.28]{indigo_share_long.png}\\
+\caption{Evolution of Eau de vie}
+\includegraphics[scale=.28]{eaudevie_long.png}
+\includegraphics[scale=.28]{eaudevie_share_long.png}\\
+\caption{Evolution of wine}
+\includegraphics[scale=.28]{wine_long.png}
+\includegraphics[scale=.28]{wine_share_long.png}
+The evolution of sugar is not too precise comparing the two sources but overall the pattern is quite similar. The fact that strikes the attention is that sugar went to a nearly zero level during Seven Years War (both in share and absolute value) but experienced a less sharp decrease during the American revolutionary war. This pattern is also common to coffee and to a lesser extent to Indigo. On the contrary, in the case of wine and eau de vie, we observe an increase in export, even in absolute value, corresponding to the beginning of the Seven Years War, and then again a decline towards the end of the war. The increase in absolute value lasts till 1761 and then it also collapses together with coffee and sugar, however it remains the major source of export for the war period, especially in terms of share of overall exports. A similar pattern can be noticed during American revolutionary war but on a smaller scale. 
+
+
+\section{Appendix : Other tables}
+\input{class_sitc}
+\input{mark_banco}
+
+\clearpage
+\begin{thebibliography}{9}
+
+\bibitem{}
+Reuven Glick, Alan M. Taylor 
+\textit{Collateral damage: trade disruption and the economic impact of war}. 
+The Review of Economics and Statistics, February 2010, 92(1): 102–127
+
+\bibitem{}
+J. C. Riley
+\textit{The Seven Years War and the Old Regime in France}. 
+Series: Princeton Legacy Library, 1986, Published by: Princeton University Press, Pages: 280
+
+\bibitem{}
+Ahmed S. Rahman
+\textit{Fighting the Forces of Gravity - Seapower and Maritime Trade between the 18th and 20th Centuries}. 
+Explorations in Economic History Volume 47, Issue 1, January 2010, Pages 28–48
+
+
+\bibitem{}
+Rafael Reuveny. 
+\textit{Bilateral Import, Export, and Conflict/Cooperation Simultaneity}. 
+International Studies Quarterly, Vol. 45, No. 1 (Mar., 2001), pp. 131-158
+
+\bibitem{}
+Guillaume Daudin. 
+\textit{Domestic trade and market size in late eighteen century France}. 
+The Journal of Economic History / Volume 70 / Issue	03 / September 2010, pp 716-743
+
+
+\bibitem{}
+S. Brock Blomberg, Gregory D. Hess
+\textit{How much does violence tax trade?}. 
+The Review of Economics and Statistics (Impact Factor:2.66). 11/2006; 88(4):599:612
+
+\bibitem{}
+Charles H. Anderton, John R. Carter
+\textit{The Impact of War on Trade: An Interrupted Times-Series Study}. 
+2001 Journal of Peace Research, vol. 38, no. 4, 2001, pp. 445–457
+
+\bibitem{}
+Loic Charles and Guillaume Daudin
+\textit{Eighteen century international trade statistics sources and method}. 
+Revue de l’OFCE
+
+\bibitem{}
+Katherine Barbieri and Jack S. Levy
+\textit{Sleeping with the Enemy: The Impact of War on Trade}. 
+Journal of Peace Research, Vol. 36, No. 4, Special Issue on Trade and Conflict (Jul., 1999), pp. 463-479
+
+\bibitem{}
+Jennings
+\textit{Les marches du Nord dans le commerce francais au xvme siecle}. 
+Rennes, Presses Universitaires de Rennes, 2006, 390 p
+
+
+\bibitem{}
+Ahmed S. Rahman, Darrell J. Glaser
+\textit{Ex Tridenti Mercatus?- Sea-power and Maritime Trade in the Age of Globalization}. 
+Journal of International Economics Volume 100, May 2016, Pages 95–111
+
+\bibitem{}
+Ahmed S. Rahman
+\textit{Fighting the Forces of Gravity - Seapower and Maritime Trade between the 18th and 20th Centuries}. 
+Explorations in Economic History Volume 47, Issue 1, January 2010, Pages 28–48
+
+\bibitem{}
+Scott L. Baier, Jeffrey H. Bergstrand
+\textit{Do free trade agreements actually increase members' international trade?} 
+Journal of International Economics 71 (2007) 72–95
+
+\bibitem{}
+Philip Martin, Thierry Mayer, Mathias Thoenig
+\textit{Make Trade Not War?} 
+Review of Economic Studies (2008) 75, 865–900
+
+\bibitem{}
+Mary Lindemann
+\textit{The merchants republics: Amsterdam, Antwerp and Hamburg 1648-1790} 
+Cambridge:	Cambridge University Press, 2015. 374 pp. ISBN 978-1-107-07443-9.
+
+\bibitem{}
+S. Brock Blomberg, Gregory D. Hess , and Siddarth Thacker
+\textit{On the conflict-poverty nexus} 
+ECONOMICS \&\ POLITICS 0954-1985 Volume 18 November 2006 No.3
+
+\bibitem{}
+Patrick Villiers
+\textit{Marine Royale, corsaires et trafic dans l'Atlantique de Louis XIV à Louis XVI} 
+Diffusion Septentrion, Press universitaires, Thèse à la carte
+
+\bibitem{}
+Francois Crouzet
+\textit{La guèrre économique franco-anglaise au XVIII siècle} 
+Paris, ed. Fayard, 2008 ISBN 978-2-213-63601-6
+
+\bibitem{}
+Charles Carrière
+\textit{Negociants marseillais au XVIII siècle} 
+Marseille, A. Robert, 1973. 2 vol. gr. in-8, 1.111 pages. (Institut historique de Provence.)
+
+\bibitem{}
+Pierrick Pourchasse
+\textit{Le commerce du Nord. Les échanges commerciaux entre la France et l’Europe septentrionale au XVIIIe siècle, Rennes} Presses Universitaires de Rennes, 2006, 390 p., ISBN 978-2753500976.
+
+\bibitem{}
+Lagerqvist L. and E Nathorst-Boos, 
+\textit{Mynt}, Bokforlaget PAN /Norstedts, Stockholm, 1968, p.78
+
+\bibitem{}
+Anne Husted Burleigh
+\textit{John Adams} American presidents series, Transaction Publishers 2009, p. 189
+
+\bibitem{}
+Griffiths, David M. \textit{An American Contribution to the Armed Neutrality of 1780.} Russian Review 30, no. 2 (April 1971).
+
+\end{thebibliography}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
