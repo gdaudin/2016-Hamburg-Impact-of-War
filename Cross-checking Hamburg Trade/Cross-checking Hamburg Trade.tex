@@ -17,16 +17,23 @@
 \usepackage[T1]{fontenc}
 \usepackage{babel}
 
-\author{
-  Guillaume Daudin \\ Université Paris-Dauphine
-  \and
-  Elisa Tirindelli \\ Trinity College Dublin 
-}
-\title{Cross-checking sources on eighteenth century trade between France and Hamburg}
+
 \begin{document}
 
-\maketitle
 
+
+\title{Cross-checking sources on eighteenth century trade between France and Hamburg\thanks{We are grateful to ... Ajexandre Aubourg...}}
+\author{Guillaume Daudin\thanks{
+Universit\'{e} Paris-Dauphine, PSL Research University, LEDa, 75016 PARIS, FRANCE \newline
+Universit\'{e} Paris-Dauphine, PSL Research University, IRD, LEDa, UMR 225, DIAL, 75016 PARIS, FRANCE \newline
+Sciences Po, Observatoire Fran\c{c}ais des Conjonctures \'{E}conomiques (OFCE), 75014 PARIS, FRANCE \newline
+email: guillaume.daudin@dauphine.fr}
+\and Elisa Tirindelli\thanks{Trinity College Dublin}}
+
+
+
+
+\maketitle
 
 \begin{abstract}
 This paper cross checks two eighteenth century trade data sources from Hamburg and France that have been recently retranscribed.
@@ -101,15 +108,18 @@ where $P(d)$ is proportional to the distance between $d$ and $d+1$ on a logarith
 $$\chi^2=N\sum_{d=1}^{9}\frac{(p(d)-d(b))^2}{d(b)}$$
 \end{center}
 where N is the frequency and $p(d)$ and $d(b)$ are the proportions of Benford’s law and my data respectively. For both dataset I cannot reject the null hypothesis that the leading digit is actually distributed according to Benford’s law.
-\caption{Benford'law}
+
+
+\begin{center}
+\captionof{figure}{Benford's law}
 \includegraphics[scale=.28]{benford_fr.png}
 \includegraphics[scale=.28]{benford_hb.png}
-
+\end{center}
 
 
 
 \section{Reliability of dataset}
-\subsubsection{Method}
+\subsection{Method}
 As mention before, an important step of my work is to ensure the reliability of the data. In order to do so I have looked at three different aspects of comparison: the composition of exports by products, by sector and total exports. For the comparison by product I will use the categories present in the Hamburg dataset and compare goods in the French dataset that can be classified within those categories. As per the comparison by sector, I will use the Standard International Trade Classification (SITC revue 3), which is a classification maintained by United Nations and used to compare trade flows across countries and across years. It is based on the materials used in production, the processing stage, its use, its importance in terms on world trade and finally its technological changes.  A table with the category is displayed below. Details of classification of goods into SITC can be found in the appendix.
 
 \captionof{table}{SITC Rev. 3} \label{tab:title} 
@@ -132,19 +142,21 @@ As mention before, an important step of my work is to ensure the reliability of 
 
 The composition of exports by products and sector can be analysed both as an aggregate over the available years or in their evolution in time (i.e. looking at total export per year of each products and its evolution). Total exports of course can only be looked at in their longitudinal evolution. In addition, since in some years we have the value from one source but we do not have the value from the other, all comparison can be done either on all the whole period or only on years common to both datasets. As a general results in the analyses we do not see a major difference between results from the latter two cases, which leads us to conclude that common years are a good proxy for the entire period. 
 
-\subsubsection{Classified versus non classified products}
+\subsection{Classified versus non classified products}
 As a first step, I will look at the ratio of the products that can be classified to those that find no match in the other dataset. As mentioned before, it was necessary to regroup French goods into Hamburg categories to make comparison possible. This results in the matching of 1,913 French goods out of 4,695. At first sight this might be a discouraging result, however if we now look at the share of value of classified goods to total, according to both sources we can see that they actually represent 96\% of the total export. This result holds both if we consider only common years (i.e. excluding years for which only one source is available) and the whole period. \\
 The share of not classified goods however varies over the period. As mentioned above, the average is around 4\%, however for most of the period it is below this level. This is compensated by three peaks in 1733 to 1739, 1757 to 1663 and 1780 to 1781 (the latter on a smaller scale), which coincide with the major conflict that occurred in that period. I will analyse the impact of conflict on trade flows more in details in sections 5 and 6.
 
-\subsubsection{Absolute value of exports from the two sources}
+\subsection{Absolute value of exports from the two sources}
 Despite the fact that classified and not classified goods are very close in their share according to both dataset, there is a problem arising while considering the absolute value of export. Since the geographical scope of the two datasets is considerably different at least until 1780, we expect France to overestimate exports, which is exactly what the graph below suggests.
-\caption{Sum of total export according to the two sources}
+\begin{figure}
+\captionof{figure}{Sum of total export according to the two sources}
 \includegraphics[scale=.28]{value_total_fr_hb_commonyears.png}
 \includegraphics[scale=.28]{value_total_fr_hb.png}
+\end{figure}
 Aggregate exports value in Hamburg source account for slightly less then 50\% of export value in the French source considering only common years and slightly around 30\% considering all years (1733-1789). The ratio of the two values however is far from stable; before 1740, the two sources report roughly the same value, Hamburg reports even more than France in 1735, which however might be due to the fact that the values I estimated for the period previous to 1753 for France are underestimating the real total value of exports. In the subsequent period there is a sharp decrease, and the ratio stabilizes around 5\%. Surprisingly, no major effect is evident in 1740 with the exclusion of Russia and in 1780, with the narrowing of the destination on the French dataset from “Nord” to “Hanseatic cities”. On the contrary, the ratio increases. This leads me to think either to a mistake in the data, or that the share meant for Russia was only a small part of the overall export towards North.
 
 \begin{center}
-\caption{Evolution of the ratio of datasets}
+\captionof{figure}{Evolution of the ratio of datasets}
 \includegraphics[scale=.3]{long_ratio.png}
 \end{center}
 
@@ -154,21 +166,22 @@ I will now turn to the evolution of aggregate exports per year.  For simplicity 
 From the graph below it is evident that the two sources move quite well together, with a correlation between the two series of 0.88. Also the data preceding 1740, which are an estimate, are in line with the Hamburg series. 
 The overall trend of both series looks like an increasing one even though the growth is interrupted during war period. The Polish succession war between 1733 and 1738, did not seem to impact trade as much as colonial wars, whose effect on the other hand is very evident in the sharp decrease in 1761 and 1781. In this respect, I will go more into details in subsequent sections.
 
-\begin{center}
+\begin{figure}
+\centering
 \caption{Comparison of longitudinal evolution of aggregate exports}
 \includegraphics[scale=.3]{long_evolution.png}\\~\\
-\end{center}
+\end{figure}
 
 \subsection{Comparison at sector level}
 \subsubsection{Comparison of aggregate export by sector}
 The comparison at sector level brings contrasting results. At aggregate level the two sources are very close, both for the whole period and common years. It is evident that the major sector is exotic foodstuff, followed by beverages and tobacco and then by raw material, which however represents a significantly smaller share. Colonial imports are actually representing the biggest source of trade, which explains why then colonial wars were the cause of trade collapse. \\~\\
-\caption{Comparison of total exports}
+\captionof{figure}{Comparison of total exports}
 \includegraphics[scale=.28]{commonyears_sector.png}
 \includegraphics[scale=.28]{allyears_sector.png}
 
 \subsubsection{Comparison of the evolution of major sectors overtime}
 As mentioned above the three major sectors are Exotic foodstuffs, beverages and tobacco and raw material, with a higher importance given to the first two. The tables below plot the longitudinal evolution of these sectors according to the two different sources. Results are not as satisfactory as in the total exports longitudinal evolution above and it might be the case the estimation on the values of product pre-1750 was not too accurate because of lack of data. In all the three cases displayed below, I plotted both the share of the sector on the total and the absolute value (indexed at the 1787 value). 
-\caption{Evolution of Exotic foodstuff}
+\captionof{figure}{Evolution of Exotic foodstuff}
 \includegraphics[scale=.28]{exotic_food_long.png}
 \includegraphics[scale=.28]{exotic_food_share.png}\\
 \caption{Evolution of Beverages and Tobacco}
@@ -182,22 +195,24 @@ As mentioned above the three major sectors are Exotic foodstuffs, beverages and 
 \subsection{Comparison at product}
 \subsubsection{Comparison of aggregate export by product}
 As for the case of sectors, products do not always give the results we would expect. At aggregate level both on all years and common years the two databases are quite close:\\~\\
-\caption{Evolution of coffee}
+\captionof{figure}{Evolution of coffee}
 \includegraphics[scale=.28]{coffee_long.png}
 \includegraphics[scale=.28]{coffee_share_long.png}\\
 \newpage
-\caption{Evolution of Sugar}
+\captionof{figure}{Evolution of Sugar}
 \includegraphics[scale=.28]{sugar_long.png}
 \includegraphics[scale=.28]{sugar_share_long.png}\\
-\caption{Evolution of Indigo}
+\captionof{figure}{Evolution of Indigo}
 \includegraphics[scale=.28]{indigo_long.png}
 \includegraphics[scale=.28]{indigo_share_long.png}\\
-\caption{Evolution of Eau de vie}
+\captionof{figure}{Evolution of Eau de vie}
 \includegraphics[scale=.28]{eaudevie_long.png}
 \includegraphics[scale=.28]{eaudevie_share_long.png}\\
+\begin{figure}
 \caption{Evolution of wine}
 \includegraphics[scale=.28]{wine_long.png}
 \includegraphics[scale=.28]{wine_share_long.png}
+\end{figure}
 The evolution of sugar is not too precise comparing the two sources but overall the pattern is quite similar. The fact that strikes the attention is that sugar went to a nearly zero level during Seven Years War (both in share and absolute value) but experienced a less sharp decrease during the American revolutionary war. This pattern is also common to coffee and to a lesser extent to Indigo. On the contrary, in the case of wine and eau de vie, we observe an increase in export, even in absolute value, corresponding to the beginning of the Seven Years War, and then again a decline towards the end of the war. The increase in absolute value lasts till 1761 and then it also collapses together with coffee and sugar, however it remains the major source of export for the war period, especially in terms of share of overall exports. A similar pattern can be noticed during American revolutionary war but on a smaller scale. 
 
 
