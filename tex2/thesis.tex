@@ -1,0 +1,490 @@
+\documentclass[12pt,a4paper,titlepage,english]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{longtable}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[a4paper, left=.6in,right=.6in,top=.8in,bottom=.8in,]{geometry}
+\usepackage{tabularx,ragged2e,booktabs,caption}
+\usepackage{setspace}
+\setstretch{1.5}
+\usepackage{tabularx, booktabs}
+\usepackage{dcolumn} 
+  \newcolumntype{d}[1]{D{.}{.}{#1}}    
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+
+\author{
+  Guillaume Daudin \\ Université Paris-Dauphine
+  \and
+  Elisa Tirindelli \\ Trinity College Dublin 
+}
+\title{The impact of wars on trade: \\ a case study from Hamburg between 1733 and 1820}
+\begin{document}
+
+\maketitle
+
+
+\begin{abstract}
+The aim of my work is to analyse the impact of conflict on trade of neutral countries, not in nineteenth century, as it has been done so far, but on previous periods. I do so first analysing the specific case of trade between France and Hamburg and then compare it to the general case of all other France trading partners. In addition I do a break down by product and look at the difference in impact on colonial and non-colonial goods. I find a striking difference according to the different goods, with some European merchandises even benefiting from the war. Finally I check for the presence of lagged effects of and prewar effects. I find no clear evidence of either of them but to some extent, we can observe an increase in trade after the conflict rather than a sluggish reprise. 
+\end{abstract}
+
+
+\section{Introduction}
+In my thesis I will use trade data between France and Hamburg from 1733 to 1821 in order to analyse the impact of wars on trade of neutral countries. There exists a vast literature focusing on the relationship between trade and war. A first strand of this literature concentrates on the impact of trade on wars. Within this strand, two major perspectives have emerged: a liberal and a realist one. The first supports a vision of interdependence between trade and war, pointing out that trade promotes peace since it is a better method of expansion than wars. The second opposes this view by claiming that there is no impact of trade on wars, and if any, then it will be a positive impact, as countries will be pushed to move war to maintain trade supremacy. The second strand of the literature, on the other hand, focuses on the impact of conflicts on trade. The works following this perspective are more homogeneous, and most authors agree to the disruptive effects on trade caused by wars. Barbieri and Levy (1999) analyse the impact of war on trade with adversary countries using seven dyads between 1870-1992, and they find that, although different across dyads, the general impact of conflict on trade is not particularly strong and mostly only temporary. Blomberg and Hess (2004) analyse more specifically the effect of all kind of conflicts, distinguishing between internal and external, and find that peace has a large and positive impact on trade. Anderton and Carter (2001) look at the effect of wars on global trade, and find that when major world power are at war significant pre and post war effects are observed, whereas impact is much smaller for conflicts between minor powers. Martin, Mayer and Thenig (2008) construct a theoretical model describing the likelihood of war and test it empirically; they find that likelihood of war is much smaller for countries involved in bilateral trade than for those involved in multilateral. Finally Glick and Taylor (2005) try to quantify the economic impact of the two world wars and claim that conflicts had negative effects on both belligerent and neutral countries with lags up to ten years. Altogether, the papers mentioned above do not always find coherent results, and such results were obtained from data from the last century only. The only exception is Rahman (2007) who uses British trade data from eighteen century, but concentrates manly on the impact of naval conflicts on trade. The majority of scholars (apart from Katherine and Levy) also finds long lasting effects of war; they claim commerce took several years before restoring its prewar level. The only exception is Riley (1984), who concentrates on the case study of the Seven Years War. He observes French trade series and he notices that there were no lags but on the contrary pre and post war loss compensation effects, however, he makes no rigorous analysis to prove his point. The aim of my thesis is to extend Riley’s work by analysing the available French data in the eighteenth century. So far the scholars have analysed the impact on trade of twentieth century wars and generalized the results. I believe that the effect of wars in twentieth century is different from that of other wars throughout history, and related data offer only a partial point of view. Thus, I am convinced that analysing less recent data is crucial to understand the general mechanisms relating trade and conflicts. I focus on the particular case of neutral countries and I look into the product breakdown of trade to observe the difference in impact between goods. I find indeed a general negative impact on trade, but looking at the product breakdown, the effect is much stronger in the case of colonial products, whereas in the case of European products the impact was even positive. In addition, I have also checked for the presence of war lags, as Glick and Taylor (2005) suggest. I find no evidence of war lag in the Hamburg series, nor in the general case. On the contrary, I find a positive and significant coefficient for the two years following the war for all countries (around 40\%) and for Hamburg a particular increase in European goods. Finally, I have tested my series for pre-war effects, as suggested by Riley (1984) but in this case I could not find coherent and significant results.  
+
+
+\section{Dataset}
+For conducting my analysis I will use two different datasets: a French and a German one. The French datasets accounts for exports flows towards all countries whereas for the German dataset I only have flows towards France. For the French recorded flows towards Hamburg I will perform a comparison with the German recorded flows, to ensure the reliability of the data. Of course I am not expecting a precise correspondence between the sources. However, since I am dealing with an historical dataset, the first important step, where possible, is to prove that despite the obvious measurement errors, those sources are indeed reliable and they can be used for further historical research with the awareness of their reliability. 
+
+\subsection{French Dataset}
+\subsubsection{Figures}
+Between 1733 and 1820, the French dataset accounts for 146,963 observations, with incomplete data between 1761 and 1767 and missing data between 1782 and 1787, in 1789 and in 1797. There are overall 82 different destinations recorded, but each one of them is not present every year. Rather then single countries they are groups of countries and most destinations get broken down into smaller destinations in later periods or even disappeared to be replaced by other smaller entities. To bypass this problem I used country grouping. 11 different groups could be created and each of them comprises all the evolution of one destination, so that I can have observations for each group for each year. The groups I am considering are: Germany, England, Flanders and Habsburg Monarchy, Italy, Portugal, Spain, Switzerland, Colonies, Dutch Republic, India, Levant, North. The flows towards Hamburg in particular are 11,062 and data are available for the same period as the rest of of the dataset.\\
+Values in the dataset are always expressed in \textit{livres turnois}, but I will convert them in grams of fine silver to be able to compare the French dataset concerning trade towards Hamburg with the German dataset. The value of the \textit{livre} has been constant at 4.505 grams of fine silver all throughout the period in consideration. 
+
+\subsubsection{Origin of data}
+Data come from the archives of the French \textit{Bureau de la Balance du Commerce}. This institution was created in 1713, after the Treaty of Utrecht, which followed the Spanish succession war. In this circumstances, the French were positively impressed by the detailed knowledge shown by the British on their trade flows and they also decided to create an institution which would keep track of exports and imports from and to France. Before this, there were already local institutions keeping track of goods going in and out of harbour cities (only in quantity terms) but starting 1716 they started sending their records to the \textit{Bureau}. The \textit{Bureau} would then compute aggregate yearly figures for each \textit{direction} (port) and then send them back to the local chamber of commerce, so that they could add the values. Unfortunately those documents did not survive till our days; we still have some records from local sources but they are quite incomplete. On the other hand, another kind of document survived, which reports the total value of trade for each destination for each year, so at least we have reliable figures on aggregate values. Starting from 1750 the \textit{Object Général} was introduced, which was more complete, and was recording each product from and to each destination for all ports. The \textit{Objet Général} survived in its entirety and this is what I have used for my estimations. For the period preceding 1733, I have estimated the data basing on local sources, as explained in section 3. 
+
+\subsubsection{Limitations of French dataset}
+As explained above, data got to us through different sources. The most complete one is the \textit{Objet Géneral} however from 1733 to 1749 it had not been instituted yet and the only available information at product level from the French side are the local sources. Unfortunately, local sources tend to be incomplete and very rarely we still have records from every source and every year, which makes the first part of the dataset quite incomplete. To compensate for this problem I have tried to estimate the data in the first part of the dataset as explained in section three.
+In addition to this, another major limitation of the French dataset is that Hamburg does not appear as a destination per se but as part of a broader group denominated “Nord”. Prior to 1733 the destination “Nord” was a general category that included all locations situated north of the Low Countries on the European continent. In 1733 the category “Denmark” was created, that included trade with the actual Denmark and Norway and in 1734 “Suède” was also detached from the “Nord” to form a specific geographical unit (equivalent to our modern Sweden, Finland, and a small piece of land in Western Pomerania). In 1744 “Russie” was further detached from “Nord” and finally in 1780 “Nord” disappeared completely to be replaced by three new geographical entities: “Royaume de Prusse”, “L’Allemagne et la Pologne” and “Les villes Hansèatiques”, the latter including Hamburg, Bremen, Lübeck and Dantzig (Daudin and Charles (2015)).
+As a result, in the comparison analysis, we expect the French dataset to report higher figure than what we can find in the Hamburg dataset. 
+
+\subsection{German Dataset}
+\subsubsection{Figures}
+The German dataset is unfortunately less complete than the French one, on several points of view. First all of all it comprises of only 1609 observations and it covers the following years: 1736-1740, 1742, 1747, 1753, 1755, 1756, 1760, 1762, 1763, 1769, 1770, 1771, 1773, 1776, 1781-92, 1794, 1795, 1797 and 1798. The flows recorded however are not as detailed as in the French dataset. In this case we find broader categories of products, which correspond to several goods in the French dataset. We count 39 categories, to which we add a fortieth one that includes all the French goods that cannot be classified in the Hamburg categories. 
+%\newpage
+\begin{center}
+\captionof{table}{Classification Hamburg} \label{tab:title} 
+\begin{tabularx}{1\textwidth}{|c *{5}{|Y}|}
+\hline
+	Eau de vie & Saffron & Tar & Turpentine & Cacao \\ \hline
+	Tobacco & Spermaceti & Indigo & Verdigris & Coffee \\ \hline
+	Wine & Olive Oil & Minium  & Vitriol & Ginger \\ \hline
+	Pernambouc Wood & Tallow & Lead Oxyde & Candles & Pepper \\ \hline
+	Painting Wood & Whale Oil & Potassium & Butter & Sugar \\ \hline
+	Cotton & Alun & Soap & Fruits & Tea \\ \hline
+	Gum & Cochineal & Sumac & Rice & Iron \\ \hline
+	Lead & Gal & Potassium Bitartre & Vinegar & \  \\ \hline
+\end{tabularx}\\~\\
+\end{center}
+
+Values are expressed in \textit{Mark Banco}, which, on the contrary of \textit{livre tourois}, was not constant in terms of grams of silver over the period of analysis. For this reason, I had to use a different conversion value for each year. In general however, \textit{Mark Banco} was on average worth twice as much as French \textit{livres}. A table of conversion for \textit{Mark Banco} can be found in the appendix. \\
+
+
+
+\subsubsection{Limitations}
+As mentioned before, the data come from the Hamburg import toll register, so all taxable goods were recorded in the data. However there were some exemptions for taxes so that some goods were not registered. According to Pfister (2015), only goods coming into the city were liable to paying tolls, coal and grain were exempted and most of dyestuff was not being tracked either. In addition to this, there is the issue of categories rather than products. Unfortunately only a minor share of products can be matched, but on the other hand they represent a vary high share in value terms. 
+
+\subsection{Estimation of French missing data}
+As mentioned above, for the whole period preceding 1749, the only available data we have from the French source is either the yearly aggregate figures by destination, or the incomplete local sources, which on the other hand contains information on each product. For this reason, in order to perform the comparison between the two datasets and the subsequent analysis, it will be necessary to estimate the full value of exports from the available data. In order to do this, I run the following regression:
+\begin{center}
+$\ln(product_{i,j,k,t})=\beta_0 + \beta_1year_t+\beta_3direction_k$
+\end{center}
+where the dependent variable products stands for the value of exports of one product, for each port reported in the local source and for each year. Year is a set of year dummies and direction is also a set of dummies that indicates in which port the data were recorded (direction also includes “France”, meaning all ports). This model aims to predict the export value of single products per year basing on the yearly changes in export and on the export composition by source, with the assumption that the composition is constant through time. I run the model on the whole available data including those recorded after 1789 and before 1733 but I only do so for coffee, sugar, wine, eau vie and an aggregate category of all other goods (other), except in the case of Hamburg for which I was able to estimate the value of all products. In addition, to avoid the problem of log of zero trade flows, I have substituted them with 0.001, so that observations would not drop but the zero flows in the estimation could be taken into account as a value really close to zero. Finally, I also added weights on value, as to give more importance to flows higher in value. The results are pretty satisfactory; the correlation is very close to 1 for most goods and the pattern of estimated and actual value are very similar. 
+
+\section{Reliability of dataset}
+\subsubsection{Method}
+As mention before, an important step of my work is to ensure the reliability of the data. In order to do so I have looked at three different aspects of comparison: the composition of exports by products, by sector and total exports. For the comparison by product I will use the categories present in the Hamburg dataset and compare goods in the French dataset that can be classified within those categories. As per the comparison by sector, I will use the Standard International Trade Classification (SITC revue 3), which is a classification maintained by United Nations and used to compare trade flows across countries and across years. It is based on the materials used in production, the processing stage, its use, its importance in terms on world trade and finally its technological changes.  A table with the category is displayed below. Details of classification of goods into SITC can be found in the appendix.
+
+\captionof{table}{SITC Rev. 3} \label{tab:title} 
+\begin{center}
+\begin{tabular}{ | l | l | l | l | }
+\hline
+	0a & European foodstuff and live animals & 6e & Wool products \\ \hline
+	0b & Extra-European foodstuff & 6f & Silk products \\ \hline
+	1 & Drinks and tobacco & 6g & Coton products \\ \hline
+	2 & Crude materials, inedible, except fuels & 6h & Other mixed cloths \\ \hline
+	3 & Fuels & 6i & Other mixed textiles \\ \hline
+	4 & Oils & 6j & Metal products \\ \hline
+	5 & Chemical products & 6k & Other industrial product by composition \\ \hline
+	6a & Leather products & 7 & Machines and transport \\ \hline
+	6b & Wood products & 8 & Various manufactures \\ \hline
+	6c & Paper products & 9a & Precious metals \\ \hline
+	6d & Linen products & 9b & Mixed flows \\ \hline
+\end{tabular}\\~\\
+\end{center}
+
+The composition of exports by products and sector can be analysed both as an aggregate over the available years or in their evolution in time (i.e. looking at total export per year of each products and its evolution). Total exports of course can only be looked at in their longitudinal evolution. In addition, since in some years we have the value from one source but we do not have the value from the other, all comparison can be done either on all the whole period or only on years common to both datasets. As a general results in the analyses we do not see a major difference between results from the latter two cases, which leads us to conclude that common years are a good proxy for the entire period. 
+
+\subsubsection{Classified versus non classified products}
+As a first step, I will look at the ratio of the products that can be classified to those that find no match in the other dataset. As mentioned before, it was necessary to regroup French goods into Hamburg categories to make comparison possible. This results in the matching of 1,913 French goods out of 4,695. At first sight this might be a discouraging result, however if we now look at the share of value of classified goods to total, according to both sources we can see that they actually represent 96\% of the total export. This result holds both if we consider only common years (i.e. excluding years for which only one source is available) and the whole period. \\
+The share of not classified goods however varies over the period. As mentioned above, the average is around 4\%, however for most of the period it is below this level. This is compensated by three peaks in 1733 to 1739, 1757 to 1663 and 1780 to 1781 (the latter on a smaller scale), which coincide with the major conflict that occurred in that period. I will analyse the impact of conflict on trade flows more in details in sections 5 and 6.
+
+\subsubsection{Absolute value of exports from the two sources}
+Despite the fact that classified and not classified goods are very close in their share according to both dataset, there is a problem arising while considering the absolute value of export. Since the geographical scope of the two datasets is considerably different at least until 1780, we expect France to overestimate exports, which is exactly what the graph below suggests.
+\caption{Sum of total export according to the two sources}
+\includegraphics[scale=.28]{value_total_fr_hb_commonyears.png}
+\includegraphics[scale=.28]{value_total_fr_hb.png}
+Aggregate exports value in Hamburg source account for slightly less then 50\% of export value in the French source considering only common years and slightly around 30\% considering all years (1733-1789). The ratio of the two values however is far from stable; before 1740, the two sources report roughly the same value, Hamburg reports even more than France in 1735, which however might be due to the fact that the values I estimated for the period previous to 1753 for France are underestimating the real total value of exports. In the subsequent period there is a sharp decrease, and the ratio stabilizes around 5\%. Surprisingly, no major effect is evident in 1740 with the exclusion of Russia and in 1780, with the narrowing of the destination on the French dataset from “Nord” to “Hanseatic cities”. On the contrary, the ratio increases. This leads me to think either to a mistake in the data, or that the share meant for Russia was only a small part of the overall export towards North.
+
+\begin{center}
+\caption{Evolution of the ratio of datasets}
+\includegraphics[scale=.3]{long_ratio.png}
+\end{center}
+
+
+\subsection{Comparison of total exports}
+I will now turn to the evolution of aggregate exports per year.  For simplicity in comparison I have used value indexed at values in year 1787, which is the most complete for both sources. In this way I can observe better  the pattern of the two series, without considering the discrepancy in absolute value. 
+From the graph below it is evident that the two sources move quite well together, with a correlation between the two series of 0.88. Also the data preceding 1740, which are an estimate, are in line with the Hamburg series. 
+The overall trend of both series looks like an increasing one even though the growth is interrupted during war period. The Polish succession war between 1733 and 1738, did not seem to impact trade as much as colonial wars, whose effect on the other hand is very evident in the sharp decrease in 1761 and 1781. In this respect, I will go more into details in subsequent sections.
+
+\begin{center}
+\caption{Comparison of longitudinal evolution of aggregate exports}
+\includegraphics[scale=.3]{long_evolution.png}\\~\\
+\end{center}
+
+\subsection{Comparison at sector level}
+\subsubsection{Comparison of aggregate export by sector}
+The comparison at sector level brings contrasting results. At aggregate level the two sources are very close, both for the whole period and common years. It is evident that the major sector is exotic foodstuff, followed by beverages and tobacco and then by raw material, which however represents a significantly smaller share. Colonial imports are actually representing the biggest source of trade, which explains why then colonial wars were the cause of trade collapse. \\~\\
+\caption{Comparison of total exports}
+\includegraphics[scale=.28]{commonyears_sector.png}
+\includegraphics[scale=.28]{allyears_sector.png}
+
+\subsubsection{Comparison of the evolution of major sectors overtime}
+As mentioned above the three major sectors are Exotic foodstuffs, beverages and tobacco and raw material, with a higher importance given to the first two. The tables below plot the longitudinal evolution of these sectors according to the two different sources. Results are not as satisfactory as in the total exports longitudinal evolution above and it might be the case the estimation on the values of product pre-1750 was not too accurate because of lack of data. In all the three cases displayed below, I plotted both the share of the sector on the total and the absolute value (indexed at the 1787 value). 
+\caption{Evolution of Exotic foodstuff}
+\includegraphics[scale=.28]{exotic_food_long.png}
+\includegraphics[scale=.28]{exotic_food_share.png}\\
+\caption{Evolution of Beverages and Tobacco}
+\includegraphics[scale=.28]{bev_tobacco_long.png}
+\includegraphics[scale=.28]{bev_tobacco_share.png}\\
+\newpage
+\caption{Evolution of Raw material}
+\includegraphics[scale=.28]{raw_mat_long.png}
+\includegraphics[scale=.28]{rawmat_share.png}
+
+\subsection{Comparison at product}
+\subsubsection{Comparison of aggregate export by product}
+As for the case of sectors, products do not always give the results we would expect. At aggregate level both on all years and common years the two databases are quite close:\\~\\
+\caption{Evolution of coffee}
+\includegraphics[scale=.28]{coffee_long.png}
+\includegraphics[scale=.28]{coffee_share_long.png}\\
+\newpage
+\caption{Evolution of Sugar}
+\includegraphics[scale=.28]{sugar_long.png}
+\includegraphics[scale=.28]{sugar_share_long.png}\\
+\caption{Evolution of Indigo}
+\includegraphics[scale=.28]{indigo_long.png}
+\includegraphics[scale=.28]{indigo_share_long.png}\\
+\caption{Evolution of Eau de vie}
+\includegraphics[scale=.28]{eaudevie_long.png}
+\includegraphics[scale=.28]{eaudevie_share_long.png}\\
+\caption{Evolution of wine}
+\includegraphics[scale=.28]{wine_long.png}
+\includegraphics[scale=.28]{wine_share_long.png}
+The evolution of sugar is not too precise comparing the two sources but overall the pattern is quite similar. The fact that strikes the attention is that sugar went to a nearly zero level during Seven Years War (both in share and absolute value) but experienced a less sharp decrease during the American revolutionary war. This pattern is also common to coffee and to a lesser extent to Indigo. On the contrary, in the case of wine and eau de vie, we observe an increase in export, even in absolute value, corresponding to the beginning of the Seven Years War, and then again a decline towards the end of the war. The increase in absolute value lasts till 1761 and then it also collapses together with coffee and sugar, however it remains the major source of export for the war period, especially in terms of share of overall exports. A similar pattern can be noticed during American revolutionary war but on a smaller scale. 
+
+\subsection{Testing Benford’s law}
+As a last step in my validation of the data, I have tested Benford’s law or the first-digit law on both datasets. Benford’s law is a law providing the frequency distribution of the first digit in most real life datasets. According to Benford the leading digit $d$, with $d \in \{1,...,9\}$ should follow the probability distribution: 
+\begin{center}
+$P(d)=\log_b(1+\frac{1}{d})$
+\end{center}
+where $P(d)$ is proportional to the distance between $d$ and $d+1$ on a logarithmic scale, which is the case when the logarithm of the numbers and not the numbers themselves are uniformly and randomly distributed. I run the following Pearsons’s chi square test:
+\begin{center}
+$$\chi^2=N\sum_{d=1}^{9}\frac{(p(d)-d(b))^2}{d(b)}$$
+\end{center}
+where N is the frequency and $p(d)$ and $d(b)$ are the proportions of Benford’s law and my data respectively. For both dataset I cannot reject the null hypothesis that the leading digit is actually distributed according to Benford’s law.
+\caption{Benford'law}
+\includegraphics[scale=.28]{benford_fr.png}
+\includegraphics[scale=.28]{benford_hb.png}
+
+
+%
+%\section{Analysis of trend of exports and effect of war}
+%From the series shown above, it is evident that trade towards Hamburg kept increasing according to both sources. However, if we look at the entire period, available only in the French dataset, the trend looks more quadratic and decreases starting 1800. 
+%\begin{center}
+%\caption{Rate of growth}
+%\includegraphics[scale=.35]{growth_rate.png}
+%\end{center}
+%We now want to look in details at the impact of historical events on exports, more precisely the effect of wars. There were seven major conflicts that hit Europe between 1733 and 1820; The War of the Polish succession (1733-1738), The War of the Austrian Succession (1740-1748), The Seven Years war (1756-1763), The American Revolutionary War (1775-1783), The French Revolutionary War (1792-1803) and The Napoleonic War (1803-1814). The Polish succession war and the first part of the Austrian succession war were mainly fought in Europe whereas the second half of Austrian succession war (1744-1748) and the other four wars were so called colonial wars, which defined the start of a new period in eighteenth century (Carrière 1973). In all the cases, France was a belligerent country whereas Hamburg was a neutral city. So we are interested in the impact of conflicts on neutral countries in particular. Normally, neutral countries in wartime were allowed to continue their trade with all other countries, disregarding the presence of a conflict.  This rule, however, had induced belligerent countries to exploit neutral ships for trading their own merchandises (Carrière 1973). For this reason, in the beginning of Seven Years War the British decided to put an end to this practice and produced a law stating that the nationality of the ship was not relevant, but what made it or not an enemy ship was the nationality of the cargo. This fact had a considerable impact on the trade of France, who had started to use Dutch ships to transport colonial goods, but also for all other neutral countries, who were clearly showing their discontent against this new British law. Those countries, nonetheless, were not united in their protest and could not really concretize their disappointment as a unique voice. Only in 1780, a League of Armed Neutrality was created. This experiment however did not have much success in its purposes and was finally put to an end in 1783 with the treaty of Paris, when Catherina of Russia renamed it the \textit{Armed Nullity} (Griffiths, 1971). 
+%All this brings me to think that we should expect a strong effect of conflicts on neutral countries. 
+%In what follows we will give a brief description of the four conflicts and then we will proceed in the analysis of their effects on exports. 
+%
+%\subsection{Historical summary}
+%\subsubsection{War of Polish Succession}
+%The war of Polish succession took place between 1733 and 1738. It started with the death of the king of Poland August II who died heirless and soon become a conflict at European level. France, Prussia and Spain were trying to limit the desire of expansion of the Habsburg monarchy, which was aiming at extend its power over Poland. The lack of support by England however, concluded the war in 1738, with the recognition of August III as king of Poland. The belligerent countries were France, Spain and Italy on the one side and the Habsburg Monarchy on the other. 
+%
+%\subsubsection{War of Austrian Succession}
+%The war of Austrian succession was a European conflict that burst in 1740 over the eligibility to succession to the crown of Maria Theresa of Austria, as the heir of the Habsburg Monarchy after the death of her father. It started out as a European conflict but after 1744 it involved also the colonies. Belligerent countries were France, Spain, Prussia and Italy on one side and England, Habsburg monarchy and the Dutch Republic on the other. 
+%
+%\subsubsection{Seven Years Wars}
+%The Seven year war was a major conflict, which took place between 1756 and 1763. It is consider the first real world conflict and European powers were fighting over possession of colonies. Belligerents countries were: England, Prussia and Portugal on one side and France, Spain, Habsburg monarchy, and Dutch Republic on the other. 
+%
+%\subsubsection{American Revolutionary War}
+%The American Revolutionary War took place between 1778 and 1782. In this case the field of battle was not Europe anymore, but directly the Colonies. British North American colonies were rebelling against Britain control over their trade and were fighting for independence. Belligerent countries were England on the one side and France, Spain and British Colonies on the other (later United States). During this war the First League of Armed Neutrality was signed between Russia, Sweden and Denmark. Spain accepted this agreement however Britain demurred. When Dutch Republic was about to join this league, Britain found out before the treaty was signed and captured a Dutch ships, thus forcing the Dutch to enter war against them. Starting 1781 therefore, the Dutch Republic also became a belligerent country, allied to France. 
+%
+%\subsubsection{French Revolutionary Wars}
+%The French Revolutionary Wars took place between 1792 and 1802. It was a conflict that had started as a consequence of French Revolution, in 1789, with the hope of spreading the revolutionary ideas around Europe. During this war, France and Spain were fighting against most of the rest of Europe, in particular Great Britain and the Hasburg Monarchy. France experienced an unexpected success in continental Europe, because of the raise in power of general Napoloen Bonaparte, however was on the other hand heavily defeated by the Royal Navy, thus loosing supremacy over the Mediterranean and also its colonies. This conflict was ended by the Treaty of Amiens in 1802, which started the only year of peace in Europe between 1792 and 1815.
+%
+%\subsubsection{Napoleonic Wars}
+%The Napoleonic wars were a series of conflict between the French Empire of Napoleon I and  other countries, primarily led by the British, which took place in the years 1803 to 1815. Its consequences were the final defeat of Napoleon, and the First French Empire, and the rise of the British Empire as the world's premier power. On the other hand, this conflict contributed to spread all over Europe the nationalist and liberal ideas that were born during the French Revolution, despite the restoration of the monarchy in France and the decay of the Revolutionary principles. 
+%
+%\subsection{Analysis of impact of conflict on Hamburg trade}
+%As a first step we have constructed a Poisson Pseudo Maximum Likelihood model with the value of exports flows towards Hamburg as a dependent variable and introducing a war dummy to capture the effect of wars. We did so first using only one dummy for all wars and then adding one dummy for each war. 
+%\begin{equation}
+%exports_t=\exp(\beta_0+\beta_1year+\beta_3war)
+%\end{equation}
+%\begin{multline}
+%exports_t=\exp(\beta_0+\beta_1year+\beta_3polish +\beta_4austrian1 +\beta_5 austrian2+ \\ + \beta_5seven + \beta_6american +\beta_7revolutionary+\beta_8napoleonic)
+%\end{multline}
+%
+%where $exports$  is the value of exports per year and  $year$ is the time trend. We are using time trend rather than year fixed effects for the scarcity of data and because time fixed effects would be collinear with the war dummy otherwise.
+%In the war by war case, we have considered the Austrian Succession war as two different conflicts as to try to capture the difference between the colonial and non colonial phase.\\
+%From the first equation we find that wars overall had a negative impact on Hamburg trade, amounting to a fall of roughly 42\%. By breaking down the effect for each single war, we find a 78\% reduction in trade caused by the Polish war, a decrease of 56\% for the first part of the Austrian war and a decrease of 62\%, 69\%, 18\%, 11\% and 19\% for the second part of Austrian war, Seven year war, American Revolutionary war, French Revolutionary war and Napoleonic war respectively, with the latter three coefficients not significant. These results are quite striking and incoherent with the series observed above: the effect of the Polish war in fact are barely visible in the trend, even though our regression suggests they are the stronger ones, whereas the effects of the Seven Years War are not that disruptive, as one would expect. There are two possible explanations to this fact. The first is that the data for the period 1733 to 1750 are not very reliable, as they come from local sources which are incomplete, and they are only estimates of what the true value might have been, as explained in section 3. The second explanation is that in 1795, as a consequence of the Revolutionary Wars, France had lost Saint Domingue, which had proclaimed its independence from France and together with it, its main sources of export to the North: sugar and coffee. Therefore, what we observe after this date, is an incisive break in the trend of exports and, as a consequence, a decline in total trade towards Hamburg. To take into account this effect, we have run a Chow test, by adding to the previous regressions a break both in time trend and in fixed effects. This test shows that there is indeed a break in 1795 and after introducing it in the model, the effects of the different wars become more coherent with respect to the series plotted above. The effect of Polish war goes down to -8\% and the coefficient is insignificant whereas Seven Years War and revolutionary War result as the most disruptive ones, with a loss in trade of 62\% and 73\% respectively. 
+%
+%\input{hamburg1_reg}
+%
+%We also perform two different robustness checks for these results, using a log-linear model, (section 7) but they do not change significantly the coefficients of the regression. \\
+%On average we can say that wars were very disruptive for Hamburg trade, despite it being a neutral country, which does reflect what claimed by Glick and Taylor (2005), concerning effects of war even on neutral countries. One remark should be added however; wars in the first half of eighteenth century (until 1744, separation suggested by Carrière 1973), which were mostly non-colonial, had a smaller impact on Hamburg trade. This is a first interesting result, in the sense that, we see here that not all wars had the same effects; more specifically wars fought in Europe had smaller effects than wars fought also/only in the colonies. In our opinion an explanation has to be found in the fact that the major source of import for Hamburg was actually colonial products, the trade of which during colonial wars was interrupted. On the other, We believe that the trade of European products did not have such a strong interruption and that it might even be the case that given the impossibility to trade exotic products, the commerce of other goods might have developed more to compensate for losses. \\
+%To test this hypothesis, we have looked at exports flows disaggregated by products. We only consider the main two colonial products (sugar and coffee) and the main two European products (wine and eau de vie) plus one category (other), encompassing all the remaining 35 different goods. We run the following regression, interacting the product dummies with the war dummies, first with all wars in one dummy and then separately:
+%\begin{equation}
+%exports_i=\exp(\beta_0+\beta_1year+ 
+%\beta_2product_i + \beta_3product_iyear+\beta_4product_iwar)
+%\end{equation}
+%\begin{multline}
+%exports_i=\exp(\beta_0+beta_1year+\beta_2product_i + \beta_3product_iyear+\beta_4product_ipolish + \\ +\beta_4product_iaustrian1 + \beta_5product_iaustrian2 + \beta_6product_iseven +\beta_7product_iamerican+  \\ +\beta_8product_irevolutionary+\beta_8product_inapoleonic)
+%\end{multline}
+%
+%where$year$ is again the time trend, $product_i$ is product fixed effect, $product_iyear$ is the product time trend and $product_iwar$ is the interaction of the product dummy with the war dummy, which is the coefficient of interest. As we mentioned before, it is reasonable to assume a break in 1795, and in this case, we can insert it for the products specifically concerned, i.e. sugar and coffee. Once more, both the time trend and the fixed effects Chow test are significant and they yield more sensible estimates. Table 19 shows the results of the regression with no break, with one break only for coffee and with breaks for both sugar and coffee. \\
+%The impact of conflicts in general on colonial products was significantly greater, -76\% for coffee and -68\% on sugar, whereas the impact on wine is definitely smaller and insignificant and exports of eau de vie is even positive and very big in size (+7\% and +300\% respectively).
+%Given these first results, we can indeed say that the disruption in trade was led by the collapse of colonial products, but some European products, on the other hand, were even benefiting from conflicts. It is in fact evident from the graph shown below that to the collapse of sugar and coffee 1795 there is a corresponding peak in the export of wine and eau de vie.\\~\\
+%\caption{\textbf{Inverse trends of European and Colonial products}}
+%\includegraphics[scale=.35]{hamburg_product_1780.png}
+%\includegraphics[scale=.35]{hamburg_product_1820.png}\\~\\
+%Turning to the war by war case, results are less well-defined. The impact of each war is indeed negative but not necessarily sugar and coffee are more impacted than wine and eau de vie and we are no more able to disentangle the effects of colonial and non-colonial conflicts that precisely. Adding the break for coffee and sugar does not change the picture too much, and in this instance only the Chow test for coffee is significant. Nonetheless, it is interesting to notice that, when considering only the break for coffee, on average, wine and eau de vie are more strongly impacted during Polish and Austrian war, whereas sugar and coffee show a bigger decrease during the Seven Years war and the subsequent wars. We can therefore state, that also in this case, even in a less clearcut way, we can observe the difference in impact depending on the kind of wars. As for the aggregate case, the size of the coefficient for the wars preceding 1750, might be biased by the inaccuracy of our estimation and the incompleteness of data, which is not corrected for by adding a break, in this case. 
+%An interesting point to remark is that, by looking at the wine time series in section 4, we also notice an interesting pattern during Seven Years War, increasing initially and then decreasing during the second half of the conflict.  We will not analyse this issue more in detail here but it could be the object of further research. 
+%\input{hamburg2_all_reg}
+%\input{hamburg2_each_reg}
+%In sum, from the estimations made so far, we can conclude that there was indeed an overall negative impact on Hamburg trade, but it was very product specific, with colonial products suffering more than others and European products benefiting from the conflict on the other hand.
+%
+%\subsection{War lags}
+%****\textbf{Should I keep this part?}\\
+%The impact on European products was found strongly negative for European wars but not that significant in Colonial wars. These results are already in contrast with some of the literature (i. e. Glick and Taylor (2005) and Thierry, Martin and Mayer (2010)), which found generic negative impact on trade with no war-type or product-type differentiation. Only Blomberg and Hess (2004), have disentangled the impact of different kind of conflicts but they focused on external versus internal violence instead.\\
+%Another interesting issue which is extensively treated in the literature is the presence of war lags and slow trade recovery after conflicts. Glick and Taylor (2005) for instance, found major war lags for both neutral and adversary countries for a period up to ten years. We have tested their findings on our Hamburg series, adding to the above regressions dummies for lag from 1 to 5 years (tables are the appendix). We have opted for 5 years of lag because in this period trade was much more unstable and effects after five years might have been due to other unrelated issues. In addition, using 10 years lags would basically mean including another war period. For this same reason we are only looking at lags for the Austrian Succession war, Seven Years War and Napoleonic wars, and those three wars together (no data are available for the period immediately after American Revolutionary War). We have done so again on all wars together and on wars separately as before. Results are not very coherent across regressions. In the overall case, coefficients of lag dummies are negative, with the first and third year of lag being insignificant and smaller in size. Splitting the one war dummy into the five different wars, lags are alternating signs for the Austrian War and Seven Years War, starting with positive, but are constantly negative and significant for the Napoleonic War.
+%Turning to the breakdown by product, on the other hand, we notice that there is evidence of strong war lags for all products, interestingly enough, for eau de vie as well, which, during conflicts had experienced a strong increase. This might suggest that wars were boosting trade of certain products in the period of the conflict, which were then restoring their prewar trade level, after the conflict had stopped.\\
+%Overall we can say that we do not have a clear picture on the existence of war lags: there is evidence of some post-conflicts effect, however they are not always negative, significant or long lasting, as described in the literature. \\
+%\iffalse
+%This was also noted by Riley (1984), who analyses the case of the Seven Years War and claims that merchants were actually forecasting the wars (using price of lead) and stocking products to sell them at the end of the conflict, thus compensating for war losses. He also claims that this was not only happening after the wars but also before, so he saw an increase in exports before and after wars. I have tested his findings on my data by adding to the main regression a dummy for up to four years preceeding the conflict, as suggested by Riley (1984). In the general case (all wars in one dummy) coefficient are positive but very small, so Riley’s claim is not really reflected here. On the other hand, in the war-by-war case, coefficients for one year preceding conflict are positive and bigger in size, however it is not a constant effect throughout the four years. 
+%I have then run the same regressions by adding product fixed effects, as before, and introducing pre-war dummies interacted with products. Results do not differ much from the aggregate level; there is a constant positive effect one year before the war, which in this case it is more pronounced for European goods. In the war-by-war case finally, there is no big change with the results of the other regressions. \\
+%In short, I have found no evidence of war lags or loss in trade subsequent to the war, it looks more like trade increased after the war (all coefficient are positive) and even if it does not exactly overshoot, at least it recovered extremely fast its pre-war level and growth rate. 
+%\fi
+%In this section I have made four main points on the impact of war on Hamburg; 1) war is indeed a major source of trade disruption, 2) the impact however was mainly on colonial goods such as sugar and coffee, 3) there is no evidence of war lags but on the contrary trade increased following the conflict 4) It was not possible to disentangle precisely the effect of colonial versus non colonial wars. In next section I compare these findings with the case of overall exports of France towards all countries. \\
+%
+%
+%
+%\subsection{Comparison with French total exports}
+%In this section we have compared the results obtained for Hamburg with the general case of all French trading partners in eighteenth century. We have run a difference in difference specification to see the difference in impact for neutral and adversary countries with respect to allies. As in the case of Hamburg, I have again incomplete data on products preceding 1750, so We have estimated the value for sugar coffee, wine and eau de vie through the same technique. \\
+%We started my analysis running the following equation for all wars together and separately:
+%\begin{equation}
+%exports_{i,t}=\exp(\beta_0+\beta_1year + \beta_2country_i+\beta_3country_iyear+\beta_4adversaries_i+\beta_5neutral_i)
+%\end{equation}
+%
+%where $year$ is year time trend, $country$ is country fixed effects, $country_iyear$ is country time trends, $adversaries$ is a dummy variable that takes value 1 if a country is adversary to France during a conflict and $neutral$ is again a dummy indicating whether a country was neutral (rather than adversary or allied). Even in this case we did not have enough data to estimate country year fixed effects so we have used time trend.\\
+%From the first regression we can see that war had on average a negative impact on trade of neutral countries of around 31\%. As for the case of Hamburg, we have run a Chow test for the year 1795, first for all countries and then for those countries importing mainly colonial goods. The test is significant for all countries and the result do not change much from one specification to the other. 
+%By looking at each single war separately, we notice that the difference in impact between colonial and non colonial wars is not really evident anymore, even after inserting the 1795 break. The first three wars, Polish Austrian 1 and 2, seem to have the biggest impact, whereas the subsequent colonial wars have a minor effect. As mentioned before, we suspect that this is due to imprecisions in the data. \\
+%Overall the impact for all wars is indeed negative and this finding is line with Hamburg case, discussed previously. However, loss estimated for neutral countries are less striking than the ones found for Hamburg and in particular, they are distributed differently  in the war by war case.
+%For this reason I have looked again into the breakdown by the major products and analysed the impact of wars on different goods. I am arguing that in eighteenth century wars did not have an impact on all goods evenly, but rather on some specific goods. Hamburg's imports from France were mainly made up of colonial products, which were more vulnerable to conflicts, and this explains why its losses were so huge. On the other hand, this was not the case for other countries, whose import composition was totally different and which probably suffered to a lesser extent. Different destinations had really different patterns of exports, and it would be interesting to see whether groups of nations suffered more according to their import composition than their belligerent/neutral status. 
+%In this setting, however, I am only considering the four main goods analysed in the Hamburg case, as to be able to perform a comparison.\\
+%More than an impact on all trade, I believe it was a matter of impact on trade of certain products. \\
+%In line with this reasoning, I run again a regression with a product breakdown and analyse the impact of all conflicts together and war by war:
+%\begin{multline}
+%exports_{i,t}=\exp(\beta_0+\beta_1year +\beta_2country_i+\beta_3country_iyear+\beta_4product_{i,j}+\beta_5product_jyear+\\+\beta_6product_jadversary + \beta_7product_jneutral)
+%\end{multline}
+%where $country_iproduct_j$ is country product fixed effects, $country_iyear$ and $product_jyear$ are country and product time trend and $product_jadversary$ and $product_jneutral$ are adversaries and neutral dummies interacted with product dummies. This regression relies on the assumption that product fixed effects are country-specific whereas product time trend do not differ across countries. I have also run a specification where I relax this assumption and I assumes both country products fixed effects and country products specific trends, but the difference is not noticeable (section 7). 
+%\input{allcountry1_reg.tex}
+%\input{allcountry2_all_reg.tex}
+%\input{allcountry2_each_reg.tex}
+%
+%The results on all wars are definitely in line with the Hamburg case. Overall the impact on coffee and sugar is strongly negative and significant (-70\% and -66\%) whereas only a small and insignificant impact can be found on wine (+6\%) and a strongly positive one can be see on eau de vie (+160\%). These figures are now much closer to those found for Hamburg and the breakdown by product seems to be explaining it pretty well. Looking at the regression where we consider each war separately, on the other hand, results are again less coherent. Colonial goods always experience a decrease during war period, however, there is no evidence of greater impact during colonial wars, or smaller impact during European wars. It is interesting to notice, however, that, starting from Seven Years Wars we find again the same pattern as in the one dummy case, i.e. sugar and coffee are always strongly negative and significant whereas wine and eau de vie are positive and mostly insignificant. This is again in line with the Hamburg case and actually suggests that during the war there could have a been some sort of substitution effect (on the offer side rather than on the demand side), which was pushing merchants to trade more “safer” goods and make up for war looses.\\
+%\iffalse
+%\subsection{War lags}
+%In line with this reasoning, I turned next to analyse and compare war lags in the Hamburg case and general case. I run two regressions with and without product differentiation and for all wars together and a dummy for each war: 
+%\begin{multline}
+%\ln(exports_{i,t})=\beta_0+\beta_1country_i+\beta_2country_iyear+\beta_3adversaries_i+\beta_4neutral_i+\\+\beta_5adversary_ilag+\beta_6neutral_ilag+\beta_8allies_ilag
+%\end{multline}
+%\begin{multline}
+%\ln(exports_{i,t})=\beta_0+\beta_1country_i+\beta_2country_iyear+\beta_3product_{i,j}+\beta_4product_jyear+\\+\beta_5product_jadversary+ \beta_6product_jneutral+\beta_7product_jadversary_ilag+\beta_8neutral_ilag+\beta_9allies_ilag
+%\end{multline}
+%
+%Results are quite in line with those seen in the Hamburg series. There is no post war negative coefficient, but on the contrary, trade increases by 40\% and 47\% in the first and second year after the war. Starting from the third year this effect decreases and coefficients are still positive but smaller. \\
+%Product-wise there is evidence of positive post war effects for all the products but in particular European products increase stably for the first four years after the war. War by war, we notice an interesting pattern after Seven Years War; exports of European goods increases as for the general case, but here we see that trade of sugar as well expands right after the war (+62\%). This is quite an interesting result given that sugar was, with coffee, the product which suffered the most during this conflict. 
+%In sum, we can say that, as for the case of Hamburg, there is no clear evidence of war lags, for sure not 10 years lag as claimed by Glick and Taylor (2005). Trade was extremely adaptive to conflicts in eighteenth century and neutral countries did not seem to suffer strong consequences.
+%I have also run the regression checking for pre war effects. Results are positive but very small in size for the general case, except for the case of allies countries, which has larger and more significant coefficients. The war-by-war case (considered all in one regression) is also not very meaningful; coefficients for Seven Years War are negative whereas those for American Revolutionary War are positive. In terms of difference between products, the results are again not very interesting. There is no stable pattern for pre war effect, except for coffee, which always shows an increase for all the four years preceding the war. However this might be just due to the increasing trend shown by coffee, disregarding the effects of wars.
+%Overall, for neutral countries the compensation effect is more likely as a post war phenomenon rather than a pre war one, again as noted for the case of Hamburg. 
+%\fi
+%
+%\section{Robustness check}
+%We have also run some robustness check both for the Hamburg case and the general case. We have done so by using a log linear specification specification instead of the poisson pseudo maximum likelihood. \\
+%We have re-run all regressions mentioned in section 4 and 5, so both for Hamburg only and for all export destinations together. In the Hamburg aggregate case, the effects of wars are still negative and it is still possible to distinguish between colonial and non-colonial conflicts. While looking at the breakdown by products despite the fact that there is still a strong impact for colonial goods, no significant impact is found for wine and eau de vie, whose coefficients are negative and positively respectively, but insignificant. In the all-countries case on the other hand, the picture remains quite unchanged, and while the effect on coffee and sugar is strongly negative and significant, the effect on eau de vie is again positive and significant, even though less high, and wine is negative but small and insignificant. When turning to the aggregate case, results are very robust to the different specification and the effects are, once more, quite similar to the baseline case. \\
+%In addition to this, given the limited number of observations available in the Hamburg series at aggregate level, we have re-run the regression on the disaggregate export value by product, by adding product fixed effects to the regressions, but without interacting them with the war dummies. Table is shown in the appendix. The results of this different specification change a bit the picture in terms of colonial and non colonial wars, with non colonial wars resulting more disruptive that the colonial ones. The effect of the Polish war is also greater and that of the Seven years war is smaller.\\
+%Finally, as we have mentioned before, for the all-countries case with the product breakdown, we have relaxed the assumption of product time trend across countries and run a regression with country-product time trend. In both cases, the results are extremely close. In the regression with one dummy for all wars, coffee and sugar are nearly unchanged, only eau de vie and wine are a bit less positive. In the war-by-war case, results stay approximately the same, with the first three wars with a generalised strong effect and the last four with alternate effects on the different products. All tables are to be found in the appendix in the appendix.
+%
+%\section{Conclusion}
+%In this paper we have analysed the effects of conflicts on neutral countries, taking Hamburg as a case study, and then compared our findings with the general case of all countries together. At aggregate yearly level, the impact of conflict on trade found for Hamburg looks much higher than the general case. To inspect this phenomenon, we then broke down the value of the series in four different products plus one category encompassing all other goods, and we checked for the impact on those specific products. We found that the difference between products is quite striking; colonial products suffer a bust in trade but trade of some European product even increased during conflicts. We have also checked for the difference in effects according to each kind of war, and in the case of Hamburg there is indeed evidence of a stronger effect of colonial wars on colonial products and of European wars on non-colonial products. This pattern however is not evident in the general case and we could not really disentangle the effects of the different kind of wars in a clear way. The results on the single products however, are robust to different specifications and it is indeed the case that some goods experienced a trade expansion in correspondence to conflicts and the collapse of other products. \\
+%We have also validated our results with several robustness check, including different Poisson Maximum Likelihood and log-linear specification but our findings do not change significantly. It would be interesting to aggregate countries to according to their export composition rather than their belligerent status and see whether our findings are still valid, but we leave this to further research. 
+%In conclusion, we are pointing out the fact that our results are quite different from those found in the literature so far, because we are using an example from another historical period. Most scholars treating this subject have used twentieth century data and generalized their findings to the overall history, disregarding the fact that twentieth century had brought major variations in many aspects. Wars had changed dramatically and their disruptive power had increased incredibly in the contemporary period. For this reason, results found in the literature so far are not robust to an extension over a longer time span, and with our contribution we intend to fill this gap. We believe that this work, by increasing the variety of the landscape of the observed effects of wars, might help to shed more light on the general mechanisms that link conflicts and commerce.
+
+\clearpage
+\appendix
+%\section{Appendix : war lags and prewar effects}
+%\input{hamburg1_lag}
+%\input{hamburg1_pre}
+%\input{hamburg2_all_lag}
+%\input{hamburg2_each_lag}
+%\input{hamburg2_all_pre}
+%\input{hamburg2_each_pre}
+%\clearpage
+%
+%\input{allcountry1_lag}
+%\input{allcountry2_all_lag}
+%
+%\clearpage
+%\section{Appendix : Robustness checks}
+%\input{hamburg1_rob.tex}
+%\input{hamburg1_rob2}
+%\input{hamburg2_all_rob.tex}
+%\input{hamburg2_each_rob.tex}
+%\input{allcountry1_rob.tex}
+%\input{allcountry2_all_rob.tex}
+%\input{allcountry2_each_rob.tex}
+%\input{allcountry2_all_rob2}
+%\input{allcountry2_each_rob2}
+%
+%\clearpage
+\section{Appendix : Other tables}
+\input{class_sitc}
+\input{mark_banco}
+
+\clearpage
+\begin{thebibliography}{9}
+
+\bibitem{}
+Reuven Glick, Alan M. Taylor 
+\textit{Collateral damage: trade disruption and the economic impact of war}. 
+The Review of Economics and Statistics, February 2010, 92(1): 102–127
+
+\bibitem{}
+J. C. Riley
+\textit{The Seven Years War and the Old Regime in France}. 
+Series: Princeton Legacy Library, 1986, Published by: Princeton University Press, Pages: 280
+
+\bibitem{}
+Ahmed S. Rahman
+\textit{Fighting the Forces of Gravity - Seapower and Maritime Trade between the 18th and 20th Centuries}. 
+Explorations in Economic History Volume 47, Issue 1, January 2010, Pages 28–48
+
+
+\bibitem{}
+Rafael Reuveny. 
+\textit{Bilateral Import, Export, and Conflict/Cooperation Simultaneity}. 
+International Studies Quarterly, Vol. 45, No. 1 (Mar., 2001), pp. 131-158
+
+\bibitem{}
+Guillaume Daudin. 
+\textit{Domestic trade and market size in late eighteen century France}. 
+The Journal of Economic History / Volume 70 / Issue	03 / September 2010, pp 716-743
+
+
+\bibitem{}
+S. Brock Blomberg, Gregory D. Hess
+\textit{How much does violence tax trade?}. 
+The Review of Economics and Statistics (Impact Factor:2.66). 11/2006; 88(4):599:612
+
+\bibitem{}
+Charles H. Anderton, John R. Carter
+\textit{The Impact of War on Trade: An Interrupted Times-Series Study}. 
+2001 Journal of Peace Research, vol. 38, no. 4, 2001, pp. 445–457
+
+\bibitem{}
+Loic Charles and Guillaume Daudin
+\textit{Eighteen century international trade statistics sources and method}. 
+Revue de l’OFCE
+
+\bibitem{}
+Katherine Barbieri and Jack S. Levy
+\textit{Sleeping with the Enemy: The Impact of War on Trade}. 
+Journal of Peace Research, Vol. 36, No. 4, Special Issue on Trade and Conflict (Jul., 1999), pp. 463-479
+
+\bibitem{}
+Jennings
+\textit{Les marches du Nord dans le commerce francais au xvme siecle}. 
+Rennes, Presses Universitaires de Rennes, 2006, 390 p
+
+
+\bibitem{}
+Ahmed S. Rahman, Darrell J. Glaser
+\textit{Ex Tridenti Mercatus?- Sea-power and Maritime Trade in the Age of Globalization}. 
+Journal of International Economics Volume 100, May 2016, Pages 95–111
+
+\bibitem{}
+Ahmed S. Rahman
+\textit{Fighting the Forces of Gravity - Seapower and Maritime Trade between the 18th and 20th Centuries}. 
+Explorations in Economic History Volume 47, Issue 1, January 2010, Pages 28–48
+
+\bibitem{}
+Scott L. Baier, Jeffrey H. Bergstrand
+\textit{Do free trade agreements actually increase members' international trade?} 
+Journal of International Economics 71 (2007) 72–95
+
+\bibitem{}
+Philip Martin, Thierry Mayer, Mathias Thoenig
+\textit{Make Trade Not War?} 
+Review of Economic Studies (2008) 75, 865–900
+
+\bibitem{}
+Mary Lindemann
+\textit{The merchants republics: Amsterdam, Antwerp and Hamburg 1648-1790} 
+Cambridge:	Cambridge University Press, 2015. 374 pp. ISBN 978-1-107-07443-9.
+
+\bibitem{}
+S. Brock Blomberg, Gregory D. Hess , and Siddarth Thacker
+\textit{On the conflict-poverty nexus} 
+ECONOMICS \&\ POLITICS 0954-1985 Volume 18 November 2006 No.3
+
+\bibitem{}
+Patrick Villiers
+\textit{Marine Royale, corsaires et trafic dans l'Atlantique de Louis XIV à Louis XVI} 
+Diffusion Septentrion, Press universitaires, Thèse à la carte
+
+\bibitem{}
+Francois Crouzet
+\textit{La guèrre économique franco-anglaise au XVIII siècle} 
+Paris, ed. Fayard, 2008 ISBN 978-2-213-63601-6
+
+\bibitem{}
+Charles Carrière
+\textit{Negociants marseillais au XVIII siècle} 
+Marseille, A. Robert, 1973. 2 vol. gr. in-8, 1.111 pages. (Institut historique de Provence.)
+
+\bibitem{}
+Pierrick Pourchasse
+\textit{Le commerce du Nord. Les échanges commerciaux entre la France et l’Europe septentrionale au XVIIIe siècle, Rennes} Presses Universitaires de Rennes, 2006, 390 p., ISBN 978-2753500976.
+
+\bibitem{}
+Lagerqvist L. and E Nathorst-Boos, 
+\textit{Mynt}, Bokforlaget PAN /Norstedts, Stockholm, 1968, p.78
+
+\bibitem{}
+Anne Husted Burleigh
+\textit{John Adams} American presidents series, Transaction Publishers 2009, p. 189
+
+\bibitem{}
+Griffiths, David M. \textit{An American Contribution to the Armed Neutrality of 1780.} Russian Review 30, no. 2 (April 1971).
+
+\end{thebibliography}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

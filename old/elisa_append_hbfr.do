@@ -27,10 +27,10 @@ set obs 9
 gen x = _n 
 gen expected = log10(1 + 1/x) 
 twoway histogram firstdigit [fw=_freq], barw(0.5) bfcolor(ltblue) blcolor(navy) ///
- discrete fraction || connected expected x, xla(1/9) title("observed and expected") ///
+ discrete fraction || connected expected x, xla(1/9) title("Observed and Expected") ///
  caption("Hamburg source") yla(, ang(h) format("%02.1f")) legend(off) ///
  plotregion(fcolor(white)) graphregion(fcolor(white))
-graph export "$thesis/Graph/Benford/benford_hb.png", as(png) replace
+graph export "$thesis//Data/do_files/Hamburg/tex2/benford_hb.png", as(png) replace
 restore
 
 replace value=value*grammesargent_markbanco/1000
@@ -113,7 +113,7 @@ save "$thesis/database_dta/elisa_hb_preappend.dta", replace
 
 *******************************************FRENCH****************************************************************
 
-use "$thesis/database_dta/elisa_bdd_courante", clear
+use "/Users/Tirindelli/Desktop/hambourg/bdd courante.dta", clear
 
 keep if pays_grouping=="Nord"
 drop if year<1733
