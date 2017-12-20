@@ -18,7 +18,7 @@ replace value=value_hb if sourceFRHB=="Hamburg"
 **************************look at classified versus not classfied
 ***all years
 
-cd "$thesis/Data/do_files/Hamburg/tex2"
+cd "$thesis/Data/do_files/Hamburg/Cross-checking Hamburg Trade"
 
 preserve
 replace classification_hamburg_large="Not classified goods" if classification_hamburg_large=="Marchandises non classifiées"

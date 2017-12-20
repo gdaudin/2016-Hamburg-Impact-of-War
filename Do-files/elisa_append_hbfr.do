@@ -112,8 +112,8 @@ save "$thesis/database_dta/elisa_hb_preappend.dta", replace
 
 
 *******************************************FRENCH****************************************************************
-
-use "/Users/Tirindelli/Desktop/hambourg/bdd courante.dta", clear
+global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
+use "$thesis/Données Stata/bdd courante.dta", clear
 
 keep if pays_grouping=="Nord"
 drop if year<1733
@@ -121,6 +121,15 @@ drop if year>1789
 keep if exportsimports=="Exports"
 
 replace value=value*4.505/1000
+
+preserve 
+keep if sourcetype=="Tableau Général"
+collapse (sum) value, by(year)
+rename value value_fr
+append using "$thesis/database_dta/elisa_hb_preappend.dta" 
+collapse (sum) value_fr value_hb, by(year)
+save "$thesis/database_dta/elisa_frhb_database_total.dta", replace
+restore
 
 drop if sourcetype=="Colonies" | sourcetype=="Divers" | sourcetype=="Divers - in" ///
 | sourcetype=="National par direction" | sourcetype=="Tableau Général" ///
