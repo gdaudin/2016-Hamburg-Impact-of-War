@@ -72,6 +72,9 @@ This can be explained by the shortcomings of the two data sources.
 Reassuringly, the evolution and composition of trade are well matched.
 This suggests that the recently collected sources for eighteenth century trade flows (France, Austrian Netherlands, Britain, Sound...) can be cautiously used to improve our knowledge of the eighteenth century economy.  
 
+%Rq Ulrich 2014 2. la critique des sources (surtout allemandes) est un aspect important de ce genre de travail. Il convient donc de continuer apres p. 7 non pas avec les résultats mais avec le passage qui commence sur p. 24. Surtout il me semble obligatoire de commencer par les choses décevantes, c'est-à-dire, le taux faible valeur Hambourg /valeur France (grafique 5). Je'insère mon commentaire de p. 29: "question importante: Est-ce que les changements des catégories de destination ont-ils un effet sur ce taux? Jeannin 1971 dit que le commerce de Hambourg fait les 60 pour cent des exportation de la France vers les villes hanséatiques." Il faut discuter cette question en détail parce que l'interprétation de ce taux circonscrit le potentiel de la comparaison. Je proposerais aussi de juxtaposer valeurs et -- si possible -- quantités  des 10 (environ) marchandises les plus importantes et de développer des "histoires" pour ce qui concerne les déviations. Ceci sera beaucoup plus concluant que les diagrammes concernant trade share dans la première partie. Deux examples: (1) Il est possible que position de Hambourg dans le commerce francais avec le "Nord" varie selon le produit. La liste p. 29 avec des produits "non decevants" c.-à-d. avec un taux élevé M HH / X F concernent des produits relativement spéciales dont le commerce est possiblement centré sur Hambourg (HH c'est la plaque d'immatriculation des voitures de la "Hansestadt Hamburg"). (2) Les histoires particulièrement décevantes, le vin et l'indigo, concernent des marchandises dont le commerce semble avoir contourné Hambourg après les années 1750s pour des raisons institutionelles (voir Pfister 2012). Ces histoires ont été connu seulement des textes contemporains jusqu'ici. Le soutien qu'il recoivent de votre comparaison constitue une information importante. -- Sur la page 29 je mentionne aussi que la comparaison signale des problèmes concernant les prix. C'est un aspect à approfondir -- aussi un sujet qu'il faut étudier sur le plan des marchandises individuelles.
+
+% 3. Il serait utile de refléchir sur le but de la comparaison des deux sources au-delà de l'appui à une critique des sources. Mon idée serait d'essayer d'élaborer une/des série(s) plus dans concernant le commerce bilateral. Si on aboutirait à combiner les deux sources, seulement 4 ans de le période 1750-1792 manqueraient, ce qui serait fabuleux. Ceci serait fait en utilisant les deux séries existantes pour extrapoler une série synthétique (ou en utilisant les sources de Hambourg pour extrapoler les années manqueantes dans la série francaise). Une précondition serait qu'on puisse améliorer les corrélations données à la fin de la p. 49. Ceci est une chose qui devrait être effectuée sur le plan de marchandises individuelles. Toutefois, la matrice des corrélations bi-variés p. 49 aussi montre qu'on décrit la dynamique du commerce bilateral assez bien avec seulement 2 marchandises déjà. Il serait aussi souhaîtable d'avoir des séries réels (c'est-à-dire valeurs déflatés par des prix ou  indices des prix pour les valeurs totales).
 
 \section{Dataset}
 
@@ -79,27 +82,36 @@ This analysis uses to sources of data. The French dataset accounts for exports f
 
 \subsection{French Dataset}
 
-\subsubsection{Origin of data}
-Data come from the archives of the French \textit{Bureau de la Balance du Commerce}. This institution was created in 1713, after the Treaty of Utrecht, which followed the Spanish succession war. In this circumstances, the French were positively impressed by the detailed knowledge shown by the British on their trade flows and they also decided to create an institution which would keep track of exports and imports from and to France. Before that date, there were already local institutions keeping track of goods going in and out of harbour cities but starting 1716 they started sending their records to the \textit{Bureau}. The \textit{Bureau} would then compute aggregate yearly figures for each \textit{direction} (port) and then send them back to the local chamber of commerce, so that they could correct unit prices or suggest missing ones. A number of these documents survive and form a dataset of French regional trade, but we are not going to look into them closely. On the other hand, another kind of document survived, which reports the total value of trade for each destination for each year, so at least we have reliable figures on aggregate values. Starting from 1750 the \textit{Object Général} was introduced, which was more complete, and was recording each product from and to each destination for all ports. The \textit{Objet Général} survived for many years and this is what I have used for my estimations. For the period preceding 1733, I have estimated the data basing on local sources, as explained in section 3. 
+Data come from the archives of the French \textit{Bureau de la Balance du Commerce}. This institution was created in 1713, after the Treaty of Utrecht that followed the Spanish succession war.
+As part of the terms of the Treaty of Utrecht, the French and the British were to negotiate a trade treaty (in the end, the negotiations failed, see \cite{schnakenbourg_les_2004}).
+The French negotiators were  impressed by the detailed knowledge the British had on their trade flows. They convinced the French state to create an institution that would keep track of total French exports and imports by underlining the advantage that might give in future negotiations.
+As a result, the \textit{Bureaux des Fermes}  in trading towns started sending documents to the \textit{Bureau} in Paris.
+The \textit{Bureau} would aggregate yearly figures for each \textit{direction} (mainly port) and then send them back to the local chamber of commerce, so that they could correct unit prices or suggest missing ones. 
+The returns from the \textit{directions} are the main source for regional trade and trade by goods before 1750. They where then processed back in Paris.
+Starting from 1750 the \textit{Bureau} produced an \textit{Object Général} which was a complete list of French trade by product and by partner.
+The \textit{Objet Général} survived for many years and this is what we have used for goods-specific estimates.
+Yet, national data are missing in 1751, 1753, 1762-1766, 1781, 1783-1786 before the Revolution.
+When we needed  good-specific trade flows for these years or pre-1750, we estimated them (see ~\ref{french_estimation}).
+In the 1780s the production process of the French trade statistics changed. Yet, the same kind of information is still available.
+For more details, see \cite{charles_collecte_2011}
 
-\subsubsection{Figures}
-Between 1733 and 1820, the French dataset accounts for 146,963 observations, with incomplete data between 1761 and 1767 and missing data between 1782 and 1787, in 1789 and in 1797. There are overall 82 different destinations recorded, but each one of them is not present every year. Rather then single countries they are groups of countries and most destinations get broken down into smaller destinations in later periods or even disappeared to be replaced by other smaller entities. To bypass this problem I used country grouping. 11 different groups could be created and each of them comprises all the evolution of one destination, so that I can have observations for each group for each year. The groups I am considering are: Germany, England, Flanders and Habsburg Monarchy, Italy, Portugal, Spain, Switzerland, Colonies, Dutch Republic, India, Levant, North. The flows towards Hamburg in particular are 11,062 and data are available for the same period as the rest of of the dataset.\\
-Values in the dataset are always expressed in \textit{livres turnois}, but I will convert them in grams of fine silver to be able to compare the French dataset concerning trade towards Hamburg with the German dataset. The value of the \textit{livre} has been constant at 4.505 grams of fine silver all throughout the period in consideration. 
-
-
-
-\subsubsection{Limitations of French dataset}
-As explained above, data got to us through different sources. The most complete one is the \textit{Objet Géneral} however from 1733 to 1749 it had not been instituted yet and the only available information at product level from the French side are the local sources. Unfortunately, local sources tend to be incomplete and very rarely we still have records from every source and every year, which makes the first part of the dataset quite incomplete. To compensate for this problem I have tried to estimate the data in the first part of the dataset as explained in section three.
-In addition to this, another major limitation of the French dataset is that Hamburg does not appear as a destination per se but as part of a broader group denominated “Nord”. Prior to 1733 the destination “Nord” was a general category that included all locations situated north of the Low Countries on the European continent. In 1733 the category “Denmark” was created, that included trade with the actual Denmark and Norway and in 1734 “Suède” was also detached from the “Nord” to form a specific geographical unit (equivalent to our modern Sweden, Finland, and a small piece of land in Western Pomerania). In 1744 “Russie” was further detached from “Nord” and finally in 1780 “Nord” disappeared completely to be replaced by three new geographical entities: “Royaume de Prusse”, “L’Allemagne et la Pologne” and “Les villes Hanséatiques”, the latter including Hamburg, Bremen, Lübeck and Dantzig \cite{charles_cross-checking_2018}.
+In late 2017, the French dataset (TOFLIT18, see https://toflit18.hypotheses.org) includes more than 510,000 observations.
+Values in the dataset are always expressed in \textit{livres tournois}, but I will convert them in grams of fine silver to be able to compare the French dataset concerning trade towards Hamburg with the German dataset. The value of the \textit{livre} has been constant at 4.505 grams of fine silver from 1726.
+Trading partners are often presented as groups of countries (\textit{Nord}, \textit{Italy}...) and the definition of these groups changes through times as specific countries are separated from their region.
+A major limitation of the French dataset is that Hamburg does not appear as a destination per se but as part of a broader group denominated \textit{Nord}. Prior to 1733 the destination \textit{Nord} was a general category that included all locations situated north of the Netherlands on the European continent. In 1733 the category \textit{Danmark} was created, that included trade with the actual Denmark and Norway and in 1734 \textit{Suède} was also detached from the \textit{Nord} to form a specific geographical unit (equivalent to our modern Sweden, Finland, and a small piece of Western Pomerania). In 1744 \textit{Russie} was further detached from \textit{Nord} and finally in 1780 \textit{Nord} disappeared completely to be replaced by three new geographical entities: \textit{Royaume de Prusse}, \textit{L’Allemagne et la Pologne} and \textit{Les villes Hanséatiques}, the latter including Hamburg, Bremen, Lübeck and Dantzig \cite{charles_cross-checking_2018}.
+Only 60,000 observations concern trade with Hamburg and its region (\textit{Nord}), and only slightly less than 5,000 Hamburg specifically (\textit{Villes hanséatiques} and \textit{Hambourg}).\\
 As a result, in the comparison analysis, we expect the French dataset to report higher figure than what we can find in the Hamburg dataset. 
 
 \subsection{German Dataset}
 \cite{pfister_great_2017}
 \cite{pfister_quantitative_2015}
+\cite{schneider_statistik_2001}
+
 
 \subsubsection{Figures}
 The German dataset is unfortunately less complete than the French one, on several points of view. First all of all it comprises of only 1609 observations and it covers the following years: 1736-1740, 1742, 1747, 1753, 1755, 1756, 1760, 1762, 1763, 1769, 1770, 1771, 1773, 1776, 1781-92, 1794, 1795, 1797 and 1798. The flows recorded however are not as detailed as in the French dataset. In this case we find broader categories of products, which correspond to several goods in the French dataset. We count 39 categories, to which we add a fortieth one that includes all the French goods that cannot be classified in the Hamburg categories. 
-%\newpage
+
+
 \begin{center}
 \captionof{table}{Classification Hamburg} \label{tab:title} 
 \begin{tabularx}{1\textwidth}{|c *{5}{|Y}|}
@@ -122,12 +134,16 @@ Values are expressed in \textit{Mark Banco}, which, on the contrary of \textit{l
 \subsubsection{Limitations}
 As mentioned before, the data come from the Hamburg import toll register, so all taxable goods were recorded in the data. However there were some exemptions for taxes so that some goods were not registered. According to Pfister (2015), only goods coming into the city were liable to paying tolls, coal and grain were exempted and most of dyestuff was not being tracked either. In addition to this, there is the issue of categories rather than products. Unfortunately only a minor share of products can be matched, but on the other hand they represent a vary high share in value terms. 
 
-\subsection{Estimation of French missing data}
+\subsection{Estimation of French missing data} \label{french_estimation}
 As mentioned above, for the whole period preceding 1749, the only available data we have from the French source is either the yearly aggregate figures by destination, or the incomplete local sources, which on the other hand contains information on each product. For this reason, in order to perform the comparison between the two datasets and the subsequent analysis, it will be necessary to estimate the full value of exports from the available data. In order to do this, I run the following regression:
 \begin{center}
 $\ln(product_{i,j,k,t})=\beta_0 + \beta_1year_t+\beta_3direction_k$
 \end{center}
 where the dependent variable products stands for the value of exports of one product, for each port reported in the local source and for each year. Year is a set of year dummies and direction is also a set of dummies that indicates in which port the data were recorded (direction also includes “France”, meaning all ports). This model aims to predict the export value of single products per year basing on the yearly changes in export and on the export composition by source, with the assumption that the composition is constant through time. I run the model on the whole available data including those recorded after 1789 and before 1733 but I only do so for coffee, sugar, wine, eau vie and an aggregate category of all other goods (other), except in the case of Hamburg for which I was able to estimate the value of all products. In addition, to avoid the problem of log of zero trade flows, I have substituted them with 0.001, so that observations would not drop but the zero flows in the estimation could be taken into account as a value really close to zero. Finally, I also added weights on value, as to give more importance to flows higher in value. The results are pretty satisfactory; the correlation is very close to 1 for most goods and the pattern of estimated and actual value are very similar. 
+
+
+
+\section{Reliability of dataset}
 
 \subsection{Testing Benford’s law}
 As a last step in my validation of the data, I have tested Benford’s law or the first-digit law on both datasets. Benford’s law is a law providing the frequency distribution of the first digit in most real life datasets. According to Benford the leading digit $d$, with $d \in \{1,...,9\}$ should follow the probability distribution: 
@@ -149,7 +165,8 @@ where N is the frequency and $p(d)$ and $d(b)$ are the proportions of Benford’
 
 
 
-\section{Reliability of dataset}
+
+
 \subsection{Method}
 As mention before, an important step of my work is to ensure the reliability of the data. In order to do so I have looked at three different aspects of comparison: the composition of exports by products, by sector and total exports. For the comparison by product I will use the categories present in the Hamburg dataset and compare goods in the French dataset that can be classified within those categories. As per the comparison by sector, I will use the Standard International Trade Classification (SITC revue 3), which is a classification maintained by United Nations and used to compare trade flows across countries and across years. It is based on the materials used in production, the processing stage, its use, its importance in terms on world trade and finally its technological changes.  A table with the category is displayed below. Details of classification of goods into SITC can be found in the appendix.
 
@@ -212,33 +229,55 @@ The comparison at sector level brings contrasting results. At aggregate level th
 
 \subsubsection{Comparison of the evolution of major sectors overtime}
 As mentioned above the three major sectors are Exotic foodstuffs, beverages and tobacco and raw material, with a higher importance given to the first two. The tables below plot the longitudinal evolution of these sectors according to the two different sources. Results are not as satisfactory as in the total exports longitudinal evolution above and it might be the case the estimation on the values of product pre-1750 was not too accurate because of lack of data. In all the three cases displayed below, I plotted both the share of the sector on the total and the absolute value (indexed at the 1787 value). 
+\begin{figure}
 \captionof{figure}{Evolution of Exotic foodstuff}
 \includegraphics[scale=.28]{exotic_food_long.png}
 \includegraphics[scale=.28]{exotic_food_share.png}\\
+\end{figure}
+
+
+\begin{figure}
 \caption{Evolution of Beverages and Tobacco}
 \includegraphics[scale=.28]{bev_tobacco_long.png}
 \includegraphics[scale=.28]{bev_tobacco_share.png}\\
-\newpage
+\end{figure}
+
+\begin{figure}
 \caption{Evolution of Raw material}
 \includegraphics[scale=.28]{raw_mat_long.png}
 \includegraphics[scale=.28]{rawmat_share.png}
+\end{figure}
 
 \subsection{Comparison at product}
 \subsubsection{Comparison of aggregate export by product}
-As for the case of sectors, products do not always give the results we would expect. At aggregate level both on all years and common years the two databases are quite close:\\~\\
+As for the case of sectors, products do not always give the results we would expect. At aggregate level both on all years and common years the two databases are quite close.
+
+\begin{figure}
 \captionof{figure}{Evolution of coffee}
 \includegraphics[scale=.28]{coffee_long.png}
 \includegraphics[scale=.28]{coffee_share_long.png}\\
-\newpage
+\end{figure}
+
+\begin{figure}
 \captionof{figure}{Evolution of Sugar}
 \includegraphics[scale=.28]{sugar_long.png}
 \includegraphics[scale=.28]{sugar_share_long.png}\\
+\end{figure}
+
+
+\begin{figure}
 \captionof{figure}{Evolution of Indigo}
 \includegraphics[scale=.28]{indigo_long.png}
 \includegraphics[scale=.28]{indigo_share_long.png}\\
+\end{figure}
+
+\begin{figure}
 \captionof{figure}{Evolution of Eau de vie}
 \includegraphics[scale=.28]{eaudevie_long.png}
 \includegraphics[scale=.28]{eaudevie_share_long.png}\\
+\end{figure}
+
+
 \begin{figure}
 \caption{Evolution of wine}
 \includegraphics[scale=.28]{wine_long.png}
