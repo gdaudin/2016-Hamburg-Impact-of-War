@@ -5,7 +5,7 @@ if "`c(username)'" =="guillaumedaudin" {
 	global hamburggit "~/Documents/Recherche/2016 Hamburg/2016-Hamburg-Impact-of-War"
 }
 
-if "`c(username)'" =="TIRINDEE" {
+if "`c(username)'" =="tirindee" {
 	global hamburg "C:\Users\TIRINDEE\Google Drive\ETE/Thesis"
 	global hamburggit "C:\Users\TIRINDEE\Google Drive\ETE/Thesis/Data/do_files/Hamburg"
 }

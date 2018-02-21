@@ -4,21 +4,22 @@ if "`c(username)'" =="guillaumedaudin" {
 	global hamburggit "~/Documents/Recherche/2016 Hamburg/2016-Hamburg-Impact-of-War"
 }
 
-if "`c(username)'" =="TIRINDEE" {
-	global hamburg "C:\Users\TIRINDEE\Google Drive\ETE/Thesis"
+else if "`c(username)'" =="tirindee" {
+	global hamburg "C:\Users\TIRINDEE\Google Drive\ETE\Thesis"
 	global hamburggit "C:\Users\TIRINDEE\Google Drive\ETE/Thesis/Data/do_files/Hamburg"
 }
 
 
-if "`c(username)'" =="Tirindelli" {
+else if "`c(username)'" =="Tirindelli" {
 	global hamburg "/Users/Tirindelli/Google Drive/ETE/Thesis"
 	global hamburggit "/Users/Tirindelli/Google Drive/ETE/Thesis/Data/do_files/Hamburg"
 }
 
-
+if "`c(username)'" =="guillaumedaudin" {
 insheet using "$hamburg/2016-Hamburg-Impact-of-War/External Data/WarAndPeace.csv", case clear
+}
 
-
+else insheet using "$hamburggit/External Data/WarAndPeace.csv", case clear
 
 reshape long p_,i(year) j(pays_grouping) string
 rename p_ war_status

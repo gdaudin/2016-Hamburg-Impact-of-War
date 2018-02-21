@@ -6,7 +6,7 @@ if "`c(username)'" =="guillaumedaudin" {
 	global hamburggit "~/Documents/Recherche/2016 Hamburg/2016-Hamburg-Impact-of-War"
 }
 
-if "`c(username)'" =="TIRINDEE" {
+if "`c(username)'" =="tirindee" {
 	global hamburg "C:\Users\TIRINDEE\Google Drive\ETE/Thesis"
 	global hamburggit "C:\Users\TIRINDEE\Google Drive\ETE/Thesis/Data/do_files/Hamburg"
 }
@@ -29,7 +29,8 @@ program reg_choc_diff
 args  reg_type product_class interet inourout weight outremer predicted
 
 *Exemple : reg_choc_dif poisson sitc noweight Blockade Exports 0 1 
-*Exemple : reg_choc_dif reg sitc value Blockade Exports 0 1 
+*Exemple : reg_choc_dif reg sitc value Blockade Exports 0 1
+
 clear
 
 if "`reg_type'"=="poisson" local reg_option "vce(robust) iterate(40)" 
@@ -191,6 +192,7 @@ eststo `inourout'_eachsitc3: poisson value i.pays#i.sitc c.year#i.pays ///
 	
 */
 
+if "`c(username)'" =="guillaumedaudin" {
 esttab choc_diff_status_noprod ///
         choc_diff_status ///
 		choc_diff_status_no_wart ///
@@ -205,8 +207,34 @@ esttab choc_diff_status_noprod ///
 	"war # status no wart" ///
 	"war # goods_noprod" ///
 	"war # goods" ///
-	"war # goods no wart") ///
+	"war # goods no wart") 
+}
 
+else{ 
+if "`interet'"=="Blockade" local option 
+if "`interet'"=="Blockade" local option keep 
+
+esttab choc_diff_status_noprod ///
+        choc_diff_status ///
+		choc_diff_status_no_wart ///
+		choc_diff_goods_nopays ///
+		choc_diff_goods ///
+		choc_diff_goods_no_wart ///
+		using "$hamburggit/Impact of War/Paper/reg_choc_diff_`reg_type'_`product_class'_`interet'_`inourout'_`weight'_`outremer'_`predicted'.tex", ///
+	label replace mtitles("war*status_noprod" /// 
+	"war*status" ///
+	"war*status no wart" ///
+	"war*goods_noprod" ///
+	"war*goods" ///
+	"war*goods no wart") 
+}		
+
+esttab choc_diff_status_noprod ///
+        choc_diff_status ///
+		choc_diff_status_no_wart ///
+		choc_diff_goods_nopays ///
+		choc_diff_goods ///
+		choc_diff_goods_no_wart
 	
 eststo clear
 
@@ -215,15 +243,53 @@ eststo clear
 end
 
 
+exit
+
+
+
+
+reg_choc_diff reg hamburg Blockade Exports noweight 0 0
+reg_choc_diff reg hamburg Blockade Exports noweight 1 0
+reg_choc_diff reg hamburg Blockade Exports noweight 1 1
+
+reg_choc_diff poisson hamburg Blockade Exports noweight 0 1
+
+reg_choc_diff reg hamburg Blockade XI noweight 1 0
+reg_choc_diff reg hamburg Blockade XI value 1 0
+
+reg_choc_diff reg hamburg War Exports noweight 0 0
+reg_choc_diff reg hamburg War Exports value 0 0
+
+reg_choc_diff poisson hamburg Blockade XI noweight 0 0
+reg_choc_diff poisson hamburg Blockade XI value 1 0
 
 reg_choc_diff reg hamburg Blockade XI noweight 0 1
 
-*reg_choc_diff sitc Blockade Exports noweight 0 0 
+reg_choc_diff reg hamburg Blockade XI noweight 0 0
+reg_choc_diff reg hamburg Blockade XI value 0 0
+reg_choc_diff reg hamburg Blockade XI noweight 0 0
+reg_choc_diff reg hamburg Blockade XI noweight 0 1
+
+
+
+
+reg_choc_diff poisson sitc Blockade Exports value 0 1
+reg_choc_diff reg sitc Blockade Exports noweight 0 0
+reg_choc_diff reg sitc Blockade Exports noweight 0 1
+reg_choc_diff reg sitc Blockade Exports value 0 0
+reg_choc_diff reg sitc Blockade Exports value 0 1
+
+reg_choc_diff reg sitc Blockade XI value 0 1
+reg_choc_diff reg sitc Blockade XI noweight 0 1
+reg_choc_diff poisson sitc Blockade XI noweight 0 1
+reg_choc_diff poisson sitc Blockade XI value 0 1
+reg_choc_diff reg sitc R&N XI value 0 1
+reg_choc_diff reg sitc R&N XI noweight 0 1
+reg_choc_diff poisson sitc R&N XI value 0 1
+reg_choc_diff reg sitc War Exports value 0 0
+
 
 /*
-
-
-
 reg_choc_diff sitc Blockade Exports value 1 1 
 
 
@@ -231,7 +297,8 @@ reg_choc_diff sitc Blockade Imports value 1 1
 
 reg_choc_diff sitc Blockade Exports noweight 0 1
 reg_choc_diff sitc Blockade Imports noweight 0 1
-/*
+
+
 
  
 reg_choc_diff sitc Blockade XI 0 1 
@@ -240,3 +307,4 @@ reg_choc_diff sitc R&N Imports 0 1
 reg_choc_diff sitc R&N XI 0 1 
 
 *args product_class interet inourout weight outremer predicted
+*args  reg_type product_class interet inourout weight outremer predicted

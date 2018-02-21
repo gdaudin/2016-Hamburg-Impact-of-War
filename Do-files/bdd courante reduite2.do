@@ -9,6 +9,10 @@ if "`c(username)'"=="guillaumedaudin" ///
 if "`c(username)'" =="Tirindelli" {
 use "/Users/Tirindelli/Google Drive/ETE/Thesis/Données Stata/bdd courante.dta", clear
 }
+
+if "`c(username)'" =="tirindee" {
+use "C:\Users\TIRINDEE\Google Drive/ETE/Thesis/Données Stata/bdd courante.dta", clear
+}
 		
 
 * Keep only necessary variables
@@ -79,5 +83,6 @@ tsset panvar_num year
 if "`c(username)'"=="maellestricot" save   "/Users/maellestricot/Documents/STATA MAC/bdd courante reduite2.dta", replace
 if "`c(username)'"=="guillaumedaudin" save "~/Documents/Recherche/TOFLIT18/Indices de prix - travail Maëlle Stricot/bdd courante reduite2.dta", replace
 if "`c(username)'" =="Tirindelli" save "/Users/Tirindelli/Google Drive/ETE/Thesis/Données Stata/bdd courante reduite2.dta", replace
+if "`c(username)'" =="tirindee" save "C:\Users\TIRINDEE\Google Drive/ETE/Thesis/Données Stata/bdd courante reduite2.dta", replace
 
 
