@@ -128,6 +128,7 @@ collapse (sum) value, by(pays year exportsimports war_status_num year_of_war war
 
 generate lnvalue=ln(value)
 
+*reg with no product/sector differentiation
 eststo choc_diff_status_noprod: `reg_type' `explained_variable'  ///
     i.war_status_num#i.war_peace_num  c.year_of_war#i.war_status_num#i.war_peace_num ///
 	i.pays c.year#i.pays ///	
@@ -138,6 +139,7 @@ eststo choc_diff_status_noprod: `reg_type' `explained_variable'  ///
 	
 restore
 
+*reg with priduct FE and trend
 eststo choc_diff_status: `reg_type' `explained_variable'  /// 
 	i.war_status_num#i.war_peace_num  c.year_of_war#i.war_status_num#i.war_peace_num ///
 	i.pays#i.product  c.year#i.pays#i.product ///	
@@ -145,7 +147,7 @@ eststo choc_diff_status: `reg_type' `explained_variable'  ///
 	[iweight=`weight'], `reg_option'
 	
 
-	
+*reg with product differantiation but no war status diff.
 eststo choc_diff_goods: `reg_type' `explained_variable' /// 
 	i.product#i.war_peace_num c.year_of_war#i.product#i.war_peace_num ///
 	i.pays#i.product  c.year#i.pays#i.product ///	
@@ -157,6 +159,7 @@ preserve
 collapse (sum) value, by(product year exportsimports year_of_war war_peace_num noweight)
 gen lnvalue=ln(value)
 
+*reg with product differantiation but no war status diff. no country FE
 eststo choc_diff_goods_nopays: `reg_type' `explained_variable' ///
 	i.product#i.war_peace_num c.year_of_war#i.product#i.war_peace_num ///
 	i.product  c.year#i.product ///	
@@ -221,12 +224,12 @@ esttab choc_diff_status_noprod ///
 		choc_diff_goods ///
 		choc_diff_goods_no_wart ///
 		using "$hamburggit/Impact of War/Paper/reg_choc_diff_`reg_type'_`product_class'_`interet'_`inourout'_`weight'_`outremer'_`predicted'.tex", ///
-	label replace mtitles("war*status_noprod" /// 
-	"war*status" ///
-	"war*status no wart" ///
-	"war*goods_noprod" ///
-	"war*goods" ///
-	"war*goods no wart") 
+	label replace mtitles("war status_noprod" /// 
+	"war status" ///
+	"war status no wart" ///
+	"war goods_noprod" ///
+	"war goods" ///
+	"war goods no wart") style(tex) substitute(# $\times$ _ "" \sym{ "" *} *)
 }		
 
 esttab choc_diff_status_noprod ///
@@ -234,14 +237,14 @@ esttab choc_diff_status_noprod ///
 		choc_diff_status_no_wart ///
 		choc_diff_goods_nopays ///
 		choc_diff_goods ///
-		choc_diff_goods_no_wart
+		choc_diff_goods_no_wart, label
 	
 eststo clear
 
 
 
 end
-
+reg_choc_diff poisson hamburg War Exports noweight 1 1
 
 exit
 
