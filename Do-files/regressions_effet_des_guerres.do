@@ -119,8 +119,6 @@ replace war_status_num=0 if war_peace=="Peace"
 tabulate war_status_num war_status if war_peace=="Peace"
 
 
-
-
 preserve
 
 
@@ -244,7 +242,7 @@ eststo clear
 
 
 end
-reg_choc_diff poisson hamburg War Exports noweight 1 1
+reg_choc_diff poisson hamburg R&N Exports noweight 1 1
 
 exit
 
