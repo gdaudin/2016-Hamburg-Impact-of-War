@@ -227,7 +227,7 @@ esttab choc_diff_status_noprod ///
 	"war status no wart" ///
 	"war goods_noprod" ///
 	"war goods" ///
-	"war goods no wart") style(tex) substitute(# $\times$ _ "" \sym{ "" *} *)
+	"war goods no wart") style(tex) substitute(# $\times$ _ "" \sym{ "" *} * R&N R\&N)
 }		
 
 esttab choc_diff_status_noprod ///
@@ -242,7 +242,7 @@ eststo clear
 
 
 end
-reg_choc_diff poisson hamburg R&N Exports noweight 1 1
+reg_choc_diff poisson hamburg Blockade XI noweight 1 1
 
 exit
 
