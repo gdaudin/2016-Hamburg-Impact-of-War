@@ -162,4 +162,18 @@
   year        = {2005},
 }
 
+@Article{juhasz2014temporary,
+  author    = {Juh{\'a}sz, R{\'e}ka},
+  title     = {Temporary protection and technology adoption: Evidence from the napoleonic blockade},
+  year      = {2014},
+  publisher = {Centre for Economic Performance (CEP)},
+}
+
+@Book{davis2006naval,
+  title     = {Naval blockades in peace and war: an economic history since 1750},
+  publisher = {Cambridge University Press},
+  year      = {2006},
+  author    = {Davis, Lance E and Engerman, Stanley L},
+}
+
 @Comment{jabref-meta: databaseType:bibtex;}

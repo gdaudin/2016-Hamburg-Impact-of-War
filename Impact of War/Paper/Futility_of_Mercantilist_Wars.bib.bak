@@ -535,12 +535,4 @@
   title  = {The Development of the Naval Blockade and the Blockade of Brest},
 }
 
-@Book{rodger2005command,
-  title     = {The command of the ocean: a naval history of Britain, 1649-1815},
-  publisher = {WW Norton \& Company},
-  year      = {2005},
-  author    = {Rodger, Nicholas AM},
-  volume    = {2},
-}
-
 @Comment{jabref-meta: databaseType:bibtex;}
