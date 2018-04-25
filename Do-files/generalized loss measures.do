@@ -224,7 +224,7 @@ foreach breakofinterest in R&N Blockade {
 	foreach inoroutofinterest in Imports Exports XI {
 		foreach outremerofinterest in 0 1 {
 			loss_function `breakofinterest' `inoroutofinterest' `outremerofinterest' all
-			collapse (mean) loss, by(pays_grouping period_str period exportsimports) 
+			collapse (mean) loss loss_nomemory (mean) value, by(pays_grouping period_str period exportsimports) 
 			gen outremer = `outremerofinterest'
 			gen breakofinterest = "`breakofinterest'"
 			if `i'!= 0 {
@@ -247,7 +247,7 @@ foreach breakofinterest in R&N Blockade {
 			"Suisse"  {
 			display "`breakofinterest' `inoroutofinterest' 1 `countryofinterest'"
 			loss_function `breakofinterest' `inoroutofinterest' 1 `"`countryofinterest'"'
-			collapse (mean) loss, by(pays_grouping period_str period exportsimports war_status) 
+			collapse (mean) loss loss_nomemory (mean) value, by(pays_grouping period_str period exportsimports war_status) 
 			gen breakofinterest = "`breakofinterest'"
 			append using "$hamburggit/Results/Loss measure.dta"
 			save "$hamburggit/Results/Loss measure.dta", replace
