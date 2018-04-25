@@ -5,7 +5,7 @@
 
 if "`c(username)'" =="guillaumedaudin" {
 	global hamburg "/Users/guillaumedaudin/Documents/Recherche/2016 Hambourg et Guerre"
-	global hamburggit "~/Documents/Recherche/2016 Hamburg et Guerre /2016-Hamburg-Impact-of-War"
+	global hamburggit "~/Documents/Recherche/2016 Hambourg et Guerre/2016-Hamburg-Impact-of-War"
 }
 
 if "`c(username)'" =="TIRINDEE" {
@@ -25,7 +25,7 @@ use "$hamburg/database_dta/Total silver trade FR GB.dta", clear
 
 
 
-gen ln_value=ln(valueFR)
+gen ln_value=ln(valueFR_silver)
 
 
 
@@ -51,7 +51,7 @@ foreach per of num 1/10 {
 }
 
 
-/*
+
 
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs4)) ///
@@ -69,8 +69,8 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			 legend (off) ytitle("Time trends of French trade in tons of silver, log10") xtitle("Year: Mercantilist and R&N wars") 
 
-graph export "$hamburggit/tex/Paper/Time trends of French trade - with blockade.png", as(png) replace
-*/
+graph export "$hamburggit/Impact of War/Paper/Time trends of French trade - with blockade.png", as(png) replace
+
 
 ************Now to compute the losses
 keep if year >= 1716
@@ -130,7 +130,8 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (connected loss_war_nomemory year, cmissing(n) lcolor(red) mcolor(red) msize(vsmall)) ///
 			 , ///
 			 legend(order (6 7) label(6 "Difference with all past peace periods trend") label(7 "Difference with preceeding peace period trend") rows(2)) ///
-			 ytitle("Log10")
+			 ytitle("Log")
+			 
 			 
 egen loss_war1=mean(loss_war) if year >=1745 & year <=1748
 egen loss_peace1=mean(loss_war) if year >=1749 & year <=1755
