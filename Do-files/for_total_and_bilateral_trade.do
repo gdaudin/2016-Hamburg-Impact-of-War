@@ -8,7 +8,7 @@
 *global hamburg "/Users/Tirindelli/Google Drive/ETE/Thesis"
 
 if "`c(username)'" =="guillaumedaudin" {
-	global hamburg "~/Documents/Recherche/2016 Hambourg et Guerre/"
+	global hamburg "~/Documents/Recherche/2016 Hambourg et Guerre"
 	global hamburggit "$hamburg/2016-Hamburg-Impact-of-War"
 }
 
@@ -164,20 +164,27 @@ keep if sourcetype == "Tableau Général" | sourcetype=="Résumé"
 drop if sitc18_rev3=="9a"
 
 
-
-
-
+replace year=1806 if year==1805.75
 merge m:1 year using "$hamburg/database_dta/FR_silver.dta"
 
 drop if _merge==2
 drop _merge
 gen valueFR_silver=FR_silver*value/(1000*1000)
 drop if year>1840
-replace year=1806 if year==1805.75
+
 
 
 
 collapse (sum) valueFR_silver value, by (year exportsimports pays_simplification pays_grouping FR_silver)
+
+fillin pays_grouping exportsimports year
+drop if pays_grouping =="États-Unis d'Ambérique" & year <=1777
+
+drop if pays_simplification=="" & _fillin==1
+replace value = 0 if pays_grouping !="États-Unis d'Amérique" & value==.
+replace value=0 if pays_grouping =="États-Unis d'Ambérique" & value==. & year >=1777
+replace valueFR_silver=0 if value==0
+
 save "$hamburg/database_dta/Best guess FR bilateral trade.dta", replace
 
 
@@ -236,10 +243,11 @@ graph twoway (area wara year, color(gs14)) ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			 ytitle("Tons of silver, log10")
 
-save "$hamburg/database_dta/Total silver trade FR GB.dta", replace			 
-graph export "$hamburggit/tex/Paper/Total silver trade FR GB.png", as(png) replace			 
+			 
+*graph save "$hamburggit/Paper/Total silver trade FR GB.png", replace
+graph export "$hamburggit/Impact of War/Paper/Total silver trade FR GB.png", as(png) replace			 
 	
-
+save "$hamburg/database_dta/Total silver trade FR GB.dta", replace
 
 
 
