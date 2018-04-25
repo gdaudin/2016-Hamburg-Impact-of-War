@@ -61,8 +61,7 @@ collapse (sum) total_usfr UStoST FRtoST, by(year)
 gen UStoFR=FRtoST/UStoST
 gen totalFR=total_usfr*UStoFR
 rename totalFR value
-generate log10_value = log10(value)
-keep year value log10_value
+keep year value
 drop if year==1820 | year==1821
 
 save "$hamburg/database_dta/FRfederico_tena.dta", replace
@@ -164,29 +163,47 @@ if "`c(username)'" =="Tirindelli" use "/Users/Tirindelli/Desktop/hambourg/bdd co
 keep if sourcetype == "Tableau Général" | sourcetype=="Résumé"
 drop if sitc18_rev3=="9a"
 
-collapse (sum) value, by (year exportsimports pays_simplification pays_grouping)
-save "$hamburg/database_dta/Best guess FR bilateral trade.dta", replace
 
 
-collapse (sum) value, by (year)
-generate log10_value = log10(value)
-insobs 1
-replace year=1793 if year==.
-append using "$hamburg/database_dta/FRfederico_tena.dta"
-drop if year>1840
-replace year=1806 if year==1805.75
+
 
 merge m:1 year using "$hamburg/database_dta/FR_silver.dta"
 
 drop if _merge==2
 drop _merge
 gen valueFR_silver=FR_silver*value/(1000*1000)
+drop if year>1840
+replace year=1806 if year==1805.75
+
+
+
+collapse (sum) valueFR_silver value, by (year exportsimports pays_simplification pays_grouping FR_silver)
+save "$hamburg/database_dta/Best guess FR bilateral trade.dta", replace
+
+
+collapse (sum) value , by (year)
+
+insobs 1
+replace year=1793 if year==.
+
+append using "$hamburg/database_dta/FRfederico_tena.dta"
+
+merge m:1 year using "$hamburg/database_dta/FR_silver.dta"
+
+drop if _merge==2
+drop _merge
+gen valueFR_silver=FR_silver*value/(1000*1000)
+
+drop if year>1840
+
 gen log10_valueFR_silver = log10(valueFR_silver)
 
+
 rename value valueFR
-rename log10_value log10_valueFR
+
 
 merge m:1 year using "$hamburg/database_dta/UKfederico_tena.dta"
+
 
 drop _merge
 
