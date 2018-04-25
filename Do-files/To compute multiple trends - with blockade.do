@@ -102,35 +102,37 @@ predict ln_value_peace4
 *twoway (line ln_value_peace1 year) (line ln_value_peace1_2 year) (line ln_value_peace1_3 year) (line ln_value_peace1_4 year) (line ln_value_peace_all year) ///
 *		(line ln_value year)
 		
-gen     loss_war = max(0,ln_value_peace1-ln_value) if year >=1745 & year <=1755
-replace loss_war = max(0,ln_value_peace1_2-ln_value) if year >=1756 & year <=1777
-replace loss_war = max(0,ln_value_peace1_3-ln_value) if year >=1778 & year <=1792
-replace loss_war = max(0,ln_value_peace1_4-ln_value) if year >=1793
+gen     loss_war = 1-(exp(ln_value)/exp(ln_value_peace1)) 	 if year >=1745 & year <=1755
+replace loss_war = 1-(exp(ln_value)/exp(ln_value_peace1_2)) if year >=1756 & year <=1777
+replace loss_war = 1-(exp(ln_value)/exp(ln_value_peace1_3)) if year >=1778 & year <=1792
+replace loss_war = 1-(exp(ln_value)/exp(ln_value_peace1_4)) if year >=1793
 replace loss_war=. if ln_value==.
 
-
-gen     loss_war_nomemory = max(0,ln_value_peace1-ln_value) if year >=1745 & year <=1755
-replace loss_war_nomemory = max(0,ln_value_peace2-ln_value) if year >=1756 & year <=1777
-replace loss_war_nomemory = max(0,ln_value_peace3-ln_value) if year >=1778 & year <=1792
-replace loss_war_nomemory = max(0,ln_value_peace4-ln_value) if year >=1793
+gen     loss_war_nomemory = 1-(exp(ln_value)/exp(ln_value_peace1)) if year >=1745 & year <=1755
+replace loss_war_nomemory = 1-(exp(ln_value)/exp(ln_value_peace2)) if year >=1756 & year <=1777
+replace loss_war_nomemory = 1-(exp(ln_value)/exp(ln_value_peace3)) if year >=1778 & year <=1792
+replace loss_war_nomemory = 1-(exp(ln_value)/exp(ln_value_peace4)) if year >=1793
 replace loss_war_nomemory =. if ln_value==.
 
 
-replace war1=6 if war1!=.
-replace war2=6 if war2!=.
-replace war3=6 if war3!=.
-replace war4=6 if war4!=.
-replace war5=6 if war5!=.
+replace war1=1 if war1!=.
+replace war2=1 if war2!=.
+replace war3=1 if war3!=.
+replace war4=1 if war4!=.
+replace war5=1 if war5!=.
 keep if year >=1740
 
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs4)) ///
 			 (area war5 year, color(gs4)) ///
-			 (connected loss_war year, cmissing(n) lcolor(black) mcolor(black) msize(vsmall)) ///
+			 (connected loss_war year, cmissing(n) lcolor(black) mcolor(black) msize(vsmall) lpattern(dash)) ///
 			 (connected loss_war_nomemory year, cmissing(n) lcolor(red) mcolor(red) msize(vsmall)) ///
 			 , ///
-			 legend(order (6 7) label(6 "Difference with all past peace periods trend") label(7 "Difference with preceeding peace period trend") rows(2)) ///
-			 ytitle("Log")
+			 legend(order (6 7) label(6 "Using all past peace periods for the peace trend") label(7 "Using the preceeding peace period for the peace trend") rows(2)) ///
+			 ytitle("1-(predicted trade base on peace trend)/(actual trade)", size(small)) ylabel(-0.2 (0.2) 1) ///
+			 plotregion(fcolor(white)) graphregion(fcolor(white))
+
+graph export "$hamburggit/Impact of War/Paper/Annual loss function.png", as(png) replace
 			 
 			 
 egen loss_war1=mean(loss_war) if year >=1745 & year <=1748
@@ -159,7 +161,11 @@ egen loss_nomemory = rmax(loss_war_nomemory1 loss_war_nomemory2 loss_war_nomemor
 
 graph twoway (area loss_nomemory year)
 
-graph twoway (line loss year) (line loss_nomemory year)
+graph twoway (line loss year, lpattern(dash) lcolor(black)) (line loss_nomemory year,lcolor(red)), plotregion(fcolor(white)) graphregion(fcolor(white)) ///
+	 legend(order (1 2) label(1 "Using all past peace periods for the peace trend") label(2 "Using the preceeding peace period for the peace trend") rows(2)) ///
+	  ytitle("Mean loss by war or peace period")
+
+graph export "$hamburggit/Impact of War/Paper/Mean loss function.png", as(png) replace
 
 
 
