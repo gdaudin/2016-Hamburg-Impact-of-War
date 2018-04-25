@@ -8,8 +8,8 @@
 *global hamburg "/Users/Tirindelli/Google Drive/ETE/Thesis"
 
 if "`c(username)'" =="guillaumedaudin" {
-	global hamburg "~/Documents/Recherche/2016 Hamburg/"
-	global hamburggit "~/Documents/Recherche/2016 Hamburg/2016-Hamburg-Impact-of-War"
+	global hamburg "~/Documents/Recherche/2016 Hambourg et Guerre/"
+	global hamburggit "$hamburg/2016-Hamburg-Impact-of-War"
 }
 
 if "`c(username)'" =="TIRINDEE" {
@@ -164,6 +164,10 @@ if "`c(username)'" =="Tirindelli" use "/Users/Tirindelli/Desktop/hambourg/bdd co
 keep if sourcetype == "Tableau Général" | sourcetype=="Résumé"
 drop if sitc18_rev3=="9a"
 
+collapse (sum) value, by (year exportsimports pays_simplification pays_grouping)
+save "$hamburg/database_dta/Best guess FR bilateral trade.dta", replace
+
+
 collapse (sum) value, by (year)
 generate log10_value = log10(value)
 insobs 1
@@ -214,9 +218,14 @@ graph twoway (area wara year, color(gs14)) ///
 			 legend(order(8 "French trade" 9 "English/GB/UK trade")) ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			 ytitle("Tons of silver, log10")
+
+save "$hamburg/database_dta/Total silver trade FR GB.dta", replace			 
 graph export "$hamburggit/tex/Paper/Total silver trade FR GB.png", as(png) replace			 
 	
-save "$hamburg/database_dta/Total silver trade FR GB.dta", replace
+
+
+
+
 
 
 
