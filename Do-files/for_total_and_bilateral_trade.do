@@ -178,12 +178,11 @@ drop if year>1840
 collapse (sum) valueFR_silver value, by (year exportsimports pays_simplification pays_grouping FR_silver)
 
 fillin pays_grouping exportsimports year
-drop if pays_grouping =="États-Unis d'Ambérique" & year <=1777
-
-drop if pays_simplification=="" & _fillin==1
+drop if pays_grouping =="États-Unis d'Amérique" & year <=1777
 replace value = 0 if pays_grouping !="États-Unis d'Amérique" & value==.
 replace value=0 if pays_grouping =="États-Unis d'Ambérique" & value==. & year >=1777
 replace valueFR_silver=0 if value==0
+
 
 save "$hamburg/database_dta/Best guess FR bilateral trade.dta", replace
 
