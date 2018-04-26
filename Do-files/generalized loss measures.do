@@ -38,7 +38,7 @@ clear
 
 use "$hamburg/database_dta/Best guess FR bilateral trade.dta", clear
 
-drop if pays_grouping=="Inconnu" | pays_grouping=="Divers" | pays_grouping=="France"
+if "`country_of_interest'"!="all" keep if ustrpos("`country_of_interest'",pays_grouping)!=0
 
 collapse (sum) valueFR_silver, by(year exportsimports pays_grouping)
 rename valueFR_silver value
@@ -112,7 +112,7 @@ if "`country_of_interest'"=="all" {
 	gen pays_grouping ="All"
 }
 
-if "`country_of_interest'"!="all" keep if ustrpos("`country_of_interest'",pays_grouping)!=0
+
 
 
 
@@ -223,14 +223,21 @@ foreach breakofinterest in R&N Blockade {
 	foreach inoroutofinterest in Imports Exports XI {
 		foreach outremerofinterest in 0 1 {
 			loss_function `breakofinterest' `inoroutofinterest' `outremerofinterest' all
-			collapse (mean) loss loss_nomemory (mean) value, by(pays_grouping period_str period exportsimports) 
 			gen outremer = `outremerofinterest'
 			gen breakofinterest = "`breakofinterest'"
+			
 			if `i'!= 0 {
-				append using "$hamburggit/Results/Loss measure.dta"
+				append using "$hamburggit/Results/Yearly loss measure.dta"
+			}
+			save "$hamburggit/Results/Yearly loss measure.dta", replace
+			
+			collapse (mean) loss loss_nomemory (mean) value, by(pays_grouping period_str period exportsimports) 
+			
+			if `i'!= 0 {
+				append using "$hamburggit/Results/Mean loss measure.dta"
 				
 			}
-			save "$hamburggit/Results/Loss measure.dta", replace
+			save "$hamburggit/Results/Mean loss measure.dta", replace
 			local i 1
 		}
 	}
@@ -246,10 +253,12 @@ foreach breakofinterest in R&N Blockade {
 			"Suisse"  {
 			display "`breakofinterest' `inoroutofinterest' 1 `countryofinterest'"
 			loss_function `breakofinterest' `inoroutofinterest' 1 `"`countryofinterest'"'
+			append using "$hamburggit/Results/Yearly loss measure.dta"
+			save "$hamburggit/Results/Yearly loss measure.dta", replace
 			collapse (mean) loss loss_nomemory (mean) value, by(pays_grouping period_str period exportsimports war_status) 
 			gen breakofinterest = "`breakofinterest'"
-			append using "$hamburggit/Results/Loss measure.dta"
-			save "$hamburggit/Results/Loss measure.dta", replace
+			append using "$hamburggit/Results/Mean loss measure.dta"
+			save "$hamburggit/Results/Mean loss measure.dta", replace
 		}
 	}
 }
