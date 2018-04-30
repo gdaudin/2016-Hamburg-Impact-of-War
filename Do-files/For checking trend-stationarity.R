@@ -35,18 +35,35 @@ zipf_coeff <- do.call(rbind,lapply(X[, 1:ncol(X) ],function(x, lags){
   plot(df)
 }))
 
-for(i in 1:3){
-  for (j in ncol(X)) {
-    lags=i
-    x=X[, j]
-  }
-}
-
-unit_root(X, 0)
-
-#before 1792
+#define X
 all_series<- na.omit(a$log10_valueFR_silver)
 before_1793<- na.omit(a[a$year<1793,]$log10_valueFR_silver)
 after_1793<- na.omit(a[a$year>1793,]$log10_valueFR_silver)
+X <- cbind(all_series, before_1793, after_1793)
+
+case=c()
+lags=c()
+test_statistic=c()
+critical_value=c()
+result=c()
+case_name=colnames(X)
+
+for(i in 1:3){
+  for (j in ncol(X)) {
+    x=X[,j]
+    df=ur.df(x,type="trend",lags = i)
+    case[j]=case_name[j]
+    lags[j]=i
+    test_statistic[j] <- abs(summary(df)@teststat[1,1])
+    critical_value[j] <- abs(summary(df)@cval[1,1])
+    #result[j] <- ifelse(test_statistic>critical_value,  'reject',  'not_reject')
+  }
+}
+
+dickey_fuller <- data.frame(case, lags,test_statistic, critical_value, result)
+
+unit_root(X, 0)
+
+
 
 
