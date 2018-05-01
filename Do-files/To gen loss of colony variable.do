@@ -65,4 +65,14 @@ replace weight = 0.02 if colonies=="Tobago"
 gen weight_france=weight*france
 collapse (sum) weight_france, by(year)
 
+label var weight_france "Measure of colonial power"
+label var year Year
+
+twoway connected weight_france year, ///
+		plotregion(fcolor(white)) graphregion(fcolor(white)) ///
+		msize(vsmall) 
+graph export "$hamburggit/Impact of War/Paper/colony_loss.png", as(png) replace
+
+
+
 save "$hamburggit/External Data/Colonies loss.dta", replace
