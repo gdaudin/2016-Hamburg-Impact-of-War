@@ -43,13 +43,8 @@ save "$hamburg/database_dta/warships_wide.dta", replace
 
 use "$hamburggit/Results/Yearly loss measure.dta", clear
 
-replace loss_war = 1-loss_war
-gen ln_loss_war = ln(loss_war) 
-replace ln_loss_war = ln(0.0000000001) if loss_war<0
-
-replace loss_war_nomemory = 1-loss_war_nomemory
-gen ln_loss_war_nomemory = ln(loss_war_nomemory)
-replace ln_loss_war_nomemory = ln(0.0000000001) if loss_war_nomemory<0
+replace loss_war = ln(1-loss_war)
+replace loss_war_nomemory = ln(1-loss_war_nomemory)
 
 
 merge m:1 year using "$hamburg/database_dta/warships_wide.dta"
@@ -70,7 +65,7 @@ drop if _merge!=3
 drop _merge
 
 foreach i in Imports Exports XI{
-	foreach explained_var in ln_loss_war ln_loss_war_nomemory{
+	foreach explained_var in loss_war loss_war_nomemory{
 		reg `explained_var' colonies_loss neutral_policy warships_allyandneutral_vs_foe ///
 		war if pays_grouping =="All" & exportsimports == "`i'"
 	}
