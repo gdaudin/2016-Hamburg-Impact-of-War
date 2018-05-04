@@ -43,26 +43,14 @@ save "$hamburg/database_dta/warships_wide.dta", replace
 
 use "$hamburggit/Results/Yearly loss measure.dta", clear
 
-replace loss_war = loss_war*exp(ln_value_peace1)	if year >=1745 & year <=1755
-replace loss_war = loss_war*exp(ln_value_peace1_2) if year >=1756 & year <=1777
-replace loss_war = loss_war*exp(ln_value_peace1_3) if year >=1778 & year <=1792
-replace loss_war = loss_war*exp(ln_value_peace1_4) if year >=1793
-replace loss_war=. if ln_value==.
+replace loss_war = 1-loss_war
+gen ln_loss_war = ln(loss_war) 
+replace ln_loss_war = ln(0.0000000001) if loss_war<0
 
-gen ln_loss_war = ln(loss_war)
-replace ln_loss_war = ln(0.00000000000001) if ln_loss_war==. 
-replace ln_loss_war=. if ln_value==.
-
-
-replace loss_war_nomemory = loss_war_nomemory*exp(ln_value_peace1) if year >=1745 & year <=1755
-replace loss_war_nomemory = loss_war_nomemory*exp(ln_value_peace2) if year >=1756 & year <=1777
-replace loss_war_nomemory = loss_war_nomemory*exp(ln_value_peace3) if year >=1778 & year <=1792
-replace loss_war_nomemory = loss_war_nomemory*exp(ln_value_peace4) if year >=1793
-replace loss_war_nomemory =. if ln_value==.
-
+replace loss_war_nomemory = 1-loss_war_nomemory
 gen ln_loss_war_nomemory = ln(loss_war_nomemory)
-replace ln_loss_war_nomemory = ln(0.00000000000001) if ln_loss_war_nomemory==. 
-replace ln_loss_war_nomemory=. if ln_value==.
+replace ln_loss_war_nomemory = ln(0.0000000001) if loss_war_nomemory<0
+
 
 merge m:1 year using "$hamburg/database_dta/warships_wide.dta"
 
@@ -81,7 +69,12 @@ rename weight_france colonies_loss
 drop if _merge!=3 
 drop _merge
 
-
+foreach i in Imports Exports XI{
+	foreach explained_var in ln_loss_war ln_loss_war_nomemory{
+		reg `explained_var' colonies_loss neutral_policy warships_allyandneutral_vs_foe ///
+		war if pays_grouping =="All" & exportsimports == "`i'"
+	}
+}
 
 
 
