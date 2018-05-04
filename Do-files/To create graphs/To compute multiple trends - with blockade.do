@@ -8,15 +8,15 @@ if "`c(username)'" =="guillaumedaudin" {
 	global hamburggit "~/Documents/Recherche/2016 Hambourg et Guerre/2016-Hamburg-Impact-of-War"
 }
 
-if "`c(username)'" =="TIRINDEE" {
-	global hamburg "C:\Users\TIRINDEE\Google Drive\ETE/Thesis"
-	global hamburggit "C:\Users\TIRINDEE\Google Drive\ETE/Thesis/Data/do_files/Hamburg/"
+if "`c(username)'" =="tirindee" {
+	global hamburg "C:\Users\tirindee\Google Drive\ETE/Thesis"
+	global hamburggit "C:\Users\tirindee\Google Drive\ETE/Thesis/Data/do_files/Hamburg/"
 }
 
 
 if "`c(username)'" =="Tirindelli" {
-	global hamburg "\Users\Tirindelli\Google Drive\ETE/Thesis"
-	global hamburggit "\Users\Tirindelli\Google Drive\ETE/Thesis/Data/do_files/Hamburg/"
+	global hamburg "/Users/Tirindelli/Google Drive/ETE/Thesis"
+	global hamburggit "/Users/Tirindelli/Google Drive/ETE/Thesis/Data/do_files/Hamburg/"
 }
 
 
@@ -132,7 +132,7 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 ytitle("1-(predicted trade base on peace trend)/(actual trade)", size(small)) ylabel(-0.2 (0.2) 1) ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white))
 
-graph export "$hamburggit/Impact of War/Paper/Annual loss function.png", as(png) replace
+graph export "$hamburggit/Impact of War/Paper/Annual_loss_function.png", as(png) replace
 			 
 			 
 egen loss_war1=mean(loss_war) if year >=1745 & year <=1748
@@ -161,11 +161,14 @@ egen loss_nomemory = rmax(loss_war_nomemory1 loss_war_nomemory2 loss_war_nomemor
 
 graph twoway (area loss_nomemory year)
 
-graph twoway (line loss year, lpattern(dash) lcolor(black)) (line loss_nomemory year,lcolor(red)), plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-	 legend(order (1 2) label(1 "Using all past peace periods for the peace trend") label(2 "Using the preceeding peace period for the peace trend") rows(2)) ///
-	  ytitle("Mean loss by war or peace period")
+graph twoway 	(line loss year, lpattern(dash) lcolor(black)) ///
+				(line loss_nomemory year,lcolor(red)), ///
+				plotregion(fcolor(white)) graphregion(fcolor(white)) ///
+				legend(order (1 2) label(1 "Using all past peace periods for the peace trend") ///
+				label(2 "Using the preceeding peace period for the peace trend") rows(2)) ///
+				ytitle("Mean loss by war or peace period")
 
-graph export "$hamburggit/Impact of War/Paper/Mean loss function.png", as(png) replace
+graph export "$hamburggit/Impact of War/Paper/Mean_loss_function.png", as(png) replace
 
 
 

@@ -5,7 +5,7 @@ if "`c(username)'" =="guillaumedaudin" {
 }
 
 if "`c(username)'" =="tirindee" {
-	global hamburg "C:\Users\TIRINDEE\Google Drive\ETE/Thesis"
+	global hamburg "C:\Users\tirindee\Google Drive\ETE/Thesis"
 	global hamburggit "C:\Users\TIRINDEE\Google Drive\ETE/Thesis/Data/do_files/Hamburg"
 }
 
@@ -94,7 +94,10 @@ graph twoway (area wara year, color(gs14)) ///
 			 (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs4)) ///
 			 (area war5 year, color(gs4))  ///
-			 (line France_vs_GB year, lpattern(dash)) (line ally_vs_foe year, lpattern(dot)) (line allyandneutral_vs_foe year), ///
+			 (line France_vs_GB year, lpattern(dash)) ///
+			 (line ally_vs_foe year, lpattern(dot)) ///
+			 (line allyandneutral_vs_foe year), ///
+			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			 legend (order(8 "France/GB" 9 "France and its allies/GB and its allies" 10 "France and its allies and neutrals/GB and its allies") rows(3))
 			 
 graph export "$hamburggit/Impact of War/Paper/naval_supremacy_ratios.png", as(png) replace

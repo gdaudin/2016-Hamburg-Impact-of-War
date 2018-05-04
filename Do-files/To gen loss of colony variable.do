@@ -65,4 +65,30 @@ replace weight = 0.02 if colonies=="Tobago"
 gen weight_france=weight*france
 collapse (sum) weight_france, by(year)
 
+label var weight_france "Measure of colonial power"
+label var year Year
+
+local maxvalue 1
+generate warb=`maxvalue' if year >=1740 & year <=1744
+generate war1=`maxvalue' if year >=1744 & year <=1748
+generate war2=`maxvalue' if year >=1756 & year <=1763
+generate war3=`maxvalue' if year >=1778 & year <=1783
+generate war4=`maxvalue' if year >=1793 & year <=1802
+generate war5=`maxvalue' if year >=1803 & year <=1815
+
+
+graph twoway ///
+			 (area warb year, color(gs14)) ///
+			 (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
+			 (area war3 year, color(gs9)) (area war4 year, color(gs4)) ///
+			 (area war5 year, color(gs4))  ///
+			 (connected weight_france year if year>1739, ///
+			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
+			 msize(vsmall) legend(order(7 "Measure of colonial power")) ///
+			 xlabel(1740(20)1820) xscale(ra(1740 1820)) )
+			 
+graph export "$hamburggit/Impact of War/Paper/colony_loss.png", as(png) replace
+
+
+
 save "$hamburggit/External Data/Colonies loss.dta", replace
