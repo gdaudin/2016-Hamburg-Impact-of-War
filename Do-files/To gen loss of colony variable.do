@@ -68,6 +68,10 @@ collapse (sum) weight_france, by(year)
 label var weight_france "Measure of colonial power"
 label var year Year
 
+preserve 
+
+drop if year<1740
+
 local maxvalue 1
 generate warb=`maxvalue' if year >=1740 & year <=1744
 generate war1=`maxvalue' if year >=1744 & year <=1748
@@ -89,6 +93,6 @@ graph twoway ///
 			 
 graph export "$hamburggit/Impact of War/Paper/colony_loss.png", as(png) replace
 
-
+restore
 
 save "$hamburggit/External Data/Colonies loss.dta", replace
