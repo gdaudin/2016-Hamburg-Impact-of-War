@@ -61,7 +61,7 @@ merge m:1 year using "$hamburg/database_dta/Neutral legislation.dta"
 drop if _merge!=3 
 drop _merge
 
-merge m:1 year using "$hamburg/database_dta/Colonies loss.dta"
+merge m:1 year using "$hamburggit/External Data/Colonies loss.dta"
 rename weight_france colonies_loss
 
 drop if _merge!=3 
