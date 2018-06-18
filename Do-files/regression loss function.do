@@ -80,17 +80,36 @@ if "`break'"=="R&N" drop if breakofinterest=="Blockade"
 
 foreach i in Imports Exports XI{
 	foreach explained_var in loss_war loss_war_nomemory{
-		reg `explained_var' i.war#c.colonies_loss ///
-		i.war#i.neutral_policy i.neutral_policy ///
+		reg `explained_var' colonies_loss ///
+		i.neutral_policy i.war warships_allyandneutral_vs_foe ///
+		i.war#c.colonies_loss i.war#i.neutral_policy ///
 		i.war#c.warships_allyandneutral_vs_foe ///
-		if pays_grouping =="All" & exportsimports == "`i'"
+		i.war#i.neutral_policy#c.warships_allyandneutral_vs_foe ///
+		i.neutral_policy#c.warships_allyandneutral_vs_foe ///
+		if pays_grouping !="All" & exportsimports == "`i'"
 	}
 }
+
+
 replace war=1 if year>=1745 & year<=1748
 replace war=2 if year>=1756 & year<=1763
 replace war=3 if year>=1778 & year<=1783
 replace war=4 if year>=1793 & year<=1802
 replace war=5 if year>=1803 & year<=1815
+
+foreach i in Imports Exports XI{
+	foreach explained_var in loss_war loss_war_nomemory{
+		reg `explained_var' colonies_loss ///
+		i.neutral_policy i.war warships_allyandneutral_vs_foe ///
+		i.war#c.colonies_loss i.war#i.neutral_policy ///
+		i.war#c.warships_allyandneutral_vs_foe ///
+		i.war#i.neutral_policy#c.warships_allyandneutral_vs_foe ///
+		i.neutral_policy#c.warships_allyandneutral_vs_foe ///
+		if pays_grouping !="All" & exportsimports == "`i'"
+	}
+}
+
+exit
 
 
 foreach i in Imports Exports XI{
@@ -101,7 +120,7 @@ foreach i in Imports Exports XI{
 		if pays_grouping =="All" & exportsimports == "`i'" 
 	}
 }
-
+exit
 
 foreach i in Imports Exports XI{
 	foreach explained_var in loss_war loss_war_nomemory{
