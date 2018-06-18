@@ -231,7 +231,8 @@ foreach breakofinterest in R&N Blockade {
 			}
 			save "$hamburggit/Results/Yearly loss measure.dta", replace
 			
-			collapse (mean) loss loss_nomemory (mean) value, by(pays_grouping period_str period exportsimports) 
+			collapse (mean) loss loss_nomemory (mean) value (count) year, by(pays_grouping period_str period exportsimports) 
+			rename year nbr_of_years
 			
 			if `i'!= 0 {
 				append using "$hamburggit/Results/Mean loss measure.dta"
@@ -255,7 +256,8 @@ foreach breakofinterest in R&N Blockade {
 			loss_function `breakofinterest' `inoroutofinterest' 1 `"`countryofinterest'"'
 			append using "$hamburggit/Results/Yearly loss measure.dta"
 			save "$hamburggit/Results/Yearly loss measure.dta", replace
-			collapse (mean) loss loss_nomemory (mean) value, by(pays_grouping period_str period exportsimports war_status) 
+			collapse (mean) loss loss_nomemory (mean) value (count) year, by(pays_grouping period_str period exportsimports war_status) 
+			rename year nbr_of_years
 			gen breakofinterest = "`breakofinterest'"
 			append using "$hamburggit/Results/Mean loss measure.dta"
 			save "$hamburggit/Results/Mean loss measure.dta", replace
