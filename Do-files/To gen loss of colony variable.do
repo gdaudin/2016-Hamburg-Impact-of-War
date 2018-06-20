@@ -63,6 +63,7 @@ replace weight = 0.02 if colonies=="Tobago"
 
 
 gen weight_france=weight*france
+
 collapse (sum) weight_france, by(year)
 
 label var weight_france "Measure of colonial power"
@@ -88,7 +89,7 @@ graph twoway ///
 			 (area war5 year, color(gs4))  ///
 			 (connected weight_france year if year>1739, ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-			 msize(vsmall) legend(order(7 "Measure of colonial power")) ///
+			 msize(vsmall) legend(order(7 "Measure of colonial empire")) ///
 			 xlabel(1740(20)1820) xscale(ra(1740 1820)) )
 			 
 graph export "$hamburggit/Impact of War/Paper/colony_loss.png", as(png) replace
