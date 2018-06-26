@@ -27,6 +27,13 @@ args outremer break
 
 
 use "$hamburggit/Results/Mean loss measure.dta", clear
+gen peacewar="peace" if strmatch(period_str,"Peace*")==1
+replace peacewar = "war" if peacewar=="" 
+
+keep if breakofinterest=="`break'"
+
+
+
 
 gen ln_loss = ln(1-loss)
 gen ln_loss_nomemory = ln(1-loss_nomemory)
@@ -146,7 +153,7 @@ end
 */
 
 
-analyse_mean 1 blockade
+analyse_mean 1 R&N
 
 
 
