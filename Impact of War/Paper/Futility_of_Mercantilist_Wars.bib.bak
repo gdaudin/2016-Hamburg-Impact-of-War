@@ -167,6 +167,13 @@
   year = {2005}
 }
 
+@book{findlay2009power,
+  title={Power and plenty: trade, war, and the world economy in the second millennium},
+  author={Findlay, Ronald and O'rourke, Kevin H},
+  year={2009},
+  publisher={Princeton University Press}
+}
+
 @article{levy2004trading,
   title = {Trading with the Enemy during Wartime},
   volume = {13},
@@ -195,6 +202,13 @@
   title = {{{TOFLIT18}} Database},
   timestamp = {2017-08-25T09:18:30Z},
   howpublished = {\url{https://toflit18.hypotheses.org}},
+  author = {Daudin, Guillaume and Charles, Lo{\"\i}c and Girard, Paul}
+}
+
+@misc{daudin_toflit18_medialab,
+  title = {{{TOFLIT18}} Medialab Database},
+  timestamp = {2017-08-25T09:18:30Z},
+  howpublished = {\url{http://toflit18.medialab.sciences-po.fr/#/home}},
   author = {Daudin, Guillaume and Charles, Lo{\"\i}c and Girard, Paul}
 }
 
@@ -473,25 +487,6 @@
   file = {Schnakenbourg - 2004 - Les interactions entre commerce et diplomatie au d.pdf:/Users/guillaumedaudin/Documents/Recherche/Articles Scannés/Zotero/storage/ESD8GB6R/Schnakenbourg - 2004 - Les interactions entre commerce et diplomatie au d.pdf:application/pdf;Snapshot:/Users/guillaumedaudin/Documents/Recherche/Articles Scannés/Zotero/storage/TH2A23TK/hes_0752-5702_2004_num_23_3_2429.html:text/html}
 }
 
-@article{charles_collecte_2011,
-  title = {{La collecte du chiffre au XVIIIe si{\`e}cle : le Bureau de la balance du commerce et la production des donn{\'e}es sur le commerce ext{\'e}rieur de la France}},
-  issn = {0048-8003},
-  shorttitle = {{La collecte du chiffre au XVIIIe si{\`e}cle}},
-  doi = {10.3917/rhmc.581.0128},
-  abstract = {Le Bureau de la balance du commerce a exist{\'e} entre~1713~et~1791. Cet article exploite des fonds d'archives m{\'e}connus, pr{\'e}sents {\`a} Amsterdam, Paris et dans le Delaware, pour {\'e}tudier comment il collectait les donn{\'e}es commerciales fran{\c c}aises, au travers de nombreux changements institutionnels. La premi{\`e}re partie examine l'{\'e}volution de la structure administrative du Bureau de la balance du commerce. Deux p{\'e}riodes bien distinctes existent~: le \guillemotleft~premier Bureau~\guillemotright{} de~1713~{\`a}~1783~et le \guillemotleft~nouveau Bureau~\guillemotright{} de~1783~{\`a}~1791. Sous divers avatars, le Bureau est ballot{\'e} entre la Ferme g{\'e}n{\'e}rale, l'administration du commerce et la Marine. Le premier Bureau est une petite structure peu co{\^u}teuse~; le second l'est beaucoup plus. Il est aussi plus prestigieux. La seconde partie {\'e}tudie la mani{\`e}re dont le Bureau collectait les chiffres du commerce ext{\'e}rieur. Les employ{\'e}s de la Ferme g{\'e}n{\'e}rale ont toujours {\'e}t{\'e} la source des chiffres du volume du commerce. Le premier Bureau obtenait les prix essentiellement des chambres de commerce~; le second Bureau les obtenait de la Ferme. Les prix utilis{\'e}s semblent avoir suivi l'{\'e}volution des vrais prix. Les Bureaux ont toujours consid{\'e}r{\'e} l'Alsace, la Lorraine et Trois {\'E}v{\^e}ch{\'e}s comme {\'e}tant des pays {\'e}trangers pour le commerce de la France. Les documents de synth{\`e}se produits {\`a} partir de~1749~sont assez homog{\`e}nes. Les pratiques de collecte et de traitement des donn{\'e}es {\'e}conomiques n'a donc pas connu d'alt{\'e}ration majeure au cours du si{\`e}cle. Il semble donc possible de traiter les donn{\'e}es du premier et du second Bureau comme une s{\'e}rie coh{\'e}rente. ?, The Bureau de la balance du commerce existed from~1713~to~1791. This paper uses little-known archival sources in Amsterdam, Paris and in Delaware to study the way it collected French external trade data in the midst of numerous institutional changes. The first part examines the evolution of the administrative structure and context of the Bureau. Two periods can be distinguished~: the ``first Bureau'' from~1713~to~1783~and the ``new Bureau'' from 1783~to~1791. Under diverse administrative arrangements, the Bureau was under the influence of the Ferme g{\'e}n{\'e}rale, the board of trade and the Maritime Secretary. The first Bureau was a small unit that did not cost much. The second Bureau was much more onerous~: its costs climbed up to~100,000~livres per year, and as many as fourteen employees worked there. It was also more prestigious. The second part examines how the Bureau collected data on French external trade. The employees of the Ferme g{\'e}n{\'e}rale were always the source for trade data in volume. The chambers of commerce provided the first Bureau with prices. The Ferme g{\'e}n{\'e}rale provided the second Bureau with prices. These prices seem to have followed the general evolution of actual prices. The Bureaux have always treated Alsace, Lorraine and the Trois {\'E}v{\'e}ch{\'e}s as foreign countries in regard to French trade. The summary documents produced from~1749~onward are comparable. The way the Bureau collected and transformed economic data was not transformed dramatically throughout the century. Hence, as a first approximation, it is possible to use the data it produced as a coherent basis for the study of French external trade. ?},
-  language = {fr},
-  timestamp = {2017-12-20T16:00:21Z},
-  number = {58-1},
-  urldate = {2017-12-20},
-  journal = {Revue d'histoire moderne et contemporaine},
-  author = {Charles, Lo{\"\i}c and Daudin, Guillaume},
-  month = may,
-  year = {2011},
-  keywords = {balance du commerce,commerce extérieur,France,histoire administrative,histoire économique,statistique économique,XVIIIe siècle},
-  pages = {128--155},
-  file = {Snapshot:/Users/guillaumedaudin/Documents/Recherche/Articles Scannés/Zotero/storage/2DIMF472/revue-d-histoire-moderne-et-contemporaine-2011-1-page-128.html:text/html}
-}
-
 @book{schneider_statistik_2001,
   title = {Statistik Des {{Hamburger}} Seew{\"a}rtigen {{Einfuhrhandels}} Im 18. {{Jahrhundert}}: Nach Den {{Admiralit{\"a}ts}}-Und {{Convoygeld}}-{{Einnahmeb{\"u}chern}}},
   shorttitle = {Statistik Des {{Hamburger}} Seew{\"a}rtigen {{Einfuhrhandels}} Im 18. {{Jahrhundert}}},
@@ -541,6 +536,91 @@
   year      = {2005},
   author    = {Rodger, Nicholas AM},
   volume    = {2},
+}
+
+@article{charles2011collecte,
+  title={La collecte du chiffre au XVIIIe si{\`e}cle: le Bureau de la balance du commerce et la production des donn{\'e}es sur le commerce ext{\'e}rieur de la France},
+  author={Charles, Lo{\"\i}c and Daudin, Guillaume},
+  journal={Revue d'histoire moderne et contemporaine},
+  number={1},
+  pages={128--155},
+  year={2011},
+  publisher={Belin}
+}
+
+@Article{ojala2017maritime,
+  author    = {Ojala, Jari and Tenold, Stig},
+  title     = {Maritime trade and merchant shipping: The shipping/trade ratio since the 1870s},
+  journal   = {International Journal of Maritime History},
+  year      = {2017},
+  volume    = {29},
+  number    = {4},
+  pages     = {838--854},
+  publisher = {SAGE Publications Sage UK: London, England},
+}
+
+@Article{doyle1997ways,
+  author  = {Doyle, Michael W},
+  title   = {Ways of War and Peace: Realism},
+  journal = {Liberalism, \& Socialism WW Norton \& Company, New York/London},
+  year    = {1997},
+}
+
+@Article{oneal1997classical,
+  author    = {Oneal, John R and Russet, Bruce M},
+  title     = {The classical liberals were right: Democracy, interdependence, and conflict, 1950--1985},
+  journal   = {International Studies Quarterly},
+  year      = {1997},
+  volume    = {41},
+  number    = {2},
+  pages     = {267--294},
+  publisher = {Wiley Online Library},
+}
+
+@Article{polachek1980conflict,
+  author    = {Polachek, Solomon William},
+  title     = {Conflict and trade},
+  journal   = {Journal of conflict resolution},
+  year      = {1980},
+  volume    = {24},
+  number    = {1},
+  pages     = {55--78},
+  publisher = {Sage Publications Sage CA: Los Angeles, CA},
+}
+
+@Article{barbieri1996economic,
+  author = {Barbieri, Katherine Lisa},
+  title  = {Economic interdependence and militarized interstate conflict, 1870-1985.},
+  year   = {1996},
+}
+
+@Article{mcmillan1997interdependence,
+  author    = {McMillan, Susan M},
+  title     = {Interdependence and conflict},
+  journal   = {Mershon International Studies Review},
+  year      = {1997},
+  volume    = {41},
+  number    = {Supplement\_1},
+  pages     = {33--58},
+  publisher = {Blackwell Publishing Ltd Oxford, UK},
+}
+
+@Misc{levy1989causes,
+  author    = {Levy, Jack S},
+  title     = {The Causes of War: A Review of Theories and Evidence. Behavior, Society, and Nuclear War. P. Tetlock, JL Husbands, R. Jervis, PC Stern and C. Tilly},
+  year      = {1989},
+  publisher = {New York, Oxford University Press},
+}
+
+@Article{buzan1984economic,
+  author    = {Buzan, Barry},
+  title     = {Economic structure and international security: The limits of the liberal case},
+  journal   = {International Organization},
+  year      = {1984},
+  volume    = {38},
+  number    = {4},
+  pages     = {597--624},
+  publisher = {Cambridge University Press},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}
