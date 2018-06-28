@@ -38,7 +38,7 @@ use "$hamburg/database_dta/hamburg2", clear
 drop if value==.
 drop if year<1752
 label define order_class 1 Coffee 2 "Eau de vie" 3 Sugar 4 Wine 5 Other
-encode classification_hamburg_large, gen(class) label(order_class)
+encode hamburg_classification, gen(class) label(order_class)
 label var value Value
 
 foreach i of num 1/5{
@@ -81,17 +81,17 @@ display "`prod_typo'"
 if "`prod_typo'" == "hamburg" use "$hamburg/database_dta/allcountry2.dta", clear
 if "`prod_typo'" == "sitc" use "$hamburg/database_dta/allcountry2_sitc.dta", clear
 
-if "`prod_typo'" == "hamburg" local prod_var classification_hamburg_large
+if "`prod_typo'" == "hamburg" local prod_var hamburg_classification
 if "`prod_typo'" == "sitc" local prod_var sitc18_en
 
 
 /*
 drop if year<1752
-drop if year==1766 & classification_hamburg_large=="Sugar"
-drop if pays_grouping=="France"
-drop if pays_grouping=="Indes"
-drop if pays_grouping=="Espagne-Portugal"
-drop if pays_grouping=="Nord-Hollande"
+drop if year==1766 & hamburg_classification=="Sugar"
+drop if grouping_classification=="France"
+drop if grouping_classification=="Indes"
+drop if grouping_classification=="Espagne-Portugal"
+drop if grouping_classification=="Nord-Hollande"
 */
 
 local obs_num=_N+1
@@ -110,7 +110,7 @@ if `predicted' == 0 {
 /*
 
 label define order_class 1 Coffee 2 "Eau de vie" 3 Sugar 4 Wine 5 Other
-encode classification_hamburg_large, gen(class) label(order_class)
+encode hamburg_classification, gen(class) label(order_class)
 
 
 foreach i of num 1/5{

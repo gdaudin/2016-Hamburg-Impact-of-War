@@ -36,32 +36,32 @@ keep if year >=1700 & year <1830
 
 
 
-reshape long warships, i(year) j(pays_grouping) string
+reshape long warships, i(year) j(grouping_classification) string
 
 
 
-replace pays_grouping="Angleterre" if pays_grouping=="GreatBritain"
-replace pays_grouping="Hollande" if pays_grouping=="Netherlands"
-replace pays_grouping="Espagne" if pays_grouping=="Spain"
-replace pays_grouping="Italie" if pays_grouping=="Venice"
-replace pays_grouping="Levant et Barbarie" if pays_grouping=="OttomanEmpire"
+replace grouping_classification="Angleterre" if grouping_classification=="GreatBritain"
+replace grouping_classification="Hollande" if grouping_classification=="Netherlands"
+replace grouping_classification="Espagne" if grouping_classification=="Spain"
+replace grouping_classification="Italie" if grouping_classification=="Venice"
+replace grouping_classification="Levant et Barbarie" if grouping_classification=="OttomanEmpire"
 
 *replace country="Portugal
 
-collapse (sum) warships, by(year pays_grouping)
+collapse (sum) warships, by(year grouping_classification)
 
-merge 1:1 pays_grouping year using "$hamburg/database_dta/WarAndPeace.dta", keep (1 3)
+merge 1:1 grouping_classification year using "$hamburg/database_dta/WarAndPeace.dta", keep (1 3)
 drop _merge
 drop if year <=1732 | year >=1822
-replace war_status = "France" if pays_grouping=="France"
-replace war_status = "Angleterre" if pays_grouping=="Angleterre"
+replace war_status = "France" if grouping_classification=="France"
+replace war_status = "Angleterre" if grouping_classification=="Angleterre"
 egen side_warships=total(warships), by(war_status year)
 
 save "$hamburg/database_dta/warships.dta", replace
 
 
 bys war_status year : keep if _n==1
-drop pays_grouping warships
+drop grouping_classification warships
 
 reshape wide side_warships, i(year) j(war_status) string
 

@@ -14,7 +14,7 @@ global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
 insheet using "$thesis/toflit18_data_GIT/foreign_sources/Hambourg/BDD_Hambourg_21_juillet_2014.csv", clear
 
 
-rename marchandises classification_hamburg_large
+rename marchandises hamburg_classification
 
 preserve
 drop if value==0
@@ -40,9 +40,9 @@ drop if year>1789
 ***quick look at classified to non classified ratio
 /*preserve
 cd "/$thesis/Data/Graph/"
-gen notclassified_value= value if classification_hamburg_large=="Marchandises non classifiées"
-gen classified_value= value if classification_hamburg_large!="Marchandises non classifiées"
-collapse (sum) value notclassified_value classified_value, by (classification_hamburg_large)
+gen notclassified_value= value if hamburg_classification=="Marchandises non classifiées"
+gen classified_value= value if hamburg_classification!="Marchandises non classifiées"
+collapse (sum) value notclassified_value classified_value, by (hamburg_classification)
 graph pie notclassified_value classified_value, title ("French Exports (1733-1789)") subtitle ("Value in grams of silver") caption ("source : Hamburg") plabel(1 "Not classified products", gap(8)) plabel(2 "Classified products", gap(8)) plabel(_all percent, format(%3.1f))
 graph save "notclass_to_total_hb", replace
 restore
@@ -58,55 +58,55 @@ generate value_fr = .
 rename value value_hb
 generate sourceFRHB="Hamburg"
 
-order sourceFRHB classification_hamburg_large value_fr value_hb, after(year)
+order sourceFRHB hamburg_classification value_fr value_hb, after(year)
 
-replace classification_hamburg_large="Thérébenthine" if classification_hamburg_large=="Térébenthine"
-replace classification_hamburg_large="Coton" if classification_hamburg_large=="Coton ; autre et de Méditerranée"
-replace classification_hamburg_large="Plomb" if classification_hamburg_large=="Plombs"
+replace hamburg_classification="Thérébenthine" if hamburg_classification=="Térébenthine"
+replace hamburg_classification="Coton" if hamburg_classification=="Coton ; autre et de Méditerranée"
+replace hamburg_classification="Plomb" if hamburg_classification=="Plombs"
 
 gen sitc_rev2="Not classified"
 
-replace sitc_rev2="5" if classification_hamburg_large=="Alun"
-replace sitc_rev2="0a" if classification_hamburg_large=="Beurre"
-replace sitc_rev2="4" if classification_hamburg_large=="Blanc ; de baleine"
-replace sitc_rev2="2" if classification_hamburg_large=="Bois ; de Pernambouc"
-replace sitc_rev2="2" if classification_hamburg_large=="Bois ; de teinture"
-replace sitc_rev2="8" if classification_hamburg_large=="Bougie ; de suif"
-replace sitc_rev2="0b" if classification_hamburg_large=="Cacao"
-replace sitc_rev2="0b" if classification_hamburg_large=="Café"
-replace sitc_rev2="2" if classification_hamburg_large=="Cochenille"
-replace sitc_rev2="2" if classification_hamburg_large=="Coton"
-replace sitc_rev2="1" if classification_hamburg_large=="Eau ; de vie"
-replace sitc_rev2="6" if classification_hamburg_large=="Fer"
-replace sitc_rev2="0a" if classification_hamburg_large=="Fruits ; divers ; amandes, pelures, raisins, prunes"
-replace sitc_rev2="2" if classification_hamburg_large=="Galle"
-replace sitc_rev2="0b" if classification_hamburg_large=="Gingembre"
-replace sitc_rev2="5" if classification_hamburg_large=="Gomme"
-replace sitc_rev2="5" if classification_hamburg_large=="Goudron ; de Suède"
-replace sitc_rev2="4" if classification_hamburg_large=="Huile ; d'olive ; blanc ; de Gènes"
-replace sitc_rev2="4" if classification_hamburg_large=="Huile ; de baleine"
-replace sitc_rev2="2" if classification_hamburg_large=="Indigo"
-replace sitc_rev2="6" if classification_hamburg_large=="Minium"
-replace sitc_rev2="5" if classification_hamburg_large=="Oxyde ; de plomb"
-replace sitc_rev2="6" if classification_hamburg_large=="Plomb"
-replace sitc_rev2="0b" if classification_hamburg_large=="Poivre ; blanc-noir"
-replace sitc_rev2="5" if classification_hamburg_large=="Potasse"
-replace sitc_rev2="0a" if classification_hamburg_large=="Riz"
-replace sitc_rev2="5" if classification_hamburg_large=="Safran ; orange"
-replace sitc_rev2="5" if classification_hamburg_large=="Savon"
-replace sitc_rev2="0b" if classification_hamburg_large=="Sucre ; cru blanc ; du Brésil"
-replace sitc_rev2="4" if classification_hamburg_large=="Suif ; pour faire du savon"
-replace sitc_rev2="5" if classification_hamburg_large=="Sumac"
-replace sitc_rev2="1" if classification_hamburg_large=="Tabac ; de Virginie"
-replace sitc_rev2="5" if classification_hamburg_large=="Tartre"
-replace sitc_rev2="0b" if classification_hamburg_large=="Thé ; boue"
-replace sitc_rev2="5" if classification_hamburg_large=="Thérébenthine"
-replace sitc_rev2="5" if classification_hamburg_large=="Vert-de-gris"
-replace sitc_rev2="1" if classification_hamburg_large=="Vin ; de France"
-replace sitc_rev2="0a" if classification_hamburg_large=="Vinaigre"
-replace sitc_rev2="5" if classification_hamburg_large=="Vitriol ; blanc"
-replace sitc_rev2="Not classified" if classification_hamburg_large=="Marchandises non classifiées"
-collapse (sum) value_hb, by(year sitc_rev2 sourceFRHB classification_hamburg_large)
+replace sitc_rev2="5" if hamburg_classification=="Alun"
+replace sitc_rev2="0a" if hamburg_classification=="Beurre"
+replace sitc_rev2="4" if hamburg_classification=="Blanc ; de baleine"
+replace sitc_rev2="2" if hamburg_classification=="Bois ; de Pernambouc"
+replace sitc_rev2="2" if hamburg_classification=="Bois ; de teinture"
+replace sitc_rev2="8" if hamburg_classification=="Bougie ; de suif"
+replace sitc_rev2="0b" if hamburg_classification=="Cacao"
+replace sitc_rev2="0b" if hamburg_classification=="Café"
+replace sitc_rev2="2" if hamburg_classification=="Cochenille"
+replace sitc_rev2="2" if hamburg_classification=="Coton"
+replace sitc_rev2="1" if hamburg_classification=="Eau ; de vie"
+replace sitc_rev2="6" if hamburg_classification=="Fer"
+replace sitc_rev2="0a" if hamburg_classification=="Fruits ; divers ; amandes, pelures, raisins, prunes"
+replace sitc_rev2="2" if hamburg_classification=="Galle"
+replace sitc_rev2="0b" if hamburg_classification=="Gingembre"
+replace sitc_rev2="5" if hamburg_classification=="Gomme"
+replace sitc_rev2="5" if hamburg_classification=="Goudron ; de Suède"
+replace sitc_rev2="4" if hamburg_classification=="Huile ; d'olive ; blanc ; de Gènes"
+replace sitc_rev2="4" if hamburg_classification=="Huile ; de baleine"
+replace sitc_rev2="2" if hamburg_classification=="Indigo"
+replace sitc_rev2="6" if hamburg_classification=="Minium"
+replace sitc_rev2="5" if hamburg_classification=="Oxyde ; de plomb"
+replace sitc_rev2="6" if hamburg_classification=="Plomb"
+replace sitc_rev2="0b" if hamburg_classification=="Poivre ; blanc-noir"
+replace sitc_rev2="5" if hamburg_classification=="Potasse"
+replace sitc_rev2="0a" if hamburg_classification=="Riz"
+replace sitc_rev2="5" if hamburg_classification=="Safran ; orange"
+replace sitc_rev2="5" if hamburg_classification=="Savon"
+replace sitc_rev2="0b" if hamburg_classification=="Sucre ; cru blanc ; du Brésil"
+replace sitc_rev2="4" if hamburg_classification=="Suif ; pour faire du savon"
+replace sitc_rev2="5" if hamburg_classification=="Sumac"
+replace sitc_rev2="1" if hamburg_classification=="Tabac ; de Virginie"
+replace sitc_rev2="5" if hamburg_classification=="Tartre"
+replace sitc_rev2="0b" if hamburg_classification=="Thé ; boue"
+replace sitc_rev2="5" if hamburg_classification=="Thérébenthine"
+replace sitc_rev2="5" if hamburg_classification=="Vert-de-gris"
+replace sitc_rev2="1" if hamburg_classification=="Vin ; de France"
+replace sitc_rev2="0a" if hamburg_classification=="Vinaigre"
+replace sitc_rev2="5" if hamburg_classification=="Vitriol ; blanc"
+replace sitc_rev2="Not classified" if hamburg_classification=="Marchandises non classifiées"
+collapse (sum) value_hb, by(year sitc_rev2 sourceFRHB hamburg_classification)
 
 save "$thesis/database_dta/elisa_hb_preappend.dta", replace
 
@@ -115,7 +115,7 @@ save "$thesis/database_dta/elisa_hb_preappend.dta", replace
 global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
 use "$thesis/Données Stata/bdd courante.dta", clear
 
-keep if pays_grouping=="Nord"
+keep if grouping_classification=="Nord"
 drop if year<1733
 drop if year>1789
 keep if exportsimports=="Exports"
@@ -158,58 +158,58 @@ drop if sourcetype!="Résumé" & year==`i'
 }
 
 
-collapse (sum) value, by(year pays_grouping ///
-classification_hamburg_large exportsimports)
+collapse (sum) value, by(year grouping_classification ///
+hamburg_classification exportsimports)
 
-replace classification_hamburg_large="Marchandises non classifiées" if classification_hamburg_large==""
+replace hamburg_classification="Marchandises non classifiées" if hamburg_classification==""
 rename value value_fr
 
-collapse (sum)  value_fr, by(year classification_hamburg_large)
+collapse (sum)  value_fr, by(year hamburg_classification)
 
 generate sourceFRHB="France"
 
 
 gen sitc_rev2=""
-replace sitc_rev2="5" if classification_hamburg_large=="Alun"
-replace sitc_rev2="0a" if classification_hamburg_large=="Beurre"
-replace sitc_rev2="4" if classification_hamburg_large=="Blanc ; de baleine"
-replace sitc_rev2="2" if classification_hamburg_large=="Bois ; de Pernambouc"
-replace sitc_rev2="2" if classification_hamburg_large=="Bois ; de teinture"
-replace sitc_rev2="8" if classification_hamburg_large=="Bougie ; de suif"
-replace sitc_rev2="0b" if classification_hamburg_large=="Cacao"
-replace sitc_rev2="0b" if classification_hamburg_large=="Café"
-replace sitc_rev2="2" if classification_hamburg_large=="Cochenille"
-replace sitc_rev2="2" if classification_hamburg_large=="Coton"
-replace sitc_rev2="1" if classification_hamburg_large=="Eau ; de vie"
-replace sitc_rev2="6" if classification_hamburg_large=="Fer"
-replace sitc_rev2="0a" if classification_hamburg_large=="Fruits ; divers ; amandes, pelures, raisins, prunes"
-replace sitc_rev2="2" if classification_hamburg_large=="Galle"
-replace sitc_rev2="0b" if classification_hamburg_large=="Gingembre"
-replace sitc_rev2="5" if classification_hamburg_large=="Gomme"
-replace sitc_rev2="5" if classification_hamburg_large=="Goudron ; de Suède"
-replace sitc_rev2="4" if classification_hamburg_large=="Huile ; d'olive ; blanc ; de Gènes"
-replace sitc_rev2="4" if classification_hamburg_large=="Huile ; de baleine"
-replace sitc_rev2="2" if classification_hamburg_large=="Indigo"
-replace sitc_rev2="6" if classification_hamburg_large=="Minium"
-replace sitc_rev2="5" if classification_hamburg_large=="Oxyde ; de plomb"
-replace sitc_rev2="6" if classification_hamburg_large=="Plomb"
-replace sitc_rev2="0b" if classification_hamburg_large=="Poivre ; blanc-noir"
-replace sitc_rev2="5" if classification_hamburg_large=="Potasse"
-replace sitc_rev2="0a" if classification_hamburg_large=="Riz"
-replace sitc_rev2="5b" if classification_hamburg_large=="Safran ; orange"
-replace sitc_rev2="5" if classification_hamburg_large=="Savon"
-replace sitc_rev2="0b" if classification_hamburg_large=="Sucre ; cru blanc ; du Brésil"
-replace sitc_rev2="4" if classification_hamburg_large=="Suif ; pour faire du savon"
-replace sitc_rev2="5" if classification_hamburg_large=="Sumac"
-replace sitc_rev2="1" if classification_hamburg_large=="Tabac ; de Virginie"
-replace sitc_rev2="5" if classification_hamburg_large=="Tartre"
-replace sitc_rev2="0b" if classification_hamburg_large=="Thé ; boue"
-replace sitc_rev2="5" if classification_hamburg_large=="Thérébenthine"
-replace sitc_rev2="5" if classification_hamburg_large=="Vert-de-gris"
-replace sitc_rev2="1" if classification_hamburg_large=="Vin ; de France"
-replace sitc_rev2="0a" if classification_hamburg_large=="Vinaigre"
-replace sitc_rev2="5" if classification_hamburg_large=="Vitriol ; blanc"
-replace sitc_rev2="Not classified" if classification_hamburg_large=="Marchandises non classifiées"
+replace sitc_rev2="5" if hamburg_classification=="Alun"
+replace sitc_rev2="0a" if hamburg_classification=="Beurre"
+replace sitc_rev2="4" if hamburg_classification=="Blanc ; de baleine"
+replace sitc_rev2="2" if hamburg_classification=="Bois ; de Pernambouc"
+replace sitc_rev2="2" if hamburg_classification=="Bois ; de teinture"
+replace sitc_rev2="8" if hamburg_classification=="Bougie ; de suif"
+replace sitc_rev2="0b" if hamburg_classification=="Cacao"
+replace sitc_rev2="0b" if hamburg_classification=="Café"
+replace sitc_rev2="2" if hamburg_classification=="Cochenille"
+replace sitc_rev2="2" if hamburg_classification=="Coton"
+replace sitc_rev2="1" if hamburg_classification=="Eau ; de vie"
+replace sitc_rev2="6" if hamburg_classification=="Fer"
+replace sitc_rev2="0a" if hamburg_classification=="Fruits ; divers ; amandes, pelures, raisins, prunes"
+replace sitc_rev2="2" if hamburg_classification=="Galle"
+replace sitc_rev2="0b" if hamburg_classification=="Gingembre"
+replace sitc_rev2="5" if hamburg_classification=="Gomme"
+replace sitc_rev2="5" if hamburg_classification=="Goudron ; de Suède"
+replace sitc_rev2="4" if hamburg_classification=="Huile ; d'olive ; blanc ; de Gènes"
+replace sitc_rev2="4" if hamburg_classification=="Huile ; de baleine"
+replace sitc_rev2="2" if hamburg_classification=="Indigo"
+replace sitc_rev2="6" if hamburg_classification=="Minium"
+replace sitc_rev2="5" if hamburg_classification=="Oxyde ; de plomb"
+replace sitc_rev2="6" if hamburg_classification=="Plomb"
+replace sitc_rev2="0b" if hamburg_classification=="Poivre ; blanc-noir"
+replace sitc_rev2="5" if hamburg_classification=="Potasse"
+replace sitc_rev2="0a" if hamburg_classification=="Riz"
+replace sitc_rev2="5b" if hamburg_classification=="Safran ; orange"
+replace sitc_rev2="5" if hamburg_classification=="Savon"
+replace sitc_rev2="0b" if hamburg_classification=="Sucre ; cru blanc ; du Brésil"
+replace sitc_rev2="4" if hamburg_classification=="Suif ; pour faire du savon"
+replace sitc_rev2="5" if hamburg_classification=="Sumac"
+replace sitc_rev2="1" if hamburg_classification=="Tabac ; de Virginie"
+replace sitc_rev2="5" if hamburg_classification=="Tartre"
+replace sitc_rev2="0b" if hamburg_classification=="Thé ; boue"
+replace sitc_rev2="5" if hamburg_classification=="Thérébenthine"
+replace sitc_rev2="5" if hamburg_classification=="Vert-de-gris"
+replace sitc_rev2="1" if hamburg_classification=="Vin ; de France"
+replace sitc_rev2="0a" if hamburg_classification=="Vinaigre"
+replace sitc_rev2="5" if hamburg_classification=="Vitriol ; blanc"
+replace sitc_rev2="Not classified" if hamburg_classification=="Marchandises non classifiées"
 
 save "$thesis/database_dta/elisa_fr_preappend.dta", replace
 
@@ -242,7 +242,7 @@ replace sitc_rev2 = "8: Misc. manuf. goods" if sitc_rev2=="8"
 replace sitc_rev2 = "9: Other (incl. weapons)" if sitc_rev2=="9"
 replace sitc_rev2 = "9a: Species" if sitc_rev2=="9a"
 
-order sitc_rev2 value_fr value_hb sourceFRHB classification_hamburg_large, after(year)
+order sitc_rev2 value_fr value_hb sourceFRHB hamburg_classification, after(year)
 replace value_fr=. if value_fr==0
 replace value_hb=. if value_hb==0
 

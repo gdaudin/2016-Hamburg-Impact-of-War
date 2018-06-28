@@ -34,7 +34,7 @@ save "$hamburg/database_dta/Share of land trade 1792.dta", replace
 
 use "$hamburg/database_dta/warships.dta", clear
 bys war_status year : keep if _n==1
-drop pays_grouping warships
+drop grouping_classification warships
 
 reshape wide side_warships, i(year) j(war_status) string
 
@@ -64,7 +64,7 @@ merge m:1 year using "$hamburg/database_dta/Neutral legislation.dta"
 drop if _merge!=3 
 drop _merge
 
-merge m:1 pays_grouping exportsimports using "$hamburg/database_dta/Share of land trade 1792.dta"
+merge m:1 grouping_classification exportsimports using "$hamburg/database_dta/Share of land trade 1792.dta"
 drop if _merge==2 
 drop _merge
 
@@ -75,7 +75,7 @@ drop if _merge!=3
 drop _merge
 
 if `outremer'==0{
-drop if pays_grouping=="Outre-mers"
+drop if grouping_classification=="Outre-mers"
 drop if outremer==1
 }
 
@@ -107,7 +107,7 @@ foreach i in Imports Exports XI{
 		i.war#c.warships_allyandneutral_vs_foe ///
 		i.war#i.neutral_policy#c.warships_allyandneutral_vs_foe ///
 		i.neutral_policy#c.warships_allyandneutral_vs_foe ///
-		if pays_grouping !="All" & exportsimports == "`i'"
+		if grouping_classification !="All" & exportsimports == "`i'"
 	}
 }
 
@@ -129,7 +129,7 @@ foreach i in Imports Exports XI{
 		i.war#c.warships_allyandneutral_vs_foe ///
 		i.war#i.neutral_policy#c.warships_allyandneutral_vs_foe ///
 		i.neutral_policy#c.warships_allyandneutral_vs_foe ///
-		if pays_grouping !="All" & exportsimports == "`i'"
+		if grouping_classification !="All" & exportsimports == "`i'"
 	}
 }
 
@@ -141,7 +141,7 @@ foreach i in Imports Exports XI{
 		reg `explained_var' i.war#c.colonies_loss ///
 		i.war#i.neutral_policy ///
 		i.war#c.warships_allyandneutral_vs_foe ///
-		if pays_grouping =="All" & exportsimports == "`i'" 
+		if grouping_classification =="All" & exportsimports == "`i'" 
 	}
 }
 exit
@@ -151,7 +151,7 @@ foreach i in Imports Exports XI{
 		reg `explained_var' colonies_loss ///
 		i.neutral_policy i.war ///
 		warships_allyandneutral_vs_foe ///
-		if pays_grouping =="All" & exportsimports == "`i'"
+		if grouping_classification =="All" & exportsimports == "`i'"
 	}
 }
 exit
@@ -161,7 +161,7 @@ foreach i in Imports Exports XI{
 		i.neutral_policy ///
 		warships_allyandneutral_vs_foe ///
 		c.warships_allyandneutral_vs_foe#i.neutral_policy ///
-		if pays_grouping =="All" & exportsimports == "`i'"
+		if grouping_classification =="All" & exportsimports == "`i'"
 	}
 }
 
@@ -178,7 +178,7 @@ foreach i in Imports Exports XI{
 		reg `explained_var' i.war#c.colonies_loss ///
 		i.war#i.neutral_policy ///
 		i.war#c.warships_allyandneutral_vs_foe ///
-		if pays_grouping =="All" & exportsimports == "`i'"
+		if grouping_classification =="All" & exportsimports == "`i'"
 	}
 }
 

@@ -12,7 +12,7 @@ global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis/"
 
 use "$thesis/Data/database_dta/elisa_bdd_courante.dta", clear
 
-/*collapse (sum) value, by(year unit_price sitc_rev2 simplification classification_hamburg_large)
+/*collapse (sum) value, by(year unit_price sitc_rev2 simplification hamburg_classification)
 gen baseyear = 1 if year == 1787
 bysort baseyear (year simplification) : gen class_value_index = value / value[1]
 replace value=. if value==0
@@ -21,10 +21,10 @@ drop value
 rename class_value_index value
 sort year simplification
 
-*/replace classification_hamburg_large="Marchandises non classifiées" if  classification_hamburg_large==""
+*/replace hamburg_classification="Marchandises non classifiées" if  hamburg_classification==""
 replace value=. if value==0
-gen notclassified_value = value if classification_hamburg_large=="Marchandises non classifiées"
-gen classified_value = value if classification_hamburg_large!="Marchandises non classifiées"
+gen notclassified_value = value if hamburg_classification=="Marchandises non classifiées"
+gen classified_value = value if hamburg_classification!="Marchandises non classifiées"
 
 label var notclassified_value "Value of non classified goods"
 label var classified_value "Value of classified goods"
@@ -55,9 +55,9 @@ restore
 */cd "/$thesis/Data/Graph/France/"
 
 preserve
-collapse (sum) classified_value, by (classification_hamburg_large)
-replace classification_hamburg_large="Other" if classification_hamburg_large!="Café" & classification_hamburg_large!="Vin ; de France" & classification_hamburg_large!="Sucre ; cru blanc ; du Brésil" & classification_hamburg_large!="Indigo" & classification_hamburg_large!="Eau ; de vie"
-graph pie classified_value, over (classification_hamburg_large) title("Aggregate French Exports (1750-1789)") subtitle("Decomposition by product") caption("Classified products") plabel(1 "Coffee", gap(8)) plabel(2 "Indigo", gap(8)) plabel(3 "Sugar", gap(8)) plabel(4 "Eau de vie", gap(8)) plabel(5 "Other", gap(8)) plabel(6 "Wine", gap(8)) plabel(_all percent, format(%2.0f))
+collapse (sum) classified_value, by (hamburg_classification)
+replace hamburg_classification="Other" if hamburg_classification!="Café" & hamburg_classification!="Vin ; de France" & hamburg_classification!="Sucre ; cru blanc ; du Brésil" & hamburg_classification!="Indigo" & hamburg_classification!="Eau ; de vie"
+graph pie classified_value, over (hamburg_classification) title("Aggregate French Exports (1750-1789)") subtitle("Decomposition by product") caption("Classified products") plabel(1 "Coffee", gap(8)) plabel(2 "Indigo", gap(8)) plabel(3 "Sugar", gap(8)) plabel(4 "Eau de vie", gap(8)) plabel(5 "Other", gap(8)) plabel(6 "Wine", gap(8)) plabel(_all percent, format(%2.0f))
 graph export class_byproduct.png, replace as(png)
 *graph save composition_by_prod.png, replace
 restore
@@ -65,14 +65,14 @@ restore
 
 ***look at longitudinal evolution of major classified products
 preserve
-collapse (sum) value, by (year classification_hamburg_large)
+collapse (sum) value, by (year hamburg_classification)
 replace value=. if value==0
-gen other=value if classification_hamburg_large!="Café" & classification_hamburg_large!="Vin ; de France" & classification_hamburg_large!="Sucre ; cru blanc ; du Brésil" & classification_hamburg_large!="Indigo" & classification_hamburg_large!="Eau ; de vie"
-gen wine=value if classification_hamburg_large=="Vin ; de France"
-gen sugar=value if classification_hamburg_large=="Sucre ; cru ; du Bresil"
-gen indigo=value if classification_hamburg_large=="Indigo"
-gen eau_de_vie=value if classification_hamburg_large=="Eau ; de vie"
-gen coffee=value if classification_hamburg_large=="Café"
+gen other=value if hamburg_classification!="Café" & hamburg_classification!="Vin ; de France" & hamburg_classification!="Sucre ; cru blanc ; du Brésil" & hamburg_classification!="Indigo" & hamburg_classification!="Eau ; de vie"
+gen wine=value if hamburg_classification=="Vin ; de France"
+gen sugar=value if hamburg_classification=="Sucre ; cru ; du Bresil"
+gen indigo=value if hamburg_classification=="Indigo"
+gen eau_de_vie=value if hamburg_classification=="Eau ; de vie"
+gen coffee=value if hamburg_classification=="Café"
 *twoway (connected sugar year)
 twoway (connected coffee year) (connected wine year) (connected sugar year) (connected indigo year) (connected eau_de_vie year), title("Longitudinal evolution of major products") caption("Classified products")
 graph export class_byproduct_long.png, replace as(png)
@@ -83,7 +83,7 @@ restore
 
 ***coffee
 preserve
-keep if classification_hamburg_large=="Café"
+keep if hamburg_classification=="Café"
 collapse (sum) value, by (year simplification)
 replace value=. if value==0
 gen coffee_=value if simplification=="café"
@@ -97,7 +97,7 @@ graph export coffee_long.png, replace as(png)
 restore
 
 preserve
-keep if classification_hamburg_large=="Café"
+keep if hamburg_classification=="Café"
 collapse (sum) unit_price, by (year simplification)
 replace unit_price=. if unit_price==0
 gen coffee_=unit_price if simplification=="café"
@@ -114,7 +114,7 @@ restore
 ***sugar
 preserve
 
-keep if classification_hamburg_large=="Sucre ; cru blanc ; du Brésil"
+keep if hamburg_classification=="Sucre ; cru blanc ; du Brésil"
 collapse (sum) value, by (year simplification)
 replace value=. if value==0
 gen sugar_blanc=value if simplification=="sucre blanc"

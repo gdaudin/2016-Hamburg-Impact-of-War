@@ -48,35 +48,35 @@ drop if yearstr=="10 mars-31 décembre 1787"
 drop if direction=="France"
 *drop if year<1718
 drop if sourcepath=="Divers/AD 44/Nantes - Exports - 1734 - bis.csv"
-drop if sitc18_rev3=="9a" /*To remove flows of species*/
+drop if sitc_classification=="9a" /*To remove flows of species*/
 
 
-drop if pays_grouping=="?" | pays_grouping=="????" ///
-	| pays_grouping=="Prises" | pays_grouping=="Épaves et échouements" ///
-	| pays_grouping=="France" | pays_grouping=="Indes" ///
-	| pays_grouping=="Colonies françaises et étrangères" ///
-	| pays_grouping=="Espagne-Portugal" | pays_grouping=="" ///
-	| pays_grouping=="Divers" ///
+drop if grouping_classification=="?" | grouping_classification=="????" ///
+	| grouping_classification=="Prises" | grouping_classification=="Épaves et échouements" ///
+	| grouping_classification=="France" | grouping_classification=="Indes" ///
+	| grouping_classification=="Colonies françaises et étrangères" ///
+	| grouping_classification=="Espagne-Portugal" | grouping_classification=="" ///
+	| grouping_classification=="Divers" ///
 
 ****keep only 5 categories of goods
-replace classification_hamburg_large="Not classified" ///
-	if classification_hamburg_large==""
-drop if classification_hamburg_large=="Blanc ; de baleine" | ///
-	classification_hamburg_large=="Huile ; de baleine" | ///
-	classification_hamburg_large=="Minum"
-replace classification_hamburg_large="Sugar" if ///
-	classification_hamburg_large=="Sucre ; cru blanc ; du Brésil"
-replace classification_hamburg_large="Coffee" if ///
-	classification_hamburg_large=="Café"
-replace classification_hamburg_large="Wine" if ///
-	classification_hamburg_large=="Vin ; de France"
-replace classification_hamburg_large="Eau de vie" if ///
-	classification_hamburg_large=="Eau ; de vie"
-replace classification_hamburg_large="Other" if ///
-	classification_hamburg_large!="Sugar" & ///
-	classification_hamburg_large!="Coffee" & ///
-	classification_hamburg_large!="Wine" & ///
-	classification_hamburg_large!="Eau de vie" 
+replace hamburg_classification="Not classified" ///
+	if hamburg_classification==""
+drop if hamburg_classification=="Blanc ; de baleine" | ///
+	hamburg_classification=="Huile ; de baleine" | ///
+	hamburg_classification=="Minum"
+replace hamburg_classification="Sugar" if ///
+	hamburg_classification=="Sucre ; cru blanc ; du Brésil"
+replace hamburg_classification="Coffee" if ///
+	hamburg_classification=="Café"
+replace hamburg_classification="Wine" if ///
+	hamburg_classification=="Vin ; de France"
+replace hamburg_classification="Eau de vie" if ///
+	hamburg_classification=="Eau ; de vie"
+replace hamburg_classification="Other" if ///
+	hamburg_classification!="Sugar" & ///
+	hamburg_classification!="Coffee" & ///
+	hamburg_classification!="Wine" & ///
+	hamburg_classification!="Eau de vie" 
 
 
 ****keep only 5 sectors of sitc
@@ -106,8 +106,8 @@ replace sitc18_en="Textile manuf" if sitc18_en=="Linen threads and fabrics" ///
 	| sitc18_en=="Other threads and fabrics" 	
 
 collapse (sum) value, by(sourcetype year direction ///
-	pays_grouping exportsimports marchandises_simplification ///
-	classification_hamburg_large sitc18_en)
+	grouping_classification exportsimports simplification_classification ///
+	hamburg_classification sitc18_en)
 
 merge m:1 year using "$hamburg/database_dta/FR_silver.dta"
 drop if _merge==2
@@ -133,7 +133,7 @@ replace direction="total" if direction=="" & (sourcetype =="Objet Général" | s
 preserve
 keep if year==1750
 assert sourcetype=="National par direction"
-collapse (sum) value, by(year pays_grouping classification_hamburg_large exportsimports marchandises_simplification sitc18_en)
+collapse (sum) value, by(year grouping_classification hamburg_classification exportsimports simplification_classification sitc18_en)
 gen direction="total"
 save blif.dta, replace
 
@@ -145,13 +145,13 @@ erase blif.dta
 **Parce que dans l'objet général de 1788, les importations coloniales sont par direction : je le transforme en total d'une part.
 **et National par direction(-) d'autre part
 preserve
-keep if year==1788 & sourcetype=="Objet Général" & pays_grouping=="Outre-mers" & exportsimports=="Imports"
-collapse (sum) value, by(year pays_grouping classification_hamburg_large exportsimports marchandises_simplification sitc18_en)
+keep if year==1788 & sourcetype=="Objet Général" & grouping_classification=="Outre-mers" & exportsimports=="Imports"
+collapse (sum) value, by(year grouping_classification hamburg_classification exportsimports simplification_classification sitc18_en)
 gen direction="total"
 save blif.dta, replace
 
 restore
-replace sourcetype="National par direction (-)" if year==1788 & sourcetype=="Objet Général" & pays_grouping=="Outre-mers" ///
+replace sourcetype="National par direction (-)" if year==1788 & sourcetype=="Objet Général" & grouping_classification=="Outre-mers" ///
 		& exportsimports=="Imports" & direction !="total"
 append using blif.dta
 erase blif.dta

@@ -161,7 +161,7 @@ if "`c(username)'" =="Tirindelli" use "/Users/Tirindelli/Desktop/hambourg/bdd co
 
  
 keep if sourcetype == "Tableau Général" | sourcetype=="Résumé"
-drop if sitc18_rev3=="9a"
+drop if sitc_classification=="9a"
 
 
 replace year=1806 if year==1805.75
@@ -175,12 +175,12 @@ drop if year>1840
 
 
 
-collapse (sum) valueFR_silver value, by (year exportsimports pays_simplification pays_grouping FR_silver)
+collapse (sum) valueFR_silver value, by (year exportsimports simplification_classification grouping_classification FR_silver)
 
-fillin pays_grouping exportsimports year
-drop if pays_grouping =="États-Unis d'Amérique" & year <=1777
-replace value = 0 if pays_grouping !="États-Unis d'Amérique" & value==.
-replace value=0 if pays_grouping =="États-Unis d'Ambérique" & value==. & year >=1777
+fillin grouping_classification exportsimports year
+drop if grouping_classification =="États-Unis d'Amérique" & year <=1777
+replace value = 0 if grouping_classification !="États-Unis d'Amérique" & value==.
+replace value=0 if grouping_classification =="États-Unis d'Ambérique" & value==. & year >=1777
 replace valueFR_silver=0 if value==0
 
 

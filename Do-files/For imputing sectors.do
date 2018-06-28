@@ -21,11 +21,11 @@ if "`c(username)'" =="Tirindelli" {
 ********************************************************************************
 use "$hamburg/database_dta/elisa_bdd_courante", replace
 
-collapse (sum) value, by(sourcetype year direction pays_grouping ///
+collapse (sum) value, by(sourcetype year direction grouping_classification ///
 		sitc18_en exportsimports)
 
 ****drop pays if there are too few obs
-bys pays_grouping direction: drop if _N<=2
+bys grouping_classification direction: drop if _N<=2
  
 *****drop direction that appear only once
 bys exportsimports direction: drop if _N==1
@@ -54,7 +54,7 @@ local min_value=r(min)
 
 preserve
 keep if sourcetype!="National par direction (-)"
-fillin exportsimport year pays_grouping direction sitc18_en
+fillin exportsimport year grouping_classification direction sitc18_en
 bysort year direction exportsimports: egen test_year=total(value), missing
 replace value=`min_value'/100 if test_year!=. & value==. 
 drop test_year
@@ -63,7 +63,7 @@ restore
 
 
 keep if sourcetype=="National par direction (-)"
-fillin exportsimport year pays_grouping direction sitc18_en
+fillin exportsimport year grouping_classification direction sitc18_en
 bysort year pays exportsimports: egen test_year=total(value), missing
 replace value=`min_value'/100 if test_year!=. & value==. 
 drop test_year
@@ -71,7 +71,7 @@ drop test_year
 append using blif.dta
 erase blif.dta
 
-duplicates drop year direction exportsimports pays_grouping sitc18_en, force
+duplicates drop year direction exportsimports grouping_classification sitc18_en, force
 
 replace sourcetype = "imputed" if _fillin==1 & value !=.
 
@@ -91,7 +91,7 @@ replace weight = min(1,weight) /* Pour enlever les valeurs trop élevées */
 
 *tab weight direction
 encode direction, gen(dir)
-encode pays_grouping, gen(pays)
+encode grouping_classification, gen(pays)
 encode sitc18_en, gen(sitc) label(order)
 
 
@@ -124,7 +124,7 @@ foreach ciao in `exportsimports'{
 
 
 levelsof pays, local(levels) 	/*levelsof is just in case we add more pays 
-								to pays_grouping and I do 
+								to grouping_classification and I do 
 								not update this do_file, not important
 								`: word count `levels''*/
 
@@ -207,6 +207,6 @@ drop if year>1786
 su pred_value
 replace pred_value=0 if pred_value==r(min)
 
-collapse (sum) pred_value, by(year exportsimports pays_grouping sitc18_en)
+collapse (sum) pred_value, by(year exportsimports grouping_classification sitc18_en)
 
 save "$hamburg/database_dta/sector_estimation", replace

@@ -41,7 +41,7 @@ gen ln_loss_nomemory = ln(1-loss_nomemory)
 
 end
 /*
-merge m:1 pays_grouping exportsimports using "$hamburg/database_dta/Share of land trade 1792.dta"
+merge m:1 grouping_classification exportsimports using "$hamburg/database_dta/Share of land trade 1792.dta"
 drop if _merge==2 
 drop _merge
 
@@ -63,7 +63,7 @@ drop if _merge!=3
 drop _merge
 
 if `outremer'==0{
-drop if pays_grouping=="Outre-mers"
+drop if grouping_classification=="Outre-mers"
 drop if outremer==1
 }
 
@@ -92,7 +92,7 @@ foreach i in Imports Exports XI{
 		reg `explained_var' i.war#c.colonies_loss ///
 		i.war#i.neutral_policy i.neutral_policy ///
 		i.war#c.warships_allyandneutral_vs_foe ///
-		if pays_grouping =="All" & exportsimports == "`i'"
+		if grouping_classification =="All" & exportsimports == "`i'"
 	}
 }
 
@@ -103,7 +103,7 @@ foreach i in Imports Exports XI{
 		reg `explained_var' i.war#c.colonies_loss ///
 		i.war#i.neutral_policy ///
 		i.war#c.warships_allyandneutral_vs_foe ///
-		if pays_grouping =="All" & exportsimports == "`i'" 
+		if grouping_classification =="All" & exportsimports == "`i'" 
 	}
 }
 
@@ -113,7 +113,7 @@ foreach i in Imports Exports XI{
 		reg `explained_var' colonies_loss ///
 		i.neutral_policy i.war ///
 		warships_allyandneutral_vs_foe ///
-		if pays_grouping =="All" & exportsimports == "`i'"
+		if grouping_classification =="All" & exportsimports == "`i'"
 	}
 }
 exit
@@ -123,7 +123,7 @@ foreach i in Imports Exports XI{
 		i.neutral_policy ///
 		warships_allyandneutral_vs_foe ///
 		c.warships_allyandneutral_vs_foe#i.neutral_policy ///
-		if pays_grouping =="All" & exportsimports == "`i'"
+		if grouping_classification =="All" & exportsimports == "`i'"
 	}
 }
 
@@ -140,7 +140,7 @@ foreach i in Imports Exports XI{
 		reg `explained_var' i.war#c.colonies_loss ///
 		i.war#i.neutral_policy ///
 		i.war#c.warships_allyandneutral_vs_foe ///
-		if pays_grouping =="All" & exportsimports == "`i'"
+		if grouping_classification =="All" & exportsimports == "`i'"
 	}
 }
 

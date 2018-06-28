@@ -21,10 +21,10 @@ replace value=value_hb if sourceFRHB=="Hamburg"
 cd "$thesis/Data/do_files/Hamburg/Cross-checking Hamburg Trade"
 
 preserve
-replace classification_hamburg_large="Not classified goods" if classification_hamburg_large=="Marchandises non classifiées"
-replace classification_hamburg_large="Classified goods" if classification_hamburg_large!="Not classified goods"
-collapse (sum) value, by(sourceFRHB classification_hamburg_large)
-graph pie value, over(classification_hamburg_large) by(sourceFRHB, ///
+replace hamburg_classification="Not classified goods" if hamburg_classification=="Marchandises non classifiées"
+replace hamburg_classification="Classified goods" if hamburg_classification!="Not classified goods"
+collapse (sum) value, by(sourceFRHB hamburg_classification)
+graph pie value, over(hamburg_classification) by(sourceFRHB, ///
 legend(off) title("Classified versus unclassified goods") ///
 caption("All years")) plabel(_all percen, format(%2.0f) color(white) ///
 gap(8)) plabel(_all name, color(white) gap(-8)) ///
@@ -40,10 +40,10 @@ year==1738 | year==1739 | year==1740 | year==1747 | year==1753| ///
 year==1755| year==1756| year==1760| year==1762| year==1763| ///
 year==1769| year==1770| year==1771| year==1773| year==1776| ///
 year==1782| year==1787| year==1788| year==1789
-replace classification_hamburg_large="Not classified goods" if classification_hamburg_large=="Marchandises non classifiées"
-replace classification_hamburg_large="Classified goods" if classification_hamburg_large!="Not classified goods"
-collapse (sum) value, by(sourceFRHB classification_hamburg_large)
-graph pie value, over(classification_hamburg_large) by(sourceFRHB, ///
+replace hamburg_classification="Not classified goods" if hamburg_classification=="Marchandises non classifiées"
+replace hamburg_classification="Classified goods" if hamburg_classification!="Not classified goods"
+collapse (sum) value, by(sourceFRHB hamburg_classification)
+graph pie value, over(hamburg_classification) by(sourceFRHB, ///
 legend(off) title("Classified versus unclassified goods") ///
 caption("Common years only")) plabel(_all percen, format(%2.0f) color(white) ///
 gap(8)) plabel(_all name, color(white) gap(-8)) ///
@@ -65,8 +65,8 @@ restore
 preserve
 egen total_fr=sum(value_fr), by(year)
 egen total_hb=sum(value_hb), by(year)
-gen notclass_share_fr=value_fr/total_fr if classification_hamburg_large=="Marchandises non classifiées"
-gen notclass_share_hb=value_hb/total_hb if classification_hamburg_large=="Marchandises non classifiées"
+gen notclass_share_fr=value_fr/total_fr if hamburg_classification=="Marchandises non classifiées"
+gen notclass_share_hb=value_hb/total_hb if hamburg_classification=="Marchandises non classifiées"
 collapse (sum) notclass_share_fr notclass_share_hb, by(year)
 replace notclass_share_fr=. if notclass_share_fr==0
 replace notclass_share_hb=. if notclass_share_hb==0
@@ -382,20 +382,20 @@ restore
 *******for all years
 
 preserve
-collapse (sum) value_fr value_hb, by(classification_hamburg_large)
+collapse (sum) value_fr value_hb, by(hamburg_classification)
 capture corr value_fr value_hb
 local corr : display %3.2f r(rho)
 rename value_fr value1
 rename value_hb value0
-reshape long value, i(classification_hamburg_large)
+reshape long value, i(hamburg_classification)
 label define source 1 "France" 0 "Hamburg"
 label values _j source
-replace classification_hamburg_large="Other" if ///
-classification_hamburg_large!="Café" & ///
-classification_hamburg_large!="Vin ; de France" & ///
-classification_hamburg_large!="Sucre ; cru blanc ; du Brésil" ///
-& classification_hamburg_large!="Indigo" & classification_hamburg_large!="Eau ; de vie"
-graph pie value, over (classification_hamburg_large) by(_j, ///
+replace hamburg_classification="Other" if ///
+hamburg_classification!="Café" & ///
+hamburg_classification!="Vin ; de France" & ///
+hamburg_classification!="Sucre ; cru blanc ; du Brésil" ///
+& hamburg_classification!="Indigo" & hamburg_classification!="Eau ; de vie"
+graph pie value, over (hamburg_classification) by(_j, ///
 title("French Exports (1733-1789)") subtitle("Decomposition by products. Correlation : `corr'")) ///
 caption("All years") plabel(_all percen, format(%2.0f) color(white) gap(8)) ///
 scheme(s1color) ///
@@ -408,24 +408,24 @@ restore
 
 *********only for common years
 preserve
-collapse (sum) value_fr value_hb, by(classification_hamburg_large year)
+collapse (sum) value_fr value_hb, by(hamburg_classification year)
 keep if year== 1733 | year==1734 | year==1736 | year==1737 | year==1738 ///
 | year==1739 | year==1740 | year==1747 | year==1753| year==1755| year==1756| ///
 year==1760| year==1762| year==1763| year==1769| year==1770| year==1771| year==1773| ///
 year==1776| year==1782| year==1787| year==1788| year==1789 
 capture corr value_fr value_hb
 local corr : display %3.2f r(rho)
-collapse (sum) value_fr value_hb, by(classification_hamburg_large)
+collapse (sum) value_fr value_hb, by(hamburg_classification)
 rename value_fr value1
 rename value_hb value0
-reshape long value, i(classification_hamburg_large)
+reshape long value, i(hamburg_classification)
 label define source 1 "France" 0 "Hamburg"
 label values _j source
-replace classification_hamburg_large="Other" if classification_hamburg_large!="Café" ///
-& classification_hamburg_large!="Vin ; de France" & ///
-classification_hamburg_large!="Sucre ; cru blanc ; du Brésil" & ///
-classification_hamburg_large!="Indigo" & classification_hamburg_large!="Eau ; de vie"
-graph pie value, over (classification_hamburg_large) ///
+replace hamburg_classification="Other" if hamburg_classification!="Café" ///
+& hamburg_classification!="Vin ; de France" & ///
+hamburg_classification!="Sucre ; cru blanc ; du Brésil" & ///
+hamburg_classification!="Indigo" & hamburg_classification!="Eau ; de vie"
+graph pie value, over (hamburg_classification) ///
 by(_j, title("French Exports (1733-1789)") ///
 subtitle("Decomposition by products. Correlation : `corr'")) ///
 caption("Common years only") scheme(s1color) ///
@@ -439,7 +439,7 @@ restore
 
 *********evolution of coffee
 preserve
-keep if classification_hamburg_large=="Café"
+keep if hamburg_classification=="Café"
 collapse (sum) value_fr value_hb, by(year)
 su value_fr if year==1787
 gen vf=value_fr/r(mean)
@@ -461,7 +461,7 @@ restore
 *********evolution of wine
 
 preserve
-keep if classification_hamburg_large=="Vin ; de France"
+keep if hamburg_classification=="Vin ; de France"
 collapse (sum) value_fr value_hb, by(year)
 su value_fr if year==1787
 gen index_fr=r(mean)
@@ -486,7 +486,7 @@ restore
 
 ************evolution of sugar
 preserve
-keep if classification_hamburg_large=="Sucre ; cru blanc ; du Brésil"
+keep if hamburg_classification=="Sucre ; cru blanc ; du Brésil"
 collapse (sum) value_fr value_hb, by(year)
 su value_fr if year==1787
 gen index_fr=r(mean)
@@ -509,7 +509,7 @@ restore
 
 ************evolution of indigo
 preserve
-keep if classification_hamburg_large=="Indigo"
+keep if hamburg_classification=="Indigo"
 collapse (sum) value_fr value_hb, by(year)
 su value_fr if year==1787
 gen index_fr=r(mean)
@@ -532,7 +532,7 @@ restore
 
 ************evolution of eau de vie
 preserve
-keep if classification_hamburg_large=="Eau ; de vie"
+keep if hamburg_classification=="Eau ; de vie"
 collapse (sum) value_fr value_hb, by(year)
 su value_fr if year==1787
 gen index_fr=r(mean)
@@ -561,16 +561,16 @@ restore
 **********************************evolution of share of main products********************************************************************
 
 preserve
-replace classification_hamburg_large="Other" if classification_hamburg_large!="Café" ///
-& classification_hamburg_large!="Vin ; de France" & ///
-classification_hamburg_large!="Sucre ; cru blanc ; du Brésil" ///
-& classification_hamburg_large!="Indigo" & classification_hamburg_large!="Eau ; de vie"
-collapse (sum) value_fr value_hb, by(year classification_hamburg_large)
+replace hamburg_classification="Other" if hamburg_classification!="Café" ///
+& hamburg_classification!="Vin ; de France" & ///
+hamburg_classification!="Sucre ; cru blanc ; du Brésil" ///
+& hamburg_classification!="Indigo" & hamburg_classification!="Eau ; de vie"
+collapse (sum) value_fr value_hb, by(year hamburg_classification)
 egen tot_year_fr=sum(value_fr), by(year)
 egen tot_year_hb=sum(value_hb), by(year)
 
-gen coffee_share_fr=value_fr/tot_year_fr if classification_hamburg_large=="Café"
-gen coffee_share_hb=value_hb/tot_year_hb if classification_hamburg_large=="Café"
+gen coffee_share_fr=value_fr/tot_year_fr if hamburg_classification=="Café"
+gen coffee_share_hb=value_hb/tot_year_hb if hamburg_classification=="Café"
 capture corr coffee_share_hb coffee_share_fr
 local corr : display %3.2f r(rho)
 twoway (bar coffee_share_fr year) (connected coffee_share_hb year), ///
@@ -581,8 +581,8 @@ legend(label(1 "France") label(2 "Hamburg"))
 graph export coffee_share_long.png, replace as(png)
 *graph save coffee_share_long, replace
 
-gen wine_share_fr=value_fr/tot_year_fr if classification_hamburg_large=="Vin ; de France"
-gen wine_share_hb=value_hb/tot_year_hb if classification_hamburg_large=="Vin ; de France"
+gen wine_share_fr=value_fr/tot_year_fr if hamburg_classification=="Vin ; de France"
+gen wine_share_hb=value_hb/tot_year_hb if hamburg_classification=="Vin ; de France"
 capture corr wine_share_hb wine_share_fr
 local corr : display %3.2f r(rho)
 twoway (bar wine_share_fr year) (connected wine_share_hb year), ///
@@ -592,8 +592,8 @@ legend(label(1 "France") label(2 "Hamburg"))
 graph export wine_share_long.png, replace as(png)
 *graph save wine_share_long, replace
 
-gen sugar_share_fr=value_fr/tot_year_fr if classification_hamburg_large=="Sucre ; cru blanc ; du Brésil"
-gen sugar_share_hb=value_hb/tot_year_hb if classification_hamburg_large=="Sucre ; cru blanc ; du Brésil"
+gen sugar_share_fr=value_fr/tot_year_fr if hamburg_classification=="Sucre ; cru blanc ; du Brésil"
+gen sugar_share_hb=value_hb/tot_year_hb if hamburg_classification=="Sucre ; cru blanc ; du Brésil"
 capture corr sugar_share_hb sugar_share_fr
 local corr : display %3.2f r(rho)
 twoway (bar sugar_share_fr year) (connected sugar_share_hb year), ///
@@ -603,9 +603,9 @@ legend(label(1 "France") label(2 "Hamburg"))
 graph export sugar_share_long.png, replace as(png)
 *graph save sugar_share_long, replace
 
-gen indigo_share_fr=value_fr/tot_year_fr if classification_hamburg_large=="Indigo"
-gen indigo_share_hb=value_hb/tot_year_hb if classification_hamburg_large=="Indigo"
-replace indigo_share_hb=. if classification_hamburg_large!="Indigo"| indigo_share_hb==0
+gen indigo_share_fr=value_fr/tot_year_fr if hamburg_classification=="Indigo"
+gen indigo_share_hb=value_hb/tot_year_hb if hamburg_classification=="Indigo"
+replace indigo_share_hb=. if hamburg_classification!="Indigo"| indigo_share_hb==0
 capture corr indigo_share_hb indigo_share_fr
 local corr : display %3.2f r(rho)
 twoway (bar indigo_share_fr year) (connected indigo_share_hb year), ///
@@ -615,8 +615,8 @@ legend(label(1 "France") label(2 "Hamburg"))
 graph export indigo_share_long.png, replace as(png)
 *graph save indigo_share_long, replace
 
-gen eaudevie_share_fr=value_fr/tot_year_fr if classification_hamburg_large=="Eau ; de vie"
-gen eaudevie_share_hb=value_hb/tot_year_hb if classification_hamburg_large=="Eau ; de vie"
+gen eaudevie_share_fr=value_fr/tot_year_fr if hamburg_classification=="Eau ; de vie"
+gen eaudevie_share_hb=value_hb/tot_year_hb if hamburg_classification=="Eau ; de vie"
 capture corr eaudevie_share_hb eaudevie_share_fr
 local corr : display %3.2f r(rho)
 twoway (bar eaudevie_share_fr year)(connected eaudevie_share_hb year), ///
@@ -626,8 +626,8 @@ legend(label(1 "France") label(2 "Hamburg"))
 graph export eaudevie_share_long.png, replace as(png)
 *graph save eaudevie_share_long, replace
 
-gen other_share_fr=value_fr/tot_year_fr if classification_hamburg_large=="Other"
-gen other_share_hb=value_hb/tot_year_hb if classification_hamburg_large=="Other"
+gen other_share_fr=value_fr/tot_year_fr if hamburg_classification=="Other"
+gen other_share_hb=value_hb/tot_year_hb if hamburg_classification=="Other"
 capture corr other_share_fr other_share_hb
 local corr : display %3.2f r(rho)
 twoway (bar other_share_fr year)(connected other_share_hb year), ///

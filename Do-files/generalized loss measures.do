@@ -38,15 +38,15 @@ clear
 
 use "$hamburg/database_dta/Best guess FR bilateral trade.dta", clear
 
-if "`country_of_interest'"!="all" keep if ustrpos("`country_of_interest'",pays_grouping)!=0
+if "`country_of_interest'"!="all" keep if ustrpos("`country_of_interest'",grouping_classification)!=0
 
-collapse (sum) valueFR_silver, by(year exportsimports pays_grouping)
+collapse (sum) valueFR_silver, by(year exportsimports grouping_classification)
 rename valueFR_silver value
 
 
-encode pays_grouping, gen(pays)
+encode grouping_classification, gen(pays)
 
-merge m:1 pays_grouping year using "$hamburg/database_dta/WarAndPeace.dta"
+merge m:1 grouping_classification year using "$hamburg/database_dta/WarAndPeace.dta"
 drop if _merge==2
 drop _merge
 
@@ -57,12 +57,12 @@ drop _merge
 
 *replace war_status = "Peace" if war_status==""
 
-if `outremer'==0 drop if pays_grouping=="Outre-mers"
+if `outremer'==0 drop if grouping_classification=="Outre-mers"
 
 
 if "`inorout'"=="XI" {
 	order exportsimports value
-	collapse (sum) value, by(year pays_grouping pays war_status)
+	collapse (sum) value, by(year grouping_classification pays war_status)
 	gen exportsimports="XI"
 }
 
@@ -106,10 +106,10 @@ generate war5=`maxvalue' if year >=1803 & year <=1815
 
 
 
-order value pays_grouping pays war_status
+order value grouping_classification pays war_status
 if "`country_of_interest'"=="all" {
 	collapse (sum) value, by(year-war5)
-	gen pays_grouping ="All"
+	gen grouping_classification ="All"
 }
 
 
@@ -232,7 +232,7 @@ foreach breakofinterest in R&N Blockade {
 			save "$hamburggit/Results/Yearly loss measure.dta", replace
 			
 			collapse (mean) loss loss_nomemory (mean) value (count) year, ///
-					by(pays_grouping period_str period exportsimports breakofinterest outremer) 
+					by(grouping_classification period_str period exportsimports breakofinterest outremer) 
 			rename year nbr_of_years
 			if `i'!= 0 {
 				append using "$hamburggit/Results/Mean loss measure.dta"
@@ -257,7 +257,7 @@ foreach breakofinterest in R&N Blockade {
 			append using "$hamburggit/Results/Yearly loss measure.dta"
 			save "$hamburggit/Results/Yearly loss measure.dta", replace
 			collapse (mean) loss loss_nomemory value (count) year, ///
-				by(pays_grouping period_str period exportsimports war_status breakofinterest) 
+				by(grouping_classification period_str period exportsimports war_status breakofinterest) 
 			rename year nbr_of_years
 			append using "$hamburggit/Results/Mean loss measure.dta"
 			save "$hamburggit/Results/Mean loss measure.dta", replace
@@ -271,11 +271,11 @@ set graphic on
 				
 
 loss_function R&N XI 1 all
-collapse (mean) loss,by(pays_grouping period_str exportsimports) 
+collapse (mean) loss,by(grouping_classification period_str exportsimports) 
 save "$hamburggit/Results/Loss measure.dta", replace
 
 loss_function R&N XI 0 all
-collapse (mean) loss,by(pays_grouping period_str exportsimports) 
+collapse (mean) loss,by(grouping_classification period_str exportsimports) 
 gen outremer = 0
 append using "$hamburggit/Results/Loss measure.dta"
 save "$hamburggit/Results/Loss measure.dta", replace
@@ -290,7 +290,7 @@ foreach countryofinterest in Allemagne Angleterre Espagne "Flandre et autres ét
 			"Hollande" "Italie" "Levant et Barbarie" "Nord" "Outre-mers" "Portugal" ///
 			"Suisse" "États-Unis d'Amérique" {
 			loss_function R&N XI 1 `countryofinterest'
-			collapse (mean) loss,by(pays_grouping period_str exportsimports war_status)
+			collapse (mean) loss,by(grouping_classification period_str exportsimports war_status)
 			generate break_of_interest ="`interet'"
 
 		}

@@ -218,7 +218,7 @@ drop if value==.
 drop pays_regroupes
 drop if year<1733
 label define order_class 1 Coffee 2 "Eau de vie" 3 Sugar 4 Wine 5 Other
-encode classification_hamburg_large, gen(class) label(order_class)
+encode hamburg_classification, gen(class) label(order_class)
 
 label var value Value
 
@@ -718,7 +718,7 @@ set more off
 use "$thesis/database_dta/bdd_courante2", clear
 
 drop if year<1733
-drop if year==1766 & classification_hamburg_large=="Sugar"
+drop if year==1766 & hamburg_classification=="Sugar"
 drop if pays_regroupes=="France"
 drop if pays_regroupes=="Indes"
 drop if pays_regroupes=="Espagne-Portugal"
@@ -1002,7 +1002,7 @@ replace year_pays`i'=lnyear if pays==`i'
 
 ****gen product dummies and year trend
 label define order_class 1 Coffee 2 "Eau de vie" 3 Sugar 4 Wine 5 Other
-encode classification_hamburg_large, gen(class) label(order_class)
+encode hamburg_classification, gen(class) label(order_class)
 foreach i of num 1/5{
 gen year_class`i'=0
 replace year_class`i'=lnyear if class==`i'

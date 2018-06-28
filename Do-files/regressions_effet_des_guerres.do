@@ -46,11 +46,11 @@ replace lnvalue=ln(0.00000000000001) if value==0
 
 capture replace sitc18_en="Raw mat fuel oils" if sitc18_en=="Raw mat; fuel; oils"
 
-encode pays_grouping, gen(pays)
+encode grouping_classification, gen(pays)
 if "`product_class'"=="sitc" encode sitc18_en, gen(product)
-if "`product_class'"=="hamburg" encode classification_hamburg_large, gen(product)
+if "`product_class'"=="hamburg" encode hamburg_classification, gen(product)
 
-merge m:1 pays_grouping year using "$hamburg/database_dta/WarAndPeace.dta"
+merge m:1 grouping_classification year using "$hamburg/database_dta/WarAndPeace.dta"
 
 drop if _merge==2
 
@@ -61,7 +61,7 @@ gen break=(year>1795)
 
 
 
-if `outremer'==0 drop if pays_grouping=="Outre-mers"
+if `outremer'==0 drop if grouping_classification=="Outre-mers"
 
 if "`inourout'"=="XI" {
 	order exportsimports value

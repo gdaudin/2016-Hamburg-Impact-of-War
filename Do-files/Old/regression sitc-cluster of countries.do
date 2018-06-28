@@ -8,7 +8,7 @@ use "$thesis/database_dta/allcountry2_sitc", clear
 
 replace sitc18_en="Raw mat fuel oils" if sitc18_en=="Raw mat; fuel; oils"
 
-encode pays_grouping, gen(pays)
+encode grouping_classification, gen(pays)
 encode sitc18_en, gen(sitc)
 
 ********************************************************************************
@@ -16,13 +16,13 @@ encode sitc18_en, gen(sitc)
 ********************************************************************************
 
 gen groups=""			/*gen var with three groups of countries*/
-replace groups="Colonies" if pays_grouping=="Colonies françaises"
-replace groups="North" if pays_grouping=="Nord" | pays_grouping=="Hollande" ///
-	| pays_grouping=="Angleterre" | pays_grouping=="Suisse" ///
-	| pays_grouping=="Flandre et autres états de l'Empereur" 
-replace group="South" if pays_grouping=="Allemagne et Pologne (par terre)" ///
-	| pays_grouping=="Espagne" | pays_grouping=="Italie" ///
-	| pays_grouping=="Portugal" | pays_grouping=="Levant et Barbarie" 
+replace groups="Colonies" if grouping_classification=="Colonies françaises"
+replace groups="North" if grouping_classification=="Nord" | grouping_classification=="Hollande" ///
+	| grouping_classification=="Angleterre" | grouping_classification=="Suisse" ///
+	| grouping_classification=="Flandre et autres états de l'Empereur" 
+replace group="South" if grouping_classification=="Allemagne et Pologne (par terre)" ///
+	| grouping_classification=="Espagne" | grouping_classification=="Italie" ///
+	| grouping_classification=="Portugal" | grouping_classification=="Levant et Barbarie" 
 encode groups, gen(group)
 
 preserve 		/*calculate average share of shares of each sitc per group*/
@@ -56,7 +56,7 @@ restore
 ***************RE-RUN REGRESSIONS WITH CLUSTERS*********************************
 ********************************************************************************
 
-collapse (sum) value, by(sitc year pays pays_grouping exportsimports group)
+collapse (sum) value, by(sitc year pays grouping_classification exportsimports group)
 replace exportsimports="Exports" if exportsimports=="Exportations"
 
 *****gen war dummy

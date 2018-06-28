@@ -27,7 +27,7 @@ use "$thesis/database_dta/hamburg2", clear
 drop if value==.
 drop if year<1718
 label define order_class 1 Coffee 2 "Eau de vie" 3 Sugar 4 Wine 5 Other
-encode classification_hamburg_large, gen(class) label(order_class)
+encode hamburg_classification, gen(class) label(order_class)
 
 label var value Value
 
