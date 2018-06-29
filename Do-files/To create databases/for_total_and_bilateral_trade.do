@@ -177,7 +177,7 @@ drop if year>1840
 
 
 collapse (sum) valueFR_silver value, by (year exportsimports ///
-				simplification_classification very_simplified_classification ///
+				simplification_classification classification_country_wars ///
 				grouping_classification FR_silver)
 
 fillin grouping_classification exportsimports year
