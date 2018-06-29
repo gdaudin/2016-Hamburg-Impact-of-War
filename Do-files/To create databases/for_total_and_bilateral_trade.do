@@ -176,7 +176,9 @@ drop if year>1840
 
 
 
-collapse (sum) valueFR_silver value, by (year exportsimports simplification_classification grouping_classification FR_silver)
+collapse (sum) valueFR_silver value, by (year exportsimports ///
+				simplification_classification very_simplified_classification ///
+				grouping_classification FR_silver)
 
 fillin grouping_classification exportsimports year
 drop if grouping_classification =="États-Unis d'Amérique" & year <=1777
