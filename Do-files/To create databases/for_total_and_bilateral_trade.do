@@ -154,11 +154,12 @@ save "$hamburg/database_dta/UKfederico_tena.dta", replace
 ------------------------------------------------------------------------------*/
 
 if "`c(username)'" =="guillaumedaudin" {
-use "/Users/guillaumedaudin/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta", clear
+use "$hamburg/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta", clear
 }
 
-if "`c(username)'" =="Tirindelli" use "/Users/Tirindelli/Desktop/hambourg/bdd courante.dta", clear
-
+if "`c(username)'" =="Tirindelli"{
+use "$hamburg/Données Stata/bdd courante.dta", clear
+}
  
 keep if sourcetype == "Tableau Général" | sourcetype=="Résumé"
 drop if sitc_classification=="9a"
