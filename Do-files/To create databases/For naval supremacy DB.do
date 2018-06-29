@@ -45,14 +45,20 @@ replace grouping_classification="Hollande" if grouping_classification=="Netherla
 replace grouping_classification="Espagne" if grouping_classification=="Spain"
 replace grouping_classification="Italie" if grouping_classification=="Venice"
 replace grouping_classification="Levant et Barbarie" if grouping_classification=="OttomanEmpire"
+replace grouping_classification="Russiapourmemoire" if grouping_classification=="Russia"
+replace grouping_classification="Swedenpourmemoire" if grouping_classification=="Sweden"
+replace grouping_classification="Denmarkpourmemoire" if grouping_classification=="Denmark"
 
 *replace country="Portugal
 
 collapse (sum) warships, by(year grouping_classification)
 
 merge 1:1 grouping_classification year using "$hamburg/database_dta/WarAndPeace.dta", keep (1 3)
-drop _merge
 drop if year <=1732 | year >=1822
+
+
+drop _merge
+
 replace war_status = "France" if grouping_classification=="France"
 replace war_status = "Angleterre" if grouping_classification=="Angleterre"
 egen side_warships=total(warships), by(war_status year)
