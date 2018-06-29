@@ -25,30 +25,6 @@ capture program drop prepar_data_yearly
 program prepar_data_yearly
 args outremer break
 
-import delimited "$hamburggit/External Data/Neutral legislation.csv", clear
-save "$hamburg/database_dta/Neutral legislation.dta", replace
-
-import delimited "$hamburggit/External Data/Share of land trade 1792.csv", encoding(utf8) clear
-drop source
-save "$hamburg/database_dta/Share of land trade 1792.dta", replace
-
-use "$hamburg/database_dta/warships.dta", clear
-bys war_status year : keep if _n==1
-drop grouping_classification warships
-
-reshape wide side_warships, i(year) j(war_status) string
-
-rename side_warships* *
-replace foe=Angleterre if foe ==. & year >=1740 
-replace ally=France if ally==. & year>=1740
-
-gen France_vs_GB = France/Angleterre
-gen ally_vs_foe = (ally+France)/(foe+Angleterre)
-gen allyandneutral_vs_foe=(ally+neutral+France)/(foe+Angleterre)
-drop if year == 1792 | year <=1740
-rename * warships_* 
-rename warships_year year
-save "$hamburg/database_dta/warships_wide.dta", replace
 
 use "$hamburggit/Results/Yearly loss measure.dta", clear
 

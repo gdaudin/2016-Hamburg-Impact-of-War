@@ -73,7 +73,6 @@ keep if exportsimports=="`inorout'"
 
 
 gen period_str=""
-
 replace period_str ="Peace 1716-1744" if year <= 1744
 replace period_str ="War 1745-1748" if year   >= 1745 & year <=1748
 replace period_str ="Peace 1749-1755" if year >= 1749 & year <=1755

@@ -38,6 +38,53 @@ keep if breakofinterest=="`break'"
 gen ln_loss = ln(1-loss)
 gen ln_loss_nomemory = ln(1-loss_nomemory)
 
+merge m:1 grouping_classification exportsimports using "$hamburg/database_dta/Share of land trade 1792.dta"
+drop if _merge==2 
+drop _merge
+
+preserve
+use "$hamburg/database_dta/Neutral legislation.dta", clear
+collapse (mean) neutral_policy, by(period_str)
+save temp.dta, replace
+restore
+merge m:1 period_str using temp.dta
+
+erase temp.dta
+drop if _merge!=3 
+drop _merge
+
+
+preserve
+use "$hamburg/database_dta/warships_wide.dta", clear
+collapse (mean) warships*, by(period_str)
+save temp.dta, replace
+restore
+merge m:1 period_str using temp.dta
+erase temp.dta
+drop if _merge!=3 
+drop _merge
+
+preserve
+use "$hamburggit/External Data/Colonies loss.dta", clear
+rename weight_france colonies_loss
+collapse (mean) colonies_loss, by(period_str)
+save temp.dta, replace
+restore
+merge m:1 period_str using temp.dta
+erase temp.dta
+drop if _merge!=3 
+drop _merge
+
+
+if `outremer'==0{
+drop if grouping_classification=="Outre-mers"
+drop if outremer==1
+}
+
+if `outremer'==1 drop if outremer==0
+
+if "`break'"=="blockade" drop if breakofinterest=="R&N"
+if "`break'"=="R&N" drop if breakofinterest=="Blockade" 
 
 end
 /*
