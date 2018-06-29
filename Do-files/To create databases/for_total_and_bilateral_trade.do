@@ -154,11 +154,12 @@ save "$hamburg/database_dta/UKfederico_tena.dta", replace
 ------------------------------------------------------------------------------*/
 
 if "`c(username)'" =="guillaumedaudin" {
-use "/Users/guillaumedaudin/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta", clear
+use "$hamburg/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta", clear
 }
 
-if "`c(username)'" =="Tirindelli" use "/Users/Tirindelli/Desktop/hambourg/bdd courante.dta", clear
-
+if "`c(username)'" =="Tirindelli"{
+use "$hamburg/Données Stata/bdd courante.dta", clear
+}
  
 keep if sourcetype == "Tableau Général" | sourcetype=="Résumé"
 drop if sitc_classification=="9a"
@@ -175,7 +176,9 @@ drop if year>1840
 
 
 
-collapse (sum) valueFR_silver value, by (year exportsimports simplification_classification grouping_classification FR_silver)
+collapse (sum) valueFR_silver value, by (year exportsimports ///
+				simplification_classification very_simplified_classification ///
+				grouping_classification FR_silver)
 
 fillin grouping_classification exportsimports year
 drop if grouping_classification =="États-Unis d'Amérique" & year <=1777
