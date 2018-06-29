@@ -96,4 +96,23 @@ graph export "$hamburggit/Impact of War/Paper/colony_loss.png", as(png) replace
 
 restore
 
+
+
+
+replace colonies_loss=1-colonies_loss
+
+gen period_str=""
+replace period_str ="Peace 1716-1744" if year <= 1744
+replace period_str ="War 1745-1748" if year   >= 1745 & year <=1748
+replace period_str ="Peace 1749-1755" if year >= 1749 & year <=1755
+replace period_str ="War 1756-1763" if year   >= 1756 & year <=1763
+replace period_str ="Peace 1763-1777" if year >= 1763 & year <=1777
+replace period_str ="War 1778-1783" if year   >= 1778 & year <=1783
+replace period_str ="Peace 1784-1792" if year >= 1784 & year <=1792
+replace period_str ="War 1793-1807" if year   >= 1793 & year <=1807
+replace period_str ="Blockade 1808-1815" if year   >= 1808 & year <=1815
+replace period_str ="Peace 1816-1840" if year >= 1816
+
+
+
 save "$hamburggit/External Data/Colonies loss.dta", replace
