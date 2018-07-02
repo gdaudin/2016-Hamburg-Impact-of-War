@@ -70,7 +70,7 @@ drop _merge
 
 preserve
 use "$hamburggit/External Data/Colonies loss.dta", clear
-gen replace colonies_loss=1-weight_france
+gen  colonies_loss=1-weight_france
 collapse (mean) colonies_loss, by(period_str)
 save temp.dta, replace
 restore

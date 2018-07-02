@@ -97,10 +97,6 @@ graph export "$hamburggit/Impact of War/Paper/colony_loss.png", as(png) replace
 restore
 
 
-
-
-replace colonies_loss=1-colonies_loss
-
 gen period_str=""
 replace period_str ="Peace 1716-1744" if year <= 1744
 replace period_str ="War 1745-1748" if year   >= 1745 & year <=1748
