@@ -201,7 +201,8 @@ graph twoway (area loss_nomemory year)
 
 graph twoway (line loss year) (line loss_nomemory year)
 
-
+gen outremer = `outremer'
+gen breakofinterest = "`interet'"
 
 
 
@@ -219,31 +220,19 @@ set graphic off
 
 
 foreach breakofinterest in R&N Blockade {
-	foreach inoroutofinterest in Imports Exports XI {
-		foreach outremerofinterest in 0 1 {
+	foreach inoroutofinterest in Imports /* Exports XI*/ {
+		foreach outremerofinterest in 0 /*1*/ {
 			loss_function `breakofinterest' `inoroutofinterest' `outremerofinterest' all
-			gen outremer = `outremerofinterest'
-			gen breakofinterest = "`breakofinterest'"
-			
 			if `i'!= 0 {
 				append using "$hamburggit/Results/Yearly loss measure.dta"
 			}
 			save "$hamburggit/Results/Yearly loss measure.dta", replace
-			
-			collapse (mean) loss loss_nomemory (mean) value (count) year, ///
-					by(grouping_classification period_str period exportsimports breakofinterest outremer) 
-			rename year nbr_of_years
-			if `i'!= 0 {
-				append using "$hamburggit/Results/Mean loss measure.dta"
-				
-			}
-			save "$hamburggit/Results/Mean loss measure.dta", replace
-			local i 1
+			local i = 1
 		}
 	}
 }
 
-
+			
 use "$hamburg/database_dta/Best guess FR bilateral trade.dta", clear
 
 foreach breakofinterest in R&N Blockade {
@@ -255,14 +244,16 @@ foreach breakofinterest in R&N Blockade {
 			loss_function `breakofinterest' `inoroutofinterest' 1 `"`countryofinterest'"'
 			append using "$hamburggit/Results/Yearly loss measure.dta"
 			save "$hamburggit/Results/Yearly loss measure.dta", replace
-			collapse (mean) loss loss_nomemory value (count) year, ///
-				by(grouping_classification period_str period exportsimports war_status breakofinterest) 
-			rename year nbr_of_years
-			append using "$hamburggit/Results/Mean loss measure.dta"
-			save "$hamburggit/Results/Mean loss measure.dta", replace
 		}
 	}
 }
+
+
+collapse (mean) loss loss_nomemory (mean) value (count) year, ///
+					by(grouping_classification period_str period exportsimports breakofinterest outremer)
+rename year nbr_of_years
+save "$hamburggit/Results/Mean loss measure.dta", replace			
+
 
 set graphic on
 
