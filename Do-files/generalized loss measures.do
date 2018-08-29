@@ -26,10 +26,10 @@ set more off
 
 capture program drop loss_function
 program loss_function
-args  interet inorout outremer country_of_interest
+args  interet inorout country_of_interest
 
-*Exemple : loss_function  Blockade Exports 1 all
-*Exemple : loss_function Blockade  XI 1 Allemagne
+*Exemple : loss_function  Blockade Exports all
+*Exemple : loss_function Blockade  XI Allemagne
 
 clear
 
@@ -38,7 +38,10 @@ clear
 
 use "$hamburg/database_dta/Best guess FR bilateral trade.dta", clear
 
-if "`country_of_interest'"!="all" keep if ustrpos("`country_of_interest'",grouping_classification)!=0
+if "`country_of_interest'"!="all" & "`country_of_interest'"!="all_ss_outremer" keep if ustrpos("`country_of_interest'",grouping_classification)!=0
+if "`country_of_interest'"=="all_ss_outremer" drop if grouping_classification=="Outre-mers"
+
+
 
 collapse (sum) valueFR_silver, by(year exportsimports grouping_classification)
 rename valueFR_silver value
@@ -57,7 +60,7 @@ drop _merge
 
 *replace war_status = "Peace" if war_status==""
 
-if `outremer'==0 drop if grouping_classification=="Outre-mers"
+
 
 
 if "`inorout'"=="XI" {
@@ -105,10 +108,16 @@ generate war5=`maxvalue' if year >=1803 & year <=1815
 
 
 order value grouping_classification pays war_status
-if "`country_of_interest'"=="all" {
+if "`country_of_interest'"=="all"  {
 	collapse (sum) value, by(year-war5)
 	gen grouping_classification ="All"
 }
+
+if "`country_of_interest'"=="all_ss_outremer"  {
+	collapse (sum) value, by(year-war5)
+	gen grouping_classification ="All_ss_outremer"
+}
+
 
 
 
@@ -169,7 +178,9 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (connected loss_war_nomemory year, cmissing(n) lcolor(red) mcolor(red) msize(vsmall)) ///
 			 , ///
 			 legend(order (6 7) label(6 "Difference with all past peace periods trend") label(7 "Difference with preceeding peace period trend") rows(2)) ///
-			 ytitle("Log")
+			 ytitle("Log") title("`country_of_interest'_`inorout'_`interet'")
+
+graph export "$hamburggit/Results/Loss graph/yearlyloss_`country_of_interest'_`inorout'_`interet'.pdf", replace
 			 
 			 
 egen loss_war1=mean(loss_war) if year >=1745 & year <=1748
@@ -181,9 +192,10 @@ egen loss_peace3=mean(loss_war) if year >=1784 & year <=1792
 egen loss_war4=mean(loss_war) if year >=1793 & year <=1815
 egen loss_peace4=mean(loss_war) if year >=1816
 
-egen loss = rmax(loss_war1 loss_war2 loss_war3 loss_war4 loss_peace1 loss_peace2 loss_peace3 loss_peace4)
+egen mean_loss = rmax(loss_war1 loss_war2 loss_war3 loss_war4 loss_peace1 loss_peace2 loss_peace3 loss_peace4)
+drop loss_war1 loss_war2 loss_war3 loss_war4 loss_peace1 loss_peace2 loss_peace3 loss_peace4
 
-graph twoway (area loss year)
+graph twoway (area mean_loss year), title("`country_of_interest'_`inorout'_`interet'")
 
 egen loss_war_nomemory1=mean(loss_war_nomemory) if year >=1745 & year <=1748
 egen loss_peace_nomemory1=mean(loss_war_nomemory) if year >=1749 & year <=1755
@@ -194,13 +206,18 @@ egen loss_peace_nomemory3=mean(loss_war_nomemory) if year >=1784 & year <=1792
 egen loss_war_nomemory4=mean(loss_war_nomemory) if year >=1793 & year <=1815
 egen loss_peace_nomemory4=mean(loss_war_nomemory) if year >=1816
 
-egen loss_nomemory = rmax(loss_war_nomemory1 loss_war_nomemory2 loss_war_nomemory3 loss_war_nomemory4 loss_peace_nomemory1 loss_peace_nomemory2 loss_peace_nomemory3 loss_peace_nomemory4)
+egen mean_loss_nomemory = rmax(loss_war_nomemory1 loss_war_nomemory2 loss_war_nomemory3 loss_war_nomemory4 loss_peace_nomemory1 loss_peace_nomemory2 loss_peace_nomemory3 loss_peace_nomemory4)
+drop loss_war_nomemory1 loss_war_nomemory2 loss_war_nomemory3 loss_war_nomemory4 loss_peace_nomemory1 loss_peace_nomemory2 loss_peace_nomemory3 loss_peace_nomemory4
 
-graph twoway (area loss_nomemory year)
+graph twoway (area mean_loss_nomemory year), title("`country_of_interest'_`inorout'_`interet'")
 
-graph twoway (line loss year) (line loss_nomemory year)
+graph twoway (line mean_loss year) (line mean_loss_nomemory year), title("`country_of_interest'_`inorout'_`interet'")
+graph export "$hamburggit/Results/Loss graph/meanloss_`country_of_interest'_`inorout'_`interet'.pdf", replace
 
-gen outremer = `outremer'
+rename loss_war loss
+rename loss_war_nomemory loss_nomemory
+
+
 gen breakofinterest = "`interet'"
 
 
@@ -210,18 +227,13 @@ end
 
 *loss_function R&N Imports 1 "Flandre et autres états de l'Empereur"
 
-
+*set graphic off
 
 local i 0
-
-set graphic off
-
-
-
 foreach breakofinterest in R&N Blockade {
-	foreach inoroutofinterest in Imports /* Exports XI*/ {
-		foreach outremerofinterest in 0 /*1*/ {
-			loss_function `breakofinterest' `inoroutofinterest' `outremerofinterest' all
+	foreach inoroutofinterest in Imports Exports XI {
+		foreach countryofinterest in all all_ss_outremer {
+			loss_function `breakofinterest' `inoroutofinterest' `countryofinterest'
 			if `i'!= 0 {
 				append using "$hamburggit/Results/Yearly loss measure.dta"
 			}
@@ -239,8 +251,8 @@ foreach breakofinterest in R&N Blockade {
 		foreach countryofinterest in "Flandre et autres états de l'Empereur" Allemagne Angleterre Espagne  ///
 			"Hollande" "Italie" "Levant et Barbarie" "Nord" "Outre-mers" "Portugal" ///
 			"Suisse"  {
-			display "`breakofinterest' `inoroutofinterest' 1 `countryofinterest'"
-			loss_function `breakofinterest' `inoroutofinterest' 1 `"`countryofinterest'"'
+			display "`breakofinterest' `inoroutofinterest' `countryofinterest'"
+			loss_function `breakofinterest' `inoroutofinterest' `"`countryofinterest'"'
 			append using "$hamburggit/Results/Yearly loss measure.dta"
 			save "$hamburggit/Results/Yearly loss measure.dta", replace
 		}
@@ -248,7 +260,7 @@ foreach breakofinterest in R&N Blockade {
 }
 
 
-collapse (mean) loss loss_nomemory (mean) value (count) year, ///
+collapse (mean) mean_loss mean_loss_nomemory (mean) value (count) year, ///
 					by(grouping_classification period_str period exportsimports breakofinterest outremer war_status)
 rename year nbr_of_years
 save "$hamburggit/Results/Mean loss measure.dta", replace			
