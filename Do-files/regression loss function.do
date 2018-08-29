@@ -23,23 +23,15 @@ set more off
 
 capture program drop prepar_data
 program prepar_data
-args outremer break freq
+args outremer freq
 
 
 use "$hamburggit/Results/`freq' loss measure.dta", clear
 gen peacewar="peace" if strmatch(period_str,"Peace*")==1
 replace peacewar = "war" if peacewar=="" 
 
-keep if breakofinterest=="`break'"
-
-if `outremer'==0 {
-	drop if grouping_classification=="Outre-mers"
-	drop if outremer==1
-}
-
-if `outremer'==1 drop if outremer==0
-
-
+drop if grouping_classification=="All" | grouping_classification=="All_ss_outremer"
+if `outremer'==0 drop if grouping_classification=="Outre-mers"
 
 tab grouping_classification
 
@@ -112,29 +104,40 @@ foreach var in peacewar country_exportsimports grouping_classification exportsim
 
 }
 
-drop if grouping_classification=="All"
+
 
 ******************FIN DE LA PRÉPARATION DES DONNÉÉS
 
 if "`freq'"=="Mean" local weight [fweight=nbr_of_years]
 
 
-areg ln_loss i.peacewar_num `weight' , absorb(country_exportsimports_num)
+reg ln_loss i.war_status_num#peacewar_num ///
+		`weight' 
+
+		
+reg ln_loss i.war_status_num#peacewar_num if year<=1815  ///
+		`weight' 
+reg ln_loss i.war_status_num#peacewar_num if year<=1807	 ///
+		`weight' 	
+reg ln_loss i.war_status_num#peacewar_num if year<=1793  ///
+		`weight' 
 
 
-areg ln_loss i.peacewar_num i.war_status_num#peacewar_num ///
+/*
+areg ln_loss i.war_status_num#peacewar_num ///
 		`weight' ///
 		, absorb(country_exportsimports_num)
 
-
-
-
+*/
+		
+		
+		
 
 end
 
 
-prepar_data 1 R&N Mean
-* prepar_data 1 R&N Yearly
+*prepar_data 1 R&N Mean
+prepar_data 1 Yearly
 
 /*
 
