@@ -62,7 +62,7 @@ if `outremer'==0 drop if grouping_classification=="Outre-mers"
 
 if "`inorout'"=="XI" {
 	order exportsimports value
-	collapse (sum) value, by(year grouping_classification pays)
+	collapse (sum) value, by(year grouping_classification pays war_status)
 	gen exportsimports="XI"
 }
 
@@ -102,7 +102,6 @@ generate war5=`maxvalue' if year >=1803 & year <=1815
 
 
 *********Fin préparation des données
-
 
 
 order value grouping_classification pays war_status
