@@ -62,7 +62,7 @@ if `outremer'==0 drop if grouping_classification=="Outre-mers"
 
 if "`inorout'"=="XI" {
 	order exportsimports value
-	collapse (sum) value, by(year grouping_classification pays war_status)
+	collapse (sum) value, by(year grouping_classification pays)
 	gen exportsimports="XI"
 }
 
@@ -250,7 +250,7 @@ foreach breakofinterest in R&N Blockade {
 
 
 collapse (mean) loss loss_nomemory (mean) value (count) year, ///
-					by(grouping_classification period_str period exportsimports breakofinterest outremer)
+					by(grouping_classification period_str period exportsimports breakofinterest outremer war_status)
 rename year nbr_of_years
 save "$hamburggit/Results/Mean loss measure.dta", replace			
 
