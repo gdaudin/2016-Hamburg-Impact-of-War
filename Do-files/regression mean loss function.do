@@ -90,7 +90,7 @@ if `outremer'==1 drop if outremer==0
 if "`break'"=="blockade" drop if breakofinterest=="R&N"
 if "`break'"=="R&N" drop if breakofinterest=="Blockade" 
 
-save temp.dta, replace
+save "$hamburggit/Results/temp.dta", replace
 
 
 end
@@ -98,9 +98,11 @@ end
 
 data 1
 
-use temp.dta, clear
+use "$hamburggit/Results/temp.dta", clear
 
-foreach var in peacewar grouping_classification exportsimports {
+gen country_exportsimports = grouping_classification+"_"+exportsimports
+
+foreach var in peacewar country_exportsimports grouping_classification exportsimports war_status {
 
 	encode `var', gen(`var'_num)
 
@@ -108,7 +110,28 @@ foreach var in peacewar grouping_classification exportsimports {
 
 drop if grouping_classification=="All"
 	
-reg ln_loss i.peacewar_num#exportsimports_num i.grouping_classification_num#exportsimports_num
+areg ln_loss i.peacewar_num if breakofinterest=="R&N", absorb(country_exportsimports_num)
+areg ln_loss i.peacewar_num [fweight=nbr_of_years] if breakofinterest=="R&N", absorb(country_exportsimports_num)
+
+
+areg ln_loss i.peacewar_num i.war_status_num#peacewar_num ///
+		if breakofinterest=="R&N", absorb(country_exportsimports_num)
+areg ln_loss i.peacewar_num i.war_status_num#peacewar_num ///
+		[fweight=nbr_of_years] ///
+		if breakofinterest=="R&N", absorb(country_exportsimports_num)
+
+
+
+
+areg ln_loss i.peacewar_num i.war_status_num i.war_status_num#peacewar_num ///
+		if breakofinterest=="R&N", absorb(country_exportsimports_num)
+areg ln_loss i.peacewar_num i.war_status_num i.war_status_num#peacewar_num ///
+		[fweight=nbr_of_years] ///
+		if breakofinterest=="R&N", absorb(country_exportsimports_num)
+
+
+reg ln_loss i.peacewar_num#exportsimports_num i.grouping_classification_num#exportsimports_num colonies_loss
+
 
 reg ln_loss i.peacewar_num#exportsimports_num i.grouping_classification_num#exportsimports_num colonies_loss neutral_policy
 
