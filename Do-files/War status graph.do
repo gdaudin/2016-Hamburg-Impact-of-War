@@ -23,11 +23,12 @@ drop if grouping_classification=="All" | grouping_classification=="All_ss_outrem
 
 
 
+replace war_status="colonies" if grouping_classification=="Outre-mers"
 bys year exportsimports war_status : gen nbr_pays=_N
 
 
 
-/*
+
 **********Graph pour nombre neutres, alliés et foes
 replace war=0 if year==1802
 gen war_nbr_pays=war*nbr_pays
@@ -47,10 +48,10 @@ graph combine (neutral ally foe), ycommon
 graph export "$hamburggit/Results/Loss graphs/by war_status/Number of protagonists.pdf", replace
 
 ***********************************
-*/
 
 
-replace war_status="colonies" if grouping_classification=="Outre-mers"
+
+
 
 
 egen tot_trade = sum(value),by(year exportsimports war_status)
@@ -89,7 +90,7 @@ foreach year in 1783 1784 1785 1786 1790 1791 1793 1794 1795 1796 {
 }
 fillin year exportsimports war_status
 drop if exportsimports=="" | war_status==""
-replace weighted_mean_loss=1 if value==.
+replace weighted_mean_loss=. if weighted_mean_loss==0 & war_status=="colonies"
 
 
 foreach loop_war_status in colonies foe ally neutral {
