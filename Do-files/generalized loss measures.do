@@ -190,7 +190,7 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 , ///
 			 legend(order (6) label(6 "Difference with all past peace periods trend")) ///
 			 title("`country_of_interest'_`inorout'")
-graph export "$hamburggit/Results/Loss graph/yearlyloss_`country_of_interest'_`inorout'.pdf", replace
+graph export "$hamburggit/Results/Loss graphs/yearlyloss_`country_of_interest'_`inorout'.pdf", replace
 			 
 			 
 egen loss_war1=mean(loss_war) if year >=1745 & year <=1748
@@ -223,7 +223,7 @@ graph twoway (area mean_loss_nomemory year), title("`country_of_interest'_`inoro
 
 graph twoway (line mean_loss year) (line mean_loss_nomemory year), title("`country_of_interest'_`inorout'")
 graph twoway (line mean_loss year), title("`country_of_interest'_`inorout'")
-graph export "$hamburggit/Results/Loss graph/meanloss_`country_of_interest'_`inorout'.pdf", replace
+graph export "$hamburggit/Results/Loss graphs/meanloss_`country_of_interest'_`inorout'.pdf", replace
 
 rename loss_war loss
 rename loss_war_nomemory loss_nomemory
