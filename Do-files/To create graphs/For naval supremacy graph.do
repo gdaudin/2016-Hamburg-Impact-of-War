@@ -67,7 +67,7 @@ graph twoway (area wara year, color(gs14%30)) ///
 			 yscale(range(0 2.5)) ///
 			 legend (order(8 "France/GB" 9 "France and its allies/GB and its allies" 10 "France and its allies and neutrals/GB and its allies") rows(3))
 			 
-graph export "$hamburggit/Impact of War/Paper/naval_supremacy_ratios_old.png", as(png) replace
+graph export "$hamburggit/Paper - Impact of War/Paper/naval_supremacy_ratios_old.png", as(png) replace
 
 egen war=rowmax(war*)
 replace France_vs_GB = . if war==.
@@ -88,4 +88,4 @@ graph twoway (area wara year, color(gs14%30)) ///
 			 xtitle(ship ratio) ///
 			 legend (order(8 "France/GB" 9 "France and its allies/GB and its allies" 10 "France and its allies and neutrals/GB and its allies") rows(3))
 			 
-graph export "$hamburggit/Impact of War/Paper/naval_supremacy_ratios.png", as(png) replace
+graph export "$hamburggit/Paper - Impact of War/Paper/naval_supremacy_ratios.png", as(png) replace

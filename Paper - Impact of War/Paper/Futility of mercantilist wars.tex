@@ -137,43 +137,45 @@ While discussing a trade treaty with the British, the French negotiators were po
 Starting with the year 1716, local \textit{bureaux des fermes} sent their trade records to the \textit{Bureau} in Paris.
 The \textit{Bureau} would then compute aggregate yearly figures for each \textit{direction} (port) and then send them back to the local Chamber of Commerce, so that they could add the values up to 1780.
 A mix of local and central source survive from this process. Unfortunately these "local sources" mostly did not survive; what we have left are parts of the centralised records.
-From 1781 to 1791, the work methods of the Bureau changed and a number of years of trade have left little record (1783-1786, 1790-1791). In 1792, through a decree of the National Assembly, the \textit{Bureau de la Balance du commerce} was abolished and replaced by the \textit{Bureau des archives du commerce}. We have some data on 1792 trade, but trade collection started again in earnest in 1797, so that we are missing information on 1793-1796.\\
+From 1781 to 1791, the work methods of the Bureau changed and a number of years of trade have left little record (1783-1786, 1790-1791).
+In 1792, through a decree of the National Assembly, the \textit{Bureau de la Balance du commerce} was abolished and replaced by the \textit{Bureau des archives du commerce}. We have some data on 1792 trade, but trade collection started again in earnest in 1797, so that we are missing information on 1793-1796.\\
 The data that have survived is containe in different kinds of documents.
 The two most exhaustive ones contain trade by product and per partner. They were the \textit{Objet Général}, between 1754 and 1780, 1782 and 1788. Some years are missing, especially in the the period between 1761 and 1767, and the \textit{Résumé}, between 1787 and 1789 and between 1797 and 1821.
 The \textit{Objet Général }includes the value of the flows and, from 1771, it includes also quantities and / or unit prices.
 The \textit{Résumé} does not include quantities, only valued. The classification of goods it uses is less precise than the one from the \textit{Objet Général}.
 Local trade data are available from 1716 to 1780 and in 1789. These sometimes allow partial reconstruction of total French trade (see \ref{limitations}).
-Very importantly for the first part of the analysis, a \textit{Tableau Général} exists in the French archives that provides French bilateral trade (though it is not broken down by product) (\cite{RomanoDocumentiPrimeConsiderazioni1957}).
+Very importantly for the first part of the analysis, a \textit{Tableau Général} exists in the French archives that provides French bilateral trade (though it is not broken down by product) (\cite{romano1957documenti}). \\
+Our sources provide the value of trade in the current French currency. This is the \textit{livre tournois} up to 1795 and the \textit{franc} afterward. The value of the \textit{livre} was fluctuating in the early eighteenth century. In 1726, its value was fixed at a value of 4.505 grams of fine silver \citep{de_wailly_memoire_1857}. Because of the monetary crisis during the revolution, we use data extracted from published appreciation tables to fix the value of the \textit{livre} at 2.9 grams of silver in 1792 (\cite{hoffman_priceless_2000}) . The French franc contained 4.5 grams of fine silver. We convert most trade flows in fine silver ; obviously, this does not solve the inflation issue, but inflation in terms of silver was relatively limited during that period.
 
-\subsection{Clasification and Treatment of Data} \label{figures}
-\begin{center}
-TO REVIEW AND INTEGRATE \\
-For the period between 1750 and 1820, this dataset accounts for 146,963 total bilateral trade flows, with incomplete data between 1761 and 1767 and missing data between 1782 and 1787, in 1789 and in 1797.
-\end{center}
-As we are dealing with historical data, their form is not always optimized for our kind of analysis and we had to made some classifications and choices.\\
-The first issue was with the destinations to which products are shipped.
-Their number varies year by year, but it ranges from only 18 in 1803 up to 260 in 1789.
-Rather than single countries they are groups of countries and many destinations get broken down into smaller destinations in later periods or even disappear to be replaced by other smaller entities.
-To bypass this problem we have created a classification of countries, which is consistent for the whole period and identifies only twelve groups.
-Each group comprises all the evolution of one destination, so that we have observations for each group for each year.
-The groups we are considering are the following: \textit{Allemagne}, \textit{Angleterre}, \textit{Espagne}, \textit{Flandre et autres Etats de l'Empereur}, \textit{Hollande}, \textit{Portugal}, \textit{Suisse}, \textit{Levant}, \textit{Italie},  \textit{Etats-Unis}, \textit{Outre-mers} and \textit{Nord}. \\
-\textit{Nord} designates a region that comprises Sweden, Denmark, Hanseatic ports (mainly Hamburg, Bremen, Lubeck and Danzig), Prussia and Russia\footnote{Trade with Denmark is identified separately from 1733, trade with Sweden from 1734 and trade with Russia from 1744.
-We always account for them together under \textit{Nord}} \citep{charles2018cross}.
-The biggest share of trade was nonetheless represented by Hamburg, therefore, whenever any of the component of \textit{Nord} were not on the same side in a war, we code them all in the position of Hamburg\footnote{See appendix for more detailed graphs and tables on this.}. \\
-\textit{Italie} includes mainly the Kingdom of Piedmont and Sardinia and Genoa.
-Minor flows are also directed to Milan, Naples, Venice and Kingdom of Etruria.
-Luckily enough, the share of trade with Kingdom of Piedmont and Sardinia exceeds that with Genoua for most of the period, therefore we can consider the position of Italy in the wars as equivalent to that of Kingdom of Piedmont and Sardinia, all throughout the period.\\
-\textit{Allemagne} encompasses mainly Alsace, Lorraine and Western Germany.
+\subsection{Trade partners} \label{figures}
+Trade partners are not consistently designed in the original data. 
+For example, In the \textit{Tableau Général} (from 1716 to 1782), the number of partners varies between 14 and 23 and between  16 and 26 in the \textit{Résumé} (from 1787 to 1821).
+Often, partners are not single countries but rather groups of countries.
+Many destinations get broken down into smaller destinations in later periods or even disappear to be replaced by other smaller entities.
+To bypass this problem we have created a classification of countries, which is consistent for the whole period (such that we have nearly one observation for each group for each year).
+This classification identifies only twelve groups: \textit{Allemagne}, \textit{Angleterre}, \textit{Espagne}, \textit{Flandre et autres États de l'Empereur}, \textit{Hollande}, \textit{Portugal}, \textit{Suisse}, \textit{Levant}, \textit{Italie},  \textit{États-Unis}, \textit{Outre-mers} and \textit{Nord}. Many are self-explanatory, thought it should be underlined that trade with \textit{Angleterre}, \textit{Portugal} and \textit{Espagne} includes trade with all their controlled territories. \\
+\textit{Outre-mers} regroups all intercontinental French trade (mainly with French colonies) except for North Africa and the Ottoman Empire that are included (along with Greece) in  \textit{Levant}.\\
+\textit{Nord} designates trade north of the Low Countries.
+This region comprises Sweden, Denmark, Hanseatic ports (mainly Hamburg, Bremen, Lubeck and Danzig), Prussia and Russia\footnote{Trade with Denmark is identified separately from 1733, trade with Sweden from 1734 and trade with Russia from 1744.
+We always account for them together under \textit{Nord}} \citep{charles2018cross}.\\
+\textit{Italie} was used as a geographical expression.
+The main French trade partners there were the Kingdom of Piedmont and Sardinia and Genoa.
+Still, minor flows were also directed to Milan, Naples, Venice, Tuscany, Papal States...\\
+\textit{Flandre et autres États de l'Empereur}  (\textit{Empereur} for short) is mainly modern Belgium before the Revolutionary and Napoleonic Wars and mainly Austria after it. At that point, modern Belgium is annexed by \textit{Hollande}.
+\textit{Allemagne} encompasses mainly Western Germany, including Alsace, Lorraine during the \textit{Ancien Régime}.
+We have not attempted to take into account the extensive territorial re-arrangements during the Revolutionary and Napoleonic Wars.
+The extension of France in the Low Countries, Germany and Italy changed the actual extent of the \textit{Allemagne} and \textit{Italie} partner.
+
+\iffalse
+\subsection{Limitation and Missing data -- irrelevant for now}  \label{limitations}
 
 
 The same issue arises with products.
 There are up to 8,129 different  products recorded (in 1789); some of them are extremely specific, like sugar or wood, and other are recorded as together with other products, like fruit or textile.
 To make those data usable, we have, once more, grouped them in categories and sectors, using the SITC classification \footnote{All this has been done in the context of the TOFLIT18 project by  L. Charles and G. Daudin: http://toflit18.medialab.sciences-po.fr//\#/about}.  \\
 Values in the dataset are expressed in \textit{livres turnois} and French francs, but we convert them in grams of fine silver to have a comparable estimate year to year.
-In 1726, the réformation institutes the \textit{livre} at a value of 4.505 grams of fine silver \citep{de_wailly_memoire_1857}.
-In 1795, the \textit{livre} was replaced by the French franc, which was established as new currency by 1796, and contained 5 grams of silver.
 
-\subsection{Limitation and Missing data} \label{limitations}
+
 As mentioned above, data on flows of products are missing for certain periods, i.e. in 1753, between 1763 and 1767, and between 1789 and 1797.
 For these periods, the only available data are either the yearly aggregate figures by destination, or incomplete local sources (only until 1780), that contain information on each product.
 For this reason, in order to perform the comparison between the two datasets and the subsequent analysis, it is necessary to estimate the full value of exports from the available data.
@@ -188,35 +190,36 @@ We run the model on the whole available years but we only do so for coffee, suga
 In addition, to avoid the problem of log of zero trade flows, we have substituted them with 0.001, so that observations would not drop but the zero flows in the estimation could be taken into account as a value really close to zero.
 Finally, we also added weights on value, as to give more importance to flows higher in value.
 The results are pretty satisfactory, in fact the pattern of estimated and actual value are very similar.
+\fi
 
 \section{Historical summary} \label{historical_summary}
 As mentioned above, the eighteenth century was a period of "eternal war".
 In fact, between 1716 and 1820, two out of three years experienced a conflict.
-In this section we provide a brief overview of the main wars that took place in Europe in the period of analysis. \\
-In 1733, the king of Poland August II, died heirless and his succession soon became a conflict at European level.
-France, Prussia and Spain were trying to limit the desire of expansion of the Habsburg monarchy in Poland, however, the lack of support by Britain, concluded the war in 1738, with the recognition of August III as king of Poland, as the Habsburg had wished.
-In the country classification we used, the ally countries\footnote{We always consider \textit{Outre-mers} as ally and \textit{Levant} as neutral.} were \textit{Espagne} and \textit{Allemagne} and the foe was \textit{Flandre}.
+In this section we provide a brief overview of the main wars that took place in Europe in the period of analysis and we explain how we classified the belligerent status (compared to France) of the country groupings we use. We always consider \textit{Outre-mers} as ally and \textit{Levant} as neutral\\
+In 1733, the king of Poland August textsc{II}, died heirless and his succession soon became a conflict at European level.
+France, Prussia and Spain were trying to limit the desire of expansion of the Habsburg monarchy in Poland. Britain stayed neutal and the war concluded in 1738, with the recognition of August \textsc{iii} as king of Poland, as the Habsburg had wished and France gainining .
+In the country classification we used, the ally countries were \textit{Espagne}  and the foe was \textit{Empereur} and and \textit{Allemagne} (as Lorraine and West Germany were at that point mostly controlled by the Habsburg).
 It was a land conflict, as opposed to the naval conflicts that followed. \\
-No longer than two years later, a very similar event occurred, as a consequence of the death of Charles the VI.
+No longer than two years later, a very similar event occurred as a consequence of the death of Charles \textsc{VI}.
 The Habsburg emperor had not died heirless, however his only heir was a woman; Maria Theresa of Austria.
 France, Prussia and the Electorate of Bavaria used the pretext that she was ineligible to succeed to her father, to challenge, once again, the Habsburg power.
-On the other hand, Maria Theresa was supported by the Kingdom of Great Britain and the Dutch Republic as well as the Kingdom of Sardinia and the Electorate of Saxony.
+Maria Theresa was supported by the Kingdom of Great Britain and the Dutch Republic as well as the Kingdom of Sardinia and the Electorate of Saxony.
 This conflict, which was born as a succession issue, soon extended to the New World and became a competition between the French and the British for the control of American colonies.
 It ended in 1748 with the Treaty of Aix la Chapelle, where France gave back most the territories it had conquered during the war.
-Ally country in this case was \textit{Espagne} and foes were \textit{Angleterre} and \textit{Flandre}. \\
-Roughly until the end of the Austrian Succession war, there had prevailed a sort of geopolitical and economic equilibrium between France and British colonies on the North American mainland, that, by the mid-eighteenth century was broken, as a consequence of an uneven population growth \citep{findlay2009power}.
+Ally country in this case was \textit{Espagne} and foes were \textit{Angleterre} and \textit{Empereur}. \\
+Roughly until the end of the Austrian Succession war, a sort of geopolitical and economic equilibrium between France and British colonies on the North American mainland had prevailed. That was broken as a consequence of an uneven population growth \citep{findlay2009power}.
 This set the stage to the following war; the Seven Years War, or French and Indian War, which, as the name suggests, was a world-wide conflict.
 As opposed to the previous wars, this was a decisive triumph of Britain over France, which was forced to give up Canada, Cape Breton Island and Grenada, recognized the Mississippi River as the Eastern boundary of its possessions in North American, then ceded those possession to Spain.
-France also lost enough influence in its colonies to lead to the dissolution of the first Compagnies des Indes \citep{riley_seven_1986}.
+France also lost enough influence in its colonies to lead to the end of French colonial ambition in India and, subsequently, to the dissolution of the first Compagnies des Indes \citep{riley_seven_1986}.
 French allies in this war were \textit{Allemagne}\footnote{As mentioned in section \ref{dataset}, \textit{Allemagne} was mainly Alsace, Lorraine and Western Germany, which were allied to France.
-Our assumption is that "Prussia" is sea trade through the Baltic, i.e. a minor portion of \textit{North}, which, however we code as neutral, since it was dominated by Hamburg.}, \textit{Espagne} and \textit{Flandre}.
+Our assumption is that "Prussia" is sea trade through the Baltic, i.e. a minor portion of \textit{North}, which, however we code as neutral, since it was dominated by Hamburg - despite the fact that Russia and Sweden were allied to France for most of the war.}, \textit{Espagne} and \textit{Empereur}.
 Foes were \textit{Angleterre}, and \textit{Portugal}. \\
-At the end of the Seven Years War, with the victory of Britain and the subsequent depart of the French, the American colonies, no longer feeling the threat of the French presence on the continent, soon started demanding independence from Great Britain\footnote{The French chief minister, the duc the Choiseul, made a prediction to the effect that with no French presence on the continent to threaten them any longer, the American colonies would soon demand independence from Great Britain \citep{findlay2009power}.
-This prediction, as it turned out, was incredibly prescient.}.
+At the end of the Seven Years War, with the victory of Britain and the subsequent departure of the French, the American colonies, no longer feeling the threat of the French presence on the continent, soon started demanding independence from Great Britain\footnote{The French chief minister, the duc the Choiseul, made a prediction to the effect that with no French presence on the continent to threaten them any longer, the American colonies would soon demand independence from Great Britain \citep{findlay2009power}.
+This prediction, as it turned out, was prescient.}.
 In 1775 they rebelled against British control over their trade and in 1776 they declared independence.
 France, still feeling the humiliation subsequent to the Seven Year War, in 1778 entered the fray on the colonies' side, soon followed by Spain.
-Spanish and French\footnote{France had been investing in its Navy following the preceding defeat \citep{findlay2009power}.} fleet together outnumbered the British Navy and were able to force Britain to surrender and end the war with the Treaty of Versaille in 1783.
-In this setting, ally were there \textit{Espagne}, and \textit{Etats-Unis}; foe was only \textit{Angleterre}. \\
+Spanish and French \footnote{France had been investing in its Navy following the preceding defeat \citep{findlay2009power}.} fleet together outnumbered the British Navy and were able to force Britain to surrender and end the war with the Treaty of Versaille in 1783.
+In this setting, ally were there \textit{Espagne}, \textit{Etats-Unis}, and \textit{Hollande} from 1780; foe was only \textit{Angleterre}. \\
 At the end of the war, despite the victory obtained, French finances were suffering to the extent that Calonne, the finance minister at the time, was forced to the summoning of the Estates-Generales in 1789, which then led to the start of the French Revolution.
 This event was followed by a larger conflagration with respect to previous mercanilist wars, into which an ideological dimension had been injected \citep{o2006worldwide}.
 In 1792 France declared war on Austria and Prussia, and the following year to Great Britain.
@@ -231,13 +234,14 @@ However, because of the victories and defeats of one and the other, sides of oth
 \textit{Allemagne} was a foe between 1792 and 1804, became an ally between 1805 and 1813 and then became again enemy to France.
 \textit{Angleterre} was an enemy all throughout.
 \textit{Espagne} was against France for the period 1793 and 1794, she became then an ally until 1807 (with the exception of 1795, in which she was neutral), and then again an enemy from 1808 onwards.
-\textit{Flandre} was a foe until 1802, she was then neutral in 1803 and 1804, then an enemy in 1805, to become neutral again in 1806 until 1808.
+\textit{Empereur} was a foe until 1802, she was then neutral in 1803 and 1804, then an enemy in 1805, to become neutral again in 1806 until 1808.
 Lastly, after one more year of neutrality in 1809, she became an ally starting from 1810.
 \textit{Etats Unis} was always ally.
 \textit{Portugal} was neutral until 1798 and then became a foe 1802.
 She was again neutral for a short period between 1803 to 1806 and then was again a foe starting from 1807.
 \textit{Suisse} was neutral until 1797 and then briefly ally until 1813, to become then neutral again in 1814.
-Finally, \textit{Italy} was briefly a foe until 1796, then neutral until 1813, and then again a foe starting 1814.\\
+Finally, \textit{Italy} was briefly a foe until 1796, then neutral until 1813, and then again a foe starting 1814.
+Concerning \textit{Nord}, the biggest share of trade was nonetheless represented by Hamburg, therefore, whenever any of the component of \textit{Nord} were not on the same side in a war, we code them all in the position of Hamburg\footnote{See appendix for more detailed graphs and tables on this.}. \\
 Table \ref{war_peace} reports a summary of the position of all countries in all wars throughout the century.
 
 \begin{table}
