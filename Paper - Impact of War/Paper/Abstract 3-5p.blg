@@ -1,0 +1,52 @@
+This is BibTeX, Version 0.99d (TeX Live 2016)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: Abstract 3-5p.aux
+The style file: apa.bst
+Database file #1: literature.bib
+Warning--empty year in daudin_toflit18_????
+Warning--there's a number but no volume in federico_world_2016
+Warning--empty publisher in hoffman_priceless_2000
+Warning--empty note in jefferson_letter_1823
+Warning--empty publisher in marzagalli_was_2016
+You've used 16 entries,
+            1940 wiz_defined-function locations,
+            561 strings with 6638 characters,
+and the built_in function-call counts, 5113 in all, are:
+= -- 489
+> -- 166
+< -- 17
++ -- 54
+- -- 50
+* -- 405
+:= -- 921
+add.period$ -- 47
+call.type$ -- 16
+change.case$ -- 98
+chr.to.int$ -- 16
+cite$ -- 21
+duplicate$ -- 223
+empty$ -- 367
+format.name$ -- 74
+if$ -- 985
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 19
+newline$ -- 82
+num.names$ -- 50
+pop$ -- 99
+preamble$ -- 1
+purify$ -- 104
+quote$ -- 0
+skip$ -- 171
+stack$ -- 0
+substring$ -- 262
+swap$ -- 41
+text.length$ -- 3
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 82
+warning$ -- 5
+while$ -- 42
+width$ -- 0
+write$ -- 202
+(There were 5 warnings)

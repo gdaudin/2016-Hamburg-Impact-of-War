@@ -1,0 +1,60 @@
+This is BibTeX, Version 0.99d (TeX Live 2016)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: Futility of mercantilist wars.aux
+The style file: apa.bst
+Database file #1: Futility_of_Mercantilist_Wars.bib
+Repeated entry---line 273 of file Futility_of_Mercantilist_Wars.bib
+ : @book{jastram_silver_1981
+ :                          ,
+I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "RomanoDocumentiPrimeConsiderazioni1957"
+Warning--there's a number but no volume in charles2011collecte
+Warning--empty journal in charles2018cross
+Warning--empty year in daudin_toflit18_????
+Warning--there's a number but no volume in federico_world_2016
+Warning--empty publisher in hoffman_priceless_2000
+Warning--empty note in jefferson_letter_1823
+Warning--empty journal in juhasz2014temporary
+Warning--empty publisher in marzagalli_was_2016
+You've used 37 entries,
+            1940 wiz_defined-function locations,
+            685 strings with 10016 characters,
+and the built_in function-call counts, 12543 in all, are:
+= -- 1229
+> -- 389
+< -- 37
++ -- 132
+- -- 118
+* -- 1066
+:= -- 2208
+add.period$ -- 107
+call.type$ -- 37
+change.case$ -- 234
+chr.to.int$ -- 37
+cite$ -- 45
+duplicate$ -- 510
+empty$ -- 919
+format.name$ -- 181
+if$ -- 2405
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 42
+newline$ -- 184
+num.names$ -- 113
+pop$ -- 203
+preamble$ -- 1
+purify$ -- 243
+quote$ -- 0
+skip$ -- 394
+stack$ -- 0
+substring$ -- 838
+swap$ -- 81
+text.length$ -- 4
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 202
+warning$ -- 8
+while$ -- 112
+width$ -- 0
+write$ -- 463
+(There was 1 error message)

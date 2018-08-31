@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2016)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: Cross-checking Hamburg Trade.aux
+The style file: authordate1.bst
+Database file #1: bibliography_CSFHT.bib
+Warning--empty publisher in charles_cross-checking_2018
+Warning--empty year in daudin_toflit18_????
+You've used 17 entries,
+            2441 wiz_defined-function locations,
+            657 strings with 7149 characters,
+and the built_in function-call counts, 6663 in all, are:
+= -- 687
+> -- 196
+< -- 63
++ -- 59
+- -- 54
+* -- 500
+:= -- 1074
+add.period$ -- 67
+call.type$ -- 17
+change.case$ -- 109
+chr.to.int$ -- 16
+cite$ -- 19
+duplicate$ -- 274
+empty$ -- 478
+format.name$ -- 83
+if$ -- 1385
+int.to.chr$ -- 2
+int.to.str$ -- 0
+missing$ -- 18
+newline$ -- 88
+num.names$ -- 51
+pop$ -- 112
+preamble$ -- 1
+purify$ -- 126
+quote$ -- 0
+skip$ -- 276
+stack$ -- 0
+substring$ -- 424
+swap$ -- 77
+text.length$ -- 5
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 128
+warning$ -- 2
+while$ -- 57
+width$ -- 0
+write$ -- 215
+(There were 2 warnings)
