@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.2.18)  28 JUN 2018 10:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.1.20)  31 AUG 2018 17:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **WarAndPeace.tex
 (./WarAndPeace.tex
-LaTeX2e <2017-04-15>
-Babel <3.10> and hyphenation patterns for 84 language(s) loaded.
+LaTeX2e <2016/03/31>
+Babel <3.9r> and hyphenation patterns for 83 language(s) loaded.
 
 ! LaTeX Error: Missing \begin{document}.
 
@@ -80,52 +80,10 @@ Missing character: There is no . in font nullfont!
 Missing character: There is no 1 in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no m in font nullfont!
-Missing character: There is no C in font nullfont!
-Missing character: There is no o in font nullfont!
-Missing character: There is no u in font nullfont!
-Missing character: There is no n in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no r in font nullfont!
-Missing character: There is no y in font nullfont!
-Missing character: There is no F in font nullfont!
-Missing character: There is no o in font nullfont!
-Missing character: There is no e in font nullfont!
-Missing character: There is no N in font nullfont!
-Missing character: There is no e in font nullfont!
-Missing character: There is no u in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no r in font nullfont!
-Missing character: There is no a in font nullfont!
-Missing character: There is no l in font nullfont!
-Missing character: There is no A in font nullfont!
-Missing character: There is no l in font nullfont!
-Missing character: There is no l in font nullfont!
-Missing character: There is no y in font nullfont!
-Missing character: There is no C in font nullfont!
-Missing character: There is no o in font nullfont!
-Missing character: There is no u in font nullfont!
-Missing character: There is no n in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no r in font nullfont!
-Missing character: There is no y in font nullfont!
-Missing character: There is no F in font nullfont!
-Missing character: There is no o in font nullfont!
-Missing character: There is no e in font nullfont!
-Missing character: There is no N in font nullfont!
-Missing character: There is no e in font nullfont!
-Missing character: There is no u in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no r in font nullfont!
-Missing character: There is no a in font nullfont!
-Missing character: There is no l in font nullfont!
-Missing character: There is no A in font nullfont!
-Missing character: There is no l in font nullfont!
-Missing character: There is no l in font nullfont!
-Missing character: There is no y in font nullfont!
 ! Undefined control sequence.
 <recently read> \specialrule 
                              
-l.3 ...   & Neutral   & Ally       \\ \specialrule
+l.3 ...al}   & \textbf{Ally}       \\ \specialrule
                                                   {.15em}{.1em}{.1em}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -157,17 +115,17 @@ Missing character: There is no n in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no 1 in font nullfont!
 Missing character: There is no 7 in font nullfont!
-Missing character: There is no 9 in font nullfont!
-Missing character: There is no 2 in font nullfont!
+Missing character: There is no 3 in font nullfont!
+Missing character: There is no 3 in font nullfont!
 Missing character: There is no - in font nullfont!
-Missing character: There is no 1 in font nullfont!
-Missing character: There is no 8 in font nullfont!
-Missing character: There is no 0 in font nullfont!
-Missing character: There is no 4 in font nullfont!
 Missing character: There is no 1 in font nullfont!
 Missing character: There is no 7 in font nullfont!
 Missing character: There is no 3 in font nullfont!
-Missing character: There is no 3 in font nullfont!
+Missing character: There is no 9 in font nullfont!
+Missing character: There is no 1 in font nullfont!
+Missing character: There is no 7 in font nullfont!
+Missing character: There is no 4 in font nullfont!
+Missing character: There is no 0 in font nullfont!
 Missing character: There is no - in font nullfont!
 Missing character: There is no 1 in font nullfont!
 Missing character: There is no 7 in font nullfont!
@@ -200,14 +158,14 @@ Missing character: There is no 7 in font nullfont!
 Missing character: There is no 4 in font nullfont!
 Missing character: There is no 8 in font nullfont!
 Missing character: There is no 1 in font nullfont!
-Missing character: There is no 8 in font nullfont!
-Missing character: There is no 1 in font nullfont!
-Missing character: There is no 4 in font nullfont!
+Missing character: There is no 7 in font nullfont!
+Missing character: There is no 9 in font nullfont!
+Missing character: There is no 2 in font nullfont!
 Missing character: There is no - in font nullfont!
 Missing character: There is no 1 in font nullfont!
 Missing character: There is no 8 in font nullfont!
-Missing character: There is no 2 in font nullfont!
-Missing character: There is no 1 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no 4 in font nullfont!
 Missing character: There is no 1 in font nullfont!
 Missing character: There is no 8 in font nullfont!
 Missing character: There is no 0 in font nullfont!
@@ -235,6 +193,15 @@ Missing character: There is no 1 in font nullfont!
 Missing character: There is no 7 in font nullfont!
 Missing character: There is no 9 in font nullfont!
 Missing character: There is no 8 in font nullfont!
+Missing character: There is no 1 in font nullfont!
+Missing character: There is no 8 in font nullfont!
+Missing character: There is no 1 in font nullfont!
+Missing character: There is no 4 in font nullfont!
+Missing character: There is no - in font nullfont!
+Missing character: There is no 1 in font nullfont!
+Missing character: There is no 8 in font nullfont!
+Missing character: There is no 2 in font nullfont!
+Missing character: There is no 1 in font nullfont!
 Missing character: There is no A in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
@@ -513,6 +480,7 @@ Missing character: There is no 8 in font nullfont!
 Missing character: There is no E in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no a in font nullfont!
+Missing character: There is no t in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no - in font nullfont!
 Missing character: There is no U in font nullfont!
@@ -546,6 +514,7 @@ Missing character: There is no u in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no r in font nullfont!
 Missing character: There is no e in font nullfont!
+Missing character: There is no - in font nullfont!
 Missing character: There is no m in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no r in font nullfont!
@@ -718,7 +687,7 @@ Missing character: There is no 1 in font nullfont!
 ! Undefined control sequence.
 <recently read> \specialrule 
                              
-l.17 ...      &           &        \\ \specialrule
+l.18 ...      &           &        \\ \specialrule
                                                   {.15em}{.1em}{.1em}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -747,11 +716,11 @@ Missing character: There is no m in font nullfont!
 
  
 Here is how much of TeX's memory you used:
- 8 strings out of 492995
- 182 string characters out of 6132704
- 60074 words of memory out of 5000000
- 3661 multiletter control sequences out of 15000+600000
- 3640 words of font info for 14 fonts, out of 8000000 for 9000
+ 11 strings out of 493014
+ 207 string characters out of 6133351
+ 60601 words of memory out of 5000000
+ 3653 multiletter control sequences out of 15000+600000
+ 3948 words of font info for 15 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 19i,6n,16p,148b,92s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 19i,7n,16p,236b,141s stack positions out of 5000i,500n,10000p,200000b,80000s
 !  ==> Fatal error occurred, no output PDF file produced!
