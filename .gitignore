@@ -32,3 +32,5 @@ temp.dta
 *.blg
 *.dvi
 *.log
+*.aux
+*.gz
