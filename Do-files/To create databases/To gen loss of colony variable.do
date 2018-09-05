@@ -23,7 +23,7 @@ import delimited "$hamburggit/External Data/Loss of colonies.csv", clear
 
 replace france=0
 
-replace france=1 if year>=1763 & year<=1810 & colonies=="Guadeloupe"
+replace france=1 if year>=1764 & year<=1810 & colonies=="Guadeloupe"
 replace france=1 if year<1760 & colonies=="Guadeloupe"
 replace france=1 if year>=1816 & colonies=="Guadeloupe"
 replace france=1 if year<=1809 & colonies=="Guyana"
@@ -55,7 +55,7 @@ gen weight=0
 replace weight=0.75 if colonies=="St. Domingue"	
 replace weight=0.11 if colonies=="Martinique"
 replace weight=0.06 if colonies=="Guadeloupe"
-replace weight=0.002 if colonies=="Guayana"
+replace weight=0.002 if colonies=="Guyana"
 replace weight=0.015 if colonies=="Reunion"
 replace weight=0.015 if colonies=="Maurice"
 replace weight = 0.03 if colonies=="Inde"
@@ -81,6 +81,7 @@ generate war3=`maxvalue' if year >=1778 & year <=1783
 generate war4=`maxvalue' if year >=1793 & year <=1802
 generate war5=`maxvalue' if year >=1803 & year <=1815
 
+replace weight_france = 1-weight_france
 
 graph twoway ///
 			 (area warb year, color(gs14)) ///
@@ -92,7 +93,7 @@ graph twoway ///
 			 msize(vsmall) legend(order(7 "Measure of colonial empire")) ///
 			 xlabel(1740(20)1820) xscale(ra(1740 1820)) )
 			 
-graph export "$hamburggit/Impact of War/Paper/colony_loss.png", as(png) replace
+graph export "$hamburggit/Paper - Impact of War/Paper/colony_loss.png", as(png) replace
 
 restore
 

@@ -212,7 +212,7 @@ This set the stage to the following war; the Seven Years War, or French and Indi
 As opposed to the previous wars, this was a decisive triumph of Britain over France, which was forced to give up Canada, Cape Breton Island and Grenada, recognized the Mississippi River as the Eastern boundary of its possessions in North American, then ceded those possession to Spain.
 France also lost enough influence in its colonies to lead to the end of French colonial ambition in India and, subsequently, to the dissolution of the first Compagnies des Indes \citep{riley_seven_1986}.
 French allies in this war were \textit{Allemagne}\footnote{As mentioned in section \ref{dataset}, \textit{Allemagne} was mainly Alsace, Lorraine and Western Germany, which were allied to France.
-Our assumption is that "Prussia" is sea trade through the Baltic, i.e. a minor portion of \textit{North}, which, however we code as neutral, since it was dominated by Hamburg - despite the fact that Russia and Sweden were allied to France for most of the war.}, \textit{Espagne} and \textit{Empereur}.
+Our assumption is that "Prussia" is sea trade through the Baltic, i.e. a minor portion of \textit{North}, which, however we code as neutral, since it was dominated by Hamburg - despite the fact that Russia and Sweden were allied to France for most of the war.}, \textit{Empereur}, and \textit{Espagne} for 1762.
 Foes were \textit{Angleterre}, and \textit{Portugal}. \\
 At the end of the Seven Years War, with the victory of Britain and the subsequent departure of the French, the American colonies, no longer feeling the threat of the French presence on the continent, soon started demanding independence from Great Britain\footnote{The French chief minister, the duc the Choiseul, made a prediction to the effect that with no French presence on the continent to threaten them any longer, the American colonies would soon demand independence from Great Britain \citep{findlay2009power}.
 This prediction, as it turned out, was prescient.}.
@@ -356,16 +356,18 @@ We use the loss function as a dependent variable, transformed from percentage to
 As explanatory variables we introduce several factors.
 \fi
 
-With basically four observations, as we observe four wars, one cannot hope to uncover robust statistical relationships. Still, we can 
-%NAVAL SUPREMACY
-First, we use number of warships, grouped by belligerent/neutral status, as a proxy for naval supremacy. Figure \ref{naval_supremacy_ratios} reports the ratio of France over Great Britain, France and its allies versus Britain and its allies and France, its allies and neutral countries versus Britain and its allies.
-Mostly, among neutral countries, we find Denmark, Hanseatic cities, United States and Russia.
-The latter, however, occasionally was also allied with France (during Seven Years War for instance).
-Ally countries were mostly colonies and, as mentioned, occasionally Russia.
-We can observe here that the France-GB ratio is quite stable over the whole period, quite less so if we take into account allies and neutral.
-The latter two ratios in fact, actually increase in the period of the Seven Years War and after, and also has some spikes during the Napoleonic Wars.
-At least at first sight, this does not look related to the pattern of the loss function.
-Intuitively, we would expect the loss to decrease as the ratio increases, therefore a positive relation.
+With basically four observations, as we observe four wars, one cannot hope to uncover robust statistical relationships. Still, we can check the coherence of usual explanations for the disruptions of French trade.
+\subsubsection{Naval supremacy}
+The first explanation is that naval supremacy by itself has an effect on trade.
+A larger naval supremacy meant that Britain could blockade French ports and capture French ships in a more efficient way.
+To verify this, we use the number of warships available to France, France and its allies, Great Britain, Great-Britain and its allies and neutral as provided in \cite{modelski1988seapower}, as a proxy for naval supremacy.
+Compared to the discussion in section \ref{historical_summary}, we also track the war status of Denmark, Russia and Sweden which were sizeable naval powers during that period.
+Figure \ref{naval_supremacy_ratios} reports the ratio of France over Great Britain, France and its allies versus Britain and its allies and France, its allies and neutral countries versus Britain and its allies.
+Suprisingly, the most favorable war for France and its allies was the Seven Years War, thanks to the French support by Sweden and Russia, even thought there was no common naval action.
+There also are some spikes during the Napoleonic Wars.
+The least favorable war was the Austrian Succession War. 
+This is paradoxical, as it appears that French trade suffered most when its navy, and the navy of its allies, was at the highest.
+There are no simple relationship between this naval supremacy ratio and the loss function. 
 \begin{center}
 \begin{figure}[H]
 \caption{Naval Supremacy Ratio}
@@ -374,36 +376,24 @@ Intuitively, we would expect the loss to decrease as the ratio increases, theref
 \includegraphics[scale=.51]{naval_supremacy_ratios.png}
 \end{figure}
 \end{center}
-%COLONY LOSS MEASURE
-Second, we include a colony loss measure.
-At the time, the French empire owned several colonies in America, Asia and Africa.
-Especially the American ones were a major source for production of sugar and coffee, which were widely imported and then re-exported by France to other European countries.
-These territory, therefore, represented a valuable source for French trade, in particular St. Domingue, Guadeloupe and Martinique, which were major provider of sugar.
-The former, which accounted for roughly 80\% of French imports in 1788 and was producing 60\% of total European coffee consumption, declared its independence in 1804 and separated from the French empire, thus depriving France of one of its main sources of colonial goods.
-As a matter of fact, the revolt of the slaves in Haiti was a long and bloody episode and sugar production was lost well before independence was ultimately acquired.
-This is easily visible in the graph, where the measure of colonial empire drops from 1 to just a little bit above 0.2 already in 1793.
-In 1796, the measure increases again, as the revolt was partially under control and France was able to continue production and trade of sugar for a few years.
-This only lasted until 1804, when ultimately Haiti became independent and France lost its main source of exports for sugar.
+\subsubsection{Colony loss measure}
+West Indian French colonies were a major source for production of sugar and coffee, which were widely imported and then re-exported by France to other European countries. The loss of these colonies was bound to be disrupting for French trade, as it reduced imports and re-exports. 
+We track the loss of Guadeloupe (taken by the British in 1760, given back in late 1763 ; taken again in 1811, given back in 1816), Martinique (never lost), Saint-Domingue (revolt in 1793, partly integrated back to the French trade network in 1796, independent for good after 1804), Maurice (lost for good in 1811), Réunion and the Indian trade posts (lost in 1811, back in 1815), French Guyana (lost in 1810, back in 1817) and Tobago (lost in 1793). We weight each colony by its share in French colonial imports in 1788 (TOFLIT18 data - Saint Domingue weights 75 percent, Martinique 11 percent, Guadeloupe 6 percent, India 3 percent and all the other are smaller) to compute a colonial empire loss. 
+The revolt of the slaves in Haiti was a long and bloody episode and sugar production was lost well before independence was ultimately acquired.
+We have coded it as "lost" between 1793 and 1795, when the revolt started, and production was mostly destroyed or fields burnt.
+In 1796, order was partly restored and a portion of the plantation were being cultivated normally, and only 1805 Haiti became independent and the production was lost completely
 Guadeloupe was also important for its sugar production and was lost to the British between 1759 to 1763, as it is visible from the decrease of the index in the graphs, and between 1810 and 1816.
 Finally, Martinique was controlled almost continuously by the British, from 1794-1815, to be traded back to France, after the Napoleonic Wars.
-We have, therefore, created a weight variable, assigning to each colony a weight corresponding to its share of imports in 1788, for which we have data on single colony, and then interacted it with a dummy variable indicating whether that colony was under French possession in that specific year.
-When France had all its colonies this variable equals 1, any time one colony is missing this variable equals 1 minus the share of imports of that particular colony.
-For the specific case of St. Domingue, we coded the possession variable as 0 between 1793 and 1795, when the revolt started, and production was mostly destroyed or fields burnt.
-For the period 1795 to 1804 we have coded it as 0.5, to account for the fact that the order was partly restored and a portion of the plantation were being cultivated normally, and only 1805 Haiti became independent and the production was lost completely.
-Intuitively, we would expect a negative effect of this variable on the loss function; i.e. the more this measure increases (the closest it is to 1), the smaller the losses in trade on the French side.
 Figure \ref{colony_loss} shows the evolution of the colony loss measure.
 \begin{center}
 \begin{figure}[H]
-\caption{Measure of colonial empire}
+\caption{Colonial empire loss}
 \label{colony_loss}
 \centering
 \includegraphics[scale=.51]{colony_loss.png}
 \end{figure}
 \end{center}
-As we can see, for most of the eighteenth century, French empire encompassed most of its colonies, whereas after the French Revolution a substantial part of its empire was lost either to the British or because colonies obtained independence. 
-We explore several possible causes of this fact.
-First, colony loss.
-At the end of the century, France lost some of its main colonies, St. Domingue in particular, which was providing most of its sugar imports. This created a substantial collapse in trade in the beginning of nineteenth century but does not explain the big losses of the Seven Years War.\\
+Again, the link with the trade loss measure is not obvious. It works well for the Revolutionnary \& Napoleonic Wars: a large part of the empire was gradually lost in that period. But the loss of the Seven Years War were minimal (Canada was not an important trade partner for France) and do not seem to justify the larger trade loss during that period.\\
 %CHRONOLOGY OF NEUTRAL COUNTRIES
 Finally we introduce a categorical variable to measure the strictness of commercial policies versus neutral countries in wartime.
 Initially, the only enemies were foes, while neutral countries were allowed to continue their trade with all other partners, despite an ongoing conflict.
