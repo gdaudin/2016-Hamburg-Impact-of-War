@@ -46,6 +46,7 @@ twoway (bar war_nbr_pays year, cmissing(n)) if war_status=="foe", ///
 
 graph combine (neutral ally foe), ycommon
 graph export "$hamburggit/Results/Loss graphs/by war_status/Number of protagonists.pdf", replace
+graph export "$hamburggit/Paper - Impact of War/Paper/Number of protagonists.pdf", replace
 
 ***********************************
 
@@ -115,6 +116,7 @@ foreach loop_war_status in colonies foe ally neutral {
 		
 graph combine neutral_XI ally_XI foe_XI colonies_XI, ycommon name(XI, replace)
 graph export "$hamburggit/Results/Loss graphs/by war_status/XI.pdf", replace
+graph export "$hamburggit/Paper - Impact of War/Paper/loss_by_war_status_XI.pdf", replace
 graph combine neutral_Imports ally_Imports foe_Imports colonies_Imports, ycommon name(Imports, replace)
 graph export "$hamburggit/Results/Loss graphs/by war_status/Imports.pdf", replace
 graph combine neutral_Exports ally_Exports foe_Exports colonies_Exports, ycommon name(Exports, replace)

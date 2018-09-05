@@ -72,6 +72,7 @@ England/British trade up to 1800: \cite{deane_british_1969}. UK trade from 1801 
 Livre tournois silver value: \cite{de_wailly_memoire_1857} and \cite{hoffman_priceless_2000}; Pound sterling silver value: \cite{clark_england_1209-1914_2006} and \cite{jastram_silver_1981}}
 \label{FrBritTrade}
 \end{figure}
+
 %\begin{figure}
 %\caption{Peace time trends of total French trade}
 %\centering
@@ -287,6 +288,22 @@ Suisse    &           & 1792-1797 & 1798-1813 \\
 \end{tabular}
 \end{table} 
 
+
+
+Figure \ref{Number of protagonists} sums up the data by showing the number of French allies, foes and neutral for each war year of interest. \\
+\begin{center}
+\begin{figure}[H]
+\caption{Number of protagonists}
+\label{Number_of_protagonists}
+\centering
+\includegraphics[scale=.51]{Number of protagonists.pdf}
+\end{figure}
+\end{center}
+
+
+
+
+
 \iffalse
 \begin{table}
 \centering
@@ -333,6 +350,7 @@ Looking at figure \ref{mean_loss_function} makes this point stronger.
 We observe, in fact, that post-Seven Years War loss (during peace) is roughly comparable to the war-time loss during the American Revolutionary War altogether.
 It is undoubtedly hard to disentangle the effect of the American Revolutionary War itself and the lags from the preceding war, however, whatever the distribution of weights between these two events, it is undeniable that the consequences of the Seven Year War were quite significant.
 The same holds for the Revolutionary \& Napoleonic War, which have been long identified in the literature as a major cause in French trade disruption at the end of the nineteenth century \citep{o2006worldwide}.
+
 \begin{center}
 \begin{figure}[H]
 \caption{Annual Loss Function}
@@ -344,6 +362,7 @@ The same holds for the Revolutionary \& Napoleonic War, which have been long ide
 \includegraphics[scale=.4]{Mean_loss_function.png}
 \end{figure}
 \end{center}
+
 \subsection{Explanatory variables}
 
 \iffalse
@@ -384,6 +403,8 @@ We have coded it as "lost" between 1793 and 1795, when the revolt started, and p
 In 1796, order was partly restored and a portion of the plantation were being cultivated normally, and only 1805 Haiti became independent and the production was lost completely
 Guadeloupe was also important for its sugar production and was lost to the British between 1759 to 1763, as it is visible from the decrease of the index in the graphs, and between 1810 and 1816.
 Finally, Martinique was controlled almost continuously by the British, from 1794-1815, to be traded back to France, after the Napoleonic Wars.
+
+
 Figure \ref{colony_loss} shows the evolution of the colony loss measure.
 \begin{center}
 \begin{figure}[H]
@@ -393,6 +414,8 @@ Figure \ref{colony_loss} shows the evolution of the colony loss measure.
 \includegraphics[scale=.51]{colony_loss.png}
 \end{figure}
 \end{center}
+
+
 Again, the link with the trade loss measure is not obvious. It works well for the Revolutionnary \& Napoleonic Wars: a large part of the empire was gradually lost in that period. But the loss of the Seven Years War were minimal (Canada was not an important trade partner for France) and do not seem to justify the larger trade loss during that period.\\
 \subsubsection{Neutral policy}
 While trying to destroy foe's shipping, the way the Neutrals were treated was important as the merchants from belligerent countries used a number of devices to "hide" their cargo as neutral cargo and continue trade (see \citep{carriere1973negociants}, \cite{schnakenbourg2013guerre}).
@@ -431,6 +454,8 @@ Basing on these facts, we have created a categorical variable that can take thre
 As a consequence, for this variable, we would expect a positive effect; the higher the value, the stricter the policy and the bigger the loss.
 The table \ref{neutral_policy} reports the value of this variable overtime.
 Table \ref{summary} reports a summary of all expected effects of the independent variables.
+
+
 \begin{table}[H]
 \centering
 \caption{Measure of neutral policy}
@@ -448,12 +473,37 @@ Period & Neutral policy variable  \\ \hline
 \end{table}
 
 
-This variable, such as it is, is well correlated with the trade loss function. This was moderate during the Seven Years War and after it and large during the Revolutionary \& Napoleonic Wars.
-This is hardly a statistically convincing argument, but it works better than the other two stories.
+This variable, such as it is, is well correlated with the trade loss function. This was moderate during the Seven Years War and after it and large during the Revolutionary and Napoleonic Wars.
+This is hardly a statistically convincing argument, but it works better than the other two stories. 
+There are two additional arguments to present.
+Figure \ref{Number_of_protagonists} shows that there is a polarization of French trade partners duning the Revolutionary \& Napoleonic Wars.
+War engulfed the whole of Europe and the only remaining neutrals trading region during the Napoleonic period was the \textit{Levant}.
+It could hardly play a role by in sustaining French trade.
+Figure \ref{loss_by_war_status_XI} is constructed by computing the mean country-specific trade loss function by trading zone. The trade loss function has been computed based on all preceding peace periods.
+We have both a trade-weighted measure and a non-trade weighted measure.
+\textit{Empereur} after 1794 had to be excluded, as the territorial change was too large (trade was mainly with current Belgium before 1794 and mainly with Austria after 1794).
+\textit{Hollande} after 1814 had to be excluded as well as it included current day Belgium from 1815.
+The negative trade loss number for trade with foes in 1787-1789 is a tribute to the large effect of the Eden treaty.
+Notice that trade with neutral countries does not recover at all after the Seven Years War and hardly recovers after the Revolutionnary \& Napoleonic Wars. 
+
+\begin{center}
+\begin{figure}[H]
+\centering
+\caption{Tade loss by war status}
+\label{loss_by_war_status_XI}
+\includegraphics[scale=1.2]{loss_by_war_status_XI.pdf}
+\end{figure}
+\end{center}
+
+
+Both  Figure \ref{Number_of_protagonists} and Figure \ref{loss_by_war_status_XI} suggests that trade with neutral is important in explaining the contrasting resilience of French trade after each of its war with Great-Britain.
+To go further and understand the reason behind this behaviour, we need to look into the changing goods structure of trade during the wars.
+
+
+\section{Changing composition of trade}
 
 
 \iffalse
-
 \begin{table}[H]
 \centering
 \caption{Summary of expected effects}
@@ -562,7 +612,7 @@ As for table \ref{table:import_class_block}, once more it is evident the massive
 Not only exports but also imports from neutral countries were seriously damaged by the Blockade, way less so than imports from enemies.
 This goes once more in the direction of explaining the fall in trade of aggregate trade in the first half of the nineteenth century in France. \\
 
-\fi
+
 %The figures below give a more visual picture of the trend of the different products.
 As for wine and eau-de-vie, war do not seem to have a great impact on their trend.
 As for coffee and sugar, on the other hand, wars seem to be diminishing trade, however, given the big fluctuations all throughout, we cannot for sure distinguish between the effects of conflicts and the very variable pattern of trade.
@@ -577,6 +627,9 @@ As for coffee and sugar, on the other hand, wars seem to be diminishing trade, h
 %\includegraphics[scale=.25]{class4_trend}
 %\end{center}
 %\end{figure}
+
+\fi
+
 
 \iffalse
 \subsection{War lags}

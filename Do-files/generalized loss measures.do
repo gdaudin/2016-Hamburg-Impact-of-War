@@ -103,6 +103,8 @@ generate war3=`maxvalue' if year >=1778 & year <=1783
 generate war4=`maxvalue' if year >=1793 & year <=1802
 generate war5=`maxvalue' if year >=1803 & year <=1815
 
+drop if grouping_classification=="Flandre et autres états de l'Empereur" & year >= 1795
+drop if grouping_classification=="Hollande" & year >= 1815
 
 *********Fin préparation des données
 
