@@ -65,8 +65,8 @@ year,p_Allemagne ,p_Angleterre ,p_Espagne ,p_Flandre et autres états de l'Emper
 1796,foe,foe,ally,foe,neutral,ally,foe,neutral,neutral,ally,foe,neutral,,,neutral,neutral,foe
 1797,foe,foe,ally,foe,neutral,ally,ally,neutral,neutral,ally,foe,neutral,,,neutral,neutral,foe
 1798,foe,foe,ally,foe,foe,ally,ally,foe,neutral,ally,neutral,ally,,,neutral,neutral,foe
-1799,foe,foe,ally,foe,foe,ally,ally,foe,neutral,ally,neutral,ally,,,neutral,foe,foe
-1800,foe,foe,ally,foe,foe,ally,ally,foe,neutral,ally,neutral,ally,,,neutral,foe,foe
+1799,foe,foe,ally,foe,foe,ally,ally,foe,neutral,ally,foe,ally,,,neutral,foe,foe
+1800,foe,foe,ally,foe,foe,ally,ally,foe,neutral,ally,foe,ally,,,neutral,foe,foe
 1801,neutral,foe,ally,neutral,neutral,ally,ally,foe,neutral,ally,neutral,ally,,,neutral,neutral,neutral
 1802,neutral,foe,ally,neutral,neutral,ally,ally,neutral,neutral,ally,neutral,ally,,,neutral,neutral,neutral
 1803,neutral,foe,ally,neutral,neutral,ally,ally,neutral,neutral,ally,neutral,ally,,,neutral,neutral,neutral
@@ -82,9 +82,9 @@ year,p_Allemagne ,p_Angleterre ,p_Espagne ,p_Flandre et autres états de l'Emper
 1813,ally,foe,foe,foe,neutral,ally,ally,neutral,ally,ally,foe,ally,,,ally,foe,foe
 1814,foe,foe,foe,foe,neutral,foe,foe,neutral,neutral,ally,foe,neutral,,,neutral,foe,foe
 1815,foe,foe,foe,foe,neutral,foe,foe,neutral,neutral,ally,foe,neutral,,,neutral,foe,foe
-1816,foe,foe,foe,foe,neutral,foe,foe,neutral,foe,ally,foe,neutral,,,neutral,foe,foe
-1817,foe,foe,foe,foe,neutral,foe,foe,neutral,foe,ally,foe,neutral,,,neutral,foe,foe
-1818,foe,foe,foe,foe,neutral,foe,foe,neutral,foe,ally,foe,neutral,,,neutral,foe,foe
-1819,foe,foe,foe,foe,neutral,foe,foe,neutral,foe,ally,foe,neutral,,,neutral,foe,foe
-1820,foe,foe,foe,foe,neutral,foe,foe,neutral,foe,ally,foe,neutral,,,neutral,foe,foe
-1821,foe,foe,foe,foe,neutral,foe,foe,neutral,foe,ally,foe,neutral,,,neutral,foe,foe
+1816,foe,foe,foe,foe,neutral,foe,foe,neutral,neutral,ally,foe,neutral,,,neutral,foe,foe
+1817,foe,foe,foe,foe,neutral,foe,foe,neutral,neutral,ally,foe,neutral,,,neutral,foe,foe
+1818,foe,foe,foe,foe,neutral,foe,foe,neutral,neutral,ally,foe,neutral,,,neutral,foe,foe
+1819,foe,foe,foe,foe,neutral,foe,foe,neutral,neutral,ally,foe,neutral,,,neutral,foe,foe
+1820,foe,foe,foe,foe,neutral,foe,foe,neutral,neutral,ally,foe,neutral,,,neutral,foe,foe
+1821,foe,foe,foe,foe,neutral,foe,foe,neutral,neutral,ally,foe,neutral,,,neutral,foe,foe

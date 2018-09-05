@@ -230,24 +230,27 @@ As a consequence, a second League of Armed Neutrality was created, in which Russ
 This alliance was not long-lasting, as Britain responded with a ban on trade with the league, and bombed Copenhagen, thus ending this agreement.
 This conflict ultimately ended with Napoleon's disastrous invasion of Russia in 1812, which was followed by the invasion of France in 1814 and a subsequent peace treaty signed in Ghent.
 The two main players of this conflict were, of course, Britain and France.
-However, because of the victories and defeats of one and the other, sides of other countries changed continuously and it was harder to code in our country classification.
-\textit{Allemagne} was a foe between 1792 and 1804, became an ally between 1805 and 1813 and then became again enemy to France.
+However, because of the victories and defeats of one and the other, sides of other countries changed continuously and it was harder to code in our country classification. Table \ref{war_peace} reports our choices of the position of all countries in all wars throughout the century.
+\textit{Allemagne} was mainly aligned with Austria till 1800 : So it was a foe between 1792 and 1800, neutral between Campo-Formio became an ally in 1805 (till 1813), and then became again a foe after the battle of Leipzig to France.
 \textit{Angleterre} was an enemy all throughout.
-\textit{Espagne} was against France for the period 1793 and 1794, she became then an ally until 1807 (with the exception of 1795, in which she was neutral), and then again an enemy from 1808 onwards.
-\textit{Empereur} was a foe until 1802, she was then neutral in 1803 and 1804, then an enemy in 1805, to become neutral again in 1806 until 1808.
-Lastly, after one more year of neutrality in 1809, she became an ally starting from 1810.
-\textit{Etats Unis} was always ally.
-\textit{Portugal} was neutral until 1798 and then became a foe in 1802.
+\textit{Espagne} fought France for the period 1793 and 1794, she became then an ally until 1807 (with the exception of 1795, in which she was neutral), and then again an enemy from 1808 onwards.
+\textit{Empereur} is Austria, which position was easy to adjudicate. It was a foe until Campo Formio (june 1801), neutral till the Third Coalition (1805), then a foe in 1805, to become neutral again in 1806 until 1808.
+Lastly, after one more year of neutrality in 1809, she became an ally starting from 1810, and declared war again in 1813.
+\textit{Etats Unis} was always neutral throughout the war, except for the un-declared war between 1798 and 1800.
+\textit{Hollande} fought France till 1794 and was then aligned to it till late 1813, when William-Frederik of Orange-Nassau took power.
+\textit{Italy} was briefly a foe until 1796, then neutral until 1813, and then again a foe starting 1814.
+\textit{Levant} stayed out of the war, except when the French invaded Egypt from 1798 to 1801.
+Concerning \textit{Nord}, Sweden and Russia were alternatively neutral, foes or allies. Denmark was an ally. Yet, as the biggest share of trade was represented by Hamburg, therefore, whenever any of the component of \textit{Nord} were not on the same side in a war, we code them all in the position of Hamburg. It was mainly neutral, except when it was occupied and then annexed by France from 1808 to 1813 \footnote{Obviously, we cannot proceed this way for the computation of naval supremacy, see \textit{infra}.}
+\textit{Outre-mers} mainly includes French colonies. We treat it as an ally throughout.
+textit{Portugal} was neutral until 1798 and then became a foe in 1802.
 It was again neutral for a short period between 1803 to 1806 and then became a foe starting from 1807.
-\textit{Suisse} was neutral until 1797 and then briefly ally until 1813, to become then neutral again in 1814.
-Finally, \textit{Italy} was briefly a foe until 1796, then neutral until 1813, and then again a foe starting 1814.
-Concerning \textit{Nord}, Sweden and Russia were alternatively neutral, foes or allies. Denmark was an ally. Yet, as the biggest share of trade was represented by Hamburg, therefore, whenever any of the component of \textit{Nord} were not on the same side in a war, we code them all in the position of Hamburg.\footnote{Obviously, we cannot proceed this way for the computation of naval supremacy, see \textit{infra}.} \\
-Table \ref{war_peace} reports a summary of the position of all countries in all wars throughout the century.
+Finally, \textit{Suisse} was neutral until 1797 and then an ally until 1813, and then neutral again in 1814. \\
+
 
 
 \begin{table}
 \centering
-\caption{Summary of war status}\label{war_peace}
+\caption{Summary of war status for trade partners, 1792-1815}\label{war_peace}
 \begin{tabular}{?c|c|c|c?}
 \specialrule{.15em}{.1em}{.1em}
 \textbf{Country}    & \textbf{Foe}       & \textbf{Neutral}   & \textbf{Ally}   \\ \specialrule{.15em}{.1em}{.1em}
@@ -269,12 +272,12 @@ Italie    & 1792-1796 &  & 1797-1813 \\
           & 1814-1815 &           &   \\ 
 Levant    &  1798-1801         & 1792-1797 &  \\ 
 			&&1802-1815&  \\
-Nord      & 1799-1800 & 1792-1798 & 1808-1811  \\   
-		 & 1805-1807 & 1801-1804 & 1808-1811  \\
-		 & 1812-1815 &  &            \\
+Nord      &  & 1792-1807 & 1808-1813  \\   
+		 & & 1814-1815 & \\
 Outre-mers &           &           & 1792-1815   \\ 
-Portugal & 1799-1802 & 1792 &       \\       
-          & 1807-1815 & 1803-1806 &   \\ 
+Portugal & 1793-1797& 1792 &       \\       
+          &1799-1800  &1798 &   \\ 
+          &1807-1815 &1801-1806 & \\
 Suisse    &           & 1792-1797 & 1798-1813 \\
 		  &             & 1814-1815 & \\
 
@@ -295,6 +298,7 @@ Suisse    &           & 1792-1797 & 1798-1813 \\
 
 \section{Empirical Analysis} \label{analysis}
 The aim of this study is to uncover the effects of the long-lasting war status that marked the eighteenth century and to identify the drivers of the massive loss in trade associated to some of these conflicts. \\ 
+
 \iffalse
 %TREND-STATIONARITY VS DIFFERENCE- STATIONARITY
 As a first step we check whether this statement is true, i.e. whether the losses at the end of the century were actually greater than those at the beginning.
@@ -315,20 +319,20 @@ We now aim to uncover the reason for such change.
 \subsection{Explained variable}
 %LOSS FUNCTION
 We start by defining a loss function of the effects of wars.
-We construct it as the percent loss during war periods, as opposed to predicted trend in peace time: 
+We construct it as the percent loss, compared to past peact time trend.
 \begin{equation*}
-Loss = \frac{Expected \> value \> in \> peace - Observed \> value \> in \> war }{Expected \> value \> in \> peace}
+Loss = \frac{Expected \> value \> based \> on \>past \> peace \>trend - Observed \> value}{Expected \> value \> based \> on \>past \> peace \>trend}
 \end{equation*}
-Figure \ref{annual_loss_function} shows the annual loss function for the period of interest.
+Figure \ref{annual_loss_function} shows the annual loss function for the period of interest. Figure \ref{mean_loss_function} shows the mean loss function by peace or war period.
 The black dotted line shows observed trade versus trade predicted based on all preceding peace period, whereas the red solid line shows the comparison with the prediction only based on the single preceding peace period.
-There are two interesting things to notice in this graph.
-First, the loss function is especially high during the Seven Years Wars and the Revolutionary Wars/Continental Blockade, meaning losses as a consequence of these conflicts were greater than for other conflicts in this century.
-Second, the loss function is positive also in peace time, after those two wars, meaning losses were longer lasting.
+This graph shows that the most successful wars from the point of view of Britain trying to disrupt French trade were the Revolutionary \& Napoleonic War and the Seven Years War.
+The loss function is higher during these conflicts (more than 40 percent and less than 60 percent) than during the Austrian Succession War and the American Revolutionary War (respectively 20 percent and circa 30 percent).
+Furthermore, the loss function is positive also after the war, whereas it is negative after the Austrian Succession War and the American Revolutionary War. The disruption of French trade lasted through peacetime for these two wars. 
 Therefore, at a first glance, these two conflicts were more harmful to trade than others.
 Looking at figure \ref{mean_loss_function} makes this point stronger.
-We observe, in fact, that post-Seven Years War loss is roughly comparable to that during American Revolutionary War altogether.
+We observe, in fact, that post-Seven Years War loss (during peace) is roughly comparable to the war-time loss during the American Revolutionary War altogether.
 It is undoubtedly hard to disentangle the effect of the American Revolutionary War itself and the lags from the preceding war, however, whatever the distribution of weights between these two events, it is undeniable that the consequences of the Seven Year War were quite significant.
-The same holds for the Revolutionary War and the Continental Blockade, which have already been mentioned in the literature as a major cause in French trade disruption at the end of the nineteenth century \citep{o2006worldwide}.
+The same holds for the Revolutionary \& Napoleonic War, which have been long identified in the literature as a major cause in French trade disruption at the end of the nineteenth century \citep{o2006worldwide}.
 \begin{center}
 \begin{figure}[H]
 \caption{Annual Loss Function}
@@ -341,6 +345,8 @@ The same holds for the Revolutionary War and the Continental Blockade, which hav
 \end{figure}
 \end{center}
 \subsection{Explanatory variables}
+
+\iffalse
 We want to test the hypothesis that the most efficient strategy to curtail enemy's trade was to cut its commercial relations with neutral countries.
 In order to do this, we run the following specification: 
 \begin{equation*}
@@ -348,6 +354,9 @@ Loss = \beta_0 + \beta_1NavalSupremacy+ \beta_2ColonyLoss+ \beta_3NeutralRegulat
 \end{equation*}
 We use the loss function as a dependent variable, transformed from percentage to absolute value and then take the logs. \\
 As explanatory variables we introduce several factors.
+\fi
+
+With basically four observations, as we observe four wars, one cannot hope to uncover robust statistical relationships. Still, we can 
 %NAVAL SUPREMACY
 First, we use number of warships, grouped by belligerent/neutral status, as a proxy for naval supremacy. Figure \ref{naval_supremacy_ratios} reports the ratio of France over Great Britain, France and its allies versus Britain and its allies and France, its allies and neutral countries versus Britain and its allies.
 Mostly, among neutral countries, we find Denmark, Hanseatic cities, United States and Russia.
