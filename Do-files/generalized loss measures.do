@@ -131,22 +131,26 @@ gen ln_value=ln(value)
 *replace ln_value=ln(0.00000001) if value==0
 
 
-reg ln_value year if year <= 1744 & war==0
-predict ln_value_peace1
-reg ln_value year if year <=1755 & war==0
-predict ln_value_peace1_2
-reg ln_value year if year <=1777  & war==0
-predict ln_value_peace1_3
+
+if "`country_of_interest'"!="États-Unis d'Amérique" {
+	reg ln_value year if year <= 1744 & war==0
+	predict ln_value_peace1
+	reg ln_value year if year <=1755 & war==0
+	predict ln_value_peace1_2
+	reg ln_value year if year <=1777  & war==0
+	predict ln_value_peace1_3
+}
 reg ln_value year if year <=1792  & war==0
 predict ln_value_peace1_4
 *reg ln_value year if war==0
 *predict ln_value_peace_all
 
-
-reg ln_value year if (year >= 1749 & year <=1755) & war==0
-predict ln_value_peace2
-reg ln_value year if (year >= 1763 & year <=1777) & war==0
-predict ln_value_peace3
+if "`country_of_interest'"!="États-Unis d'Amérique" {
+	reg ln_value year if (year >= 1749 & year <=1755) & war==0
+	predict ln_value_peace2
+	reg ln_value year if (year >= 1763 & year <=1777) & war==0
+	predict ln_value_peace3
+}
 reg ln_value year if (year >= 1784 & year <=1792) & war==0
 predict ln_value_peace4
 
@@ -154,19 +158,30 @@ predict ln_value_peace4
 
 *twoway (line ln_value_peace1 year) (line ln_value_peace1_2 year) (line ln_value_peace1_3 year) (line ln_value_peace1_4 year) (line ln_value_peace_all year) ///
 *		(line ln_value year)
-		
-gen     loss_war = 1-(exp(ln_value)/exp(ln_value_peace1)) 	 if year >=1745 & year <=1755
-replace loss_war = 1-(exp(ln_value)/exp(ln_value_peace1_2)) if year >=1756 & year <=1777
-replace loss_war = 1-(exp(ln_value)/exp(ln_value_peace1_3)) if year >=1778 & year <=1792
+
+gen loss_war = .
+if "`country_of_interest'"!="États-Unis d'Amérique" {		
+	replace loss_war = 1-(exp(ln_value)/exp(ln_value_peace1)) 	 if year >=1745 & year <=1755
+	replace loss_war = 1-(exp(ln_value)/exp(ln_value_peace1_2)) if year >=1756 & year <=1777
+	replace loss_war = 1-(exp(ln_value)/exp(ln_value_peace1_3)) if year >=1778 & year <=1792
+}
 replace loss_war = 1-(exp(ln_value)/exp(ln_value_peace1_4)) if year >=1793
 replace loss_war = 1 if value==0
 
-gen     loss_war_nomemory = 1-(exp(ln_value)/exp(ln_value_peace1)) if year >=1745 & year <=1755
-replace loss_war_nomemory = 1-(exp(ln_value)/exp(ln_value_peace2)) if year >=1756 & year <=1777
-replace loss_war_nomemory = 1-(exp(ln_value)/exp(ln_value_peace3)) if year >=1778 & year <=1792
+
+gen loss_war_nomemory =.
+if "`country_of_interest'"!="États-Unis d'Amérique" {
+	replace loss_war_nomemory = 1-(exp(ln_value)/exp(ln_value_peace1)) if year >=1745 & year <=1755
+	replace loss_war_nomemory = 1-(exp(ln_value)/exp(ln_value_peace2)) if year >=1756 & year <=1777
+	replace loss_war_nomemory = 1-(exp(ln_value)/exp(ln_value_peace3)) if year >=1778 & year <=1792
+}
 replace loss_war_nomemory = 1-(exp(ln_value)/exp(ln_value_peace4)) if year >=1793
 replace loss_war_nomemory = 1 if value==0
 
+summarize loss_war
+local min =r(min)
+summarize loss_war_nomemory
+local min_nomemory=r(min)
 
 replace war1=1 if war1!=.
 replace war2=1 if war2!=.
@@ -174,6 +189,25 @@ replace war3=1 if war3!=.
 replace war4=1 if war4!=.
 replace war5=1 if war5!=.
 replace blockade = 1 if blockade!=.
+
+gen warmin1=`min' if war1!=.
+gen warmin2=`min' if war2!=.
+gen warmin3=`min' if war3!=.
+gen warmin4=`min' if war4!=.
+gen warmin5=`min' if war5!=.
+gen blockademin = `min' if blockade!=.
+
+gen warminl1=`min_nomemory' if war1!=.
+gen warminl2=`min_nomemory' if war2!=.
+gen warminl3=`min_nomemory' if war3!=.
+gen warminl4=`min_nomemory' if war4!=.
+gen warminl5=`min_nomemory' if war5!=.
+gen blockademinl = `min_nomemory' if blockade!=.
+
+
+
+
+
 keep if year >=1740
 
 /*
@@ -190,49 +224,76 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
 			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
+			 (area warmin1 year, color(gs9)) (area warmin2 year, color(gs9)) ///
+			 (area warmin3 year, color(gs9)) (area warmin4 year, color(gs9)) ///
+			 (area warmin5 year, color(gs9)) (area blockademin year, color(gs4)) ///
 			 (connected loss_war year, cmissing(n) lcolor(black) mcolor(black) msize(vsmall)) ///
 			 , ///
-			 legend(order (6) label(6 "Difference with all past peace periods trend")) ///
-			 title("`country_of_interest'_`inorout'")
+			 legend(order (13) label(13 "Difference with all past peace periods trend")) ///
+			 title("`country_of_interest'_`inorout'") ///
+			 yline(0, lwidth(medium) lcolor(grey)) yscale(range(`min' 1)) ///
+
 graph export "$hamburggit/Results/Loss graphs/yearlyloss_`country_of_interest'_`inorout'.pdf", replace
 			 
-			 
-egen loss_war1=mean(loss_war) if year >=1745 & year <=1748
-egen loss_peace1=mean(loss_war) if year >=1749 & year <=1755
-egen loss_war2=mean(loss_war) if year >=1756 & year <=1762
-egen loss_peace2=mean(loss_war) if year >=1763 & year <=1777
-egen loss_war3=mean(loss_war) if year >=1778 & year <=1783
-egen loss_peace3=mean(loss_war) if year >=1784 & year <=1792
+if "`country_of_interest'"!="États-Unis d'Amérique" {			 
+	egen loss_war1=mean(loss_war) if year >=1745 & year <=1748
+	egen loss_peace1=mean(loss_war) if year >=1749 & year <=1755
+	egen loss_war2=mean(loss_war) if year >=1756 & year <=1762
+	egen loss_peace2=mean(loss_war) if year >=1763 & year <=1777
+	egen loss_war3=mean(loss_war) if year >=1778 & year <=1783
+	egen loss_peace3=mean(loss_war) if year >=1784 & year <=1792
+}
 egen loss_war4=mean(loss_war) if year >=1793 & year <=1807
 egen loss_blockade=mean(loss_war) if year >=1808 & year <=1815
 egen loss_peace4=mean(loss_war) if year >=1816
 
-egen mean_loss = rmax(loss_war1 loss_war2 loss_war3 loss_war4 ///
+if "`country_of_interest'"!="États-Unis d'Amérique" ///
+			egen mean_loss = rmax(loss_war1 loss_war2 loss_war3 loss_war4 ///
 			loss_peace1 loss_peace2 loss_peace3 loss_peace4 ///
+			loss_blockade)			
+
+if "`country_of_interest'"=="États-Unis d'Amérique" ///
+			egen mean_loss = rmax(loss_war4 ///
+			loss_peace4 ///
 			loss_blockade)
-drop loss_war1 loss_war2 loss_war3 loss_war4 ///
+
+capture drop loss_war1 loss_war2 loss_war3 loss_war4 ///
 			loss_peace1 loss_peace2 loss_peace3 loss_peace4 ///
 			loss_blockade
 
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
 			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
-			 (line mean_loss year), title("`country_of_interest'_`inorout'")
+			 (area warmin1 year, color(gs9)) (area warmin2 year, color(gs9)) ///
+			 (area warmin3 year, color(gs9)) (area warmin4 year, color(gs9)) ///
+			 (area warmin5 year, color(gs9)) (area blockademin year, color(gs4)) ///
+			 (line mean_loss year), title("`country_of_interest'_`inorout'") ///
+			 yline(0, lwidth(medium) lcolor(grey)) yscale(range(`min' 1))
 
-egen loss_war_nomemory1=mean(loss_war_nomemory) if year >=1745 & year <=1748
-egen loss_peace_nomemory1=mean(loss_war_nomemory) if year >=1749 & year <=1755
-egen loss_war_nomemory2=mean(loss_war_nomemory) if year >=1756 & year <=1762
-egen loss_peace_nomemory2=mean(loss_war_nomemory) if year >=1763 & year <=1777
-egen loss_war_nomemory3=mean(loss_war_nomemory) if year >=1778 & year <=1783
-egen loss_peace_nomemory3=mean(loss_war_nomemory) if year >=1784 & year <=1792
+if "`country_of_interest'"!="États-Unis d'Amérique" {	
+	egen loss_war_nomemory1=mean(loss_war_nomemory) if year >=1745 & year <=1748
+	egen loss_peace_nomemory1=mean(loss_war_nomemory) if year >=1749 & year <=1755
+	egen loss_war_nomemory2=mean(loss_war_nomemory) if year >=1756 & year <=1762
+	egen loss_peace_nomemory2=mean(loss_war_nomemory) if year >=1763 & year <=1777
+	egen loss_war_nomemory3=mean(loss_war_nomemory) if year >=1778 & year <=1783
+	egen loss_peace_nomemory3=mean(loss_war_nomemory) if year >=1784 & year <=1792
+}
 egen loss_war_nomemory4=mean(loss_war_nomemory) if year >=1793 & year <=1807
 egen loss_blockade_nomemory=mean(loss_war_nomemory) if year >=1808 & year <=1815
 egen loss_peace_nomemory4=mean(loss_war_nomemory) if year >=1816
 
-egen mean_loss_nomemory = rmax(loss_war_nomemory1 loss_war_nomemory2 loss_war_nomemory3 loss_war_nomemory4 ///
+if "`country_of_interest'"!="États-Unis d'Amérique" ///
+		egen mean_loss_nomemory = rmax(loss_war_nomemory1 loss_war_nomemory2 loss_war_nomemory3 loss_war_nomemory4 ///
 		loss_peace_nomemory1 loss_peace_nomemory2 loss_peace_nomemory3 loss_peace_nomemory4 ///
 		loss_blockade_nomemory)
-drop loss_war_nomemory1 loss_war_nomemory2 loss_war_nomemory3 loss_war_nomemory4 ///
+if "`country_of_interest'"=="États-Unis d'Amérique" ///
+		egen mean_loss_nomemory = rmax(loss_war_nomemory4 ///
+		loss_peace_nomemory4 ///
+		loss_blockade_nomemory)
+
+
+
+capture drop loss_war_nomemory1 loss_war_nomemory2 loss_war_nomemory3 loss_war_nomemory4 ///
 		loss_peace_nomemory1 loss_peace_nomemory2 loss_peace_nomemory3 loss_peace_nomemory4 ///
 		loss_blockade_nomemory
 
@@ -241,11 +302,23 @@ graph twoway (area mean_loss_nomemory year), title("`country_of_interest'_`inoro
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
 			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
-			 (line mean_loss year) (line mean_loss_nomemory year), title("`country_of_interest'_`inorout'")
+			 (area warmin1 year, color(gs9)) (area warmin2 year, color(gs9)) ///
+			 (area warmin3 year, color(gs9)) (area warmin4 year, color(gs9)) ///
+			 (area warmin5 year, color(gs9)) (area blockademin year, color(gs4)) ///
+			 (line mean_loss year) (line mean_loss_nomemory year), title("`country_of_interest'_`inorout'") ///
+			 yline(0, lwidth(medium) lcolor(grey)) yscale(range(`min' 1))
+
+			 
+			 
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
 			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
-			 (line mean_loss year), title("`country_of_interest'_`inorout'")
+			 (area warmin1 year, color(gs9)) (area warmin2 year, color(gs9)) ///
+			 (area warmin3 year, color(gs9)) (area warmin4 year, color(gs9)) ///
+			 (area warmin5 year, color(gs9)) (area blockademin year, color(gs4)) ///
+			 (line mean_loss year), title("`country_of_interest'_`inorout'") ///
+			 yline(0, lwidth(medium) lcolor(grey)) yscale(range(`min' 1))
+			 
 graph export "$hamburggit/Results/Loss graphs/meanloss_`country_of_interest'_`inorout'.pdf", replace
 
 rename loss_war loss
@@ -259,13 +332,11 @@ rename loss_war_nomemory loss_nomemory
 
 end
 
-loss_function Imports  "Portugal"
-
 
 *set graphic off
 
 local i 0
-
+/*
 foreach inoroutofinterest in Imports Exports XI {
 	foreach countryofinterest in all all_ss_outremer {
 		loss_function  `inoroutofinterest' `countryofinterest'
@@ -278,14 +349,15 @@ foreach inoroutofinterest in Imports Exports XI {
 }
 
 
-		
+	*/	
 use "$hamburg/database_dta/Best guess FR bilateral trade.dta", clear
 
 
 foreach inoroutofinterest in Imports Exports XI {
-	foreach countryofinterest in "Flandre et autres états de l'Empereur" Allemagne Angleterre Espagne  ///
+	foreach countryofinterest in "États-Unis d'Amérique" ///
+		"Flandre et autres états de l'Empereur" Allemagne Angleterre Espagne  ///
 		"Hollande" "Italie" "Levant et Barbarie" "Nord" "Outre-mers" "Portugal" ///
-		"Suisse" "États-Unis" {
+		"Suisse"  {
 		display "`inoroutofinterest' `countryofinterest'"
 		loss_function `inoroutofinterest' `"`countryofinterest'"'
 		append using "$hamburggit/Results/Yearly loss measure.dta"
