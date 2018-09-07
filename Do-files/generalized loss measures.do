@@ -95,13 +95,14 @@ replace war = 0 if year <= 1744 | (year >= 1749 & year <=1755) | (year >= 1763 &
 
 local maxvalue 4.5
 
-generate wara=`maxvalue' if year >=1733 & year <=1738 
-generate warb=`maxvalue' if year >=1740 & year <=1744
-generate war1=`maxvalue' if year >=1744 & year <=1748
-generate war2=`maxvalue' if year >=1756 & year <=1763
-generate war3=`maxvalue' if year >=1778 & year <=1783
-generate war4=`maxvalue' if year >=1793 & year <=1802
-generate war5=`maxvalue' if year >=1803 & year <=1815
+generate wara		=`maxvalue' if year >=1733 & year <=1738 
+generate warb		=`maxvalue' if year >=1740 & year <=1744
+generate war1		=`maxvalue' if year >=1744 & year <=1748
+generate war2		=`maxvalue' if year >=1756 & year <=1763
+generate war3		=`maxvalue' if year >=1778 & year <=1783
+generate war4		=`maxvalue' if year >=1793 & year <=1802
+generate war5		=`maxvalue' if year >=1803 & year <=1807
+generate blockade	=`maxvalue' if year >=1807 & year <=1815
 
 drop if grouping_classification=="Flandre et autres états de l'Empereur" & year >= 1795
 drop if grouping_classification=="Hollande" & year >= 1815
@@ -111,12 +112,12 @@ drop if grouping_classification=="Hollande" & year >= 1815
 
 order value grouping_classification pays war_status
 if "`country_of_interest'"=="all"  {
-	collapse (sum) value, by(year-war5)
+	collapse (sum) value, by(year-war5 blockade)
 	gen grouping_classification ="All"
 }
 
 if "`country_of_interest'"=="all_ss_outremer"  {
-	collapse (sum) value, by(year-war5)
+	collapse (sum) value, by(year-war5 blockade)
 	gen grouping_classification ="All_ss_outremer"
 }
 
@@ -167,11 +168,12 @@ replace loss_war_nomemory = 1-(exp(ln_value)/exp(ln_value_peace4)) if year >=179
 replace loss_war_nomemory = 1 if value==0
 
 
-replace war1=-1 if war1!=.
-replace war2=-1 if war2!=.
-replace war3=-1 if war3!=.
-replace war4=-1 if war4!=.
-replace war5=-1 if war5!=.
+replace war1=1 if war1!=.
+replace war2=1 if war2!=.
+replace war3=1 if war3!=.
+replace war4=1 if war4!=.
+replace war5=1 if war5!=.
+replace blockade = 1 if blockade!=.
 keep if year >=1740
 
 /*
@@ -186,8 +188,8 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 */
 
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
-			 (area war3 year, color(gs9)) (area war4 year, color(gs4)) ///
-			 (area war5 year, color(gs4)) ///
+			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
+			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
 			 (connected loss_war year, cmissing(n) lcolor(black) mcolor(black) msize(vsmall)) ///
 			 , ///
 			 legend(order (6) label(6 "Difference with all past peace periods trend")) ///
@@ -201,13 +203,21 @@ egen loss_war2=mean(loss_war) if year >=1756 & year <=1762
 egen loss_peace2=mean(loss_war) if year >=1763 & year <=1777
 egen loss_war3=mean(loss_war) if year >=1778 & year <=1783
 egen loss_peace3=mean(loss_war) if year >=1784 & year <=1792
-egen loss_war4=mean(loss_war) if year >=1793 & year <=1815
+egen loss_war4=mean(loss_war) if year >=1793 & year <=1807
+egen loss_blockade=mean(loss_war) if year >=1808 & year <=1815
 egen loss_peace4=mean(loss_war) if year >=1816
 
-egen mean_loss = rmax(loss_war1 loss_war2 loss_war3 loss_war4 loss_peace1 loss_peace2 loss_peace3 loss_peace4)
-drop loss_war1 loss_war2 loss_war3 loss_war4 loss_peace1 loss_peace2 loss_peace3 loss_peace4
+egen mean_loss = rmax(loss_war1 loss_war2 loss_war3 loss_war4 ///
+			loss_peace1 loss_peace2 loss_peace3 loss_peace4 ///
+			loss_blockade)
+drop loss_war1 loss_war2 loss_war3 loss_war4 ///
+			loss_peace1 loss_peace2 loss_peace3 loss_peace4 ///
+			loss_blockade
 
-graph twoway (area mean_loss year), title("`country_of_interest'_`inorout'")
+graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
+			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
+			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
+			 (line mean_loss year), title("`country_of_interest'_`inorout'")
 
 egen loss_war_nomemory1=mean(loss_war_nomemory) if year >=1745 & year <=1748
 egen loss_peace_nomemory1=mean(loss_war_nomemory) if year >=1749 & year <=1755
@@ -215,16 +225,27 @@ egen loss_war_nomemory2=mean(loss_war_nomemory) if year >=1756 & year <=1762
 egen loss_peace_nomemory2=mean(loss_war_nomemory) if year >=1763 & year <=1777
 egen loss_war_nomemory3=mean(loss_war_nomemory) if year >=1778 & year <=1783
 egen loss_peace_nomemory3=mean(loss_war_nomemory) if year >=1784 & year <=1792
-egen loss_war_nomemory4=mean(loss_war_nomemory) if year >=1793 & year <=1815
+egen loss_war_nomemory4=mean(loss_war_nomemory) if year >=1793 & year <=1807
+egen loss_blockade_nomemory=mean(loss_war_nomemory) if year >=1808 & year <=1815
 egen loss_peace_nomemory4=mean(loss_war_nomemory) if year >=1816
 
-egen mean_loss_nomemory = rmax(loss_war_nomemory1 loss_war_nomemory2 loss_war_nomemory3 loss_war_nomemory4 loss_peace_nomemory1 loss_peace_nomemory2 loss_peace_nomemory3 loss_peace_nomemory4)
-drop loss_war_nomemory1 loss_war_nomemory2 loss_war_nomemory3 loss_war_nomemory4 loss_peace_nomemory1 loss_peace_nomemory2 loss_peace_nomemory3 loss_peace_nomemory4
+egen mean_loss_nomemory = rmax(loss_war_nomemory1 loss_war_nomemory2 loss_war_nomemory3 loss_war_nomemory4 ///
+		loss_peace_nomemory1 loss_peace_nomemory2 loss_peace_nomemory3 loss_peace_nomemory4 ///
+		loss_blockade_nomemory)
+drop loss_war_nomemory1 loss_war_nomemory2 loss_war_nomemory3 loss_war_nomemory4 ///
+		loss_peace_nomemory1 loss_peace_nomemory2 loss_peace_nomemory3 loss_peace_nomemory4 ///
+		loss_blockade_nomemory
 
 graph twoway (area mean_loss_nomemory year), title("`country_of_interest'_`inorout'")
 
-graph twoway (line mean_loss year) (line mean_loss_nomemory year), title("`country_of_interest'_`inorout'")
-graph twoway (line mean_loss year), title("`country_of_interest'_`inorout'")
+graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
+			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
+			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
+			 (line mean_loss year) (line mean_loss_nomemory year), title("`country_of_interest'_`inorout'")
+graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
+			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
+			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
+			 (line mean_loss year), title("`country_of_interest'_`inorout'")
 graph export "$hamburggit/Results/Loss graphs/meanloss_`country_of_interest'_`inorout'.pdf", replace
 
 rename loss_war loss
@@ -245,32 +266,32 @@ loss_function Imports  "Portugal"
 
 local i 0
 
-	foreach inoroutofinterest in Imports Exports XI {
-		foreach countryofinterest in all all_ss_outremer {
-			loss_function  `inoroutofinterest' `countryofinterest'
-			if `i'!= 0 {
-				append using "$hamburggit/Results/Yearly loss measure.dta"
-			}
-			save "$hamburggit/Results/Yearly loss measure.dta", replace
-			local i = 1
+foreach inoroutofinterest in Imports Exports XI {
+	foreach countryofinterest in all all_ss_outremer {
+		loss_function  `inoroutofinterest' `countryofinterest'
+		if `i'!= 0 {
+			append using "$hamburggit/Results/Yearly loss measure.dta"
 		}
+		save "$hamburggit/Results/Yearly loss measure.dta", replace
+		local i = 1
 	}
+}
 
 
-			
+		
 use "$hamburg/database_dta/Best guess FR bilateral trade.dta", clear
 
 
-	foreach inoroutofinterest in Imports Exports XI {
-		foreach countryofinterest in "Flandre et autres états de l'Empereur" Allemagne Angleterre Espagne  ///
-			"Hollande" "Italie" "Levant et Barbarie" "Nord" "Outre-mers" "Portugal" ///
-			"Suisse"  {
-			display "`inoroutofinterest' `countryofinterest'"
-			loss_function `inoroutofinterest' `"`countryofinterest'"'
-			append using "$hamburggit/Results/Yearly loss measure.dta"
-			save "$hamburggit/Results/Yearly loss measure.dta", replace
-		}
+foreach inoroutofinterest in Imports Exports XI {
+	foreach countryofinterest in "Flandre et autres états de l'Empereur" Allemagne Angleterre Espagne  ///
+		"Hollande" "Italie" "Levant et Barbarie" "Nord" "Outre-mers" "Portugal" ///
+		"Suisse" "États-Unis" {
+		display "`inoroutofinterest' `countryofinterest'"
+		loss_function `inoroutofinterest' `"`countryofinterest'"'
+		append using "$hamburggit/Results/Yearly loss measure.dta"
+		save "$hamburggit/Results/Yearly loss measure.dta", replace
 	}
+}
 
 
 

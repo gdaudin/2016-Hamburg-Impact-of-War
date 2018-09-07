@@ -74,23 +74,24 @@ preserve
 drop if year<1740
 
 local maxvalue 1
-generate warb=`maxvalue' if year >=1740 & year <=1744
-generate war1=`maxvalue' if year >=1744 & year <=1748
-generate war2=`maxvalue' if year >=1756 & year <=1763
-generate war3=`maxvalue' if year >=1778 & year <=1783
-generate war4=`maxvalue' if year >=1793 & year <=1802
-generate war5=`maxvalue' if year >=1803 & year <=1815
+generate warb		=`maxvalue' if year >=1740 & year <=1744
+generate war1		=`maxvalue' if year >=1744 & year <=1748
+generate war2		=`maxvalue' if year >=1756 & year <=1763
+generate war3		=`maxvalue' if year >=1778 & year <=1783
+generate war4		=`maxvalue' if year >=1793 & year <=1802
+generate war5    	=`maxvalue' if year >=1803 & year <=1807
+generate blockade	=`maxvalue' if year >=1807 & year <=1815
 
 replace weight_france = 1-weight_france
 
 graph twoway ///
 			 (area warb year, color(gs14)) ///
 			 (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
-			 (area war3 year, color(gs9)) (area war4 year, color(gs4)) ///
-			 (area war5 year, color(gs4))  ///
+			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
+			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
 			 (connected weight_france year if year>1739, ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-			 msize(vsmall) legend(order(7 "Measure of colonial empire")) ///
+			 msize(vsmall) legend(order(8 "Share of lost colonial empire")) ///
 			 xlabel(1740(20)1820) xscale(ra(1740 1820)) )
 			 
 graph export "$hamburggit/Paper - Impact of War/Paper/colony_loss.png", as(png) replace

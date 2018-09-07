@@ -154,7 +154,7 @@ save "$hamburg/database_dta/UKfederico_tena.dta", replace
 ------------------------------------------------------------------------------*/
 
 if "`c(username)'" =="guillaumedaudin" {
-use "$hamburg/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta", clear
+use "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta", clear
 }
 
 if "`c(username)'" =="Tirindelli"{
@@ -177,7 +177,6 @@ drop if year>1840
 
 
 collapse (sum) valueFR_silver value, by (year exportsimports ///
-				simplification_classification classification_country_wars ///
 				grouping_classification FR_silver)
 
 fillin grouping_classification exportsimports year
@@ -227,15 +226,16 @@ generate war1=`maxvalue' if year >=1744 & year <=1748
 generate war2=`maxvalue' if year >=1756 & year <=1763
 generate war3=`maxvalue' if year >=1778 & year <=1783
 generate war4=`maxvalue' if year >=1793 & year <=1802
-generate war5=`maxvalue' if year >=1803 & year <=1815
+generate war5=`maxvalue' if year >=1803 & year <=1807
+generate blockade=`maxvalue' if year >=1807 & year <=1815
 
 sort year
 
 graph twoway (area wara year, color(gs14)) ///
 			 (area warb year, color(gs14)) ///
 			 (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
-			 (area war3 year, color(gs9)) (area war4 year, color(gs4)) ///
-			 (area war5 year, color(gs4))  ///
+			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
+			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
 			 (connected log10_valueFR_silver year, lcolor(blue) ///
 			 msize(tiny) mcolor(blue) ) ///
 			 (line log10_valueST_silverEN year, lcolor(black)) ///
@@ -247,7 +247,7 @@ graph twoway (area wara year, color(gs14)) ///
 
 			 
 *graph save "$hamburggit/Paper/Total silver trade FR GB.png", replace
-graph export "$hamburggit/Impact of War/Paper/Total silver trade FR GB.png", as(png) replace			 
+graph export "$hamburggit/Paper - Impact of War/Paper/Total silver trade FR GB.png", as(png) replace			 
 	
 save "$hamburg/database_dta/Total silver trade FR GB.dta", replace
 

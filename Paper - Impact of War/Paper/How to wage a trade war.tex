@@ -144,7 +144,7 @@ The data that have survived is containe in different kinds of documents.
 The two most exhaustive ones contain trade by product and per partner. They were the \textit{Objet Général}, between 1754 and 1780, 1782 and 1788. Some years are missing, especially in the the period between 1761 and 1767, and the \textit{Résumé}, between 1787 and 1789 and between 1797 and 1821.
 The \textit{Objet Général }includes the value of the flows and, from 1771, it includes also quantities and / or unit prices.
 The \textit{Résumé} does not include quantities, only valued. The classification of goods it uses is less precise than the one from the \textit{Objet Général}.
-Local trade data are available from 1716 to 1780 and in 1789. These sometimes allow partial reconstruction of total French trade (see \ref{limitations}).
+Local trade data are available from 1716 to 1780 and in 1789. These sometimes allow partial reconstruction of total French trade (see \ref{composition}).
 Very importantly for the first part of the analysis, a \textit{Tableau Général} exists in the French archives that provides French bilateral trade (though it is not broken down by product) (\cite{romano1957documenti}). \\
 Our sources provide the value of trade in the current French currency. This is the \textit{livre tournois} up to 1795 and the \textit{franc} afterward. The value of the \textit{livre} was fluctuating in the early eighteenth century. In 1726, its value was fixed at a value of 4.505 grams of fine silver \citep{de_wailly_memoire_1857}. Because of the monetary crisis during the revolution, we use data extracted from published appreciation tables to fix the value of the \textit{livre} at 2.9 grams of silver in 1792 (\cite{hoffman_priceless_2000}) . The French franc contained 4.5 grams of fine silver. We convert most trade flows in fine silver ; obviously, this does not solve the inflation issue, but inflation in terms of silver was relatively limited during that period.
 
@@ -167,31 +167,6 @@ Still, minor flows were also directed to Milan, Naples, Venice, Tuscany, Papal S
 We have not attempted to take into account the extensive territorial re-arrangements during the Revolutionary and Napoleonic Wars.
 The extension of France in the Low Countries, Germany and Italy changed the actual extent of the \textit{Allemagne} and \textit{Italie} partner.
 
-\iffalse
-\subsection{Limitation and Missing data -- irrelevant for now}  \label{limitations}
-
-
-The same issue arises with products.
-There are up to 8,129 different  products recorded (in 1789); some of them are extremely specific, like sugar or wood, and other are recorded as together with other products, like fruit or textile.
-To make those data usable, we have, once more, grouped them in categories and sectors, using the SITC classification \footnote{All this has been done in the context of the TOFLIT18 project by  L. Charles and G. Daudin: http://toflit18.medialab.sciences-po.fr//\#/about}.  \\
-Values in the dataset are expressed in \textit{livres turnois} and French francs, but we convert them in grams of fine silver to have a comparable estimate year to year.
-
-
-As mentioned above, data on flows of products are missing for certain periods, i.e. in 1753, between 1763 and 1767, and between 1789 and 1797.
-For these periods, the only available data are either the yearly aggregate figures by destination, or incomplete local sources (only until 1780), that contain information on each product.
-For this reason, in order to perform the comparison between the two datasets and the subsequent analysis, it is necessary to estimate the full value of exports from the available data.
-In order to do this, we run the following regression, that is miming one import/export index:
-\begin{center}
-$\ln(product_{i,j,k,t})=\beta_{0,i} + \beta_{1,i}year_{t,i}+\beta_{3,i}direction_{k,i}$
-\end{center}
-where the dependent variable \textit{products} stands for the value of exports of one product (\textit{i}), for each country (\textit{j}), for each port (\textit{k}) reported in the local source and for each year (\textit{t}).
-\textit{Year} is a set of year dummies and \textit{direction} is also a set of dummies that indicates in which port the data were recorded (direction also includes "France", meaning all ports).
-This model aims at predicting the export value of single products per year basing on the yearly changes in export and on the export composition by source, with the assumption that the composition is constant overtime.
-We run the model on the whole available years but we only do so for coffee, sugar, wine, eau-de-vie and an aggregate category of all other goods (other).
-In addition, to avoid the problem of log of zero trade flows, we have substituted them with 0.001, so that observations would not drop but the zero flows in the estimation could be taken into account as a value really close to zero.
-Finally, we also added weights on value, as to give more importance to flows higher in value.
-The results are pretty satisfactory, in fact the pattern of estimated and actual value are very similar.
-\fi
 
 \section{Historical summary} \label{historical_summary}
 As mentioned above, the eighteenth century was a period of "eternal war".
@@ -296,7 +271,7 @@ Figure \ref{Number of protagonists} sums up the data by showing the number of Fr
 \caption{Number of protagonists}
 \label{Number_of_protagonists}
 \centering
-\includegraphics[scale=.51]{Number of protagonists.pdf}
+\includegraphics[scale=1]{"Number of protagonists".pdf}
 \end{figure}
 \end{center}
 
@@ -416,7 +391,11 @@ Figure \ref{colony_loss} shows the evolution of the colony loss measure.
 \end{center}
 
 
-Again, the link with the trade loss measure is not obvious. It works well for the Revolutionnary \& Napoleonic Wars: a large part of the empire was gradually lost in that period. But the loss of the Seven Years War were minimal (Canada was not an important trade partner for France) and do not seem to justify the larger trade loss during that period.\\
+Again, the link with the trade loss measure is not obvious. It works well for the Revolutionnary \& Napoleonic Wars: a large part of the empire was gradually lost in that period. But the colonial loss of the Seven Years War were minimal (Canada was not an important trade partner for France) and do not seem to justify the larger trade loss during that period.
+It is interesting to remark that in 1814, the Restauration was keen to re-create the colonial system from the late eighteenth century.
+This included the re-establishment of the \textit{Exclusif} and reconquest of St-Domingue or the establishment of some substitute colony (\cite{todd2011french}).
+In a secret clause of the 1814 peace treaty, Great-Britain pledged not to hinder the re-instauration of French sovereignty on St-Domingue (\cite{schefer1907france}).
+That seems hardly compatible with the idea that the loss of colonies was a necessary nail in the coffin of French trade.
 \subsubsection{Neutral policy}
 While trying to destroy foe's shipping, the way the Neutrals were treated was important as the merchants from belligerent countries used a number of devices to "hide" their cargo as neutral cargo and continue trade (see \citep{carriere1973negociants}, \cite{schnakenbourg2013guerre}).
 During war, enemy cargo could be seized. But the crux of the matter was the definition of "enemy cargo". It obviously included merchandises transported by enemy ships, so one would use neutral ships.
@@ -479,7 +458,7 @@ There are two additional arguments to present.
 Figure \ref{Number_of_protagonists} shows that there is a polarization of French trade partners duning the Revolutionary \& Napoleonic Wars.
 War engulfed the whole of Europe and the only remaining neutrals trading region during the Napoleonic period was the \textit{Levant}.
 It could hardly play a role by in sustaining French trade.
-Figure \ref{loss_by_war_status_XI} is constructed by computing the mean country-specific trade loss function by trading zone. The trade loss function has been computed based on all preceding peace periods.
+Figure \ref{loss_by_war_status_XI} is constructed by computing the mean country-specific trade loss function by war status. The trade loss function has been computed based on all preceding peace periods.
 We have both a trade-weighted measure and a non-trade weighted measure.
 \textit{Empereur} after 1794 had to be excluded, as the territorial change was too large (trade was mainly with current Belgium before 1794 and mainly with Austria after 1794).
 \textit{Hollande} after 1814 had to be excluded as well as it included current day Belgium from 1815.
@@ -500,7 +479,35 @@ Both  Figure \ref{Number_of_protagonists} and Figure \ref{loss_by_war_status_XI}
 To go further and understand the reason behind this behaviour, we need to look into the changing goods structure of trade during the wars.
 
 
-\section{Changing composition of trade}
+\section{Changing composition of trade}  \label{composition}
+
+
+
+\iffalse
+\subsection{Limitation and Missing data -- irrelevant for now}  \label{limitations}
+
+
+The same issue arises with products.
+There are up to 8,129 different  products recorded (in 1789); some of them are extremely specific, like sugar or wood, and other are recorded as together with other products, like fruit or textile.
+To make those data usable, we have, once more, grouped them in categories and sectors, using the SITC classification \footnote{All this has been done in the context of the TOFLIT18 project by  L. Charles and G. Daudin: http://toflit18.medialab.sciences-po.fr//\#/about}.  \\
+Values in the dataset are expressed in \textit{livres turnois} and French francs, but we convert them in grams of fine silver to have a comparable estimate year to year.
+
+
+As mentioned above, data on flows of products are missing for certain periods, i.e. in 1753, between 1763 and 1767, and between 1789 and 1797.
+For these periods, the only available data are either the yearly aggregate figures by destination, or incomplete local sources (only until 1780), that contain information on each product.
+For this reason, in order to perform the comparison between the two datasets and the subsequent analysis, it is necessary to estimate the full value of exports from the available data.
+In order to do this, we run the following regression, that is miming one import/export index:
+\begin{center}
+$\ln(product_{i,j,k,t})=\beta_{0,i} + \beta_{1,i}year_{t,i}+\beta_{3,i}direction_{k,i}$
+\end{center}
+where the dependent variable \textit{products} stands for the value of exports of one product (\textit{i}), for each country (\textit{j}), for each port (\textit{k}) reported in the local source and for each year (\textit{t}).
+\textit{Year} is a set of year dummies and \textit{direction} is also a set of dummies that indicates in which port the data were recorded (direction also includes "France", meaning all ports).
+This model aims at predicting the export value of single products per year basing on the yearly changes in export and on the export composition by source, with the assumption that the composition is constant overtime.
+We run the model on the whole available years but we only do so for coffee, sugar, wine, eau-de-vie and an aggregate category of all other goods (other).
+In addition, to avoid the problem of log of zero trade flows, we have substituted them with 0.001, so that observations would not drop but the zero flows in the estimation could be taken into account as a value really close to zero.
+Finally, we also added weights on value, as to give more importance to flows higher in value.
+The results are pretty satisfactory, in fact the pattern of estimated and actual value are very similar.
+\fi
 
 
 \iffalse
