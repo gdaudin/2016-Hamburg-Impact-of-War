@@ -188,7 +188,8 @@ graph twoway 	(area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 				,plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 				legend(order (13 14) label(13 "Using all past peace periods for the peace trend") ///
 				label(14 "Using the preceeding peace period for the peace trend") rows(2)) ///
-				ytitle("Mean loss by war or peace period") yline(0, lwidth(medium) lcolor(grey))
+				ytitle("Mean loss by war or peace period") yline(0, lwidth(medium) lcolor(grey)) ///
+				ylabel(-0.2 (0.2) 1)
 
 graph export "$hamburggit/Paper - Impact of War/Paper/Mean_loss_function.png", as(png) replace
 
