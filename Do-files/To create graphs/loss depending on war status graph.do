@@ -36,15 +36,18 @@ replace war_nbr_pays=. if war==0
 
 
 twoway (bar war_nbr_pays year, cmissing(n)) if war_status=="neutral", ///
-		yscale(range(0 8)) ytitle("Number of neutral countries or regions") name(neutral, replace)
+		yscale(range(0 8)) ytitle("Number of neutral countries or regions") ///
+		name(neutral, replace) plotregion(fcolor(white)) graphregion(fcolor(white))
 
 twoway (bar war_nbr_pays year, cmissing(n)) if war_status=="ally", ///
-		yscale(range(0 8)) ytitle("Number of allied countries or regions") name(ally, replace)
+		yscale(range(0 8)) ytitle("Number of allied countries or regions") ///
+		name(ally, replace) plotregion(fcolor(white)) graphregion(fcolor(white))
 		
 twoway (bar war_nbr_pays year, cmissing(n)) if war_status=="foe", ///
-		yscale(range(0 8)) ytitle("Number of ennemy countries or regions") name(foe, replace)
+		yscale(range(0 8)) ytitle("Number of ennemy countries or regions") ///
+		name(foe, replace) plotregion(fcolor(white)) graphregion(fcolor(white))
 
-graph combine (neutral ally foe), ycommon
+graph combine (neutral ally foe), ycommon plotregion(fcolor(white)) graphregion(fcolor(white))
 graph export "$hamburggit/Results/Loss graphs/by war_status/Number of protagonists.pdf", replace
 graph export "$hamburggit/Paper - Impact of War/Paper/Number of protagonists.pdf", replace
 
@@ -106,19 +109,28 @@ foreach loop_war_status in colonies foe ally neutral {
 		if "`loop_importsexports'" =="XI" local title1 "Total trade with "
 
 
-		graph twoway (line average_mean_loss year, cmissing(n) lcolor(blue)) (line weighted_mean_loss year, cmissing(n) lcolor(blue%10))  ///
+		graph twoway (line average_mean_loss year, cmissing(n) lcolor(blue)) ///
+			(line weighted_mean_loss year, cmissing(n) lcolor(blue%10))  ///
 			if war_status=="`loop_war_status'" & exportsimports=="`loop_importsexports'", ///
 			yline(0, lwidth(medium) lcolor(grey)) ///
 			legend(order (1 2) label(1 "average loss over the period") label(2 "idem, weighted") row(2)) ///
-			title("`title1'`title2'") name("`loop_war_status'_`loop_importsexports'", replace)
+			title("`title1'`title2'") name("`loop_war_status'_`loop_importsexports'", replace) ///
+			plotregion(fcolor(white)) graphregion(fcolor(white))
 	}
 }
 		
-graph combine neutral_XI ally_XI foe_XI colonies_XI, ycommon name(XI, replace)
+graph 	combine neutral_XI ally_XI foe_XI colonies_XI, ycommon name(XI, replace) ///
+		plotregion(fcolor(white)) graphregion(fcolor(white))
 graph export "$hamburggit/Results/Loss graphs/by war_status/XI.pdf", replace
 graph export "$hamburggit/Paper - Impact of War/Paper/loss_by_war_status_XI.pdf", replace
-graph combine neutral_Imports ally_Imports foe_Imports colonies_Imports, ycommon name(Imports, replace)
+
+graph 	combine neutral_Imports ally_Imports foe_Imports colonies_Imports, ///
+		ycommon name(Imports, replace) ///
+		plotregion(fcolor(white)) graphregion(fcolor(white))
+		
 graph export "$hamburggit/Results/Loss graphs/by war_status/Imports.pdf", replace
-graph combine neutral_Exports ally_Exports foe_Exports colonies_Exports, ycommon name(Exports, replace)
+graph 	combine neutral_Exports ally_Exports foe_Exports colonies_Exports, ///
+		ycommon name(Exports, replace) ///
+		plotregion(fcolor(white)) graphregion(fcolor(white))
 graph export "$hamburggit/Results/Loss graphs/by war_status/Exports.pdf", replace
 			
