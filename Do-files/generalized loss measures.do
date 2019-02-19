@@ -216,7 +216,7 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war5 year, color(gs4)) ///
 			 (connected loss_war year, cmissing(n) lcolor(black) mcolor(black) msize(vsmall)) ///
 			 (connected loss_war_nomemory year, cmissing(n) lcolor(red) mcolor(red) msize(vsmall)) ///
-			 , ///
+			 plotregion(fcolor(white)) graphregion(fcolor(white)), ///
 			 legend(order (6 7) label(6 "Difference with all past peace periods trend") label(7 "Difference with preceeding peace period trend") rows(2)) ///
 			 title("`country_of_interest'_`inorout'")
 */
@@ -228,10 +228,10 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area warmin3 year, color(gs9)) (area warmin4 year, color(gs9)) ///
 			 (area warmin5 year, color(gs9)) (area blockademin year, color(gs4)) ///
 			 (connected loss_war year, cmissing(n) lcolor(black) mcolor(black) msize(vsmall)) ///
-			 , ///
+			 plotregion(fcolor(white)) graphregion(fcolor(white)), ///
 			 legend(order (13) label(13 "Difference with all past peace periods trend")) ///
 			 title("`country_of_interest'_`inorout'") ///
-			 yline(0, lwidth(medium) lcolor(grey)) yscale(range(`min' 1)) ///
+			 yline(0, lwidth(medium) lcolor(grey)) yscale(range(`min' 1))
 
 graph export "$hamburggit/Results/Loss graphs/yearlyloss_`country_of_interest'_`inorout'.pdf", replace
 			 
@@ -267,7 +267,8 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area warmin1 year, color(gs9)) (area warmin2 year, color(gs9)) ///
 			 (area warmin3 year, color(gs9)) (area warmin4 year, color(gs9)) ///
 			 (area warmin5 year, color(gs9)) (area blockademin year, color(gs4)) ///
-			 (line mean_loss year), title("`country_of_interest'_`inorout'") ///
+			 (line mean_loss year) plotregion(fcolor(white)) graphregion(fcolor(white)) ///
+			 , title("`country_of_interest'_`inorout'") ///
 			 yline(0, lwidth(medium) lcolor(grey)) yscale(range(`min' 1))
 
 if "`country_of_interest'"!="États-Unis d'Amérique" {	
@@ -305,7 +306,9 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area warmin1 year, color(gs9)) (area warmin2 year, color(gs9)) ///
 			 (area warmin3 year, color(gs9)) (area warmin4 year, color(gs9)) ///
 			 (area warmin5 year, color(gs9)) (area blockademin year, color(gs4)) ///
-			 (line mean_loss year) (line mean_loss_nomemory year), title("`country_of_interest'_`inorout'") ///
+			 (line mean_loss year) (line mean_loss_nomemory year)
+			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
+			 , title("`country_of_interest'_`inorout'") ///
 			 yline(0, lwidth(medium) lcolor(grey)) yscale(range(`min' 1))
 
 			 
@@ -316,7 +319,8 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area warmin1 year, color(gs9)) (area warmin2 year, color(gs9)) ///
 			 (area warmin3 year, color(gs9)) (area warmin4 year, color(gs9)) ///
 			 (area warmin5 year, color(gs9)) (area blockademin year, color(gs4)) ///
-			 (line mean_loss year), title("`country_of_interest'_`inorout'") ///
+			 (line mean_loss year) plotregion(fcolor(white)) graphregion(fcolor(white)) ///
+			 , title("`country_of_interest'_`inorout'") ///
 			 yline(0, lwidth(medium) lcolor(grey)) yscale(range(`min' 1))
 			 
 graph export "$hamburggit/Results/Loss graphs/meanloss_`country_of_interest'_`inorout'.pdf", replace
