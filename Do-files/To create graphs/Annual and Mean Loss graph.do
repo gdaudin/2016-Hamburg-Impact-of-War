@@ -52,7 +52,7 @@ foreach per of num 1/10 {
 
 
 
-
+/*
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
 			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
@@ -70,7 +70,7 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 legend (off) ytitle("Time trends of French trade in tons of silver, log10") xtitle("Year: Mercantilist and R&N wars") 
 
 graph export "$hamburggit/Paper - Impact of War/Paper/Time trends of French trade - with blockade.png", as(png) replace
-
+*/
 
 ************Now to compute the losses
 keep if year >= 1716

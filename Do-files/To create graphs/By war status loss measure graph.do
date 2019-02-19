@@ -121,16 +121,16 @@ foreach loop_war_status in colonies foe ally neutral {
 		
 graph 	combine neutral_XI ally_XI foe_XI colonies_XI, ycommon name(XI, replace) ///
 		plotregion(fcolor(white)) graphregion(fcolor(white))
-graph export "$hamburggit/Results/Loss graphs/by war_status/XI.pdf", replace
+graph export "$hamburggit/Results/Loss graphs/by war_status/Loss_measure_XI.pdf", replace
 graph export "$hamburggit/Paper - Impact of War/Paper/loss_by_war_status_XI.pdf", replace
 
 graph 	combine neutral_Imports ally_Imports foe_Imports colonies_Imports, ///
 		ycommon name(Imports, replace) ///
 		plotregion(fcolor(white)) graphregion(fcolor(white))
 		
-graph export "$hamburggit/Results/Loss graphs/by war_status/Imports.pdf", replace
+graph export "$hamburggit/Results/Loss graphs/by war_status/Loss_measure_Imports.pdf", replace
 graph 	combine neutral_Exports ally_Exports foe_Exports colonies_Exports, ///
 		ycommon name(Exports, replace) ///
 		plotregion(fcolor(white)) graphregion(fcolor(white))
-graph export "$hamburggit/Results/Loss graphs/by war_status/Exports.pdf", replace
+graph export "$hamburggit/Results/Loss graphs/by war_status/Loss_measure_Exports.pdf", replace
 			
