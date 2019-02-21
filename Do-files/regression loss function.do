@@ -30,7 +30,8 @@ use "$hamburggit/Results/`freq' loss measure.dta", clear
 gen peacewar="peace" if strmatch(period_str,"Peace*")==1
 replace peacewar = "war" if peacewar=="" 
 
-drop if grouping_classification=="All" | grouping_classification=="All_ss_outremer"
+
+*drop if grouping_classification=="All" | grouping_classification=="All_ss_outremer"
 if `outremer'==0 drop if grouping_classification=="Outre-mers"
 
 tab grouping_classification
@@ -39,7 +40,7 @@ gen ln_loss = ln(1-loss)
 gen ln_loss_nomemory = ln(1-loss_nomemory)
 
 merge m:1 grouping_classification exportsimports using "$hamburg/database_dta/Share of land trade 1792.dta"
-drop if _merge==2 
+drop if _merge==2 & grouping_classification!="All" & grouping_classification!="All_ss_outremer"
 drop _merge
 
 tab grouping_classification
@@ -111,7 +112,7 @@ foreach var in peacewar country_exportsimports grouping_classification exportsim
 if "`freq'"=="Mean" local weight [fweight=nbr_of_years]
 
 
-reg ln_loss i.war_status_num#peacewar_num ///
+reg ln_loss i.war_status_num#peacewar_num  ///
 		`weight' 
 
 		
@@ -138,6 +139,13 @@ end
 
 *prepar_data 1 R&N Mean
 prepar_data 1 Yearly
+
+
+reg ln_loss i.neutral_policy i.neutral_policy#c.colonies_loss ///
+			i.neutral_policy#c.warships_France_vs_GB ///
+			if country_exportsimports == "All_Exports" 
+	
+restore
 
 /*
 

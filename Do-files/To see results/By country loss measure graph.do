@@ -33,7 +33,7 @@ args inorout country_of_interest
 
 clear
 
- local explained_variable "lnvalue" 
+local explained_variable "lnvalue" 
 
 
 use "$hamburg/database_dta/Best guess FR bilateral trade.dta", clear
@@ -42,18 +42,18 @@ if "`country_of_interest'"!="all" & "`country_of_interest'"!="all_ss_outremer" k
 if "`country_of_interest'"=="all_ss_outremer" drop if grouping_classification=="Outre-mers"
 
 
-
 collapse (sum) valueFR_silver, by(year exportsimports grouping_classification)
 rename valueFR_silver value
 
 
+
 encode grouping_classification, gen(pays)
+
+tab pays
 
 merge m:1 grouping_classification year using "$hamburg/database_dta/WarAndPeace.dta"
 drop if _merge==2
 drop _merge
-
-
 
 
 **Pour les périodes de paix
@@ -68,7 +68,6 @@ if "`inorout'"=="XI" {
 	collapse (sum) value, by(year grouping_classification pays war_status)
 	gen exportsimports="XI"
 }
-
 
 
 keep if exportsimports=="`inorout'"
@@ -219,7 +218,7 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)), ///
 			 legend(order (6 7) label(6 "Difference with all past peace periods trend") label(7 "Difference with preceeding peace period trend") rows(2)) ///
 			 title("`country_of_interest'_`inorout'")
-*/
+
 
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
@@ -227,14 +226,14 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area warmin1 year, color(gs9)) (area warmin2 year, color(gs9)) ///
 			 (area warmin3 year, color(gs9)) (area warmin4 year, color(gs9)) ///
 			 (area warmin5 year, color(gs9)) (area blockademin year, color(gs4)) ///
-			 (connected loss_war year, cmissing(n) lcolor(black) mcolor(black) msize(vsmall)) ///
-			 plotregion(fcolor(white)) graphregion(fcolor(white)), ///
+			 (connected loss_war year, cmissing(n) lcolor(black) mcolor(black) msize(vsmall)), ///
+			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			 legend(order (13) label(13 "Difference with all past peace periods trend")) ///
 			 title("`country_of_interest'_`inorout'") ///
 			 yline(0, lwidth(medium) lcolor(grey)) yscale(range(`min' 1))
 
 graph export "$hamburggit/Results/Loss graphs/yearlyloss_`country_of_interest'_`inorout'.pdf", replace
-			 
+*/		 
 if "`country_of_interest'"!="États-Unis d'Amérique" {			 
 	egen loss_war1=mean(loss_war) if year >=1745 & year <=1748
 	egen loss_peace1=mean(loss_war) if year >=1749 & year <=1755
@@ -260,16 +259,17 @@ if "`country_of_interest'"=="États-Unis d'Amérique" ///
 capture drop loss_war1 loss_war2 loss_war3 loss_war4 ///
 			loss_peace1 loss_peace2 loss_peace3 loss_peace4 ///
 			loss_blockade
-
+/*
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
 			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
 			 (area warmin1 year, color(gs9)) (area warmin2 year, color(gs9)) ///
 			 (area warmin3 year, color(gs9)) (area warmin4 year, color(gs9)) ///
 			 (area warmin5 year, color(gs9)) (area blockademin year, color(gs4)) ///
-			 (line mean_loss year) plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-			 , title("`country_of_interest'_`inorout'") ///
+			 (line mean_loss year), plotregion(fcolor(white)) graphregion(fcolor(white)) ///
+			 title("`country_of_interest'_`inorout'") ///
 			 yline(0, lwidth(medium) lcolor(grey)) yscale(range(`min' 1))
+*/
 
 if "`country_of_interest'"!="États-Unis d'Amérique" {	
 	egen loss_war_nomemory1=mean(loss_war_nomemory) if year >=1745 & year <=1748
@@ -297,7 +297,7 @@ if "`country_of_interest'"=="États-Unis d'Amérique" ///
 capture drop loss_war_nomemory1 loss_war_nomemory2 loss_war_nomemory3 loss_war_nomemory4 ///
 		loss_peace_nomemory1 loss_peace_nomemory2 loss_peace_nomemory3 loss_peace_nomemory4 ///
 		loss_blockade_nomemory
-
+/*
 graph twoway (area mean_loss_nomemory year), title("`country_of_interest'_`inorout'")
 
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
@@ -306,9 +306,9 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area warmin1 year, color(gs9)) (area warmin2 year, color(gs9)) ///
 			 (area warmin3 year, color(gs9)) (area warmin4 year, color(gs9)) ///
 			 (area warmin5 year, color(gs9)) (area blockademin year, color(gs4)) ///
-			 (line mean_loss year) (line mean_loss_nomemory year)
+			 (line mean_loss year) (line mean_loss_nomemory year), ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-			 , title("`country_of_interest'_`inorout'") ///
+			 title("`country_of_interest'_`inorout'") ///
 			 yline(0, lwidth(medium) lcolor(grey)) yscale(range(`min' 1))
 
 			 
@@ -319,12 +319,12 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area warmin1 year, color(gs9)) (area warmin2 year, color(gs9)) ///
 			 (area warmin3 year, color(gs9)) (area warmin4 year, color(gs9)) ///
 			 (area warmin5 year, color(gs9)) (area blockademin year, color(gs4)) ///
-			 (line mean_loss year) plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-			 , title("`country_of_interest'_`inorout'") ///
+			 (line mean_loss year), plotregion(fcolor(white)) graphregion(fcolor(white)) ///
+			 title("`country_of_interest'_`inorout'") ///
 			 yline(0, lwidth(medium) lcolor(grey)) yscale(range(`min' 1))
 			 
 graph export "$hamburggit/Results/Loss graphs/meanloss_`country_of_interest'_`inorout'.pdf", replace
-
+*/
 rename loss_war loss
 rename loss_war_nomemory loss_nomemory
 
@@ -340,7 +340,7 @@ end
 *set graphic off
 
 local i 0
-/*
+
 foreach inoroutofinterest in Imports Exports XI {
 	foreach countryofinterest in all all_ss_outremer {
 		loss_function  `inoroutofinterest' `countryofinterest'
@@ -352,8 +352,7 @@ foreach inoroutofinterest in Imports Exports XI {
 	}
 }
 
-
-	*/	
+	
 use "$hamburg/database_dta/Best guess FR bilateral trade.dta", clear
 
 
@@ -364,10 +363,15 @@ foreach inoroutofinterest in Imports Exports XI {
 		"Suisse"  {
 		display "`inoroutofinterest' `countryofinterest'"
 		loss_function `inoroutofinterest' `"`countryofinterest'"'
-		append using "$hamburggit/Results/Yearly loss measure.dta"
+		append using "$hamburggit/Results/Yearly loss measure.dta" 
 		save "$hamburggit/Results/Yearly loss measure.dta", replace
 	}
 }
+
+drop pays
+sort grouping_classification
+encode grouping_classification, gen(pays)
+save "$hamburggit/Results/Yearly loss measure.dta", replace
 
 
 

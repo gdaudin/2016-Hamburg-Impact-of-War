@@ -48,7 +48,7 @@ save "$hamburg/database_dta/Share of land trade 1792.dta", replace
 
 use "$hamburg/database_dta/warships.dta", clear
 bys war_status year : keep if _n==1
-drop grouping_classification warships
+drop pays_grouping warships
 
 reshape wide side_warships, i(year) j(war_status) string
 
