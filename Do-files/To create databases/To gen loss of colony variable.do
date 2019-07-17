@@ -82,7 +82,7 @@ generate war4		=`maxvalue' if year >=1793 & year <=1802
 generate war5    	=`maxvalue' if year >=1803 & year <=1807
 generate blockade	=`maxvalue' if year >=1807 & year <=1815
 
-replace weight_france = 1-weight_france
+replace weight_france = weight_france
 
 graph twoway ///
 			 (area warb year, color(gs14)) ///
@@ -91,7 +91,7 @@ graph twoway ///
 			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
 			 (connected weight_france year if year>1739, ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-			 msize(vsmall) legend(order(8 "Share of lost colonial empire")) ///
+			 msize(vsmall) legend(order(8 "Share of colonial empire")) ///
 			 xlabel(1740(20)1820) xscale(ra(1740 1820)) )
 			 
 graph export "$hamburggit/Paper - Impact of War/Paper/colony_loss.png", as(png) replace
