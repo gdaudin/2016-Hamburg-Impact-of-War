@@ -292,20 +292,6 @@ Figure \ref{Number_of_protagonists} sums up the data by showing the number of Fr
 \section{Empirical Analysis} \label{analysis}
 The aim of this study is to uncover the effects of the long-lasting war status that marked the eighteenth century and to identify the drivers of the massive loss in trade associated to some of these conflicts. \\ 
 
-\iffalse
-%TREND-STATIONARITY VS DIFFERENCE- STATIONARITY
-As a first step we check whether this statement is true, i.e. whether the losses at the end of the century were actually greater than those at the beginning.
-In order to do this, we test for the stationarity of the series.
-If a series is trend-stationary, after suffering a shock it goes back to its pre-shock level.
-On the other hand, if it is different-stationary, it has a unit root and there is no convergence, if a shock happens.
-We have tested our series for the presence of a unit root using the augmented Dickey-Fuller test.
-For the overall series we reject the presence of a unit root, which implies that we have convergence.
-If we test the series by breaking it up into the pre and post 1793 period (Napoleonic Wars), however, we obtain quite a different picture.
-For the pre 1793 period, we reject again the null hypothesis of a unit root at any level of confidence and we reconfirm stationarity.
-On the other hand, running once more the test for the post 1793 period, shows that we cannot reject the null hypothesis of a unit root, which means the series no longer converges back to its pre-shock levels.
-This test shows that after the Napoleonic wars, there was a change in the effects of shocks (wars, in this case) on trade.
-We now aim to uncover the reason for such change.
-\fi
 
 %We construct a loss measure for trade throughout the century and we find that indeed the main losses took place during Seven Years War and Revolutionary Wars.
 
@@ -353,16 +339,6 @@ In an analogous way we have computed the loss function for UK trade (figures \re
 \end{center}
 
 \subsection{Explanatory variables}
-
-\iffalse
-We want to test the hypothesis that the most efficient strategy to curtail enemy's trade was to cut its commercial relations with neutral countries.
-In order to do this, we run the following specification: 
-\begin{equation*}
-Loss = \beta_0 + \beta_1NavalSupremacy+ \beta_2ColonyLoss+ \beta_3NeutralRegulation
-\end{equation*}
-We use the loss function as a dependent variable, transformed from percentage to absolute value and then take the logs. \\
-As explanatory variables we introduce several factors.
-\fi
 
 With basically four observations, as we observe four wars, one cannot hope to uncover robust statistical relationships. Still, we can check the coherence of usual explanations for the disruptions of French trade.
 \subsubsection{Naval supremacy}
@@ -504,281 +480,50 @@ To go further and understand the reason behind this behaviour, we need to look i
 
 \section{Econometric analysis}  \label{economtrics}
 Before moving on to look into composition of trade we want to quantify the effects observed so far. This is not an easy task because the number of observations is limited - we only have 12 countries for 65 years in the best case - which does not leave us enough degrees of freedom to run any properly specified regression including all the variables. We have therefore opted for running a regression for each single variable of interest. We have done so for the total loss function, for the loss function broken down for neutral allies and foes and for the loss function disaggregated by country \footnote{In all those cases we have clustered the standard error by periods}. \\
-We start by regressing the loss function on our index of colonial power and controlling for peace and war period. Table \ref{reg1} shows the results. 
+We start by regressing the loss function on our index of colonial power and controlling for peace and war period. Table \ref{effects_colonial_power} shows the results. 
 \begin{figure}
 \centering
 \caption{Effects of colonial power}
-\label{reg1}
+\label{effects_colonial_power}
 \includegraphics[scale=.65]{reg1}
 \end{figure} 
-Colonial power has indeed an effect on trade loss, which is negative and strongly significant, which is to say the more of its colonies were under French control, the least is the loss in trade. The war per-se does not appear to be significantly causing disruptions, neither is the combined effects of war and colonial power (both insignificant). \\
-Doing the same for naval supremacy (Table \ref{reg2}) we see that in this case, none of the coefficients is significant, suggesting that there is direct link between lost trade and the number of ships of French and its allies and Britain and its allies. \\
+Colonial power has indeed a negative and strongly significant effect on trade loss, which is to say the more of its colonies were under French control, the least is the loss in trade. The war per-se does not appear to be significantly causing disruptions, neither is the combined effects of war and colonial power (both insignificant). \\
+Doing the same for naval supremacy (Table \ref{effects_naval_supremacy}) we see that in this case, none of the coefficients is significant, suggesting that there is no direct link between lost trade and the number of French ships and its allies and Britain and its allies. \\
 \begin{figure}
 \centering
 \caption{Effects of naval supremacy}
-\label{reg2}
+\label{effects_naval_supremacy}
 \includegraphics[scale=.6]{reg2}
 \end{figure}
-Finally, we repeat the same exercise for the effects of neutral policy (table \ref{reg3}). In this case all the coefficients are significant, with the exception of the interaction between war and neutral policy, and positive (i.e. it increases loss). It is interesting to see that the coefficient of neutral policy is higher than that for war (a simple t-test on their difference yields a p-value of 0.003). 
+Finally, we repeat the same exercise for the effects of neutral policy (table \ref{effects_neutral_policy}). In this case all the coefficients are significant, with the exception of the interaction between war and neutral policy, and positive (i.e. they increase loss). It is interesting to see that the coefficient of neutral policy is higher than that for war (a simple t-test on their difference yields a p-value of 0.003). I CANNOT DO IT LIKE THIS, THEY HAVE TO BE STANDARDIZED. \\
 \begin{figure}
 \centering
 \caption{Effects of neutral policy}
-\label{reg3}
+\label{effects_neutral_policy}
 \includegraphics[scale=.65]{reg3}
 \end{figure}
-I also run a regression on all the three coefficients together, distinguishing for war and peace in two different regressions, however I am not able to cluster the standard error in this case, because of lack of degrees of freedom. What we observe here is that in peace time, colonial power in time of no tough policy towards neutral countries, is very beneficial for trade (the loss is highly negative), however in war times, this coefficient losses significance and the only "driver" of the loss function is the neutral policy variable. This leads us to think that colonial power was crucial in peacetime for the flourishing of French trade, but was not enough of a shield during conflicts, if neutral trade was also targeted. 
+We also run a regression on all the three coefficients together (Table \ref{effects_together}), distinguishing for war and peace in two different regressions, however we are not able to cluster the standard error in this case, because of lack of degrees of freedom. We observe here that, in time of no tough policy towards neutral countries, colonial power is very beneficial for trade (the loss is highly negative), however in war times, this coefficient loses significance and the only "driver" of the loss function is the neutral policy variable. This leads us to think that colonial power was crucial in peacetime for the flourishing of French trade, but was not enough of a shield during conflicts, if neutral trade was also targeted. 
 \begin{figure}
 \centering
 \caption{All effects together}
-\label{reg4}
+\label{effects_together}
 \includegraphics[scale=.8]{reg4}
 \end{figure}
-
-Next, I go on to analysing the effects distinguishing by war status. The idea is to try to disentangle the loss due to lost neutral trade, caused by stricter policies. In this case we gain some degrees of freedom by disaggregating the total by neutral foes and allies, but we add a dummy for  war status, and one interaction with neutral policy, so the overall degrees of freedom gain is limited. 
+Next, I go on to analysing the effects distinguishing by war status (Table \ref{effects_together_warstatus_peace} and \ref{effects_together_warstatus_war}). The idea is to try to disentangle the loss due to lost neutral trade, caused by stricter policies. In this case we gain some degrees of freedom by disaggregating the total by neutral foes and allies, but we add a dummy for  war status, and one interaction with neutral policy, so the overall degrees of freedom gain is limited. The two regressions overall do not change the picture much with respect to the results seen so far. All of the explanatory variables are significant and in the expected direction both for the peace and the war period. It is interesting to notice, again, that while they are all significant for the peace period period, only neutral policy is for the war period. This reconfirms what we had already seen in the previous analysis, i.e. that in war period the major source of trade disruption was due to crippling neutral trade. 
 \begin{figure}
 \centering
 \caption{All effects together with war status - Peace}
-\label{reg5}
+\label{effects_together_warstatus_peace}
 \includegraphics[scale=.55]{reg5}
 \end{figure}
 \begin{figure}
 \centering
 \caption{All effects together with war status - War}
-\label{reg6}
+\label{effects_together_warstatus_war}
 \includegraphics[scale=.55]{reg6}
 \end{figure}
 
 \section{Changing composition of trade}  \label{composition}
-
-
-
-\iffalse
-\subsection{Limitation and Missing data -- irrelevant for now}  \label{limitations}
-
-
-The same issue arises with products.
-There are up to 8,129 different  products recorded (in 1789); some of them are extremely specific, like sugar or wood, and other are recorded as together with other products, like fruit or textile.
-To make those data usable, we have, once more, grouped them in categories and sectors, using the SITC classification \footnote{All this has been done in the context of the TOFLIT18 project by  L. Charles and G. Daudin: http://toflit18.medialab.sciences-po.fr//\#/about}.  \\
-Values in the dataset are expressed in \textit{livres turnois} and French francs, but we convert them in grams of fine silver to have a comparable estimate year to year.
-
-
-As mentioned above, data on flows of products are missing for certain periods, i.e. in 1753, between 1763 and 1767, and between 1789 and 1797.
-For these periods, the only available data are either the yearly aggregate figures by destination, or incomplete local sources (only until 1780), that contain information on each product.
-For this reason, in order to perform the comparison between the two datasets and the subsequent analysis, it is necessary to estimate the full value of exports from the available data.
-In order to do this, we run the following regression, that is miming one import/export index:
-\begin{center}
-$\ln(product_{i,j,k,t})=\beta_{0,i} + \beta_{1,i}year_{t,i}+\beta_{3,i}direction_{k,i}$
-\end{center}
-where the dependent variable \textit{products} stands for the value of exports of one product (\textit{i}), for each country (\textit{j}), for each port (\textit{k}) reported in the local source and for each year (\textit{t}).
-\textit{Year} is a set of year dummies and \textit{direction} is also a set of dummies that indicates in which port the data were recorded (direction also includes "France", meaning all ports).
-This model aims at predicting the export value of single products per year basing on the yearly changes in export and on the export composition by source, with the assumption that the composition is constant overtime.
-We run the model on the whole available years but we only do so for coffee, sugar, wine, eau-de-vie and an aggregate category of all other goods (other).
-In addition, to avoid the problem of log of zero trade flows, we have substituted them with 0.001, so that observations would not drop but the zero flows in the estimation could be taken into account as a value really close to zero.
-Finally, we also added weights on value, as to give more importance to flows higher in value.
-The results are pretty satisfactory, in fact the pattern of estimated and actual value are very similar.
-\fi
-
-
-
-
-
-
-
-\iffalse
-The unique database we are using allows us to do so in more details than it has been done so far.
-In fact, we are not only doing it for aggregate trade for all countries but also distinguishing between neutral and foes and looking at a breakdown by products and sectors. \\
-The first distinction is because we aim at uncovering the weight of neutral trade on global commerce in the eighteenth century.
-The role of neutral has long been discussed and we aim to contribute to this debate.
-The second is to observe variations in impact across products and sectors.
-Products were traded from and to very different places, and it is legitimate to believe they might have been impacted differently.
-For this reason we want to observe the effect of conflicts on specific products as well.\\
-This latter task, however, was not an easy one.
-The number of reported products is quite high and mostly they do not appear repeatedly (They either have different names or they are grouped together with different products).
-For this reason we have chosen to use only the two main European products (Wine and Eau-de-vie) and the two main colonial products (Coffee and Sugar), which also represent the main share of French trade at the time, in value terms.
-We have aggregated all the other products in one single category which we refer to as "Other".
-As for the sectoral study, things were a bit easier, as we were able to classify all the products using the SITC classification.\\
-Instead of looking at each war, one by one, we have made a distinction between the following two types of war: Mercantilist Wars (between 1744 and 1808) and Blockade Wars (from 1808 to 1820).
-The former differs from the latter in that the political settings in second half of the eighteenth century were altered as a consequence of the French Revolution.
-Therefore, we decided to make a distinction between wars before 1808, which were rather driven by economic interest, and the Continental Blockade, which, on the other hand, had more of a political goal.
-%TECHNOLOGICAL CHANGE BEFORE AND AFTER BLOCKADE
-Also, in that same period, an improvement in the British blockade strategy took place.
-There were essentially two possible types of blockades \citep{rainerdevelopment}; the open and the closed blockade.
-The former consisted of keeping the ships at port, but ready to sail, as soon as the enemy fleet left its harbour.
-This technique was much less straining for men and ships, but less efficient when it came to blockading.
-On the other hand, the closed blockade consisted of keeping the rival fleet blocked in its own port, impeding it from exiting.
-This was much more of an efficient technique, however, the maintenance of both ships and men at sea for such a long time was a substantial issue.
-By the end of eighteenth century, the British had implemented a very efficient system of resupply, in which supply ships delivered victuals to the fleet at sea, thus allowing it not to return at port regularly for supplies.
-Also, they were being very careful to provide a balanced diet against scurvy, which passed from being a major issue for sails-men, to accounting for only 2 per cent of British naval patients between 1795 and 1800.
-\citep{rodger2005command}.
-On top of this, British had started to coat their ships with copper, to fight the issue of barnacles, oysters and the shipworm, which were seriously hindering the speed and the security of their vessels.
-This dramatically reduced the possibility of avoid the blockade and allowed British to impede unwanted trade more efficiently.
-Finally, we are more interested in the impact of wars in general, rather than each single war of the eighteenth century.
-In the robustness section of this paper we also use two other possible classifications.
-We do so both for imports and exports, running the following specifications: 
-\begin{multline}\label{eq:1}
-Flow_{t}=\exp\{\beta_0+\beta_1Status_jWar_k + \beta_2WarYearStatus_jWar_k+\beta_3Country_l +\beta_4YearCountry_l\}
-\end{multline}
-Where $Status_j$ is a dummy which indicates either foe or neutral, $War_k$ is another dummy which takes value 1 during the years of war, or is an indicator for which kind of war is taking place, $Year$ is the time trend and $Country_l$ and $YearCountry_l$ are respectively country fixed effects and year time trend.
-This first specification provides information on the effects of war, or groups of war, depending on the situation of the country at stake (neutral of foes).
-\begin{multline}\label{eq:2}
-Flow_{t}=\exp\{\beta_0+\beta_1Status_jWar_k + \beta_2WarYearStatus_jWar_k+\beta_3Country_lProduct_i +\\ +\beta_4YearCountry_lProduct_i\}
-\end{multline}
-Equation \ref{eq:2} differs from equation \ref{eq:1} in that we have run on the database disaggregated by product and we have used country-product fixed effects and country-product time trend instead.
-\begin{multline}\label{eq:3}
-Flow_{t}=\exp\{\beta_0+\beta_1Status_jWar_k + \beta_2Country_lProduct_i+\beta_3YearCountry_lProduct_i\}
-\end{multline}
-Specification \ref{eq:3} allows us to look at effects of each group of war on the trade with allies and foes, by using product fixed effects and country-product time trend.
-\begin{multline}\label{eq:4}
-Flow_{t}=\exp\{\beta_0+\beta_1Product_iWar_k + \beta_2WarYearProduct_iWar_k+\beta_3Product_i +\\ +\beta_4YearProduct_i\}
-\end{multline}
-In equation \ref{eq:4} we are testing again the effects of kind of wars on products but by using product fixed effects and time trend, as opposed to country-product fixed effects and trends.
-\begin{multline}\label{eq:5}
-Flow_{t}=\exp\{\beta_0+\beta_1Product_iWar_k + \beta_2WarYearProduct_iWar_k+\beta_3Country_lProduct_i +\\ +\beta_4YearCountry_lProduct_i\}
-\end{multline}
-In this fifth specification $WarYearProduct$ is the time trend computed only over the war years and $War_k$ is interacted with $Product_i$, so we can observe the effect of the different kind of conflicts on the specific products.
-\begin{multline}\label{eq:6}
-Flow_{t}=\exp\{\beta_0+\beta_1Product_iWar_k + \beta_2Product_iCountry_l+\beta_3YearCountry_lProduct_i\}
-\end{multline}
-Finally, equation \ref{eq:6} provides an insight for the effects of groups of wars on specific products. \\
-We start by using exports as explained variable and the five goods as \textit{products} (coffee, sugar, wine, eau-de-vie and others), in all the above mentioned six specifications.
-Later we will repeat the analysis using imports and sectors.
-Table \ref{table:export_class_war} reports the result of the first case where we have used a dummy just for peace or war, with no distinction on the kind of conflict.
-\begin{table}
-\begin{center}
-\caption {Exports, Mercantilist Wars and Continental Blockade} 
-\label{table:export_class_block}
-\renewcommand{\arraystretch}{0.6}
-\input{reg_choc_diff_poisson_hamburg_Blockade_Exports_noweight_1_1_edit}
-\end{center}
-\end{table}
-\begin{table}
-\begin{center}
-\caption {Imports, Mercantilist Wars and Continental Blockade} 
-\label{table:import_class_block}
-\renewcommand{\arraystretch}{0.6}
-\input{reg_choc_diff_poisson_hamburg_Blockade_XI_noweight_1_1_edit}
-\end{center}
-\end{table}
-The six regressions in table \ref{table:export_class_block} report the results.
-For this set of analysis we have split the conflicts again in two groups, but this time distinguishing between any war (1717-1787) and Continental Blockade (from 1808).
-In this setting we notice a difference with respect to the pattern seen before.
-Adversaries see a decrease in trade only according to specification \ref{eq:1} and \ref{eq:2} but not to specification \ref{eq:3}, however, neutral during the Blockade years, experience a very substantial decrease in trade.
-This would suggest that, whereas wartime was mostly damaging for trade towards enemies, the continental Blockade period, during which overall French trade lost to British, had damaged neutral countries, rather than Britain, which was the original target.
-It is quite likely, therefore, that before the Blockade had taken place, war did not represent such a danger for merchants, who were able to continue their trade through other channels, i.e. "neutral cargo" policy.
-On the other had, during Continental Blockade years, which were meant to damage British trade, regulation on neutral cargo had become much stricter, and this is where we observe a collapse in trade with neutral countries and a massive decrease in overall trade.
-As a consequence, we are prone to avail \cite{riley_seven_1986}'s theory on the small effects of wars on commerce, at least until the twentieth century, thanks to the ability of merchants to exploit neutral ships and workaround of wartime restrictions.\\
-We repeat now all the three different analysis above on imports and we report them in tables \ref{table:import_class_war} to \ref{table:import_class_block}.
-From table \ref{table:import_class_war} we observe a very similar pattern with respect to the previous analysis.
-Wars in general are disruptive for trade towards foes, however there is no coherent evidence that neutral and allies were strongly affected at all.
-By looking at table \ref{table:import_class_merc} we observe, again, that imports from foes were strongly affected by Revolutionary and Napoleonic conflicts.
-Differently from before, there is a negative effect for allies, which was not the case for exports, and also a mild but significant impact for neutral countries during Mercantilist wars.
-Product-wise the situation is again similar, as we observe strong decrease in import of sugar but again an increase in import of eau-de-vie.
-As for table \ref{table:import_class_block}, once more it is evident the massive effect of the blockade on neutral trade.
-Not only exports but also imports from neutral countries were seriously damaged by the Blockade, way less so than imports from enemies.
-This goes once more in the direction of explaining the fall in trade of aggregate trade in the first half of the nineteenth century in France. \\
-
-
-%The figures below give a more visual picture of the trend of the different products.
-As for wine and eau-de-vie, war do not seem to have a great impact on their trend.
-As for coffee and sugar, on the other hand, wars seem to be diminishing trade, however, given the big fluctuations all throughout, we cannot for sure distinguish between the effects of conflicts and the very variable pattern of trade.
-%\begin{figure}[H]
-%\begin{center}
-%\includegraphics[scale=.25]{class1_trend}
-%\hfil 
-%\includegraphics[scale=.25]{class3_trend}
-%\vspace*{.7em}
-%\includegraphics[scale=.25]{class2_trend}
-%\hfil 
-%\includegraphics[scale=.25]{class4_trend}
-%\end{center}
-%\end{figure}
-
-\fi
-
-
-\iffalse
-\subsection{War lags}
-In line with this reasoning, we turned next to analyse and compare war lags in the Hamburg case and general case.
-we run two regressions with and without product differentiation and for all wars together and a dummy for each war: 
-\begin{multline}
-\ln(exports_{i,t})=\beta_0+\beta_1country_i+\beta_2country_iyear+\beta_3adversaries_i+\beta_4neutral_i+\\+\beta_5adversary_ilag+\beta_6neutral_ilag+\beta_8allies_ilag
-\end{multline}
-\begin{multline}
-\ln(exports_{i,t})=\beta_0+\beta_1country_i+\beta_2country_iyear+\beta_3product_{i,j}+\beta_4product_jyear+\\+\beta_5product_jadversary+ \beta_6product_jneutral+\beta_7product_jadversary_ilag+\beta_8neutral_ilag+\beta_9allies_ilag
-\end{multline}
-
-Results are quite in line with those seen in the Hamburg series.
-There is no post war negative coefficient, but on the contrary, trade increases by 40\% and 47\% in the first and second year after the war.
-Starting from the third year this effect decreases and coefficients are still positive but smaller. \\
-Product-wise there is evidence of positive post war effects for all the products but in particular European products increase stably for the first four years after the war.
-War by war, we notice an interesting pattern after Seven Years War; exports of European goods increases as for the general case, but here we see that trade of sugar as well expands right after the war (+62\%).
-This is quite an interesting result given that sugar was, with coffee, the product which suffered the most during this conflict.
-In sum, we can say that, as for the case of Hamburg, there is no clear evidence of war lags, for sure not 10 years lag as claimed by Glick and Taylor (2005).
-Trade was extremely adaptive to conflicts in eighteenth century and neutral countries did not seem to suffer strong consequences.
-we have also run the regression checking for pre war effects.
-Results are positive but very small in size for the general case, except for the case of allies countries, which has larger and more significant coefficients.
-The war-by-war case (considered all in one regression) is also not very meaningful; coefficients for Seven Years War are negative whereas those for American Revolutionary War are positive.
-In terms of difference between products, the results are again not very interesting.
-There is no stable pattern for pre war effect, except for coffee, which always shows an increase for all the four years preceding the war.
-However this might be just due to the increasing trend shown by coffee, disregarding the effects of wars.
-Overall, for neutral countries the compensation effect is more likely as a post war phenomenon rather than a pre war one, again as noted for the case of Hamburg.
-\fi
-
-\iffalse
-\section{Robustness}
-We have re-run our analysis using two other possible grouping of wars.
-First considering all wars together (i.e. one dummy that takes value 1 whenever there is an ongoing conflict) and then by  Mercantilist wars (Polish and Austrian Succession, Seven Years War, American Revolutionary war) and Napoleonic and Revolutionary wars.
-Table \ref{table:export_class_war} reports the result of the first case where we have used a dummy just for peace or war, with no distinction on the kind of conflict.
-\begin{table}
-\begin{center}
-\caption {Exports, for all wars together} 
-\label{table:export_class_war}
-\renewcommand{\arraystretch}{0.6}
-\input{reg_choc_diff_poisson_hamburg_War_Exports_noweight_1_1_edit}
-\end{center}
-\end{table}
-From table \ref{table:export_class_war}, where we only consider wars interacted with war status and products, we can observe that the only consistently significant effect is the negative impact of war on trade with adversary countries.
-For specifications \ref{eq:1} to \ref{eq:3} we can see a significant negative impact on the trade of France with foes.
-On the other hand, if we look at the breakdown by product, in equations \ref{eq:4} to \ref{eq:6}, we observe that none of them is hit particularly by wars.
-This would suggest that, despite the disruptive effects of conflicts on trade with enemies, the commercial exchange with allies and in particular with neutral could compensate for this loss.\\
-Table \ref{table:export_class_merc} reports results for the six specifications run distinguishing between Mercantilist wars, i.e. wars between 1733 and 1782, and Napoleonic and Revolutionary Wars, from 1797 onwards.
-Once more, we observe that across the three different specifications, there is no coherent effects of war on exports.
-In fact, even if we observe a negative and significant effect for specifications \ref{eq:1} and \ref{eq:2} of Mercantilist Wars on exports to allies, this effect becomes small and insignificant in specification \ref{eq:3}, just by disregarding war-years time trends.
-The only coefficient which is robust to all three specification is, again, effects of conflicts on trade with foes, more specifically in the case of Revolutionary and Mercantilist Wars.
-This suggests that the effects of wars observed in table \ref{table:export_class_war} is probably driven by the fall in commerce during Napoleonic Wars.
-Results for the effects on single products also yields further insights with respect to the previous table.
-First of all we observe that coffee is subject to a massive decrease during Revolutionary and  Napoleonic Wars, regardless of the specification at stake.
-On the other hand, wine and eau-de-vie see an increase in export during this second conflict.
-This would actually suggests that war, in general, was not a major source of disruption in trade, for sure not Mercantilist War, and that decrease in exports was mostly due to decrease in the export of certain goods, whereas other goods, in war-time, actually experienced an increase in trade.\\
-We repeat now all the two different analysis above on imports and we report them in tables \ref{table:import_class_war} and \ref{table:import_class_merc}.
-From table \ref{table:import_class_war} we observe a very similar pattern with respect to the previous analysis.
-Wars in general are disruptive for trade towards foes, however there is no coherent evidence that neutral and allies were strongly affected at all.
-By looking at table \ref{table:import_class_merc} we observe, again, that imports from foes were strongly affected by Revolutionary and Napoleonic conflicts.
-Differently from before, there is a negative effect for allies, which was not the case for exports, and also a mild but significant impact for neutral countries during Mercantilist wars.
-This goes once more in the direction of explaining the fall in trade of aggregate trade in the first half of the nineteenth century in France.
-\begin{table}
-\begin{center}
-\caption {Exports, distinguishing between Mercantilist War and Napoleonic and Revolutionary Wars} \label{table:export_class_merc}
-\renewcommand{\arraystretch}{0.6}
-\input{reg_choc_diff_poisson_hamburg_R&N_Exports_noweight_1_1_edit}
-\end{center}
-\end{table}
-\begin{table}
-\begin{center}
-\caption {Imports, for all wars together} 
-\label{table:import_class_war}
-\renewcommand{\arraystretch}{0.6}
-\input{reg_choc_diff_poisson_hamburg_War_XI_noweight_1_1_edit}
-\end{center}
-\end{table}
-\begin{table}
-\begin{center}
-\caption {Imports, distinguishing between Mercantilist War and Napoleonic and Revolutionary Wars} \label{table:import_class_merc}
-\renewcommand{\arraystretch}{0.6}
-\input{reg_choc_diff_poisson_hamburg_R&N_XI_noweight_1_1_edit}
-\end{center}
-\end{table}
-\fi
 
 \section{Conclusion} \label{conclusion}
 In this paper we have analysed the effects of different conflicts on French trade in the eighteenth century.
