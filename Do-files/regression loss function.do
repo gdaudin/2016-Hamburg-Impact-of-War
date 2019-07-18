@@ -200,18 +200,26 @@ reg ln_loss i.neutral_policy i.peacewar_num i.neutral_policy#i.peacewar_num ///
 eststo reg1: reg ln_loss i.neutral_policy i.neutral_policy#c.colonial_power colonial_power ///
 			i.neutral_policy#c.warships_allyandneutral_vs_foe ///
 			warships_allyandneutral_vs_foe if country_exportsimports == "All_XI" ///
-			& peacewar=="peace",  robust 			
+			& peacewar=="peace",  nocons robust 			
 eststo reg2: reg ln_loss i.neutral_policy i.neutral_policy#c.colonial_power colonial_power ///
 			i.neutral_policy#c.warships_allyandneutral_vs_foe ///
 			warships_allyandneutral_vs_foe if country_exportsimports == "All_XI" ///
-			& peacewar=="war",  robust 
+			& peacewar=="war", nocons robust 
 esttab 	reg1 reg2, drop(0.*) mtitles(Peace War) varlab(1.neutral_policy "Neutral policy" ///
 		1.neutral_policy#c.colonial_power "Neutral#Colonial" colonial_power "Colonial power" ///
 		1.neutral_policy#c.warships_allyandneutral_vs_foe "Neutral#Warship" ///
 		warships_allyandneutral_vs_foe "Warship")
 eststo clear
 	
-
+reg ln_loss i.neutral_policy i.war_status_num war_status_num#i.neutral_policy ///
+	i.neutral_policy#c.colonial_power colonial_power  ///
+	c.warships_allyandneutral_vs_foe#i.neutral_policy warships_allyandneutral_vs_foe ///
+	if peacewar=="peace" & exportsimports == "XI", robust nocons
+	
+reg ln_loss i.neutral_policy i.war_status_num war_status_num#i.neutral_policy ///
+	i.neutral_policy#c.colonial_power colonial_power  ///
+	c.warships_allyandneutral_vs_foe#i.neutral_policy warships_allyandneutral_vs_foe ///
+	if peacewar=="war" & exportsimports == "XI", robust nocons
 			
 preserve 
 bys weighted_mean_loss average_mean_loss weighted_loss average_loss year ///
