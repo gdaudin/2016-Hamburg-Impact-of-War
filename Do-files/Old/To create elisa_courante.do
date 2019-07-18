@@ -106,7 +106,7 @@ replace sitc18_en="Textile manuf" if sitc18_en=="Linen threads and fabrics" ///
 	| sitc18_en=="Other threads and fabrics" 	
 
 collapse (sum) value, by(sourcetype year direction ///
-	grouping_classification exportsimports simplification_classification ///
+	grouping_classification exportsimports product_simplification ///
 	hamburg_classification sitc18_en)
 
 merge m:1 year using "$hamburg/database_dta/FR_silver.dta"
@@ -133,7 +133,7 @@ replace direction="total" if direction=="" & (sourcetype =="Objet Général" | s
 preserve
 keep if year==1750
 assert sourcetype=="National par direction"
-collapse (sum) value, by(year grouping_classification hamburg_classification exportsimports simplification_classification sitc18_en)
+collapse (sum) value, by(year grouping_classification hamburg_classification exportsimports product_simplification sitc18_en)
 gen direction="total"
 save blif.dta, replace
 
@@ -146,7 +146,7 @@ erase blif.dta
 **et National par direction(-) d'autre part
 preserve
 keep if year==1788 & sourcetype=="Objet Général" & grouping_classification=="Outre-mers" & exportsimports=="Imports"
-collapse (sum) value, by(year grouping_classification hamburg_classification exportsimports simplification_classification sitc18_en)
+collapse (sum) value, by(year grouping_classification hamburg_classification exportsimports product_simplification sitc18_en)
 gen direction="total"
 save blif.dta, replace
 
