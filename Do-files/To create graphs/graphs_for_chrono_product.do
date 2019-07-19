@@ -88,10 +88,10 @@ if "`prod_typo'" == "sitc" local prod_var sitc18_en
 /*
 drop if year<1752
 drop if year==1766 & hamburg_classification=="Sugar"
-drop if grouping_classification=="France"
-drop if grouping_classification=="Indes"
-drop if grouping_classification=="Espagne-Portugal"
-drop if grouping_classification=="Nord-Hollande"
+drop if country_grouping=="France"
+drop if country_grouping=="Indes"
+drop if country_grouping=="Espagne-Portugal"
+drop if country_grouping=="Nord-Hollande"
 */
 
 local obs_num=_N+1

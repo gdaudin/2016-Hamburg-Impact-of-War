@@ -21,26 +21,26 @@ if "`c(username)'" =="Tirindelli" {
 ********************************************************************************
 use "$hamburg/database_dta/elisa_bdd_courante", replace
 
-*codebook value if grouping_classification=="Afrique" & exportsimports=="Imports" & hamburg_classification=="Coffee"
+*codebook value if country_grouping=="Afrique" & exportsimports=="Imports" & hamburg_classification=="Coffee"
 
 
 *****keep only sources where I have both national and direction data
 
-*codebook value if grouping_classification=="Afrique" & exportsimports=="Imports" & hamburg_classification=="Coffee"
+*codebook value if country_grouping=="Afrique" & exportsimports=="Imports" & hamburg_classification=="Coffee"
 
 
 
 
-collapse (sum) value, by(sourcetype year direction grouping_classification ///
+collapse (sum) value, by(sourcetype year direction country_grouping ///
 		hamburg_classification exportsimports)
 
 ****drop pays if there are too few obs
-bys grouping_classification direction: drop if _N<=2
-*codebook value if grouping_classification=="Afrique" & exportsimports=="Imports" & hamburg_classification=="Coffee"
+bys country_grouping direction: drop if _N<=2
+*codebook value if country_grouping=="Afrique" & exportsimports=="Imports" & hamburg_classification=="Coffee"
  
 *****drop direction that appear only once
 bys exportsimports direction: drop if _N==1
-*codebook value if grouping_classification=="Afrique" & exportsimports=="Imports" & hamburg_classification=="Coffee"
+*codebook value if country_grouping=="Afrique" & exportsimports=="Imports" & hamburg_classification=="Coffee"
 
 *Drop direction if 6 years or less
 
@@ -66,11 +66,11 @@ su value if value!=0
 local min_value=r(min)
 gen value_for_log=value
 
-*codebook value if grouping_classification=="Afrique" & exportsimports=="Imports" & hamburg_classification=="Coffee"
+*codebook value if country_grouping=="Afrique" & exportsimports=="Imports" & hamburg_classification=="Coffee"
 
 preserve
 keep if sourcetype!="National par direction (-)"
-fillin exportsimport year grouping_classification direction hamburg_classification
+fillin exportsimport year country_grouping direction hamburg_classification
 bysort year direction exportsimports: egen test_year=total(value), missing
 replace value_for_log=`min_value'/100 if test_year!=. & value==. 
 replace value=. if value==0 & test_year==.
@@ -80,7 +80,7 @@ restore
 
 
 keep if sourcetype=="National par direction (-)"
-fillin exportsimport year grouping_classification direction hamburg_classification
+fillin exportsimport year country_grouping direction hamburg_classification
 bysort year pays exportsimports: egen test_year=total(value), missing
 replace value_for_log=`min_value'/100 if test_year!=. & value==. 
 replace value=. if value==0 & test_year==.
@@ -90,12 +90,12 @@ append using blif.dta
 erase blif.dta
 
 
-duplicates drop year direction exportsimports grouping_classification hamburg_classification, force
-*keep year direction exportsimports grouping_classification hamburg_classification value
+duplicates drop year direction exportsimports country_grouping hamburg_classification, force
+*keep year direction exportsimports country_grouping hamburg_classification value
 
 replace sourcetype = "imputed" if _fillin==1 & value !=.
 
-replace value =. if grouping_classification=="États-Unis d'Amérique" & year <=1778
+replace value =. if country_grouping=="États-Unis d'Amérique" & year <=1778
 
 save fortest.dta, replace
 
@@ -120,7 +120,7 @@ replace weight = min(1,weight) /* Pour enlever les valeurs trop élevées */
 
 
 encode direction, gen(dir)
-encode grouping_classification, gen(pays)
+encode country_grouping, gen(pays)
 label define order 1 Coffee 2 "Eau de vie" 3 Sugar 4 Wine 5 Other
 encode hamburg_classification, gen(class) label(order)
 
@@ -157,7 +157,7 @@ foreach ciao in `exportsimports'{
 
 
 levelsof pays, local(levels) 	/*levelsof is just in case we add more pays 
-								to grouping_classification and I do 
+								to country_grouping and I do 
 								not update this do_file, not important
 								`: word count `levels''*/
 
@@ -242,7 +242,7 @@ drop if year>1786
 su pred_value
 replace pred_value=0 if pred_value==r(min)
 
-collapse (sum) pred_value, by(year exportsimports grouping_classification hamburg_classification)
+collapse (sum) pred_value, by(year exportsimports country_grouping hamburg_classification)
 
 save "$hamburg/database_dta/product_estimation", replace
 

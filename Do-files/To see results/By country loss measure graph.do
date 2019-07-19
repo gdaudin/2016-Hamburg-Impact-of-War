@@ -38,20 +38,20 @@ local explained_variable "lnvalue"
 
 use "$hamburg/database_dta/Best guess FR bilateral trade.dta", clear
 
-if "`country_of_interest'"!="all" & "`country_of_interest'"!="all_ss_outremer" keep if ustrpos("`country_of_interest'",grouping_classification)!=0
-if "`country_of_interest'"=="all_ss_outremer" drop if grouping_classification=="Outre-mers"
+if "`country_of_interest'"!="all" & "`country_of_interest'"!="all_ss_outremer" keep if ustrpos("`country_of_interest'",country_grouping)!=0
+if "`country_of_interest'"=="all_ss_outremer" drop if country_grouping=="Outre-mers"
 
 
-collapse (sum) valueFR_silver, by(year exportsimports grouping_classification)
+collapse (sum) valueFR_silver, by(year exportsimports country_grouping)
 rename valueFR_silver value
 
 
 
-encode grouping_classification, gen(pays)
+encode country_grouping, gen(pays)
 
 tab pays
 
-merge m:1 grouping_classification year using "$hamburg/database_dta/WarAndPeace.dta"
+merge m:1 country_grouping year using "$hamburg/database_dta/WarAndPeace.dta"
 drop if _merge==2
 drop _merge
 
@@ -65,7 +65,7 @@ drop _merge
 
 if "`inorout'"=="XI" {
 	order exportsimports value
-	collapse (sum) value, by(year grouping_classification pays war_status)
+	collapse (sum) value, by(year country_grouping pays war_status)
 	gen exportsimports="XI"
 }
 
@@ -103,21 +103,21 @@ generate war4		=`maxvalue' if year >=1793 & year <=1802
 generate war5		=`maxvalue' if year >=1803 & year <=1807
 generate blockade	=`maxvalue' if year >=1807 & year <=1815
 
-drop if grouping_classification=="Flandre et autres états de l'Empereur" & year >= 1795
-drop if grouping_classification=="Hollande" & year >= 1815
+drop if country_grouping=="Flandre et autres états de l'Empereur" & year >= 1795
+drop if country_grouping=="Hollande" & year >= 1815
 
 *********Fin préparation des données
 
 
-order value grouping_classification pays war_status
+order value country_grouping pays war_status
 if "`country_of_interest'"=="all"  {
 	collapse (sum) value, by(year-war5 blockade)
-	gen grouping_classification ="All"
+	gen country_grouping ="All"
 }
 
 if "`country_of_interest'"=="all_ss_outremer"  {
 	collapse (sum) value, by(year-war5 blockade)
-	gen grouping_classification ="All_ss_outremer"
+	gen country_grouping ="All_ss_outremer"
 }
 
 
@@ -369,14 +369,14 @@ foreach inoroutofinterest in Imports Exports XI {
 }
 
 drop pays
-sort grouping_classification
-encode grouping_classification, gen(pays)
+sort country_grouping
+encode country_grouping, gen(pays)
 save "$hamburggit/Results/Yearly loss measure.dta", replace
 
 
 
 collapse (mean) mean_loss mean_loss_nomemory (mean) value (count) year, ///
-					by(grouping_classification period_str period exportsimports war_status)
+					by(country_grouping period_str period exportsimports war_status)
 rename year nbr_of_years
 save "$hamburggit/Results/Mean loss measure.dta", replace			
 
@@ -387,11 +387,11 @@ set graphic on
 				
 
 loss_function R&N XI 1 all
-collapse (mean) loss,by(grouping_classification period_str exportsimports) 
+collapse (mean) loss,by(country_grouping period_str exportsimports) 
 save "$hamburggit/Results/Loss measure.dta", replace
 
 loss_function R&N XI 0 all
-collapse (mean) loss,by(grouping_classification period_str exportsimports) 
+collapse (mean) loss,by(country_grouping period_str exportsimports) 
 gen outremer = 0
 append using "$hamburggit/Results/Loss measure.dta"
 save "$hamburggit/Results/Loss measure.dta", replace
@@ -406,7 +406,7 @@ foreach countryofinterest in Allemagne Angleterre Espagne "Flandre et autres ét
 			"Hollande" "Italie" "Levant et Barbarie" "Nord" "Outre-mers" "Portugal" ///
 			"Suisse" "États-Unis d'Amérique" {
 			loss_function R&N XI 1 `countryofinterest'
-			collapse (mean) loss,by(grouping_classification period_str exportsimports war_status)
+			collapse (mean) loss,by(country_grouping period_str exportsimports war_status)
 			generate break_of_interest ="`interet'"
 
 		}
@@ -414,7 +414,7 @@ foreach countryofinterest in Allemagne Angleterre Espagne "Flandre et autres ét
 -----------------
 Pour illustrer pourquoi il ne faut pas utiliser "loss_nomemory"
 use "$hamburg/database_dta/Best guess FR bilateral trade.dta", clear
-twoway (line value year) if grouping_classification=="Portugal" & exportsimports=="Imports"
+twoway (line value year) if country_grouping=="Portugal" & exportsimports=="Imports"
 C'est parce que le commerce avec le Portugal baisse en 1792 par rapport aux années précédentes.
 ----------------------
 

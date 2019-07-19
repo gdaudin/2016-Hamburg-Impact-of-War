@@ -31,21 +31,21 @@ gen peacewar="peace" if strmatch(period_str,"Peace*")==1
 replace peacewar = "war" if peacewar=="" 
 
 
-*drop if grouping_classification=="All" | grouping_classification=="All_ss_outremer"
-if `outremer'==0 drop if grouping_classification=="Outre-mers"
+*drop if country_grouping=="All" | country_grouping=="All_ss_outremer"
+if `outremer'==0 drop if country_grouping=="Outre-mers"
 
-tab grouping_classification
+tab country_grouping
 
 *****ln_loss ranges from -infinty to +infinity, that's why we take loss. 
 *****We add a minus in fron for coeherence (we have talked about loss function all the way)
 gen ln_loss = -ln(1-loss)
 gen ln_loss_nomemory = -ln(1-loss_nomemory)
 
-merge m:1 grouping_classification exportsimports using "$hamburg/database_dta/Share of land trade 1792.dta"
-drop if _merge==2 & grouping_classification!="All" & grouping_classification!="All_ss_outremer"
+merge m:1 country_grouping exportsimports using "$hamburg/database_dta/Share of land trade 1792.dta"
+drop if _merge==2 & country_grouping!="All" & country_grouping!="All_ss_outremer"
 drop _merge
 
-tab grouping_classification
+tab country_grouping
 
 
 if "`freq'"=="Mean" {
@@ -100,36 +100,36 @@ if "`freq'"=="Yearly" {
 
 
 
-gen country_exportsimports = grouping_classification+"_"+exportsimports
+gen country_exportsimports = country_grouping+"_"+exportsimports
 
-foreach var in peacewar country_exportsimports grouping_classification exportsimports war_status {
+foreach var in peacewar country_exportsimports country_grouping exportsimports war_status {
 
 	encode `var', gen(`var'_num)
 
 }
 
-gen colonies= (grouping_classification=="Outre-mers")
+gen colonies= (country_grouping=="Outre-mers")
 bys year exportsimports war_status : gen nbr_pays=_N if ///
-	grouping_classification!="All" & grouping_classification!="All_ss_outremer"
+	country_grouping!="All" & country_grouping!="All_ss_outremer"
 
-egen tot_trade = sum(value) if grouping_classification!="All" & ///
-	 grouping_classification!="All_ss_outremer",by(year exportsimports war_status)
+egen tot_trade = sum(value) if country_grouping!="All" & ///
+	 country_grouping!="All_ss_outremer",by(year exportsimports war_status)
 gen trade_share = value/tot_trade
  
 gen trade_share_x_loss=trade_share*loss
 gen trade_share_x_mean_loss=trade_share*mean_loss
 
-egen weighted_mean_loss =sum(trade_share_x_mean_loss) if grouping_classification!="All" & ///
-	 grouping_classification!="All_ss_outremer", by(year exportsimports war_status nbr_pays)
-egen average_mean_loss  =mean(mean_loss) if grouping_classification!="All" & ///
-	 grouping_classification!="All_ss_outremer", by(year exportsimports war_status nbr_pays)
+egen weighted_mean_loss =sum(trade_share_x_mean_loss) if country_grouping!="All" & ///
+	 country_grouping!="All_ss_outremer", by(year exportsimports war_status nbr_pays)
+egen average_mean_loss  =mean(mean_loss) if country_grouping!="All" & ///
+	 country_grouping!="All_ss_outremer", by(year exportsimports war_status nbr_pays)
 codebook mean_loss average_mean_loss
 
 
-egen weighted_loss =sum(trade_share_x_loss) if grouping_classification!="All" & ///
-	 grouping_classification!="All_ss_outremer", by(year exportsimports war_status nbr_pays)
-egen average_loss  =mean(loss) if grouping_classification!="All" & ///
-	 grouping_classification!="All_ss_outremer", by(year exportsimports war_status nbr_pays)
+egen weighted_loss =sum(trade_share_x_loss) if country_grouping!="All" & ///
+	 country_grouping!="All_ss_outremer", by(year exportsimports war_status nbr_pays)
+egen average_loss  =mean(loss) if country_grouping!="All" & ///
+	 country_grouping!="All_ss_outremer", by(year exportsimports war_status nbr_pays)
 	 
 replace neutral_policy=1 if neutral_policy==2	 
 

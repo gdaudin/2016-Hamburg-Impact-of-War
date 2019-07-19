@@ -19,11 +19,11 @@ if "`c(username)'" =="Tirindelli" {
 
 
 use "$hamburggit/Results/Yearly loss measure.dta", clear
-drop if grouping_classification=="All" | grouping_classification=="All_ss_outremer"
+drop if country_grouping=="All" | country_grouping=="All_ss_outremer"
 
 
 
-replace war_status="colonies" if grouping_classification=="Outre-mers"
+replace war_status="colonies" if country_grouping=="Outre-mers"
 bys year exportsimports war_status : gen nbr_pays=_N
 
 

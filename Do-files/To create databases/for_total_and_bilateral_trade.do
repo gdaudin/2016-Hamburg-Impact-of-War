@@ -177,12 +177,12 @@ drop if year>1840
 
 
 collapse (sum) valueFR_silver value, by (year exportsimports ///
-				grouping_classification FR_silver)
+				country_grouping FR_silver)
 
-fillin grouping_classification exportsimports year
-drop if grouping_classification =="États-Unis d'Amérique" & year <=1777
-replace value = 0 if grouping_classification !="États-Unis d'Amérique" & value==.
-replace value=0 if grouping_classification =="États-Unis d'Ambérique" & value==. & year >=1777
+fillin country_grouping exportsimports year
+drop if country_grouping =="États-Unis d'Amérique" & year <=1777
+replace value = 0 if country_grouping !="États-Unis d'Amérique" & value==.
+replace value=0 if country_grouping =="États-Unis d'Ambérique" & value==. & year >=1777
 replace valueFR_silver=0 if value==0
 
 

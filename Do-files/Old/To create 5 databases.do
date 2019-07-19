@@ -51,12 +51,12 @@ foreach i of num 1782/1822{
 drop if sourcetype!="Résumé" & year==`i'
 }
 
-collapse (sum) value, by(year grouping_classification exportsimports)
+collapse (sum) value, by(year country_grouping exportsimports)
 
 save "$hamburg/database_dta/allcountry1", replace
 
-keep if grouping_classification=="Nord"
-drop grouping_classification
+keep if country_grouping=="Nord"
+drop country_grouping
 save "$hamburg/database_dta/hamburg1", replace
 restore
 
@@ -72,20 +72,20 @@ args class_goods
 *exemple integrate_predicted sitc18_en
 use "$hamburg/database_dta/elisa_bdd_courante", replace
 
-collapse (sum) value, by(sourcetype year direction grouping_classification ///
+collapse (sum) value, by(sourcetype year direction country_grouping ///
 		`class_goods' exportsimports)
 
 keep if direction=="total" | (source=="National par direction" & year==1750)
 
 tab sourcetype if year==1750
 
-collapse (sum) value, by(year grouping_classification ///
+collapse (sum) value, by(year country_grouping ///
 		`class_goods' exportsimports)
 
 tab year if value!=.
 
 gen imputed = 0		
-fillin exportsimport year grouping_classification `class_goods'
+fillin exportsimport year country_grouping `class_goods'
 bysort year exportsimports: egen test_year=total(value), missing
 replace imputed = 1 if value==. & test_year!=.
 replace value=0 if value==. & test_year!=.
@@ -97,13 +97,13 @@ tab year if value!=.
 
 *****merge with imputed data 
 
-if "`class_goods'"=="sitc18_en" merge m:1 exportsimports year grouping_classification `class_goods' ///
+if "`class_goods'"=="sitc18_en" merge m:1 exportsimports year country_grouping `class_goods' ///
 using "$hamburg/database_dta/sector_estimation"
 
-if "`class_goods'"=="hamburg_classification" merge m:1 exportsimports year grouping_classification `class_goods' ///
+if "`class_goods'"=="hamburg_classification" merge m:1 exportsimports year country_grouping `class_goods' ///
 using "$hamburg/database_dta/product_estimation"
 
-drop if grouping_classification=="États-Unis d'Amérique" & year <=1777
+drop if country_grouping=="États-Unis d'Amérique" & year <=1777
 
 drop _merge
 
@@ -115,8 +115,8 @@ drop pred_value*
 if "`class_goods'"=="sitc18_en" save "$hamburg/database_dta/allcountry2_sitc", replace
 if "`class_goods'"=="hamburg_classification" save "$hamburg/database_dta/allcountry2", replace
 
-keep if grouping_classification=="Nord" 
-drop grouping_classification 
+keep if country_grouping=="Nord" 
+drop country_grouping 
 save "$hamburg/database_dta/hamburg2", replace
 
 if "`class_goods'"=="sitc18_en" save "$hamburg/database_dta/hamburg2_sitc", replace

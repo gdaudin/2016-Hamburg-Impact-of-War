@@ -36,31 +36,31 @@ keep if year >=1700 & year <1830
 
 
 
-reshape long warships, i(year) j(grouping_classification) string
+reshape long warships, i(year) j(country_grouping) string
 
 
 
-replace grouping_classification="Angleterre" if grouping_classification=="GreatBritain"
-replace grouping_classification="Hollande" if grouping_classification=="Netherlands"
-replace grouping_classification="Espagne" if grouping_classification=="Spain"
-replace grouping_classification="Italie" if grouping_classification=="Venice"
-replace grouping_classification="Levant et Barbarie" if grouping_classification=="OttomanEmpire"
-replace grouping_classification="Russiapourmemoire" if grouping_classification=="Russia"
-replace grouping_classification="Swedenpourmemoire" if grouping_classification=="Sweden"
-replace grouping_classification="Denmarkpourmemoire" if grouping_classification=="Denmark"
+replace country_grouping="Angleterre" if country_grouping=="GreatBritain"
+replace country_grouping="Hollande" if country_grouping=="Netherlands"
+replace country_grouping="Espagne" if country_grouping=="Spain"
+replace country_grouping="Italie" if country_grouping=="Venice"
+replace country_grouping="Levant et Barbarie" if country_grouping=="OttomanEmpire"
+replace country_grouping="Russiapourmemoire" if country_grouping=="Russia"
+replace country_grouping="Swedenpourmemoire" if country_grouping=="Sweden"
+replace country_grouping="Denmarkpourmemoire" if country_grouping=="Denmark"
 
 *replace country="Portugal
 
-collapse (sum) warships, by(year grouping_classification)
+collapse (sum) warships, by(year country_grouping)
 
-merge 1:1 grouping_classification year using "$hamburg/database_dta/WarAndPeace.dta", keep (1 3)
+merge 1:1 country_grouping year using "$hamburg/database_dta/WarAndPeace.dta", keep (1 3)
 drop if year <=1732 | year >=1822
 
 
 drop _merge
 
-replace war_status = "France" if grouping_classification=="France"
-replace war_status = "Angleterre" if grouping_classification=="Angleterre"
+replace war_status = "France" if country_grouping=="France"
+replace war_status = "Angleterre" if country_grouping=="Angleterre"
 egen side_warships=total(warships), by(war_status year)
 
 save "$hamburg/database_dta/warships.dta", replace

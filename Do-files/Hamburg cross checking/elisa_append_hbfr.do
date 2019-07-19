@@ -115,7 +115,7 @@ save "$thesis/database_dta/elisa_hb_preappend.dta", replace
 global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
 use "$thesis/Données Stata/bdd courante.dta", clear
 
-keep if grouping_classification=="Nord"
+keep if country_grouping=="Nord"
 drop if year<1733
 drop if year>1789
 keep if exportsimports=="Exports"
@@ -158,7 +158,7 @@ drop if sourcetype!="Résumé" & year==`i'
 }
 
 
-collapse (sum) value, by(year grouping_classification ///
+collapse (sum) value, by(year country_grouping ///
 hamburg_classification exportsimports)
 
 replace hamburg_classification="Marchandises non classifiées" if hamburg_classification==""

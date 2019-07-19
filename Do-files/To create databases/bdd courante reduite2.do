@@ -1,35 +1,51 @@
-* CREATION D'UNE BASE REDUITE (NE PAS RELANCER (SAUF EN CAS DE PROBLEME AVEC BDD COURANTE REDUITE))
-
-* Ne pas oublier de mettre la base de données utilisée 
-* Dans cette base, on considère que les produits de même dénomination sont les mêmes quelques soient leurs provenance / origine
 
 if "`c(username)'"=="guillaumedaudin" ///
-        use "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta", clear
+		global hamburg "~/Documents/Recherche/2016 Hambourg et Guerre"
+		global hamburggit "~/Documents/Recherche/2016 Hambourg et Guerre/2016-Hamburg-Impact-of-War"
 
 if "`c(username)'" =="Tirindelli" {
-use "/Users/Tirindelli/Google Drive/ETE/Thesis/Données Stata/bdd courante.dta", clear
+	global hamburg "/Users/Tirindelli/Google Drive/ETE/Thesis"
+	global hamburggit "/Users/Tirindelli/Google Drive/ETE/Thesis/Data/do_files/Hamburg"
 }
 
 if "`c(username)'" =="tirindee" {
-use "C:\Users\TIRINDEE\Google Drive/ETE/Thesis/Données Stata/bdd courante.dta", clear
+	global hamburg "C:\Users\tirindee\Google Drive\ETE\Thesis"
+	global hamburggit "C:\Users\TIRINDEE\Google Drive\ETE/Thesis/Data/do_files/Hamburg"
 }
 		
+import delimited "$hamburg/toflit18_data_GIT/base/bdd courante.csv", ///
+	   encoding(UTF-8) clear varname(1) stringcols(_all)		
 
 * Keep only necessary variables
 
-keep year direction exportsimports quantit prix_unitaire product_simplification value quantites_metric quantity_unit_ajustees quantity_unit_ortho u_conv q_conv
-sort product_simplification year
-order product_simplification year prix_unitaire quantit quantity_unit_ajustees u_conv q_conv value direction exportsimports
-label var quantites_metric "Quantities in kg (q_conv)" 
+keep year exportsimports product_simplification value sourcetype ///
+	 product_sitc_en product_sitc_simplen country_grouping country_simplification
+	 
+destring value, replace
+destring year, replace
+replace year=1806 if year==1805.75
 
-*Drop if missing price
-
-drop if prix_unitaire==.
-drop if prix_unitaire==0
 drop if product_simplification=="" | product_simplification=="???"
 drop if value==.
+drop if country_grouping=="????" | country_grouping=="Divers" | country_grouping=="France" | ///
+		country_grouping=="Inconnu" | country_grouping=="Monde"
+		
+*keeping only Objet, Résumé and National toutes directions tous partenaires
+gen commerce_national = 1 if (sourcetype=="Objet Général" & year<=1786) | ///
+	(sourcetype=="Résumé") | sourcetype=="National toutes directions tous partenaires"
+	
+keep if commerce_national==1
+drop commerce_national sourcetype
+
+*save "/Users/Tirindelli/Google Drive/ETE/Thesis/database_dta/bdd courante reduite temp.dta", replace 
  
- 
+merge m:1  year country_grouping using "$hamburg/database_dta/WarAndPeace.dta"
+keep if _merge==3
+drop _merge
+
+save "$hamburg/database_dta/bdd courante reduite2.dta", replace 
+
+/*
  * Essai : ou qui apparaissent moins de 1000 fois dans la base /
  * ou bien on supprime les marchandises dont la valeur totale échangée sur la période est inférieure à 100 000
  * encode product_simplification, gen(product_simplification_num)
@@ -47,26 +63,26 @@ drop if value==.
 
 * On convertit les prix dans leur unité conventionnelle
 	
-generate prix_unitaire_converti=prix_unitaire/q_conv 
-drop if prix_unitaire_converti==.
-label var prix_unitaire_converti "Prix unitaire par marchandise en unité métrique p_conv" 
+*generate prix_unitaire_converti=prix_unitaire/q_conv 
+*drop if prix_unitaire_converti==.
+*label var prix_unitaire_converti "Prix unitaire par marchandise en unité métrique p_conv" 
 
 * Calcul de la moyenne des prix par année en pondérant en fonction des quantités échangées pour un produit.unitée métrique
 
-*drop if quantites_metric==.
-*by year direction exportsimports u_conv product_simplification, sort: egen quantite_echangee=total(quantites_metric)
+*drop if quantities_metric==.
+*by year direction exportsimports u_conv product_simplification, sort: egen quantite_echangee=total(quantities_metric)
 *label var quantite_echangee "Quantités métric par dir expimp u_conv march_simpli"
 
-*generate prix_unitaire_pondere=(quantites_metric/quantite_echangee)*prix_unitaire_converti
+*generate prix_unitaire_pondere=(quantities_metric/quantite_echangee)*prix_unitaire_converti
 *label var prix_unitaire_pondere "Prix de chaque observation en u métrique en % de la quantit échangée totale" 
 
 
-collapse (sum) value quantites_metric,by(year direction exportsimports u_conv product_simplification)
+*collapse (sum) value quantities_metric,by(year direction exportsimports u_conv product_simplification)
 
 * by year direction exportsimports u_conv product_simplification, sort: egen prix_pondere_annuel=total(prix_unitaire_pondere)
 
 
-gen prix_pondere_annuel = value/quantites_metric
+gen prix_pondere_annuel = value/quantities_metric
 label var prix_pondere_annuel "Prix moyen d'une mrchd pour une année, march, dir, expimp, u_conv"
 sort product_simplification year
 
@@ -77,7 +93,7 @@ gen panvar = product_simplification + exportsimports + direction + u_conv
 encode panvar, gen(panvar_num)
 drop if year>1787 & year<1788
 tsset panvar_num year
-
+*/
 * On sauvegarde la base de donnée désormais réduite (A REMPLACER SI ON PREND FINALEMENT LES MARCHANDISES DONT VALEUR > 100 000)
  
 if "`c(username)'"=="maellestricot" save   "/Users/maellestricot/Documents/STATA MAC/bdd courante reduite2.dta", replace

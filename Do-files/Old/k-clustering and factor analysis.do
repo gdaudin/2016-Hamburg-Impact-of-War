@@ -8,7 +8,7 @@ use "$thesis/database_dta/allcountry2_sitc", clear
 
 replace sitc18_en="Raw mat fuel oils" if sitc18_en=="Raw mat; fuel; oils"
 
-encode grouping_classification, gen(pays)
+encode country_grouping, gen(pays)
 encode sitc18_en, gen(sitc)
 
 
