@@ -53,14 +53,14 @@ args period
 	
 	if "`period'"=="post_seven"{
 		replace war=1 if period_str=="War 1756-1763" 
-		replace war=0 if period_str=="Peace 1764-1777"
-		local note "Seven Years War and Peace 1764-1777"
+		replace war=0 if period_str=="Peace 1763-1777"
+		local note "Seven Years War and Peace 1763-1777"
 		}
 	
 	if "`period'"=="pre_revolutionary"{
-		replace war=0 if period_str=="Peace 1764-1777" 
+		replace war=0 if period_str=="Peace 1763-1777" 
 		replace war=1 if period_str=="War 1778-1783" 
-		local note "Peace 1764-1777 and Revolutionary War"
+		local note "Peace 1763-1777 and Revolutionary War"
 		}
 	
 	if "`period'"=="post_revolutionary"{
@@ -90,14 +90,16 @@ args period
 	label value war peacewar
 			 
 	graph 	pie value if exportsimports=="Exports", over(product_sitc_simplen) ///
-			plabel(_all name, size(*0.7) color(white)) ///
-			by(war, legend(off) plotregion(fcolor(white)) graphregion(fcolor(white))) 
+			plabel(_all name, size(*0.7) color(white)) legend(off) ///
+			by(war, legend(off) plotregion(fcolor(white)) graphregion(fcolor(white)) ///
+			note("Exports")) 
 		
 	graph export "$hamburggit/Paper - Impact of War/Paper/`period'_composition_X.pdf", replace
 
 	graph 	pie value if exportsimports=="Imports", over(product_sitc_simplen) ///
 			plabel(_all name, size(*0.7) color(white)) ///
-			by(war, legend(off) plotregion(fcolor(white)) graphregion(fcolor(white))) 
+			by(war, legend(off) plotregion(fcolor(white)) graphregion(fcolor(white)) ///
+			note("Imports")) 
 		
 	graph export "$hamburggit/Paper - Impact of War/Paper/`period'_composition_I.pdf", replace
 
@@ -135,9 +137,10 @@ end
 
 composition_trade_graph peace_war
 composition_trade_graph pre_seven
-
 composition_trade_graph post_seven
 composition_trade_graph pre_revolutionary
 composition_trade_graph post_revolutionary
-composition_trade_graph post_revolutionary
+composition_trade_graph pre_napoleonic
+composition_trade_graph napoleonic_blockade
+composition_trade_graph post_blockade
 
