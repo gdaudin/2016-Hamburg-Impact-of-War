@@ -31,6 +31,7 @@ collapse (sum) value, by(year product_sitc_simplen exportsimports period_str)
 drop if product_sitc_simplen==""
 
 label define peacewar 0 "Peace" 1 "War"
+label define blockwar 0 "Blockade" 1 "War"
 
 ***************pie chart and violin chart for all war periods***************************
 
@@ -84,10 +85,13 @@ args period
 	if "`period'"=="post_blockade"{
 		replace war=1 if period_str=="Blockade 1808-1815" 
 		replace war=0 if period_str=="Peace 1816-1840" 
-		local note "Continental Blockade and Peace 1816-1840"
+		local note "Continental Blockade and Peace 1816-1821"
 		}
 
-	label value war peacewar
+	if "`period'"!="napoleonic_blockade"{ 
+		label value war peacewar
+		}
+	else label value war blockwar
 			 
 	graph 	pie value if exportsimports=="Exports", over(product_sitc_simplen) ///
 			plabel(_all name, size(*0.7) color(white)) legend(off) ///
@@ -125,7 +129,7 @@ args period
 		gsort - sitc_war
 		vioplot ln_percent, over(sitc_war) hor ylabel(,angle(0) labsize(vsmall)) ///
 				plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-				title("`i'") note(`note')
+				title("`i'") note(`note', size(vsmall)) xtitle("Log Percentage share")
 		
 		graph export "$hamburggit/Paper - Impact of War/Paper/`period'_distribution_`name'.pdf", replace
 		restore
@@ -144,3 +148,4 @@ composition_trade_graph pre_napoleonic
 composition_trade_graph napoleonic_blockade
 composition_trade_graph post_blockade
 
+**note of what's on the axis 
