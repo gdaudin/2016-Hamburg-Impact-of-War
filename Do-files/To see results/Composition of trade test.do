@@ -1,4 +1,3 @@
-
 if "`c(username)'"=="guillaumedaudin" ///
 		global hamburg "~/Documents/Recherche/2016 Hambourg et Guerre"
 		global hamburggit "~/Documents/Recherche/2016 Hambourg et Guerre/2016-Hamburg-Impact-of-War"
@@ -30,13 +29,8 @@ drop if product_sitc_simplen == "Precious metals"
 collapse (sum) value, by(year product_sitc_simplen exportsimports period_str)
 drop if product_sitc_simplen==""
 
-label define peacewar 0 "Peace" 1 "War"
-label define blockwar 0 "Blockade" 1 "War"
-
-***************pie chart and violin chart for all war periods***************************
-
-capture program drop composition_trade_graph
-program composition_trade_graph
+capture program drop composition_trade_test
+program composition_trade_test
 args period
 
 	gen war=. 
@@ -49,63 +43,38 @@ args period
 	if "`period'"=="pre_seven"{
 		replace war=0 if period_str=="Peace 1749-1755"
 		replace war=1 if period_str=="War 1756-1763" 
-		local note "Peace 1749-1755 and Seven Years War"
 		}
 	
 	if "`period'"=="post_seven"{
 		replace war=1 if period_str=="War 1756-1763" 
 		replace war=0 if period_str=="Peace 1763-1777"
-		local note "Seven Years War and Peace 1763-1777"
 		}
 	
 	if "`period'"=="pre_independence"{
 		replace war=0 if period_str=="Peace 1763-1777" 
 		replace war=1 if period_str=="War 1778-1783" 
-		local note "Peace 1763-1777 and American Independence"
 		}
 	
 	if "`period'"=="post_independence"{
 		replace war=1 if period_str=="War 1778-1783" 
 		replace war=0 if period_str=="Peace 1784-1792" 
-		local note "American Independence and Peace 1784-1792"
 		}
 	
 	if "`period'"=="pre_revolutionary"{
 		replace war=0 if period_str=="Peace 1784-1792" 
 		replace war=1 if period_str=="War 1793-1807" 
-		local note "Peace 1784-1792 and Revolutionary War"
 		}
 	
 	if "`period'"=="revolutionary_blockade"{
 		replace war=1 if period_str=="War 1793-1807" 
 		replace war=0 if period_str=="Blockade 1808-1815" 
-		local note "Revolutionary War and Continental Blockade"
 		}
 	
 	if "`period'"=="post_blockade"{
 		replace war=1 if period_str=="Blockade 1808-1815" 
 		replace war=0 if period_str=="Peace 1816-1840" 
-		local note "Continental Blockade and Peace 1816-1821"
 		}
 
-	if "`period'"!="revolutionary_blockade"{ 
-		label value war peacewar
-		}
-	else label value war blockwar
-			 
-	graph 	pie value if exportsimports=="Exports", over(product_sitc_simplen) ///
-			plabel(_all name, size(*0.7) color(white)) legend(off) ///
-			by(war, legend(off) plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-			note("Exports")) 
-		
-	graph export "$hamburggit/Paper - Impact of War/Paper/`period'_composition_X.pdf", replace
-
-	graph 	pie value if exportsimports=="Imports", over(product_sitc_simplen) ///
-			plabel(_all name, size(*0.7) color(white)) ///
-			by(war, legend(off) plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-			note("Imports")) 
-		
-	graph export "$hamburggit/Paper - Impact of War/Paper/`period'_composition_I.pdf", replace
 
 	levelsof exportsimports, local(levels)
 
@@ -113,10 +82,8 @@ args period
 		
 		preserve
 
-		drop if exportsimports!="`i'"
-		if exportsimports=="Exports" local name X
-		if exportsimports=="Imports" local name I
-
+		keep if exportsimports=="`i'"
+		keep if war!=.
 		collapse (sum) value, by(year product_sitc_simplen war)
 
 		bysort year war: egen total=sum(value)
@@ -124,27 +91,29 @@ args period
 		gen ln_percent=ln(percent)
 
 		encode product_sitc_simplen, gen(product_sitc_num)
-		egen sitc_war = group(product_sitc_num war), label
- 
-		gsort - sitc_war
-		vioplot ln_percent, over(sitc_war) hor ylabel(,angle(0) labsize(vsmall)) ///
-				plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-				title("`i'") note(`note', size(vsmall)) xtitle("Log Percentage share")
-		
-		graph export "$hamburggit/Paper - Impact of War/Paper/`period'_distribution_`name'.pdf", replace
-		restore
-	}
+		egen year_war = group(year war), label
 	
+		drop value percent product_sitc_simplen year
+	
+		reshape wide ln_percent, i(year_war) j(product_sitc_num)
+		
+		di "***************************`i' `period'**************************************"
+		hotelling ln_percent1-ln_percent12, by(war)
+		reg war ln_percent1-ln_percent12, robust
+		
+		restore
+		
+	}
 	drop war
-
 end
 
-composition_trade_graph peace_war
-composition_trade_graph pre_seven
-composition_trade_graph post_seven
-composition_trade_graph pre_independence
-composition_trade_graph post_independence
-composition_trade_graph pre_revolutionary
-composition_trade_graph revolutionary_blockade
-composition_trade_graph post_blockade
+composition_trade_test peace_war
+composition_trade_test pre_seven
+composition_trade_test post_seven
+composition_trade_test pre_independence
+composition_trade_test post_independence
+composition_trade_test pre_revolutionary
+composition_trade_test revolutionary_blockade
+composition_trade_test post_blockade
 
+ 
