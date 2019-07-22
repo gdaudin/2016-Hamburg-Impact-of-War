@@ -162,7 +162,7 @@ use "$hamburg/Données Stata/bdd courante.dta", clear
 }
  
 keep if sourcetype == "Tableau Général" | sourcetype=="Résumé"
-drop if sitc_classification=="9a"
+drop if product_sitc=="9a"
 
 
 replace year=1806 if year==1805.75
