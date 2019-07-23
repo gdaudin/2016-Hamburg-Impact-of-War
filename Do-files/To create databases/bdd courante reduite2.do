@@ -18,31 +18,19 @@ import delimited "$hamburg/toflit18_data_GIT/base/bdd courante.csv", ///
 
 * Keep only necessary variables
 
-keep year exportsimports product_simplification value sourcetype ///
+keep year exportsimports product_simplification value sourcetype direction ///
 	 product_sitc_en product_sitc_simplen country_grouping country_simplification
 	 
 destring value, replace
 destring year, replace
 replace year=1806 if year==1805.75
+replace year=1787 if year==1787.2
 
 drop if product_simplification=="" | product_simplification=="???"
 drop if value==.
 drop if country_grouping=="????" | country_grouping=="Divers" | country_grouping=="France" | ///
 		country_grouping=="Inconnu" | country_grouping=="Monde"
 		
-*keeping only Objet, Résumé and National toutes directions tous partenaires
-gen commerce_national = 1 if (sourcetype=="Objet Général" & year<=1786) | ///
-	(sourcetype=="Résumé") | sourcetype=="National toutes directions tous partenaires"
-	
-keep if commerce_national==1
-drop commerce_national sourcetype
-
-*save "/Users/Tirindelli/Google Drive/ETE/Thesis/database_dta/bdd courante reduite temp.dta", replace 
- 
-merge m:1  year country_grouping using "$hamburg/database_dta/WarAndPeace.dta"
-keep if _merge==3
-drop _merge
-
 save "$hamburg/database_dta/bdd courante reduite2.dta", replace 
 
 /*
@@ -93,7 +81,7 @@ gen panvar = product_simplification + exportsimports + direction + u_conv
 encode panvar, gen(panvar_num)
 drop if year>1787 & year<1788
 tsset panvar_num year
-*/
+
 * On sauvegarde la base de donnée désormais réduite (A REMPLACER SI ON PREND FINALEMENT LES MARCHANDISES DONT VALEUR > 100 000)
  
 if "`c(username)'"=="maellestricot" save   "/Users/maellestricot/Documents/STATA MAC/bdd courante reduite2.dta", replace
@@ -101,4 +89,4 @@ if "`c(username)'"=="guillaumedaudin" save "~/Documents/Recherche/TOFLIT18/Indic
 if "`c(username)'" =="Tirindelli" save "/Users/Tirindelli/Google Drive/ETE/Thesis/Données Stata/bdd courante reduite2.dta", replace
 if "`c(username)'" =="tirindee" save "C:\Users\TIRINDEE\Google Drive/ETE/Thesis/Données Stata/bdd courante reduite2.dta", replace
 
-
+*/
