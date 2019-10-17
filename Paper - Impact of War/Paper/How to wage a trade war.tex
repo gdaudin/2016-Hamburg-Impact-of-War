@@ -574,6 +574,16 @@ Next, I go on to analysing the effects distinguishing by war status (Table \ref{
 \end{figure}
 
 \section{Changing composition of trade}  \label{composition}
+In this section we test whether the structure of trade changed in wartime and, if so, whether the change was reversed after the end of the conflict (or trade war). \\
+In order to do so we group goods using an adapted version of the SITC classification, which is reported in table \ref{class_sitc18}\footnote{More on how this SITC18 classification is defined is available on http://toflit18.medialab.sciences-po.fr/\#/home}, and we observe the share of trade of each of these categories, comparing the war periods with the peace before and after. 
+\begin{table}[H]
+\centering
+\caption{SITC18 Classification}
+\label{class_sitc18}
+\input{class_sitc18.tex}
+\end{table}
+What we want to test here, is whether there is a correlation between a longer lasting change in the structure of trade and the loss function. More precisely, we want to investigate whether higher losses to French trade, hence a successful British trade war strategy, were associated not only to the necessity to restructure trade during war time but also to hinder the capacity to get back to the pre-war trade structure (which, in some sense, we consider "optimal"). Therefore we want to test the "mean" difference between two groups, where by mean we consider the 13-dimensional vector of 
+sitc trade shares and by group the war-peace periods. For doing so we use a Hotelling T squared test and run it first on change between pooled peace and war years, and then separating each war and peace period. As a robustness check, we repeat the same test excluding plantation foodstuff, but results do not change. Together with the test, for every pair we also plot graphs of change in distribution. 
 \begin{figure}
 \centering
 \caption{All War and Peace period}
