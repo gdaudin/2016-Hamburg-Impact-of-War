@@ -1,4 +1,4 @@
-ID Hillman,File ID,Image,Prize ship name,Prize ship master,Commander of privateer ship,Privateer ship name,Port prize brought to,Prize ship origin,Date of sentence,,,Number of other privateer ships involved in prize action,Privateer ship had no commission,Remarks
+ID Hillman,File ID,Image,Prize ship name,Prize ship master,Commander of privateer ship,Privateer ship name,Port prize brought to,Prize ship origin,day of sentence,month of sentence,year of sentence,Number of other privateer ships involved in prize action,Privateer ship had no commission,Remarks
 1,HCA34_30,9265,beginning of the set,,,,,,,,,,,
 2,HCA34_30,9266-9267,Nuestra Senora de la Antigua,Pedro Cuadrodo,Parhen Galley,Johannes Cobbert,Gibraltar,,,,,,,
 3,HCA34_30,9268-9270,St. Antonio de Padua,Thomas Pouiston,Pompey Galley,,,,,,,,,
@@ -1294,7 +1294,7 @@ ID Hillman,File ID,Image,Prize ship name,Prize ship master,Commander of privatee
 1309,HCA34_49,6263-6265,Le St. Joseph  ,Gabriel Perrin,Philip Giffard,Elolus,Jersey,French,24,10,1780,1,0,
 1310,HCA34_49,6266-6267,Neptune,Barent Terkelson,Francis Ford,Dolphin,Penryn,Danish,24,10,1780,,1,
 1286,HCA34_49,6268,Batavier,Pieter Cornelius,James Verco,Lighthorse,Plymouth,,24,10,1780,,1,
-1287,HCA34_49,6269,De Jonge Franciscus,Jan Van Nes,John Osborn,Swift,Portsmouth,,24,10,2780,,1,
+1287,HCA34_49,6269,De Jonge Franciscus,Jan Van Nes,John Osborn,Swift,Portsmouth,,24,10,1780,,1,
 1311,HCA34_49,6270-6272,La Fortunee,Ehereine Vian,Edward Moor ,Fame,Alexandretta,French,27,10,1780,,0,
 1312,HCA34_49,6273-6275,San Pedro,not given,James Haslam,Enterprize,Liverpool,French,4,11,1780,1,0,
 1313,HCA34_49,6276-6278,La Louise  ,Dominique Dubourg,James Neilson,Greyhound,Bristol,French,4,11,1780,,0,
@@ -1744,7 +1744,7 @@ ID Hillman,File ID,Image,Prize ship name,Prize ship master,Commander of privatee
 1668,HCA34_52,7038,La Volente de Dieu,Jean Jacques Guachon,Francis Todory,Saint George,leghorn,,18,12,1782,,1,
 1669,HCA34_52,7039,Minerve,Jean Baptista Meriel,Fairfax Bedlington,Minerva,Plymouth,,19,12,1782,,1,
 1747,HCA34_53,5594,beginning of the set,,,,,,,,,,,
-1813,HCA34_53,5595-5596,Nostra Senora del Carmen,Juan Baptista Artamonis,James Robert Mosse,Three Brothers,Portsmouth,Spain,18,8,17XX,,1,
+1813,HCA34_53,5595-5596,Nostra Senora del Carmen,Juan Baptista Artamonis,James Robert Mosse,Three Brothers,Portsmouth,Spain,18,8,1779,,1,correction de l’année
 1814,HCA34_53,5597-5598,La Garn Canaria,Clement Ularri,Goerge/Jacob Boxer,Phoenix,,Spain,18,8,1779,1,0,
 1815,HCA34_53,5599-5601,San Juan Baptista  ,Domingo de Mendirihaga,John Collier,Shaftesbury,Falmouth,Spain,18,8,1779,,0,
 1816,HCA34_53,5602-5603,Nuestra Sdenora del Choro,Antonio de Escarza,John Chandler,Salisbury,Falmouth,Spain,31,8,1779,,0,
