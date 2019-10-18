@@ -39,9 +39,11 @@ do "$hamburggit/Do-files/To see results/Composition of trade test.do"
 do "$hamburggit/Do-files/To create graphs/Composition of trade graph.do"
 
 ////those commented cannot be run because of too few obs
+
 composition_trade_test peace_war 1 national
 composition_trade_test peace_war 0 national
-composition_trade_graph peace_war national 
+matrix hotelling_test=A+B
+*composition_trade_graph peace_war national 
 
 *composition_trade_test pre_seven 1 national
 *composition_trade_test pre_seven 0 national
@@ -49,11 +51,17 @@ composition_trade_graph peace_war national
 
 composition_trade_test post_seven 1 national
 composition_trade_test post_seven 0 national
-composition_trade_graph post_seven  national
+matrix C=A+B
+matrix hotelling_test=hotelling_test\C
+matrix list hotelling_test
+*composition_trade_graph post_seven  national
 
-composition_trade_test pre_independence 1 national
-composition_trade_test pre_independence 0 national
-composition_trade_graph pre_independence national
+composition_trade_test pre_indep 1 national
+composition_trade_test pre_indep 0 national
+matrix C=A+B
+matrix hotelling_test=hotelling_test\C
+matrix list hotelling_test
+*composition_trade_graph pre_independence national
 
 *composition_trade_test post_independence 1 national
 *composition_trade_test post_independence 0 national
@@ -63,13 +71,19 @@ composition_trade_graph pre_independence national
 *composition_trade_test pre_revolutionary 0 national
 *composition_trade_graph pre_revolutionary  national
 
-composition_trade_test revolutionary_block 1 national
-composition_trade_test revolutionary_block 0 national
-composition_trade_graph revolutionary_block national
+composition_trade_test rev_block 1 national
+composition_trade_test rev_block 0 national
+matrix C=A+B
+matrix hotelling_test=hotelling_test\C
+matrix list hotelling_test
+*composition_trade_graph revolutionary_block national
 
 composition_trade_test post_blockade 1 national
 composition_trade_test post_blockade 0 national
-composition_trade_graph post_blockade national
+matrix C=A+B
+matrix hotelling_test=hotelling_test\C
+matrix list hotelling_test
+*composition_trade_graph post_blockade national
 
 
 

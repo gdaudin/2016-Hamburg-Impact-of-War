@@ -1,5 +1,3 @@
-macro drop _all 
-
 capture program drop composition_trade_test
 program composition_trade_test
 args period plantation_yesno direction
@@ -17,15 +15,15 @@ args period plantation_yesno direction
 	
 	if "`period'"=="post_seven"{
 		replace war=1 if period_str=="War 1756-1763" 
-		replace war=0 if period_str=="Peace 1763-1777"
+		replace war=0 if period_str=="Peace 1764-1777"
 		}
 	
-	if "`period'"=="pre_independence"{
-		replace war=0 if period_str=="Peace 1763-1777" 
+	if "`period'"=="pre_indep"{
+		replace war=0 if period_str=="Peace 1764-1777" 
 		replace war=1 if period_str=="War 1778-1783" 
 		}
 	
-	if "`period'"=="post_independence"{
+	if "`period'"=="post_indep"{
 		replace war=1 if period_str=="War 1778-1783" 
 		replace war=0 if period_str=="Peace 1784-1792" 
 		}
@@ -35,7 +33,7 @@ args period plantation_yesno direction
 		replace war=1 if period_str=="War 1793-1807" 
 		}
 	
-	if "`period'"=="revolutionary_block"{
+	if "`period'"=="rev_block"{
 		replace war=1 if period_str=="War 1793-1807" 
 		replace war=0 if period_str=="Blockade 1808-1815" 
 		}
@@ -45,7 +43,7 @@ args period plantation_yesno direction
 		replace war=0 if period_str=="Peace 1816-1840" 
 		}
 
-	if "`period'"!="revolutionary_block"{ 
+	if "`period'"!="rev_block"{ 
 		label value war peacewar
 		}
 	else label value war blockwar
@@ -57,8 +55,8 @@ args period plantation_yesno direction
 		gen commerce_national = 1 if (sourcetype=="Objet Général" & year<=1786) | ///
 			(sourcetype=="Résumé") | sourcetype=="National toutes directions tous partenaires"
 	
-		keep if commerce_national==1
-		collapse (sum) value, by(year product_sitc_simplen exportsimports period_str)
+		keep if commerce_national==1 
+		collapse (sum) value, by(year war product_sitc_simplen exportsimports period_str)
 	}
 	
 	else{
@@ -75,7 +73,7 @@ args period plantation_yesno direction
 		if "`direction'"=="bord" keep if direction=="Bordeaux"
 		if "`direction'"=="LR" keep if direction=="La Rochelle"	
 		if "`direction'"=="bayo" keep if direction=="Bayonne"
-		collapse (sum) value, by(year product_sitc_simplen exportsimports period_str)
+		collapse (sum) value, by(year war product_sitc_simplen exportsimports period_str)
 	}
 		
 	if exportsimports=="Exports" local name X
@@ -116,14 +114,25 @@ args period plantation_yesno direction
 		
 	levelsof exportsimports, local(X_I)
 	foreach i of local X_I{
-		if `plantation_yesno'==1 mvtest means ln_percent1-ln_percent12 if exportsimports==`i', by(war)	
-		else mvtest means ln_percent1-ln_percent11if if exportsimports==`i', by(war)
+		mvtest means ln_percent1-ln_percent12 if exportsimports=="`i'", by(war)	
+		// I am excluding one category from the test cause it is reference category
+		
+		if "`i'"=="Exports" local name X
+		if "`i'"=="Imports" local name I
 		
 		global `period'_`plantation_yesno'_`direction'_pval_`name'=round(r(p_F),0.001)
 		di ${`period'_`plantation_yesno'_`direction'_pval_`name'}
 	}
-		
-		
+	
+	if `plantation_yesno'==1{
+		matrix A= (${`period'_1_`direction'_pval_X},${`period'_1_`direction'_pval_I}, 0,0)
+		matrix list A
+		}
+	else{
+		matrix B= (0, 0, ${`period'_0_`direction'_pval_X},${`period'_0_`direction'_pval_I})
+		matrix list A
+		}
+
 	restore
 
 end
