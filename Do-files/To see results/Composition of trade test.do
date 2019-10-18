@@ -1,62 +1,61 @@
 capture program drop composition_trade_test
 program composition_trade_test
-args period plantation_yesno direction
+args period1 period2 plantation_yesno direction X_I
 
-		if "`period'"=="peace_war"{
+	preserve
+
+	if "`X_I'"=="Exports" | "`X_I'"=="Imports" keep if exportsimports=="`X_I'"
+	else collapse (sum) value, by(sourcetype direction country_simplification country_grouping product_simplification product_sitc_en product_sitc_simplen year period_str war)					
+
+	if "`period1'"=="peace" | "`period2'"=="peace" {
+		replace war=0 if period_str!="War 1756-1763" | period_str !="War 1778-1783" | ///
+						 period_str!="War 1793-1807" | period_str !="Blockade 1808-1815"
+		}
+		
+	if "`period1'"=="war" | "`period2'"=="war" {
 		replace war=1 if period_str=="War 1756-1763" | period_str =="War 1778-1783" | ///
 						 period_str=="War 1793-1807" | period_str =="Blockade 1808-1815"
-		replace war=0 if war!=1
+		}	
+	
+	if "`period1'"=="peace1749_1755" | "`period2'"=="peace1749_1755"{
+		replace war=2 if period_str=="Peace 1749-1755"
+		}
+		
+	if "`period1'"=="seven" | "`period2'"=="seven"{
+		replace war=3 if period_str=="War 1756-1763" 
+		}
+		
+	if "`period1'"=="peace1764_1777" | "`period2'"=="peace1764_1777"{
+		replace war=4 if period_str=="Peace 1764-1777"
+		}
+		
+	if "`period1'"=="indep" | "`period2'"=="indep"{
+		replace war=5 if period_str=="War 1778-1783"
+		}		
+	
+	if "`period1'"=="peace1784_1792" | "`period2'"=="peace1784_1792"{
+		replace war=6 if period_str=="Peace 1784-1792" 
 		}
 	
-	if "`period'"=="pre_seven"{
-		replace war=0 if period_str=="Peace 1749-1755"
-		replace war=1 if period_str=="War 1756-1763" 
+	if "`period1'"=="rev" | "`period2'"=="rev"{
+		replace war=7 if period_str=="War 1793-1807" 
 		}
 	
-	if "`period'"=="post_seven"{
-		replace war=1 if period_str=="War 1756-1763" 
-		replace war=0 if period_str=="Peace 1764-1777"
+	if "`period1'"=="block" | "`period2'"=="block"{
+		replace war=8 if period_str=="Blockade 1808-1815" 
 		}
 	
-	if "`period'"=="pre_indep"{
-		replace war=0 if period_str=="Peace 1764-1777" 
-		replace war=1 if period_str=="War 1778-1783" 
-		}
-	
-	if "`period'"=="post_indep"{
-		replace war=1 if period_str=="War 1778-1783" 
-		replace war=0 if period_str=="Peace 1784-1792" 
-		}
-	
-	if "`period'"=="pre_revolutionary"{
-		replace war=0 if period_str=="Peace 1784-1792" 
-		replace war=1 if period_str=="War 1793-1807" 
-		}
-	
-	if "`period'"=="rev_block"{
-		replace war=1 if period_str=="War 1793-1807" 
-		replace war=0 if period_str=="Blockade 1808-1815" 
-		}
-	
-	if "`period'"=="post_blockade"{
-		replace war=1 if period_str=="Blockade 1808-1815" 
-		replace war=0 if period_str=="Peace 1816-1840" 
+	if "`period1'"=="peace1816_1840" | "`period2'"=="peace1816_1840"{
+		replace war=10 if period_str=="Peace 1816-1840" 
 		}
 
-	if "`period'"!="rev_block"{ 
-		label value war peacewar
-		}
-	else label value war blockwar
-	
-	
-	preserve
 	
 	if "`direction'"=="national"{
 		gen commerce_national = 1 if (sourcetype=="Objet Général" & year<=1786) | ///
 			(sourcetype=="Résumé") | sourcetype=="National toutes directions tous partenaires"
 	
 		keep if commerce_national==1 
-		collapse (sum) value, by(year war product_sitc_simplen exportsimports period_str)
+		collapse (sum) value, by(year war product_sitc_simplen period_str)
 	}
 	
 	else{
@@ -76,25 +75,27 @@ args period plantation_yesno direction
 		collapse (sum) value, by(year war product_sitc_simplen exportsimports period_str)
 	}
 		
-	if exportsimports=="Exports" local name X
-	if exportsimports=="Imports" local name I
+	if "`X_I'"=="Exports" local name X
+	else if "`X_I'"=="Imports" local name I
+	else local name I_X
+	
 	keep if war!=.
-	collapse (sum) value, by(year product_sitc_simplen war exportsimports)
+	collapse (sum) value, by(year product_sitc_simplen war)
 		
-	bysort year exportsimports: egen total=sum(value)
+	bysort year: egen total=sum(value)
 	gen percent= value/total
 		
-	fillin year exportsimports product_sitc_simplen
+	
+	fillin year product_sitc_simplen
 	levelsof year, local(year)
-	levelsof exportsimports, local(X_I)
 	foreach j of local year{
-		foreach k of local X_I{
-			qui su percent if year==`j' & exportsimports=="`k'"
-			replace percent=r(min)/2 if percent==. & year==`j' & exportsimports=="`k'"
-			qui su war if year==`j'
-			replace war=r(max) if war==. & year==`j'
-		}	
+			qui su percent if year==`j' 
+			replace percent=r(min)/2 if percent==. & year==`j' 
+			*replace war=r(max) if war==. & year==`j'
 	}
+	replace war =war[_n-1] if war[_n]==. & year[_n]==year[_n-1]
+	replace war =war[_n+1] if war[_n]==. & year[_n]==year[_n+1]	
+	drop _fillin
 
 	gen ln_percent=ln(percent)
 	encode product_sitc_simplen, gen(product_sitc_num)
@@ -104,34 +105,51 @@ args period plantation_yesno direction
 	if `plantation_yesno'==0 drop if product_sitc_simplen=="Plantation foodstuff"
 
 	egen year_war = group(year war), label
-	egen year_war_exportsimports = group(year_war exportsimports), label
 	
-	drop value percent product_sitc_simplen year _fillin total
+	drop value percent product_sitc_simplen year total
 	
-	reshape wide ln_percent, i(year_war_exportsimports) j(product_sitc_num)
+	reshape wide ln_percent, i(year_war) j(product_sitc_num)
 		
-	di "************************`i' `period' `plantation_yesno' `direction'*************************************"
+	di "************************`X_I' `period1' `period2' `plantation_yesno' `direction'*************************************"
 		
-	levelsof exportsimports, local(X_I)
-	foreach i of local X_I{
-		mvtest means ln_percent1-ln_percent12 if exportsimports=="`i'", by(war)	
-		// I am excluding one category from the test cause it is reference category
+	mvtest means ln_percent1-ln_percent12, by(war)	
+	// I am excluding one category from the test cause it is reference category
 		
-		if "`i'"=="Exports" local name X
-		if "`i'"=="Imports" local name I
-		
-		global `period'_`plantation_yesno'_`direction'_pval_`name'=round(r(p_F),0.001)
-		di ${`period'_`plantation_yesno'_`direction'_pval_`name'}
-	}
+	global temp=round(r(p_F),0.001)
+	di $temp
 	
-	if `plantation_yesno'==1{
-		matrix A= (${`period'_1_`direction'_pval_X},${`period'_1_`direction'_pval_I}, 0,0)
+	if "`X_I'"=="Exports" & `plantation_yesno'==1{
+		matrix A= ($temp, 0,0,0,0,0)
+		matrix rowname A = "`period1'_`period2'"
 		matrix list A
 		}
-	else{
-		matrix B= (0, 0, ${`period'_0_`direction'_pval_X},${`period'_0_`direction'_pval_I})
+	if "`X_I'"=="Exports" & `plantation_yesno'==0{
+		matrix A= (0, $temp ,0,0,0,0)
+		matrix rowname A = "`period1'_`period2'"
 		matrix list A
 		}
+		
+	if "`X_I'"=="Imports" & `plantation_yesno'==1{
+		matrix A= (0, 0, $temp, 0,0,0)
+		matrix rowname A = "`period1'_`period2'"
+		matrix list A
+		}
+	if "`X_I'"=="Imports" & `plantation_yesno'==0{
+		matrix A= (0, 0,0,$temp, 0,0)
+		matrix rowname A = "`period1'_`period2'"
+		matrix list A
+		}
+		
+	if "`X_I'"=="I_X" & `plantation_yesno'==1{
+		matrix A= (0, 0,0,0,$temp, 0)
+		matrix rowname A = "`period1'_`period2'"
+		matrix list A
+		}
+	if "`X_I'"=="I_X" & `plantation_yesno'==0{
+		matrix A= (0, 0,0,0,0,$temp )
+		matrix rowname A = "`period1'_`period2'"
+		matrix list A
+		}	
 
 	restore
 
