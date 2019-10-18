@@ -87,5 +87,41 @@ reshape wide Nbr_,i(year) j(source) string
 merge 1:1 year using "$hamburg/database_dta/Ashton_Schumpeter_Prize_data.dta"
 drop source _merge
 
+merge 1:1 year using "$hamburg/database_dta/ST_silver.dta", keep(3)
+drop _merge
 
- twoway (line Nbr_HCA34 year) (line Nbr_GBNavy year) (line Nbr_Other year) (line importofprizegoodspoundsterling year, yaxis(2))
+gen importofprizegoodssilvertons=importofprizegoodspoundsterling*1000*ST_silver/1000000
+
+merge 1:1 year using "$hamburg/database_dta/Total silver trade FR GB.dta"
+drop _merge
+
+gen share_prizes= importofprizegoodssilvertons/valueFR_silver
+replace share_prizes = 0 if share_prizes ==.
+replace share_prizes = . if valueFR_silver ==.
+replace Nbr_HCA34 = 0 if Nbr_HCA34 ==.
+
+
+twoway (line share_prizes year) 
+
+
+ twoway (connected share_prizes year,cmissing(n) msize(small)) (connected Nbr_HCA34 year,cmissing(n) yaxis(2) msize(small)) if year >=1740 & year <=1815, /*
+	*/ legend(rows(2) order (1 "Official value of prize goods imported in Britain as a share of French trade" 2 "Number of prize ships reports in the British Court of Admiralty (HCA34)") size(small)) /*
+	*/ytitle(share of French trade) ytitle(number of ships, axis(2)) /*
+	*/ scheme(s1mono)
+
+graph export "$hamburggit/Paper - Impact of War/Paper/Prizes.pdf", replace	
+
+gen period_str=""
+replace period_str ="Peace 1716-1744" if year <= 1744
+replace period_str ="War 1745-1748" if year   >= 1745 & year <=1748
+replace period_str ="Peace 1749-1755" if year >= 1749 & year <=1755
+replace period_str ="War 1756-1763" if year   >= 1756 & year <=1763
+replace period_str ="Peace 1763-1777" if year >= 1763 & year <=1777
+replace period_str ="War 1778-1783" if year   >= 1778 & year <=1783
+replace period_str ="Peace 1784-1792" if year >= 1784 & year <=1792
+replace period_str ="War 1793-1807" if year   >= 1793 & year <=1807
+replace period_str ="Blockade 1808-1815" if year   >= 1808 & year <=1815
+replace period_str ="Peace 1816-1840" if year >= 1816
+
+	
+save "$hamburg/database_dta/English_prizes.dta",  replace
