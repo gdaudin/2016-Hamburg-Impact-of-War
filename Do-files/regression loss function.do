@@ -79,6 +79,16 @@ if "`freq'"=="Mean" {
 	erase temp.dta
 	drop if _merge!=3 
 	drop _merge
+	
+	preserve
+	use "$hamburg/database_dta/English_prizes.dta",  replace
+	collapse (mean) share_prizes Nbr_HCA34, by(period_str)
+	save temp.dta, replace
+	restore
+	merge m:1 period_str using temp.dta
+	erase temp.dta
+	drop if _merge!=3 
+	drop _merge
 }
 
 
@@ -96,6 +106,14 @@ if "`freq'"=="Yearly" {
 	*gen  colonies_loss=1-weight_france
 	drop if _merge!=3 
 	drop _merge
+	
+	merge m:1 year using "$hamburg/database_dta/English_prizes.dta",  replace
+	collapse (mean) share_prizes Nbr_HCA34, by(period_str)
+	drop if _merge!=3 
+	drop _merge
+}
+	
+	
 }
 
 
