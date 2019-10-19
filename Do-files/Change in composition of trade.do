@@ -43,86 +43,107 @@ composition_trade_test peace war 1 national Exports
 matrix hotelling_test=A
 composition_trade_test peace war 0 national Exports
 matrix hotelling_test=A+hotelling_test
-
 composition_trade_test peace war 1 national Imports
 matrix hotelling_test=A+hotelling_test
 composition_trade_test peace war 0 national Imports
 matrix hotelling_test=A+hotelling_test
-
 composition_trade_test peace war 1 national I_X
 matrix hotelling_test=A+hotelling_test
 composition_trade_test peace war 0 national I_X
 matrix hotelling_test=A+hotelling_test
 matrix list hotelling_test
+matrix colnames hotelling_test = "Exports_1" "Exports_0" "Imports_1" "Imports_0" "X_I_1" "X_I_0"
+composition_trade_graph peace war national
+// it is importand to use the same order when launching the test and the graphs cause I use macro to report pvalues on the graphs
 
 
 composition_trade_test seven peace1764_1777 1 national Exports
 matrix B=A
 composition_trade_test seven peace1764_1777 0 national Exports
 matrix B=A+B
-
 composition_trade_test seven peace1764_1777 1 national Imports
 matrix B=A+B
 composition_trade_test seven peace1764_1777 0 national Imports
 matrix B=A+B
-
 composition_trade_test seven peace1764_1777 1 national I_X
 matrix B=A+B
 composition_trade_test seven peace1764_1777 0 national I_X
 matrix B=A+B
 matrix hotelling_test=hotelling_test\B
+composition_trade_graph seven peace1764_1777 national
 
 
-composition_trade_test indep peace1764_1777 1 national Exports
+
+composition_trade_test peace1764_1777 indep 1 national Exports
 matrix B=A
-composition_trade_test indep peace1764_1777 0 national Exports
+composition_trade_test peace1764_1777 indep 0 national Exports
 matrix B=A+B
-
-composition_trade_test indep peace1764_1777 1 national Imports
+composition_trade_test peace1764_1777 indep 1 national Imports
 matrix B=A+B
-composition_trade_test indep peace1764_1777 0 national Imports
+composition_trade_test peace1764_1777 indep 0 national Imports
 matrix B=A+B
-
-composition_trade_test indep peace1764_1777 1 national I_X
+composition_trade_test peace1764_1777 indep 1 national I_X
 matrix B=A+B
-composition_trade_test indep peace1764_1777 0 national I_X
+composition_trade_test peace1764_1777 indep 0 national I_X
 matrix B=A+B
 matrix hotelling_test=hotelling_test\B
+composition_trade_graph peace1764_1777 indep national
 
+
+
+/*
+composition_trade_test indep peace1784_1792 1 national Exports
+matrix B=A
+composition_trade_test indep peace1784_1792 0 national Exports
+matrix B=A+B
+composition_trade_test indep peace1784_1792 1 national Imports
+matrix B=A+B
+composition_trade_test indep peace1784_1792 0 national Imports
+matrix B=A+B
+composition_trade_test indep peace1784_1792 1 national I_X
+matrix B=A+B
+composition_trade_test indep peace1784_1792 0 national I_X
+matrix B=A+B
+matrix hotelling_test=hotelling_test\B
+*/
 
 composition_trade_test rev block 1 national Exports
 matrix B=A
 composition_trade_test rev block 0 national Exports
 matrix B=A+B
-
 composition_trade_test rev block 1 national Imports
 matrix B=A+B
 composition_trade_test rev block 0 national Imports
 matrix B=A+B
-
 composition_trade_test rev block 1 national I_X
 matrix B=A+B
 composition_trade_test rev block 0 national I_X
 matrix B=A+B
 matrix hotelling_test=hotelling_test\B
+composition_trade_graph rev block indep national
+
 
 
 composition_trade_test peace1816_1840 block 1 national Exports
 matrix B=A
 composition_trade_test peace1816_1840 block 0 national Exports
 matrix B=A+B
-
 composition_trade_test peace1816_1840 block 1 national Imports
 matrix B=A+B
 composition_trade_test peace1816_1840 block 0 national Imports
 matrix B=A+B
-
 composition_trade_test peace1816_1840 block 1 national I_X
 matrix B=A+B
 composition_trade_test peace1816_1840 block 0 national I_X
 matrix B=A+B
+matrix hotelling_test=hotelling_test\B
+composition_trade_graph peace1816_1840 block indep national
 
 
+
+outtable using "$hamburggit/Paper - Impact of War/Paper/manova_test", ///
+				mat(hotelling_test) clabel(manova_test) ///
+				caption("Multivariate Analisys of Variance") replace 
 
 
 

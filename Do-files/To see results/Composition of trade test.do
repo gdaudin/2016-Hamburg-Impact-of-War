@@ -46,7 +46,7 @@ args period1 period2 plantation_yesno direction X_I
 		}
 	
 	if "`period1'"=="peace1816_1840" | "`period2'"=="peace1816_1840"{
-		replace war=10 if period_str=="Peace 1816-1840" 
+		replace war=9 if period_str=="Peace 1816-1840" 
 		}
 
 	
@@ -91,19 +91,18 @@ args period1 period2 plantation_yesno direction X_I
 	foreach j of local year{
 			qui su percent if year==`j' 
 			replace percent=r(min)/2 if percent==. & year==`j' 
-			*replace war=r(max) if war==. & year==`j'
 	}
 	replace war =war[_n-1] if war[_n]==. & year[_n]==year[_n-1]
 	replace war =war[_n+1] if war[_n]==. & year[_n]==year[_n+1]	
 	drop _fillin
+	
+	if `plantation_yesno'==0 drop if product_sitc_simplen=="Plantation foodstuff"
 
 	gen ln_percent=ln(percent)
 	encode product_sitc_simplen, gen(product_sitc_num)
 	
-	save "$hamburg/database_dta/`period'_`direction'_temp.dta", replace
+	*save "$hamburg/database_dta/`period1'_`period2'_`direction'_temp.dta", replace
 	
-	if `plantation_yesno'==0 drop if product_sitc_simplen=="Plantation foodstuff"
-
 	egen year_war = group(year war), label
 	
 	drop value percent product_sitc_simplen year total
@@ -112,11 +111,20 @@ args period1 period2 plantation_yesno direction X_I
 		
 	di "************************`X_I' `period1' `period2' `plantation_yesno' `direction'*************************************"
 		
-	mvtest means ln_percent1-ln_percent12, by(war)	
-	// I am excluding one category from the test cause it is reference category
+	if "`X_I'"=="Exports" local name X
+	if "`X_I'"=="Imports" local name I
+	if "`direction'"== "national" local dir nat
+	else local dir loc
 		
-	global temp=round(r(p_F),0.001)
-	di $temp
+	if `plantation_yesno'==1 mvtest means ln_percent1-ln_percent12, by(war) het
+	else mvtest means ln_percent1-ln_percent11, by(war) het
+	// I am excluding one category from the test cause they sum uo to a 100 
+		
+	global `period1'`period2'`plantation_yesno'`dir'`name'=round(r(p_F),0.01)
+	global temp= ${`period1'`period2'`plantation_yesno'`dir'`name'}
+	di ${`period1'`period2'`plantationyesno'`dir'`name'}
+	// I am storing it as a global macro because I am reporting it in the graphs, so the graph.do can use them
+	// I copy the macro in temp for simplicity
 	
 	if "`X_I'"=="Exports" & `plantation_yesno'==1{
 		matrix A= ($temp, 0,0,0,0,0)
