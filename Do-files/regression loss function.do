@@ -31,21 +31,21 @@ gen peacewar="peace" if strmatch(period_str,"Peace*")==1
 replace peacewar = "war" if peacewar=="" 
 
 
-*drop if country_grouping=="All" | country_grouping=="All_ss_outremer"
-if `outremer'==0 drop if country_grouping=="Outre-mers"
+*drop if grouping_classification=="All" | grouping_classification=="All_ss_outremer"
+if `outremer'==0 drop if grouping_classification=="Outre-mers"
 
-tab country_grouping
+tab grouping_classification
 
 *****ln_loss ranges from -infinty to +infinity, that's why we take loss. 
 *****We add a minus in fron for coeherence (we have talked about loss function all the way)
 gen ln_loss = -ln(1-loss)
 gen ln_loss_nomemory = -ln(1-loss_nomemory)
 
-merge m:1 country_grouping exportsimports using "$hamburg/database_dta/Share of land trade 1792.dta"
-drop if _merge==2 & country_grouping!="All" & country_grouping!="All_ss_outremer"
+merge m:1 grouping_classification exportsimports using "$hamburg/database_dta/Share of land trade 1792.dta"
+drop if _merge==2 & grouping_classification!="All" & grouping_classification!="All_ss_outremer"
 drop _merge
 
-tab country_grouping
+tab grouping_classification
 
 
 if "`freq'"=="Mean" {
@@ -79,6 +79,16 @@ if "`freq'"=="Mean" {
 	erase temp.dta
 	drop if _merge!=3 
 	drop _merge
+	
+	preserve
+	use "$hamburg/database_dta/English_prizes.dta",  replace
+	collapse (mean) share_prizes Nbr_HCA34, by(period_str)
+	save temp.dta, replace
+	restore
+	merge m:1 period_str using temp.dta
+	erase temp.dta
+	drop if _merge!=3 
+	drop _merge
 }
 
 
@@ -96,40 +106,48 @@ if "`freq'"=="Yearly" {
 	*gen  colonies_loss=1-weight_france
 	drop if _merge!=3 
 	drop _merge
+	
+	merge m:1 year using "$hamburg/database_dta/English_prizes.dta"
+	collapse (mean) share_prizes Nbr_HCA34, by(period_str)
+	drop if _merge!=3 
+	drop _merge
+}
+	
+	
 }
 
 
 
-gen country_exportsimports = country_grouping+"_"+exportsimports
+gen country_exportsimports = grouping_classification+"_"+exportsimports
 
-foreach var in peacewar country_exportsimports country_grouping exportsimports war_status {
+foreach var in peacewar country_exportsimports grouping_classification exportsimports war_status {
 
 	encode `var', gen(`var'_num)
 
 }
 
-gen colonies= (country_grouping=="Outre-mers")
+gen colonies= (grouping_classification=="Outre-mers")
 bys year exportsimports war_status : gen nbr_pays=_N if ///
-	country_grouping!="All" & country_grouping!="All_ss_outremer"
+	grouping_classification!="All" & grouping_classification!="All_ss_outremer"
 
-egen tot_trade = sum(value) if country_grouping!="All" & ///
-	 country_grouping!="All_ss_outremer",by(year exportsimports war_status)
+egen tot_trade = sum(value) if grouping_classification!="All" & ///
+	 grouping_classification!="All_ss_outremer",by(year exportsimports war_status)
 gen trade_share = value/tot_trade
  
 gen trade_share_x_loss=trade_share*loss
 gen trade_share_x_mean_loss=trade_share*mean_loss
 
-egen weighted_mean_loss =sum(trade_share_x_mean_loss) if country_grouping!="All" & ///
-	 country_grouping!="All_ss_outremer", by(year exportsimports war_status nbr_pays)
-egen average_mean_loss  =mean(mean_loss) if country_grouping!="All" & ///
-	 country_grouping!="All_ss_outremer", by(year exportsimports war_status nbr_pays)
+egen weighted_mean_loss =sum(trade_share_x_mean_loss) if grouping_classification!="All" & ///
+	 grouping_classification!="All_ss_outremer", by(year exportsimports war_status nbr_pays)
+egen average_mean_loss  =mean(mean_loss) if grouping_classification!="All" & ///
+	 grouping_classification!="All_ss_outremer", by(year exportsimports war_status nbr_pays)
 codebook mean_loss average_mean_loss
 
 
-egen weighted_loss =sum(trade_share_x_loss) if country_grouping!="All" & ///
-	 country_grouping!="All_ss_outremer", by(year exportsimports war_status nbr_pays)
-egen average_loss  =mean(loss) if country_grouping!="All" & ///
-	 country_grouping!="All_ss_outremer", by(year exportsimports war_status nbr_pays)
+egen weighted_loss =sum(trade_share_x_loss) if grouping_classification!="All" & ///
+	 grouping_classification!="All_ss_outremer", by(year exportsimports war_status nbr_pays)
+egen average_loss  =mean(loss) if grouping_classification!="All" & ///
+	 grouping_classification!="All_ss_outremer", by(year exportsimports war_status nbr_pays)
 	 
 replace neutral_policy=1 if neutral_policy==2	 
 
@@ -187,7 +205,7 @@ reg ln_loss i.neutral_policy colonial_power ///
 			& peacewar=="war", nocons robust			
 */
 
-****Three variables separated
+****Four variables separated
 reg ln_loss colonial_power i.peacewar_num   c.colonial_power#i.peacewar_num ///
 	if country_exportsimports == "All_XI", robust     cluster(period_str)
 reg ln_loss warships_allyandneutral_vs_foe i.peacewar_num  ///
@@ -195,7 +213,11 @@ reg ln_loss warships_allyandneutral_vs_foe i.peacewar_num  ///
 	country_exportsimports == "All_XI", robust cluster(period_str)    
 reg ln_loss i.neutral_policy i.peacewar_num i.neutral_policy#i.peacewar_num ///
 	if country_exportsimports == "All_XI", robust  cluster(period_str)  
+reg ln_loss i.neutral_policy i.peacewar_num c.share_prizes#i.peacewar_num ///
+	if country_exportsimports == "All_XI", robust  cluster(period_str)  
 	
+	
+blif
 ****Three variables together but peace and war separated	
 eststo reg1: reg ln_loss i.neutral_policy i.neutral_policy#c.colonial_power colonial_power ///
 			i.neutral_policy#c.warships_allyandneutral_vs_foe ///
