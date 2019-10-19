@@ -215,7 +215,7 @@
 214,144,"HCA34_32","0062-0065","La Reyne des Anges de Bayonne","Clement Hince","French",,"Thomas Dugdale","Shurloe",,,"Liverpoole",3,11,1744,,0,
 215,145,"HCA34_32","0066-0069","La Reynes des Anges ( The Queen of Angels of Borhelle)","Francis Nanlleau","French",,"George Noarth","Caesar",,,"Cowes",3,11,1744,,0,
 216,146,"HCA34_32","0070-0074 (no 0071)","Le Sainte Aignan","Philip Clericcau de Larie Hardais","French",,"James Seaborne","Dragon",,,"Bristol",3,11,1744,,0,
-217,147,"HCA34_32","0075-0078","Le Pierre Andre",,"Barnestaple","France","Michel Des Vaux","Richard Vernam",,,"Benson Galley","French",3,11,1744,,0
+217,147,"HCA34_32","0075-0078","Le Pierre Andre",,"Barnestaple","France","Michel Des Vaux","Richard Vernam",,,"Benson Galley",3,11,1744,0,0,
 218,148,"HCA34_32","0079-0082","Juffrow Anna ","Henry Bose","French",,"George Hudson","Swift",,,"Sandwich",12,11,1744,,0,
 219,149,"HCA34_32","0083-0086","Name Unknown (The Mareschall De Noailles)","Jacques Dubois","French",,"Joseph Redmond","Surprize",,,"Milfordhaven",12,11,1744,,0,
 220,150,"HCA34_32","0087-0090","Expedition","Jacques Radiguet","French",,"Joseph Redmond","Surprize",,,"Falmouth",12,11,1744,,0,
@@ -1927,7 +1927,7 @@
 1926,1908,"HCA34_54",5544,"La Santa Theresa","Domingo Fernandez ",,"Spain","Nicholas Lauga","Alarm",,,"Guernsey",1,8,1782,,1,
 1927,1909,"HCA34_54",5545,"Santissima Trinidade","Don Juan Amando",,"Spain","John Kimber","Hornet",,,"St. Ubes in Portugal",4,9,1782,,1,
 1928,1944,"HCA34_54","5546-5547","Nuestra Senora del Carmen y San Antonio","Francisco Riguera","Spain",,"William Croute","Biscayneer",,,"Dartmouth",4,9,1782,,0,"letter of marque"
-1929,1945,"HCA34_54","5548-5549","le St. Francois D' Assisse","Francois Manegro","French  ",,"Thomas Falaise","Alert",,,"Guernsey",6,11,1782,,0,
+1929,1945,"HCA34_54","5548-5549","le St. Francois D' Assisse","Francois Manegro","French",,"Thomas Falaise","Alert",,,"Guernsey",6,11,1782,,0,
 1930,1946,"HCA34_54","5550-5553","St. Juan Repmucenon","Don Josef Joaquin Salazaro","Spain",,"Lisle Nieal","Lalonne",,,"Faro in Portugal",6,11,1782,,0,
 1931,1947,"HCA34_54","5554-5555","Neustra Senora Del Antigua","Domingo Genochea",,"Spain","John Poingdestre","Moan",,,"Jersey",6,11,1782,1,0,
 1932,1910,"HCA34_54",5556,"le Saint Joseph","Jean Baptiste Sanagaity",,"France","Philip Hamon","Vulture","le Saint Joseph","Jean Baptiste Larragoity","Jersey",22,11,1782,2,1,
@@ -2574,7 +2574,7 @@
 2573,2575,"HCA34_63","7784-7785","Nostra Senora dela Solidas","Pedro Sazas","not given","Spain","Samuel Ganier","Marquis Townsend",,,"Jersey",27,10,1799,0,0,
 2574,2576,"HCA34_63","7786-7787","Name Unknown","not given","Spain",,"John legoyt","Tartar",,,"Jersey",22,10,1799,0,0,
 2575,2577,"HCA34_63","7788-7789","Mary Joseph","John Bods","not given","France","John Knight","Dispatch",,,"Liverpool",24,10,1799,0,0,
-2576,2578,"HCA34_63","7790-7791","La Reussite","Francois Marie Drean","France (not given)","France","Germain Aubin","Revenge",,,"Jersey",23,10,1799,0,0,
+2576,2578,"HCA34_63","7790-7791","La Reussite","Francois Marie Drean","not given","France","Germain Aubin","Revenge",,,"Jersey",23,10,1799,0,0,
 2577,2579,"HCA34_63","7792-7793","Nra. Sra. Del Pilar","Miguel Anectie","Spain",,"Robert Youngus Brand","Antelope",,,"leghorn",8,10,1799,0,0,
 2578,2580,"HCA34_63","7794-7795","La Trinite","George Thilbaut","not given","France","Germain Aubin","Revenge",,,"Jersey",17,10,1799,0,0,
 2579,2581,"HCA34_63","7796-7797","San Antonio de Padua","Juan Antonio de Aldecea","Spain",,"Joh  legeyt","Tartar",,,"Jersey",25,10,1799,0,0,
