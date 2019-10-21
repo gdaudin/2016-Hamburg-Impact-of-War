@@ -28,9 +28,6 @@ replace period_str ="Peace 1816-1840" if year >= 1816
 drop if product_sitc_simplen == "Precious metals"
 drop if product_sitc_simplen==""
 
-label define peacewar 0 "Peace" 1 "War"
-label define blockwar 0 "Blockade" 1 "War"
-
 gen war=.
 
 ***************pie chart and violin chart for all war periods***************************

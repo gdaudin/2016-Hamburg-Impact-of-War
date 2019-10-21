@@ -73,7 +73,52 @@ args period1 period2 direction
 		collapse (sum) value, by(year war product_sitc_simplen exportsimports period_str)
 	}
 	
+	
+	
 	keep if war!=.
+	
+	capture label drop peacewar
+	
+	foreach i of num 0/9{
+	///this for loop is just to create the label for war and peace
+		
+		local finish= 0
+		//I defined this avoid the program to keep looping even after it created the right labe
+		
+		su war 
+		
+		if `r(min)' != 8 & `r(max)'!= 8{
+		
+			if `r(min)'==`i'*2 {
+				su war
+				label define peacewar `r(min)' "Peace" `r(max)' "War"
+			}
+			
+			if `r(min)'==2*`i'+1 {
+				su war
+				label define peacewar `r(max)' "Peace" `r(min)' "War"
+
+			}
+			
+			local finish=1
+
+		}
+		
+		else if `r(min)'==8{
+			label define peacewar 8 "Blockade" 9 "Peace"
+			local finish=1
+		}
+		
+		else{
+			label define peacewar 8 "Blockade" 7 "War"
+			local finish = 1
+		}
+		
+		if `finish'==1 break
+	}
+	
+	label var war peacewar
+	
 	collapse (sum) value, by(year product_sitc_simplen war exportsimports)
 		
 	bysort year exportsimports: egen total=sum(value)
@@ -114,6 +159,7 @@ args period1 period2 direction
 	levelsof exportsimports, local(levels)
 	foreach i of local levels{
 		
+		///these are necessary to call the global macro with the pvalue of the MANOVA to insert in the violin graphs 
 		if exportsimports=="Exports" local name X
 		if exportsimports=="Imports" local name I
 		if "`direction'"== "national" local dir nat
