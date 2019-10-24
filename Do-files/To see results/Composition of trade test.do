@@ -113,6 +113,7 @@ args period1 period2 plantation_yesno direction X_I
 		
 	if "`X_I'"=="Exports" local name X
 	if "`X_I'"=="Imports" local name I
+	if "`X_I'"=="I_X" local name XI
 	if "`direction'"== "national" local dir nat
 	else local dir loc
 		

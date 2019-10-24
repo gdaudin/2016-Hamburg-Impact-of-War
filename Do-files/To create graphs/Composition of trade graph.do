@@ -79,66 +79,75 @@ args period1 period2 direction
 	
 	capture label drop peacewar
 	
-	foreach i of num 0/9{
-	///this for loop is just to create the label for war and peace
-		
-		local finish= 0
-		//I defined this avoid the program to keep looping even after it created the right labe
-		
+	local finish=0
+	local i =0
+	
+	while `finish'==0{
+	///this for loop is just to create the label for war and peace for the graphs
+	/// I define war as a even number when it's a peace period and odd number when it's war
+	/// (probably makes more sense to recode with positive and negative)
+	
 		su war 
+		di `r(min)'
+		di `r(max)'
 		
 		if `r(min)' != 8 & `r(max)'!= 8{
-		
+					
 			if `r(min)'==`i'*2 {
 				su war
 				label define peacewar `r(min)' "Peace" `r(max)' "War"
+				local finish=`finish'+1
 			}
 			
 			if `r(min)'==2*`i'+1 {
 				su war
 				label define peacewar `r(max)' "Peace" `r(min)' "War"
-
+				local finish=`finish'+1
 			}
 			
-			local finish=1
+			else local i = `i'+1
 
 		}
 		
 		else if `r(min)'==8{
 			label define peacewar 8 "Blockade" 9 "Peace"
-			local finish=1
+			di "loop `i' second if"
+			local finish=`finish'+1
 		}
 		
 		else{
 			label define peacewar 8 "Blockade" 7 "War"
-			local finish = 1
-		}
-		
-		if `finish'==1 break
+			di "loop `i' third if"
+			local finish=`finish'+1
+		}		
 	}
 	
-	label var war peacewar
+	label values war peacewar
 	
 	collapse (sum) value, by(year product_sitc_simplen war exportsimports)
 		
 	bysort year exportsimports: egen total=sum(value)
 	gen percent= value/total
+	
+	bysort year product_sitc_simplen: egen value_XI=sum(value)
+	replace value_XI=. if exportsimports=="Exports"
+	bysort year: egen total_XI=sum(value)
+	gen percent_XI=value_XI/total_XI
 		
-	/*
-	fillin year product_sitc_simplen 
+	
+	fillin year exportsimports product_sitc_simplen 
 	levelsof year, local(year)
 	foreach j of local year{
-			qui su percent if year==`j' 
+			qui su percent if year==`j'
 			replace percent=r(min)/2 if percent==. & year==`j' 
+			qui su percent_XI if year==`j'
+			replace percent_XI=r(min)/2 if percent_XI==. & year==`j' & exportsimports=="Imports"
 	}
 	replace war =war[_n-1] if war[_n]==. & year[_n]==year[_n-1]
 	replace war =war[_n+1] if war[_n]==. & year[_n]==year[_n+1]	
+	gen ln_percent=log(percent)
+	gen ln_percent_XI=log(percent_XI)
 	drop _fillin
-	*/
-
-	gen ln_percent=ln(percent)
-	encode product_sitc_simplen, gen(product_sitc_num)
-	
 	
 	qui graph 	pie value if exportsimports=="Exports", over(product_sitc_simplen) ///
 			plabel(_all name, size(*0.7) color(white)) legend(off) ///
@@ -154,6 +163,7 @@ args period1 period2 direction
 		
 	graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_composition_I.pdf", replace
 	
+	encode product_sitc_simplen, gen(product_sitc_num)
 	egen sitc_war = group(product_sitc_num war), label
 
 	levelsof exportsimports, local(levels)
@@ -174,8 +184,23 @@ args period1 period2 direction
 				///title(`title')
 		
 		graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_`direction'_distribution_`name'.pdf", replace
-		
 	}
+	
+
+	if "`direction'"== "national" local dir nat
+	else local dir loc
+	local name XI
+
+	vioplot ln_percent, over(sitc_war) hor ylabel(,angle(0) labsize(vsmall)) ///
+			plotregion(fcolor(white)) graphregion(fcolor(white)) ///
+			note("Exports and Imports" "MANOVA with plantation foodstuff: ${`period1'`period2'1`dir'`name'}" ///
+			"MANOVA without plantation foodstuff: ${`period1'`period2'0`dir'`name'} " ///
+			, size(vsmall)) ///
+			xtitle("Log Percentage share")
+				///title(`title')
+		
+	graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_`direction'_distribution_`name'.pdf", replace
+		
 	
 	restore
 	
