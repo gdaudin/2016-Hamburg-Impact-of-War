@@ -6,7 +6,7 @@ args period1 period2 direction
 	preserve 				
 
 	if "`period1'"=="peace" | "`period2'"=="peace" {
-		replace war=0 if period_str!="War 1756-1763" | period_str !="War 1778-1783" | ///
+		replace war=-1 if period_str!="War 1756-1763" | period_str !="War 1778-1783" | ///
 						 period_str!="War 1793-1807" | period_str !="Blockade 1808-1815"
 		}
 		
@@ -16,35 +16,35 @@ args period1 period2 direction
 		}	
 	
 	if "`period1'"=="peace1749_1755" | "`period2'"=="peace1749_1755"{
-		replace war=2 if period_str=="Peace 1749-1755"
+		replace war=-2 if period_str=="Peace 1749-1755"
 		}
 		
 	if "`period1'"=="seven" | "`period2'"=="seven"{
-		replace war=3 if period_str=="War 1756-1763" 
+		replace war=2 if period_str=="War 1756-1763" 
 		}
 		
 	if "`period1'"=="peace1764_1777" | "`period2'"=="peace1764_1777"{
-		replace war=4 if period_str=="Peace 1764-1777"
+		replace war=-3 if period_str=="Peace 1764-1777"
 		}
 		
 	if "`period1'"=="indep" | "`period2'"=="indep"{
-		replace war=5 if period_str=="War 1778-1783"
+		replace war=3 if period_str=="War 1778-1783"
 		}		
 	
 	if "`period1'"=="peace1784_1792" | "`period2'"=="peace1784_1792"{
-		replace war=6 if period_str=="Peace 1784-1792" 
+		replace war=-4 if period_str=="Peace 1784-1792" 
 		}
 	
 	if "`period1'"=="rev" | "`period2'"=="rev"{
-		replace war=7 if period_str=="War 1793-1807" 
+		replace war=4 if period_str=="War 1793-1807" 
 		}
 	
 	if "`period1'"=="block" | "`period2'"=="block"{
-		replace war=8 if period_str=="Blockade 1808-1815" 
+		replace war=5 if period_str=="Blockade 1808-1815" 
 		}
 	
 	if "`period1'"=="peace1816_1840" | "`period2'"=="peace1816_1840"{
-		replace war=9 if period_str=="Peace 1816-1840" 
+		replace war=-6 if period_str=="Peace 1816-1840" 
 		}
 
 	
@@ -79,48 +79,44 @@ args period1 period2 direction
 	
 	capture label drop peacewar
 	
-	local finish=0
-	local i =0
+	///loop to assign label to graphs 
 	
-	while `finish'==0{
-	///this for loop is just to create the label for war and peace for the graphs
-	/// I define war as a even number when it's a peace period and odd number when it's war
-	/// (probably makes more sense to recode with positive and negative)
-	
-		su war 
-		di `r(min)'
-		di `r(max)'
+	su war 
 		
-		if `r(min)' != 8 & `r(max)'!= 8{
+	if `r(min)' != 5 & `r(max)'!= 5{
 					
-			if `r(min)'==`i'*2 {
-				su war
-				label define peacewar `r(min)' "Peace" `r(max)' "War"
-				local finish=`finish'+1
+		if `r(min)'<0 & `r(min)'>0 {
+			qui su war
+			label define peacewar `r(min)' "Peace" `r(max)' "War"
+		}
+			
+		if `r(min)'>0 & `r(max)'>0 {
+			qui su war
+			label define peacewar `r(max)' "War1" `r(min)' "War2"
 			}
 			
-			if `r(min)'==2*`i'+1 {
-				su war
-				label define peacewar `r(max)' "Peace" `r(min)' "War"
-				local finish=`finish'+1
+		if `r(min)'<0 & `r(max)'<0 {
+			qui su war
+			label define peacewar `r(max)' "Peace1" `r(min)' "Peace2"
 			}
-			
-			else local i = `i'+1
-
 		}
 		
-		else if `r(min)'==8{
-			label define peacewar 8 "Blockade" 9 "Peace"
-			di "loop `i' second if"
-			local finish=`finish'+1
+		else if `r(max)'==5 & `r(min)'<0{
+			qui su war
+			label define peacewar 5 "Blockade" `r(min)' "Peace"
 		}
 		
-		else{
-			label define peacewar 8 "Blockade" 7 "War"
-			di "loop `i' third if"
-			local finish=`finish'+1
+		else if `r(max)'==5 & `r(min)' >0{
+			qui su war
+			label define peacewar 5 "Blockade" `r(min)' "War"
 		}		
-	}
+		
+		else if `r(min)'==5 & `r(max)' >0{
+			qui su war
+			label define peacewar 5 "Blockade" `r(max)' "War"
+			
+		}
+
 	
 	label values war peacewar
 	
