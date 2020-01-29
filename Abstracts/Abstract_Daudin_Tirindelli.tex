@@ -1,6 +1,7 @@
 \documentclass[12pt,a4paper,notitlepage]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
+\usepackage{wrapfig, blindtext}
 \usepackage{amsfonts}
 \usepackage{longtable}
 \usepackage{amssymb}
@@ -32,15 +33,17 @@ Lessons from the Second Hundred Years War}
   \and
   Elisa Tirindelli\footnote{This paper is not part of my PhD dissertation. It is the continuation of my master's thesis which I am now trying to publish with my previous supervisor, as my co-author. My present supervisor in Trinity College is not involved in this project.} \\ Trinity College Dublin  \\ tirindee@tcd.ie
 }
+\date{}
 \maketitle
 
-\section*{Abstract}
+%\section*{Abstract}
 
 \epigraph{Savez-vous Messieurs ce qu’est une bataille navale ? On se rencontre, on se salue, on se canonne et la mer n’en reste pas moins salée.}{Maurepas, Navy Minister of Louis  \textsc{xv}, 1718-1748}
 
 
 What made mercantilist warfare effective in its own terms, i.e. by crippling trade of defeated powers?
-Our paper explores the Anglo-French experience during the eighteenth century and contributes to disentangle the effects of all the strategies implemented to curtail enemy's trade. Thanks to a new database of French trade statistics\footnote{http://toflit18.hypotheses.org} we have explored the impact on trade of different elements such as naval supremacy, colony loss and regulations over neutral trade, for different countries; the latter proved to be an unexpectedly powerful tool in this context. By exploiting also bilateral trade flows by product available in the dataset we are confident that we will be able to have further insights in this matter.   \\
+Our paper explores the Anglo-French experience during the eighteenth century and contributes to disentangle the effects of the strategies implemented to curtail enemy's trade. Thanks to a new database of French trade statistics,
+\footnote{http://toflit18.hypotheses.org} we were able to analyse the impact of a prolonged period of mercantilist warfare, not only on aggregate trade, but also on its structure, narrowing down our analysis to fourteen distinct product categories. We have tried to quantify the disruptive effects of different elements, such as naval supremacy, colony loss, policy towards neutral countries and activities of privateers, and to relate it to a loss function, that we have constructed on French trade. As far as aggregate trade is concerned, we could not individuate a specific cause to justify systematically the major post-war losses. However, from our analysis, we can see a clear link between long lasting changes in trade structure and level of trade disruption. Our aim is now to extend our analysis to look for a link between warfare strategies and permanence of changes in trade composition.  \\
 
 \cite{jefferson_letter_1823} famously noticed that European nations \textit{were nations of eternal war}.
 Indeed, from 1700 to 1825, two years out of three experienced conflict between major European powers \citep{roser_war_2016}.
@@ -70,48 +73,55 @@ Loss is defined as the percentage loss compared to past peace time trend:
 Loss = \frac{Expected \> value \> based \> on \>past \> peace \>trend - Observed \> value}{Expected \> value \> based \> on \>past \> peace \>trend}
 \end{equation*}
  Figure \ref{annual_loss_function} shows the annual loss function for the period of interest. Figure \ref{mean_loss_function} shows the mean loss function by peace or war period.
-\begin{center}
 \begin{figure}[H]
-\caption{Annual Loss Function}
-\label{annual_loss_function}
-\centering
-\includegraphics[scale=.3]{Annual_loss_function.png}
-\caption{Mean Loss Function}
-\label{mean_loss_function}
-\includegraphics[scale=.3]{Mean_loss_function.png}
+	\begin{minipage}[b]{0.45\linewidth}
+		\caption{Annual Loss Function}
+		\centering
+		\label{annual_loss_function}
+		\includegraphics[scale=.3]		{Annual_loss_function.png}
+	\end{minipage}
+	 \hspace{0.5cm}
+     \begin{minipage}[b]{0.45\linewidth}
+	\caption{Mean Loss Function}
+	\label{mean_loss_function}
+	\includegraphics[scale=.3]{Mean_loss_function.png}
+	\end{minipage}
 \end{figure}
-\end{center}
-These two figures reveal that the peace percentage loss of the Seven Years Wars and that of the Napoleonic Wars, were comparable to wartime loss, as opposed to faster recoveries in other post-war periods.
+These two figures show that the peace percentage loss of the Seven Years Wars and that of the Napoleonic Wars, were comparable to wartime loss, as opposed to faster recoveries in other post-war periods.
 What made these wars so effective in terms of trade disruption?
 How are they different from other similar wars in the same century? \\
-This is an important question important to understand the effect of wars in general, the geopolitical history of the eighteenth and nineteenth century and the globalization/deglobalization cycle from the 1490s to the 1840s. \\
+This is an important question in order to understand the effect of wars (and trade wars) in general, the geopolitical history of the eighteenth and nineteenth century and the globalization/deglobalization cycle from the 1490s to the 1840s. \\
 %The existing literature on this topic comes to mixed results. \cite{barbieri1999sleeping} for example, analyse the impact of war from 1870 to 1992, and find that the general impact of conflict on trade is not particularly strong and mostly only temporary. \cite{anderton2001impact}, on the other hand, look at the effect of wars on global trade, and find that when major world power are at war significant pre and post war effects are observed. Finally, \cite{rahman2010fighting}, using British trade data from eighteenth century, finds that it is warfare between naval powers that brings disruption to trade. In contrast, the resilience of French trade has long been remarked by historians (\cite{riley_seven_1986}). \\
-To answer this question we explore several different hypothesis. \\
-The first possible explanation is naval supremacy.
+To answer this question we attempt to quantify the impact of the different factors at play. \\
+Naval supremacy was an important determinant of efficacy of a trade conflict.
 British naval supremacy over France meant that Britain could blockade French ports and capture French ships in a more efficient way.
-To verify this, we use the number of warships available to France, France and its allies, Great Britain, Great Britain and its allies and neutral as provided in \cite{modelski1988seapower}, as a proxy for naval supremacy.
-What we find, however, is that the most favourable war for France and its allies, in terms of naval supremacy, was the Seven Years War.
+To give a yearly weight to this, we use the number of warships available to France, France and its allies, Great Britain, Great Britain and its allies and neutral as provided in \cite{modelski1988seapower}, as a proxy for naval supremacy.
+We find that the most favourable war for France and its allies, in terms of naval supremacy, was the Seven Years War, which, according to the loss function, was one of the toughest in terms of forgone trade.
 This suggests that naval supremacy is not a sufficient explanation. \\ 
-A second hypothesis is colony loss. We construct a measure to account for this.
+Another possible factor is colony loss. We construct a measure to account for this.
 This measure equals 1 when France had all its colonies, and gets reduced by an amount proportional to the value of forgone trade whenever a colony is lost.
-As in the previous case, there seem to be a correlation with with the period of the Revolutionary \& Napoleonic Wars, but this does not contribute to explain the loss in trade during the Seven Years War. \\
+As in the previous case, there seems to be a correlation with the period of the Revolutionary \& Napoleonic Wars, but this does not contribute to explain the loss in trade during the Seven Years War. \\
 Finally, we explore the hypothesis of the role of neutral trade during conflicts. 
-While trying to destroy foe's shipping, the way the Neutrals were treated was important as the merchants from belligerent countries used a number of devices to "hide" their cargo as neutral cargo, and continue trade (see \citep{carriere1973negociants}, \cite{schnakenbourg2013guerre}). 
+While trying to destroy foe's shipping, the way the Neutrals were treated was important, as the merchants from belligerent countries used a number of devices to "hide" their cargo as neutral cargo, and continue trade (see \citep{carriere1973negociants}, \cite{schnakenbourg2013guerre}). 
 During the century, belligerent countries - especially Great Britain - tried to close off these ways for French trade to continue thanks to neutral shipping.
 In 1756, during Seven Years War, the British tried to reduce French trade on neutral ships by introducing the \textit{Doctrine of Continuous Voyage} along with the \textit{Rule of War of 1756}, that stated that the very beginning of the journey and the very end should be taken into account to determine the nationality of the cargo.
 They also claimed and exercised the right to seize neutral shipping to look for contraband.
-The situation for neutral trade was not very different during the Revolutionnary \& Napoleonic wars, as France become more and more hostile to neutral shipping as a way to try and isolate Great Britain.\\
-There seems to be a correspondence between the loss function and the degree to which neutral trade was curtailed. This suggests  that trade with neutrals is important in explaining the contrasting resilience of French trade after each of its war with Great-Britain.
-We conclude that, even if it is reasonable to believe that all these factors were contributing to the loss in trade during conflicts, the critical point was strictly related to policy towards neutral countries.
-British could efficiently curtail French trade only by blockading neutral countries.
+The situation for neutral trade was not very different during the Revolutionnary \& Napoleonic wars, as France become more and more hostile to neutral shipping as a way to try and isolate Great Britain. Even without a proper quantification of the variation in policy, there seems to be a correlation with the loss function. The hardest neutral traders were hit during a war, the higher the loss function. 
+\begin{wrapfigure}{r}{0.5\linewidth}
+\includegraphics[scale=.7]{peace_war_national_distribution_XI.pdf}
+\caption{Distribution of trade Composition}
+\label{peace_war_national_distribution_XI}
+\end{wrapfigure}
+This led us to take yet another step in the attempt to uncover the underlying mechanisms of trade wars. We have run a test to evaluate whether the change in trade structure caused by a war was long lasting, i.e. whether a war changed the structure of trade also for the period after the end of the conflict. We use a MANOVA test for all the war and peace periods (figure \ref{peace_war_national_distribution_XI}, p-value reported at the bottom) and for each war separately. The test tells us that we can confidently reject the hypothesis that trade composition is unchanged in war versus peace period, and it shows that after certain wars we fail to reject the hypothesis of a change back. What we also see is that there is a strong correlation between bigger looses and longer lasting changes in shares of traded products. \\
+This has led us to conclude, so far, that the most effective strategy of a trade war was not only to disrupt trade during the war, but to cause permanent effects to its pre-war structure. More analysis is still needed to uncover the links with the role of neutral countries in this matter.
 
 
 
 
 
-\textbf{Keywords}: international trade, 18th century, France, neutral trade, warfare
+\textbf{Keywords}: international trade, 18th century, France, neutral trade, trade war
 
-\pagebreak
+%\pagebreak
 
 \renewcommand{\baselinestretch}{1.0}\normalsize
 \bibliographystyle{apa}

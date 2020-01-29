@@ -30,7 +30,7 @@
   \and
   Elisa Tirindelli\thanks{Trinity College Dublin, email: tirindee@tcd.ie}
 }
-\title{How to wage a trade war? \\ Lessons from the Second Hundred Years War\thanks{The authors want to thanks Christina Gathmann and Henning Hillman for sharing data and archive pictures with them. They also want to thank Philip Hoffman for sharing data with them.}}
+\title{How to wage a trade war? \\ Lessons from the Second Hundred Years War\thanks{The authors want to thanks Philip Hoffman for sharing data with them.}}
 \date{}
 
 
@@ -47,9 +47,6 @@ How was Mercantilist warfare effective in its own terms, by crippling trade of d
 \section{Introduction} \label{introduction}
 
 \epigraph{Savez-vous Messieurs ce qu’est une bataille navale ? On se rencontre, on se salue, on se canonne et la mer n’en reste pas moins salée.}{Maurepas, Navy Minister of Louis  \textsc{xv}, 1718-1748}
-
-\epigraph{When a country (USA) is losing many billions of dollars on trade with virtually every country it does business with, trade wars are good, and easy to win.}{Donald J. Trump, 2018}
-
 
 
 
@@ -471,7 +468,7 @@ The situation was very different during the Revolutionnary \& Napoleonic wars.
 The United States were a new independent actor in international trade.
 They played a very important role in "neutralizing" French trade \citep{Marzagalli2005,Marzagalli2015}).
 But considering the dynamism of their economy, they were not as easy to dismiss when peace returned.
-Still, their net shipping income was divided by four between the high points of 1807 and 1811 (c 40 Million US\$) and the 1820s (less than 10 Million US\$) \cite[series U-3 and U-10]{UnitedStatesBureauoftheCensus1975}, see also \cite[tables A-4 and B-2]{North1960}.
+Still, their shipping income was divided by four between the high points of 1807 and 1811 (40 Million US\$) and the 1820s (less than 10 Million US\$) \citep[tables A-4 and B-2]{North1960}.
 Another change was that France become more and more hostile to neutral shipping in trying to isolate Great Britain.
 With both countries trying to curtail neutral shipping, the system through which it was an objective ally of French trade crumbled down.
 In 1793, with the outburst of the French Revolution and, subsequently, the Revolutionary Wars, most British goods were prohibited in France.
@@ -591,7 +588,7 @@ Next, I go on to analysing the effects distinguishing by war status (Table \ref{
 \end{figure}
 
 \section{Changing composition of trade}  \label{composition}
-In this section we test whether the structure of trade changed in wartime and, if so, whether the change was reversed after the end of the conflict (or trade war). \\
+In this section we test whether the structure of trade was significantly different in wartime with respect to peacetime and, if so, whether the change was reversed after the end of each conflict. \\
 In order to do so we group goods using an adapted version of the SITC classification, which is reported in table \ref{class_sitc18}\footnote{More on how this SITC18 classification is defined is available on http://toflit18.medialab.sciences-po.fr/\#/home}, and we observe the share of trade of each of these categories, comparing the war periods with the peace before and after. 
 \begin{table}[H]
 \centering
@@ -599,39 +596,26 @@ In order to do so we group goods using an adapted version of the SITC classifica
 \label{class_sitc18}
 \input{class_sitc18.tex}
 \end{table}
-What we want to test here, is whether there is a correlation between a longer lasting change in the structure of trade and the loss function. More precisely, we want to investigate whether higher losses to French trade, hence a successful British trade war strategy, were associated not only to the necessity to restructure trade during war time but also to hinder the capacity to get back to the pre-war trade structure (which, in some sense, we consider "optimal"). Therefore we want to test the "mean" difference between two groups, where by mean we consider the 13-dimensional vector of 
-sitc trade shares and by group the war-peace periods. For doing so we use a Hotelling T squared test and run it first on change between pooled peace and war years, and then separating each war and peace period. As a robustness check, we repeat the same test excluding plantation foodstuff, but results do not change. Together with the test, for every pair we also plot graphs of change in distribution. 
+What we want to test here, is whether there is a correlation between a longer lasting change in the structure of trade and the loss function. More precisely, we want to investigate whether higher losses to French trade, hence a successful British trade war strategy, were associated not only to the necessity to restructure trade during war time, but also to hinder the capacity to get back to the pre-war trade structure (which, in some sense, we consider "optimal"). \\
+In order test this we conduct a Multivariate Analisys of Variance (MANOVA), allowing for heterogeneous covariances, using the affine-invariant modification by \cite{krishnamoorthy2004modified} of the test proposed by \cite{nel1986solution}. The two mean vectors here are the 13-dimensional vectors whose components are the SITC trade shares and the groups are the war-peace periods. 
+We do it for imports, exports and imports exports together and then excluding plantation foodstuff. Results p-values are reported in table \ref{manova_test} and graphs from \ref{peace_war_distribution} to \ref{post_blockade} show the distribution for each sitc class in each period.\\
+Considering a 5\% threshold for rejecting the null hypothesis of equality of means, we observe from table \ref{manova_test} that there is undoubtedly a change in trade structure between war and peace periods overall. The p-value is zero, which implies that at least one sitc category (which is not Plantation foodstuff, because the p-value is unaltered while removing it from the analysis) changes between the two periods. Narrowing down our analysis we proceed to observe the difference between trade structure in war and preceding or following peace periods. Both because of lack of data and of very short peace periods, the comparison is not always possible. We could only examine the difference between Seven Years Wars and the 1764-1777 peace, 1764-1777 peace and War of American Independence, French Revolutionary Wars and Continental Blockade and Continental Blockade and the 1816-1840 peace. In the first case we observe that we can reject the hypothesis that the two mean vectors are the same, i.e. at the end of the Seven Years War there was a clear shift in composition of trade. The only exception is for the case of aggregate imports and exports, including Plantation Foodstuff, where we fail to reject the null hypothesis, however individually on imports and exports the significance for rejection is quite high. Such dramatic change did not happen with the beginning of the War of American Independence, we observe in fact that the p-values are all above the 5\% level, and even if they decrease upon eliminating Plantation Foodstuff, they remain above the threshold. Hence in this case we can say that the outburst of the conflict did not have consequences on French trading pattern. The same cannot be said for the difference between French Revolutionary Wars and Continental Blockade, where there once again a clear shift in composition of trade, which does not only depend on Plantation Foodstuff, i.e. the share of of at least another category of the sitc classification changed significantly between the two periods. Finally, we observe that the change was longer lasting. At the end of the Continental Blockade in fact, France does not seem to recover its pre-Blockade trade structure. This cannot only be due to the fact that it lost its main source of Plantation Foodstuff import and re-export, because even excluding this category the result is consistent. 
+  
+\input{manova_test.tex}
+%\input{hotelling_test_hom.tex}
+
 \begin{figure}
 \centering
 \caption{All War and Peace period}
-\label{peace_war_composition}
-\includegraphics[scale=.63]{peace_war_composition_I}
-\includegraphics[scale=.63]{peace_war_composition_X}
-\vspace{0.7cm}
+\label{peace_war_distribution}
 \includegraphics[scale=.63]{peace_war_distribution_I}
 \includegraphics[scale=.63]{peace_war_distribution_X}
 \end{figure}
 
-
-%\begin{figure}
-%\centering
-%\caption{Peace 1749-1755 and Seven Years War}
-%\label{pre_seven_composition}
-%\includegraphics[scale=.63]{pre_seven_composition_I}
-%\includegraphics[scale=.63]{pre_seven_composition_X}
-%\vspace{0.7cm}
-%\includegraphics[scale=.63]{pre_seven_distribution_I}
-%\includegraphics[scale=.63]{pre_seven_distribution_X}
-%\end{figure}
-
-
 \begin{figure}
 \centering
 \caption{Seven Years War and Peace 1764-1777}
-\label{post_seven_composition}
-\includegraphics[scale=.63]{post_seven_composition_I}
-\includegraphics[scale=.63]{post_seven_composition_X}
-\vspace{0.7cm}
+\label{post_seven_distribution}
 \includegraphics[scale=.63]{post_seven_distribution_I}
 \includegraphics[scale=.63]{post_seven_distribution_X}
 \end{figure}
@@ -639,43 +623,15 @@ sitc trade shares and by group the war-peace periods. For doing so we use a Hote
 \begin{figure}
 \centering
 \caption{Peace 1764-1777 and American Independence War}
-\label{pre_independence_composition}
-\includegraphics[scale=.63]{pre_independence_composition_I}
-\includegraphics[scale=.63]{pre_independence_composition_X}
-\vspace{0.7cm}
+\label{pre_independence_distribution}
 \includegraphics[scale=.63]{pre_independence_distribution_I}
 \includegraphics[scale=.63]{pre_independence_distribution_X}
 \end{figure}
-
-%\begin{figure}
-%\centering
-%\caption{American Independence War and Peace 1784-1792}
-%\label{post_revolutionary_composition}
-%\includegraphics[scale=.63]{post_independence_composition_I}
-%\includegraphics[scale=.63]{post_independence_composition_X}
-%\vspace{0.7cm}
-%\includegraphics[scale=.63]{post_independence_distribution_I}
-%\includegraphics[scale=.63]{post_independence_distribution_X}
-%\end{figure}
-
-%\begin{figure}
-%\centering
-%\caption{Peace 1784-1792 and Revolutionary War}
-%\label{pre_napoleonic}
-%\includegraphics[scale=.63]{pre_revolutionary_composition_I}
-%\includegraphics[scale=.63]{pre_revolutionary_composition_X}
-%\vspace{0.7cm}
-%\includegraphics[scale=.63]{pre_revolutionary_distribution_I}
-%\includegraphics[scale=.63]{pre_revolutionary_distribution_X}
-%\end{figure}
 
 \begin{figure}
 \centering
 \caption{Revolutionary War and Continental Blockade}
 \label{napoleonic_blockade}
-\includegraphics[scale=.63]{revolutionary_block_composition_I}
-\includegraphics[scale=.63]{revolutionary_block_composition_X}
-\vspace{0.7cm}
 \includegraphics[scale=.63]{revolutionary_block_distribution_I}
 \includegraphics[scale=.63]{revolutionary_block_distribution_X}
 \end{figure}
@@ -684,9 +640,6 @@ sitc trade shares and by group the war-peace periods. For doing so we use a Hote
 \centering
 \caption{Continental Blockade and Peace 1816-1821}
 \label{post_blockade}
-\includegraphics[scale=.63]{post_blockade_composition_I}
-\includegraphics[scale=.63]{post_blockade_composition_X}
-\vspace{0.7cm}
 \includegraphics[scale=.63]{post_blockade_distribution_I}
 \includegraphics[scale=.63]{post_blockade_distribution_X}
 \end{figure}
