@@ -2,18 +2,21 @@
 if "`c(username)'"=="guillaumedaudin" ///
 		global hamburg "~/Documents/Recherche/2016 Hambourg et Guerre"
 		global hamburggit "~/Documents/Recherche/2016 Hambourg et Guerre/2016-Hamburg-Impact-of-War"
+		global toflit18_data_git "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/toflit18_data_git"
 
 if "`c(username)'" =="Tirindelli" {
 	global hamburg "/Users/Tirindelli/Google Drive/ETE/Thesis"
+	global toflit18_data_git "$hamburg/toflit18_data_GIT"
 	global hamburggit "/Users/Tirindelli/Google Drive/ETE/Thesis/Data/do_files/Hamburg"
 }
 
 if "`c(username)'" =="tirindee" {
 	global hamburg "C:\Users\tirindee\Google Drive\ETE\Thesis"
+	global toflit18_data_git "$hamburg/toflit18_data_GIT"
 	global hamburggit "C:\Users\TIRINDEE\Google Drive\ETE/Thesis/Data/do_files/Hamburg"
 }
 		
-import delimited "$hamburg/toflit18_data_GIT/base/bdd courante.csv", ///
+import delimited "$toflit18_data_git/base/bdd courante.csv", ///
 	   encoding(UTF-8) clear varname(1) stringcols(_all)		
 
 * Keep only necessary variables
