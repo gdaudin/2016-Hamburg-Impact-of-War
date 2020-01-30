@@ -3,7 +3,7 @@ capture program drop composition_trade_graph
 program composition_trade_graph 
 args period1 period2 direction 
 
-	save temp.dta, replace 				
+	preserve 				
 
 	if "`period1'"=="peace" | "`period2'"=="peace" {
 		replace war=-1 if period_str!="War 1756-1763" | period_str !="War 1778-1783" | ///
@@ -47,8 +47,6 @@ args period1 period2 direction
 		replace war=-6 if period_str=="Peace 1816-1840" 
 		}
 
-
-		
 	
 	if "`direction'"=="national"{
 		gen commerce_national = 1 if (sourcetype=="Objet Général" & year<=1786) | ///
@@ -83,10 +81,11 @@ args period1 period2 direction
 	
 	///loop to assign label to graphs 
 	
-	su war 	
+	su war 
+		
 	if `r(min)' != 5 & `r(max)'!= 5{
 					
-		if `r(min)'<0 & `r(max)'>0 {
+		if `r(min)'<0 & `r(min)'>0 {
 			qui su war
 			label define peacewar `r(min)' "Peace" `r(max)' "War"
 		}
@@ -94,14 +93,13 @@ args period1 period2 direction
 		if `r(min)'>0 & `r(max)'>0 {
 			qui su war
 			label define peacewar `r(max)' "War1" `r(min)' "War2"
-		}
+			}
 			
 		if `r(min)'<0 & `r(max)'<0 {
 			qui su war
 			label define peacewar `r(max)' "Peace1" `r(min)' "Peace2"
+			}
 		}
-	}
-		
 		
 		else if `r(max)'==5 & `r(min)'<0{
 			qui su war
@@ -162,7 +160,6 @@ args period1 period2 direction
 	graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_composition_I.pdf", replace
 	
 	encode product_sitc_simplen, gen(product_sitc_num)
-	label define peacewar -1 "-- Peace" 1 "-- War", replace
 	egen sitc_war = group(product_sitc_num war), label
 
 	levelsof exportsimports, local(levels)
@@ -179,7 +176,7 @@ args period1 period2 direction
 				note("`i' " "MANOVA with plantation foodstuff: ${`period1'`period2'1`dir'`name'}" ///
 				"MANOVA without plantation foodstuff: ${`period1'`period2'0`dir'`name'} " ///
 				, size(vsmall)) ///
-				xtitle("Log Percentage share of trade flows")
+				xtitle("Log Percentage share")
 				///title(`title')
 		
 		graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_`direction'_distribution_`name'.pdf", replace
@@ -195,15 +192,13 @@ args period1 period2 direction
 			note("Exports and Imports" "MANOVA with plantation foodstuff: ${`period1'`period2'1`dir'`name'}" ///
 			"MANOVA without plantation foodstuff: ${`period1'`period2'0`dir'`name'} " ///
 			, size(vsmall)) ///
-			xtitle("Log Percentage share of trade flows")
+			xtitle("Log Percentage share")
 				///title(`title')
 		
 	graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_`direction'_distribution_`name'.pdf", replace
-	if "`period1'"=="peace" | "`period2'"=="peace" /* 
-	*/ graph export "$hamburggit/Abstracts/`period1'_`period2'_`direction'_distribution_`name'.pdf", replace
 		
 	
-	use temp.dta, clear
+	restore
 	
 end
 

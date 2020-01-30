@@ -188,8 +188,7 @@ replace Nbr_HCA34_wod = 0 if Nbr_HCA34_wod ==.
 	*/ytitle(share of French trade) ytitle(number of ships, axis(2)) /*
 	*/ scheme(s1mono)
 	
-	**How to interpret that ? A lot of non-French ships beign captured in WAI. Why not before ? Or the nationality given is that of the  
-	
+	blif
 
 graph export "$hamburggit/Paper - Impact of War/Paper/Prizes.pdf", replace	
 

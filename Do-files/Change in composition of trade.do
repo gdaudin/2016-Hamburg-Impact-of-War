@@ -1,8 +1,4 @@
 
-****Requires ssc install vioplot
-
-
-
 if "`c(username)'"=="guillaumedaudin" ///
 		global hamburg "~/Documents/Recherche/2016 Hambourg et Guerre"
 		global hamburggit "~/Documents/Recherche/2016 Hambourg et Guerre/2016-Hamburg-Impact-of-War"
@@ -146,7 +142,7 @@ outtable using "$hamburggit/Paper - Impact of War/Paper/manova_test", ///
 				mat(hotelling_test) clabel(manova_test) ///
 				caption("Multivariate Analisys of Variance") replace 
 
-capture erase temp.dat
+
 
 
 
