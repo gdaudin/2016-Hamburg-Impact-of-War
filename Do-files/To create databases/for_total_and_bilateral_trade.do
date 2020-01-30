@@ -241,7 +241,7 @@ graph twoway (area wara year, color(gs14)) ///
 			 (line log10_valueST_silverEN year, lcolor(black)) ///
 			 (line log10_valueST_silverGB year, lcolor(black)) ///
 			 (line log10_valueST_silver_tena year, lcolor(black)), ///
-			 legend(order(8 "French trade" 9 "English/GB/UK trade")) ///
+			 legend(order(9 "French trade" 10 "English/GB/UK trade")) ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			 ytitle("Tons of silver, log10")
 
