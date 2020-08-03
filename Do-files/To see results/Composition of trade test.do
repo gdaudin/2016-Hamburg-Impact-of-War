@@ -116,8 +116,8 @@ args period1 period2 plantation_yesno direction X_I
 	else local dir loc
 	
 	if "`period1'"=="peace1784_1792" & "`period2'"=="peace1816_1840" | "`period2'"=="peace1784_1792" & "`period1'"=="peace1816_1840"{
-		if `plantation_yesno'==1 mvtest means ln_percent1-ln_percent12, by(war) het
-		else mvtest means ln_percent1-ln_percent11, by(war) het
+		if `plantation_yesno'==1 mvtest means ln_percent1-ln_percent7, by(war) het
+		else mvtest means ln_percent1-ln_percent6, by(war) het
 	}
 	else{
 		if `plantation_yesno'==1 mvtest means ln_percent1-ln_percent12, by(war) het
