@@ -38,8 +38,7 @@ drop if country_grouping=="????" | country_grouping=="Divers" | country_grouping
 		
 		
 gen national_product_best_guess = 1 if (sourcetype=="Objet Général" & year<=1786) | ///
-		(sourcetype=="Résumé") | sourcetype=="National toutes directions tous partenaires" ///
-		| sourcetype=="Tableau des quantités"
+		(sourcetype=="Résumé") | sourcetype=="National toutes directions tous partenaires" 
 
 egen year_CN = max(national_product_best_guess), by(year)
 replace national_product_best_guess=1 if year_CN == 1 & sourcetype=="Compagnie des Indes" & direction=="France par la Compagnie des Indes"
