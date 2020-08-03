@@ -52,7 +52,7 @@ drop Nbr _merge
 
 save "$hamburg/database_dta/HCA34_prizes.dta",  replace
 
-histogram year, discrete
+histogram year, discrete name(HCA34_prizes, replace)
 
 keep year AggregatedOrigin_source AggregatedOrigin_hypothesis
 
@@ -74,7 +74,7 @@ bys Prizeshipname Prizeshipmaster: keep if _n==1
 keep year AggregatedOrigin*
 gen source="HCA34_wo_duplicates"
 
-histogram year, discrete
+histogram year, discrete name(English_prizes, replace)
 
 append using "$hamburg/database_dta/English_prizes.dta"
 
@@ -96,11 +96,11 @@ gen year=real(substr(YeartoNavy,1,4))
 save "$hamburg/database_dta/GBNavy_prizes.dta",  replace
 
 
-histogram year, discrete
+histogram year, discrete name(GBNavy_prizes, replace)
 
 keep if HowtoNavy=="Taken"
 
-histogram year, discrete freq
+histogram year, discrete freq name(GBNavy_prizes_Taken, replace)
 
 keep year
 gen source ="GBNavy"
@@ -113,7 +113,11 @@ save "$hamburg/database_dta/English_prizes.dta",  replace
 
 insheet using "$hamburggit/External Data/Other_prizes.csv", case clear
 rename Year year
-histogram year, discrete freq
+**Drop the British ships taken by the yankee or the French and the early ones
+
+drop if Shiporigin=="britain" | Shiporigin=="liverpool" | year <=1738
+
+histogram year, discrete freq name(Other_prizes, replace)
 
 save "$hamburg/database_dta/Other_prizes.dta",  replace
 
@@ -123,7 +127,7 @@ generate source="Other"
 append using "$hamburg/database_dta/English_prizes.dta"
 save "$hamburg/database_dta/English_prizes.dta",  replace
 
-histogram year, discrete freq
+histogram year, discrete freq name(All_prizes, replace)
 
 
 ****************
@@ -131,7 +135,19 @@ histogram year, discrete freq
 insheet using "$hamburggit/External Data/Ashton_Schumpeter_Prize_data.csv", case clear
 drop v3
 generate source="Prize_imports"
+twoway (bar importofprizegoodspoundsterling year), name(Prize_imports, replace)
 save "$hamburg/database_dta/Ashton_Schumpeter_Prize_data.dta",  replace
+
+
+*******************
+insheet using "$hamburggit/External Data/Starkey -- Nbr of prizes -- 1990.csv", case clear
+rename Year year
+rename Privateers Starkey_captor_Privateers
+rename Navy Starkey_captor_Navy
+
+twoway (connected Starkey_captor_Privateers year, cmissing(n)) (connected Starkey_captor_Navy year, cmissing(n)), name(Starkey, replace)
+save "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta",  replace
+
 
 
 ***********************
@@ -156,6 +172,9 @@ reshape wide Nbr_,i(year) j(source ) string
 merge 1:1 year using "$hamburg/database_dta/Ashton_Schumpeter_Prize_data.dta"
 drop source _merge
 
+merge 1:1 year using "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta"
+drop _merge
+
 merge 1:1 year using "$hamburg/database_dta/ST_silver.dta", keep(3)
 drop _merge
 
@@ -175,22 +194,53 @@ replace Nbr_HCA34_wo_duplicates_Spain = 0 if Nbr_HCA34_wo_duplicates_Spain ==.
 replace Nbr_HCA34_wo_duplicates_US = 0 if Nbr_HCA34_wo_duplicates_US ==.
 replace Nbr_HCA34_wo_duplicates_Unknown = 0 if Nbr_HCA34_wo_duplicates_Unknown ==.
 
-twoway (line share_prizes year) 
+sort year 
+twoway (line share_prizes year), name(Share_prizes, replace)
 
 sort year
 
 gen Nbr_HCA34_wod = Nbr_HCA34_wo_duplicates_France+ Nbr_HCA34_wo_duplicates_Neth+ Nbr_HCA34_wo_duplicates_Other+ Nbr_HCA34_wo_duplicates_Spain+ Nbr_HCA34_wo_duplicates_US+ Nbr_HCA34_wo_duplicates_Unknown 
+replace Nbr_HCA34_wod=. if Nbr_HCA34_wod==0
+
+
+
+save "$hamburg/database_dta/English_prizes.dta",  replace
+
+graph twoway (connected Nbr_GBNavy year, cmissing(n)) (connected Starkey_captor_Navy year, cmissing(n)), /*
+	*/ legend(order (1 "Number of Navy prizes included in the fleet " 2 "Number of Navy prizes")) /*
+	*/ name(Comp_Navy_prizes_and_Starkey, replace)
+	
+	
+graph twoway (connected Nbr_HCA34_wod year, cmissing(n)) (connected Starkey_captor_Privateers year, cmissing(n)) /*
+	*/ if year >=1735 & year <=1790 , /*
+	*/ legend(rows(2) order (1 "Number of prizes in the HCA34 (without duplicates)" 2 "Number of Privateers prizes (Starkey)")) /*
+	*/ name(Comp_HCA34_prizes_and_Starkey, replace)
+	
+graph twoway (connected Nbr_HCA34_wod year, cmissing(n)) (connected Nbr_Other year, cmissing(n)) if year >= 1740 & year<=1816, /*
+	*/ legend(rows(2) order (1 "Number of prize ships reports in the High Court of Admiralty (HCA34)" "(no duplicates)" 2 "Number of prizes (other sources)")) /*
+	*/ name(Comp_HCA34_Other, replace)
+	
 replace Nbr_HCA34_wod = 0 if Nbr_HCA34_wod ==.
+
+generate Nbr_HCA34_and_other = 	Nbr_HCA34_wod + Nbr_Other if year >= 1740 
+generate Nbr_HCA34_and_other_FR = 	Nbr_HCA34_wo_duplicates_France + Nbr_Other if year >= 1740
+
+graph twoway (connected Nbr_HCA34_and_other year, cmissing(n)) (connected Nbr_HCA34_and_other_FR year, cmissing(n)) if year >= 1740 & year<=1816, /*
+	*/ legend( rows(2) order (1 "Number of prize ships reports in the High Court of Admiralty (HCA34)" "(no duplicates) + Number of prizes (other sources)" 2 "Number of French prize ships reports in the High Court of Admiralty" " (HCA34) (no duplicates) + Number of prizes (other sources)")) /*
+	*/ scheme(s1mono) name(HCA34_and_Other, replace)	
+	
 
  twoway (connected share_prizes year,cmissing(n) msize(small)) (connected Nbr_HCA34_wod year,cmissing(n) yaxis(2) msize(small)) (connected Nbr_HCA34_wo_duplicates_France year,cmissing(n) yaxis(2) msize(small)) if year >=1740 & year <=1815, /*
 	*/ legend(rows(3) order (1 "Official value of prize goods imported in Britain as a share of French trade" /*
 	*/2 "Number of prize ships reports in the High Court of Admiralty (HCA34) (no duplicates)" 3 "idem, but only French ships") size(vsmall)) /*
 	*/ytitle(share of French trade) ytitle(number of ships, axis(2)) /*
-	*/ scheme(s1mono)
+	*/ scheme(s1mono) name(HCA34_and_imports, replace)
 	
-	blif
 
-graph export "$hamburggit/Paper - Impact of War/Paper/Prizes.pdf", replace	
+save "$hamburg/database_dta/English_prizes.dta",  replace
+/*
+	
+graph export "$hamburggit/Paper - Impact of War/Paper/Prizes.png", replace	
 
 gen period_str=""
 replace period_str ="Peace 1716-1744" if year <= 1744
@@ -205,4 +255,4 @@ replace period_str ="Blockade 1808-1815" if year   >= 1808 & year <=1815
 replace period_str ="Peace 1816-1840" if year >= 1816
 
 	
-save "$hamburg/database_dta/English_prizes.dta",  replace
+
