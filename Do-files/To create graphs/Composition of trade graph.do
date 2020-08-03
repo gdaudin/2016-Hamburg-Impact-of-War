@@ -3,7 +3,28 @@ capture program drop composition_trade_graph
 program composition_trade_graph 
 args period1 period2 direction 
 
-	save temp.dta, replace 				
+	save temp.dta, replace 		
+	
+	if "`direction'"=="national"{
+		keep if national_product_best_guess==1 
+	}
+	
+	else{
+		gen commerce_local = 1 if sourcetype=="Local" & year!=1750 | ///
+			sourcetype=="National toutes directions tous partenaires" | ////
+			(sourcetype=="National toutes directions partenaires manquants" & year==1788 & country_grouping=="Outre-mers") | ////
+			(sourcetype=="National toutes directions partenaires manquants" & year==1789 & country_grouping=="Pas Outre-mers")
+	
+		keep if commerce_local==1
+		drop commerce_local
+		if "`direction'"=="mars" keep if direction=="Marseille"
+		if "`direction'"=="nant" keep if direction=="Nantes"
+		if "`direction'"=="renn" keep if direction=="Rennes"
+		if "`direction'"=="bord" keep if direction=="Bordeaux"
+		if "`direction'"=="LR" keep if direction=="La Rochelle"	
+		if "`direction'"=="bayo" keep if direction=="Bayonne"
+		collapse (sum) value, by(year war product_sitc_simplen exportsimports period_str)
+	}
 
 	if "`period1'"=="peace" | "`period2'"=="peace" {
 		replace war=-1 if period_str!="War 1756-1763" | period_str !="War 1778-1783" | ///
@@ -46,35 +67,6 @@ args period1 period2 direction
 	if "`period1'"=="peace1816_1840" | "`period2'"=="peace1816_1840"{
 		replace war=-6 if period_str=="Peace 1816-1840" 
 		}
-
-
-		
-	
-	if "`direction'"=="national"{
-		gen commerce_national = 1 if (sourcetype=="Objet Général" & year<=1786) | ///
-			(sourcetype=="Résumé") | sourcetype=="National toutes directions tous partenaires"
-	
-		keep if commerce_national==1 
-		collapse (sum) value, by(year war product_sitc_simplen period_str exportsimports)
-	}
-	
-	else{
-		gen commerce_local = 1 if sourcetype=="Local" & year!=1750 | ///
-			sourcetype=="National toutes directions tous partenaires" | ////
-			(sourcetype=="National toutes directions partenaires manquants" & year==1788 & country_grouping=="Outre-mers") | ////
-			(sourcetype=="National toutes directions partenaires manquants" & year==1789 & country_grouping=="Pas Outre-mers")
-	
-		keep if commerce_local==1
-		drop commerce_local
-		if "`direction'"=="mars" keep if direction=="Marseille"
-		if "`direction'"=="nant" keep if direction=="Nantes"
-		if "`direction'"=="renn" keep if direction=="Rennes"
-		if "`direction'"=="bord" keep if direction=="Bordeaux"
-		if "`direction'"=="LR" keep if direction=="La Rochelle"	
-		if "`direction'"=="bayo" keep if direction=="Bayonne"
-		collapse (sum) value, by(year war product_sitc_simplen exportsimports period_str)
-	}
-	
 	
 	
 	keep if war!=.
@@ -84,13 +76,13 @@ args period1 period2 direction
 	///loop to assign label to graphs 
 	
 	su war 	
+
 	if `r(min)' != 5 & `r(max)'!= 5{
 					
 		if `r(min)'<0 & `r(max)'>0 {
 			qui su war
 			label define peacewar `r(min)' "Peace" `r(max)' "War"
 		}
-			
 		if `r(min)'>0 & `r(max)'>0 {
 			qui su war
 			label define peacewar `r(max)' "War1" `r(min)' "War2"
@@ -118,9 +110,6 @@ args period1 period2 direction
 			label define peacewar 5 "Blockade" `r(max)' "War"
 			
 		}
-
-	
-	label values war peacewar
 	
 	collapse (sum) value, by(year product_sitc_simplen war exportsimports)
 		
@@ -147,61 +136,63 @@ args period1 period2 direction
 	gen ln_percent_XI=log(percent_XI)
 	drop _fillin
 	
+	label values war peacewar
+	
+	
 	qui graph 	pie value if exportsimports=="Exports", over(product_sitc_simplen) ///
 			plabel(_all name, size(*0.7) color(white)) legend(off) ///
 			by(war, legend(off) plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			note("Exports")) 
 		
-	graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_composition_X.pdf", replace
+	graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_composition_X.png", replace
 
 	qui graph 	pie value if exportsimports=="Imports", over(product_sitc_simplen) ///
 			plabel(_all name, size(*0.7) color(white)) ///
 			by(war, legend(off) plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			note("Imports")) 
 		
-	graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_composition_I.pdf", replace
+	graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_composition_I.png", replace
+	
 	
 	encode product_sitc_simplen, gen(product_sitc_num)
-	label define peacewar -1 "-- Peace" 1 "-- War", replace
 	egen sitc_war = group(product_sitc_num war), label
 
 	levelsof exportsimports, local(levels)
 	foreach i of local levels{
 		
 		///these are necessary to call the global macro with the pvalue of the MANOVA to insert in the violin graphs 
-		if exportsimports=="Exports" local name X
-		if exportsimports=="Imports" local name I
+		if "`i'"=="Exports" local name X
+		if "`i'"=="Imports" local name I
 		if "`direction'"== "national" local dir nat
 		else local dir loc
 
 		vioplot ln_percent if exportsimports=="`i'", over(sitc_war) hor ylabel(,angle(0) labsize(vsmall)) ///
 				plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-				note("`i' " "MANOVA with plantation foodstuff: ${`period1'`period2'1`dir'`name'}" ///
-				"MANOVA without plantation foodstuff: ${`period1'`period2'0`dir'`name'} " ///
+				note("`i' " "MANOVA with plantation foodstuff: ${`name'0`dir'}" ///
+				"MANOVA without plantation foodstuff: ${`name'1`dir'} " ///
 				, size(vsmall)) ///
 				xtitle("Log Percentage share of trade flows")
 				///title(`title')
 		
-		graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_`direction'_distribution_`name'.pdf", replace
+		graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_`dir'_distr_`name'.png", replace
 	}
-	
-
+		
 	if "`direction'"== "national" local dir nat
 	else local dir loc
 	local name XI
-
-	vioplot ln_percent, over(sitc_war) hor ylabel(,angle(0) labsize(vsmall)) ///
+	vioplot ln_percent_XI, over(sitc_war) hor ylabel(,angle(0) labsize(vsmall)) ///
 			plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-			note("Exports and Imports" "MANOVA with plantation foodstuff: ${`period1'`period2'1`dir'`name'}" ///
-			"MANOVA without plantation foodstuff: ${`period1'`period2'0`dir'`name'} " ///
+			note("Exports and Imports" "MANOVA with plantation foodstuff: ${`name'0`dir'}" ///
+			"MANOVA without plantation foodstuff: ${`name'1`dir'} " ///
 			, size(vsmall)) ///
 			xtitle("Log Percentage share of trade flows")
 				///title(`title')
-		
-	graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_`direction'_distribution_`name'.pdf", replace
-	if "`period1'"=="peace" | "`period2'"=="peace" /* 
-	*/ graph export "$hamburggit/Abstracts/`period1'_`period2'_`direction'_distribution_`name'.pdf", replace
-		
+	graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_`direction'_distr_`name'.png", replace
+	
+	/*
+	if "`period1'"=="peace" | "`period2'"=="peace" 
+	graph export "$hamburggit/Abstracts/`period1'_`period2'_`dir'_distr_`name'.pdf", replace
+	*/
 	
 	use temp.dta, clear
 	

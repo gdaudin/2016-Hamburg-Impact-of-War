@@ -3,9 +3,32 @@ program composition_trade_test
 args period1 period2 plantation_yesno direction X_I
 
 	preserve
+	
+	if "`direction'"=="national"{
+		keep if national_product_best_guess==1 
+	}
+	
+	else{
+		gen commerce_local = 1 if sourcetype=="Local" & year!=1750 | ///
+			sourcetype=="National toutes directions tous partenaires" | ////
+			(sourcetype=="National toutes directions partenaires manquants" & year==1788 & country_grouping=="Outre-mers") | ////
+			(sourcetype=="National toutes directions partenaires manquants" & year==1789 & country_grouping=="Pas Outre-mers")
+	
+		keep if commerce_local==1
+		drop commerce_local
+		if "`direction'"=="mars" keep if direction=="Marseille"
+		if "`direction'"=="nant" keep if direction=="Nantes"
+		if "`direction'"=="renn" keep if direction=="Rennes"
+		if "`direction'"=="bord" keep if direction=="Bordeaux"
+		if "`direction'"=="LR" keep if direction=="La Rochelle"	
+		if "`direction'"=="bayo" keep if direction=="Bayonne"
+		collapse (sum) value, by(year war product_sitc_simplen exportsimports period_str)
+	}
 
 	if "`X_I'"=="Exports" | "`X_I'"=="Imports" keep if exportsimports=="`X_I'"
 	else collapse (sum) value, by(sourcetype direction country_simplification country_grouping product_simplification product_sitc_en product_sitc_simplen year period_str war)					
+	
+	//the negative values for war is for creating labels in the graph do file
 
 	if "`period1'"=="peace" | "`period2'"=="peace" {
 		replace war=0 if period_str!="War 1756-1763" | period_str !="War 1778-1783" | ///
@@ -49,30 +72,7 @@ args period1 period2 plantation_yesno direction X_I
 		replace war=9 if period_str=="Peace 1816-1840" 
 		}
 
-	
-	if "`direction'"=="national"{
-	
-		keep if national_product_best_guess==1 
-		collapse (sum) value, by(year war product_sitc_simplen period_str)
-	}
-	
-	else{
-		gen commerce_local = 1 if sourcetype=="Local" & year!=1750 | ///
-			sourcetype=="National toutes directions tous partenaires" | ////
-			(sourcetype=="National toutes directions partenaires manquants" & year==1788 & country_grouping=="Outre-mers") | ////
-			(sourcetype=="National toutes directions partenaires manquants" & year==1789 & country_grouping=="Pas Outre-mers")
-	
-		keep if commerce_local==1
-		drop commerce_local
-		if "`direction'"=="mars" keep if direction=="Marseille"
-		if "`direction'"=="nant" keep if direction=="Nantes"
-		if "`direction'"=="renn" keep if direction=="Rennes"
-		if "`direction'"=="bord" keep if direction=="Bordeaux"
-		if "`direction'"=="LR" keep if direction=="La Rochelle"	
-		if "`direction'"=="bayo" keep if direction=="Bayonne"
-		collapse (sum) value, by(year war product_sitc_simplen exportsimports period_str)
-	}
-		
+
 	if "`X_I'"=="Exports" local name X
 	else if "`X_I'"=="Imports" local name I
 	else local name I_X
@@ -119,11 +119,11 @@ args period1 period2 plantation_yesno direction X_I
 	else mvtest means ln_percent1-ln_percent11, by(war) het
 	// I am excluding one category from the test cause they sum uo to a 100 
 		
-	global `period1'`period2'`plantation_yesno'`dir'`name'=round(r(p_F),0.01)
-	global temp= ${`period1'`period2'`plantation_yesno'`dir'`name'}
+	global `name'`plantation_yesno'`dir'=round(r(p_F),0.01)
+	global temp= ${`name'`plantation_yesno'`dir'}
 	di ${`period1'`period2'`plantationyesno'`dir'`name'}
 	// I am storing it as a global macro because I am reporting it in the graphs, so the graph.do can use them
-	// I copy the macro in temp for simplicity
+	// I copy the macro in temp for simplicity of use in this do file
 	
 	if "`X_I'"=="Exports" & `plantation_yesno'==1{
 		matrix A= ($temp, 0,0,0,0,0)
