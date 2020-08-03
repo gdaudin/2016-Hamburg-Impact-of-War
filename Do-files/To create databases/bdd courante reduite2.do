@@ -22,7 +22,8 @@ import delimited "$toflit18_data_git/base/bdd courante.csv", ///
 * Keep only necessary variables
 
 keep year exportsimports product_simplification value sourcetype direction ///
-	 product_sitc_en product_sitc_simplen country_grouping country_simplification
+	 product_sitc_en product_sitc_simplen country_grouping country_simplification ///
+	 national_product_best_guess
 	 
 destring value, replace
 destring year, replace
@@ -33,6 +34,17 @@ drop if product_simplification=="" | product_simplification=="???"
 drop if value==.
 drop if country_grouping=="????" | country_grouping=="Divers" | country_grouping=="France" | ///
 		country_grouping=="Inconnu" | country_grouping=="Monde"
+		
+		
+		
+		
+gen national_product_best_guess = 1 if (sourcetype=="Objet Général" & year<=1786) | ///
+		(sourcetype=="Résumé") | sourcetype=="National toutes directions tous partenaires"
+
+egen year_CN = max(national_product_best_guess), by(year)
+replace national_product_best_guess=1 if year_CN == 1 & sourcetype=="Compagnie des Indes" & direction=="France par la Compagnie des Indes"
+		
+	
 		
 save "$hamburg/database_dta/bdd courante reduite2.dta", replace 
 

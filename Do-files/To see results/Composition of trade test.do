@@ -51,10 +51,8 @@ args period1 period2 plantation_yesno direction X_I
 
 	
 	if "`direction'"=="national"{
-		gen commerce_national = 1 if (sourcetype=="Objet Général" & year<=1786) | ///
-			(sourcetype=="Résumé") | sourcetype=="National toutes directions tous partenaires"
 	
-		keep if commerce_national==1 
+		keep if national_product_best_guess==1 
 		collapse (sum) value, by(year war product_sitc_simplen period_str)
 	}
 	
