@@ -238,6 +238,16 @@ graph twoway (connected Nbr_HCA34_and_other year, cmissing(n)) (connected Nbr_HC
 	
 
 save "$hamburg/database_dta/English_prizes.dta",  replace
+
+
+erase "$hamburg/database_dta/HCA34_prizes.dta"
+erase "$hamburg/database_dta/GBNavy_prizes.dta"
+erase "$hamburg/database_dta/Other_prizes.dta"
+erase "$hamburg/database_dta/Ashton_Schumpeter_Prize_data.dta"
+erase "$hamburg/database_dta/PrizeNationalities.dta"
+erase "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta"
+
+
 /*
 	
 graph export "$hamburggit/Paper - Impact of War/Paper/Prizes.png", replace	
