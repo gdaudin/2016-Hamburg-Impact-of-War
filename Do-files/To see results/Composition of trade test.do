@@ -114,9 +114,16 @@ args period1 period2 plantation_yesno direction X_I
 	if "`X_I'"=="I_X" local name XI
 	if "`direction'"== "national" local dir nat
 	else local dir loc
-		
-	if `plantation_yesno'==1 mvtest means ln_percent1-ln_percent12, by(war) het
-	else mvtest means ln_percent1-ln_percent11, by(war) het
+	
+	if "`period1'"=="peace1784_1792" & "`period2'"=="peace1816_1840" | "`period2'"=="peace1784_1792" & "`period1'"=="peace1816_1840"{
+		if `plantation_yesno'==1 mvtest means ln_percent1-ln_percent12, by(war) het
+		else mvtest means ln_percent1-ln_percent11, by(war) het
+	}
+	else{
+		if `plantation_yesno'==1 mvtest means ln_percent1-ln_percent12, by(war) het
+		else mvtest means ln_percent1-ln_percent11, by(war) het
+	}
+	
 	// I am excluding one category from the test cause they sum uo to a 100 
 		
 	global `name'`plantation_yesno'`dir'=round(r(p_F),0.01)
