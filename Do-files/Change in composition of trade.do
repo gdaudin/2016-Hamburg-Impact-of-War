@@ -121,7 +121,7 @@ matrix B=A+B
 composition_trade_test rev block 0 national I_X
 matrix B=A+B
 matrix hotelling_test=hotelling_test\B
-composition_trade_graph rev block indep national
+composition_trade_graph rev block national
 
 
 
@@ -138,7 +138,7 @@ matrix B=A+B
 composition_trade_test peace1816_1840 block 0 national I_X
 matrix B=A+B
 matrix hotelling_test=hotelling_test\B
-composition_trade_graph peace1816_1840 block indep national
+composition_trade_graph peace1816_1840 block national
 
 
 
