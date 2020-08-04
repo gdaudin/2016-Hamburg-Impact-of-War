@@ -58,7 +58,7 @@ keep year AggregatedOrigin_source AggregatedOrigin_hypothesis
 
 gen source ="HCA34_w_duplicates"
 
-save "$hamburg/database_dta/English_prizes.dta",  replace
+save "$hamburg/database_dta/English_prizes_list.dta",  replace
 
 
 use "$hamburg/database_dta/HCA34_prizes.dta",  clear
@@ -76,9 +76,9 @@ gen source="HCA34_wo_duplicates"
 
 histogram year, discrete name(English_prizes, replace)
 
-append using "$hamburg/database_dta/English_prizes.dta"
+append using "$hamburg/database_dta/English_prizes_list.dta"
 
-save "$hamburg/database_dta/English_prizes.dta",  replace
+save "$hamburg/database_dta/English_prizes_list.dta",  replace
 
 tab AggregatedOrigin_source if AggregatedOrigin_source!="Unknown"
 tab AggregatedOrigin_hypothesis if AggregatedOrigin_hypothesis!="Unknown"
@@ -104,8 +104,8 @@ histogram year, discrete freq name(GBNavy_prizes_Taken, replace)
 
 keep year
 gen source ="GBNavy"
-append using "$hamburg/database_dta/English_prizes.dta"
-save "$hamburg/database_dta/English_prizes.dta",  replace
+append using "$hamburg/database_dta/English_prizes_list.dta"
+save "$hamburg/database_dta/English_prizes_list.dta",  replace
 
 
 **************************
@@ -124,8 +124,8 @@ save "$hamburg/database_dta/Other_prizes.dta",  replace
 keep year
 keep if year >=1650
 generate source="Other"
-append using "$hamburg/database_dta/English_prizes.dta"
-save "$hamburg/database_dta/English_prizes.dta",  replace
+append using "$hamburg/database_dta/English_prizes_list.dta"
+save "$hamburg/database_dta/English_prizes_list.dta",  replace
 
 histogram year, discrete freq name(All_prizes, replace)
 
@@ -152,7 +152,7 @@ save "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta",  replace
 
 ***********************
 
-use "$hamburg/database_dta/English_prizes.dta",  clear
+use "$hamburg/database_dta/English_prizes_list.dta",  clear
 
 
 
@@ -168,6 +168,7 @@ drop AggregatedOrigin_hypothesis
 list if year==11
 
 reshape wide Nbr_,i(year) j(source ) string
+replace Nbr_Other = 0 if Nbr_Other==. & (year  ==1742 | year==1760 | year==1761 | year == 1782 | year==1814)
 
 merge 1:1 year using "$hamburg/database_dta/Ashton_Schumpeter_Prize_data.dta"
 drop source _merge
@@ -238,6 +239,30 @@ graph twoway (connected Nbr_HCA34_and_other year, cmissing(n)) (connected Nbr_HC
 	
 
 save "$hamburg/database_dta/English_prizes.dta",  replace
+
+
+
+*=Sur le graphique, on veut : total number of prizes (including RN and privateers) ; total estimated number of French prizes ; total number of privateer prizes ; total number of French privateer prizes
+
+gen total_number_of_prizes = Nbr_HCA34_and_other + Starkey_captor_Navy if year > 1735 & year <= 1790 
+gen estimated_number_of_prizes_FR = (Nbr_HCA34_and_other + Starkey_captor_Navy)*Nbr_HCA34_and_other_FR/Nbr_HCA34_and_other if year > 1735 & year <= 1790
+
+
+
+ twoway (connected  estimated_number_of_prizes_FR year,cmissing(n)  msize(small) lpattern(solid) msymbol(circle)) /*
+    */  (connected total_number_of_prizes year,cmissing(n) msize(small) lpattern(dot) msymbol(circle)) /*
+	*/  (connected Nbr_HCA34_and_other_FR year,cmissing(n)  msize(small) lpattern(solid) msymbol(square)) /*
+	*/  (connected Nbr_HCA34_and_other year,cmissing(n)  msize(small) lpattern(dot) msymbol(square)) /*
+	*/  if year >=1740 & year <=1815, /*
+	*/  legend(rows(4) order (2 "Total number of prizes" /*
+	*/  1  "Estimated total number of French prizes" 4 "Total number of prizes captured by privateers" /*
+	*/  3 "Total number of French prizes captured by privateers") size(vsmall)) /*
+	*/  ytitle(number of ships) /*
+	*/  name(for_paper, replace) /*
+	*/ scheme(s1mono)
+
+
+*****DEAL WITH NATIONALITY OF OTHERS
 
 
 erase "$hamburg/database_dta/HCA34_prizes.dta"
