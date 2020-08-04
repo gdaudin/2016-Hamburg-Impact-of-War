@@ -26,8 +26,6 @@ args period1 period2 direction classification
 		collapse (sum) value, by(year war product_sitc_simplen exportsimports period_str)
 	}
 	
-	if `plantation_yesno'==0 drop if product_sitc_simplen=="Plantation foodstuff"
-
 	if "`period1'"=="peace" | "`period2'"=="peace" {
 		replace war=-1 if period_str!="War 1756-1763" | period_str !="War 1778-1783" | ///
 						 period_str!="War 1793-1807" | period_str !="Blockade 1808-1815"
@@ -166,7 +164,10 @@ args period1 period2 direction classification
 		if "`i'"=="Exports" local name X
 		if "`i'"=="Imports" local name I
 		if "`direction'"== "national" local dir nat
-		else local dir loc
+		if "`direction'"== "local" local dir loc
+		if "`classification'"== "product_sitc_simplen" local class sitc
+		if "`classification'"== "country_grouping" local class pays
+		if "`classification'"== "product_re_aggregate" local class aggr
 
 		vioplot ln_percent if exportsimports=="`i'", over(class_war) hor ylabel(,angle(0) labsize(vsmall)) ///
 				plotregion(fcolor(white)) graphregion(fcolor(white)) ///
@@ -176,7 +177,7 @@ args period1 period2 direction classification
 				xtitle("Log Percentage share of trade flows")
 				///title(`title')
 		
-		graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_`dir'_distr_`name'.png", replace
+		graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_`dir'_distr_`name'`class'.png", replace
 	}
 		
 	if "`direction'"== "national" local dir nat
@@ -189,7 +190,7 @@ args period1 period2 direction classification
 			, size(vsmall)) ///
 			xtitle("Log Percentage share of trade flows")
 				///title(`title')
-	graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_`direction'_distr_`name'.png", replace
+	graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_`direction'_distr_`name'`class'.png", replace
 	
 	/*
 	if "`period1'"=="peace" | "`period2'"=="peace" 
