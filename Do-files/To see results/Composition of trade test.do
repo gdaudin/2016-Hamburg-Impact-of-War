@@ -2,7 +2,7 @@ capture program drop composition_trade_test
 program composition_trade_test
 args period1 period2 plantation_yesno direction X_I classification
 
-	*preserve
+	preserve
 	
 	if "`direction'"=="national"{
 		keep if national_product_best_guess==1 
@@ -24,9 +24,11 @@ args period1 period2 plantation_yesno direction X_I classification
 		if "`direction'"=="bayo" keep if direction=="Bayonne"
 		collapse (sum) value, by(year war product_sitc_simplen exportsimports period_str)
 	}
+	
+	if `plantation_yesno'==0 drop if product_sitc_simplen=="Plantation foodstuff"
 
 	if "`X_I'"=="Exports" | "`X_I'"=="Imports" keep if exportsimports=="`X_I'"
-	else collapse (sum) value, by(sourcetype direction country_simplification country_grouping product_simplification product_sitc_en product_sitc_simplen year period_str war)					
+	else collapse (sum) value, by(`classification' year period_str war)					
 	
 	//the negative values for war is for creating labels in the graph do file
 
@@ -82,7 +84,6 @@ args period1 period2 plantation_yesno direction X_I classification
 		
 	bysort year: egen total=sum(value)
 	gen percent= value/total
-		
 	
 	fillin year `classification'
 	levelsof year, local(year)
@@ -93,21 +94,20 @@ args period1 period2 plantation_yesno direction X_I classification
 	replace war =war[_n-1] if war[_n]==. & year[_n]==year[_n-1]
 	replace war =war[_n+1] if war[_n]==. & year[_n]==year[_n+1]	
 	drop _fillin
-	
-	if `plantation_yesno'==0 & `classification'== product_sitc_simplen drop if product_sitc_simplen=="Plantation foodstuff"
-	
+		
 	gen ln_percent=ln(percent)
-	encode `classification', gen(`classification'_num)
-	blif
+	encode `classification', gen(class_num)
 	
 	*save "$hamburg/database_dta/`period1'_`period2'_`direction'_temp.dta", replace
 	
 	egen year_war = group(year war), label
 	
-	drop value percent product_sitc_simplen year total
+	drop if `classification'==""
 	
-	reshape wide ln_percent, i(year_war) j(product_sitc_num)
-		
+	drop value percent `classification' year total
+
+	reshape wide ln_percent, i(year_war) j(class_num)
+	
 	di "************************`X_I' `period1' `period2' `plantation_yesno' `direction'*************************************"
 		
 	if "`X_I'"=="Exports" local name X
@@ -116,14 +116,21 @@ args period1 period2 plantation_yesno direction X_I classification
 	if "`direction'"== "national" local dir nat
 	else local dir loc
 	
-	if "`period1'"=="peace1784_1792" & "`period2'"=="peace1816_1840" | "`period2'"=="peace1784_1792" & "`period1'"=="peace1816_1840"{
-		if `plantation_yesno'==1 mvtest means ln_percent1-ln_percent7, by(war) het
-		else mvtest means ln_percent1-ln_percent6, by(war) het
+	if "`classification'"=="product_sitc_simplen"{
+		if "`period1'"=="peace1784_1792" & "`period2'"=="peace1816_1840" | "`period2'"=="peace1784_1792" & "`period1'"=="peace1816_1840"{
+			if `plantation_yesno'==1 mvtest means ln_percent1-ln_percent7, by(war) het
+			else mvtest means ln_percent1-ln_percent6, by(war) het
+		}
+		else{
+			if `plantation_yesno'==1 mvtest means ln_percent1-ln_percent12, by(war) het
+			else mvtest means ln_percent1-ln_percent11, by(war) het
+		}
 	}
-	else{
-		if `plantation_yesno'==1 mvtest means ln_percent1-ln_percent12, by(war) het
-		else mvtest means ln_percent1-ln_percent11, by(war) het
-	}
+	
+	if "`classification'"=="country_grouping" mvtest means ln_percent1-ln_percent12, by(war) het
+	
+	if "`classification'"=="product_re_aggregate" mvtest means ln_percent1-ln_percent7, by(war) het
+
 	
 	// I am excluding one category from the test cause they sum uo to a 100 
 		
