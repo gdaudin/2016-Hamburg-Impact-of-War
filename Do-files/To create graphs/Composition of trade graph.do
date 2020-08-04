@@ -169,7 +169,7 @@ args period1 period2 direction classification
 		if "`classification'"== "country_grouping" local class pays
 		if "`classification'"== "product_re_aggregate" local class aggr
 
-		vioplot ln_percent if exportsimports=="`i'", over(class_war) hor ylabel(,angle(0) labsize(vsmall)) ///
+		vioplot ln_percent if exportsimports=="`i'" & ln_percent>-8, over(class_war) hor ylabel(,angle(0) labsize(vsmall)) ///
 				plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 				note("`i' " "MANOVA with plantation foodstuff: ${`name'0`dir'}" ///
 				"MANOVA without plantation foodstuff: ${`name'1`dir'} " ///
@@ -183,7 +183,7 @@ args period1 period2 direction classification
 	if "`direction'"== "national" local dir nat
 	else local dir loc
 	local name XI
-	vioplot ln_percent_XI, over(class_war) hor ylabel(,angle(0) labsize(vsmall)) ///
+	vioplot ln_percent_XI if ln_percent>-8, over(class_war) hor ylabel(,angle(0) labsize(vsmall)) ///
 			plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			note("Exports and Imports" "MANOVA with plantation foodstuff: ${`name'0`dir'}" ///
 			"MANOVA without plantation foodstuff: ${`name'1`dir'} " ///
