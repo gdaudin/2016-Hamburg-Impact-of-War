@@ -1,8 +1,8 @@
 capture program drop composition_trade_test
 program composition_trade_test
-args period1 period2 plantation_yesno direction X_I
+args period1 period2 plantation_yesno direction X_I classification
 
-	preserve
+	*preserve
 	
 	if "`direction'"=="national"{
 		keep if national_product_best_guess==1 
@@ -78,13 +78,13 @@ args period1 period2 plantation_yesno direction X_I
 	else local name I_X
 	
 	keep if war!=.
-	collapse (sum) value, by(year product_sitc_simplen war)
+	collapse (sum) value, by(year `classification' war)
 		
 	bysort year: egen total=sum(value)
 	gen percent= value/total
 		
 	
-	fillin year product_sitc_simplen
+	fillin year `classification'
 	levelsof year, local(year)
 	foreach j of local year{
 			qui su percent if year==`j' 
@@ -94,10 +94,11 @@ args period1 period2 plantation_yesno direction X_I
 	replace war =war[_n+1] if war[_n]==. & year[_n]==year[_n+1]	
 	drop _fillin
 	
-	if `plantation_yesno'==0 drop if product_sitc_simplen=="Plantation foodstuff"
-
+	if `plantation_yesno'==0 & `classification'== product_sitc_simplen drop if product_sitc_simplen=="Plantation foodstuff"
+	
 	gen ln_percent=ln(percent)
-	encode product_sitc_simplen, gen(product_sitc_num)
+	encode `classification', gen(`classification'_num)
+	blif
 	
 	*save "$hamburg/database_dta/`period1'_`period2'_`direction'_temp.dta", replace
 	
@@ -116,8 +117,8 @@ args period1 period2 plantation_yesno direction X_I
 	else local dir loc
 	
 	if "`period1'"=="peace1784_1792" & "`period2'"=="peace1816_1840" | "`period2'"=="peace1784_1792" & "`period1'"=="peace1816_1840"{
-		if `plantation_yesno'==1 mvtest means ln_percent1-ln_percent12, by(war) het
-		else mvtest means ln_percent1-ln_percent11, by(war) het
+		if `plantation_yesno'==1 mvtest means ln_percent1-ln_percent7, by(war) het
+		else mvtest means ln_percent1-ln_percent6, by(war) het
 	}
 	else{
 		if `plantation_yesno'==1 mvtest means ln_percent1-ln_percent12, by(war) het

@@ -22,7 +22,8 @@ import delimited "$toflit18_data_git/base/bdd courante.csv", ///
 * Keep only necessary variables
 
 keep year exportsimports product_simplification value sourcetype direction ///
-	 product_sitc_en product_sitc_simplen country_grouping country_simplification 
+	 product_sitc_en product_sitc_simplen country_grouping country_simplification product_re_aggregate
+
 	 
 destring value, replace
 destring year, replace
