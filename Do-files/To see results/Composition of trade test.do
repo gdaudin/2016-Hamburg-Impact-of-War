@@ -129,6 +129,20 @@ args period1 period2 plantation_yesno direction X_I classification
 	
 	if "`classification'"=="country_grouping" mvtest means ln_percent1-ln_percent12, by(war) het
 	
+	if "`classification'"=="country_grouping_7"{
+	
+		if "`period1'"=="seven" & "`period2'"=="peace1764_1777" | "`period1'"=="peace1764_1777" & "`period2'"=="seven"{
+			mvtest means ln_percent1-ln_percent6, by(war) het
+		}
+		
+		else if "`period1'"=="peace1749_1755" & "`period2'"=="peace1764_1777" | "`period1'"=="peace1764_1777" & "`period2'"=="peace1749_1755"{
+			mvtest means ln_percent1-ln_percent6, by(war) het
+		}
+		
+		else mvtest means ln_percent1-ln_percent7, by(war) het
+
+	}
+		
 	if "`classification'"=="product_re_aggregate" mvtest means ln_percent1-ln_percent7, by(war) het
 
 	

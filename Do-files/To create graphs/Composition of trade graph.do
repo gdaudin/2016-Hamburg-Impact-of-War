@@ -167,6 +167,7 @@ args period1 period2 direction classification
 		if "`direction'"== "local" local dir loc
 		if "`classification'"== "product_sitc_simplen" local class sitc
 		if "`classification'"== "country_grouping" local class pays
+		if "`classification'"== "country_grouping_7" local class pays7
 		if "`classification'"== "product_re_aggregate" local class aggr
 
 		vioplot ln_percent if exportsimports=="`i'" & ln_percent>-8, over(class_war) hor ylabel(,angle(0) labsize(vsmall)) ///
