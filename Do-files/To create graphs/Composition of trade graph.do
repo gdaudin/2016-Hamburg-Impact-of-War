@@ -1,7 +1,7 @@
 
 capture program drop composition_trade_graph
 program composition_trade_graph 
-args period1 period2 direction 
+args period1 period2 direction classification
 
 	save temp.dta, replace 		
 	
@@ -25,7 +25,7 @@ args period1 period2 direction
 		if "`direction'"=="bayo" keep if direction=="Bayonne"
 		collapse (sum) value, by(year war product_sitc_simplen exportsimports period_str)
 	}
-
+	
 	if "`period1'"=="peace" | "`period2'"=="peace" {
 		replace war=-1 if period_str!="War 1756-1763" | period_str !="War 1778-1783" | ///
 						 period_str!="War 1793-1807" | period_str !="Blockade 1808-1815"
@@ -111,18 +111,18 @@ args period1 period2 direction
 			
 		}
 	
-	collapse (sum) value, by(year product_sitc_simplen war exportsimports)
+	collapse (sum) value, by(year `classification' war exportsimports)
 		
 	bysort year exportsimports: egen total=sum(value)
 	gen percent= value/total
 	
-	bysort year product_sitc_simplen: egen value_XI=sum(value)
+	bysort year `classification': egen value_XI=sum(value)
 	replace value_XI=. if exportsimports=="Exports"
 	bysort year: egen total_XI=sum(value)
 	gen percent_XI=value_XI/total_XI
 		
 	
-	fillin year exportsimports product_sitc_simplen 
+	fillin year exportsimports `classification' 
 	levelsof year, local(year)
 	foreach j of local year{
 			qui su percent if year==`j'
@@ -139,14 +139,14 @@ args period1 period2 direction
 	label values war peacewar
 	
 	
-	qui graph 	pie value if exportsimports=="Exports", over(product_sitc_simplen) ///
+	qui graph 	pie value if exportsimports=="Exports", over(`classification') ///
 			plabel(_all name, size(*0.7) color(white)) legend(off) ///
 			by(war, legend(off) plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			note("Exports")) 
 		
 	graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_composition_X.png", replace
 
-	qui graph 	pie value if exportsimports=="Imports", over(product_sitc_simplen) ///
+	qui graph 	pie value if exportsimports=="Imports", over(`classification') ///
 			plabel(_all name, size(*0.7) color(white)) ///
 			by(war, legend(off) plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			note("Imports")) 
@@ -154,8 +154,8 @@ args period1 period2 direction
 	graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_composition_I.png", replace
 	
 	
-	encode product_sitc_simplen, gen(product_sitc_num)
-	egen sitc_war = group(product_sitc_num war), label
+	encode `classification', gen(class_num)
+	egen class_war = group(class_num war), label
 
 	levelsof exportsimports, local(levels)
 	foreach i of local levels{
@@ -164,9 +164,12 @@ args period1 period2 direction
 		if "`i'"=="Exports" local name X
 		if "`i'"=="Imports" local name I
 		if "`direction'"== "national" local dir nat
-		else local dir loc
+		if "`direction'"== "local" local dir loc
+		if "`classification'"== "product_sitc_simplen" local class sitc
+		if "`classification'"== "country_grouping" local class pays
+		if "`classification'"== "product_re_aggregate" local class aggr
 
-		vioplot ln_percent if exportsimports=="`i'", over(sitc_war) hor ylabel(,angle(0) labsize(vsmall)) ///
+		vioplot ln_percent if exportsimports=="`i'" & ln_percent>-8, over(class_war) hor ylabel(,angle(0) labsize(vsmall)) ///
 				plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 				note("`i' " "MANOVA with plantation foodstuff: ${`name'0`dir'}" ///
 				"MANOVA without plantation foodstuff: ${`name'1`dir'} " ///
@@ -174,20 +177,20 @@ args period1 period2 direction
 				xtitle("Log Percentage share of trade flows")
 				///title(`title')
 		
-		graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_`dir'_distr_`name'.png", replace
+		graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_`dir'_distr_`name'`class'.png", replace
 	}
 		
 	if "`direction'"== "national" local dir nat
 	else local dir loc
 	local name XI
-	vioplot ln_percent_XI, over(sitc_war) hor ylabel(,angle(0) labsize(vsmall)) ///
+	vioplot ln_percent_XI if ln_percent>-8, over(class_war) hor ylabel(,angle(0) labsize(vsmall)) ///
 			plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			note("Exports and Imports" "MANOVA with plantation foodstuff: ${`name'0`dir'}" ///
 			"MANOVA without plantation foodstuff: ${`name'1`dir'} " ///
 			, size(vsmall)) ///
 			xtitle("Log Percentage share of trade flows")
 				///title(`title')
-	graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_`direction'_distr_`name'.png", replace
+	graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_`direction'_distr_`name'`class'.png", replace
 	
 	/*
 	if "`period1'"=="peace" | "`period2'"=="peace" 
