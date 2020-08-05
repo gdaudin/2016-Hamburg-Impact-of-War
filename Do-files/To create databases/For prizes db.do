@@ -167,6 +167,16 @@ save "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta",  replace
 
 
 
+
+***********************
+insheet using "$hamburggit/External Data/Benjamin RN prizes.csv", case clear
+drop share
+rename number Benjamin_captor_Navy
+
+twoway (connected Benjamin_captor_Navy year, cmissing(n)), name(Benjamin_captor_Navy, replace)
+save "$hamburg/database_dta/Benjamin_captor_Navy.dta",  replace
+
+
 ***********************
 
 use "$hamburg/database_dta/English_prizes_list.dta",  clear
@@ -211,6 +221,8 @@ gen importofprizegoodssilvertons=importofprizegoodspoundsterling*1000*ST_silver/
 merge 1:1 year using "$hamburg/database_dta/Total silver trade FR GB.dta"
 drop _merge
 
+merge 1:1 year using "$hamburg/database_dta/Benjamin_captor_Navy.dta"
+
 gen share_prizes= importofprizegoodssilvertons/valueFR_silver
 replace share_prizes = 0 if share_prizes ==.
 replace share_prizes = . if valueFR_silver ==.
@@ -221,7 +233,7 @@ replace share_prizes = . if share_prizes ==0
 
 twoway (bar importofprizegoodspoundsterling year, cmissing(n)) (connected share_prizes year,yaxis(2) lpattern(solid) mcolor(black) cmissing(n))/*
 		*/ if year>=1740 & year <=1801 /*
-		*/, name(Prize_imports, replace) scheme(s1mono) ytitle("Imports of prize goods (£000)") ytitle("hare of French trade", axis(2)) /*
+		*/, name(Prize_imports, replace) scheme(s1mono) ytitle("Imports of prize goods (£000)") ytitle("Share of French trade", axis(2)) /*
 		*/ legend(order (1 "Absolute value" 2 "Share of French trade"))
 		
 graph export "$hamburggit/Paper - Impact of War/Paper/Prizes_imports.png", replace
@@ -237,14 +249,15 @@ recode Nbr* (miss=0 ) if year >=1756 & year <=1762
 recode Nbr* (miss=0 ) if year >=1777 & year <=1783
 recode Nbr* (miss=0 ) if year >=1793 & year <=1815
 
-
+egen Nbr_prizes_GBNavy = rsum(Starkey_captor_Navy Benjamin_captor_Navy)
 
 save "$hamburg/database_dta/English_prizes.dta",  replace
 
-graph twoway (connected Nbr_GBNavy year, cmissing(n)) (connected Starkey_captor_Navy year, cmissing(n)), /*
+graph twoway (connected Nbr_prizes_GBNavy year, cmissing(n)) (connected Nbr_GBNavy year, cmissing(n)), /*
 	*/ legend(order (1 "Number of Navy prizes included in the fleet " 2 "Number of Navy prizes")) /*
-	*/ name(Comp_Navy_prizes_and_Starkey, replace)
-	
+	*/ name(Comp_Navy_prizes_and_GBNavy, replace)
+
+
 	
 graph twoway (connected Nbr_HCA34_wod year, cmissing(n)) (connected Starkey_captor_Privateers year, cmissing(n)) /*
 	*/ if year >=1735 & year <=1790 , /*
@@ -276,8 +289,8 @@ save "$hamburg/database_dta/English_prizes.dta",  replace
 
 *=Sur le graphique, on veut : total number of prizes (including RN and privateers) ; total estimated number of French prizes ; total number of privateer prizes ; total number of French privateer prizes
 
-gen total_number_of_prizes = Nbr_HCA34_and_other + Starkey_captor_Navy if year > 1735 & year <= 1790 
-gen estimated_number_of_prizes_FR = (Nbr_HCA34_and_other + Starkey_captor_Navy)*Nbr_HCA34_and_other_FR/Nbr_HCA34_and_other if year > 1735 & year <= 1790
+gen total_number_of_prizes = Nbr_HCA34_and_other + Nbr_prizes_GBNavy if year > 1735 & year <= 1815 
+gen estimated_number_of_prizes_FR = (Nbr_HCA34_and_other + Nbr_prizes_GBNavy)*Nbr_HCA34_and_other_FR/Nbr_HCA34_and_other if year > 1735 & year <= 1809
 
 
 
@@ -297,7 +310,7 @@ gen estimated_number_of_prizes_FR = (Nbr_HCA34_and_other + Starkey_captor_Navy)*
 	*/ scheme(s1mono)
 	
 	
-keep estimated_number_of_prizes_FR total_number_of_prizes Nbr_HCA34_and_other_FR Nbr_HCA34_and_other year
+keep estimated_number_of_prizes_FR total_number_of_prizes Nbr_HCA34_and_other_FR Nbr_HCA34_and_other Nbr_prizes_GBNavy year
 
 
 
@@ -337,11 +350,12 @@ gen bar4 = Number_of_prizes_Total_All
 	*/  (bar bar2 year, color(gs5)) /*
 	*/  (bar bar1 year, color(black)) /*
 	*/ if year >=1739 & year <=1815 /*
-	*/  ,legend(rows(2) order (3 "Privateers’ French prizes" 2 "Privateers’ non-French prizes"  /*
-	*/  1 "Navy’s prizes"  /*
+	*/  ,legend(rows(3) order (3 "Privateers’ French prizes" 2 "Privateers’ non-French prizes"  /*
+	*/  1 "Navy’s prizes (estimated date of capture from 1793)"  /*
 	*/  ) size(small)) /*
 	*/  ytitle(number of prizes) /*
 	*/  name(Prizes_for_paper, replace) /*
+	*/ note("Unless otherwise specified, the date is the year the prize was adjudicated") /*
 	*/ scheme(s1mono)
 	
 graph export "$hamburggit/Paper - Impact of War/Paper/Prizes.png", replace	
