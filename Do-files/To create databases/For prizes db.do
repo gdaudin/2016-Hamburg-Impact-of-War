@@ -217,21 +217,21 @@ graph twoway (connected Nbr_HCA34_wod year, cmissing(n)) (connected Starkey_capt
 	*/ legend(rows(2) order (1 "Number of prizes in the HCA34 (without duplicates)" 2 "Number of Privateers prizes (Starkey)")) /*
 	*/ name(Comp_HCA34_prizes_and_Starkey, replace)
 	
-graph twoway (connected Nbr_HCA34_wod year, cmissing(n)) (connected Nbr_Other year, cmissing(n)) if year >= 1740 & year<=1816, /*
+graph twoway (connected Nbr_HCA34_wod year, cmissing(n)) (connected Nbr_Other year, cmissing(n)) if year >= 1739 & year<=1816, /*
 	*/ legend(rows(2) order (1 "Number of prize ships reports in the High Court of Admiralty (HCA34)" "(no duplicates)" 2 "Number of prizes (other sources)")) /*
 	*/ name(Comp_HCA34_Other, replace)
 	
 replace Nbr_HCA34_wod = 0 if Nbr_HCA34_wod ==.
 
-generate Nbr_HCA34_and_other = 	Nbr_HCA34_wod + Nbr_Other if year >= 1740 
-generate Nbr_HCA34_and_other_FR = 	Nbr_HCA34_wo_duplicates_France + Nbr_Other if year >= 1740
+generate Nbr_HCA34_and_other = 	Nbr_HCA34_wod + Nbr_Other if year >= 1739
+generate Nbr_HCA34_and_other_FR = 	Nbr_HCA34_wo_duplicates_France + Nbr_Other if year >= 1739
 
-graph twoway (connected Nbr_HCA34_and_other year, cmissing(n)) (connected Nbr_HCA34_and_other_FR year, cmissing(n)) if year >= 1740 & year<=1816, /*
+graph twoway (connected Nbr_HCA34_and_other year, cmissing(n)) (connected Nbr_HCA34_and_other_FR year, cmissing(n)) if year >= 1739 & year<=1816, /*
 	*/ legend( rows(2) order (1 "Number of prize ships reports in the High Court of Admiralty (HCA34)" "(no duplicates) + Number of prizes (other sources)" 2 "Number of French prize ships reports in the High Court of Admiralty" " (HCA34) (no duplicates) + Number of prizes (other sources)")) /*
 	*/ scheme(s1mono) name(HCA34_and_Other, replace)	
 	
 
- twoway (connected share_prizes year,cmissing(n) msize(small)) (connected Nbr_HCA34_wod year,cmissing(n) yaxis(2) msize(small)) (connected Nbr_HCA34_wo_duplicates_France year,cmissing(n) yaxis(2) msize(small)) if year >=1740 & year <=1815, /*
+ twoway (connected share_prizes year,cmissing(n) msize(small)) (connected Nbr_HCA34_wod year,cmissing(n) yaxis(2) msize(small)) (connected Nbr_HCA34_wo_duplicates_France year,cmissing(n) yaxis(2) msize(small)) if year >=1739 & year <=1815, /*
 	*/ legend(rows(3) order (1 "Official value of prize goods imported in Britain as a share of French trade" /*
 	*/2 "Number of prize ships reports in the High Court of Admiralty (HCA34) (no duplicates)" 3 "idem, but only French ships") size(vsmall)) /*
 	*/ytitle(share of French trade) ytitle(number of ships, axis(2)) /*
@@ -253,7 +253,7 @@ gen estimated_number_of_prizes_FR = (Nbr_HCA34_and_other + Starkey_captor_Navy)*
     */  (connected total_number_of_prizes year,cmissing(n) msize(small) lpattern(dot) msymbol(circle)) /*
 	*/  (connected Nbr_HCA34_and_other_FR year,cmissing(n)  msize(small) lpattern(solid) msymbol(square)) /*
 	*/  (connected Nbr_HCA34_and_other year,cmissing(n)  msize(small) lpattern(dot) msymbol(square)) /*
-	*/  if year >=1740 & year <=1815, /*
+	*/  if year >=1739 & year <=1815, /*
 	*/  legend(rows(4) order (2 "Total number of prizes" /*
 	*/  1  "Estimated total number of French prizes" 4 "Total number of prizes captured by privateers" /*
 	*/  3 "Total number of French prizes captured by privateers") size(vsmall)) /*
