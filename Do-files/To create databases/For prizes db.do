@@ -26,14 +26,18 @@ save "$hamburg/database_dta/PrizeNationalities.dta",  replace
 insheet using "$hamburggit/External Data/HCA34_prizes.csv", case clear
 
 rename yearofsentence year
+drop if year==.
 
-merge m:1 Prizeshiporigin using "$hamburg/database_dta/PrizeNationalities.dta"
+
+
+merge m:1 Prizeshiporigin using "$hamburg/database_dta/PrizeNationalities.dta", keep(1 3)
 rename AggregatedOrigin AggregatedOrigin_source
-
-replace Prizeshiporigin= OriginbasedonName if OriginbasedonName !=""
 drop _merge 
 
-merge m:1 Prizeshiporigin using "$hamburg/database_dta/PrizeNationalities.dta"
+replace Prizeshiporigin= OriginbasedonName if OriginbasedonName !=""
+
+
+merge m:1 Prizeshiporigin using "$hamburg/database_dta/PrizeNationalities.dta", keep(1 3)
 rename AggregatedOrigin AggregatedOrigin_hypothesis
 drop Prizeshiporigin
 
@@ -48,7 +52,8 @@ gsort - Nbr
 outsheet "$hamburggit/External Data/PrizeNationalities.csv", replace
 restore
 */
-drop Nbr _merge
+capture drop Nbr
+capture _merge
 
 save "$hamburg/database_dta/HCA34_prizes.dta",  replace
 
@@ -92,7 +97,7 @@ insheet using "$hamburggit/External Data/GBNavy_prizes.csv", case clear
 gen year=real(substr(YeartoNavy,1,4))
 
 
-
+drop if year==.
 save "$hamburg/database_dta/GBNavy_prizes.dta",  replace
 
 
@@ -119,12 +124,24 @@ drop if Shiporigin=="britain" | Shiporigin=="liverpool" | year <=1738
 
 histogram year, discrete freq name(Other_prizes, replace)
 
+rename Shiporigin Prizeshiporigin
+
+
+merge m:1 Prizeshiporigin using "$hamburg/database_dta/PrizeNationalities.dta", keep (1 3)
+rename AggregatedOrigin AggregatedOrigin_hypothesis
+
+drop _merge
+
+
+
 save "$hamburg/database_dta/Other_prizes.dta",  replace
 
-keep year
+keep year AggregatedOrigin*
 keep if year >=1650
 generate source="Other"
+assert year !=.
 append using "$hamburg/database_dta/English_prizes_list.dta"
+assert year !=.
 save "$hamburg/database_dta/English_prizes_list.dta",  replace
 
 histogram year, discrete freq name(All_prizes, replace)
@@ -135,7 +152,7 @@ histogram year, discrete freq name(All_prizes, replace)
 insheet using "$hamburggit/External Data/Ashton_Schumpeter_Prize_data.csv", case clear
 drop v3
 generate source="Prize_imports"
-twoway (bar importofprizegoodspoundsterling year), name(Prize_imports, replace)
+twoway (bar importofprizegoodspoundsterling year, cmissing(n)), name(Prize_imports, replace) scheme(s1mono) ytitle("Imports of prize goods (£000)")
 save "$hamburg/database_dta/Ashton_Schumpeter_Prize_data.dta",  replace
 
 
@@ -154,21 +171,31 @@ save "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta",  replace
 
 use "$hamburg/database_dta/English_prizes_list.dta",  clear
 
+keep if year >=1739
 
+assert year !=.
 
+drop if AggregatedOrigin_hypothesis == "Britain"
+
+drop AggregatedOrigin_source
 bys year source AggregatedOrigin_hypothesis : generate Nbr_ = _N 
 bys year source AggregatedOrigin_hypothesis : keep if _n==1
-drop AggregatedOrigin_source
+
 
 replace AggregatedOrigin_hypothesis = "US" if AggregatedOrigin_hypothesis=="United States"
 replace AggregatedOrigin_hypothesis = "Neth" if AggregatedOrigin_hypothesis=="Netherlands"
 
-replace source= source+"_"+AggregatedOrigin_hypothesis if source !="GBNavy" & source !="Other"
+replace source= source+"_"+AggregatedOrigin_hypothesis if source !="GBNavy"
 drop AggregatedOrigin_hypothesis
-list if year==11
+
 
 reshape wide Nbr_,i(year) j(source ) string
-replace Nbr_Other = 0 if Nbr_Other==. & (year  ==1742 | year==1760 | year==1761 | year == 1782 | year==1814)
+
+recode Nbr* (miss=0 ) if year >=1740 & year <=1748
+recode Nbr* (miss=0 ) if year >=1756 & year <=1762
+recode Nbr* (miss=0 ) if year >=1777 & year <=1783
+recode Nbr* (miss=0 ) if year >=1793 & year <=1815
+
 
 merge 1:1 year using "$hamburg/database_dta/Ashton_Schumpeter_Prize_data.dta"
 drop source _merge
@@ -188,20 +215,27 @@ gen share_prizes= importofprizegoodssilvertons/valueFR_silver
 replace share_prizes = 0 if share_prizes ==.
 replace share_prizes = . if valueFR_silver ==.
 
-replace Nbr_HCA34_wo_duplicates_France = 0 if Nbr_HCA34_wo_duplicates_France ==.
-replace Nbr_HCA34_wo_duplicates_Neth = 0 if Nbr_HCA34_wo_duplicates_Neth ==.
-replace Nbr_HCA34_wo_duplicates_Other = 0 if Nbr_HCA34_wo_duplicates_Other ==.
-replace Nbr_HCA34_wo_duplicates_Spain = 0 if Nbr_HCA34_wo_duplicates_Spain ==.
-replace Nbr_HCA34_wo_duplicates_US = 0 if Nbr_HCA34_wo_duplicates_US ==.
-replace Nbr_HCA34_wo_duplicates_Unknown = 0 if Nbr_HCA34_wo_duplicates_Unknown ==.
-
 sort year 
-twoway (line share_prizes year), name(Share_prizes, replace)
+
+replace share_prizes = . if share_prizes ==0
+
+twoway (bar importofprizegoodspoundsterling year, cmissing(n)) (connected share_prizes year,yaxis(2) lpattern(solid) mcolor(black) cmissing(n))/*
+		*/ if year>=1740 & year <=1801 /*
+		*/, name(Prize_imports, replace) scheme(s1mono) ytitle("Imports of prize goods (£000)") ytitle("hare of French trade", axis(2)) /*
+		*/ legend(order (1 "Absolute value" 2 "Share of French trade"))
+		
+graph export "$hamburggit/Paper - Impact of War/Paper/Prizes_imports.png", replace
 
 sort year
 
-gen Nbr_HCA34_wod = Nbr_HCA34_wo_duplicates_France+ Nbr_HCA34_wo_duplicates_Neth+ Nbr_HCA34_wo_duplicates_Other+ Nbr_HCA34_wo_duplicates_Spain+ Nbr_HCA34_wo_duplicates_US+ Nbr_HCA34_wo_duplicates_Unknown 
-replace Nbr_HCA34_wod=. if Nbr_HCA34_wod==0
+egen Nbr_HCA34_wod 	= rsum(Nbr_HCA34_wo_duplicates*), missing
+egen Nbr_Other		= rsum(Nbr_Other*), missing
+*replace Nbr_HCA34_wod=. if Nbr_HCA34_wod==0
+
+recode Nbr* (miss=0 ) if year >=1740 & year <=1748
+recode Nbr* (miss=0 ) if year >=1756 & year <=1762
+recode Nbr* (miss=0 ) if year >=1777 & year <=1783
+recode Nbr* (miss=0 ) if year >=1793 & year <=1815
 
 
 
@@ -217,21 +251,19 @@ graph twoway (connected Nbr_HCA34_wod year, cmissing(n)) (connected Starkey_capt
 	*/ legend(rows(2) order (1 "Number of prizes in the HCA34 (without duplicates)" 2 "Number of Privateers prizes (Starkey)")) /*
 	*/ name(Comp_HCA34_prizes_and_Starkey, replace)
 	
-graph twoway (connected Nbr_HCA34_wod year, cmissing(n)) (connected Nbr_Other year, cmissing(n)) if year >= 1740 & year<=1816, /*
+graph twoway (connected Nbr_HCA34_wod year, cmissing(n)) (connected Nbr_Other year, cmissing(n)) if year >= 1739 & year<=1816, /*
 	*/ legend(rows(2) order (1 "Number of prize ships reports in the High Court of Admiralty (HCA34)" "(no duplicates)" 2 "Number of prizes (other sources)")) /*
 	*/ name(Comp_HCA34_Other, replace)
 	
-replace Nbr_HCA34_wod = 0 if Nbr_HCA34_wod ==.
+generate Nbr_HCA34_and_other = 	Nbr_HCA34_wod + Nbr_Other if year >= 1739
+generate Nbr_HCA34_and_other_FR = 	Nbr_HCA34_wo_duplicates_France + Nbr_Other_France if year >= 1739
 
-generate Nbr_HCA34_and_other = 	Nbr_HCA34_wod + Nbr_Other if year >= 1740 
-generate Nbr_HCA34_and_other_FR = 	Nbr_HCA34_wo_duplicates_France + Nbr_Other if year >= 1740
-
-graph twoway (connected Nbr_HCA34_and_other year, cmissing(n)) (connected Nbr_HCA34_and_other_FR year, cmissing(n)) if year >= 1740 & year<=1816, /*
+graph twoway (connected Nbr_HCA34_and_other year, cmissing(n)) (connected Nbr_HCA34_and_other_FR year, cmissing(n)) if year >= 1739 & year<=1816, /*
 	*/ legend( rows(2) order (1 "Number of prize ships reports in the High Court of Admiralty (HCA34)" "(no duplicates) + Number of prizes (other sources)" 2 "Number of French prize ships reports in the High Court of Admiralty" " (HCA34) (no duplicates) + Number of prizes (other sources)")) /*
 	*/ scheme(s1mono) name(HCA34_and_Other, replace)	
 	
 
- twoway (connected share_prizes year,cmissing(n) msize(small)) (connected Nbr_HCA34_wod year,cmissing(n) yaxis(2) msize(small)) (connected Nbr_HCA34_wo_duplicates_France year,cmissing(n) yaxis(2) msize(small)) if year >=1740 & year <=1815, /*
+ twoway (connected share_prizes year,cmissing(n) msize(small)) (connected Nbr_HCA34_wod year,cmissing(n) yaxis(2) msize(small)) (connected Nbr_HCA34_wo_duplicates_France year,cmissing(n) yaxis(2) msize(small)) if year >=1739 & year <=1815, /*
 	*/ legend(rows(3) order (1 "Official value of prize goods imported in Britain as a share of French trade" /*
 	*/2 "Number of prize ships reports in the High Court of Admiralty (HCA34) (no duplicates)" 3 "idem, but only French ships") size(vsmall)) /*
 	*/ytitle(share of French trade) ytitle(number of ships, axis(2)) /*
@@ -249,20 +281,70 @@ gen estimated_number_of_prizes_FR = (Nbr_HCA34_and_other + Starkey_captor_Navy)*
 
 
 
- twoway (connected  estimated_number_of_prizes_FR year,cmissing(n)  msize(small) lpattern(solid) msymbol(circle)) /*
-    */  (connected total_number_of_prizes year,cmissing(n) msize(small) lpattern(dot) msymbol(circle)) /*
-	*/  (connected Nbr_HCA34_and_other_FR year,cmissing(n)  msize(small) lpattern(solid) msymbol(square)) /*
-	*/  (connected Nbr_HCA34_and_other year,cmissing(n)  msize(small) lpattern(dot) msymbol(square)) /*
-	*/  if year >=1740 & year <=1815, /*
+
+
+
+ twoway (bar  estimated_number_of_prizes_FR year,cmissing(n)  msize(small) lpattern(solid) msymbol(circle)) /*
+    */  (bar total_number_of_prizes year,cmissing(n) msize(small) lpattern(dot) msymbol(circle)) /*
+	*/  (bar Nbr_HCA34_and_other_FR year,cmissing(n)  msize(small) lpattern(solid) msymbol(square)) /*
+	*/  (bar Nbr_HCA34_and_other year,cmissing(n)  msize(small) lpattern(dot) msymbol(square)) /*
+	*/  if year >=1739 & year <=1815, /*
 	*/  legend(rows(4) order (2 "Total number of prizes" /*
 	*/  1  "Estimated total number of French prizes" 4 "Total number of prizes captured by privateers" /*
 	*/  3 "Total number of French prizes captured by privateers") size(vsmall)) /*
 	*/  ytitle(number of ships) /*
 	*/  name(for_paper, replace) /*
 	*/ scheme(s1mono)
+	
+	
+keep estimated_number_of_prizes_FR total_number_of_prizes Nbr_HCA34_and_other_FR Nbr_HCA34_and_other year
 
 
-*****DEAL WITH NATIONALITY OF OTHERS
+
+
+rename estimated_number_of_prizes_FR Number_of_prizes_Total_FR
+rename total_number_of_prizes Number_of_prizes_Total_All
+rename Nbr_HCA34_and_other_FR Number_of_prizes_Privateers_FR
+rename Nbr_HCA34_and_other Number_of_prizes_Privateers_All
+
+gen bar1=Number_of_prizes_Privateers_FR
+gen bar2= Number_of_prizes_Privateers_All
+gen bar3 =bar2+(Number_of_prizes_Total_FR-Number_of_prizes_Privateers_FR)
+gen bar4 = Number_of_prizes_Total_All
+
+
+
+/* With Navy’s French prizes
+ twoway (bar bar4 year, color(gs12)) /*
+    */  (bar bar3 year, color(gs8)) /*
+	*/  (bar bar2 year, color(gs4)) /*
+	*/  (bar bar1 year, color(black)) /*
+	*/ if year >=1739 & year <=1815 /*
+	*/  ,legend(rows(2) order (4 "Privateers’ French prizes" 3 "Privateers’ non-French prizes"  /*
+	*/  2  "Navy’s French prizes" 1 "Navy’s non-French prizes"  /*
+	*/  ) size(small)) /*
+	*/  ytitle(number of prizes) /*
+	*/  name(Prizes_for_paper, replace) /*
+	*/ scheme(s1mono)
+	
+*/
+
+
+
+
+
+ twoway (bar bar4 year, color(gs10)) /*
+	*/  (bar bar2 year, color(gs5)) /*
+	*/  (bar bar1 year, color(black)) /*
+	*/ if year >=1739 & year <=1815 /*
+	*/  ,legend(rows(2) order (3 "Privateers’ French prizes" 2 "Privateers’ non-French prizes"  /*
+	*/  1 "Navy’s prizes"  /*
+	*/  ) size(small)) /*
+	*/  ytitle(number of prizes) /*
+	*/  name(Prizes_for_paper, replace) /*
+	*/ scheme(s1mono)
+	
+graph export "$hamburggit/Paper - Impact of War/Paper/Prizes.png", replace	
 
 
 erase "$hamburg/database_dta/HCA34_prizes.dta"
@@ -273,21 +355,7 @@ erase "$hamburg/database_dta/PrizeNationalities.dta"
 erase "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta"
 
 
-/*
-	
-graph export "$hamburggit/Paper - Impact of War/Paper/Prizes.png", replace	
-
-gen period_str=""
-replace period_str ="Peace 1716-1744" if year <= 1744
-replace period_str ="War 1745-1748" if year   >= 1745 & year <=1748
-replace period_str ="Peace 1749-1755" if year >= 1749 & year <=1755
-replace period_str ="War 1756-1763" if year   >= 1756 & year <=1763
-replace period_str ="Peace 1763-1777" if year >= 1763 & year <=1777
-replace period_str ="War 1778-1783" if year   >= 1778 & year <=1783
-replace period_str ="Peace 1784-1792" if year >= 1784 & year <=1792
-replace period_str ="War 1793-1807" if year   >= 1793 & year <=1807
-replace period_str ="Blockade 1808-1815" if year   >= 1808 & year <=1815
-replace period_str ="Peace 1816-1840" if year >= 1816
 
 	
+
 

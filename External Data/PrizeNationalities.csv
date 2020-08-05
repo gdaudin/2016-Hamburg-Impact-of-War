@@ -1,38 +1,99 @@
-"Prizeshiporigin","Nbr","AggregatedOrigin"
-,1101,"Unknown"
-"French",1009,"France"
-"France",151,"France"
-"Spain",149,"Spain"
-"not given",68,"Unknown"
-"French Republic",59,"France"
-"Rebellion colonies in America",58,"United States"
-"Dutch",46,"Netherlands"
-"United Provinces",36,"Netherlands"
-"King of Spain",20,"Spain"
-"Batavian Republic",10,"Netherlands"
-"British/French/British",5,"Other"
-"Danish",5,"Other"
-"Sweden",5,"Other"
-"British-French-British",4,"Other"
-"French or Spain",4,"Other"
-"Prussia",4,"Other"
-"King of Denmark",2,"Other"
-"Naples",2,"Other"
-"America",1,"United States"
-"Amsterdam Dutch",1,"Netherlands"
-"Bishop of Lubeck",1,"Other"
-"British/American vessel essex/British",1,"Other"
-"British/Ship name American Union/British",1,"Other"
-"British/rebel armed vessel/British",1,"Other"
-"Denmark",1,"Other"
-"Denmark/Germany",1,"Other"
-"English/rebel armed ship of colonies in America/English",1,"Other"
-"Hungary",1,"Other"
-"Portugal",1,"Other"
-"Queen of Hungary",1,"Other"
-"Roman Republic",1,"Other"
-"Russian",1,"Other"
-"United Provinces/Grenada",1,"Other"
-"Italy",,"Other"
-"Unknown",,"Unknown"
-"Other",,"Other"
+Prizeshiporigin,AggregatedOrigin,new_nbr
+,Unknown,1786
+French,France,1009
+France,France,168
+Spain,Spain,160
+not given,Unknown,68
+usa,United States,68
+france,France,63
+French Republic,France,59
+Rebellion colonies in America,United States,58
+Dutch,Netherlands,46
+netherlands,Netherlands,40
+United Provinces,Netherlands,36
+britain,Britain,25
+brazil,Other,22
+King of Spain,Spain,20
+portugal,Other,19
+liverpool,Britain,16
+spain,Spain,16
+denmark,Other,11
+Batavian Republic,Netherlands,10
+London,Britain,10
+sweden,Other,7
+British/French/British,Other,5
+Danish,Other,5
+Sweden,Other,6
+British-French-British,Other,4
+england recapture,Unknown,4
+French or Spain,Other,4
+germany,Other,4
+Prussia,Other,4
+Bristol,Britain,3
+hamburg,Other,3
+Batavia,Netherlands,2
+Dublin,Netherlands,2
+Hamburg,Other,2
+King of Denmark,Other,2
+Liverpool,Britain,2
+Naples,Other,2
+Netherlands,Netherlands,2
+Southampton,Britain,2
+5,Unknown,1
+America,United States,1
+Amsterdam Dutch,Netherlands,1
+Bergen,Other,1
+Bishop of Lubeck,Other,1
+Bordeaux,France,1
+boston,Britain,1
+Brighthelmstone,Britain,1
+British/American vessel essex/British,Other,1
+British/rebel armed vessel/British,Other,1
+British/Ship name American Union/British,Other,1
+Dartmouth,Britain,1
+Denmark,Other,5
+denmark or netherlands,Other,1
+denmark or spain,Other,1
+Denmark/Germany,Other,1
+domingo,France,1
+dutch,Netherlands,1
+English built,Unknown,1
+English/rebel armed ship of colonies in America/English,Other,1
+germany or venice,Other,1
+Glasgow,Britain,1
+Guernsey,Britain,1
+havre,France,1
+Hayle,Britain,1
+Hull,Britain,1
+Hungary,Other,1
+jamaica,Britain,1
+Jersey,Britain,1
+lubeck,Other,1
+oldenburg,Other,1
+Ostend?,Other,1
+Oxford,Britain,1
+Padstow,Britain,1
+Papenburgh,Britain,1
+Portsmouth,Britain,1
+Portugal,Other,1
+prussia or britain,Unknown,1
+prussia or netherlands,Unknown,1
+Queen of Hungary,Other,1
+Roman Republic,Other,1
+Roterdam,Netherlands,1
+russia,Other,1
+Russian,Other,1
+Salsbury,Britain,1
+Scarborough,Britain,1
+Sheeles,Unknown,1
+Stockholm,Other,1
+Stockton,Britain,1
+Sunderland,Britain,1
+Topsham,Britain,1
+United Provinces/Grenada,Other,1
+Virginia,United States,1
+Whitstable,Britain,1
+Yarmouth,Britain,1
+Italy,Other,0
+Other,Other,0
+Unknown,Unknown,0
