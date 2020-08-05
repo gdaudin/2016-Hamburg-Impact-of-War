@@ -152,9 +152,9 @@ histogram year, discrete freq name(All_prizes, replace)
 insheet using "$hamburggit/External Data/Ashton_Schumpeter_Prize_data.csv", case clear
 drop v3
 generate source="Prize_imports"
-twoway (bar importofprizegoodspoundsterling year), name(Prize_imports, replace)
+twoway (bar importofprizegoodspoundsterling year, cmissing(n)), name(Prize_imports, replace) scheme(s1mono) ytitle("Imports of prize goods (£000)")
 save "$hamburg/database_dta/Ashton_Schumpeter_Prize_data.dta",  replace
-
+graph export "$hamburggit/Paper - Impact of War/Paper/Prizes_imports.png", replace	
 
 *******************
 insheet using "$hamburggit/External Data/Starkey -- Nbr of prizes -- 1990.csv", case clear
@@ -273,10 +273,13 @@ gen estimated_number_of_prizes_FR = (Nbr_HCA34_and_other + Starkey_captor_Navy)*
 
 
 
- twoway (connected  estimated_number_of_prizes_FR year,cmissing(n)  msize(small) lpattern(solid) msymbol(circle)) /*
-    */  (connected total_number_of_prizes year,cmissing(n) msize(small) lpattern(dot) msymbol(circle)) /*
-	*/  (connected Nbr_HCA34_and_other_FR year,cmissing(n)  msize(small) lpattern(solid) msymbol(square)) /*
-	*/  (connected Nbr_HCA34_and_other year,cmissing(n)  msize(small) lpattern(dot) msymbol(square)) /*
+
+
+
+ twoway (bar  estimated_number_of_prizes_FR year,cmissing(n)  msize(small) lpattern(solid) msymbol(circle)) /*
+    */  (bar total_number_of_prizes year,cmissing(n) msize(small) lpattern(dot) msymbol(circle)) /*
+	*/  (bar Nbr_HCA34_and_other_FR year,cmissing(n)  msize(small) lpattern(solid) msymbol(square)) /*
+	*/  (bar Nbr_HCA34_and_other year,cmissing(n)  msize(small) lpattern(dot) msymbol(square)) /*
 	*/  if year >=1739 & year <=1815, /*
 	*/  legend(rows(4) order (2 "Total number of prizes" /*
 	*/  1  "Estimated total number of French prizes" 4 "Total number of prizes captured by privateers" /*
@@ -284,9 +287,56 @@ gen estimated_number_of_prizes_FR = (Nbr_HCA34_and_other + Starkey_captor_Navy)*
 	*/  ytitle(number of ships) /*
 	*/  name(for_paper, replace) /*
 	*/ scheme(s1mono)
+	
+	
+keep estimated_number_of_prizes_FR total_number_of_prizes Nbr_HCA34_and_other_FR Nbr_HCA34_and_other year
 
 
-*****DEAL WITH NATIONALITY OF OTHERS
+
+
+rename estimated_number_of_prizes_FR Number_of_prizes_Total_FR
+rename total_number_of_prizes Number_of_prizes_Total_All
+rename Nbr_HCA34_and_other_FR Number_of_prizes_Privateers_FR
+rename Nbr_HCA34_and_other Number_of_prizes_Privateers_All
+
+gen bar1=Number_of_prizes_Privateers_FR
+gen bar2= Number_of_prizes_Privateers_All
+gen bar3 =bar2+(Number_of_prizes_Total_FR-Number_of_prizes_Privateers_FR)
+gen bar4 = Number_of_prizes_Total_All
+
+
+
+/* With Navy’s French prizes
+ twoway (bar bar4 year, color(gs12)) /*
+    */  (bar bar3 year, color(gs8)) /*
+	*/  (bar bar2 year, color(gs4)) /*
+	*/  (bar bar1 year, color(black)) /*
+	*/ if year >=1739 & year <=1815 /*
+	*/  ,legend(rows(2) order (4 "Privateers’ French prizes" 3 "Privateers’ non-French prizes"  /*
+	*/  2  "Navy’s French prizes" 1 "Navy’s non-French prizes"  /*
+	*/  ) size(small)) /*
+	*/  ytitle(number of prizes) /*
+	*/  name(Prizes_for_paper, replace) /*
+	*/ scheme(s1mono)
+	
+*/
+
+
+
+
+
+ twoway (bar bar4 year, color(gs10)) /*
+	*/  (bar bar2 year, color(gs5)) /*
+	*/  (bar bar1 year, color(black)) /*
+	*/ if year >=1739 & year <=1815 /*
+	*/  ,legend(rows(2) order (3 "Privateers’ French prizes" 2 "Privateers’ non-French prizes"  /*
+	*/  1 "Navy’s prizes"  /*
+	*/  ) size(small)) /*
+	*/  ytitle(number of prizes) /*
+	*/  name(Prizes_for_paper, replace) /*
+	*/ scheme(s1mono)
+	
+graph export "$hamburggit/Paper - Impact of War/Paper/Prizes.png", replace	
 
 
 erase "$hamburg/database_dta/HCA34_prizes.dta"
@@ -297,21 +347,7 @@ erase "$hamburg/database_dta/PrizeNationalities.dta"
 erase "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta"
 
 
-/*
-	
-graph export "$hamburggit/Paper - Impact of War/Paper/Prizes.png", replace	
-
-gen period_str=""
-replace period_str ="Peace 1716-1744" if year <= 1744
-replace period_str ="War 1745-1748" if year   >= 1745 & year <=1748
-replace period_str ="Peace 1749-1755" if year >= 1749 & year <=1755
-replace period_str ="War 1756-1763" if year   >= 1756 & year <=1763
-replace period_str ="Peace 1763-1777" if year >= 1763 & year <=1777
-replace period_str ="War 1778-1783" if year   >= 1778 & year <=1783
-replace period_str ="Peace 1784-1792" if year >= 1784 & year <=1792
-replace period_str ="War 1793-1807" if year   >= 1793 & year <=1807
-replace period_str ="Blockade 1808-1815" if year   >= 1808 & year <=1815
-replace period_str ="Peace 1816-1840" if year >= 1816
 
 	
+
 
