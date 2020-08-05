@@ -5,9 +5,9 @@ if "`c(username)'"=="guillaumedaudin" ///
 		global toflit18_data_git "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/toflit18_data_git"
 
 if "`c(username)'" =="Tirindelli" {
-	global hamburg "/Users/Tirindelli/Google Drive/ETE/Thesis"
-	global toflit18_data_git "$hamburg/toflit18_data_GIT"
-	global hamburggit "/Users/Tirindelli/Google Drive/ETE/Thesis/Data/do_files/Hamburg"
+	global hamburg "/Users/Tirindelli/Google Drive/Hamburg"
+	global toflit18_data_git "$hamburg/toflit18_data"
+	global hamburggit "/Users/Tirindelli/Google Drive/Hamburg/Paper"
 }
 
 if "`c(username)'" =="tirindee" {

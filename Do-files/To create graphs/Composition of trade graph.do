@@ -5,8 +5,10 @@ args period1 period2 direction classification
 
 	save temp.dta, replace 		
 	
-	if "`direction'"=="national"{
-		keep if national_product_best_guess==1 
+		if "`direction'"=="national"{
+		if "`classification'"=="product_sitc_simplen" keep if national_product_best_guess==1 
+		if "`classification'"=="sitc_aggr" keep if national_product_best_guess==1 
+		if "`classification'"=="country_grouping_8" keep if national_geography_best_guess==1 
 	}
 	
 	else{
@@ -167,13 +169,13 @@ args period1 period2 direction classification
 		if "`direction'"== "local" local dir loc
 		if "`classification'"== "product_sitc_simplen" local class sitc
 		if "`classification'"== "country_grouping" local class pays
-		if "`classification'"== "country_grouping_7" local class pays7
-		if "`classification'"== "product_re_aggregate" local class aggr
+		if "`classification'"== "country_grouping_8" local class pays7
+		if "`classification'"== "sitc_aggr" local class aggr
 
 		vioplot ln_percent if exportsimports=="`i'" & ln_percent>-8, over(class_war) hor ylabel(,angle(0) labsize(vsmall)) ///
 				plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-				note("`i' " "MANOVA with plantation foodstuff: ${`name'0`dir'}" ///
-				"MANOVA without plantation foodstuff: ${`name'1`dir'} " ///
+				note("`i' " "MANOVA without plantation foodstuff: ${`name'0`dir'}" ///
+				"MANOVA with plantation foodstuff: ${`name'1`dir'} " ///
 				, size(vsmall)) ///
 				xtitle("Log Percentage share of trade flows")
 				///title(`title')
@@ -186,8 +188,8 @@ args period1 period2 direction classification
 	local name XI
 	vioplot ln_percent_XI if ln_percent>-8, over(class_war) hor ylabel(,angle(0) labsize(vsmall)) ///
 			plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-			note("Exports and Imports" "MANOVA with plantation foodstuff: ${`name'0`dir'}" ///
-			"MANOVA without plantation foodstuff: ${`name'1`dir'} " ///
+			note("Exports and Imports" "MANOVA without plantation foodstuff: ${`name'0`dir'}" ///
+			"MANOVA with plantation foodstuff: ${`name'1`dir'} " ///
 			, size(vsmall)) ///
 			xtitle("Log Percentage share of trade flows")
 				///title(`title')

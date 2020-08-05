@@ -5,7 +5,9 @@ args period1 period2 plantation_yesno direction X_I classification
 	preserve
 	
 	if "`direction'"=="national"{
-		keep if national_product_best_guess==1 
+		if "`classification'"=="product_sitc_simplen" keep if national_product_best_guess==1 
+		if "`classification'"=="sitc_aggr" keep if national_product_best_guess==1 
+		if "`classification'"=="country_grouping_8" keep if national_geography_best_guess==1 
 	}
 	
 	else{
@@ -117,40 +119,34 @@ args period1 period2 plantation_yesno direction X_I classification
 	else local dir loc
 	
 	if "`classification'"=="product_sitc_simplen"{
-		if "`period1'"=="peace1784_1792" & "`period2'"=="peace1816_1840" | "`period2'"=="peace1784_1792" & "`period1'"=="peace1816_1840"{
-			if `plantation_yesno'==1 mvtest means ln_percent1-ln_percent7, by(war) het
-			else mvtest means ln_percent1-ln_percent6, by(war) het
-		}
-		else{
 			if `plantation_yesno'==1 mvtest means ln_percent1-ln_percent12, by(war) het
 			else mvtest means ln_percent1-ln_percent11, by(war) het
-		}
 	}
-	
-	if "`classification'"=="country_grouping" mvtest means ln_percent1-ln_percent12, by(war) het
-	
-	if "`classification'"=="country_grouping_7"{
+		
+	if "`classification'"=="country_grouping_8"{
 	
 		if "`period1'"=="seven" & "`period2'"=="peace1764_1777" | "`period1'"=="peace1764_1777" & "`period2'"=="seven"{
-			mvtest means ln_percent1-ln_percent6, by(war) het
+			mvtest means ln_percent1-ln_percent7, by(war) het
 		}
 		
 		else if "`period1'"=="peace1749_1755" & "`period2'"=="peace1764_1777" | "`period1'"=="peace1764_1777" & "`period2'"=="peace1749_1755"{
-			mvtest means ln_percent1-ln_percent6, by(war) het
+			mvtest means ln_percent1-ln_percent7, by(war) het
 		}
 		
-		else mvtest means ln_percent1-ln_percent7, by(war) het
+		else mvtest means ln_percent1-ln_percent8, by(war) het
 
 	}
-		
-	if "`classification'"=="product_re_aggregate" mvtest means ln_percent1-ln_percent7, by(war) het
-
+	
+	if "`classification'"=="sitc_aggr"{
+			if `plantation_yesno'==1 mvtest means ln_percent1-ln_percent7, by(war) het
+			else mvtest means ln_percent1-ln_percent6, by(war) het
+	}
 	
 	// I am excluding one category from the test cause they sum uo to a 100 
 		
 	global `name'`plantation_yesno'`dir'=round(r(p_F),0.01)
 	global temp= ${`name'`plantation_yesno'`dir'}
-	di ${`period1'`period2'`plantationyesno'`dir'`name'}
+	di ${`name'`plantation_yesno'`dir'}
 	// I am storing it as a global macro because I am reporting it in the graphs, so the graph.do can use them
 	// I copy the macro in temp for simplicity of use in this do file
 	
