@@ -154,7 +154,7 @@ drop v3
 generate source="Prize_imports"
 twoway (bar importofprizegoodspoundsterling year, cmissing(n)), name(Prize_imports, replace) scheme(s1mono) ytitle("Imports of prize goods (£000)")
 save "$hamburg/database_dta/Ashton_Schumpeter_Prize_data.dta",  replace
-graph export "$hamburggit/Paper - Impact of War/Paper/Prizes_imports.png", replace	
+
 
 *******************
 insheet using "$hamburggit/External Data/Starkey -- Nbr of prizes -- 1990.csv", case clear
@@ -216,7 +216,15 @@ replace share_prizes = 0 if share_prizes ==.
 replace share_prizes = . if valueFR_silver ==.
 
 sort year 
-twoway (line share_prizes year), name(Share_prizes, replace)
+
+replace share_prizes = . if share_prizes ==0
+
+twoway (bar importofprizegoodspoundsterling year, cmissing(n)) (connected share_prizes year,yaxis(2) lpattern(solid) mcolor(black) cmissing(n))/*
+		*/ if year>=1740 & year <=1801 /*
+		*/, name(Prize_imports, replace) scheme(s1mono) ytitle("Imports of prize goods (£000)") ytitle("hare of French trade", axis(2)) /*
+		*/ legend(order (1 "Absolute value" 2 "Share of French trade"))
+		
+graph export "$hamburggit/Paper - Impact of War/Paper/Prizes_imports.png", replace
 
 sort year
 
