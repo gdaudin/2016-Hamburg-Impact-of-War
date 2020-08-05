@@ -5,7 +5,7 @@
 
 
 
-*global hamburg "/Users/Tirindelli/Google Drive/ETE/Thesis"
+*global hamburg "/Users/Tirindelli/Google Drive/Hamburg"
 
 if "`c(username)'" =="guillaumedaudin" {
 	global hamburg "~/Documents/Recherche/2016 Hambourg et Guerre"
@@ -19,8 +19,8 @@ if "`c(username)'" =="tirindee" {
 
 
 if "`c(username)'" =="Tirindelli" {
-	global hamburg "/Users/Tirindelli/Google Drive/ETE/Thesis"
-	global hamburggit "/Users/Tirindelli/Google Drive/ETE/Thesis/Data/do_files/Hamburg"
+	global hamburg "/Users/Tirindelli/Google Drive/Hamburg"
+	global hamburggit "/Users/Tirindelli/Google Drive/Hamburg/Paper"
 }
 
 
