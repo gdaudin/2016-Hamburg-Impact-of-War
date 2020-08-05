@@ -26,14 +26,18 @@ save "$hamburg/database_dta/PrizeNationalities.dta",  replace
 insheet using "$hamburggit/External Data/HCA34_prizes.csv", case clear
 
 rename yearofsentence year
+drop if year==.
 
-merge m:1 Prizeshiporigin using "$hamburg/database_dta/PrizeNationalities.dta"
+
+
+merge m:1 Prizeshiporigin using "$hamburg/database_dta/PrizeNationalities.dta", keep(1 3)
 rename AggregatedOrigin AggregatedOrigin_source
-
-replace Prizeshiporigin= OriginbasedonName if OriginbasedonName !=""
 drop _merge 
 
-merge m:1 Prizeshiporigin using "$hamburg/database_dta/PrizeNationalities.dta"
+replace Prizeshiporigin= OriginbasedonName if OriginbasedonName !=""
+
+
+merge m:1 Prizeshiporigin using "$hamburg/database_dta/PrizeNationalities.dta", keep(1 3)
 rename AggregatedOrigin AggregatedOrigin_hypothesis
 drop Prizeshiporigin
 
@@ -48,7 +52,8 @@ gsort - Nbr
 outsheet "$hamburggit/External Data/PrizeNationalities.csv", replace
 restore
 */
-drop Nbr _merge
+capture drop Nbr
+capture _merge
 
 save "$hamburg/database_dta/HCA34_prizes.dta",  replace
 
@@ -92,7 +97,7 @@ insheet using "$hamburggit/External Data/GBNavy_prizes.csv", case clear
 gen year=real(substr(YeartoNavy,1,4))
 
 
-
+drop if year==.
 save "$hamburg/database_dta/GBNavy_prizes.dta",  replace
 
 
@@ -119,12 +124,24 @@ drop if Shiporigin=="britain" | Shiporigin=="liverpool" | year <=1738
 
 histogram year, discrete freq name(Other_prizes, replace)
 
+rename Shiporigin Prizeshiporigin
+
+
+merge m:1 Prizeshiporigin using "$hamburg/database_dta/PrizeNationalities.dta", keep (1 3)
+rename AggregatedOrigin AggregatedOrigin_hypothesis
+
+drop _merge
+
+
+
 save "$hamburg/database_dta/Other_prizes.dta",  replace
 
-keep year
+keep year AggregatedOrigin*
 keep if year >=1650
 generate source="Other"
+assert year !=.
 append using "$hamburg/database_dta/English_prizes_list.dta"
+assert year !=.
 save "$hamburg/database_dta/English_prizes_list.dta",  replace
 
 histogram year, discrete freq name(All_prizes, replace)
@@ -154,21 +171,31 @@ save "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta",  replace
 
 use "$hamburg/database_dta/English_prizes_list.dta",  clear
 
+keep if year >=1739
 
+assert year !=.
 
+drop if AggregatedOrigin_hypothesis == "Britain"
+
+drop AggregatedOrigin_source
 bys year source AggregatedOrigin_hypothesis : generate Nbr_ = _N 
 bys year source AggregatedOrigin_hypothesis : keep if _n==1
-drop AggregatedOrigin_source
+
 
 replace AggregatedOrigin_hypothesis = "US" if AggregatedOrigin_hypothesis=="United States"
 replace AggregatedOrigin_hypothesis = "Neth" if AggregatedOrigin_hypothesis=="Netherlands"
 
-replace source= source+"_"+AggregatedOrigin_hypothesis if source !="GBNavy" & source !="Other"
+replace source= source+"_"+AggregatedOrigin_hypothesis if source !="GBNavy"
 drop AggregatedOrigin_hypothesis
-list if year==11
+
 
 reshape wide Nbr_,i(year) j(source ) string
-replace Nbr_Other = 0 if Nbr_Other==. & (year  ==1742 | year==1760 | year==1761 | year == 1782 | year==1814)
+
+recode Nbr* (miss=0 ) if year >=1740 & year <=1748
+recode Nbr* (miss=0 ) if year >=1756 & year <=1762
+recode Nbr* (miss=0 ) if year >=1777 & year <=1783
+recode Nbr* (miss=0 ) if year >=1793 & year <=1815
+
 
 merge 1:1 year using "$hamburg/database_dta/Ashton_Schumpeter_Prize_data.dta"
 drop source _merge
@@ -188,20 +215,19 @@ gen share_prizes= importofprizegoodssilvertons/valueFR_silver
 replace share_prizes = 0 if share_prizes ==.
 replace share_prizes = . if valueFR_silver ==.
 
-replace Nbr_HCA34_wo_duplicates_France = 0 if Nbr_HCA34_wo_duplicates_France ==.
-replace Nbr_HCA34_wo_duplicates_Neth = 0 if Nbr_HCA34_wo_duplicates_Neth ==.
-replace Nbr_HCA34_wo_duplicates_Other = 0 if Nbr_HCA34_wo_duplicates_Other ==.
-replace Nbr_HCA34_wo_duplicates_Spain = 0 if Nbr_HCA34_wo_duplicates_Spain ==.
-replace Nbr_HCA34_wo_duplicates_US = 0 if Nbr_HCA34_wo_duplicates_US ==.
-replace Nbr_HCA34_wo_duplicates_Unknown = 0 if Nbr_HCA34_wo_duplicates_Unknown ==.
-
 sort year 
 twoway (line share_prizes year), name(Share_prizes, replace)
 
 sort year
 
-gen Nbr_HCA34_wod = Nbr_HCA34_wo_duplicates_France+ Nbr_HCA34_wo_duplicates_Neth+ Nbr_HCA34_wo_duplicates_Other+ Nbr_HCA34_wo_duplicates_Spain+ Nbr_HCA34_wo_duplicates_US+ Nbr_HCA34_wo_duplicates_Unknown 
-replace Nbr_HCA34_wod=. if Nbr_HCA34_wod==0
+egen Nbr_HCA34_wod 	= rsum(Nbr_HCA34_wo_duplicates*), missing
+egen Nbr_Other		= rsum(Nbr_Other*), missing
+*replace Nbr_HCA34_wod=. if Nbr_HCA34_wod==0
+
+recode Nbr* (miss=0 ) if year >=1740 & year <=1748
+recode Nbr* (miss=0 ) if year >=1756 & year <=1762
+recode Nbr* (miss=0 ) if year >=1777 & year <=1783
+recode Nbr* (miss=0 ) if year >=1793 & year <=1815
 
 
 
@@ -221,10 +247,8 @@ graph twoway (connected Nbr_HCA34_wod year, cmissing(n)) (connected Nbr_Other ye
 	*/ legend(rows(2) order (1 "Number of prize ships reports in the High Court of Admiralty (HCA34)" "(no duplicates)" 2 "Number of prizes (other sources)")) /*
 	*/ name(Comp_HCA34_Other, replace)
 	
-replace Nbr_HCA34_wod = 0 if Nbr_HCA34_wod ==.
-
 generate Nbr_HCA34_and_other = 	Nbr_HCA34_wod + Nbr_Other if year >= 1739
-generate Nbr_HCA34_and_other_FR = 	Nbr_HCA34_wo_duplicates_France + Nbr_Other if year >= 1739
+generate Nbr_HCA34_and_other_FR = 	Nbr_HCA34_wo_duplicates_France + Nbr_Other_France if year >= 1739
 
 graph twoway (connected Nbr_HCA34_and_other year, cmissing(n)) (connected Nbr_HCA34_and_other_FR year, cmissing(n)) if year >= 1739 & year<=1816, /*
 	*/ legend( rows(2) order (1 "Number of prize ships reports in the High Court of Admiralty (HCA34)" "(no duplicates) + Number of prizes (other sources)" 2 "Number of French prize ships reports in the High Court of Admiralty" " (HCA34) (no duplicates) + Number of prizes (other sources)")) /*
