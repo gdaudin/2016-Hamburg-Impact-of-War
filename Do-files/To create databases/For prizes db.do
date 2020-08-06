@@ -310,10 +310,6 @@ replace share_of_non_FR_prizes = . if Nbr_HCA34_and_other==0
 	*/  name(for_paper, replace) /*
 	*/ scheme(s1mono)
 	
-	
-keep estimated_number_of_prizes_FR total_number_of_prizes Nbr_HCA34_and_other_FR Nbr_HCA34_and_other Nbr_prizes_GBNavy year share_of_non_FR_prizes
-
-
 
 
 rename estimated_number_of_prizes_FR Number_of_prizes_Total_FR
@@ -326,22 +322,6 @@ gen bar2= Number_of_prizes_Privateers_All
 gen bar3 =bar2+(Number_of_prizes_Total_FR-Number_of_prizes_Privateers_FR)
 gen bar4 = Number_of_prizes_Total_All
 
-
-
-/* With Navy’s French prizes
- twoway (bar bar4 year, color(gs12)) /*
-    */  (bar bar3 year, color(gs8)) /*
-	*/  (bar bar2 year, color(gs4)) /*
-	*/  (bar bar1 year, color(black)) /*
-	*/ if year >=1739 & year <=1815 /*
-	*/  ,legend(rows(2) order (4 "Privateers’ French prizes" 3 "Privateers’ non-French prizes"  /*
-	*/  2  "Navy’s French prizes" 1 "Navy’s non-French prizes"  /*
-	*/  ) size(small)) /*
-	*/  ytitle(number of prizes) /*
-	*/  name(Prizes_for_paper, replace) /*
-	*/ scheme(s1mono)
-	
-*/
 
 
 
