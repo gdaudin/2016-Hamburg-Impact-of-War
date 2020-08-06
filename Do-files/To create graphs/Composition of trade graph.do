@@ -172,7 +172,7 @@ args period1 period2 direction classification
 		if "`classification'"== "country_grouping_8" local class pays7
 		if "`classification'"== "sitc_aggr" local class aggr
 
-		vioplot ln_percent if exportsimports=="`i'" & ln_percent>-8, over(class_war) hor ylabel(,angle(0) labsize(vsmall)) ///
+		vioplot ln_percent if exportsimports=="`i'", over(class_war) hor ylabel(,angle(0) labsize(vsmall)) ///
 				plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 				note("`i' " "MANOVA without plantation foodstuff: ${`name'0`dir'}" ///
 				"MANOVA with plantation foodstuff: ${`name'1`dir'} " ///
