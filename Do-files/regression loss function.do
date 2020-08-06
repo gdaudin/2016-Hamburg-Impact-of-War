@@ -36,7 +36,7 @@ if `outremer'==0 drop if grouping_classification=="Outre-mers"
 
 tab grouping_classification
 
-*****ln_loss ranges from -infinty to +infinity, that's why we take loss. 
+*****ln_loss ranges from -infinty to +infinity, that's why we take logs. 
 *****We add a minus in fron for coeherence (we have talked about loss function all the way)
 gen ln_loss = -ln(1-loss)
 gen ln_loss_nomemory = -ln(1-loss_nomemory)
@@ -81,8 +81,8 @@ if "`freq'"=="Mean" {
 	drop _merge
 	
 	preserve
-	use "$hamburg/database_dta/English_prizes.dta",  replace
-	collapse (mean) share_prizes Nbr_HCA34, by(period_str)
+	use "$hamburg/database_dta/English_prizes.dta",  clear
+	collapse (mean) Number_of_prizes_Total_All, by(period_str)
 	save temp.dta, replace
 	restore
 	merge m:1 period_str using temp.dta
@@ -108,13 +108,11 @@ if "`freq'"=="Yearly" {
 	drop _merge
 	
 	merge m:1 year using "$hamburg/database_dta/English_prizes.dta"
-	collapse (mean) share_prizes Nbr_HCA34, by(period_str)
 	drop if _merge!=3 
 	drop _merge
 }
 	
 	
-}
 
 
 
@@ -213,26 +211,27 @@ reg ln_loss warships_allyandneutral_vs_foe i.peacewar_num  ///
 	country_exportsimports == "All_XI", robust cluster(period_str)    
 reg ln_loss i.neutral_policy i.peacewar_num i.neutral_policy#i.peacewar_num ///
 	if country_exportsimports == "All_XI", robust  cluster(period_str)  
-reg ln_loss i.neutral_policy i.peacewar_num c.share_prizes#i.peacewar_num ///
+reg ln_loss Number_of_prizes_Total_All i.peacewar_num  ///
 	if country_exportsimports == "All_XI", robust  cluster(period_str)  
 	
-	
-blif
 ****Three variables together but peace and war separated	
 eststo reg1: reg ln_loss i.neutral_policy i.neutral_policy#c.colonial_power colonial_power ///
 			i.neutral_policy#c.warships_allyandneutral_vs_foe ///
-			warships_allyandneutral_vs_foe if country_exportsimports == "All_XI" ///
+			warships_allyandneutral_vs_foe Number_of_prizes_Total_All /// 
+			if country_exportsimports == "All_XI" ///
 			& peacewar=="peace",  nocons robust 			
 eststo reg2: reg ln_loss i.neutral_policy i.neutral_policy#c.colonial_power colonial_power ///
-			i.neutral_policy#c.warships_allyandneutral_vs_foe ///
-			warships_allyandneutral_vs_foe if country_exportsimports == "All_XI" ///
+			i.neutral_policy#c.warships_allyandneutral_vs_foe  Number_of_prizes_Total_All /// 
+			warships_allyandneutral_vs_foe Number_of_prizes_Total_All /// 
+			if country_exportsimports == "All_XI" ///
 			& peacewar=="war", nocons robust 
 esttab 	reg1 reg2, drop(0.*) mtitles(Peace War) varlab(1.neutral_policy "Neutral policy" ///
 		1.neutral_policy#c.colonial_power "Neutral#Colonial" colonial_power "Colonial power" ///
 		1.neutral_policy#c.warships_allyandneutral_vs_foe "Neutral#Warship" ///
-		warships_allyandneutral_vs_foe "Warship")
+		warships_allyandneutral_vs_foe "Warship" Number_of_prizes_Total_All)
 eststo clear
 	
+blif
 reg ln_loss i.neutral_policy i.war_status_num war_status_num#i.neutral_policy ///
 	i.neutral_policy#c.colonial_power colonial_power  ///
 	c.warships_allyandneutral_vs_foe#i.neutral_policy warships_allyandneutral_vs_foe ///

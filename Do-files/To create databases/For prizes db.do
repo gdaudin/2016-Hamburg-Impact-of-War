@@ -222,6 +222,7 @@ merge 1:1 year using "$hamburg/database_dta/Total silver trade FR GB.dta"
 drop _merge
 
 merge 1:1 year using "$hamburg/database_dta/Benjamin_captor_Navy.dta"
+drop _merge
 
 gen share_prizes= importofprizegoodssilvertons/valueFR_silver
 replace share_prizes = 0 if share_prizes ==.
@@ -322,18 +323,10 @@ rename total_number_of_prizes Number_of_prizes_Total_All
 rename Nbr_HCA34_and_other_FR Number_of_prizes_Privateers_FR
 rename Nbr_HCA34_and_other Number_of_prizes_Privateers_All
 
-gen bar1=Number_of_prizes_Privateers_FR
-gen bar2= Number_of_prizes_Privateers_All
-gen bar3 =bar2+(Number_of_prizes_Total_FR-Number_of_prizes_Privateers_FR)
-gen bar4 = Number_of_prizes_Total_All
 
 
-
-
-
-
- twoway (bar bar4 year, color(gs10)) /*
-	*/  (bar bar2 year, color(gs5)) /*
+ twoway (bar Number_of_prizes_Total_All year, color(gs10)) /*
+	*/  (bar Number_of_prizes_Privateers_All year, color(gs5)) /*
 	*/  (connected share_of_non_FR_prizes year, lpattern(solid) mcolor(black) cmissing(n) msymbol(diamond) yaxis(2)) /*
 	*/ if year >=1739 & year <=1815 /*
 	*/  ,legend(rows(3) order ( 2 "Privateers’ prizes"  /*
@@ -366,6 +359,8 @@ twoway (connected Nbr_HCA34_and_other_Other year, cmissing(n) msize(small)) /*
 	*/ scheme(s1mono) name(Prize_nationality, replace)
 	
 graph export "$hamburggit/Paper - Impact of War/Paper/Prizes_nationality.png", replace
+
+save "$hamburg/database_dta/English_prizes.dta",  replace
 	
 
 
