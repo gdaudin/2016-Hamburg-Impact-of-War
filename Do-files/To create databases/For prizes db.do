@@ -291,7 +291,8 @@ save "$hamburg/database_dta/English_prizes.dta",  replace
 
 gen total_number_of_prizes = Nbr_HCA34_and_other + Nbr_prizes_GBNavy if year > 1735 & year <= 1815 
 gen estimated_number_of_prizes_FR = (Nbr_HCA34_and_other + Nbr_prizes_GBNavy)*Nbr_HCA34_and_other_FR/Nbr_HCA34_and_other if year > 1735 & year <= 1809
-
+gen share_of_non_FR_prizes = 1-Nbr_HCA34_and_other_FR/Nbr_HCA34_and_other
+replace share_of_non_FR_prizes = . if Nbr_HCA34_and_other==0
 
 
 
@@ -310,7 +311,7 @@ gen estimated_number_of_prizes_FR = (Nbr_HCA34_and_other + Nbr_prizes_GBNavy)*Nb
 	*/ scheme(s1mono)
 	
 	
-keep estimated_number_of_prizes_FR total_number_of_prizes Nbr_HCA34_and_other_FR Nbr_HCA34_and_other Nbr_prizes_GBNavy year
+keep estimated_number_of_prizes_FR total_number_of_prizes Nbr_HCA34_and_other_FR Nbr_HCA34_and_other Nbr_prizes_GBNavy year share_of_non_FR_prizes
 
 
 
@@ -348,12 +349,12 @@ gen bar4 = Number_of_prizes_Total_All
 
  twoway (bar bar4 year, color(gs10)) /*
 	*/  (bar bar2 year, color(gs5)) /*
-	*/  (bar bar1 year, color(black)) /*
+	*/  (connected share_of_non_FR_prizes year, lpattern(solid) mcolor(black) cmissing(n) msymbol(diamond) yaxis(2)) /*
 	*/ if year >=1739 & year <=1815 /*
-	*/  ,legend(rows(3) order (3 "Privateers’ French prizes" 2 "Privateers’ non-French prizes"  /*
-	*/  1 "Navy’s prizes (estimated date of capture from 1793)"  /*
+	*/  ,legend(rows(3) order ( 2 "Privateers’ prizes"  /*
+	*/  1 "Navy’s prizes (estimated date of capture from 1793)" 3 "Share of non-French prizes among privateers’ prizes"  /*
 	*/  ) size(small)) /*
-	*/  ytitle(number of prizes) /*
+	*/  ytitle("number of prizes", axis(1)) ytitle("share of privateers’ prizes", axis(2))/*
 	*/  name(Prizes_for_paper, replace) /*
 	*/ note("Unless otherwise specified, the date is the year the prize was adjudicated") /*
 	*/ scheme(s1mono)
