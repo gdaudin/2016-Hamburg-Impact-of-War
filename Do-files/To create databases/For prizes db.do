@@ -203,7 +203,7 @@ reshape wide Nbr_,i(year) j(source ) string
 
 recode Nbr* (miss=0 ) if year >=1740 & year <=1748
 recode Nbr* (miss=0 ) if year >=1756 & year <=1762
-recode Nbr* (miss=0 ) if year >=1777 & year <=1783
+recode Nbr* (miss=0 ) if year >=1777 & year <=1784
 recode Nbr* (miss=0 ) if year >=1793 & year <=1815
 
 
@@ -246,7 +246,7 @@ egen Nbr_Other		= rsum(Nbr_Other*), missing
 
 recode Nbr* (miss=0 ) if year >=1740 & year <=1748
 recode Nbr* (miss=0 ) if year >=1756 & year <=1762
-recode Nbr* (miss=0 ) if year >=1777 & year <=1783
+recode Nbr* (miss=0 ) if year >=1777 & year <=1784
 recode Nbr* (miss=0 ) if year >=1793 & year <=1815
 
 egen Nbr_prizes_GBNavy = rsum(Starkey_captor_Navy Benjamin_captor_Navy)
@@ -270,6 +270,11 @@ graph twoway (connected Nbr_HCA34_wod year, cmissing(n)) (connected Nbr_Other ye
 	
 generate Nbr_HCA34_and_other = 	Nbr_HCA34_wod + Nbr_Other if year >= 1739
 generate Nbr_HCA34_and_other_FR = 	Nbr_HCA34_wo_duplicates_France + Nbr_Other_France if year >= 1739
+generate Nbr_HCA34_and_other_Spain = 	Nbr_HCA34_wo_duplicates_Spain + Nbr_Other_Spain if year >= 1739
+generate Nbr_HCA34_and_other_Neth = 	Nbr_HCA34_wo_duplicates_Neth + Nbr_Other_Neth if year >= 1739
+generate Nbr_HCA34_and_other_US = 	Nbr_HCA34_wo_duplicates_US + Nbr_Other_US if year >= 1739
+generate Nbr_HCA34_and_other_Other = 	Nbr_HCA34_wo_duplicates_Other + Nbr_Other_Other if year >= 1739
+
 
 graph twoway (connected Nbr_HCA34_and_other year, cmissing(n)) (connected Nbr_HCA34_and_other_FR year, cmissing(n)) if year >= 1739 & year<=1816, /*
 	*/ legend( rows(2) order (1 "Number of prize ships reports in the High Court of Admiralty (HCA34)" "(no duplicates) + Number of prizes (other sources)" 2 "Number of French prize ships reports in the High Court of Admiralty" " (HCA34) (no duplicates) + Number of prizes (other sources)")) /*
@@ -351,6 +356,16 @@ erase "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta"
 
 
 
+recode Nbr_HCA34_and_other_* (0=.), 
+
+twoway (connected Nbr_HCA34_and_other_Other year, cmissing(n) msize(small)) /*
+	*/ (connected Nbr_HCA34_and_other_Spain year, cmissing(n) msize(small)) (connected Nbr_HCA34_and_other_Neth year, cmissing(n) msize(small)) /*
+	*/ (connected Nbr_HCA34_and_other_US year, cmissing(n) msize(small)) /*
+	*/ if year >=1739 & year <=1815 /*
+	*/ ,legend(rows(2) order (2 "Spanish prizes" 3 "Dutch prizes" 4 "US prizes" 1 "Other prizes")) /*
+	*/ scheme(s1mono) name(Prize_nationality, replace)
+	
+graph export "$hamburggit/Paper - Impact of War/Paper/Prizes_nationality.png", replace
 	
 
 
