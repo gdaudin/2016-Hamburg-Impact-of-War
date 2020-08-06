@@ -27,10 +27,19 @@ args period1 period2 plantation_yesno direction X_I classification
 		collapse (sum) value, by(year war product_sitc_simplen exportsimports period_str)
 	}
 	
+	if "`X_I'"=="Exports" | "`X_I'"=="Imports"{
+		keep if exportsimports=="`X_I'"
+		bysort year exportsimports: egen total=sum(value)
+		gen percent= value/total
+	}
+	
+	else{
+		collapse (sum) value, by(`classification' year period_str war)
+		bysort year: egen total=sum(value)
+		gen percent= value/total
+	}
+	
 	if `plantation_yesno'==0 drop if product_sitc_simplen=="Plantation foodstuff"
-
-	if "`X_I'"=="Exports" | "`X_I'"=="Imports" keep if exportsimports=="`X_I'"
-	else collapse (sum) value, by(`classification' year period_str war)					
 	
 	//the negative values for war is for creating labels in the graph do file
 
@@ -82,10 +91,7 @@ args period1 period2 plantation_yesno direction X_I classification
 	else local name I_X
 	
 	keep if war!=.
-	collapse (sum) value, by(year `classification' war)
-		
-	bysort year: egen total=sum(value)
-	gen percent= value/total
+	collapse (sum) percent, by(year `classification' war)
 	
 	fillin year `classification'
 	levelsof year, local(year)
@@ -106,7 +112,7 @@ args period1 period2 plantation_yesno direction X_I classification
 	
 	drop if `classification'==""
 	
-	drop value percent `classification' year total
+	drop percent `classification' year 
 
 	reshape wide ln_percent, i(year_war) j(class_num)
 	
