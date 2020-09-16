@@ -217,18 +217,16 @@ reg ln_loss Number_of_prizes_Total_All i.peacewar_num  ///
 ****Three variables together but peace and war separated	
 eststo reg1: reg ln_loss i.neutral_policy i.neutral_policy#c.colonial_power colonial_power ///
 			i.neutral_policy#c.warships_allyandneutral_vs_foe ///
-			warships_allyandneutral_vs_foe Number_of_prizes_Total_All /// 
-			if country_exportsimports == "All_XI" ///
+			warships_allyandneutral_vs_foe if country_exportsimports == "All_XI" ///
 			& peacewar=="peace",  nocons robust 			
 eststo reg2: reg ln_loss i.neutral_policy i.neutral_policy#c.colonial_power colonial_power ///
-			i.neutral_policy#c.warships_allyandneutral_vs_foe  Number_of_prizes_Total_All /// 
-			warships_allyandneutral_vs_foe Number_of_prizes_Total_All /// 
-			if country_exportsimports == "All_XI" ///
+			i.neutral_policy#c.warships_allyandneutral_vs_foe ///
+			warships_allyandneutral_vs_foe Number_of_prizes_Total_All if country_exportsimports == "All_XI" ///
 			& peacewar=="war", nocons robust 
 esttab 	reg1 reg2, drop(0.*) mtitles(Peace War) varlab(1.neutral_policy "Neutral policy" ///
 		1.neutral_policy#c.colonial_power "Neutral#Colonial" colonial_power "Colonial power" ///
-		1.neutral_policy#c.warships_allyandneutral_vs_foe "Neutral#Warship" ///
-		warships_allyandneutral_vs_foe "Warship" Number_of_prizes_Total_All)
+		1.neutral_policy#c.warships_allyandneutral_vs_foe 1.neutral_policy#c.Number_of_prizes_Total_All "Neutral#Warship" ///
+		warships_allyandneutral_vs_foe "Warship")
 eststo clear
 	
 blif
