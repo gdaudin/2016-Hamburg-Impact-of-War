@@ -1,5 +1,5 @@
-
-****Requires ssc install vioplot
+capture ssc install vioplot
+capture ssc install outtable
 
 if "`c(username)'"=="guillaumedaudin" ///
 		global hamburg "~/Documents/Recherche/2016 Hambourg et Guerre"
@@ -53,6 +53,8 @@ replace sitc_aggr="Other foodstuff and live animals" if product_sitc_simplen=="O
 replace sitc_aggr="Other foodstuff and live animals" if product_sitc_simplen=="Drinks and tobacco"
 replace sitc_aggr="Other" if product_sitc_simplen=="Chemical products"
 
+save temp_for_hotelling.dta, replace
+
 ***************pie chart and violin chart for all war periods***************************
 do "$hamburggit/Do-files/To see results/Composition of trade test.do"
 do "$hamburggit/Do-files/To create graphs/Composition of trade graph.do"
@@ -80,6 +82,7 @@ matrix colnames hotelling_test = "Exports_1" "Exports_0" "Imports_1" "Imports_0"
 
 
 composition_trade_test seven peace1764_1777 1 national Exports product_sitc_simplen
+**First one that has an issue, I think
 matrix B=A
 composition_trade_test seven peace1764_1777 0 national Exports product_sitc_simplen
 matrix B=A+B
@@ -199,6 +202,7 @@ outtable using "$hamburggit/Paper - Impact of War/Paper/manova_test_sitc", ///
 				caption("Multivariate Analisys of Variance - by SITC") replace 
 
 capture erase temp.dat
+capture erase temp_for_hotelling.dta
 
 /// by geography 
 
