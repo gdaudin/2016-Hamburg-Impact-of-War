@@ -24,12 +24,15 @@ args period1 period2 plantation_yesno direction X_I classification
 		if "`direction'"=="bord" keep if direction=="Bordeaux"
 		if "`direction'"=="LR" keep if direction=="La Rochelle"	
 		if "`direction'"=="bayo" keep if direction=="Bayonne"
-		collapse (sum) value, by(year war product_sitc_simplen exportsimports period_str)
 	}
+	
+	collapse (sum) value, by(year war product_sitc_simplen exportsimports period_str)
+	if `plantation_yesno'==0 & "`classification'"=="product_sitc_simplen" drop if product_sitc_simplen=="Plantation foodstuff"
+
 	
 	if "`X_I'"=="Exports" | "`X_I'"=="Imports"{
 		keep if exportsimports=="`X_I'"
-		bysort year exportsimports: egen total=sum(value)
+		bysort year: egen total=sum(value)
 		gen percent= value/total
 	}
 	
@@ -39,7 +42,7 @@ args period1 period2 plantation_yesno direction X_I classification
 		gen percent= value/total
 	}
 	
-	if `plantation_yesno'==0 drop if product_sitc_simplen=="Plantation foodstuff"
+	if `plantation_yesno'==0 & "`classification'"!="product_sitc_simplen" drop if product_sitc_simplen=="Plantation foodstuff"
 	
 	//the negative values for war is for creating labels in the graph do file
 
@@ -145,7 +148,7 @@ args period1 period2 plantation_yesno direction X_I classification
 	
 	if "`classification'"=="sitc_aggr"{
 			if `plantation_yesno'==1 mvtest means ln_percent1-ln_percent7, by(war) het
-			else mvtest means ln_percent1-ln_percent6, by(war) het
+			else mvtest means ln_percent1-ln_percent7, by(war) het
 	}
 	
 	// I am excluding one category from the test cause they sum uo to a 100 
