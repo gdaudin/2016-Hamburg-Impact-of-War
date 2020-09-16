@@ -34,13 +34,13 @@ drop if _merge==2
 drop _merge
 
 
-generate TotalNet=log10(TotatnetexpendituresThsd*1000/100000*ST_silver)
+generate TotalNet=log10(TotatnetexpendituresThsd*1000/1000000*ST_silver)
 
-generate ArmyandOrdnanceNet = log10(ArmyandOrdnanceNetthsd*1000/100000*ST_silver)
-generate NavyNet = log10(NavyNetthsd*1000/100000*ST_silver)
-generate TotalGross = log10(TotalGrossExpendituresMillion*1000000/100000*ST_silver)
-generate ArmyandOrdnanceGross = log10(ArmyandOrdnanceGrossMillion*1000000/100000*ST_silver)
-generate NavyGross = log10(NavyGrossMillion*1000000/100000*ST_silver)
+generate ArmyandOrdnanceNet = log10(ArmyandOrdnanceNetthsd*1000/1000000*ST_silver)
+generate NavyNet = log10(NavyNetthsd*1000/1000000*ST_silver)
+generate TotalGross = log10(TotalGrossExpendituresMillion*1000000/1000000*ST_silver)
+generate ArmyandOrdnanceGross = log10(ArmyandOrdnanceGrossMillion*1000000/1000000*ST_silver)
+generate NavyGross = log10(NavyGrossMillion*1000000/1000000*ST_silver)
 
 twoway (line TotalNet  year) (line TotalGross  year)
 twoway (line NavyNet  year) (line NavyGross  year)
