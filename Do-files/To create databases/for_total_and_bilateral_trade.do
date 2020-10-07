@@ -82,7 +82,7 @@ drop if year==""
 drop if FR_silver==""
 destring year, replace
 destring FR_silver, replace
-drop if year<1716 
+drop if year<1668 
 drop if year>1840
 
 save "$hamburg/database_dta/FR_silver.dta", replace
