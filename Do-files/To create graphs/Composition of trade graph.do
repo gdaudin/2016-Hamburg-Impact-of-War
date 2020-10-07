@@ -25,8 +25,9 @@ args period1 period2 direction classification
 		if "`direction'"=="bord" keep if direction=="Bordeaux"
 		if "`direction'"=="LR" keep if direction=="La Rochelle"	
 		if "`direction'"=="bayo" keep if direction=="Bayonne"
-		collapse (sum) value, by(year war product_sitc_simplen exportsimports period_str)
 	}
+	
+	collapse (sum) value, by(year war product_sitc_simplen exportsimports period_str)
 	
 	if "`period1'"=="peace" | "`period2'"=="peace" {
 		replace war=-1 if period_str!="War 1756-1763" | period_str !="War 1778-1783" | ///
