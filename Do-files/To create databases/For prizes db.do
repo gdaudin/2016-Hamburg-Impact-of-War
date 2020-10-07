@@ -379,9 +379,10 @@ generate Privateers_Total_Prize_value = MedianValuePrivateers * Number_of_prizes
 generate Total_Prize_value = MedianValuePrivateers * Number_of_prizes_Total_All*ST_silver/1000000 if year <=1792
 
 replace Total_Prize_value = Navy_Total_Prize_value+Privateers_Total_Prize_value if year >=1793
+generate FR_Prize_value = Total_Prize_value*(1-share_of_non_FR_prizes)
 
 save "$hamburg/database_dta/English_prizes.dta",  replace
 keep if year >=1740 & year <=1820
 
-generate FR_Prize_value = Total_Prize_value*(1-share_of_non_FR_prizes)
+
 twoway(connected Total_Prize_value year) (connected FR_Prize_value year) (connected Privateers_Total_Prize_value year) (connected Navy_Total_Prize_value year) 
