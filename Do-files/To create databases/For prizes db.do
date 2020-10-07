@@ -372,6 +372,7 @@ replace Navy_Total_Prize_value  =usubinstr(Navy_Total_Prize_value,",",".",.)
 destring Navy_Total_Prize_value, replace
 
 merge 1:1 year using "$hamburg/database_dta/English_prizes.dta"
+drop _merge
 
 generate Privateers_Total_Prize_value = MedianValuePrivateers * Number_of_prizes_Privateers_All*ST_silver/1000000
 

@@ -141,16 +141,17 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 , ///
 			 legend(order (13 14) label(13 "Using all past peace periods for the peace trend") label(14 "Using the preceeding peace period for the peace trend") rows(2)) ///
 			 ytitle("1-(predicted trade base on peace trend)/(actual trade)", size(small)) ylabel(-0.2 (0.2) 1) ///
-			 yline(0, lwidth(medium) lcolor(grey)) xtitle("") ///
+			 yline(0, lwidth(medium) lcolor(grey)) xtitle("")  ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white))
  
 graph export "$hamburggit/Paper - Impact of War/Paper/Annual_loss_function.png", as(png) replace
 
+save temp.dta, replace
 
-************* Pour les graphiques avec les dépenses britanniques
+************* Pour les graphiques avec les dépenses
 
 
-merge 1:1 year using "$hamburg/database_dta/MitchellGBPublicFinance.dta" 
+merge 1:1 year using "$hamburg/database_dta/Expenditures.dta" 
 
 gen     loss_abs = log10(valueFR_silver*loss/(1-loss)) if loss > 0
 *replace loss_abs = -log10(-valueFR_silver*loss/(1-loss)) if loss < 0
@@ -189,13 +190,16 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (connected loss_abs year, cmissing(n) lcolor(black) mcolor(black) msize(vsmall) lpattern(dash)) ///
 			 (connected loss_nm_abs year, cmissing(n) lcolor(red) mcolor(red) msize(vsmall)) ///
 			 (line NavyGross year, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ ) ///
-			 (line NavyNet year, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ lpattern(dash)), ///
-			 legend(order (13 14 16 15) label(13 "Using all past peace periods for the peace trend") ///
+			 (line NavyNet year, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ lpattern(dash)) ///
+			 (line FrenchBudget year, cmissing(n) lcolor(blue) /*mcolor(red) msize(vsmall)*/), ///
+			 legend(order (13 14 16 15 17) label(13 "Using all past peace periods for the peace trend") ///
 			 label(14 "Using the preceeding peace period for the peace trend") ///
-			 label(15 "Gross Royal Navy expenditures") label(16 "Net Royal Navy expenditures")   rows(4)) ///
+			 label(15 "Gross Royal Navy expenditures") label(16 "Net Royal Navy expenditures") ///
+			 label(17 "French Navy expenditures") rows(5)) ///
 			 ytitle("Tons of silver, log10", size(small)) ylabel(1 (1) 4) ///
-			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("") ///
+			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("") xscale(range(1740 1830)) ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white))
+			 
 
 
 
@@ -221,9 +225,10 @@ keep if year >=1740
 
 
 
-
+keep if year <=1825
 replace NavyGross=10^NavyGross
-replace NavyNet=10^NavyNet			 
+replace NavyNet=10^NavyNet		
+replace FrenchBudget = 10^FrenchBudget	 
 
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
@@ -234,17 +239,18 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (connected loss_abs year if year <=1825, cmissing(n) lcolor(black) mcolor(black) msize(vsmall) lpattern(dash) ) ///
 			 (connected loss_nm_abs year if year <=1825, cmissing(n) lcolor(red) mcolor(red) msize(vsmall)) ///
 			 (line NavyGross year if year <=1825, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ ) ///
-			 (line NavyNet year if year <=1825, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ lpattern(dash)), ///
-			 legend(order (13 14 16 15) label(13 "Using all past peace periods for the peace trend") ///
+			 (line NavyNet year if year <=1825, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ lpattern(dash)) ///
+			 (line FrenchBudget year, cmissing(n) lcolor(blue)) /*mcolor(red) msize(vsmall)*/, ///
+			 legend(order (13 14 16 15 17) label(13 "Using all past peace periods for the peace trend") ///
 			 label(14 "Using the preceeding peace period for the peace trend") ///
-			 label(15 "Gross Royal Navy expenditures") label(16 "Net Royal Navy expenditures")   rows(4)) ///
+			 label(15 "Gross British Navy expenditures") label(16 "Net British Navy expenditures")   ///
+			 label(17 "French Navy expenditures") rows(5)) ///
 			 ytitle("Tons of silver", size(small)) /*ylabel(1 (1) 4)*/ ///
-			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("") ///
+			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("")  ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white))
+		 
 
-			 
-
-graph export "$hamburggit/Paper - Impact of War/Paper/BR_Expenditures_Annual_Loss.png", as(png) replace
+graph export "$hamburggit/Paper - Impact of War/Paper/Expenditures_Annual_Loss.png", as(png) replace
 
 generate loss_abs_cum    = log10(sum(loss_abs))
 generate loss_nm_abs_cum = log10(sum(loss_nm_abs))
@@ -252,6 +258,7 @@ generate Navy_Net_cum    = sum(NavyNet)
 replace Navy_Net_cum = Navy_Net_cum + (1229+1428)/2 if year >=1800
 generate Navy_Gross_cum  = sum(NavyGross)
 generate Navy_cum=log10(Navy_Gross_cum+Navy_Net_cum)
+generate FRbudget_cum = log10(sum(FrenchBudget)) if year <=1782
 
 
 replace war1=6 if war1!=.
@@ -276,14 +283,15 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area minwar5 year, color(gs9)) (area minblockade year, color(gs4)) ///
 		(connected loss_abs_cum year if year <=1825, cmissing(n) lcolor(black) mcolor(black) msize(vsmall) lpattern(dash) ) ///
 			 (connected loss_nm_abs_cum year if year <=1825, cmissing(n) lcolor(red) mcolor(red) msize(vsmall)) ///
-			 (line Navy_cum year if year <=1825, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ ), ///
-			 legend(order (13 14 15) label(13 "Using all past peace periods for the peace trend") ///
+			 (line Navy_cum year if year <=1825, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ ) ///
+			 (line FRbudget_cum year, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ lpattern(dash)), ///
+			 legend(order (13 14 15 16) label(13 "Using all past peace periods for the peace trend") ///
 			 label(14 "Using the preceeding peace period for the peace trend") ///
-			 label(15 "Royal Navy expenditures")  rows(3)) ///
+			 label(15 "Royal Navy expenditures")  ///
+			 label(16 "French Navy expenditures") rows(4)) ///
 			 ytitle("Tons of silver", size(small)) /*ylabel(1 (1) 4)*/ ///
-			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("") ///
+			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("")  ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white))
-
 
 			 
 generate ratio_abs    = 10^loss_abs_cum/10^Navy_cum
@@ -308,14 +316,49 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (connected ratio_nm_abs year if year <=1825, cmissing(n) lcolor(red) mcolor(red) msize(vsmall)), ///
 			 legend(order (13 14) label(13 "Using all past peace periods for the peace trend") ///
 			 label(14 "Using the preceeding peace period for the peace trend") rows(2)) ///
-			 ytitle("Ratio between cumulated French trade losses" "and the cumulated Navy budget", size(small)) /*ylabel(1 (1) 4)*/ ///
+			 ytitle("Ratio between cumulated French trade losses" "and the cumulated British Navy budget", size(small)) /*ylabel(1 (1) 4)*/ ///
 			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("") ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white))		 
 			 
 			
 graph export "$hamburggit/Paper - Impact of War/Paper/Ratio_BR_Expenditures_Annual_Loss.png", as(png) replace
 
+
+generate ratio_abs_v2    = 10^loss_abs_cum/(10^Navy_cum-10^FRbudget_cum)
+generate ratio_nm_abs_v2 = 10^loss_nm_abs_cum/(10^Navy_cum-10^FRbudget_cum)
+
+replace war1=6.5 if war1!=.
+replace war2=6.5 if war2!=.
+replace war3=6.5 if war3!=.
+replace war4=6.5 if war4!=.
+replace war5=6.5 if war5!=.
+replace blockade=6.5 if blockade!=.
+
+
+graph twoway (area war1 year if year <=1785, color(gs9)) (area war2 year if year <=1785, color(gs9)) ///
+			 (area war3 year if year <=1785, color(gs9)) (area war4 year if year <=1785, color(gs9)) ///
+			 (area war5 year if year <=1785, color(gs9)) (area blockade year if year <=1785, color(gs4)) ///
+			 (area minwar1 year if year <=1785, color(gs9)) (area minwar2 year if year <=1785, color(gs9)) ///
+			 (area minwar3 year if year <=1785, color(gs9)) (area minwar4 year if year <=1785, color(gs9)) ///
+			 (area minwar5 year if year <=1785, color(gs9)) (area minblockade year if year <=1785, color(gs4)) ///
+			 (connected ratio_abs_v2 year if year <=1785, cmissing(n) lcolor(black) mcolor(black) msize(vsmall) lpattern(dash) ) ///
+			 (connected ratio_nm_abs_v2 year if year <=1785, cmissing(n) lcolor(red) mcolor(red) msize(vsmall)), ///
+			 legend(order (13 14) label(13 "Using all past peace periods for the peace trend") ///
+			 label(14 "Using the preceeding peace period for the peace trend") rows(2)) ///
+			 ytitle("Ratio between cumulated French trade losses" "and the cumulated difference between" "the British and the French Navy budget", size(small)) /*ylabel(1 (1) 4)*/ ///
+			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("") ///
+			 plotregion(fcolor(white)) graphregion(fcolor(white))		 
+			 
+			
+
+
+
+blif
+
 *********************Travail sur les moyennes
+
+
+use temp.dta, clear
 			 
 egen loss_war1		=mean(loss) if year >=1745 & year <=1748
 egen loss_peace1	=mean(loss) if year >=1749 & year <=1755
@@ -383,7 +426,7 @@ graph export "$hamburggit/Paper - Impact of War/Paper/Mean_loss_function.png", a
 
 
 
-
+erase temp.dta
 
 
 
