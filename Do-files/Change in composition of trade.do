@@ -77,7 +77,7 @@ composition_trade_test peace war 0 national I_X product_sitc_simplen
 matrix hotelling_test=A+hotelling_test
 matrix list hotelling_test
 matrix colnames hotelling_test = "Exports_1" "Exports_0" "Imports_1" "Imports_0" "X_I_1" "X_I_0"
-*composition_trade_graph peace war national product_sitc_simplen
+composition_trade_graph peace war national product_sitc_simplen
 // it is importand to use the same order when launching the test and the graphs cause I use macro to report pvalues on the graphs
 
 
@@ -95,7 +95,7 @@ matrix B=A+B
 composition_trade_test seven peace1764_1777 0 national I_X product_sitc_simplen
 matrix B=A+B
 matrix hotelling_test=hotelling_test\B
-*composition_trade_graph seven peace1764_1777 national product_sitc_simplen
+composition_trade_graph seven peace1764_1777 national product_sitc_simplen
 
 
 
@@ -112,7 +112,7 @@ matrix B=A+B
 composition_trade_test peace1764_1777 indep 0 national I_X product_sitc_simplen
 matrix B=A+B
 matrix hotelling_test=hotelling_test\B
-*composition_trade_graph peace1764_1777 indep national product_sitc_simplen
+composition_trade_graph peace1764_1777 indep national product_sitc_simplen
 
 
 
@@ -145,7 +145,7 @@ matrix B=A+B
 composition_trade_test rev block 0 national I_X product_sitc_simplen
 matrix B=A+B
 matrix hotelling_test=hotelling_test\B
-*composition_trade_graph rev block national product_sitc_simplen
+composition_trade_graph rev block national product_sitc_simplen
 
 
 
@@ -162,7 +162,7 @@ matrix B=A+B
 composition_trade_test peace1816_1840 block 0 national I_X product_sitc_simplen
 matrix B=A+B
 matrix hotelling_test=hotelling_test\B
-*composition_trade_graph peace1816_1840 block national product_sitc_simplen
+composition_trade_graph peace1816_1840 block national product_sitc_simplen
 
 
 composition_trade_test peace1749_1755 peace1764_1777 1 national Exports product_sitc_simplen
@@ -178,7 +178,7 @@ matrix B=A+B
 composition_trade_test peace1749_1755 peace1764_1777 0 national I_X product_sitc_simplen
 matrix B=A+B
 matrix hotelling_test=hotelling_test\B
-*composition_trade_graph peace1749_1755 peace1764_1777 national product_sitc_simplen
+composition_trade_graph peace1749_1755 peace1764_1777 national product_sitc_simplen
 
 
 composition_trade_test peace1764_1777 peace1784_1792 1 national Exports product_sitc_simplen
@@ -194,7 +194,7 @@ matrix B=A+B
 composition_trade_test peace1764_1777 peace1784_1792 0 national I_X product_sitc_simplen
 matrix B=A+B
 matrix hotelling_test=hotelling_test\B
-*composition_trade_graph peace1764_1777 peace1784_1792 national product_sitc_simplen
+composition_trade_graph peace1764_1777 peace1784_1792 national product_sitc_simplen
 
 
 outtable using "$hamburggit/Paper - Impact of War/Paper/manova_test_sitc", ///
