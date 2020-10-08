@@ -47,5 +47,23 @@ twoway (line NavyNet  year) (line NavyGross  year)
 
 
 
-save "$hamburg/database_dta/MitchellGBPublicFinance.dta",  replace
+save "$hamburg/database_dta/Expenditures.dta",  replace
+
+
+insheet using "$hamburggit/External Data/AcerraZysbergFRBudgetMarine.csv", case clear
+replace FrenchBudget  	=usubinstr(FrenchBudget,",",".",.)
+destring FrenchBudget, replace
+
+merge 1:1 year using "$hamburg/database_dta/FR_silver.dta"
+drop if _merge==2
+drop _merge
+
+replace FrenchBudget=log10(FrenchBudget*1000000*FR_silver/1000000)
+
+merge 1:1 year using "$hamburg/database_dta/Expenditures.dta"
+drop _merge
+sort year
+twoway (line NavyNet  year) (line NavyGross  year) (line FrenchBudget year)
+
+save "$hamburg/database_dta/Expenditures.dta",  replace
 

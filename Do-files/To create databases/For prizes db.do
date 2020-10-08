@@ -361,6 +361,28 @@ twoway (connected Nbr_HCA34_and_other_Other year, cmissing(n) msize(small)) /*
 graph export "$hamburggit/Paper - Impact of War/Paper/Prizes_nationality.png", replace
 
 save "$hamburg/database_dta/English_prizes.dta",  replace
+
+
 	
+insheet using "$hamburggit/External Data/Value of prizes.csv", case clear
+rename Year year
+rename TotalSilverTonsPrizeValue Navy_Total_Prize_value
+
+replace Navy_Total_Prize_value  =usubinstr(Navy_Total_Prize_value,",",".",.)
+destring Navy_Total_Prize_value, replace
+
+merge 1:1 year using "$hamburg/database_dta/English_prizes.dta"
+drop _merge
+
+generate Privateers_Total_Prize_value = MedianValuePrivateers * Number_of_prizes_Privateers_All*ST_silver/1000000
+
+generate Total_Prize_value = MedianValuePrivateers * Number_of_prizes_Total_All*ST_silver/1000000 if year <=1792
+
+replace Total_Prize_value = Navy_Total_Prize_value+Privateers_Total_Prize_value if year >=1793
+generate FR_Prize_value = Total_Prize_value*(1-share_of_non_FR_prizes)
+
+save "$hamburg/database_dta/English_prizes.dta",  replace
+keep if year >=1740 & year <=1820
 
 
+twoway(connected Total_Prize_value year) (connected FR_Prize_value year) (connected Privateers_Total_Prize_value year) (connected Navy_Total_Prize_value year) 
