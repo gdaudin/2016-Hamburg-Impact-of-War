@@ -246,6 +246,74 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 
 graph export "$hamburggit/Paper - Impact of War/Paper/BR_Expenditures_Annual_Loss.png", as(png) replace
 
+generate loss_abs_cum    = log10(sum(loss_abs))
+generate loss_nm_abs_cum = log10(sum(loss_nm_abs))
+generate Navy_Net_cum    = sum(NavyNet)
+replace Navy_Net_cum = Navy_Net_cum + (1229+1428)/2 if year >=1800
+generate Navy_Gross_cum  = sum(NavyGross)
+generate Navy_cum=log10(Navy_Gross_cum+Navy_Net_cum)
+
+
+replace war1=6 if war1!=.
+replace war2=6 if war2!=.
+replace war3=6 if war3!=.
+replace war4=6 if war4!=.
+replace war5=6 if war5!=.
+replace blockade=6 if blockade!=.
+replace minwar1=2 if war1!=.
+replace minwar2=2 if war2!=.
+replace minwar3=2 if war3!=.
+replace minwar4=2 if war4!=.
+replace minwar5=2 if war5!=.
+replace minblockade=2 if blockade!=.
+
+
+graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
+			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
+			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
+			 (area minwar1 year, color(gs9)) (area minwar2 year, color(gs9)) ///
+			 (area minwar3 year, color(gs9)) (area minwar4 year, color(gs9)) ///
+			 (area minwar5 year, color(gs9)) (area minblockade year, color(gs4)) ///
+		(connected loss_abs_cum year if year <=1825, cmissing(n) lcolor(black) mcolor(black) msize(vsmall) lpattern(dash) ) ///
+			 (connected loss_nm_abs_cum year if year <=1825, cmissing(n) lcolor(red) mcolor(red) msize(vsmall)) ///
+			 (line Navy_cum year if year <=1825, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ ), ///
+			 legend(order (13 14 15) label(13 "Using all past peace periods for the peace trend") ///
+			 label(14 "Using the preceeding peace period for the peace trend") ///
+			 label(15 "Royal Navy expenditures")  rows(3)) ///
+			 ytitle("Tons of silver", size(small)) /*ylabel(1 (1) 4)*/ ///
+			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("") ///
+			 plotregion(fcolor(white)) graphregion(fcolor(white))
+
+
+			 
+generate ratio_abs    = 10^loss_abs_cum/10^Navy_cum
+generate ratio_nm_abs = 10^loss_nm_abs_cum/10^Navy_cum
+
+
+replace war1=4 if war1!=.
+replace war2=4 if war2!=.
+replace war3=4 if war3!=.
+replace war4=4 if war4!=.
+replace war5=4 if war5!=.
+replace blockade=4 if blockade!=.
+
+
+graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
+			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
+			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
+			 (area minwar1 year, color(gs9)) (area minwar2 year, color(gs9)) ///
+			 (area minwar3 year, color(gs9)) (area minwar4 year, color(gs9)) ///
+			 (area minwar5 year, color(gs9)) (area minblockade year, color(gs4)) ///
+			 (connected ratio_abs year if year <=1825, cmissing(n) lcolor(black) mcolor(black) msize(vsmall) lpattern(dash) ) ///
+			 (connected ratio_nm_abs year if year <=1825, cmissing(n) lcolor(red) mcolor(red) msize(vsmall)), ///
+			 legend(order (13 14) label(13 "Using all past peace periods for the peace trend") ///
+			 label(14 "Using the preceeding peace period for the peace trend") rows(2)) ///
+			 ytitle("Ratio between cumulated French trade losses" "and the cumulated Navy budget", size(small)) /*ylabel(1 (1) 4)*/ ///
+			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("") ///
+			 plotregion(fcolor(white)) graphregion(fcolor(white))		 
+			 
+			
+graph export "$hamburggit/Paper - Impact of War/Paper/Ratio_BR_Expenditures_Annual_Loss.png", as(png) replace
 
 *********************Travail sur les moyennes
 			 

@@ -2,7 +2,7 @@ capture program drop composition_trade_test
 program composition_trade_test
 args period1 period2 plantation_yesno direction X_I classification
 
-	preserve
+	use temp_for_hotelling.dta, clear
 	
 	if "`direction'"=="national"{
 		if "`classification'"=="product_sitc_simplen" keep if national_product_best_guess==1 
@@ -127,6 +127,7 @@ args period1 period2 plantation_yesno direction X_I classification
 	if "`direction'"== "national" local dir nat
 	else local dir loc
 	
+	
 	if "`classification'"=="product_sitc_simplen"{
 			if `plantation_yesno'==1 mvtest means ln_percent1-ln_percent12, by(war) het
 			else mvtest means ln_percent1-ln_percent11, by(war) het
@@ -192,7 +193,7 @@ args period1 period2 plantation_yesno direction X_I classification
 		matrix list A
 		}	
 
-	restore
+
 
 end
 
