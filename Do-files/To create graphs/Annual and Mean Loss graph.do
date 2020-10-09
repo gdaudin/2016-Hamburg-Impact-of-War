@@ -255,7 +255,42 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) 
 
 graph export "$hamburggit/Paper - Impact of War/Paper/Expenditures_Annual_Loss.png", as(png) replace
+
+
+replace war1=3000 if war1!=.
+replace war2=3000 if war2!=.
+replace war3=3000 if war3!=.
+replace war4=3000 if war4!=.
+replace war5=3000 if war5!=.
+replace blockade=3000 if blockade!=.
+
+graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
+			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
+			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
+			 (area minwar1 year, color(gs9)) (area minwar2 year, color(gs9)) ///
+			 (area minwar3 year, color(gs9)) (area minwar4 year, color(gs9)) ///
+			 (area minwar5 year, color(gs9)) (area minblockade year, color(gs4)) ///
+			 (line NavyGross year if year <=1825, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ ) ///
+			 (line NavyNet year if year <=1825, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ lpattern(dash)) ///
+			 (line FrenchBudget year, cmissing(n) lcolor(blue)) /*mcolor(red) msize(vsmall)*/ ///
+			 (line FR_Prize_value year, cmissing(n) lcolor(grey)), ///
+			 legend(order (13 14 16 15) ///
+			 label(13 "Gross British Navy expenditures") label(14 "Net British Navy expenditures")   ///
+			 label(15 "French Navy expenditures") label(16 "Value of French prizes captured by Britain") rows(4)) ///
+			 ytitle("Tons of silver", size(small)) /*ylabel(1 (1) 4)*/ ///
+			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("")  ///
+			 plotregion(fcolor(white)) graphregion(fcolor(white)) 
+
+graph export "$hamburggit/Paper - Impact of War/Paper/Costs_and_benefits.png", as(png) replace
+
+
+
+
 sort year
+
+
+
+
 
 replace loss_abs = 0 if loss_abs==. & year <=1792 & year >=1781
 replace loss_abs = 3200 if loss_abs==. & year <=1799 & year >=1793
@@ -311,6 +346,8 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 ytitle("Tons of silver, log(10)", size(small)) /*ylabel(1 (1) 4)*/ ///
 			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("")  ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white))
+			 
+graph export "$hamburggit/Paper - Impact of War/Paper/Cumulated_Costs_and_benefits.png", as(png) replace
 			 
 			 
 generate ratio_abs    = 10^loss_abs_cum/10^Navy_cum
