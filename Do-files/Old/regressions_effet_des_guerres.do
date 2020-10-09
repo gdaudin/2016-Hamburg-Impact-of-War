@@ -46,11 +46,11 @@ replace lnvalue=ln(0.00000000000001) if value==0
 
 capture replace sitc18_en="Raw mat fuel oils" if sitc18_en=="Raw mat; fuel; oils"
 
-encode country_grouping, gen(pays)
+encode partner_grouping, gen(pays)
 if "`product_class'"=="sitc" encode sitc18_en, gen(product)
 if "`product_class'"=="hamburg" encode hamburg_classification, gen(product)
 
-merge m:1 country_grouping year using "$hamburg/database_dta/WarAndPeace.dta"
+merge m:1 partner_grouping year using "$hamburg/database_dta/WarAndPeace.dta"
 
 drop if _merge==2
 
@@ -61,12 +61,12 @@ gen break=(year>1795)
 
 
 
-if `outremer'==0 drop if country_grouping=="Outre-mers"
+if `outremer'==0 drop if partner_grouping=="Outre-mers"
 
 if "`inourout'"=="XI" {
-	order exportsimports value
+	order export_import value
 	collapse (sum) value, by(year-break)
-	gen exportsimports="XI"
+	gen export_import="XI"
 }
 
 
@@ -122,7 +122,7 @@ tabulate war_status_num war_status if war_peace=="Peace"
 preserve
 
 
-collapse (sum) value, by(pays year exportsimports war_status_num year_of_war war_peace_num noweight)
+collapse (sum) value, by(pays year export_import war_status_num year_of_war war_peace_num noweight)
 
 generate lnvalue=ln(value)
 
@@ -130,7 +130,7 @@ generate lnvalue=ln(value)
 eststo choc_diff_status_noprod: `reg_type' `explained_variable'  ///
     i.war_status_num#i.war_peace_num  c.year_of_war#i.war_status_num#i.war_peace_num ///
 	i.pays c.year#i.pays ///	
-	if exportsimports=="`inourout'" ///
+	if export_import=="`inourout'" ///
     [iweight=`weight'], `reg_option'
 	
 	
@@ -141,7 +141,7 @@ restore
 eststo choc_diff_status: `reg_type' `explained_variable'  /// 
 	i.war_status_num#i.war_peace_num  c.year_of_war#i.war_status_num#i.war_peace_num ///
 	i.pays#i.product  c.year#i.pays#i.product ///	
-	if exportsimports=="`inourout'" ///
+	if export_import=="`inourout'" ///
 	[iweight=`weight'], `reg_option'
 	
 
@@ -149,19 +149,19 @@ eststo choc_diff_status: `reg_type' `explained_variable'  ///
 eststo choc_diff_goods: `reg_type' `explained_variable' /// 
 	i.product#i.war_peace_num c.year_of_war#i.product#i.war_peace_num ///
 	i.pays#i.product  c.year#i.pays#i.product ///	
-	if exportsimports=="`inourout'" ///
+	if export_import=="`inourout'" ///
 	[iweight=`weight'], `reg_option'
 	
 preserve
 
-collapse (sum) value, by(product year exportsimports year_of_war war_peace_num noweight)
+collapse (sum) value, by(product year export_import year_of_war war_peace_num noweight)
 gen lnvalue=ln(value)
 
 *reg with product differantiation but no war status diff. no country FE
 eststo choc_diff_goods_nopays: `reg_type' `explained_variable' ///
 	i.product#i.war_peace_num c.year_of_war#i.product#i.war_peace_num ///
 	i.product  c.year#i.product ///	
-	if exportsimports=="`inourout'" ///
+	if export_import=="`inourout'" ///
     [iweight=`weight'], `reg_option'
 	
 	
@@ -170,14 +170,14 @@ restore
 eststo choc_diff_status_no_wart: `reg_type' `explained_variable'  /// 
 	i.war_status_num#i.war_peace_num  ///
 	i.pays#i.product  c.year#i.pays#i.product ///	
-	if exportsimports=="`inourout'" ///
+	if export_import=="`inourout'" ///
 	[iweight=`weight'], `reg_option'
 
 	
 eststo choc_diff_goods_no_wart: `reg_type' `explained_variable' /// 
 	i.war_peace_num#i.product  ///
 	i.pays#i.product  c.year#i.pays#i.product ///	
-	if exportsimports=="`inourout'" ///
+	if export_import=="`inourout'" ///
 	[iweight=`weight'], `reg_option'
 
 		
@@ -186,10 +186,10 @@ eststo choc_diff_goods_no_wart: `reg_type' `explained_variable' ///
 	
 eststo `inourout'_eachproduct2: poisson value i.pays#i.sitc c.year#i.pays ///
 	c.year#i.sitc i.each_status_sitc i.pays#1.break c.year#1.break ///
-	if exportsimports=="`inourout'", vce(robust) iterate(40)	
+	if export_import=="`inourout'", vce(robust) iterate(40)	
 eststo `inourout'_eachsitc3: poisson value i.pays#i.sitc c.year#i.pays ///
 	c.year#i.sitc i.each_status i.pays#1.break c.year#1.break if ///
-	exportsimports=="`inourout'", vce(robust) iterate(40)
+	export_import=="`inourout'", vce(robust) iterate(40)
 	
 */
 

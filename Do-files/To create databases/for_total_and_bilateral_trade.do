@@ -161,7 +161,7 @@ if "`c(username)'" =="Tirindelli"{
 use "$hamburg/Données Stata/bdd courante.dta", clear
 }
  
-keep if sourcetype == "Tableau Général" | sourcetype=="Résumé"
+keep if source_type == "Tableau Général" | source_type=="Résumé"
 drop if product_sitc=="9a"
 
 
@@ -176,13 +176,13 @@ drop if year>1840
 
 
 
-collapse (sum) valueFR_silver value, by (year exportsimports ///
-				country_grouping FR_silver)
+collapse (sum) valueFR_silver value, by (year export_import ///
+				partner_grouping FR_silver)
 
-fillin country_grouping exportsimports year
-drop if country_grouping =="États-Unis d'Amérique" & year <=1777
-replace value = 0 if country_grouping !="États-Unis d'Amérique" & value==.
-replace value=0 if country_grouping =="États-Unis d'Ambérique" & value==. & year >=1777
+fillin partner_grouping export_import year
+drop if partner_grouping =="États-Unis d'Amérique" & year <=1777
+replace value = 0 if partner_grouping !="États-Unis d'Amérique" & value==.
+replace value=0 if partner_grouping =="États-Unis d'Ambérique" & value==. & year >=1777
 replace valueFR_silver=0 if value==0
 
 
@@ -220,6 +220,8 @@ sort year
 local maxvalue 4.5
 
 
+generate warla=`maxvalue' if year >=1688 & year <=1697 
+generate warsp=`maxvalue' if year >=1702 & year <=1713 
 generate wara=`maxvalue' if year >=1733 & year <=1738 
 generate warb=`maxvalue' if year >=1740 & year <=1744
 generate war1=`maxvalue' if year >=1744 & year <=1748
@@ -231,7 +233,9 @@ generate blockade=`maxvalue' if year >=1807 & year <=1815
 
 sort year
 
-graph twoway (area wara year, color(gs14)) ///
+graph twoway (area warla year, color(gs9)) ///
+			 (area warsp year, color(gs9)) ///
+			 (area wara year, color(gs14)) ///
 			 (area warb year, color(gs14)) ///
 			 (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
@@ -241,7 +245,7 @@ graph twoway (area wara year, color(gs14)) ///
 			 (line log10_valueST_silverEN year, lcolor(black)) ///
 			 (line log10_valueST_silverGB year, lcolor(black)) ///
 			 (line log10_valueST_silver_tena year, lcolor(black)), ///
-			 legend(order(9 "French trade" 10 "English/GB/UK trade")) ///
+			 legend(order(11 "French trade" 12 "English/GB/UK trade")) ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			 ytitle("Tons of silver, log10")
 
@@ -250,11 +254,6 @@ graph twoway (area wara year, color(gs14)) ///
 graph export "$hamburggit/Paper - Impact of War/Paper/Total silver trade FR GB.png", as(png) replace			 
 	
 save "$hamburg/database_dta/Total silver trade FR GB.dta", replace
-
-
-
-
-
 
 
 

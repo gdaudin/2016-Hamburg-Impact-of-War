@@ -32,25 +32,25 @@ gen all_war_status=""
 
 foreach i of num 1733/1738{
 replace each_war_status="Land_war adversary" ///
-	if country_grouping=="Flandre et autres états de l'Empereur" & year==`i'
+	if partner_grouping=="Flandre et autres états de l'Empereur" & year==`i'
 replace all_war_status="Adversary" if ///
-	country_grouping=="Flandre et autres états de l'Empereur" & year==`i'
+	partner_grouping=="Flandre et autres états de l'Empereur" & year==`i'
 
-replace each_war_status="Land_war neutral" if country_grouping=="Hollande" & year==`i'
-replace each_war_status="Land_war neutral" if country_grouping=="Levant" & year==`i'
-replace each_war_status="Land_war neutral" if country_grouping=="Nord" & year==`i'
-replace each_war_status="Land_war neutral" if country_grouping=="Suisse" & year==`i'
-replace each_war_status="Land_war neutral" if country_grouping=="Portugal" & year==`i'
-replace each_war_status="Land_war neutral" if country_grouping=="Angleterre" & year==`i'
-replace each_war_status="Land_war neutral" if country_grouping=="Italie" & year==`i'
+replace each_war_status="Land_war neutral" if partner_grouping=="Hollande" & year==`i'
+replace each_war_status="Land_war neutral" if partner_grouping=="Levant" & year==`i'
+replace each_war_status="Land_war neutral" if partner_grouping=="Nord" & year==`i'
+replace each_war_status="Land_war neutral" if partner_grouping=="Suisse" & year==`i'
+replace each_war_status="Land_war neutral" if partner_grouping=="Portugal" & year==`i'
+replace each_war_status="Land_war neutral" if partner_grouping=="Angleterre" & year==`i'
+replace each_war_status="Land_war neutral" if partner_grouping=="Italie" & year==`i'
 
-replace all_war_status="Neutral" if country_grouping=="Hollande" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Levant" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Nord" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Suisse" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Portugal" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Angleterre" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Italie" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Hollande" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Levant" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Nord" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Suisse" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Portugal" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Angleterre" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Italie" & year==`i'
 }
 
 foreach i of num 1733/1738{
@@ -64,28 +64,28 @@ replace all_war_status="Allied" if all_war_status!="Adversary" ///
 
 foreach i of num 1740/1743{
 replace each_war_status="Land_war adversary" ///
-	if country_grouping=="Angleterre" & year==`i'
+	if partner_grouping=="Angleterre" & year==`i'
 replace each_war_status="Land_war adversary" ///
-	if country_grouping=="Flandre et autres états de l'Empereur" & year==`i'
+	if partner_grouping=="Flandre et autres états de l'Empereur" & year==`i'
 replace each_war_status="Land_war adversary" ///
-	if country_grouping=="Hollande" & year==`i'
+	if partner_grouping=="Hollande" & year==`i'
 
-replace all_war_status="Adversary" if country_grouping=="Angleterre" & year==`i'
+replace all_war_status="Adversary" if partner_grouping=="Angleterre" & year==`i'
 replace all_war_status="Adversary" if ///
-	country_grouping=="Flandre et autres états de l'Empereur" & year==`i'
-replace all_war_status="Adversary" if country_grouping=="Hollande" & year==`i'
+	partner_grouping=="Flandre et autres états de l'Empereur" & year==`i'
+replace all_war_status="Adversary" if partner_grouping=="Hollande" & year==`i'
 
-replace each_war_status="Land_war neutral" if country_grouping=="Levant" & year==`i'
-replace each_war_status="Land_war neutral" if country_grouping=="Nord" & year==`i'
-replace each_war_status="Land_war neutral" if country_grouping=="Suisse" & year==`i'
-replace each_war_status="Land_war neutral" if country_grouping=="Italie" & year==`i'
-replace each_war_status="Land_war neutral" if country_grouping=="Portugal" & year==`i'
+replace each_war_status="Land_war neutral" if partner_grouping=="Levant" & year==`i'
+replace each_war_status="Land_war neutral" if partner_grouping=="Nord" & year==`i'
+replace each_war_status="Land_war neutral" if partner_grouping=="Suisse" & year==`i'
+replace each_war_status="Land_war neutral" if partner_grouping=="Italie" & year==`i'
+replace each_war_status="Land_war neutral" if partner_grouping=="Portugal" & year==`i'
 
-replace all_war_status="Neutral" if country_grouping=="Levant" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Nord" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Suisse" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Italie" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Portugal" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Levant" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Nord" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Suisse" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Italie" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Portugal" & year==`i'
 }
 
 foreach i of num 1740/1743{
@@ -98,28 +98,28 @@ replace all_war_status="Allied" if all_war_status!="Adversary" ///
 
 foreach i of num 1744/1748{
 replace each_war_status="Mercantilist_war adversary" if ///
-	country_grouping=="Angleterre" & year==`i'
+	partner_grouping=="Angleterre" & year==`i'
 replace each_war_status="Mercantilist_war adversary" if ///
-	country_grouping=="Flandre et autres états de l'Empereur" & year==`i'
+	partner_grouping=="Flandre et autres états de l'Empereur" & year==`i'
 replace each_war_status="Mercantilist_war adversary" if ///
-	country_grouping=="Hollande" & year==`i'
+	partner_grouping=="Hollande" & year==`i'
 
-replace all_war_status="Adversary" if country_grouping=="Angleterre" & year==`i'
+replace all_war_status="Adversary" if partner_grouping=="Angleterre" & year==`i'
 replace all_war_status="Adversary" if ///
-	country_grouping=="Flandre et autres états de l'Empereur" & year==`i'
-replace all_war_status="Adversary" if country_grouping=="Hollande" & year==`i'
+	partner_grouping=="Flandre et autres états de l'Empereur" & year==`i'
+replace all_war_status="Adversary" if partner_grouping=="Hollande" & year==`i'
 
-replace each_war_status="Mercantilist_war neutral" if country_grouping=="Levant" & year==`i'
-replace each_war_status="Mercantilist_war neutral" if country_grouping=="Nord" & year==`i'
-replace each_war_status="Mercantilist_war neutral" if country_grouping=="Suisse" & year==`i'
-replace each_war_status="Mercantilist_war neutral" if country_grouping=="Italie" & year==`i'
-replace each_war_status="Mercantilist_war neutral" if country_grouping=="Portugal" & year==`i'
+replace each_war_status="Mercantilist_war neutral" if partner_grouping=="Levant" & year==`i'
+replace each_war_status="Mercantilist_war neutral" if partner_grouping=="Nord" & year==`i'
+replace each_war_status="Mercantilist_war neutral" if partner_grouping=="Suisse" & year==`i'
+replace each_war_status="Mercantilist_war neutral" if partner_grouping=="Italie" & year==`i'
+replace each_war_status="Mercantilist_war neutral" if partner_grouping=="Portugal" & year==`i'
 
-replace all_war_status="Neutral" if country_grouping=="Levant" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Nord" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Suisse" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Italie" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Portugal" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Levant" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Nord" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Suisse" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Italie" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Portugal" & year==`i'
 }
 
 foreach i of num 1744/1748{
@@ -132,28 +132,28 @@ replace all_war_status="Allied" if all_war_status!="Adversary" ///
 
 foreach i of num 1756/1763{
 replace each_war_status="Mercantilist_war adversary" if ///
-	country_grouping=="Angleterre" & year==`i'
+	partner_grouping=="Angleterre" & year==`i'
 replace each_war_status="Mercantilist_war adversary" if ///
-	country_grouping=="Portugal" & year==`i'
+	partner_grouping=="Portugal" & year==`i'
 replace each_war_status="Mercantilist_war adversary" if ///
-	country_grouping=="États-Unis d'Amérique" & year==`i'
+	partner_grouping=="États-Unis d'Amérique" & year==`i'
 
-replace all_war_status="Adversary" if country_grouping=="Angleterre" & year==`i'
-replace all_war_status="Adversary" if country_grouping=="Portugal" & year==`i'
+replace all_war_status="Adversary" if partner_grouping=="Angleterre" & year==`i'
+replace all_war_status="Adversary" if partner_grouping=="Portugal" & year==`i'
 replace all_war_status="Adversary" if ///
-	country_grouping=="États-Unis d'Amérique" & year==`i'
+	partner_grouping=="États-Unis d'Amérique" & year==`i'
 
-replace each_war_status="Mercantilist_war neutral" if country_grouping=="Hollande" & year==`i'
-replace each_war_status="Mercantilist_war neutral" if country_grouping=="Italie" & year==`i'
-replace each_war_status="Mercantilist_war neutral" if country_grouping=="Levant" & year==`i'
-replace each_war_status="Mercantilist_war neutral" if country_grouping=="Nord" & year==`i'
-replace each_war_status="Mercantilist_war neutral" if country_grouping=="Suisse" & year==`i'
+replace each_war_status="Mercantilist_war neutral" if partner_grouping=="Hollande" & year==`i'
+replace each_war_status="Mercantilist_war neutral" if partner_grouping=="Italie" & year==`i'
+replace each_war_status="Mercantilist_war neutral" if partner_grouping=="Levant" & year==`i'
+replace each_war_status="Mercantilist_war neutral" if partner_grouping=="Nord" & year==`i'
+replace each_war_status="Mercantilist_war neutral" if partner_grouping=="Suisse" & year==`i'
 
-replace all_war_status="Neutral" if country_grouping=="Hollande" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Italie" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Levant" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Nord" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Suisse" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Hollande" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Italie" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Levant" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Nord" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Suisse" & year==`i'
 }
 
 foreach i of num 1756/1763{
@@ -166,24 +166,24 @@ replace all_war_status="Allied" if all_war_status!="Adversary" ///
 
 foreach i of num 1778/1782{
 replace each_war_status="Mercantilist_war adversary" if ///
-	country_grouping=="Angleterre" & year==`i'
-replace all_war_status="Adversary" if country_grouping=="Angleterre" & year==`i'
+	partner_grouping=="Angleterre" & year==`i'
+replace all_war_status="Adversary" if partner_grouping=="Angleterre" & year==`i'
 
 replace each_war_status="Mercantilist_war neutral" if ///
-	country_grouping=="Flandre et autres états de l'Empereur" & year==`i'
-replace each_war_status="Mercantilist_war neutral" if country_grouping=="Italie" & year==`i'
-replace each_war_status="Mercantilist_war neutral" if country_grouping=="Levant" & year==`i'
-replace each_war_status="Mercantilist_war neutral" if country_grouping=="Nord" & year==`i'
-replace each_war_status="Mercantilist_war neutral" if country_grouping=="Suisse" & year==`i'
-replace each_war_status="Mercantilist_war neutral" if country_grouping=="Portugal" & year==`i'
+	partner_grouping=="Flandre et autres états de l'Empereur" & year==`i'
+replace each_war_status="Mercantilist_war neutral" if partner_grouping=="Italie" & year==`i'
+replace each_war_status="Mercantilist_war neutral" if partner_grouping=="Levant" & year==`i'
+replace each_war_status="Mercantilist_war neutral" if partner_grouping=="Nord" & year==`i'
+replace each_war_status="Mercantilist_war neutral" if partner_grouping=="Suisse" & year==`i'
+replace each_war_status="Mercantilist_war neutral" if partner_grouping=="Portugal" & year==`i'
 
 replace all_war_status="Neutral" if ///
-	country_grouping=="Flandre et autres états de l'Empereur" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Italie" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Levant" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Nord" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Suisse" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Portugal" & year==`i'
+	partner_grouping=="Flandre et autres états de l'Empereur" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Italie" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Levant" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Nord" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Suisse" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Portugal" & year==`i'
 }
 
 foreach i of num 1778/1782{
@@ -195,39 +195,39 @@ replace all_war_status="Allied" if all_war_status!="Adversary" & ///
 
 foreach i of num 1792/1795{
 replace each_war_status="R&N_war adversary" if ///
-	country_grouping=="Angleterre" & year==`i'
+	partner_grouping=="Angleterre" & year==`i'
 replace each_war_status="R&N_war adversary" if ///
-	country_grouping=="Flandre et autres états de l'Empereur" & year==`i'
+	partner_grouping=="Flandre et autres états de l'Empereur" & year==`i'
 replace each_war_status="R&N_war adversary" if ///
-	country_grouping=="Espagne" & year==`i'
+	partner_grouping=="Espagne" & year==`i'
 replace each_war_status="R&N_war adversary" if ///
-	country_grouping=="Hollande" & year==`i'
+	partner_grouping=="Hollande" & year==`i'
 replace each_war_status="R&N_war adversary" if ///
-	country_grouping=="Portugal" & year==`i'
+	partner_grouping=="Portugal" & year==`i'
 replace each_war_status="R&N_war adversary" if ///
-	country_grouping=="Allemagne et Pologne (par terre)" & year==`i'
-replace each_war_status="R&N_war adversary" if country_grouping=="Italie" & year==`i'
+	partner_grouping=="Allemagne et Pologne (par terre)" & year==`i'
+replace each_war_status="R&N_war adversary" if partner_grouping=="Italie" & year==`i'
 
 
 replace all_war_status="Adversary" if ///
-	country_grouping=="Angleterre" & year==`i'
+	partner_grouping=="Angleterre" & year==`i'
 replace all_war_status="Adversary" if ///
-	country_grouping=="Flandre et autres états de l'Empereur" & year==`i'
-replace all_war_status="Adversary" if country_grouping=="Espagne" & year==`i'
-replace all_war_status="Adversary" if country_grouping=="Hollande" & year==`i'
-replace all_war_status="Adversary" if country_grouping=="Portugal" & year==`i'
+	partner_grouping=="Flandre et autres états de l'Empereur" & year==`i'
+replace all_war_status="Adversary" if partner_grouping=="Espagne" & year==`i'
+replace all_war_status="Adversary" if partner_grouping=="Hollande" & year==`i'
+replace all_war_status="Adversary" if partner_grouping=="Portugal" & year==`i'
 replace all_war_status="Adversary" if ///
-	country_grouping=="Allemagne et Pologne (par terre)" & year==`i'
-replace all_war_status="Adversary" if country_grouping=="Italie" & year==`i'
+	partner_grouping=="Allemagne et Pologne (par terre)" & year==`i'
+replace all_war_status="Adversary" if partner_grouping=="Italie" & year==`i'
 
 
-replace each_war_status="R&N_war neutral" if country_grouping=="Levant" & year==`i'
-replace each_war_status="R&N_war neutral" if country_grouping=="Nord" & year==`i'
-replace each_war_status="R&N_war neutral" if country_grouping=="Suisse" & year==`i'
+replace each_war_status="R&N_war neutral" if partner_grouping=="Levant" & year==`i'
+replace each_war_status="R&N_war neutral" if partner_grouping=="Nord" & year==`i'
+replace each_war_status="R&N_war neutral" if partner_grouping=="Suisse" & year==`i'
 
-replace all_war_status="Neutral" if country_grouping=="Levant" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Nord" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Suisse" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Levant" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Nord" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Suisse" & year==`i'
 }
 
 foreach i of num 1792/1795{
@@ -239,28 +239,28 @@ replace all_war_status="Allied" if all_war_status!="Adversary" & ///
 
 foreach i of num 1796/1802{
 replace each_war_status="R&N_war adversary" if ///
-	country_grouping=="Angleterre" & year==`i'
+	partner_grouping=="Angleterre" & year==`i'
 replace each_war_status="R&N_war adversary" if ///
-	country_grouping=="Flandre et autres états de l'Empereur" & year==`i'
+	partner_grouping=="Flandre et autres états de l'Empereur" & year==`i'
 replace each_war_status="R&N_war adversary" if ///
-	country_grouping=="Portugal" & year==`i'
-replace each_war_status="R&N_war adversary" if country_grouping=="Italie" & year==`i'
+	partner_grouping=="Portugal" & year==`i'
+replace each_war_status="R&N_war adversary" if partner_grouping=="Italie" & year==`i'
 
-replace all_war_status="Adversary" if country_grouping=="Angleterre" & year==`i'
+replace all_war_status="Adversary" if partner_grouping=="Angleterre" & year==`i'
 replace all_war_status="Adversary" if ///
-	country_grouping=="Flandre et autres états de l'Empereur" & year==`i'
-replace all_war_status="Adversary" if country_grouping=="Portugal" & year==`i'
-replace all_war_status="Adversary" if country_grouping=="Italie" & year==`i'
+	partner_grouping=="Flandre et autres états de l'Empereur" & year==`i'
+replace all_war_status="Adversary" if partner_grouping=="Portugal" & year==`i'
+replace all_war_status="Adversary" if partner_grouping=="Italie" & year==`i'
 
-replace each_war_status="R&N_war neutral" if country_grouping=="Levant" & year==`i'
-replace each_war_status="R&N_war neutral" if country_grouping=="Nord" & year==`i'
+replace each_war_status="R&N_war neutral" if partner_grouping=="Levant" & year==`i'
+replace each_war_status="R&N_war neutral" if partner_grouping=="Nord" & year==`i'
 replace each_war_status="R&N_war neutral" if ///
-	country_grouping=="Allemagne et Pologne (par terre)" & year==`i'
+	partner_grouping=="Allemagne et Pologne (par terre)" & year==`i'
 
-replace all_war_status="Neutral" if country_grouping=="Levant" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Nord" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Levant" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Nord" & year==`i'
 replace all_war_status="Neutral" if ///
-	country_grouping=="Allemagne et Pologne (par terre)" & year==`i'
+	partner_grouping=="Allemagne et Pologne (par terre)" & year==`i'
 }
 
 foreach i of num 1796/1802{
@@ -278,15 +278,15 @@ replace all_war_status="Allied" if year==`i'
 
 foreach i of num 1803/1814{
 replace each_war_status="R&N_war adversary" if ///
-	country_grouping=="Angleterre" & year==`i'
-replace all_war_status="Adversary" if country_grouping=="Angleterre" & year==`i'
+	partner_grouping=="Angleterre" & year==`i'
+replace all_war_status="Adversary" if partner_grouping=="Angleterre" & year==`i'
 }
 
 foreach i in 1805 1809{
 replace each_war_status="R&N_war adversary" if ///
-	country_grouping=="Flandre et autres états de l'Empereur" & year==`i'
+	partner_grouping=="Flandre et autres états de l'Empereur" & year==`i'
 replace all_war_status="Adversary" if ///
-	country_grouping=="Flandre et autres états de l'Empereur" & year==`i'
+	partner_grouping=="Flandre et autres états de l'Empereur" & year==`i'
 }
 
 foreach i of num 1805/1809{
@@ -299,72 +299,72 @@ replace all_war_status="Allied" if all_war_status!="Adversary" ///
 
 foreach i in 1806 1807{
 replace each_war_status="R&N_war neutral" if ///
-	country_grouping=="Flandre et autres états de l'Empereur" & year==`i'
+	partner_grouping=="Flandre et autres états de l'Empereur" & year==`i'
 replace all_war_status="Neutral" if ///
-	country_grouping=="Flandre et autres états de l'Empereur" & year==`i'
+	partner_grouping=="Flandre et autres états de l'Empereur" & year==`i'
 }
 
 foreach i of num 1813/1815{
 replace each_war_status="R&N_war adversary" if ///
-	country_grouping=="Flandre et autres états de l'Empereur" & year==`i'
+	partner_grouping=="Flandre et autres états de l'Empereur" & year==`i'
 replace all_war_status="Adversary" if ///
-	country_grouping=="Flandre et autres états de l'Empereur" & year==`i'
+	partner_grouping=="Flandre et autres états de l'Empereur" & year==`i'
 }
 
 foreach i of num 1800/1807{
 replace each_war_status="R&N_war adversary" if ///
-	country_grouping=="Portugal" & year==`i'
-replace all_war_status="Adversary" if country_grouping=="Portugal" & year==`i'
+	partner_grouping=="Portugal" & year==`i'
+replace all_war_status="Adversary" if partner_grouping=="Portugal" & year==`i'
 }
 foreach i of num 1809/1815{
-replace each_war_status="R&N_war adversary" if country_grouping=="Portugal" & year==`i'
+replace each_war_status="R&N_war adversary" if partner_grouping=="Portugal" & year==`i'
 replace all_war_status="Adversary" if ///
-	country_grouping=="Portugal" & year==`i'
+	partner_grouping=="Portugal" & year==`i'
 }
 
 *****1806-1812 germany is allied
 foreach i of num 1806/1807{
 replace each_war_status="R&N_war adversary" if ///
-	country_grouping=="Allemagne et Pologne (par terre)" & year==`i'
+	partner_grouping=="Allemagne et Pologne (par terre)" & year==`i'
 replace all_war_status="Adversary" if ///
-	country_grouping=="Allemagne et Pologne (par terre)" & year==`i'
+	partner_grouping=="Allemagne et Pologne (par terre)" & year==`i'
 }
 foreach i of num 1813/1815{
 replace each_war_status="R&N_war adversary" if ///
-	country_grouping=="Allemagne et Pologne (par terre)" & year==`i'
+	partner_grouping=="Allemagne et Pologne (par terre)" & year==`i'
 replace all_war_status="Adversary" if ///
-	country_grouping=="Allemagne et Pologne (par terre)" & year==`i'
+	partner_grouping=="Allemagne et Pologne (par terre)" & year==`i'
 }
 
 foreach i of num 1808/1815{
-replace each_war_status="R&N_war adversary" if country_grouping=="Espagne" & year==`i'
-replace all_war_status="Adversary" if country_grouping=="Espagne" & year==`i'
+replace each_war_status="R&N_war adversary" if partner_grouping=="Espagne" & year==`i'
+replace all_war_status="Adversary" if partner_grouping=="Espagne" & year==`i'
 }
 
 foreach i of num 1803/1815{
-replace each_war_status="R&N_war neutral" if country_grouping=="Levant" & year==`i'
-replace each_war_status="R&N_war neutral" if country_grouping=="Nord" & year==`i'
+replace each_war_status="R&N_war neutral" if partner_grouping=="Levant" & year==`i'
+replace each_war_status="R&N_war neutral" if partner_grouping=="Nord" & year==`i'
 replace each_war_status="R&N_war neutral" if ///
-	country_grouping=="États-Unis d'Amérique" & year==`i'
+	partner_grouping=="États-Unis d'Amérique" & year==`i'
 
-replace all_war_status="Neutral" if country_grouping=="Levant" & year==`i'
-replace all_war_status="Neutral" if country_grouping=="Nord" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Levant" & year==`i'
+replace all_war_status="Neutral" if partner_grouping=="Nord" & year==`i'
 replace all_war_status="Neutral" if ///
-	country_grouping=="États-Unis d'Amérique" & year==`i'
+	partner_grouping=="États-Unis d'Amérique" & year==`i'
 }
 
 replace each_war_status="R&N_war adversary" if ///
-	country_grouping=="Suisse" & year==1815
+	partner_grouping=="Suisse" & year==1815
 replace each_war_status="R&N_war adversary" if ///
-	country_grouping=="Hollande" & year==1815
+	partner_grouping=="Hollande" & year==1815
 
-replace all_war_status="Adversary" if country_grouping=="Suisse" & year==1815
-replace all_war_status="Adversary" if country_grouping=="Hollande" & year==1815
+replace all_war_status="Adversary" if partner_grouping=="Suisse" & year==1815
+replace all_war_status="Adversary" if partner_grouping=="Hollande" & year==1815
 
 
 /*Encode all strings to use them as factor variables in the regression */
 
-encode country_grouping, gen(pays)
+encode partner_grouping, gen(pays)
 
 label define order_class 1 Coffee 2 "Eau de vie" 3 Sugar 4 Wine 5 Other
 encode hamburg_classification, gen(class) label(order_class)
@@ -390,12 +390,12 @@ gen year_class1=coffee*year
 gen year_class3=sugar*year
 
 /*gen weights*/
-bysort pays: egen pays_aggregate_exports=sum(value) if exportsimports=="Exports"
-gen aggregate_exports=sum(value) if exportsimports=="Exports"
+bysort pays: egen pays_aggregate_exports=sum(value) if export_import=="Exports"
+gen aggregate_exports=sum(value) if export_import=="Exports"
 gen weight_exports=pays_aggregate_exports/aggregate_exports
 
-bysort pays: egen pays_aggregate_imports=sum(value) if exportsimports=="Imports"
-gen aggregate_imports=sum(value) if exportsimports=="Imports"
+bysort pays: egen pays_aggregate_imports=sum(value) if export_import=="Imports"
+gen aggregate_imports=sum(value) if export_import=="Imports"
 gen weight_imports=pays_aggregate_imports/aggregate_imports
 
 
@@ -419,14 +419,14 @@ generate ln_value = ln(value)
 then both sugar and coffee (+experiment) with on dummy for all wars */
 
 eststo export_all1: reg ln_value i.pays_class c.year#i.pays ///
-	c.year#i.class i.all_status_class if exportsimports=="Exports" ///
+	c.year#i.class i.all_status_class if export_import=="Exports" ///
 	[iweight=weight_exports],  
 eststo export_all2: reg ln_value i.pays_class i.coffee#pays c.year#i.pays ///
 	c.year#i.class i.coffee#c.year_class1 i.all_status_class if ///
-	exportsimports=="Exports" [iweight=weight_exports],  
+	export_import=="Exports" [iweight=weight_exports],  
 eststo export_all3: reg ln_value i.pays_class i.coffee#i.pays ///
 	i.sugar#i.pays c.year#i.pays c.year#i.class i.coffee#c.year_class1 ///
-	i.sugar#c.year_class3 i.all_status_class if exportsimports=="Exports" ///
+	i.sugar#c.year_class3 i.all_status_class if export_import=="Exports" ///
 	[iweight=weight_exports],   
 /*eststo: reg ln_value i.pays_class 0.coffee#pays 0.sugar#pays ///
 	year_pays1-year_pays12 year_class1-year_class5 ///
@@ -462,15 +462,15 @@ esttab using "$thesis/Data/do_files/Hamburg/tex/allcountry2_all_reg.tex", ///
 coffee (+experiment) with on dummy for each of the three groups of wars*/
 
 eststo export_each1: reg ln_value i.pays_class c.year#i.pays ///
-	c.year#i.class i.each_status_class if exportsimports=="Exports" ///
+	c.year#i.class i.each_status_class if export_import=="Exports" ///
 	[iweight=weight_exports],  
 eststo export_each2: reg ln_value i.pays_class 0.coffee#pays ///
 	0.sugar#i.pays c.year#i.pays c.year#i.class 0.coffee#c.year_class1 ///
-	0.sugar#c.year_class3 i.each_status_class if exportsimports=="Exports" ///
+	0.sugar#c.year_class3 i.each_status_class if export_import=="Exports" ///
 	[iweight=weight_exports],   
 eststo export_each3: reg ln_value i.pays_class 0.coffee#i.pays ///
 	c.year#i.pays c.year#i.class 0.coffee#c.year_class1 ///
-	i.each_status_class if exportsimports=="Exports" ///
+	i.each_status_class if export_import=="Exports" ///
 	[iweight=weight_exports],   
 /*eststo: reg ln_value i.pays_class 0.coffee#pays 0.sugar#pays ///
 	year_pays1-year_pays12 year_class1-year_class5 ///
@@ -527,16 +527,16 @@ esttab using "$thesis/Data/do_files/Hamburg/tex/allcountry2_each_export.tex", //
 coffee (+experiment) with one dummy for all wars*/
 
 eststo import_all1: reg ln_value i.pays_class c.year#i.pays ///
-	c.year#i.class i.all_status_class if exportsimports=="Imports" ///
+	c.year#i.class i.all_status_class if export_import=="Imports" ///
 	[iweight=weight_imports],  
 eststo import_all2: reg ln_value i.pays_class c.year#i.pays ///
 	c.year#i.class 0.coffee#c.year_class1 0.coffee#pays  ///
-	i.all_status_class if exportsimports=="Imports" ///
+	i.all_status_class if export_import=="Imports" ///
 	[iweight=weight_imports],  
 eststo import_all3: reg ln_value i.pays_class c.year#i.pays ///
 	c.year#i.class 0.coffee#c.year_class1 0.coffee#pays ///
 	0.sugar#pays 0.sugar#c.year_class3 i.all_status_class if ///
-	exportsimports=="Imports" [iweight=weight_imports],   
+	export_import=="Imports" [iweight=weight_imports],   
 /*eststo: reg ln_value i.pays_class 0.coffee#pays 0.sugar#pays ///
 	year_pays1-year_pays12 year_class1-year_class5 ///
 	0.coffee#c.year_class1 0.sugar#c.year_class3 ///
@@ -551,15 +551,15 @@ esttab import_all1 import_all2 import_all3 ///
 coffee (+experiment) with on dummy for each of the three groups of wars*/
 
 eststo import_each1: reg ln_value year i.pays_class c.year#i.pays ///
-	c.year#i.class i.each_status_class if exportsimports=="Imports" ///
+	c.year#i.class i.each_status_class if export_import=="Imports" ///
 	[iweight=weight_imports],  
 eststo import_each2: reg ln_value i.pays_class 0.coffee#pays ///
 	0.sugar#pays c.year#i.pays c.year#i.class 0.coffee#c.year_class1 ///
-	0.sugar#c.year_class3 i.each_status_class if exportsimports=="Imports" ///
+	0.sugar#c.year_class3 i.each_status_class if export_import=="Imports" ///
 	[iweight=weight_imports],   
 eststo import_each3: reg ln_value i.pays_class 0.coffee#pays ///
 	c.year#i.pays c.year#i.class 0.coffee#c.year_class1 ///
-	i.each_status_class if exportsimports=="Imports" ///
+	i.each_status_class if export_import=="Imports" ///
 	[iweight=weight_imports],   
 /*eststo: reg ln_value i.pays_class 0.coffee#pays 0.sugar#pays ///
 	year_pays1-year_pays12 year_class1-year_class5 ///

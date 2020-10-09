@@ -129,14 +129,14 @@ eststo clear
 
 ****reg all wars exports
 eststo p1: reg ln_value i.class i.class#c.year i.all#i.class if ///
-	exportsimports=="Exports"
+	export_import=="Exports"
 *eststo: reg ln_value i.class year_class1-year_class5 c2 ///
 	year_c3  year_s3 i.all_class, ///
 	noconstant vce(robust) iterate(40)
 *eststo p2: reg ln_value i.class i.class#c.year c2 year_c2 ///
-	i.all#i.class if exportsimports=="Exports"
+	i.all#i.class if export_import=="Exports"
 eststo p3: reg ln_value i.class i.class#c.year  i.class#c.year3  ///
-	i.all#i.class if exportsimports=="Exports"
+	i.all#i.class if export_import=="Exports"
 
 esttab, label
 /*
@@ -157,11 +157,11 @@ esttab using "$thesis/Data/do_files/Hamburg/tex/hamburg2_all_reg.tex", ///
 
 ****reg each war separately
 eststo p4 : reg ln_value i.class i.class#c.year i.each#i.class if ///
-	exportsimports=="Exports"
+	export_import=="Exports"
 *eststo: reg ln_value i.class i.class#c.year c2 year_c2 i.each#i.class if ///
-	exportsimports=="Exports"
+	export_import=="Exports"
 eststo p6: reg ln_value i.class i.class#c.year i.class#c.year3 ///
-	i.each#i.class if exportsimports=="Exports"
+	i.each#i.class if export_import=="Exports"
 
 
 esttab , label ///
@@ -212,14 +212,14 @@ eststo clear
 
 ****reg all wars imports
 eststo: reg ln_value i.class i.class#c.year i.all#i.class if ///
-	exportsimports=="Imports"
+	export_import=="Imports"
 *eststo: reg ln_value i.class year_class1-year_class5 c2 ///
 	year_c2 c3 year_c3 s2 year_s2 s3 year_s3 i.all_class, ///
 	noconstant 
 eststo: reg ln_value i.class i.class#c.year c2 year_c2 ///
-	i.all#i.class if exportsimports=="Imports"
+	i.all#i.class if export_import=="Imports"
 eststo: reg ln_value i.class i.class#c.year c3 year_c3 s3 year_s3 ///
-	i.all#i.class if exportsimports=="Imports"
+	i.all#i.class if export_import=="Imports"
 
 esttab, label
 /*
@@ -236,11 +236,11 @@ eststo clear
 
 ****reg each war separately
 eststo: reg ln_value i.class i.class#c.year i.each#i.class if ///
-	exportsimports=="Imports" 
+	export_import=="Imports" 
 eststo: reg ln_value i.class i.class#c.year c2 year_c2 ///
-	i.each#i.class if exportsimports=="Imports"
+	i.each#i.class if export_import=="Imports"
 eststo: reg ln_value i.class i.class#c.year c3 year_c3 s3 ///
-	year_s3 i.each#i.class if exportsimports=="Imports"
+	year_s3 i.each#i.class if export_import=="Imports"
 
 esttab, label
 

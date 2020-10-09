@@ -20,7 +20,7 @@ if "`c(username)'" =="Tirindelli" {
 ***************************CREATE 5 DATABASES***********************************
 ********************************************************************************
 use "$hamburg/database_dta/elisa_bdd_courante", replace
-/* LEGEND OF SOURCETYPE
+/* LEGEND OF source_type
 - Colonies: 1787, 1788, 1789
 - Divers: 1839
 - Divers - in: 1783, 1784
@@ -44,19 +44,19 @@ use "$hamburg/database_dta/elisa_bdd_courante", replace
 preserve
 ***drop double counting 
 foreach i of num 1716/1782{
-drop if sourcetype!="Tableau Général" & year==`i'
+drop if source_type!="Tableau Général" & year==`i'
 }
 
 foreach i of num 1782/1822{
-drop if sourcetype!="Résumé" & year==`i'
+drop if source_type!="Résumé" & year==`i'
 }
 
-collapse (sum) value, by(year country_grouping exportsimports)
+collapse (sum) value, by(year partner_grouping export_import)
 
 save "$hamburg/database_dta/allcountry1", replace
 
-keep if country_grouping=="Nord"
-drop country_grouping
+keep if partner_grouping=="Nord"
+drop partner_grouping
 save "$hamburg/database_dta/hamburg1", replace
 restore
 
@@ -72,21 +72,21 @@ args class_goods
 *exemple integrate_predicted sitc18_en
 use "$hamburg/database_dta/elisa_bdd_courante", replace
 
-collapse (sum) value, by(sourcetype year direction country_grouping ///
-		`class_goods' exportsimports)
+collapse (sum) value, by(source_type year direction partner_grouping ///
+		`class_goods' export_import)
 
 keep if direction=="total" | (source=="National par direction" & year==1750)
 
-tab sourcetype if year==1750
+tab source_type if year==1750
 
-collapse (sum) value, by(year country_grouping ///
-		`class_goods' exportsimports)
+collapse (sum) value, by(year partner_grouping ///
+		`class_goods' export_import)
 
 tab year if value!=.
 
 gen imputed = 0		
-fillin exportsimport year country_grouping `class_goods'
-bysort year exportsimports: egen test_year=total(value), missing
+fillin exportsimport year partner_grouping `class_goods'
+bysort year export_import: egen test_year=total(value), missing
 replace imputed = 1 if value==. & test_year!=.
 replace value=0 if value==. & test_year!=.
 
@@ -97,13 +97,13 @@ tab year if value!=.
 
 *****merge with imputed data 
 
-if "`class_goods'"=="sitc18_en" merge m:1 exportsimports year country_grouping `class_goods' ///
+if "`class_goods'"=="sitc18_en" merge m:1 export_import year partner_grouping `class_goods' ///
 using "$hamburg/database_dta/sector_estimation"
 
-if "`class_goods'"=="hamburg_classification" merge m:1 exportsimports year country_grouping `class_goods' ///
+if "`class_goods'"=="hamburg_classification" merge m:1 export_import year partner_grouping `class_goods' ///
 using "$hamburg/database_dta/product_estimation"
 
-drop if country_grouping=="États-Unis d'Amérique" & year <=1777
+drop if partner_grouping=="États-Unis d'Amérique" & year <=1777
 
 drop _merge
 
@@ -115,8 +115,8 @@ drop pred_value*
 if "`class_goods'"=="sitc18_en" save "$hamburg/database_dta/allcountry2_sitc", replace
 if "`class_goods'"=="hamburg_classification" save "$hamburg/database_dta/allcountry2", replace
 
-keep if country_grouping=="Nord" 
-drop country_grouping 
+keep if partner_grouping=="Nord" 
+drop partner_grouping 
 save "$hamburg/database_dta/hamburg2", replace
 
 if "`class_goods'"=="sitc18_en" save "$hamburg/database_dta/hamburg2_sitc", replace

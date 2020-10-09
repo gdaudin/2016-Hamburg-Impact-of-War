@@ -51,12 +51,12 @@ drop if sourcepath=="Divers/AD 44/Nantes - Exports - 1734 - bis.csv"
 drop if product_sitc=="9a" /*To remove flows of species*/
 
 
-drop if country_grouping=="?" | country_grouping=="????" ///
-	| country_grouping=="Prises" | country_grouping=="Épaves et échouements" ///
-	| country_grouping=="France" | country_grouping=="Indes" ///
-	| country_grouping=="Colonies françaises et étrangères" ///
-	| country_grouping=="Espagne-Portugal" | country_grouping=="" ///
-	| country_grouping=="Divers" ///
+drop if partner_grouping=="?" | partner_grouping=="????" ///
+	| partner_grouping=="Prises" | partner_grouping=="Épaves et échouements" ///
+	| partner_grouping=="France" | partner_grouping=="Indes" ///
+	| partner_grouping=="Colonies françaises et étrangères" ///
+	| partner_grouping=="Espagne-Portugal" | partner_grouping=="" ///
+	| partner_grouping=="Divers" ///
 
 ****keep only 5 categories of goods
 replace hamburg_classification="Not classified" ///
@@ -105,8 +105,8 @@ replace sitc18_en="Textile manuf" if sitc18_en=="Linen threads and fabrics" ///
 	| sitc18_en=="Other vegetal threads and fabrics" ///
 	| sitc18_en=="Other threads and fabrics" 	
 
-collapse (sum) value, by(sourcetype year direction ///
-	country_grouping exportsimports product_simplification ///
+collapse (sum) value, by(source_type year direction ///
+	partner_grouping export_import product_simplification ///
 	hamburg_classification sitc18_en)
 
 merge m:1 year using "$hamburg/database_dta/FR_silver.dta"
@@ -117,23 +117,23 @@ replace value=value*FR_silver
 replace value=value/1000000
 
 
-drop if sourcetype!="Local" & sourcetype!="National par direction" ///
-	& sourcetype!="National par direction (-)" ///
-	& sourcetype!="Objet Général" & sourcetype!="Résumé" 
-drop if year==1750 & sourcetype=="Local"
-drop if sourcetype=="Résumé" & (year==1788)
-drop if sourcetype=="Objet Général" & year==1787
-*drop if sourcetype=="Résumé" & (year==1789)
+drop if source_type!="Local" & source_type!="National par direction" ///
+	& source_type!="National par direction (-)" ///
+	& source_type!="Objet Général" & source_type!="Résumé" 
+drop if year==1750 & source_type=="Local"
+drop if source_type=="Résumé" & (year==1788)
+drop if source_type=="Objet Général" & year==1787
+*drop if source_type=="Résumé" & (year==1789)
 
 
-replace direction="total" if direction=="" & (sourcetype =="Objet Général" | sourcetype =="Résumé")
+replace direction="total" if direction=="" & (source_type =="Objet Général" | source_type =="Résumé")
 *list if direction==""
 
 
 preserve
 keep if year==1750
-assert sourcetype=="National par direction"
-collapse (sum) value, by(year country_grouping hamburg_classification exportsimports product_simplification sitc18_en)
+assert source_type=="National par direction"
+collapse (sum) value, by(year partner_grouping hamburg_classification export_import product_simplification sitc18_en)
 gen direction="total"
 save blif.dta, replace
 
@@ -145,14 +145,14 @@ erase blif.dta
 **Parce que dans l'objet général de 1788, les importations coloniales sont par direction : je le transforme en total d'une part.
 **et National par direction(-) d'autre part
 preserve
-keep if year==1788 & sourcetype=="Objet Général" & country_grouping=="Outre-mers" & exportsimports=="Imports"
-collapse (sum) value, by(year country_grouping hamburg_classification exportsimports product_simplification sitc18_en)
+keep if year==1788 & source_type=="Objet Général" & partner_grouping=="Outre-mers" & export_import=="Imports"
+collapse (sum) value, by(year partner_grouping hamburg_classification export_import product_simplification sitc18_en)
 gen direction="total"
 save blif.dta, replace
 
 restore
-replace sourcetype="National par direction (-)" if year==1788 & sourcetype=="Objet Général" & country_grouping=="Outre-mers" ///
-		& exportsimports=="Imports" & direction !="total"
+replace source_type="National par direction (-)" if year==1788 & source_type=="Objet Général" & partner_grouping=="Outre-mers" ///
+		& export_import=="Imports" & direction !="total"
 append using blif.dta
 erase blif.dta
 

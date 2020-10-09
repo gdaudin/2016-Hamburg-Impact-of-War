@@ -28,11 +28,11 @@ if "`c(username)'" =="Tirindelli" {
 
 
 use "/Users/guillaumedaudin/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta",  clear
-keep if year==1792 & sourcetype=="Tableau Général" 
+keep if year==1792 & source_type=="Tableau Général" 
 gen par_mer=1
 replace par_mer=0 if strpos(pays,"par terre")!=0
-collapse (sum) value, by(country_grouping par_mer)
-reshape wide value,i(country_grouping) j(par_mer)
+collapse (sum) value, by(partner_grouping par_mer)
+reshape wide value,i(partner_grouping) j(par_mer)
 gen share_par_mer=0 if value0 !=. & value1==.
 replace share_par_mer=1 if value1 !=. & value0==.
 replace share_par_mer=value1/(value0+value1) if share_par_mer!=0 & share_par_mer!=1
@@ -40,8 +40,8 @@ drop value0 value1
 
 
 
-merge 1:m country_grouping using "$hamburg/database_dta/Best guess FR bilateral trade.dta"
-drop if country_grouping=="France" | country_grouping=="Inconnu"
+merge 1:m partner_grouping using "$hamburg/database_dta/Best guess FR bilateral trade.dta"
+drop if partner_grouping=="France" | partner_grouping=="Inconnu"
 assert _merge==3
 
 gen value_sea=value*share_par_mer

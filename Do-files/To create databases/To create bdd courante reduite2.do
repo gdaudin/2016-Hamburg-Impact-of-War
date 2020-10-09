@@ -21,8 +21,8 @@ import delimited "$toflit18_data_git/base/bdd courante.csv", ///
 
 * Keep only necessary variables
 
-keep year exportsimports product_simplification value sourcetype direction ///
-	 product_sitc_en product_sitc_simplen country_grouping country_simplification product_re_aggregate
+keep year export_import product_simplification value source_type tax_department ///
+	 product_sitc_en product_sitc_simplen partner_grouping partner_simplification product_re_aggregate
 
 	 
 destring value, replace
@@ -32,22 +32,22 @@ replace year=1787 if year==1787.2
 
 drop if product_simplification=="" | product_simplification=="???"
 drop if value==.
-drop if country_grouping=="????" | country_grouping=="Divers" | country_grouping=="France" | ///
-		country_grouping=="Inconnu" | country_grouping=="Monde"
+drop if partner_grouping=="????" | partner_grouping=="Divers" | partner_grouping=="France" | ///
+		partner_grouping=="Inconnu" | partner_grouping=="Monde"
 		
 		
 		
 capture drop national_product_best_guess
 gen national_product_best_guess = 0		
-replace national_product_best_guess = 1 if (sourcetype=="Objet Général" & year<=1786) | ///
-		(sourcetype=="Résumé") | sourcetype=="National toutes directions tous partenaires" 
+replace national_product_best_guess = 1 if (source_type=="Objet Général" & year<=1786) | ///
+		(source_type=="Résumé") | source_type=="National toutes tax_departments tous partenaires" 
 
 egen year_CN = max(national_product_best_guess), by(year)
-replace national_product_best_guess=1 if year_CN == 1 & sourcetype=="Compagnie des Indes" & direction=="France par la Compagnie des Indes"
+replace national_product_best_guess=1 if year_CN == 1 & source_type=="Compagnie des Indes" & tax_department=="France par la Compagnie des Indes"
 
 capture drop national_geography_best_guess
 gen national_geography_best_guess = 0
-replace national_geography_best_guess = 1 if sourcetype=="Tableau Général" | sourcetype=="Résumé"
+replace national_geography_best_guess = 1 if source_type=="Tableau Général" | source_type=="Résumé"
 		
 		
 save "$hamburg/database_dta/bdd courante reduite2.dta", replace 
@@ -62,7 +62,7 @@ save "$hamburg/database_dta/bdd courante reduite2.dta", replace
 
 * Calculer la valeur totale échangée par marchandise sur la période
 
-*by product_simplification direction exportsimports u_conv, sort: egen valeur_totale_par_marchandise=total(value)	
+*by product_simplification tax_department export_import u_conv, sort: egen valeur_totale_par_marchandise=total(value)	
 *label var valeur_totale_par_marchandise "Somme variable valeur par march_simpli, dir, expimp, u_conv" 	
 *drop if valeur_totale_par_marchandise<=100000
 *sort product_simplification year
@@ -77,16 +77,16 @@ save "$hamburg/database_dta/bdd courante reduite2.dta", replace
 * Calcul de la moyenne des prix par année en pondérant en fonction des quantités échangées pour un produit.unitée métrique
 
 *drop if quantities_metric==.
-*by year direction exportsimports u_conv product_simplification, sort: egen quantite_echangee=total(quantities_metric)
+*by year tax_department export_import u_conv product_simplification, sort: egen quantite_echangee=total(quantities_metric)
 *label var quantite_echangee "Quantités métric par dir expimp u_conv march_simpli"
 
 *generate prix_unitaire_pondere=(quantities_metric/quantite_echangee)*prix_unitaire_converti
 *label var prix_unitaire_pondere "Prix de chaque observation en u métrique en % de la quantit échangée totale" 
 
 
-*collapse (sum) value quantities_metric,by(year direction exportsimports u_conv product_simplification)
+*collapse (sum) value quantities_metric,by(year tax_department export_import u_conv product_simplification)
 
-* by year direction exportsimports u_conv product_simplification, sort: egen prix_pondere_annuel=total(prix_unitaire_pondere)
+* by year tax_department export_import u_conv product_simplification, sort: egen prix_pondere_annuel=total(prix_unitaire_pondere)
 
 
 gen prix_pondere_annuel = value/quantities_metric
@@ -96,7 +96,7 @@ sort product_simplification year
 *drop prix_unitaire_pondere
 
 * Encode panvar (sinon prend trop de temps) 
-gen panvar = product_simplification + exportsimports + direction + u_conv
+gen panvar = product_simplification + export_import + tax_department + u_conv
 encode panvar, gen(panvar_num)
 drop if year>1787 & year<1788
 tsset panvar_num year

@@ -8,7 +8,7 @@ use "$thesis/database_dta/allcountry2_sitc", clear
 
 replace sitc18_en="Raw mat fuel oils" if sitc18_en=="Raw mat; fuel; oils"
 
-encode country_grouping, gen(pays)
+encode partner_grouping, gen(pays)
 encode sitc18_en, gen(sitc)
 
 
@@ -20,11 +20,11 @@ encode sitc18_en, gen(sitc)
 ------------------------------------------------------------------------------*/
 
 preserve
-collapse (sum) value , by(pays sitc exportsimports)
+collapse (sum) value , by(pays sitc export_import)
 
 ******gen shares
-gen value_export=value if exportsimports=="Exports"
-gen value_import=value if exportsimports=="Imports"
+gen value_export=value if export_import=="Exports"
+gen value_import=value if export_import=="Imports"
 collapse (sum) value_export value_import , by(pays sitc)
 bysort pays: egen tot_export=sum(value_export)
 bysort pays: egen tot_import=sum(value_import)
@@ -101,9 +101,9 @@ restore
 								WITH VALUE
 ------------------------------------------------------------------------------*/
 preserve
-collapse (sum) value , by(pays sitc exportsimports)
-gen value_export=value if exportsimports=="Exports"
-gen value_import=value if exportsimports=="Imports"
+collapse (sum) value , by(pays sitc export_import)
+gen value_export=value if export_import=="Exports"
+gen value_import=value if export_import=="Imports"
 collapse (sum) value_export value_import , by(pays sitc)
 local lsitc : variable label sitc
 levelsof sitc, local(sitc_levels)

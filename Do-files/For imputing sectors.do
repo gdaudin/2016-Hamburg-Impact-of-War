@@ -21,14 +21,14 @@ if "`c(username)'" =="Tirindelli" {
 ********************************************************************************
 use "$hamburg/database_dta/elisa_bdd_courante", replace
 
-collapse (sum) value, by(sourcetype year direction country_grouping ///
-		sitc18_en exportsimports)
+collapse (sum) value, by(source_type year direction partner_grouping ///
+		sitc18_en export_import)
 
 ****drop pays if there are too few obs
-bys country_grouping direction: drop if _N<=2
+bys partner_grouping direction: drop if _N<=2
  
 *****drop direction that appear only once
-bys exportsimports direction: drop if _N==1
+bys export_import direction: drop if _N==1
 
 *Drop direction if 6 years or less
 levelsof direction, local(liste_de_direction)
@@ -53,27 +53,27 @@ su value if value!=0
 local min_value=r(min)
 
 preserve
-keep if sourcetype!="National par direction (-)"
-fillin exportsimport year country_grouping direction sitc18_en
-bysort year direction exportsimports: egen test_year=total(value), missing
+keep if source_type!="National par direction (-)"
+fillin exportsimport year partner_grouping direction sitc18_en
+bysort year direction export_import: egen test_year=total(value), missing
 replace value=`min_value'/100 if test_year!=. & value==. 
 drop test_year
 save blif.dta, replace
 restore
 
 
-keep if sourcetype=="National par direction (-)"
-fillin exportsimport year country_grouping direction sitc18_en
-bysort year pays exportsimports: egen test_year=total(value), missing
+keep if source_type=="National par direction (-)"
+fillin exportsimport year partner_grouping direction sitc18_en
+bysort year pays export_import: egen test_year=total(value), missing
 replace value=`min_value'/100 if test_year!=. & value==. 
 drop test_year
 
 append using blif.dta
 erase blif.dta
 
-duplicates drop year direction exportsimports country_grouping sitc18_en, force
+duplicates drop year direction export_import partner_grouping sitc18_en, force
 
-replace sourcetype = "imputed" if _fillin==1 & value !=.
+replace source_type = "imputed" if _fillin==1 & value !=.
 
 save fortest.dta, replace
 
@@ -82,68 +82,68 @@ gen lnvalue=ln(value)
 
 ***gen weight
 gen forweight=value if direction=="total"
-bysort year exportsimports pays sitc: egen weight_total=max(forweight)
+bysort year export_import pays sitc: egen weight_total=max(forweight)
 drop forweight
 gen share = value/weight_total
-bysort exportsimports pays sitc direction: egen weight=mean(share)
+bysort export_import pays sitc direction: egen weight=mean(share)
 replace weight = min(1,weight) /* Pour enlever les valeurs trop élevées */
 
 
 *tab weight direction
 encode direction, gen(dir)
-encode country_grouping, gen(pays)
+encode partner_grouping, gen(pays)
 encode sitc18_en, gen(sitc) label(order)
 
 
-levelsof exportsimports, local(exportsimports)
-*local exportsimports Imports
+levelsof export_import, local(export_import)
+*local export_import Imports
 
 
 *For the graphs, compute observed value
-bysort year exportsimports pays sitc: gen value_for_obs = value if direction=="total"
+bysort year export_import pays sitc: gen value_for_obs = value if direction=="total"
 		
 gen blink = value if direction !="total" 
-replace blink=. if sourcetype=="National par direction (-)" &  ///
+replace blink=. if source_type=="National par direction (-)" &  ///
 				(year==1749 | year==1751 | year==1777 )
-bysort year exportsimports pays sitc: egen blouf=total(blink), missing
+bysort year export_import pays sitc: egen blouf=total(blink), missing
 replace value_for_obs=blouf if value_for_obs==.
 drop blink blouf
-bysort year exportsimports pays sitc direction:replace value_for_obs=. if _n!=1
+bysort year export_import pays sitc direction:replace value_for_obs=. if _n!=1
 replace value_for_obs = `min_value'/100 if value_for_obs<`min_value'
 
 
 *I introduce a max admissible predicted value, which is twice the max observed flow
-bys sitc exportsimports pays : egen max_admiss_pred = max(value)
+bys sitc export_import pays : egen max_admiss_pred = max(value)
 replace max_admiss_pred=max_admiss_pred*2
 
 gen pred_value=.
 
 
 sort year
-foreach ciao in `exportsimports'{
+foreach ciao in `export_import'{
 
 
 levelsof pays, local(levels) 	/*levelsof is just in case we add more pays 
-								to country_grouping and I do 
+								to partner_grouping and I do 
 								not update this do_file, not important
 								`: word count `levels''*/
 
 foreach i of num 1/6{
 	foreach j of num 1/`: word count `levels''{
-		summarize lnvalue if sitc==`i' & pays==`j' & exportsimports=="`ciao'"
+		summarize lnvalue if sitc==`i' & pays==`j' & export_import=="`ciao'"
 		if r(N)>1{
 			qui reg lnvalue i.year i.dir [iw=weight] if ///
-				exportsimports=="`ciao'" & pays==`j' & sitc==`i', robust 
+				export_import=="`ciao'" & pays==`j' & sitc==`i', robust 
 				
 			
 			predict value_pred if ///
-				exportsimports=="`ciao'" & pays==`j' & sitc==`i'
+				export_import=="`ciao'" & pays==`j' & sitc==`i'
 			
 			*value_test vérifie s'il y a des observations de flux pour cette année 
 			*	pour ce produit, ce sens et ce pays.
 				
 			gen value_test=value if ///
-				exportsimports=="`ciao'" & pays==`j' & sitc==`i'
+				export_import=="`ciao'" & pays==`j' & sitc==`i'
 				
 			bysort year: egen test_year=total(value_test), missing
 			replace value_test = 0 if value_test==.
@@ -172,7 +172,7 @@ foreach i of num 1/6{
 			
 			*Restreint aux observations d'intérêt
 			replace pred_value=value_pred if sitc==`i' & pays==`j' ///
-				& direction=="total" & exportsimports=="`ciao'"
+				& direction=="total" & export_import=="`ciao'"
 			*drop value2* value_test value3 test*
 			drop value_pred*
 			/*
@@ -184,7 +184,7 @@ foreach i of num 1/6{
 			sort year
 			twoway (connected pred_value year, msize(tiny) legend(label(1 "Predicted"))) ///
 					(connected value_for_obs year, msize(tiny) legend(label(2 "Observed"))) ///
-					if pays==`j' & sitc==`i' & exportsimports=="`ciao'" & direction=="total", title(`ciao') ///
+					if pays==`j' & sitc==`i' & export_import=="`ciao'" & direction=="total", title(`ciao') ///
 					subtitle("`: label (pays) `j'', `: label (sitc) `i''") ///
 					plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 					caption("Values in tons of silver") 
@@ -207,6 +207,6 @@ drop if year>1786
 su pred_value
 replace pred_value=0 if pred_value==r(min)
 
-collapse (sum) pred_value, by(year exportsimports country_grouping sitc18_en)
+collapse (sum) pred_value, by(year export_import partner_grouping sitc18_en)
 
 save "$hamburg/database_dta/sector_estimation", replace

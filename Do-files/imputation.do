@@ -17,7 +17,7 @@ use "/Users/Tirindelli/Google Drive/ETE/Thesis/Données Stata/bdd courante redu
 
 
 if "`direction'" !="France" keep if direction=="`direction'" 
-keep if exportsimports=="`X_ou_I'"
+keep if export_import=="`X_ou_I'"
 drop if year<`year_debut'
 
 * keep if direction=="La Rochelle"

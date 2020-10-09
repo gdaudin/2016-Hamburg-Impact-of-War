@@ -21,14 +21,14 @@ insheet using "$hamburg/2016-Hamburg-Impact-of-War/External Data/WarAndPeace.csv
 
 else insheet using "$hamburggit/External Data/WarAndPeace.csv", case clear
 
-reshape long p_,i(year) j(country_grouping) string
+reshape long p_,i(year) j(partner_grouping) string
 rename p_ war_status
 
-replace country_grouping="Flandre et autres états de l'Empereur" if strmatch(country_grouping,"*Flandre*")==1
-replace country_grouping="Levant et Barbarie" if strmatch(country_grouping,"*Levant*")==1
-replace country_grouping="Outre-mers" if strmatch(country_grouping,"*Outre*")==1
-replace country_grouping="États-Unis d'Amérique" if strmatch(country_grouping,"*ÉtatsUnis*")==1
-drop if country_grouping=="États-Unis d'Amérique" & year <=1777
+replace partner_grouping="Flandre et autres états de l'Empereur" if strmatch(partner_grouping,"*Flandre*")==1
+replace partner_grouping="Levant et Barbarie" if strmatch(partner_grouping,"*Levant*")==1
+replace partner_grouping="Outre-mers" if strmatch(partner_grouping,"*Outre*")==1
+replace partner_grouping="États-Unis d'Amérique" if strmatch(partner_grouping,"*ÉtatsUnis*")==1
+drop if partner_grouping=="États-Unis d'Amérique" & year <=1777
 drop v*
 
 save "$hamburg/database_dta/WarAndPeace.dta",  replace

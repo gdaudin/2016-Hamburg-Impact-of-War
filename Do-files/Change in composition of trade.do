@@ -31,20 +31,20 @@ drop if product_sitc_simplen == "Precious metals"
 
 gen war=.
 
-gen country_grouping_8=""
-replace country_grouping_8="Italy" if country_grouping=="Italie"
-replace country_grouping_8="United Kingdom" if country_grouping=="Angleterre"
-replace country_grouping_8="Spain" if country_grouping=="Espagne"
-replace country_grouping_8="Holland" if country_grouping=="Hollande"
-replace country_grouping_8="Germany" if country_grouping=="Allemagne"
-replace country_grouping_8="Ottoman Empire" if country_grouping=="Levant et Barbarie"
-replace country_grouping_8="Spain" if country_grouping=="Portugal"
-replace country_grouping_8="Germany" if country_grouping=="Suisse"
-replace country_grouping_8="United States" if country_grouping=="États-Unis d'Amérique"
-replace country_grouping_8="Holland" if country_grouping=="Flandre et autres états de l'Empereur" & year < 1792
-replace country_grouping_8="Germany" if country_grouping=="Flandre et autres états de l'Empereur" & year > 1797
-replace country_grouping_8="Baltic, Scandinavia and Russia" if country_grouping=="Nord"
-replace country_grouping_8="Ialie" if country_simplification=="Autriche" & year > 1814
+gen partner_grouping_8=""
+replace partner_grouping_8="Italy" if partner_grouping=="Italie"
+replace partner_grouping_8="United Kingdom" if partner_grouping=="Angleterre"
+replace partner_grouping_8="Spain" if partner_grouping=="Espagne"
+replace partner_grouping_8="Holland" if partner_grouping=="Hollande"
+replace partner_grouping_8="Germany" if partner_grouping=="Allemagne"
+replace partner_grouping_8="Ottoman Empire" if partner_grouping=="Levant et Barbarie"
+replace partner_grouping_8="Spain" if partner_grouping=="Portugal"
+replace partner_grouping_8="Germany" if partner_grouping=="Suisse"
+replace partner_grouping_8="United States" if partner_grouping=="États-Unis d'Amérique"
+replace partner_grouping_8="Holland" if partner_grouping=="Flandre et autres états de l'Empereur" & year < 1792
+replace partner_grouping_8="Germany" if partner_grouping=="Flandre et autres états de l'Empereur" & year > 1797
+replace partner_grouping_8="Baltic, Scandinavia and Russia" if partner_grouping=="Nord"
+replace partner_grouping_8="Ialie" if partner_simplification=="Autriche" & year > 1814
 
 gen sitc_aggr=product_sitc_simplen
 replace sitc_aggr="Other threads and fabrics" if product_sitc_simplen=="Wool threads and fabrics"
@@ -61,7 +61,7 @@ do "$hamburggit/Do-files/To create graphs/Composition of trade graph.do"
 
 ////those commented cannot be run because of too few obs
 
-/// possible values for classification: product_sitc_simplen sitc_aggr country_grouping
+/// possible values for classification: product_sitc_simplen sitc_aggr partner_grouping
 
 composition_trade_test peace war 1 national Exports product_sitc_simplen
 matrix hotelling_test=A
@@ -206,55 +206,55 @@ capture erase temp_for_hotelling.dta
 
 /// by geography 
 
-composition_trade_test peace war 1 national Exports country_grouping_8
+composition_trade_test peace war 1 national Exports partner_grouping_8
 matrix hotelling_test=A
-composition_trade_test peace war 0 national Exports country_grouping_8
+composition_trade_test peace war 0 national Exports partner_grouping_8
 matrix hotelling_test=A+hotelling_test
-composition_trade_test peace war 1 national Imports country_grouping_8
+composition_trade_test peace war 1 national Imports partner_grouping_8
 matrix hotelling_test=A+hotelling_test
-composition_trade_test peace war 0 national Imports country_grouping_8
+composition_trade_test peace war 0 national Imports partner_grouping_8
 matrix hotelling_test=A+hotelling_test
-composition_trade_test peace war 1 national I_X country_grouping_8
+composition_trade_test peace war 1 national I_X partner_grouping_8
 matrix hotelling_test=A+hotelling_test
-composition_trade_test peace war 0 national I_X country_grouping_8
+composition_trade_test peace war 0 national I_X partner_grouping_8
 matrix hotelling_test=A+hotelling_test
 matrix list hotelling_test
 matrix colnames hotelling_test = "Exports_1" "Exports_0" "Imports_1" "Imports_0" "X_I_1" "X_I_0"
-composition_trade_graph peace war national country_grouping_8
+composition_trade_graph peace war national partner_grouping_8
 // it is importand to use the same order when launching the test and the graphs cause I use macro to report pvalues on the graphs
 
 
-composition_trade_test seven peace1764_1777 1 national Exports country_grouping_8
+composition_trade_test seven peace1764_1777 1 national Exports partner_grouping_8
 matrix B=A
-composition_trade_test seven peace1764_1777 0 national Exports country_grouping_8
+composition_trade_test seven peace1764_1777 0 national Exports partner_grouping_8
 matrix B=A+B
-composition_trade_test seven peace1764_1777 1 national Imports country_grouping_8
+composition_trade_test seven peace1764_1777 1 national Imports partner_grouping_8
 matrix B=A+B
-composition_trade_test seven peace1764_1777 0 national Imports country_grouping_8
+composition_trade_test seven peace1764_1777 0 national Imports partner_grouping_8
 matrix B=A+B
-composition_trade_test seven peace1764_1777 1 national I_X country_grouping_8
+composition_trade_test seven peace1764_1777 1 national I_X partner_grouping_8
 matrix B=A+B
-composition_trade_test seven peace1764_1777 0 national I_X country_grouping_8
+composition_trade_test seven peace1764_1777 0 national I_X partner_grouping_8
 matrix B=A+B
 matrix hotelling_test=hotelling_test\B
-composition_trade_graph seven peace1764_1777 national country_grouping_8
+composition_trade_graph seven peace1764_1777 national partner_grouping_8
 
 
 
-composition_trade_test peace1764_1777 indep 1 national Exports country_grouping_8
+composition_trade_test peace1764_1777 indep 1 national Exports partner_grouping_8
 matrix B=A
-composition_trade_test peace1764_1777 indep 0 national Exports country_grouping_8
+composition_trade_test peace1764_1777 indep 0 national Exports partner_grouping_8
 matrix B=A+B
-composition_trade_test peace1764_1777 indep 1 national Imports country_grouping_8
+composition_trade_test peace1764_1777 indep 1 national Imports partner_grouping_8
 matrix B=A+B
-composition_trade_test peace1764_1777 indep 0 national Imports country_grouping_8
+composition_trade_test peace1764_1777 indep 0 national Imports partner_grouping_8
 matrix B=A+B
-composition_trade_test peace1764_1777 indep 1 national I_X country_grouping_8
+composition_trade_test peace1764_1777 indep 1 national I_X partner_grouping_8
 matrix B=A+B
-composition_trade_test peace1764_1777 indep 0 national I_X country_grouping_8
+composition_trade_test peace1764_1777 indep 0 national I_X partner_grouping_8
 matrix B=A+B
 matrix hotelling_test=hotelling_test\B
-composition_trade_graph peace1764_1777 indep national country_grouping_8
+composition_trade_graph peace1764_1777 indep national partner_grouping_8
 
 
 
@@ -274,85 +274,85 @@ matrix B=A+B
 matrix hotelling_test=hotelling_test\B
 */
 
-composition_trade_test rev block 1 national Exports country_grouping_8
+composition_trade_test rev block 1 national Exports partner_grouping_8
 matrix B=A
-composition_trade_test rev block 0 national Exports country_grouping_8
+composition_trade_test rev block 0 national Exports partner_grouping_8
 matrix B=A+B
-composition_trade_test rev block 1 national Imports country_grouping_8
+composition_trade_test rev block 1 national Imports partner_grouping_8
 matrix B=A+B
-composition_trade_test rev block 0 national Imports country_grouping_8
+composition_trade_test rev block 0 national Imports partner_grouping_8
 matrix B=A+B
-composition_trade_test rev block 1 national I_X country_grouping_8
+composition_trade_test rev block 1 national I_X partner_grouping_8
 matrix B=A+B
-composition_trade_test rev block 0 national I_X country_grouping_8
+composition_trade_test rev block 0 national I_X partner_grouping_8
 matrix B=A+B
 matrix hotelling_test=hotelling_test\B
-composition_trade_graph rev block national country_grouping_8
+composition_trade_graph rev block national partner_grouping_8
 
 
 
-composition_trade_test peace1816_1840 block 1 national Exports country_grouping_8
+composition_trade_test peace1816_1840 block 1 national Exports partner_grouping_8
 matrix B=A
-composition_trade_test peace1816_1840 block 0 national Exports country_grouping_8
+composition_trade_test peace1816_1840 block 0 national Exports partner_grouping_8
 matrix B=A+B
-composition_trade_test peace1816_1840 block 1 national Imports country_grouping_8
+composition_trade_test peace1816_1840 block 1 national Imports partner_grouping_8
 matrix B=A+B
-composition_trade_test peace1816_1840 block 0 national Imports country_grouping_8
+composition_trade_test peace1816_1840 block 0 national Imports partner_grouping_8
 matrix B=A+B
-composition_trade_test peace1816_1840 block 1 national I_X country_grouping_8
+composition_trade_test peace1816_1840 block 1 national I_X partner_grouping_8
 matrix B=A+B
-composition_trade_test peace1816_1840 block 0 national I_X country_grouping_8
+composition_trade_test peace1816_1840 block 0 national I_X partner_grouping_8
 matrix B=A+B
 matrix hotelling_test=hotelling_test\B
-composition_trade_graph peace1816_1840 block national country_grouping_8
+composition_trade_graph peace1816_1840 block national partner_grouping_8
 
 
-composition_trade_test peace1749_1755 peace1764_1777 1 national Exports country_grouping_8
+composition_trade_test peace1749_1755 peace1764_1777 1 national Exports partner_grouping_8
 matrix B=A
-composition_trade_test peace1749_1755 peace1764_1777 0 national Exports country_grouping_8
+composition_trade_test peace1749_1755 peace1764_1777 0 national Exports partner_grouping_8
 matrix B=A+B
-composition_trade_test peace1749_1755 peace1764_1777 1 national Imports country_grouping_8
+composition_trade_test peace1749_1755 peace1764_1777 1 national Imports partner_grouping_8
 matrix B=A+B
-composition_trade_test peace1749_1755 peace1764_1777 0 national Imports country_grouping_8
+composition_trade_test peace1749_1755 peace1764_1777 0 national Imports partner_grouping_8
 matrix B=A+B
-composition_trade_test peace1749_1755 peace1764_1777 1 national I_X country_grouping_8
+composition_trade_test peace1749_1755 peace1764_1777 1 national I_X partner_grouping_8
 matrix B=A+B
-composition_trade_test peace1749_1755 peace1764_1777 0 national I_X country_grouping_8
+composition_trade_test peace1749_1755 peace1764_1777 0 national I_X partner_grouping_8
 matrix B=A+B
 matrix hotelling_test=hotelling_test\B
-composition_trade_graph peace1749_1755 peace1764_1777 national country_grouping_8
+composition_trade_graph peace1749_1755 peace1764_1777 national partner_grouping_8
 
 
-composition_trade_test peace1764_1777 peace1784_1792 1 national Exports country_grouping_8
+composition_trade_test peace1764_1777 peace1784_1792 1 national Exports partner_grouping_8
 matrix B=A
-composition_trade_test peace1764_1777 peace1784_1792 0 national Exports country_grouping_8
+composition_trade_test peace1764_1777 peace1784_1792 0 national Exports partner_grouping_8
 matrix B=A+B
-composition_trade_test peace1764_1777 peace1784_1792 1 national Imports country_grouping_8
+composition_trade_test peace1764_1777 peace1784_1792 1 national Imports partner_grouping_8
 matrix B=A+B
-composition_trade_test peace1764_1777 peace1784_1792 0 national Imports country_grouping_8
+composition_trade_test peace1764_1777 peace1784_1792 0 national Imports partner_grouping_8
 matrix B=A+B
-composition_trade_test peace1764_1777 peace1784_1792 1 national I_X country_grouping_8
+composition_trade_test peace1764_1777 peace1784_1792 1 national I_X partner_grouping_8
 matrix B=A+B
-composition_trade_test peace1764_1777 peace1784_1792 0 national I_X country_grouping_8
+composition_trade_test peace1764_1777 peace1784_1792 0 national I_X partner_grouping_8
 matrix B=A+B
 matrix hotelling_test=hotelling_test\B
-composition_trade_graph peace1764_1777 peace1784_1792 national country_grouping_8
+composition_trade_graph peace1764_1777 peace1784_1792 national partner_grouping_8
 
 
-composition_trade_test peace1784_1792 peace1816_1840 1 national Exports country_grouping_8
+composition_trade_test peace1784_1792 peace1816_1840 1 national Exports partner_grouping_8
 matrix B=A
-composition_trade_test peace1784_1792 peace1816_1840 0 national Exports country_grouping_8
+composition_trade_test peace1784_1792 peace1816_1840 0 national Exports partner_grouping_8
 matrix B=A+B
-composition_trade_test peace1784_1792 peace1816_1840 1 national Imports country_grouping_8
+composition_trade_test peace1784_1792 peace1816_1840 1 national Imports partner_grouping_8
 matrix B=A+B
-composition_trade_test peace1784_1792 peace1816_1840 0 national Imports country_grouping_8
+composition_trade_test peace1784_1792 peace1816_1840 0 national Imports partner_grouping_8
 matrix B=A+B
-composition_trade_test peace1784_1792 peace1816_1840 1 national I_X country_grouping_8
+composition_trade_test peace1784_1792 peace1816_1840 1 national I_X partner_grouping_8
 matrix B=A+B
-composition_trade_test peace1784_1792 peace1816_1840 0 national I_X country_grouping_8
+composition_trade_test peace1784_1792 peace1816_1840 0 national I_X partner_grouping_8
 matrix B=A+B
 matrix hotelling_test=hotelling_test\B
-composition_trade_graph peace1784_1792 peace1816_1840 national country_grouping_8
+composition_trade_graph peace1784_1792 peace1816_1840 national partner_grouping_8
 
 
 outtable using "$hamburggit/Paper - Impact of War/Paper/manova_test_pays", ///
