@@ -3,8 +3,8 @@ capture program drop composition_trade_graph
 program composition_trade_graph 
 args period1 period2 direction classification
 
-	save temp.dta, replace 		
-	
+	*save temp.dta, replace 		
+	preserve
 		if "`direction'"=="national"{
 		if "`classification'"=="product_sitc_simplen" keep if national_product_best_guess==1 
 		if "`classification'"=="sitc_aggr" keep if national_product_best_guess==1 
@@ -201,7 +201,8 @@ args period1 period2 direction classification
 	graph export "$hamburggit/Abstracts/`period1'_`period2'_`dir'_distr_`name'.pdf", replace
 	*/
 	
-	use temp.dta, clear
+	*use temp.dta, clear
+	restore
 	
 end
 
