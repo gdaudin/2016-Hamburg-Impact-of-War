@@ -115,15 +115,15 @@ save "$thesis/database_dta/elisa_hb_preappend.dta", replace
 global thesis "/Users/Tirindelli/Google Drive/ETE/Thesis"
 use "$thesis/Données Stata/bdd courante.dta", clear
 
-keep if country_grouping=="Nord"
+keep if partner_grouping=="Nord"
 drop if year<1733
 drop if year>1789
-keep if exportsimports=="Exports"
+keep if export_import=="Exports"
 
 replace value=value*4.505/1000
 
 preserve 
-keep if sourcetype=="Tableau Général"
+keep if source_type=="Tableau Général"
 collapse (sum) value, by(year)
 rename value value_fr
 append using "$thesis/database_dta/elisa_hb_preappend.dta" 
@@ -131,35 +131,35 @@ collapse (sum) value_fr value_hb, by(year)
 save "$thesis/database_dta/elisa_frhb_database_total.dta", replace
 restore
 
-drop if sourcetype=="Colonies" | sourcetype=="Divers" | sourcetype=="Divers - in" ///
-| sourcetype=="National par direction" | sourcetype=="Tableau Général" ///
-| sourcetype=="Tableau des quantités"
+drop if source_type=="Colonies" | source_type=="Divers" | source_type=="Divers - in" ///
+| source_type=="National par direction" | source_type=="Tableau Général" ///
+| source_type=="Tableau des quantités"
 
 foreach i of num 1716/1751{
-drop if sourcetype!="Local" & year==`i'
+drop if source_type!="Local" & year==`i'
 }
-drop if sourcetype!="Objet Général" & year==1752
-drop if sourcetype!="Local" & year==1753
+drop if source_type!="Objet Général" & year==1752
+drop if source_type!="Local" & year==1753
 foreach i of num 1754/1761{
-drop if sourcetype!="Objet Général" & year==`i'
+drop if source_type!="Objet Général" & year==`i'
 }
 foreach i of num 1762/1766{
-drop if sourcetype!="Local" & year==`i'
+drop if source_type!="Local" & year==`i'
 }
 foreach i of num 1767/1780{
-drop if sourcetype!="Objet Général" & year==`i'
+drop if source_type!="Objet Général" & year==`i'
 }
 
 foreach i in 1782 1787 1788{
-drop if sourcetype!="Objet Général" & year==`i'
+drop if source_type!="Objet Général" & year==`i'
 }
 foreach i of num 1789/1821{
-drop if sourcetype!="Résumé" & year==`i'
+drop if source_type!="Résumé" & year==`i'
 }
 
 
-collapse (sum) value, by(year country_grouping ///
-hamburg_classification exportsimports)
+collapse (sum) value, by(year partner_grouping ///
+hamburg_classification export_import)
 
 replace hamburg_classification="Marchandises non classifiées" if hamburg_classification==""
 rename value value_fr

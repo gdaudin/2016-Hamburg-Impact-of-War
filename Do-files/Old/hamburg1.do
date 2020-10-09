@@ -100,19 +100,19 @@ gen ln_value = ln(value)
 
 /*
 twoway (connected value year)
-twoway (connected value year if exportsimports=="Exports") (lfit value year if exportsimports=="Exports")
+twoway (connected value year if export_import=="Exports") (lfit value year if export_import=="Exports")
 
 graph export hamburg_trend.png, as(png) replace
 */
 
 
-eststo p1: reg ln_value year i.all if exportsimports=="Exports"
-eststo p2: reg ln_value year year2 year3 i.all if exportsimports=="Exports"
-eststo p3: reg ln_value year year3 i.all if exportsimports=="Exports"
+eststo p1: reg ln_value year i.all if export_import=="Exports"
+eststo p2: reg ln_value year year2 year3 i.all if export_import=="Exports"
+eststo p3: reg ln_value year year3 i.all if export_import=="Exports"
 
-eststo p4: reg ln_value year i.each if exportsimports=="Exports"
-eststo p5: reg ln_value year year2 year3 i.each if exportsimports=="Exports"
-eststo p6: reg ln_value year year3 i.each if exportsimports=="Exports"
+eststo p4: reg ln_value year i.each if export_import=="Exports"
+eststo p5: reg ln_value year year2 year3 i.each if export_import=="Exports"
+eststo p6: reg ln_value year year3 i.each if export_import=="Exports"
 
 esttab
 
@@ -132,13 +132,13 @@ esttab p1 p3 p4 p6 using "~/Dropbox/Partage ET-GD/Results Hamburg/hamburg1_exp.c
  
 eststo clear
 
-eststo p1: reg ln_value year i.all if exportsimports=="Imports"
-eststo p2: reg ln_value year year2 year3 i.all if exportsimports=="Imports"
-eststo p3: reg ln_value year year3 i.all if exportsimports=="Imports"
+eststo p1: reg ln_value year i.all if export_import=="Imports"
+eststo p2: reg ln_value year year2 year3 i.all if export_import=="Imports"
+eststo p3: reg ln_value year year3 i.all if export_import=="Imports"
 
-eststo p4: reg ln_value year i.each if exportsimports=="Imports"
-eststo p5: reg ln_value year year2 year3 i.each if exportsimports=="Imports"
-eststo p6: reg ln_value year3 i.each if exportsimports=="Imports"
+eststo p4: reg ln_value year i.each if export_import=="Imports"
+eststo p5: reg ln_value year year2 year3 i.each if export_import=="Imports"
+eststo p6: reg ln_value year3 i.each if export_import=="Imports"
 
 esttab
 

@@ -26,7 +26,7 @@ use "$hamburg/database_dta/warships.dta", clear
 
 
 bys war_status year : keep if _n==1
-drop country_grouping warships
+drop partner_grouping warships
 
 reshape wide side_warships, i(year) j(war_status) string
 

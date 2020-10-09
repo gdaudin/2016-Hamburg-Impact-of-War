@@ -8,7 +8,7 @@ use "$thesis/database_dta/allcountry2_sitc", clear
 
 replace sitc18_en="Raw mat fuel oils" if sitc18_en=="Raw mat; fuel; oils"
 
-encode country_grouping, gen(pays)
+encode partner_grouping, gen(pays)
 encode sitc18_en, gen(sitc)
 
 ********************************************************************************
@@ -16,20 +16,20 @@ encode sitc18_en, gen(sitc)
 ********************************************************************************
 
 gen groups=""			/*gen var with three groups of countries*/
-replace groups="Colonies" if country_grouping=="Colonies françaises"
-replace groups="North" if country_grouping=="Nord" | country_grouping=="Hollande" ///
-	| country_grouping=="Angleterre" | country_grouping=="Suisse" ///
-	| country_grouping=="Flandre et autres états de l'Empereur" 
-replace group="South" if country_grouping=="Allemagne et Pologne (par terre)" ///
-	| country_grouping=="Espagne" | country_grouping=="Italie" ///
-	| country_grouping=="Portugal" | country_grouping=="Levant et Barbarie" 
+replace groups="Colonies" if partner_grouping=="Colonies françaises"
+replace groups="North" if partner_grouping=="Nord" | partner_grouping=="Hollande" ///
+	| partner_grouping=="Angleterre" | partner_grouping=="Suisse" ///
+	| partner_grouping=="Flandre et autres états de l'Empereur" 
+replace group="South" if partner_grouping=="Allemagne et Pologne (par terre)" ///
+	| partner_grouping=="Espagne" | partner_grouping=="Italie" ///
+	| partner_grouping=="Portugal" | partner_grouping=="Levant et Barbarie" 
 encode groups, gen(group)
 
 preserve 		/*calculate average share of shares of each sitc per group*/
-collapse (sum) value, by(sitc group exportsimports pays)
-bysort exportsimports pays: egen tot=sum(value)
+collapse (sum) value, by(sitc group export_import pays)
+bysort export_import pays: egen tot=sum(value)
 gen share=value/tot
-egen expimp_group = concat (group exportsimports), punct("")
+egen expimp_group = concat (group export_import), punct("")
 collapse (mean) share, by(expimp_group sitc) /*export it as a csv cause 
 											I didn't find a way to tabulate 
 											it properly*/
@@ -56,8 +56,8 @@ restore
 ***************RE-RUN REGRESSIONS WITH CLUSTERS*********************************
 ********************************************************************************
 
-collapse (sum) value, by(sitc year pays country_grouping exportsimports group)
-replace exportsimports="Exports" if exportsimports=="Exportations"
+collapse (sum) value, by(sitc year pays partner_grouping export_import group)
+replace export_import="Exports" if export_import=="Exportations"
 
 *****gen war dummy
 gen war=0
@@ -90,26 +90,26 @@ gen break=(year>1795 & sitc==3)
 ****wars interacted with sitc and with groups
 eststo export_groupsitc1: poisson value i.pays#i.sitc c.year#i.pays ///
 	c.year#i.sitc 1.war#i.group#i.sitc ///
-	if exportsimports=="Exports", vce(robust) iterate(40)
+	if export_import=="Exports", vce(robust) iterate(40)
 eststo export_groupsitc2: poisson value i.pays#i.sitc c.year#i.pays ///
 	c.year#i.sitc 1.war#i.group#i.sitc i.pays#1.break c.year#1.break ///
-	if exportsimports=="Exports", vce(robust) iterate(40)
+	if export_import=="Exports", vce(robust) iterate(40)
 
 ****wars interacted with groups only
 eststo export_group1: poisson value i.pays#i.sitc c.year#i.pays ///
 	c.year#i.sitc 1.war#i.group ///
-	if exportsimports=="Exports", vce(robust) iterate(40)
+	if export_import=="Exports", vce(robust) iterate(40)
 eststo export_group2: poisson value i.pays#i.sitc c.year#i.pays ///
 	c.year#i.sitc 1.war#i.group i.pays#1.break c.year#1.break if ///
-	exportsimports=="Exports", vce(robust) iterate(40)
+	export_import=="Exports", vce(robust) iterate(40)
 
 ****wars interacted with sitc only
 eststo export_sitc1: poisson value i.pays#i.sitc c.year#i.pays ///
-	c.year#i.sitc 1.war#i.sitc if exportsimports=="Exports", ///
+	c.year#i.sitc 1.war#i.sitc if export_import=="Exports", ///
 	vce(robust) iterate(40)
 eststo export_sitc2: poisson value i.pays#i.sitc c.year#i.pays ///
 	c.year#i.sitc 1.war#i.sitc i.pays#1.break c.year#1.break ///
-	if exportsimports=="Exports", vce(robust) iterate(40)
+	if export_import=="Exports", vce(robust) iterate(40)
 	
 
 esttab export_groupsitc1 export_groupsitc2 export_group1 export_group2 ///
@@ -127,26 +127,26 @@ esttab export_groupsitc1 export_groupsitc2 export_group1 export_group2 ///
 ****wars interacted with sitc and with groups
 eststo import_groupsitc1: poisson value i.pays#i.sitc c.year#i.pays ///
 	c.year#i.sitc 1.war#i.group#i.sitc ///
-	if exportsimports=="Imports", vce(robust) iterate(40)
+	if export_import=="Imports", vce(robust) iterate(40)
 eststo import_groupsitc2: poisson value i.pays#i.sitc c.year#i.pays ///
 	c.year#i.sitc 1.war#i.group#i.sitc i.pays#1.break c.year#1.break ///
-	if exportsimports=="Imports", vce(robust) iterate(40)
+	if export_import=="Imports", vce(robust) iterate(40)
 	
 ****wars interacted with groups only	
 eststo import_group1: poisson value i.pays#i.sitc c.year#i.pays ///
-	c.year#i.sitc 1.war#i.group if exportsimports=="Imports", ///
+	c.year#i.sitc 1.war#i.group if export_import=="Imports", ///
 	vce(robust) iterate(40)
 eststo import_group2: poisson value i.pays#i.sitc c.year#i.pays ///
 	c.year#i.sitc 1.war#i.group i.pays#1.break c.year#1.break ///
-	if exportsimports=="Imports", vce(robust) iterate(40)
+	if export_import=="Imports", vce(robust) iterate(40)
 	
 ****wars interacted with sitc only	
 eststo import_sitc1: poisson value i.pays#i.sitc c.year#i.pays ///
-	c.year#i.sitc 1.war#i.sitc if exportsimports=="Imports", ///
+	c.year#i.sitc 1.war#i.sitc if export_import=="Imports", ///
 	vce(robust) iterate(40)
 eststo import_sitc2: poisson value i.pays#i.sitc c.year#i.pays ///
 	c.year#i.sitc 1.war#i.sitc i.pays#1.break c.year#1.break ///
-	if exportsimports=="Imports", vce(robust) iterate(40)
+	if export_import=="Imports", vce(robust) iterate(40)
 	
 
 esttab import_groupsitc1 import_groupsitc2 import_group1 import_group2 ///

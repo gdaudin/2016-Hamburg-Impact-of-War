@@ -41,7 +41,7 @@ tab grouping_classification
 gen ln_loss = -ln(1-loss)
 gen ln_loss_nomemory = -ln(1-loss_nomemory)
 
-merge m:1 grouping_classification exportsimports using "$hamburg/database_dta/Share of land trade 1792.dta"
+merge m:1 grouping_classification export_import using "$hamburg/database_dta/Share of land trade 1792.dta"
 drop if _merge==2 & grouping_classification!="All" & grouping_classification!="All_ss_outremer"
 drop _merge
 
@@ -116,36 +116,36 @@ if "`freq'"=="Yearly" {
 
 
 
-gen country_exportsimports = grouping_classification+"_"+exportsimports
+gen partner_export_import = grouping_classification+"_"+export_import
 
-foreach var in peacewar country_exportsimports grouping_classification exportsimports war_status {
+foreach var in peacewar partner_export_import grouping_classification export_import war_status {
 
 	encode `var', gen(`var'_num)
 
 }
 
 gen colonies= (grouping_classification=="Outre-mers")
-bys year exportsimports war_status : gen nbr_pays=_N if ///
+bys year export_import war_status : gen nbr_pays=_N if ///
 	grouping_classification!="All" & grouping_classification!="All_ss_outremer"
 
 egen tot_trade = sum(value) if grouping_classification!="All" & ///
-	 grouping_classification!="All_ss_outremer",by(year exportsimports war_status)
+	 grouping_classification!="All_ss_outremer",by(year export_import war_status)
 gen trade_share = value/tot_trade
  
 gen trade_share_x_loss=trade_share*loss
 gen trade_share_x_mean_loss=trade_share*mean_loss
 
 egen weighted_mean_loss =sum(trade_share_x_mean_loss) if grouping_classification!="All" & ///
-	 grouping_classification!="All_ss_outremer", by(year exportsimports war_status nbr_pays)
+	 grouping_classification!="All_ss_outremer", by(year export_import war_status nbr_pays)
 egen average_mean_loss  =mean(mean_loss) if grouping_classification!="All" & ///
-	 grouping_classification!="All_ss_outremer", by(year exportsimports war_status nbr_pays)
+	 grouping_classification!="All_ss_outremer", by(year export_import war_status nbr_pays)
 codebook mean_loss average_mean_loss
 
 
 egen weighted_loss =sum(trade_share_x_loss) if grouping_classification!="All" & ///
-	 grouping_classification!="All_ss_outremer", by(year exportsimports war_status nbr_pays)
+	 grouping_classification!="All_ss_outremer", by(year export_import war_status nbr_pays)
 egen average_loss  =mean(loss) if grouping_classification!="All" & ///
-	 grouping_classification!="All_ss_outremer", by(year exportsimports war_status nbr_pays)
+	 grouping_classification!="All_ss_outremer", by(year export_import war_status nbr_pays)
 	 
 replace neutral_policy=1 if neutral_policy==2	 
 
@@ -168,7 +168,7 @@ reg ln_loss i.war_status_num#peacewar_num if year<=1793  ///
 
 areg ln_loss i.war_status_num#peacewar_num ///
 		`weight' ///
-		, absorb(country_exportsimports_num)
+		, absorb(partner_export_import_num)
 
 */
 		
@@ -184,44 +184,44 @@ prepar_data 1 Yearly
 /*
 reg ln_loss i.neutral_policy i.neutral_policy#c.colonial_power ///
 			i.neutral_policy#c.warships_France_vs_GB ///
-			if country_exportsimports == "All_XI" & peacewar=="peace", nocons robust
+			if partner_export_import == "All_XI" & peacewar=="peace", nocons robust
 			
 reg ln_loss i.neutral_policy i.neutral_policy#c.colonial_power colonial_power ///
 			i.neutral_policy#c.warships_allyandneutral_vs_foe ///
-			warships_allyandneutral_vs_foe if country_exportsimports == "All_XI" ///
+			warships_allyandneutral_vs_foe if partner_export_import == "All_XI" ///
 			& peacewar=="peace", nocons robust 
 			
 			
 reg ln_loss i.neutral_policy i.neutral_policy#c.colonial_power colonial_power ///
 			i.neutral_policy#c.warships_allyandneutral_vs_foe ///
-			warships_allyandneutral_vs_foe if country_exportsimports == "All_XI" ///
+			warships_allyandneutral_vs_foe if partner_export_import == "All_XI" ///
 			& peacewar=="war", nocons robust 
 
 reg ln_loss i.neutral_policy colonial_power ///
 			warships_allyandneutral_vs_foe ///
-			if country_exportsimports == "All_XI" ///
+			if partner_export_import == "All_XI" ///
 			& peacewar=="war", nocons robust			
 */
 
 ****Four variables separated
 reg ln_loss colonial_power i.peacewar_num   c.colonial_power#i.peacewar_num ///
-	if country_exportsimports == "All_XI", robust     cluster(period_str)
+	if partner_export_import == "All_XI", robust     cluster(period_str)
 reg ln_loss warships_allyandneutral_vs_foe i.peacewar_num  ///
 	c.warships_allyandneutral_vs_foe#i.peacewar_num if ///
-	country_exportsimports == "All_XI", robust cluster(period_str)    
+	partner_export_import == "All_XI", robust cluster(period_str)    
 reg ln_loss i.neutral_policy i.peacewar_num i.neutral_policy#i.peacewar_num ///
-	if country_exportsimports == "All_XI", robust  cluster(period_str)  
+	if partner_export_import == "All_XI", robust  cluster(period_str)  
 reg ln_loss Number_of_prizes_Total_All i.peacewar_num  ///
-	if country_exportsimports == "All_XI", robust  cluster(period_str)  
+	if partner_export_import == "All_XI", robust  cluster(period_str)  
 	
 ****Three variables together but peace and war separated	
 eststo reg1: reg ln_loss i.neutral_policy i.neutral_policy#c.colonial_power colonial_power ///
 			i.neutral_policy#c.warships_allyandneutral_vs_foe ///
-			warships_allyandneutral_vs_foe if country_exportsimports == "All_XI" ///
+			warships_allyandneutral_vs_foe if partner_export_import == "All_XI" ///
 			& peacewar=="peace",  nocons robust 			
 eststo reg2: reg ln_loss i.neutral_policy i.neutral_policy#c.colonial_power colonial_power ///
 			i.neutral_policy#c.warships_allyandneutral_vs_foe ///
-			warships_allyandneutral_vs_foe Number_of_prizes_Total_All if country_exportsimports == "All_XI" ///
+			warships_allyandneutral_vs_foe Number_of_prizes_Total_All if partner_export_import == "All_XI" ///
 			& peacewar=="war", nocons robust 
 esttab 	reg1 reg2, drop(0.*) mtitles(Peace War) varlab(1.neutral_policy "Neutral policy" ///
 		1.neutral_policy#c.colonial_power "Neutral#Colonial" colonial_power "Colonial power" ///
@@ -233,26 +233,26 @@ blif
 reg ln_loss i.neutral_policy i.war_status_num war_status_num#i.neutral_policy ///
 	i.neutral_policy#c.colonial_power colonial_power  ///
 	c.warships_allyandneutral_vs_foe#i.neutral_policy warships_allyandneutral_vs_foe ///
-	if peacewar=="peace" & exportsimports == "XI", robust nocons
+	if peacewar=="peace" & export_import == "XI", robust nocons
 	
 reg ln_loss i.neutral_policy i.war_status_num war_status_num#i.neutral_policy ///
 	i.neutral_policy#c.colonial_power colonial_power  ///
 	c.warships_allyandneutral_vs_foe#i.neutral_policy warships_allyandneutral_vs_foe ///
-	if peacewar=="war" & exportsimports == "XI", robust nocons
+	if peacewar=="war" & export_import == "XI", robust nocons
 			
 preserve 
 bys weighted_mean_loss average_mean_loss weighted_loss average_loss year ///
-	exportsimports war_status war nbr_pays : keep if _n==1
+	export_import war_status war nbr_pays : keep if _n==1
 	
 eststo reg1: reg ln_loss i.neutral_policy i.war_status_num i.war_status_num#neutral_policy ///
 			i.neutral_policy#c.colonial_power warships_allyandneutral_vs_foe ///
 			i.neutral_policy#c.warships_allyandneutral_vs_foe colonial_power ///
-			if exportsimports == "XI" & peacewar=="war", nocons robust
+			if export_import == "XI" & peacewar=="war", nocons robust
 			
 eststo reg2: reg ln_loss i.neutral_policy i.war_status_num i.war_status_num#neutral_policy ///
 			i.neutral_policy#c.colonial_power warships_allyandneutral_vs_foe ///
 			i.neutral_policy#c.warships_allyandneutral_vs_foe colonial_power ///
-			if exportsimports == "XI" & peacewar=="peace", nocons robust
+			if export_import == "XI" & peacewar=="peace", nocons robust
 			
 esttab 	reg1 reg2, drop(0.* 1.war_status_num 1.war_status_num#0.neutral_policy) ///
 		mtitles(Peace War) varlab(1.neutral_policy "NeutralP" ///
@@ -271,16 +271,16 @@ use "$hamburggit/Results/temp.dta", clear
 
 
 areg ln_loss i.peacewar_num i.war_status_num i.war_status_num#peacewar_num ///
-		if breakofinterest=="R&N", absorb(country_exportsimports_num)
+		if breakofinterest=="R&N", absorb(partner_export_import_num)
 areg ln_loss i.peacewar_num i.war_status_num i.war_status_num#peacewar_num ///
 		[fweight=nbr_of_years] ///
-		if breakofinterest=="R&N", absorb(country_exportsimports_num)
+		if breakofinterest=="R&N", absorb(partner_export_import_num)
 
 
-reg ln_loss i.peacewar_num#exportsimports_num i.grouping_classification_num#exportsimports_num colonies_loss
+reg ln_loss i.peacewar_num#export_import_num i.grouping_classification_num#export_import_num colonies_loss
 
 
-reg ln_loss i.peacewar_num#exportsimports_num i.grouping_classification_num#exportsimports_num colonies_loss neutral_policy
+reg ln_loss i.peacewar_num#export_import_num i.grouping_classification_num#export_import_num colonies_loss neutral_policy
 
 
 

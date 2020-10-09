@@ -19,12 +19,12 @@ if "`c(username)'" =="Tirindelli" {
 
 
 use "$hamburggit/Results/Yearly loss measure.dta", clear
-drop if country_grouping=="All" | country_grouping=="All_ss_outremer"
+drop if partner_grouping=="All" | partner_grouping=="All_ss_outremer"
 
 
 
-replace war_status="colonies" if country_grouping=="Outre-mers"
-bys year exportsimports war_status : gen nbr_pays=_N
+replace war_status="colonies" if partner_grouping=="Outre-mers"
+bys year export_import war_status : gen nbr_pays=_N
 
 
 
@@ -58,29 +58,29 @@ graph export "$hamburggit/Paper - Impact of War/Paper/Number of protagonists.pdf
 
 
 
-egen tot_trade = sum(value),by(year exportsimports war_status)
+egen tot_trade = sum(value),by(year export_import war_status)
 
 gen trade_share = value/tot_trade
 
 ***Vérification
-egen tot_share = max(trade_share), by(year exportsimports war_status)
+egen tot_share = max(trade_share), by(year export_import war_status)
 codebook tot_share
 ***
  
 gen trade_share_x_loss=trade_share*loss
 gen trade_share_x_mean_loss=trade_share*mean_loss
 
-egen weighted_mean_loss =sum(trade_share_x_mean_loss), by(year exportsimports war_status nbr_pays)
-egen average_mean_loss  =mean(mean_loss), by(year exportsimports war_status nbr_pays)
+egen weighted_mean_loss =sum(trade_share_x_mean_loss), by(year export_import war_status nbr_pays)
+egen average_mean_loss  =mean(mean_loss), by(year export_import war_status nbr_pays)
 codebook mean_loss average_mean_loss
 
 
-egen weighted_loss =sum(trade_share_x_loss), by(year exportsimports war_status nbr_pays)
-egen average_loss  =mean(loss), by(year exportsimports war_status nbr_pays)
+egen weighted_loss =sum(trade_share_x_loss), by(year export_import war_status nbr_pays)
+egen average_loss  =mean(loss), by(year export_import war_status nbr_pays)
 
 
-bys weighted_mean_loss average_mean_loss weighted_loss average_loss year exportsimports war_status war nbr_pays : keep if _n==1
-keep weighted_mean_loss average_mean_loss weighted_loss average_loss year exportsimports war_status war nbr_pays
+bys weighted_mean_loss average_mean_loss weighted_loss average_loss year export_import war_status war nbr_pays : keep if _n==1
+keep weighted_mean_loss average_mean_loss weighted_loss average_loss year export_import war_status war nbr_pays
 
 sort year
 
@@ -92,8 +92,8 @@ foreach year in 1783 1784 1785 1786 1790 1791 1793 1794 1795 1796 {
     set obs `new_obs'
 	replace year=`year' if year==.
 }
-fillin year exportsimports war_status
-drop if exportsimports=="" | war_status==""
+fillin year export_import war_status
+drop if export_import=="" | war_status==""
 replace weighted_mean_loss=. if weighted_mean_loss==0 & war_status=="colonies"
 
 
@@ -111,7 +111,7 @@ foreach loop_war_status in colonies foe ally neutral {
 
 		graph twoway (line average_mean_loss year, cmissing(n) lcolor(blue)) ///
 			(line weighted_mean_loss year, cmissing(n) lcolor(blue%10))  ///
-			if war_status=="`loop_war_status'" & exportsimports=="`loop_importsexports'", ///
+			if war_status=="`loop_war_status'" & export_import=="`loop_importsexports'", ///
 			yline(0, lwidth(medium) lcolor(grey)) ///
 			legend(order (1 2) label(1 "average loss over the period") label(2 "idem, weighted") row(2)) ///
 			title("`title1'`title2'") name("`loop_war_status'_`loop_importsexports'", replace) ///

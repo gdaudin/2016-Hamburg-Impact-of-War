@@ -88,10 +88,10 @@ if "`prod_typo'" == "sitc" local prod_var sitc18_en
 /*
 drop if year<1752
 drop if year==1766 & hamburg_classification=="Sugar"
-drop if country_grouping=="France"
-drop if country_grouping=="Indes"
-drop if country_grouping=="Espagne-Portugal"
-drop if country_grouping=="Nord-Hollande"
+drop if partner_grouping=="France"
+drop if partner_grouping=="Indes"
+drop if partner_grouping=="Espagne-Portugal"
+drop if partner_grouping=="Nord-Hollande"
 */
 
 local obs_num=_N+1
@@ -129,14 +129,14 @@ twoway (connected indexed_1 year) (connected indexed_2 year) ///
 	year<1780 & year>1749, title("Product trend between 1750 and 1780") ///
 	caption("Values indexed at product average") plotregion(fcolor(white)) ///
 	graphregion(fcolor(white)) subtitle("All countries")
-graph export "$hamburggit/tex/allcountry_product_1780.png", replace as(png) 
+graph export "$hamburggit/tex/allpartner_product_1780.png", replace as(png) 
 	
 twoway (connected indexed_1 year) (connected indexed_2 year) ///
 	(connected indexed_3 year) (connected indexed_4 year) if year>1779, ///
 	title("Product trend between 1780 and 1820") plotregion(fcolor(white)) ///
 	graphregion(fcolor(white)) caption("Values indexed at product average") ///
 	subtitle("All countries")
-graph export "$hamburggit/tex/allcountry_product_1820.png", replace as(png) 
+graph export "$hamburggit/tex/allpartner_product_1820.png", replace as(png) 
 
 
 */

@@ -8,14 +8,14 @@ args period1 period2 direction classification
 		if "`direction'"=="national"{
 		if "`classification'"=="product_sitc_simplen" keep if national_product_best_guess==1 
 		if "`classification'"=="sitc_aggr" keep if national_product_best_guess==1 
-		if "`classification'"=="country_grouping_8" keep if national_geography_best_guess==1 
+		if "`classification'"=="partner_grouping_8" keep if national_geography_best_guess==1 
 	}
 	
 	else{
-		gen commerce_local = 1 if sourcetype=="Local" & year!=1750 | ///
-			sourcetype=="National toutes directions tous partenaires" | ////
-			(sourcetype=="National toutes directions partenaires manquants" & year==1788 & country_grouping=="Outre-mers") | ////
-			(sourcetype=="National toutes directions partenaires manquants" & year==1789 & country_grouping=="Pas Outre-mers")
+		gen commerce_local = 1 if source_type=="Local" & year!=1750 | ///
+			source_type=="National toutes directions tous partenaires" | ////
+			(source_type=="National toutes directions partenaires manquants" & year==1788 & partner_grouping=="Outre-mers") | ////
+			(source_type=="National toutes directions partenaires manquants" & year==1789 & partner_grouping=="Pas Outre-mers")
 	
 		keep if commerce_local==1
 		drop commerce_local
@@ -27,7 +27,7 @@ args period1 period2 direction classification
 		if "`direction'"=="bayo" keep if direction=="Bayonne"
 	}
 	
-	collapse (sum) value, by(year war product_sitc_simplen exportsimports period_str)
+	collapse (sum) value, by(year war product_sitc_simplen export_import period_str)
 	
 	if "`period1'"=="peace" | "`period2'"=="peace" {
 		replace war=-1 if period_str!="War 1756-1763" | period_str !="War 1778-1783" | ///
@@ -114,24 +114,24 @@ args period1 period2 direction classification
 			
 		}
 	
-	collapse (sum) value, by(year `classification' war exportsimports)
+	collapse (sum) value, by(year `classification' war export_import)
 		
-	bysort year exportsimports: egen total=sum(value)
+	bysort year export_import: egen total=sum(value)
 	gen percent= value/total
 	
 	bysort year `classification': egen value_XI=sum(value)
-	replace value_XI=. if exportsimports=="Exports"
+	replace value_XI=. if export_import=="Exports"
 	bysort year: egen total_XI=sum(value)
 	gen percent_XI=value_XI/total_XI
 		
 	
-	fillin year exportsimports `classification' 
+	fillin year export_import `classification' 
 	levelsof year, local(year)
 	foreach j of local year{
 			qui su percent if year==`j'
 			replace percent=r(min)/2 if percent==. & year==`j' 
 			qui su percent_XI if year==`j'
-			replace percent_XI=r(min)/2 if percent_XI==. & year==`j' & exportsimports=="Imports"
+			replace percent_XI=r(min)/2 if percent_XI==. & year==`j' & export_import=="Imports"
 	}
 	replace war =war[_n-1] if war[_n]==. & year[_n]==year[_n-1]
 	replace war =war[_n+1] if war[_n]==. & year[_n]==year[_n+1]	
@@ -142,14 +142,14 @@ args period1 period2 direction classification
 	label values war peacewar
 	
 	
-	qui graph 	pie value if exportsimports=="Exports", over(`classification') ///
+	qui graph 	pie value if export_import=="Exports", over(`classification') ///
 			plabel(_all name, size(*0.7) color(white)) legend(off) ///
 			by(war, legend(off) plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			note("Exports")) 
 		
 	graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_composition_X.png", replace
 
-	qui graph 	pie value if exportsimports=="Imports", over(`classification') ///
+	qui graph 	pie value if export_import=="Imports", over(`classification') ///
 			plabel(_all name, size(*0.7) color(white)) ///
 			by(war, legend(off) plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			note("Imports")) 
@@ -160,7 +160,7 @@ args period1 period2 direction classification
 	encode `classification', gen(class_num)
 	egen class_war = group(class_num war), label
 
-	levelsof exportsimports, local(levels)
+	levelsof export_import, local(levels)
 	foreach i of local levels{
 		
 		///these are necessary to call the global macro with the pvalue of the MANOVA to insert in the violin graphs 
@@ -169,11 +169,11 @@ args period1 period2 direction classification
 		if "`direction'"== "national" local dir nat
 		if "`direction'"== "local" local dir loc
 		if "`classification'"== "product_sitc_simplen" local class sitc
-		if "`classification'"== "country_grouping" local class pays
-		if "`classification'"== "country_grouping_8" local class pays7
+		if "`classification'"== "partner_grouping" local class pays
+		if "`classification'"== "partner_grouping_8" local class pays7
 		if "`classification'"== "sitc_aggr" local class aggr
 
-		vioplot ln_percent if exportsimports=="`i'", over(class_war) hor ylabel(,angle(0) labsize(vsmall)) ///
+		vioplot ln_percent if export_import=="`i'", over(class_war) hor ylabel(,angle(0) labsize(vsmall)) ///
 				plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 				note("`i' " "MANOVA without plantation foodstuff: ${`name'0`dir'}" ///
 				"MANOVA with plantation foodstuff: ${`name'1`dir'} " ///

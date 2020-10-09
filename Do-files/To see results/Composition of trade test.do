@@ -7,14 +7,14 @@ args period1 period2 plantation_yesno direction X_I classification
 	if "`direction'"=="national"{
 		if "`classification'"=="product_sitc_simplen" keep if national_product_best_guess==1 
 		if "`classification'"=="sitc_aggr" keep if national_product_best_guess==1 
-		if "`classification'"=="country_grouping_8" keep if national_geography_best_guess==1 
+		if "`classification'"=="partner_grouping_8" keep if national_geography_best_guess==1 
 	}
 	
 	else{
-		gen commerce_local = 1 if sourcetype=="Local" & year!=1750 | ///
-			sourcetype=="National toutes directions tous partenaires" | ////
-			(sourcetype=="National toutes directions partenaires manquants" & year==1788 & country_grouping=="Outre-mers") | ////
-			(sourcetype=="National toutes directions partenaires manquants" & year==1789 & country_grouping=="Pas Outre-mers")
+		gen commerce_local = 1 if source_type=="Local" & year!=1750 | ///
+			source_type=="National toutes directions tous partenaires" | ////
+			(source_type=="National toutes directions partenaires manquants" & year==1788 & partner_grouping=="Outre-mers") | ////
+			(source_type=="National toutes directions partenaires manquants" & year==1789 & partner_grouping=="Pas Outre-mers")
 	
 		keep if commerce_local==1
 		drop commerce_local
@@ -26,12 +26,12 @@ args period1 period2 plantation_yesno direction X_I classification
 		if "`direction'"=="bayo" keep if direction=="Bayonne"
 	}
 	
-	collapse (sum) value, by(year war product_sitc_simplen exportsimports period_str)
+	collapse (sum) value, by(year war product_sitc_simplen export_import period_str)
 	if `plantation_yesno'==0 & "`classification'"=="product_sitc_simplen" drop if product_sitc_simplen=="Plantation foodstuff"
 
 	
 	if "`X_I'"=="Exports" | "`X_I'"=="Imports"{
-		keep if exportsimports=="`X_I'"
+		keep if export_import=="`X_I'"
 		bysort year: egen total=sum(value)
 		gen percent= value/total
 	}
@@ -133,7 +133,7 @@ args period1 period2 plantation_yesno direction X_I classification
 			else mvtest means ln_percent1-ln_percent11, by(war) het
 	}
 		
-	if "`classification'"=="country_grouping_8"{
+	if "`classification'"=="partner_grouping_8"{
 	
 		if "`period1'"=="seven" & "`period2'"=="peace1764_1777" | "`period1'"=="peace1764_1777" & "`period2'"=="seven"{
 			mvtest means ln_percent1-ln_percent7, by(war) het
