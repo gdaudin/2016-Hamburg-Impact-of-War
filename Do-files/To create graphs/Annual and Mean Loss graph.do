@@ -575,6 +575,10 @@ graph export "$hamburggit/Paper - Impact of War/Paper/Mean_loss_function.png", a
 
 erase temp.dta
 
+keep year loss loss_nomemory loss_mean loss_mean_nomemory
+
+save "$hamburg/database_dta/FR_loss.dta"
+
 
 
 

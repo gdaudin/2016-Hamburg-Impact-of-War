@@ -58,6 +58,7 @@ save temp_for_hotelling.dta, replace
 ***************pie chart and violin chart for all war periods***************************
 do "$hamburggit/Do-files/To see results/Composition of trade test.do"
 do "$hamburggit/Do-files/To create graphs/Composition of trade graph.do"
+***********These just to put the programs in memory
 
 ////those commented cannot be run because of too few obs
 
@@ -83,6 +84,37 @@ composition_trade_graph peace war national product_sitc_simplen
 // it is importand to use the same order when launching the test and the graphs cause I use macro to report pvalues on the graphs
 
 
+
+use temp.dta, clear
+keep year export_import product_sitc_simplen percent ln_percent
+rename product_sitc_simplen sitc_simplen
+merge m:1 sitc_simplen using "$hamburg//2016-Hamburg-Impact-of-War/External Data/classification_product_simplEN_simplEN_short.dta"
+keep if _merge==3
+drop _merge
+
+gen id=export_import+ sitc_simplen_short
+replace id=subinstr(id," ","",.)
+drop export_import sitc_simplen sitc_simplen_short
+
+rename percent p
+rename ln_percent ln_p
+
+reshape wide p ln_p, i(year) j(id) string 
+
+
+merge 1:1 year using "$hamburg/database_dta/FR_loss.dta"
+drop if _merge==2
+regress loss p*
+regress loss_nomemory p*
+
+regress loss ln_p*
+regress loss_nomemory ln_p*
+
+
+blif
+// it is importand to use the same order when launching the test and the graphs cause I use macro to report pvalues on the graphs
+
+use temp_for_hotelling.dta, replace
 composition_trade_test seven peace1764_1777 1 national Exports product_sitc_simplen
 **First one that has an issue, I think
 matrix B=A
