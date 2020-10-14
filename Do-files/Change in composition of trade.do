@@ -104,11 +104,17 @@ reshape wide p ln_p, i(year) j(id) string
 
 merge 1:1 year using "$hamburg/database_dta/FR_loss.dta"
 drop if _merge==2
-regress loss p*
-regress loss_nomemory p*
 
 regress loss ln_p*
 regress loss_nomemory ln_p*
+
+
+regress loss_nomemory p*
+regress loss p*
+
+regress loss p*
+outreg2 using reg.xls, excel
+
 
 
 blif
