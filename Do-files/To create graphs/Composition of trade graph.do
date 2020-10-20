@@ -3,7 +3,7 @@ capture program drop composition_trade_graph
 program composition_trade_graph 
 args period1 period2 direction classification
 
-	save temp.dta, replace 		
+		
 	*preserve
 		if "`direction'"=="national"{
 		if "`classification'"=="product_sitc_simplen" keep if national_product_best_guess==1 
@@ -173,14 +173,21 @@ args period1 period2 direction classification
 		if "`classification'"== "partner_grouping_8" local class pays7
 		if "`classification'"== "sitc_aggr" local class aggr
 
-		save temp.dta, replace
-		vioplot ln_percent if export_import=="`i'", over(class_war) hor ylabel(,angle(0) labsize(vsmall)) ///
+				
+		capture gen ln_percent_war = ln_percent if war==1
+		label var ln_percent_war "War"
+		
+		capture gen ln_percent_peace = ln_percent if war==-1
+		label var ln_percent_peace "Peace"
+		
+		vioplot ln_percent_war ln_percent_peace   if export_import=="`i'",over(class_num)  hor ylabel(,angle(0) labsize(vsmall)) ///
 				plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 				note("`i' " "MANOVA without plantation foodstuff: ${`name'0`dir'}" ///
 				"MANOVA with plantation foodstuff: ${`name'1`dir'} " ///
 				, size(vsmall)) ///
-				xtitle("Log Percentage share of trade flows")
-				///title(`title')
+				xtitle("Log Percentage share of trade flows") scheme(s1color)
+				///title(`title')		
+				
 		
 		graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_`dir'_distr_`name'`class'.png", replace
 	}
@@ -188,11 +195,18 @@ args period1 period2 direction classification
 	if "`direction'"== "national" local dir nat
 	else local dir loc
 	local name XI
-	vioplot ln_percent_XI if ln_percent>-8, over(class_war) hor ylabel(,angle(0) labsize(vsmall)) ///
+	
+	capture gen ln_percent_XI_war = ln_percent_XI if war==1
+	label var ln_percent_XI_war "War"
+		
+	capture gen ln_percent_XI_peace = ln_percent_XI if war==-1
+	label var ln_percent_XI_peace "Peace"
+	
+	vioplot ln_percent_XI_peace ln_percent_XI_war if ln_percent>-8, over(class_num) hor ylabel(,angle(0) labsize(vsmall)) ///
 			plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			note("Exports and Imports" "MANOVA without plantation foodstuff: ${`name'0`dir'}" ///
 			"MANOVA with plantation foodstuff: ${`name'1`dir'} " ///
-			, size(vsmall)) ///
+			, size(vsmall))  ///
 			xtitle("Log Percentage share of trade flows")
 				///title(`title')
 	graph export "$hamburggit/Paper - Impact of War/Paper/`period1'_`period2'_`direction'_distr_`name'`class'.png", replace
@@ -203,6 +217,7 @@ args period1 period2 direction classification
 	*/
 	
 	*use temp.dta, clear
+	save temp.dta, replace 	
 	
 end
 
