@@ -3,8 +3,8 @@ capture program drop composition_trade_graph
 program composition_trade_graph 
 args period1 period2 direction classification
 
-	*save temp.dta, replace 		
-	preserve
+	save temp.dta, replace 		
+	*preserve
 		if "`direction'"=="national"{
 		if "`classification'"=="product_sitc_simplen" keep if national_product_best_guess==1 
 		if "`classification'"=="sitc_aggr" keep if national_product_best_guess==1 
@@ -173,6 +173,7 @@ args period1 period2 direction classification
 		if "`classification'"== "partner_grouping_8" local class pays7
 		if "`classification'"== "sitc_aggr" local class aggr
 
+		save temp.dta, replace
 		vioplot ln_percent if export_import=="`i'", over(class_war) hor ylabel(,angle(0) labsize(vsmall)) ///
 				plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 				note("`i' " "MANOVA without plantation foodstuff: ${`name'0`dir'}" ///
@@ -202,7 +203,6 @@ args period1 period2 direction classification
 	*/
 	
 	*use temp.dta, clear
-	restore
 	
 end
 
