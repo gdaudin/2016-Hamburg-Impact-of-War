@@ -64,24 +64,64 @@ do "$hamburggit/Do-files/To create graphs/Composition of trade graph.do"
 
 /// possible values for classification: product_sitc_simplen sitc_aggr partner_grouping
 
-composition_trade_test peace war 1 national Exports product_sitc_simplen
-matrix hotelling_test=A
-composition_trade_test peace war 0 national Exports product_sitc_simplen
-matrix hotelling_test=A+hotelling_test
-composition_trade_test peace war 1 national Imports product_sitc_simplen
-matrix hotelling_test=A+hotelling_test
-composition_trade_test peace war 0 national Imports product_sitc_simplen
-matrix hotelling_test=A+hotelling_test
-composition_trade_test peace war 1 national I_X product_sitc_simplen
-matrix hotelling_test=A+hotelling_test
-composition_trade_test peace war 0 national I_X product_sitc_simplen
-matrix hotelling_test=A+hotelling_test
-matrix list hotelling_test
-matrix colnames hotelling_test = "Exports_1" "Exports_0" "Imports_1" "Imports_0" "X_I_1" "X_I_0"
+capture program drop test_graph_launcher
+program test_graph_launcher 
+args launcher_period1 launcher_period2 launcher_class
+
+	composition_trade_test launcher_period1 launcher_period1 1 national Exports launcher_class
+	matrix hotelling_test=A
+	composition_trade_test launcher_period1 launcher_period2 0 national Exports launcher_class
+	matrix hotelling_test=A+hotelling_test
+	composition_trade_test launcher_period1 launcher_period2 1 national Imports launcher_class
+	matrix hotelling_test=A+hotelling_test
+	composition_trade_test launcher_period1 launcher_period2 0 national Imports launcher_class
+	matrix hotelling_test=A+hotelling_test
+	composition_trade_test launcher_period1 launcher_period2 1 national I_X launcher_class
+	matrix hotelling_test=A+hotelling_test
+	composition_trade_test launcher_period1 launcher_period2 0 national I_X launcher_class
+	matrix hotelling_test=A+hotelling_test
+	matrix list hotelling_test
+	matrix colnames hotelling_test = "Exports_1" "Exports_0" "Imports_1" "Imports_0" "X_I_1" "X_I_0"
+
+	use temp_for_hotelling.dta, replace
+	composition_trade_graph launcher_period1 launcher_period2 national launcher_class
+// it is importand to use the same order when launching the test and the graphs cause I use macro to report pvalues on the graphs
+
+end
+
+
+
+test_graph_launcher peace war product_sitc_simplen
 
 use temp_for_hotelling.dta, replace
-composition_trade_graph peace war national product_sitc_simplen
-// it is importand to use the same order when launching the test and the graphs cause I use macro to report pvalues on the graphs
+test_graph_launcher seven peace1764_1777
+
+use temp_for_hotelling.dta, replace
+test_graph_launcher peace1764_1777 indep product_sitc_simplen
+
+/*
+use temp_for_hotelling.dta, replace
+test_graph_launcher indep peace1784_1792
+*/
+
+use temp_for_hotelling.dta, replace
+test_graph_launcher rev block product_sitc_simplen
+
+use temp_for_hotelling.dta, replace
+test_graph_launcher peace1816_1840 block product_sitc_simplen
+
+use temp_for_hotelling.dta, replace
+test_graph_launcher peace1749_1755 peace1764_1777 product_sitc_simplen
+
+use temp_for_hotelling.dta, replace
+test_graph_launcher peace1764_1777 peace1784_1792 product_sitc_simplen
+
+outtable using "$hamburggit/Paper - Impact of War/Paper/manova_test_sitc", ///
+				mat(hotelling_test) clabel(tab:manova_test_sitc) ///
+				caption("Multivariate Analisys of Variance - by SITC") replace 
+
+capture erase temp.dat
+capture erase temp_for_hotelling.dta
 
 
 
@@ -118,294 +158,38 @@ outreg2 using reg.xls, excel
 
 
 blif
-// it is importand to use the same order when launching the test and the graphs cause I use macro to report pvalues on the graphs
 
-use temp_for_hotelling.dta, replace
-composition_trade_test seven peace1764_1777 1 national Exports product_sitc_simplen
-**First one that has an issue, I think
-matrix B=A
-composition_trade_test seven peace1764_1777 0 national Exports product_sitc_simplen
-matrix B=A+B
-composition_trade_test seven peace1764_1777 1 national Imports product_sitc_simplen
-matrix B=A+B
-composition_trade_test seven peace1764_1777 0 national Imports product_sitc_simplen
-matrix B=A+B
-composition_trade_test seven peace1764_1777 1 national I_X product_sitc_simplen
-matrix B=A+B
-composition_trade_test seven peace1764_1777 0 national I_X product_sitc_simplen
-matrix B=A+B
-matrix hotelling_test=hotelling_test\B
-
-use temp_for_hotelling.dta, replace
-composition_trade_graph seven peace1764_1777 national product_sitc_simplen
-
-
-
-composition_trade_test peace1764_1777 indep 1 national Exports product_sitc_simplen
-matrix B=A
-composition_trade_test peace1764_1777 indep 0 national Exports product_sitc_simplen
-matrix B=A+B
-composition_trade_test peace1764_1777 indep 1 national Imports product_sitc_simplen
-matrix B=A+B
-composition_trade_test peace1764_1777 indep 0 national Imports product_sitc_simplen
-matrix B=A+B
-composition_trade_test peace1764_1777 indep 1 national I_X product_sitc_simplen
-matrix B=A+B
-composition_trade_test peace1764_1777 indep 0 national I_X product_sitc_simplen
-matrix B=A+B
-matrix hotelling_test=hotelling_test\B
-
-use temp_for_hotelling.dta, replace
-composition_trade_graph peace1764_1777 indep national product_sitc_simplen
-
-
-
-/*
-composition_trade_test indep peace1784_1792 1 national Exports
-matrix B=A
-composition_trade_test indep peace1784_1792 0 national Exports
-matrix B=A+B
-composition_trade_test indep peace1784_1792 1 national Imports
-matrix B=A+B
-composition_trade_test indep peace1784_1792 0 national Imports
-matrix B=A+B
-composition_trade_test indep peace1784_1792 1 national I_X
-matrix B=A+B
-composition_trade_test indep peace1784_1792 0 national I_X
-matrix B=A+B
-matrix hotelling_test=hotelling_test\B
-*/
-
-composition_trade_test rev block 1 national Exports product_sitc_simplen
-matrix B=A
-composition_trade_test rev block 0 national Exports product_sitc_simplen
-matrix B=A+B
-composition_trade_test rev block 1 national Imports product_sitc_simplen
-matrix B=A+B
-composition_trade_test rev block 0 national Imports product_sitc_simplen
-matrix B=A+B
-composition_trade_test rev block 1 national I_X product_sitc_simplen
-matrix B=A+B
-composition_trade_test rev block 0 national I_X product_sitc_simplen
-matrix B=A+B
-matrix hotelling_test=hotelling_test\B
-
-use temp_for_hotelling.dta, replace
-composition_trade_graph rev block national product_sitc_simplen
-
-
-
-composition_trade_test peace1816_1840 block 1 national Exports product_sitc_simplen
-matrix B=A
-composition_trade_test peace1816_1840 block 0 national Exports product_sitc_simplen
-matrix B=A+B
-composition_trade_test peace1816_1840 block 1 national Imports product_sitc_simplen
-matrix B=A+B
-composition_trade_test peace1816_1840 block 0 national Imports product_sitc_simplen
-matrix B=A+B
-composition_trade_test peace1816_1840 block 1 national I_X product_sitc_simplen
-matrix B=A+B
-composition_trade_test peace1816_1840 block 0 national I_X product_sitc_simplen
-matrix B=A+B
-matrix hotelling_test=hotelling_test\B
-
-use temp_for_hotelling.dta, replace
-composition_trade_graph peace1816_1840 block national product_sitc_simplen
-
-
-composition_trade_test peace1749_1755 peace1764_1777 1 national Exports product_sitc_simplen
-matrix B=A
-composition_trade_test peace1749_1755 peace1764_1777 0 national Exports product_sitc_simplen
-matrix B=A+B
-composition_trade_test peace1749_1755 peace1764_1777 1 national Imports product_sitc_simplen
-matrix B=A+B
-composition_trade_test peace1749_1755 peace1764_1777 0 national Imports product_sitc_simplen
-matrix B=A+B
-composition_trade_test peace1749_1755 peace1764_1777 1 national I_X product_sitc_simplen
-matrix B=A+B
-composition_trade_test peace1749_1755 peace1764_1777 0 national I_X product_sitc_simplen
-matrix B=A+B
-matrix hotelling_test=hotelling_test\B
-
-use temp_for_hotelling.dta, replace
-composition_trade_graph peace1749_1755 peace1764_1777 national product_sitc_simplen
-
-
-composition_trade_test peace1764_1777 peace1784_1792 1 national Exports product_sitc_simplen
-matrix B=A
-composition_trade_test peace1764_1777 peace1784_1792 0 national Exports product_sitc_simplen
-matrix B=A+B
-composition_trade_test peace1764_1777 peace1784_1792 1 national Imports product_sitc_simplen
-matrix B=A+B
-composition_trade_test peace1764_1777 peace1784_1792 0 national Imports product_sitc_simplen
-matrix B=A+B
-composition_trade_test peace1764_1777 peace1784_1792 1 national I_X product_sitc_simplen
-matrix B=A+B
-composition_trade_test peace1764_1777 peace1784_1792 0 national I_X product_sitc_simplen
-matrix B=A+B
-matrix hotelling_test=hotelling_test\B
-
-use temp_for_hotelling.dta, replace
-composition_trade_graph peace1764_1777 peace1784_1792 national product_sitc_simplen
-
-
-outtable using "$hamburggit/Paper - Impact of War/Paper/manova_test_sitc", ///
-				mat(hotelling_test) clabel(tab:manova_test_sitc) ///
-				caption("Multivariate Analisys of Variance - by SITC") replace 
-
-capture erase temp.dat
-capture erase temp_for_hotelling.dta
 
 /// by geography 
 
-composition_trade_test peace war 1 national Exports partner_grouping_8
-matrix hotelling_test=A
-composition_trade_test peace war 0 national Exports partner_grouping_8
-matrix hotelling_test=A+hotelling_test
-composition_trade_test peace war 1 national Imports partner_grouping_8
-matrix hotelling_test=A+hotelling_test
-composition_trade_test peace war 0 national Imports partner_grouping_8
-matrix hotelling_test=A+hotelling_test
-composition_trade_test peace war 1 national I_X partner_grouping_8
-matrix hotelling_test=A+hotelling_test
-composition_trade_test peace war 0 national I_X partner_grouping_8
-matrix hotelling_test=A+hotelling_test
-matrix list hotelling_test
-matrix colnames hotelling_test = "Exports_1" "Exports_0" "Imports_1" "Imports_0" "X_I_1" "X_I_0"
+use temp_for_hotelling.dta, replace
+test_graph_launcher peace war partner_grouping_8
 
-composition_trade_graph peace war national partner_grouping_8
-// it is importand to use the same order when launching the test and the graphs cause I use macro to report pvalues on the graphs
+use temp_for_hotelling.dta, replace
+test_graph_launcher seven peace1764_1777 partner_grouping_8
 
-
-composition_trade_test seven peace1764_1777 1 national Exports partner_grouping_8
-matrix B=A
-composition_trade_test seven peace1764_1777 0 national Exports partner_grouping_8
-matrix B=A+B
-composition_trade_test seven peace1764_1777 1 national Imports partner_grouping_8
-matrix B=A+B
-composition_trade_test seven peace1764_1777 0 national Imports partner_grouping_8
-matrix B=A+B
-composition_trade_test seven peace1764_1777 1 national I_X partner_grouping_8
-matrix B=A+B
-composition_trade_test seven peace1764_1777 0 national I_X partner_grouping_8
-matrix B=A+B
-matrix hotelling_test=hotelling_test\B
-composition_trade_graph seven peace1764_1777 national partner_grouping_8
-
-
-
-composition_trade_test peace1764_1777 indep 1 national Exports partner_grouping_8
-matrix B=A
-composition_trade_test peace1764_1777 indep 0 national Exports partner_grouping_8
-matrix B=A+B
-composition_trade_test peace1764_1777 indep 1 national Imports partner_grouping_8
-matrix B=A+B
-composition_trade_test peace1764_1777 indep 0 national Imports partner_grouping_8
-matrix B=A+B
-composition_trade_test peace1764_1777 indep 1 national I_X partner_grouping_8
-matrix B=A+B
-composition_trade_test peace1764_1777 indep 0 national I_X partner_grouping_8
-matrix B=A+B
-matrix hotelling_test=hotelling_test\B
-composition_trade_graph peace1764_1777 indep national partner_grouping_8
-
-
+use temp_for_hotelling.dta, replace
+test_graph_launcher peace1764_1777 indep partner_grouping_8
 
 /*
-composition_trade_test indep peace1784_1792 1 national Exports
-matrix B=A
-composition_trade_test indep peace1784_1792 0 national Exports
-matrix B=A+B
-composition_trade_test indep peace1784_1792 1 national Imports
-matrix B=A+B
-composition_trade_test indep peace1784_1792 0 national Imports
-matrix B=A+B
-composition_trade_test indep peace1784_1792 1 national I_X
-matrix B=A+B
-composition_trade_test indep peace1784_1792 0 national I_X
-matrix B=A+B
-matrix hotelling_test=hotelling_test\B
+use temp_for_hotelling.dta, replace
+test_graph_launcher indep peace1784_1792 partner_grouping_8
 */
 
-composition_trade_test rev block 1 national Exports partner_grouping_8
-matrix B=A
-composition_trade_test rev block 0 national Exports partner_grouping_8
-matrix B=A+B
-composition_trade_test rev block 1 national Imports partner_grouping_8
-matrix B=A+B
-composition_trade_test rev block 0 national Imports partner_grouping_8
-matrix B=A+B
-composition_trade_test rev block 1 national I_X partner_grouping_8
-matrix B=A+B
-composition_trade_test rev block 0 national I_X partner_grouping_8
-matrix B=A+B
-matrix hotelling_test=hotelling_test\B
-composition_trade_graph rev block national partner_grouping_8
+use temp_for_hotelling.dta, replace
+test_graph_launcher rev block partner_grouping_8
 
+use temp_for_hotelling.dta, replace
+test_graph_launcher peace1816_1840 block partner_grouping_8
 
+use temp_for_hotelling.dta, replace
+test_graph_launcher peace1749_1755 peace1764_1777 partner_grouping_8
 
-composition_trade_test peace1816_1840 block 1 national Exports partner_grouping_8
-matrix B=A
-composition_trade_test peace1816_1840 block 0 national Exports partner_grouping_8
-matrix B=A+B
-composition_trade_test peace1816_1840 block 1 national Imports partner_grouping_8
-matrix B=A+B
-composition_trade_test peace1816_1840 block 0 national Imports partner_grouping_8
-matrix B=A+B
-composition_trade_test peace1816_1840 block 1 national I_X partner_grouping_8
-matrix B=A+B
-composition_trade_test peace1816_1840 block 0 national I_X partner_grouping_8
-matrix B=A+B
-matrix hotelling_test=hotelling_test\B
-composition_trade_graph peace1816_1840 block national partner_grouping_8
+use temp_for_hotelling.dta, replace
+test_graph_launcher peace1764_1777 peace1784_1792 partner_grouping_8
 
-
-composition_trade_test peace1749_1755 peace1764_1777 1 national Exports partner_grouping_8
-matrix B=A
-composition_trade_test peace1749_1755 peace1764_1777 0 national Exports partner_grouping_8
-matrix B=A+B
-composition_trade_test peace1749_1755 peace1764_1777 1 national Imports partner_grouping_8
-matrix B=A+B
-composition_trade_test peace1749_1755 peace1764_1777 0 national Imports partner_grouping_8
-matrix B=A+B
-composition_trade_test peace1749_1755 peace1764_1777 1 national I_X partner_grouping_8
-matrix B=A+B
-composition_trade_test peace1749_1755 peace1764_1777 0 national I_X partner_grouping_8
-matrix B=A+B
-matrix hotelling_test=hotelling_test\B
-composition_trade_graph peace1749_1755 peace1764_1777 national partner_grouping_8
-
-
-composition_trade_test peace1764_1777 peace1784_1792 1 national Exports partner_grouping_8
-matrix B=A
-composition_trade_test peace1764_1777 peace1784_1792 0 national Exports partner_grouping_8
-matrix B=A+B
-composition_trade_test peace1764_1777 peace1784_1792 1 national Imports partner_grouping_8
-matrix B=A+B
-composition_trade_test peace1764_1777 peace1784_1792 0 national Imports partner_grouping_8
-matrix B=A+B
-composition_trade_test peace1764_1777 peace1784_1792 1 national I_X partner_grouping_8
-matrix B=A+B
-composition_trade_test peace1764_1777 peace1784_1792 0 national I_X partner_grouping_8
-matrix B=A+B
-matrix hotelling_test=hotelling_test\B
-composition_trade_graph peace1764_1777 peace1784_1792 national partner_grouping_8
-
-
-composition_trade_test peace1784_1792 peace1816_1840 1 national Exports partner_grouping_8
-matrix B=A
-composition_trade_test peace1784_1792 peace1816_1840 0 national Exports partner_grouping_8
-matrix B=A+B
-composition_trade_test peace1784_1792 peace1816_1840 1 national Imports partner_grouping_8
-matrix B=A+B
-composition_trade_test peace1784_1792 peace1816_1840 0 national Imports partner_grouping_8
-matrix B=A+B
-composition_trade_test peace1784_1792 peace1816_1840 1 national I_X partner_grouping_8
-matrix B=A+B
-composition_trade_test peace1784_1792 peace1816_1840 0 national I_X partner_grouping_8
-matrix B=A+B
-matrix hotelling_test=hotelling_test\B
-composition_trade_graph peace1784_1792 peace1816_1840 national partner_grouping_8
+use temp_for_hotelling.dta, replace
+test_graph_launcher peace1784_1792 peace1816_1840 partner_grouping_8
 
 
 outtable using "$hamburggit/Paper - Impact of War/Paper/manova_test_pays", ///
@@ -417,136 +201,32 @@ capture erase temp.dat
 
 /// by  product_re_aggregate 
 
-composition_trade_test peace war 1 national Exports sitc_aggr
-matrix hotelling_test=A
-composition_trade_test peace war 0 national Exports sitc_aggr
-matrix hotelling_test=A+hotelling_test
-composition_trade_test peace war 1 national Imports sitc_aggr
-matrix hotelling_test=A+hotelling_test
-composition_trade_test peace war 0 national Imports sitc_aggr
-matrix hotelling_test=A+hotelling_test
-composition_trade_test peace war 1 national I_X sitc_aggr
-matrix hotelling_test=A+hotelling_test
-composition_trade_test peace war 0 national I_X sitc_aggr
-matrix hotelling_test=A+hotelling_test
-matrix list hotelling_test
-matrix colnames hotelling_test = "Exports_1" "Exports_0" "Imports_1" "Imports_0" "X_I_1" "X_I_0"
-composition_trade_graph peace war national sitc_aggr
-// it is importand to use the same order when launching the test and the graphs cause I use macro to report pvalues on the graphs
+use temp_for_hotelling.dta, replace
+test_graph_launcher peace war sitc_aggr
 
+use temp_for_hotelling.dta, replace
+test_graph_launcher seven peace1764_1777 sitc_aggr
 
-composition_trade_test seven peace1764_1777 1 national Exports sitc_aggr
-matrix B=A
-composition_trade_test seven peace1764_1777 0 national Exports sitc_aggr
-matrix B=A+B
-composition_trade_test seven peace1764_1777 1 national Imports sitc_aggr
-matrix B=A+B
-composition_trade_test seven peace1764_1777 0 national Imports sitc_aggr
-matrix B=A+B
-composition_trade_test seven peace1764_1777 1 national I_X sitc_aggr
-matrix B=A+B
-composition_trade_test seven peace1764_1777 0 national I_X sitc_aggr
-matrix B=A+B
-matrix hotelling_test=hotelling_test\B
-composition_trade_graph seven peace1764_1777 national sitc_aggr
+use temp_for_hotelling.dta, replace
+test_graph_launcher peace1764_1777 indep sitc_aggr
 
+use temp_for_hotelling.dta, replace
+test_graph_launcher indep peace1784_1792 sitc_aggr
 
+use temp_for_hotelling.dta, replace
+test_graph_launcher rev block sitc_aggr
 
-composition_trade_test peace1764_1777 indep 1 national Exports sitc_aggr
-matrix B=A
-composition_trade_test peace1764_1777 indep 0 national Exports sitc_aggr
-matrix B=A+B
-composition_trade_test peace1764_1777 indep 1 national Imports sitc_aggr
-matrix B=A+B
-composition_trade_test peace1764_1777 indep 0 national Imports sitc_aggr
-matrix B=A+B
-composition_trade_test peace1764_1777 indep 1 national I_X sitc_aggr
-matrix B=A+B
-composition_trade_test peace1764_1777 indep 0 national I_X sitc_aggr
-matrix B=A+B
-matrix hotelling_test=hotelling_test\B
-composition_trade_graph peace1764_1777 indep national sitc_aggr
+use temp_for_hotelling.dta, replace
+test_graph_launcher peace1816_1840 block sitc_aggr
 
+use temp_for_hotelling.dta, replace
+test_graph_launcher peace1749_1755 peace1764_1777 sitc_aggr
 
-composition_trade_test rev block 1 national Exports sitc_aggr
-matrix B=A
-composition_trade_test rev block 0 national Exports sitc_aggr
-matrix B=A+B
-composition_trade_test rev block 1 national Imports sitc_aggr
-matrix B=A+B
-composition_trade_test rev block 0 national Imports sitc_aggr
-matrix B=A+B
-composition_trade_test rev block 1 national I_X sitc_aggr
-matrix B=A+B
-composition_trade_test rev block 0 national I_X sitc_aggr
-matrix B=A+B
-matrix hotelling_test=hotelling_test\B
-composition_trade_graph rev block national sitc_aggr
+use temp_for_hotelling.dta, replace
+test_graph_launcher peace1764_1777 peace1784_1792 sitc_aggr
 
-
-
-composition_trade_test peace1816_1840 block 1 national Exports sitc_aggr
-matrix B=A
-composition_trade_test peace1816_1840 block 0 national Exports sitc_aggr
-matrix B=A+B
-composition_trade_test peace1816_1840 block 1 national Imports sitc_aggr
-matrix B=A+B
-composition_trade_test peace1816_1840 block 0 national Imports sitc_aggr
-matrix B=A+B
-composition_trade_test peace1816_1840 block 1 national I_X sitc_aggr
-matrix B=A+B
-composition_trade_test peace1816_1840 block 0 national I_X sitc_aggr
-matrix B=A+B
-matrix hotelling_test=hotelling_test\B
-composition_trade_graph peace1816_1840 block national sitc_aggr
-
-
-composition_trade_test peace1749_1755 peace1764_1777 1 national Exports sitc_aggr
-matrix B=A
-composition_trade_test peace1749_1755 peace1764_1777 0 national Exports sitc_aggr
-matrix B=A+B
-composition_trade_test peace1749_1755 peace1764_1777 1 national Imports sitc_aggr
-matrix B=A+B
-composition_trade_test peace1749_1755 peace1764_1777 0 national Imports sitc_aggr
-matrix B=A+B
-composition_trade_test peace1749_1755 peace1764_1777 1 national I_X sitc_aggr
-matrix B=A+B
-composition_trade_test peace1749_1755 peace1764_1777 0 national I_X sitc_aggr
-matrix B=A+B
-matrix hotelling_test=hotelling_test\B
-composition_trade_graph peace1749_1755 peace1764_1777 national sitc_aggr
-
-
-composition_trade_test peace1764_1777 peace1784_1792 1 national Exports sitc_aggr
-matrix B=A
-composition_trade_test peace1764_1777 peace1784_1792 0 national Exports sitc_aggr
-matrix B=A+B
-composition_trade_test peace1764_1777 peace1784_1792 1 national Imports sitc_aggr
-matrix B=A+B
-composition_trade_test peace1764_1777 peace1784_1792 0 national Imports sitc_aggr
-matrix B=A+B
-composition_trade_test peace1764_1777 peace1784_1792 1 national I_X sitc_aggr
-matrix B=A+B
-composition_trade_test peace1764_1777 peace1784_1792 0 national I_X sitc_aggr
-matrix B=A+B
-matrix hotelling_test=hotelling_test\B
-composition_trade_graph peace1764_1777 peace1784_1792 national sitc_aggr
-
-composition_trade_test peace1784_1792 peace1816_1840 1 national Exports sitc_aggr
-matrix B=A
-composition_trade_test peace1784_1792 peace1816_1840 0 national Exports sitc_aggr
-matrix B=A+B
-composition_trade_test peace1784_1792 peace1816_1840 1 national Imports sitc_aggr
-matrix B=A+B
-composition_trade_test peace1784_1792 peace1816_1840 0 national Imports sitc_aggr
-matrix B=A+B
-composition_trade_test peace1784_1792 peace1816_1840 1 national I_X sitc_aggr
-matrix B=A+B
-composition_trade_test peace1784_1792 peace1816_1840 0 national I_X sitc_aggr
-matrix B=A+B
-matrix hotelling_test=hotelling_test\B
-composition_trade_graph peace1784_1792 peace1816_1840 national sitc_aggr
-
+use temp_for_hotelling.dta, replace
+test_graph_launcher peace1784_1792 peace1816_1840 sitc_aggr
 
 outtable using "$hamburggit/Paper - Impact of War/Paper/manova_test_aggr", ///
 				mat(hotelling_test) clabel(tab:manova_test_aggr) ///

@@ -26,7 +26,7 @@ args period1 period2 plantation_yesno direction X_I classification
 		if "`direction'"=="LR" keep if direction=="La Rochelle"	
 		if "`direction'"=="bayo" keep if direction=="Bayonne"
 	}
-	
+	di "before collapse"
 	collapse (sum) value, by(year war product_sitc_simplen export_import period_str)
 	if `plantation_yesno'==0 & "`classification'"=="product_sitc_simplen" drop if product_sitc_simplen=="Plantation foodstuff"
 
