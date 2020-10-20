@@ -36,9 +36,6 @@ for(j in exportsimports){
   }
 }
 
-corr_loss = c()
-corr_loss_nomem = c()
-
 PCA_loss=merge(PCA, loss, by ="year")
 PCA_loss = na.omit(PCA_loss)
 
