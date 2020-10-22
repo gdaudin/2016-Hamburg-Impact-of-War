@@ -64,7 +64,7 @@ args plantation_yesno direction X_I classification exclude1795
 	rename percent p
 	rename ln_percent ln_p
 
- 
+	reshape wide p ln_p, i(year) j(id) string 
 	merge 1:1 year using "$hamburg/database_dta/FR_loss.dta"
 	drop if _merge==2
 	
@@ -83,6 +83,5 @@ args plantation_yesno direction X_I classification exclude1795
 
 end
 
-composition_trade_reg 1 national Exports product_sitc_simplen 0
 
 

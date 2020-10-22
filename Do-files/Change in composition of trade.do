@@ -90,15 +90,15 @@ args launcher_period1 launcher_period2 launcher_class
 end
 
 capture program drop reg_launcher
-program test_graph_launcher 
+program reg_launcher 
 args launcher_class X_I classification
 	if "`classification'"=="product_sitc_simplen" local class sitc
 	if "`X_I'"=="Exports" local name X
 	else if "`X_I'"=="Imports" local name I
 	else local name I_X
-	composition_trade_reg 1 national `X_I' `launcher_class'
-	composition_trade_reg 0 national `X_I' `launcher_class'
-	esttab 	ln_p`name'`class'1 ln_pnm`name'`class'1 ln_p`name'`class'0 ln_pnm`name'`class', ///
+	composition_trade_reg 1 national `X_I' `launcher_class' 0
+	composition_trade_reg 0 national `X_I' `launcher_class' 0
+	esttab 	ln_p`name'`class'1 ln_pnm`name'`class'1 ln_p`name'`class'0 ln_pnm`name'`class'0, ///
 	mtitles("Loss" "Loss no memory" "Loss" "Loss no memory") nonumber 
 	esttab 	p`name'`class'1 pnm`name'`class'1 p`name'`class'0 pnm`name'`class'0, ///
 	mtitles("Loss" "Loss no memory" "Loss" "Loss no memory") nonumber 
@@ -118,9 +118,9 @@ outtable using "$hamburggit/Paper - Impact of War/Paper/manova_test_sitc", ///
 				mat(hotelling_test) clabel(tab:manova_test_sitc) ///
 				caption("Multivariate Analisys of Variance - by SITC") replace 
 
-reg_launcher product_sitc_simplen Exports product_sitc_simplen
-reg_launcher product_sitc_simplen Imports product_sitc_simplen
-reg_launcher product_sitc_simplen X_I product_sitc_simplen
+reg_launcher product_sitc_simplen Exports product_sitc_simplen 
+reg_launcher product_sitc_simplen Imports product_sitc_simplen 
+reg_launcher product_sitc_simplen X_I product_sitc_simplen 
 
 
 
