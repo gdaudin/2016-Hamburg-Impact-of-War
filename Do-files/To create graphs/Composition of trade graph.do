@@ -3,13 +3,10 @@ capture program drop composition_trade_graph
 program composition_trade_graph 
 args period1 period2 direction classification
 
-<<<<<<< HEAD
-	use temp_for_hotelling.dta, replace
-=======
-		
->>>>>>> 680ce2eb95c766fb956519d45469537d48a362cc
-	*preserve
-		if "`direction'"=="national"{
+	use temp_for_hotelling.dta, clear
+	gen war=.
+
+	if "`direction'"=="national"{
 		if "`classification'"=="product_sitc_simplen" keep if national_product_best_guess==1 
 		if "`classification'"=="sitc_aggr" keep if national_product_best_guess==1 
 		if "`classification'"=="partner_grouping_8" keep if national_geography_best_guess==1 
