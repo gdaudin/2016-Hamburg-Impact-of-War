@@ -3,7 +3,7 @@ capture program drop composition_trade_graph
 program composition_trade_graph 
 args period1 period2 direction classification
 
-	save temp.dta, replace 		
+	use temp_for_hotelling.dta, replace
 	*preserve
 		if "`direction'"=="national"{
 		if "`classification'"=="product_sitc_simplen" keep if national_product_best_guess==1 

@@ -29,8 +29,6 @@ replace period_str ="Peace 1816-1840" if year >= 1816
 
 drop if product_sitc_simplen == "Precious metals"
 
-gen war=.
-
 gen partner_grouping_8=""
 replace partner_grouping_8="Italy" if partner_grouping=="Italie"
 replace partner_grouping_8="United Kingdom" if partner_grouping=="Angleterre"
@@ -55,9 +53,12 @@ replace sitc_aggr="Other" if product_sitc_simplen=="Chemical products"
 
 save temp_for_hotelling.dta, replace
 
+gen war=.
+
 ***************pie chart and violin chart for all war periods***************************
 do "$hamburggit/Do-files/To see results/Composition of trade test.do"
 do "$hamburggit/Do-files/To create graphs/Composition of trade graph.do"
+do "$hamburggit/Do-files/To see results/Composition of trade reg.do"
 ***********These just to put the programs in memory
 
 ////those commented cannot be run because of too few obs
@@ -68,96 +69,59 @@ capture program drop test_graph_launcher
 program test_graph_launcher 
 args launcher_period1 launcher_period2 launcher_class
 
-	composition_trade_test launcher_period1 launcher_period1 1 national Exports launcher_class
+	composition_trade_test `launcher_period1' `launcher_period2' 1 national Exports `launcher_class'
 	matrix hotelling_test=A
-	composition_trade_test launcher_period1 launcher_period2 0 national Exports launcher_class
+	composition_trade_test `launcher_period1' `launcher_period2' 0 national Exports `launcher_class'
 	matrix hotelling_test=A+hotelling_test
-	composition_trade_test launcher_period1 launcher_period2 1 national Imports launcher_class
+	composition_trade_test `launcher_period1' `launcher_period2' 1 national Imports `launcher_class'
 	matrix hotelling_test=A+hotelling_test
-	composition_trade_test launcher_period1 launcher_period2 0 national Imports launcher_class
+	composition_trade_test `launcher_period1' `launcher_period2' 0 national Imports `launcher_class'
 	matrix hotelling_test=A+hotelling_test
-	composition_trade_test launcher_period1 launcher_period2 1 national I_X launcher_class
+	composition_trade_test `launcher_period1' `launcher_period2' 1 national I_X `launcher_class'
 	matrix hotelling_test=A+hotelling_test
-	composition_trade_test launcher_period1 launcher_period2 0 national I_X launcher_class
+	composition_trade_test `launcher_period1' `launcher_period2' 0 national I_X `launcher_class'
 	matrix hotelling_test=A+hotelling_test
 	matrix list hotelling_test
 	matrix colnames hotelling_test = "Exports_1" "Exports_0" "Imports_1" "Imports_0" "X_I_1" "X_I_0"
 
-	use temp_for_hotelling.dta, replace
-	composition_trade_graph launcher_period1 launcher_period2 national launcher_class
+	composition_trade_graph `launcher_period1' `launcher_period2' national `launcher_class'
 // it is importand to use the same order when launching the test and the graphs cause I use macro to report pvalues on the graphs
 
 end
 
-
+capture program drop reg_launcher
+program test_graph_launcher 
+args launcher_class X_I classification
+	if "`classification'"=="product_sitc_simplen" local class sitc
+	if "`X_I'"=="Exports" local name X
+	else if "`X_I'"=="Imports" local name I
+	else local name I_X
+	composition_trade_reg 1 national `X_I' `launcher_class'
+	composition_trade_reg 0 national `X_I' `launcher_class'
+	esttab 	ln_p`name'`class'1 ln_pnm`name'`class'1 ln_p`name'`class'0 ln_pnm`name'`class', ///
+	mtitles("Loss" "Loss no memory" "Loss" "Loss no memory") nonumber 
+	esttab 	p`name'`class'1 pnm`name'`class'1 p`name'`class'0 pnm`name'`class'0, ///
+	mtitles("Loss" "Loss no memory" "Loss" "Loss no memory") nonumber 
+end
 
 test_graph_launcher peace war product_sitc_simplen
-
-use temp_for_hotelling.dta, replace
-test_graph_launcher seven peace1764_1777
-
-use temp_for_hotelling.dta, replace
+test_graph_launcher seven peace1764_1777 product_sitc_simplen
 test_graph_launcher peace1764_1777 indep product_sitc_simplen
-
-/*
-use temp_for_hotelling.dta, replace
-test_graph_launcher indep peace1784_1792
-*/
-
-use temp_for_hotelling.dta, replace
+*test_graph_launcher indep peace1784_1792
 test_graph_launcher rev block product_sitc_simplen
-
-use temp_for_hotelling.dta, replace
 test_graph_launcher peace1816_1840 block product_sitc_simplen
-
-use temp_for_hotelling.dta, replace
-test_graph_launcher peace1749_1755 peace1764_1777 product_sitc_simplen
-
-use temp_for_hotelling.dta, replace
+*test_graph_launcher peace1749_1755 peace1764_1777 product_sitc_simplen
 test_graph_launcher peace1764_1777 peace1784_1792 product_sitc_simplen
+
 
 outtable using "$hamburggit/Paper - Impact of War/Paper/manova_test_sitc", ///
 				mat(hotelling_test) clabel(tab:manova_test_sitc) ///
 				caption("Multivariate Analisys of Variance - by SITC") replace 
 
-capture erase temp.dat
-capture erase temp_for_hotelling.dta
+reg_launcher product_sitc_simplen Exports product_sitc_simplen
+reg_launcher product_sitc_simplen Imports product_sitc_simplen
+reg_launcher product_sitc_simplen X_I product_sitc_simplen
 
-
-
-use temp.dta, clear
-keep year export_import product_sitc_simplen percent ln_percent
-rename product_sitc_simplen sitc_simplen
-merge m:1 sitc_simplen using "$hamburg//2016-Hamburg-Impact-of-War/External Data/classification_product_simplEN_simplEN_short.dta"
-keep if _merge==3
-drop _merge
-
-gen id=export_import+ sitc_simplen_short
-replace id=subinstr(id," ","",.)
-drop export_import sitc_simplen sitc_simplen_short
-
-rename percent p
-rename ln_percent ln_p
-
-reshape wide p ln_p, i(year) j(id) string 
-
-
-merge 1:1 year using "$hamburg/database_dta/FR_loss.dta"
-drop if _merge==2
-
-regress loss ln_p*
-regress loss_nomemory ln_p*
-
-
-regress loss_nomemory p*
-regress loss p*
-
-regress loss p*
-outreg2 using reg.xls, excel
-
-
-
-blif
 
 
 /// by geography 

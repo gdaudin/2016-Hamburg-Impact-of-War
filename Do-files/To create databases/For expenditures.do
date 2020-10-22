@@ -10,7 +10,7 @@ else if "`c(username)'" =="tirindee" {
 }
 
 
-else if "`c(username)'" =="Tirindelli" {
+if "`c(username)'" =="Tirindelli" {
 	global hamburg "/Users/Tirindelli/Google Drive/Hamburg"
 	global hamburggit "/Users/Tirindelli/Google Drive/Hamburg/Paper"
 }
