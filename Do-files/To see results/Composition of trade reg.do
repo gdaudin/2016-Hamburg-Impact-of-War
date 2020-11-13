@@ -6,7 +6,7 @@ args plantation_yesno direction X_I classification exclude1795
 	use temp_for_hotelling.dta, clear
 
 	if "`direction'"=="national"{
-		if "`classification'"=="product_sitc_simplen" keep if national_product_best_guess==1 
+		if "`classification'"=="product_sitc_simplEN" keep if national_product_best_guess==1 
 		if "`classification'"=="sitc_aggr" keep if national_product_best_guess==1 
 		if "`classification'"=="partner_grouping_8" keep if national_geography_best_guess==1 
 	}
@@ -26,8 +26,8 @@ args plantation_yesno direction X_I classification exclude1795
 		if "`direction'"=="LR" keep if direction=="La Rochelle"	
 		if "`direction'"=="bayo" keep if direction=="Bayonne"
 	}
-	collapse (sum) value, by(year product_sitc_simplen export_import period_str)
-	if `plantation_yesno'==0 & "`classification'"=="product_sitc_simplen" drop if product_sitc_simplen=="Plantation foodstuff"
+	collapse (sum) value, by(year product_sitc_simplEN export_import period_str)
+	if `plantation_yesno'==0 & "`classification'"=="product_sitc_simplEN" drop if product_sitc_simplEN=="Plantation foodstuff"
 	if `exclude1795'==1 drop if year < 1795 & year > 1815
 
 	if "`X_I'"=="Exports" | "`X_I'"=="Imports"{
@@ -41,20 +41,20 @@ args plantation_yesno direction X_I classification exclude1795
 		gen percent= value/total
 	}
 		
-	if `plantation_yesno'==0 & "`classification'"!="product_sitc_simplen" drop if product_sitc_simplen=="Plantation foodstuff"
+	if `plantation_yesno'==0 & "`classification'"!="product_sitc_simplEN" drop if product_sitc_simplEN=="Plantation foodstuff"
 			
 	gen ln_percent=ln(percent)
-	if "`classification'" == "product_sitc_simplen" drop if product_sitc_simplen == "Other"
+	if "`classification'" == "product_sitc_simplEN" drop if product_sitc_simplEN == "Other"
 	
 	keep year export_import `classification' percent ln_percent
 	
-	if "`classification'" == "product_sitc_simplen"{
-		rename product_sitc_simplen sitc_simplen
+	if "`classification'" == "product_sitc_simplEN"{
+		rename product_sitc_simplEN sitc_simplen
 		merge m:1 sitc_simplen using "$hamburggit/External Data/classification_product_simplEN_simplEN_short.dta"
 		keep if _merge==3
 		drop _merge
 		drop sitc_simplen
-		rename sitc_simplen_short product_sitc_simplen 
+		rename sitc_simplen_short product_sitc_simplEN 
 	}
 		
 	gen id=export_import+ `classification'
@@ -72,7 +72,7 @@ args plantation_yesno direction X_I classification exclude1795
 	else if "`X_I'"=="Imports" local name I
 	else local name I_X
 	
-	if "`classification'" == "product_sitc_simplen" local class sitc
+	if "`classification'" == "product_sitc_simplEN" local class sitc
 	else if "`classification'" == "partner_grouping_8" local class pays8
 	
 	eststo ln_p`name'`class'`plantation_yesno': regress loss ln_p*

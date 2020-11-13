@@ -2,7 +2,7 @@
 if "`c(username)'"=="guillaumedaudin" ///
 		global hamburg "~/Documents/Recherche/2016 Hambourg et Guerre"
 		global hamburggit "~/Documents/Recherche/2016 Hambourg et Guerre/2016-Hamburg-Impact-of-War"
-		global toflit18_data_git "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/toflit18_data_git"
+		global toflit18 "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France"
 
 if "`c(username)'" =="Tirindelli" {
 	global hamburg "/Users/Tirindelli/Google Drive/Hamburg"
@@ -12,18 +12,18 @@ if "`c(username)'" =="Tirindelli" {
 
 if "`c(username)'" =="tirindee" {
 	global hamburg "C:\Users\tirindee\Google Drive\ETE\Thesis"
-	global toflit18_data_git "$hamburg/toflit18_data_GIT"
+	global toflit18 "$hamburg/toflit18_data_GIT"
 	global hamburggit "C:\Users\TIRINDEE\Google Drive\ETE/Thesis/Data/do_files/Hamburg"
 }
 		
-import delimited "$toflit18_data_git/base/bdd courante.csv", ///
-	   encoding(UTF-8) clear varname(1) stringcols(_all)		
+use "$toflit18/Données Stata/bdd courante.dta", clear	
 
 * Keep only necessary variables
 
 keep year export_import product_simplification value source_type tax_department ///
-	 product_sitc_en product_sitc_simplen partner_grouping partner_simplification product_re_aggregate
-
+	 product_sitc_EN product_sitc_simplEN partner_grouping partner_simplification product_RE_aggregate ///
+	 best_guess*
+	 
 	 
 destring value, replace
 destring year, replace
@@ -36,7 +36,7 @@ drop if partner_grouping=="????" | partner_grouping=="Divers" | partner_grouping
 		partner_grouping=="Inconnu" | partner_grouping=="Monde"
 		
 		
-		
+/*		
 capture drop national_product_best_guess
 gen national_product_best_guess = 0		
 replace national_product_best_guess = 1 if (source_type=="Objet Général" & year<=1786) | ///
@@ -48,7 +48,7 @@ replace national_product_best_guess=1 if year_CN == 1 & source_type=="Compagnie 
 capture drop national_geography_best_guess
 gen national_geography_best_guess = 0
 replace national_geography_best_guess = 1 if source_type=="Tableau Général" | source_type=="Résumé"
-		
+*/		
 		
 save "$hamburg/database_dta/bdd courante reduite2.dta", replace 
 

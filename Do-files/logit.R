@@ -1,9 +1,9 @@
 library(MASS)
 
 reduite=read.csv("/Users/Tirindelli/Google Drive/Hamburg/database_dta/bdd_courante_reduite2.csv")
-reduite1 = reduite %>% group_by(exportsimports, year, product_sitc_simplen) %>% summarise(value=sum(value, na.rm = TRUE))
+reduite1 = reduite %>% group_by(exportsimports, year, product_sitc_simplEN) %>% summarise(value=sum(value, na.rm = TRUE))
 reduite1 = reduite1[reduite1$year>1748,]
-reduite1 = reduite1[reduite1$product_sitc_simplen !="",]
+reduite1 = reduite1[reduite1$product_sitc_simplEN !="",]
 reduite1 = reduite1 %>% group_by(exportsimports, year) %>% mutate(percent=value/sum(value))
 
 peace_war=c(1748,1755,1763,1777,1783,1792,1807,1815,1840)
@@ -21,11 +21,11 @@ success_rate=c()
 for(j in exportsimports){
   
   if(j != "X_I"){
-    reduiteE=cast(reduite1[reduite1$exportsimports==j,c(1:3,5)], year~product_sitc_simplen, mean, value = "percent")
+    reduiteE=cast(reduite1[reduite1$exportsimports==j,c(1:3,5)], year~product_sitc_simplEN, mean, value = "percent")
   }else{
-    temp = reduite1 %>% group_by(year, product_sitc_simplen) %>% summarise(value=sum(value, na.rm = TRUE))
+    temp = reduite1 %>% group_by(year, product_sitc_simplEN) %>% summarise(value=sum(value, na.rm = TRUE))
     temp = temp %>% group_by(year) %>% mutate(percent=value/sum(value, na.rm = TRUE))
-    reduiteE=cast(temp[c(1:2,which( colnames(temp)=="percent" ))], year~product_sitc_simplen, mean, value = "percent")
+    reduiteE=cast(temp[c(1:2,which( colnames(temp)=="percent" ))], year~product_sitc_simplEN, mean, value = "percent")
   }
   reduiteE[is.na(reduiteE)] =0
   

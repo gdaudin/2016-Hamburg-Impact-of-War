@@ -7,7 +7,7 @@ args period1 period2 direction classification
 	gen war=.
 
 	if "`direction'"=="national"{
-		if "`classification'"=="product_sitc_simplen" keep if national_product_best_guess==1 
+		if "`classification'"=="product_sitc_simplEN" keep if national_product_best_guess==1 
 		if "`classification'"=="sitc_aggr" keep if national_product_best_guess==1 
 		if "`classification'"=="partner_grouping_8" keep if national_geography_best_guess==1 
 	}
@@ -28,7 +28,7 @@ args period1 period2 direction classification
 		if "`direction'"=="bayo" keep if direction=="Bayonne"
 	}
 	
-	collapse (sum) value, by(year war product_sitc_simplen export_import period_str)
+	collapse (sum) value, by(year war product_sitc_simplEN export_import period_str)
 	
 	if "`period1'"=="peace" | "`period2'"=="peace" {
 		replace war=-1 if period_str!="War 1756-1763" | period_str !="War 1778-1783" | ///
@@ -169,7 +169,7 @@ args period1 period2 direction classification
 		if "`i'"=="Imports" local name I
 		if "`direction'"== "national" local dir nat
 		if "`direction'"== "local" local dir loc
-		if "`classification'"== "product_sitc_simplen" local class sitc
+		if "`classification'"== "product_sitc_simplEN" local class sitc
 		if "`classification'"== "partner_grouping" local class pays
 		if "`classification'"== "partner_grouping_8" local class pays7
 		if "`classification'"== "sitc_aggr" local class aggr

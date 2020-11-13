@@ -27,7 +27,7 @@ replace period_str ="War 1793-1807" if year   >= 1793 & year <=1807
 replace period_str ="Blockade 1808-1815" if year   >= 1808 & year <=1815
 replace period_str ="Peace 1816-1840" if year >= 1816
 
-drop if product_sitc_simplen == "Precious metals"
+drop if product_sitc_simplEN == "Precious metals"
 
 gen partner_grouping_8=""
 replace partner_grouping_8="Italy" if partner_grouping=="Italie"
@@ -44,12 +44,12 @@ replace partner_grouping_8="Germany" if partner_grouping=="Flandre et autres ét
 replace partner_grouping_8="Baltic, Scandinavia and Russia" if partner_grouping=="Nord"
 replace partner_grouping_8="Ialie" if partner_simplification=="Autriche" & year > 1814
 
-gen sitc_aggr=product_sitc_simplen
-replace sitc_aggr="Other threads and fabrics" if product_sitc_simplen=="Wool threads and fabrics"
-replace sitc_aggr="Other industrial products" if product_sitc_simplen=="Leather, wood and paper products"
-replace sitc_aggr="Other foodstuff and live animals" if product_sitc_simplen=="Oils"
-replace sitc_aggr="Other foodstuff and live animals" if product_sitc_simplen=="Drinks and tobacco"
-replace sitc_aggr="Other" if product_sitc_simplen=="Chemical products"
+gen sitc_aggr=product_sitc_simplEN
+replace sitc_aggr="Other threads and fabrics" if product_sitc_simplEN=="Wool threads and fabrics"
+replace sitc_aggr="Other industrial products" if product_sitc_simplEN=="Leather, wood and paper products"
+replace sitc_aggr="Other foodstuff and live animals" if product_sitc_simplEN=="Oils"
+replace sitc_aggr="Other foodstuff and live animals" if product_sitc_simplEN=="Drinks and tobacco"
+replace sitc_aggr="Other" if product_sitc_simplEN=="Chemical products"
 
 save temp_for_hotelling.dta, replace
 
@@ -62,7 +62,7 @@ do "$hamburggit/Do-files/To see results/Composition of trade reg.do"
 
 ////those commented cannot be run because of too few obs
 
-/// possible values for classification: product_sitc_simplen sitc_aggr partner_grouping
+/// possible values for classification: product_sitc_simplEN sitc_aggr partner_grouping
 
 capture program drop test_graph_launcher
 program test_graph_launcher 
@@ -91,7 +91,7 @@ end
 capture program drop reg_launcher
 program reg_launcher 
 args launcher_class X_I classification
-	if "`classification'"=="product_sitc_simplen" local class sitc
+	if "`classification'"=="product_sitc_simplEN" local class sitc
 	if "`X_I'"=="Exports" local name X
 	else if "`X_I'"=="Imports" local name I
 	else local name I_X
@@ -103,23 +103,23 @@ args launcher_class X_I classification
 	mtitles("Loss" "Loss no memory" "Loss" "Loss no memory") nonumber 
 end
 
-test_graph_launcher peace war product_sitc_simplen
-test_graph_launcher seven peace1764_1777 product_sitc_simplen
-test_graph_launcher peace1764_1777 indep product_sitc_simplen
+test_graph_launcher peace war product_sitc_simplEN
+test_graph_launcher seven peace1764_1777 product_sitc_simplEN
+test_graph_launcher peace1764_1777 indep product_sitc_simplEN
 *test_graph_launcher indep peace1784_1792
-test_graph_launcher rev block product_sitc_simplen
-test_graph_launcher peace1816_1840 block product_sitc_simplen
-*test_graph_launcher peace1749_1755 peace1764_1777 product_sitc_simplen
-test_graph_launcher peace1764_1777 peace1784_1792 product_sitc_simplen
+test_graph_launcher rev block product_sitc_simplEN
+test_graph_launcher peace1816_1840 block product_sitc_simplEN
+*test_graph_launcher peace1749_1755 peace1764_1777 product_sitc_simplEN
+test_graph_launcher peace1764_1777 peace1784_1792 product_sitc_simplEN
 
 
 outtable using "$hamburggit/Paper - Impact of War/Paper/manova_test_sitc", ///
 				mat(hotelling_test) clabel(tab:manova_test_sitc) ///
 				caption("Multivariate Analisys of Variance - by SITC") replace 
 
-reg_launcher product_sitc_simplen Exports product_sitc_simplen 
-reg_launcher product_sitc_simplen Imports product_sitc_simplen 
-reg_launcher product_sitc_simplen X_I product_sitc_simplen 
+reg_launcher product_sitc_simplEN Exports product_sitc_simplEN 
+reg_launcher product_sitc_simplEN Imports product_sitc_simplEN 
+reg_launcher product_sitc_simplEN X_I product_sitc_simplEN 
 
 
 
@@ -162,7 +162,7 @@ outtable using "$hamburggit/Paper - Impact of War/Paper/manova_test_pays", ///
 capture erase temp.dat
 
 
-/// by  product_re_aggregate 
+/// by  product_RE_aggregate 
 
 use temp_for_hotelling.dta, replace
 test_graph_launcher peace war sitc_aggr

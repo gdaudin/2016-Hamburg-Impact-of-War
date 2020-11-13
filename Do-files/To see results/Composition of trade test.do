@@ -6,7 +6,7 @@ args period1 period2 plantation_yesno direction X_I classification
 	gen war=.
 	
 	if "`direction'"=="national"{
-		if "`classification'"=="product_sitc_simplen" keep if national_product_best_guess==1 
+		if "`classification'"=="product_sitc_simplEN" keep if national_product_best_guess==1 
 		if "`classification'"=="sitc_aggr" keep if national_product_best_guess==1 
 		if "`classification'"=="partner_grouping_8" keep if national_geography_best_guess==1 
 	}
@@ -26,8 +26,8 @@ args period1 period2 plantation_yesno direction X_I classification
 		if "`direction'"=="LR" keep if direction=="La Rochelle"	
 		if "`direction'"=="bayo" keep if direction=="Bayonne"
 	}
-	collapse (sum) value, by(year war product_sitc_simplen export_import period_str)
-	if `plantation_yesno'==0 & "`classification'"=="product_sitc_simplen" drop if product_sitc_simplen=="Plantation foodstuff"
+	collapse (sum) value, by(year war product_sitc_simplEN export_import period_str)
+	if `plantation_yesno'==0 & "`classification'"=="product_sitc_simplEN" drop if product_sitc_simplEN=="Plantation foodstuff"
 
 	
 	if "`X_I'"=="Exports" | "`X_I'"=="Imports"{
@@ -42,7 +42,7 @@ args period1 period2 plantation_yesno direction X_I classification
 		gen percent= value/total
 	}
 	
-	if `plantation_yesno'==0 & "`classification'"!="product_sitc_simplen" drop if product_sitc_simplen=="Plantation foodstuff"
+	if `plantation_yesno'==0 & "`classification'"!="product_sitc_simplEN" drop if product_sitc_simplEN=="Plantation foodstuff"
 	
 	//the negative values for war is for creating labels in the graph do file
 
@@ -128,7 +128,7 @@ args period1 period2 plantation_yesno direction X_I classification
 	else local dir loc
 	
 	
-	if "`classification'"=="product_sitc_simplen"{
+	if "`classification'"=="product_sitc_simplEN"{
 			if `plantation_yesno'==1 mvtest means ln_percent1-ln_percent12, by(war) het
 			else mvtest means ln_percent1-ln_percent11, by(war) het
 	}
