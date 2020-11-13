@@ -1,14 +1,14 @@
 
 capture program drop composition_trade_reg
 program composition_trade_reg
-args plantation_yesno direction X_I classification exclude1795
+args plantation_yesno direction X_I classification period
 
 	use temp_for_hotelling.dta, clear
 
 	if "`direction'"=="national"{
-		if "`classification'"=="product_sitc_simplEN" keep if national_product_best_guess==1 
-		if "`classification'"=="sitc_aggr" keep if national_product_best_guess==1 
-		if "`classification'"=="partner_grouping_8" keep if national_geography_best_guess==1 
+		if "`classification'"=="product_sitc_simplEN" keep if best_guess_national_prodxpart==1 
+		if "`classification'"=="sitc_aggr" keep if best_guess_national_prodxpart==1 
+		if "`classification'"=="partner_grouping_8" keep if best_guess_national_partner==1 
 	}
 	
 	else{
@@ -28,7 +28,8 @@ args plantation_yesno direction X_I classification exclude1795
 	}
 	collapse (sum) value, by(year product_sitc_simplEN export_import period_str)
 	if `plantation_yesno'==0 & "`classification'"=="product_sitc_simplEN" drop if product_sitc_simplEN=="Plantation foodstuff"
-	if `exclude1795'==1 drop if year < 1795 & year > 1815
+	if "`period'"=="pre1795" drop if year >= 1795
+	
 
 	if "`X_I'"=="Exports" | "`X_I'"=="Imports"{
 		keep if export_import=="`X_I'"
@@ -76,10 +77,49 @@ args plantation_yesno direction X_I classification exclude1795
 	else if "`classification'" == "partner_grouping_8" local class pays8
 	
 	eststo ln_p`name'`class'`plantation_yesno': regress loss ln_p*
+	
+	if `plantation_yesno' == 1 test ln_pExports0a ln_pExports0b ln_pExports1 ln_pExports2 ln_pExports4 ln_pExports5 ///
+		ln_pExports6a_c ln_pExports6d_h_i ln_pExports6e 		ln_pExports6f ln_pExports6g ln_pExports6j_k_7_8_9c
+	if `plantation_yesno' == 0 test ln_pExports0a ln_pExports1 ln_pExports2 ln_pExports4 ln_pExports5 ///
+		ln_pExports6a_c ln_pExports6d_h_i ln_pExports6e 		ln_pExports6f ln_pExports6g ln_pExports6j_k_7_8_9c
+	local ln_p`name'`class'`plantation_yesno'_joint_test=r(p)
+	
+	corr ln_p* loss
+	
+	
+	
 	eststo ln_pnm`name'`class'`plantation_yesno': regress loss_nomemory ln_p*
+	
+	if `plantation_yesno' == 1 test ln_pExports0a ln_pExports0b ln_pExports1 ln_pExports2 ln_pExports4 ln_pExports5 ///
+		ln_pExports6a_c ln_pExports6d_h_i ln_pExports6e 		ln_pExports6f ln_pExports6g ln_pExports6j_k_7_8_9c
+	if `plantation_yesno' == 0 test ln_pExports0a ln_pExports1 ln_pExports2 ln_pExports4 ln_pExports5 ///
+		ln_pExports6a_c ln_pExports6d_h_i ln_pExports6e 		ln_pExports6f ln_pExports6g ln_pExports6j_k_7_8_9c
+	local ln_pnm`name'`class'`plantation_yesno'_joint_test=r(p)
+	corr ln_p* loss_nomemory
+	
+	
 
 	eststo p`name'`class'`plantation_yesno':  regress loss_nomemory p*
+	
+	if `plantation_yesno' == 1 test pExports0a pExports0b pExports1 pExports2 pExports4 pExports5 ///
+		pExports6a_c pExports6d_h_i pExports6e 		pExports6f pExports6g pExports6j_k_7_8_9c
+	if `plantation_yesno' == 0 test pExports0a pExports1 pExports2 pExports4 pExports5 ///
+		pExports6a_c pExports6d_h_i pExports6e 		pExports6f pExports6g pExports6j_k_7_8_9c
+	local p`name'`class'`plantation_yesno'_joint_test=r(p)
+	corr p* loss
+	
+	
+	
 	eststo pnm`name'`class'`plantation_yesno':  regress loss p*
+	
+	if `plantation_yesno' == 1 test pExports0a pExports0b pExports1 pExports2 pExports4 pExports5 ///
+		pExports6a_c pExports6d_h_i pExports6e 		pExports6f pExports6g pExports6j_k_7_8_9c
+	if `plantation_yesno' == 0 test pExports0a pExports1 pExports2 pExports4 pExports5 ///
+		pExports6a_c pExports6d_h_i pExports6e 		pExports6f pExports6g pExports6j_k_7_8_9c
+	local pnm`name'`class'`plantation_yesno'_joint_test=r(p)
+	corr p* loss_nomemory
+	
+	
 
 end
 

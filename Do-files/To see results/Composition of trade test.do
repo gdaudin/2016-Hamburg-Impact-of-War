@@ -6,9 +6,9 @@ args period1 period2 plantation_yesno direction X_I classification
 	gen war=.
 	
 	if "`direction'"=="national"{
-		if "`classification'"=="product_sitc_simplEN" keep if national_product_best_guess==1 
-		if "`classification'"=="sitc_aggr" keep if national_product_best_guess==1 
-		if "`classification'"=="partner_grouping_8" keep if national_geography_best_guess==1 
+		if "`classification'"=="product_sitc_simplEN" keep if best_guess_national_prodxpart==1 
+		if "`classification'"=="sitc_aggr" keep if best_guess_national_prodxpart==1 
+		if "`classification'"=="partner_grouping_8" keep if best_guess_national_partner==1 
 	}
 	
 	else{

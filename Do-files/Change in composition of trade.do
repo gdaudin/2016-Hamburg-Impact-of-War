@@ -1,5 +1,6 @@
 capture ssc install vioplot
 capture ssc install outtable
+capture ssc install estout
 
 if "`c(username)'"=="guillaumedaudin" ///
 		global hamburg "~/Documents/Recherche/2016 Hambourg et Guerre"
@@ -90,19 +91,21 @@ end
 
 capture program drop reg_launcher
 program reg_launcher 
-args launcher_class X_I classification
+args  X_I classification period
 	if "`classification'"=="product_sitc_simplEN" local class sitc
 	if "`X_I'"=="Exports" local name X
 	else if "`X_I'"=="Imports" local name I
 	else local name I_X
-	composition_trade_reg 1 national `X_I' `launcher_class' 0
-	composition_trade_reg 0 national `X_I' `launcher_class' 0
+	composition_trade_reg 1 national `X_I' `classification' `period'
+	composition_trade_reg 0 national `X_I' `classification' `period'
+	
 	esttab 	ln_p`name'`class'1 ln_pnm`name'`class'1 ln_p`name'`class'0 ln_pnm`name'`class'0, ///
 	mtitles("Loss" "Loss no memory" "Loss" "Loss no memory") nonumber 
+	
 	esttab 	p`name'`class'1 pnm`name'`class'1 p`name'`class'0 pnm`name'`class'0, ///
 	mtitles("Loss" "Loss no memory" "Loss" "Loss no memory") nonumber 
 end
-
+/*
 test_graph_launcher peace war product_sitc_simplEN
 test_graph_launcher seven peace1764_1777 product_sitc_simplEN
 test_graph_launcher peace1764_1777 indep product_sitc_simplEN
@@ -116,10 +119,15 @@ test_graph_launcher peace1764_1777 peace1784_1792 product_sitc_simplEN
 outtable using "$hamburggit/Paper - Impact of War/Paper/manova_test_sitc", ///
 				mat(hotelling_test) clabel(tab:manova_test_sitc) ///
 				caption("Multivariate Analisys of Variance - by SITC") replace 
+*/
 
-reg_launcher product_sitc_simplEN Exports product_sitc_simplEN 
-reg_launcher product_sitc_simplEN Imports product_sitc_simplEN 
-reg_launcher product_sitc_simplEN X_I product_sitc_simplEN 
+reg_launcher  Exports product_sitc_simplEN pre1795
+reg_launcher  Exports product_sitc_simplEN all
+
+
+blif
+reg_launcher  Imports product_sitc_simplEN 
+reg_launcher  X_I product_sitc_simplEN 
 
 
 
