@@ -53,7 +53,6 @@ replace sitc_aggr="Other" if product_sitc_simplen=="Chemical products"
 
 save temp_for_hotelling.dta, replace
 
-gen war=.
 
 ***************pie chart and violin chart for all war periods***************************
 do "$hamburggit/Do-files/To see results/Composition of trade test.do"
