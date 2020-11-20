@@ -74,18 +74,22 @@ args plantation_yesno direction X_I classification period
 	else local name I_X
 	
 	if "`classification'" == "product_sitc_simplEN"{
-		label var p`X_I'0a "Other foodstuff"
+	local macro p ln_p
+	foreach i of local macro{
+		label var `i'`X_I'0a "Other foodstuff"
 		label var p`X_I'1 "Drinks and tobacco"
 		label var p`X_I'2 "Crude material"
 		label var p`X_I'4 "Oils"
 		label var p`X_I'5 "Chemical products"
 		label var p`X_I'6a_c "Leather wood and paper product"
-		label var p`X_I'6d_h_i_p "Drinks and tobacco"
-		label var p`X_I'6e "Drinks and tobacco"
-		label var p`X_I'6f "Drinks and tobacco"
-		label var p`X_I'6g "Drinks and tobacco"
-		label var p`X_I'6j_k_7_8_9c "Drinks and tobacco"
+		label var p`X_I'6d_h_i_p "Other threads and fabric"
+		label var p`X_I'6e "Wool threads and fabric"
+		label var p`X_I'6f "Silk threads and fabric"
+		label var p`X_I'6g "Cotton threads and fabric"
+		label var p`X_I'6j_k_7_8_9c "Other industrial products"
 		if `plantation_yesno'==0 label var p`X_I'0b "Plantation foodstuff"
+	}
+		
 	}
 	
 	if "`classification'" == "product_sitc_simplEN" local class sitc
