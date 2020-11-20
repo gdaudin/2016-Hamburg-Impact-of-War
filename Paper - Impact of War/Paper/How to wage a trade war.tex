@@ -723,8 +723,13 @@ We do it for imports, exports and imports exports together and then excluding pl
 Considering a 5\% threshold for rejecting the null hypothesis of equality of means, we observe from table \ref{tab:manova_test_sitc} that there is undoubtedly a change in trade structure between war and peace periods overall. The p-value is zero, which implies that at least one sitc category (which is not Plantation foodstuff, because the p-value is unaltered while removing it from the analysis) changes between the two periods. Narrowing down our analysis we proceed to observe the difference between trade structure in war and preceding or following peace periods. Both because of lack of data and of very short peace periods, the comparison is not always possible. We could only examine the difference between Seven Years Wars and the 1764-1777 peace, 1764-1777 peace and War of American Independence, French Revolutionary Wars and Continental Blockade and Continental Blockade and the 1816-1840 peace. In the first case we observe that we can reject the hypothesis that the two mean vectors are the same, i.e. at the end of the Seven Years War there was a clear shift in composition of trade. The only exception is for the case of aggregate imports and exports, including Plantation Foodstuff, where we fail to reject the null hypothesis, however individually on imports and exports the significance for rejection is quite high. Such dramatic change did not happen with the beginning of the War of American Independence, we observe in fact that the p-values are all above the 5\% level, and even if they decrease upon eliminating Plantation Foodstuff, they remain above the threshold. Hence in this case we can say that the outburst of the conflict did not have consequences on French trading pattern. The same cannot be said for the difference between French Revolutionary Wars and Continental Blockade, when there was once again a clear shift in composition of trade, which does not only depend on Plantation Foodstuff, i.e. the share of at least another category of the sitc classification changed significantly between the two periods. We also observe that the change was longer lasting. At the end of the Continental Blockade in fact, France does not seem to recover its pre-Blockade trade structure. This cannot only be due to the fact that it lost its main source of Plantation Foodstuff import and re-export, because even excluding this category the result is consistent. 
 
 \begin{table}
-	\caption{Regression the loss funttions on the log of the sectoral shares}
+	\caption{Regression the loss functions on the log of the sectoral shares of exports}
 	\input{Individual_reg_product_sitc_simplEN_Exports.tex}
+\end{table}
+
+\begin{table}
+	\caption{Regression the loss funttions on the log of the sectoral shares of imports}
+	\input{Individual_reg_product_sitc_simplEN_Imports.tex}
 \end{table}
 
 \input{manova_test_sitc.tex}
