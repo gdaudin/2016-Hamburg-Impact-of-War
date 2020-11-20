@@ -70,25 +70,63 @@ args direction X_I classification period
 	else if "`X_I'"=="Imports" local name I
 	else local name I_X
 	
-	if "`classification'" == "product_sitc_simplEN" local class sitc
-	else if "`classification'" == "partner_grouping_8" local class pays8
-	
 	generate ln_loss = ln(loss)
 	generate ln_loss_nomemory=ln(loss_nomemory)
 	
+
+	
+	if "`classification'" == "product_sitc_simplEN" {
+		local class sitc
+		local macro p ln_p
+		foreach i of local macro{
+			label var `i'`X_I'0a "Other foodstuff"
+			label var `i'`X_I'1 "Drinks and tobacco"
+			label var `i'`X_I'2 "Crude material"
+			label var `i'`X_I'4 "Oils"
+			label var `i'`X_I'5 "Chemical products"
+			label var `i'`X_I'6a_c "Leather wood and paper product"
+			label var `i'`X_I'6d_h_i "Other threads and fabric"
+			label var `i'`X_I'6e "Wool threads and fabric"
+			label var `i'`X_I'6f "Silk threads and fabric"
+			label var `i'`X_I'6g "Cotton threads and fabric"
+			label var `i'`X_I'6j_k_7_8_9c "Other industrial products"
+			label var `i'`X_I'0b "Plantation foodstuff"
+		}
+	}
+	else if "`classification'" == "partner_grouping_8" local class pays8
+	
+	
 	if "`X_I'"=="Exports" rename *Exports* *E*
 	if "`X_I'"=="Imports" rename *Imports* *I*
-	
 	rename *6j_k_7_8_9c* *other*
 	
+	capture erase "$hamburggit/Results/Structural change/Individual_reg_`classification'_`X_I'.csv"
+	capture erase "$hamburggit/Paper - Impact of War/Paper/Individual_reg_`classification'_`X_I'.tex"
+	
+	local i = 0
+	
 	foreach var of varlist ln_p* {
-			eststo `var'_loss: regress loss `var', noconstant
-			eststo `var'_loss_nom: regress loss_nomemory `var', noconstant
-			eststo `var'_ln_loss: regress ln_loss `var', noconstant
-			eststo `var'_ln_loss_nom: regress ln_loss_nomemory `var', noconstant			
+			eststo `var'_loss: regress loss `var'
+			eststo `var'_loss_nom: regress loss_nomemory `var'
+			eststo `var'_ln_loss: regress ln_loss `var'
+			eststo `var'_ln_loss_nom: regress ln_loss_nomemory `var'
+			
+			if `i' ==0 esttab ln_p* using "$hamburggit/Results/Structural change/Individual_reg_`classification'_`X_I'.csv", append csv label compress b(%8.2f) ///
+					noconstant noobs nonumber nonotes nolines noeqlines
+
+			else esttab ln_p* using "$hamburggit/Results/Structural change/Individual_reg_`classification'_`X_I'.csv", append csv label compress b(%8.2f) ///
+					noconstant noobs nonumber nomtitle nonotes  nolines noeqlines
+					
+			if `i' ==0 esttab ln_p* using "$hamburggit/Paper - Impact of War/Paper/Individual_reg_`classification'_`X_I'.tex", append tex label compress b(%8.2f) ///
+					noconstant noobs nonumber nonotes nolines noeqlines
+
+			else esttab ln_p* using "$hamburggit/Paper - Impact of War/Paper/Individual_reg_`classification'_`X_I'.tex", append tex label compress b(%8.2f) ///
+					noconstant noobs nonumber nomtitle nonotes  nolines noeqlines
+			eststo clear
+			local i = `i'+1
 	}
 
-  esttab ln_p* using "$hamburggit/Results/Structural change/Individual_reg_`classification'_`X_I'.csv", replace csv
+  *esttab ln_p* using "$hamburggit/Results/Structural change/Individual_reg_`classification'_`X_I'.csv", replace csv label
 	
 
 end
