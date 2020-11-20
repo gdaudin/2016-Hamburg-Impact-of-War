@@ -30,10 +30,12 @@ destring year, replace
 replace year=1806 if year==1805.75
 replace year=1787 if year==1787.2
 
-drop if product_simplification=="" | product_simplification=="???"
-drop if value==.
-drop if partner_grouping=="????" | partner_grouping=="Divers" | partner_grouping=="France" | ///
-		partner_grouping=="Inconnu" | partner_grouping=="Monde"
+*drop if product_simplification=="" | product_simplification=="???"
+*drop if value==.
+*drop if partner_grouping=="????" | partner_grouping=="Divers" | partner_grouping=="France" | ///
+*		partner_grouping=="Inconnu" | partner_grouping=="Monde"
+
+keep if best_guess_national_partner == 1 | best_guess_national_product==1
 		
 		
 /*		
