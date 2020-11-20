@@ -1,12 +1,11 @@
 
-capture program drop composition_trade_reg
-program composition_trade_reg
-args plantation_yesno direction X_I classification period
+capture program drop composition_trade_ind_reg
+program composition_trade_ind_reg
+args direction X_I classification period
 
 	use temp_for_hotelling.dta, clear
 
 	if "`direction'"=="national"{
-		blif
 		if "`classification'"=="product_sitc_simplEN" keep if best_guess_national_product==1 
 		if "`classification'"=="sitc_aggr" keep if best_guess_national_product==1 
 		if "`classification'"=="partner_grouping_8" keep if best_guess_national_partner==1 
@@ -28,7 +27,6 @@ args plantation_yesno direction X_I classification period
 		if "`direction'"=="bayo" keep if direction=="Bayonne"
 	}
 	collapse (sum) value, by(year product_sitc_simplEN export_import period_str)
-	if `plantation_yesno'==0 & "`classification'"=="product_sitc_simplEN" drop if product_sitc_simplEN=="Plantation foodstuff"
 	if "`period'"=="pre1795" drop if year >= 1795
 	
 
@@ -42,8 +40,6 @@ args plantation_yesno direction X_I classification period
 		bysort year: egen total=sum(value)
 		gen percent= value/total
 	}
-		
-	if `plantation_yesno'==0 & "`classification'"!="product_sitc_simplEN" drop if product_sitc_simplEN=="Plantation foodstuff"
 			
 	gen ln_percent=ln(percent)
 	if "`classification'" == "product_sitc_simplEN" drop if product_sitc_simplEN == "Other"
@@ -77,51 +73,25 @@ args plantation_yesno direction X_I classification period
 	if "`classification'" == "product_sitc_simplEN" local class sitc
 	else if "`classification'" == "partner_grouping_8" local class pays8
 	
-	eststo ln_p`name'`class'`plantation_yesno': regress loss ln_p*
+	generate ln_loss = ln(loss)
+	generate ln_loss_nomemory=ln(loss_nomemory)
 	
-	if `plantation_yesno' == 1 test ln_p`X_I'0a ln_p`X_I'0b ln_p`X_I'1 ln_p`X_I'2 ln_p`X_I'4 ln_p`X_I'5 ///
-		ln_p`X_I'6a_c ln_p`X_I'6d_h_i ln_p`X_I'6e 		ln_p`X_I'6f ln_p`X_I'6g ln_p`X_I'6j_k_7_8_9c
-	if `plantation_yesno' == 0 test ln_p`X_I'0a ln_p`X_I'1 ln_p`X_I'2 ln_p`X_I'4 ln_p`X_I'5 ///
-		ln_p`X_I'6a_c ln_p`X_I'6d_h_i ln_p`X_I'6e 		ln_p`X_I'6f ln_p`X_I'6g ln_p`X_I'6j_k_7_8_9c
-	local ln_p`name'`class'`plantation_yesno'_joint_test=r(p)
-	corr ln_p* loss
+	if "`X_I'"=="Exports" rename *Exports* *E*
+	if "`X_I'"=="Imports" rename *Imports* *I*
 	
+	rename *6j_k_7_8_9c* *other*
 	
-	
-	eststo ln_pnm`name'`class'`plantation_yesno': regress loss_nomemory ln_p*
-	
-	if `plantation_yesno' == 1 test ln_p`X_I'0a ln_p`X_I'0b ln_p`X_I'1 ln_p`X_I'2 ln_p`X_I'4 ln_p`X_I'5 ///
-		ln_p`X_I'6a_c ln_p`X_I'6d_h_i ln_p`X_I'6e 		ln_p`X_I'6f ln_p`X_I'6g ln_p`X_I'6j_k_7_8_9c
-	if `plantation_yesno' == 0 test ln_p`X_I'0a ln_p`X_I'1 ln_p`X_I'2 ln_p`X_I'4 ln_p`X_I'5 ///
-		ln_p`X_I'6a_c ln_p`X_I'6d_h_i ln_p`X_I'6e 		ln_p`X_I'6f ln_p`X_I'6g ln_p`X_I'6j_k_7_8_9c
-	local ln_pnm`name'`class'`plantation_yesno'_joint_test=r(p)
-	corr ln_p* loss_nomemory
-	
-	
+	foreach var of varlist ln_p* {
+			eststo `var'_loss: regress loss `var', noconstant
+			eststo `var'_loss_nom: regress loss_nomemory `var', noconstant
+			eststo `var'_ln_loss: regress ln_loss `var', noconstant
+			eststo `var'_ln_loss_nom: regress ln_loss_nomemory `var', noconstant			
+	}
 
-	eststo p`name'`class'`plantation_yesno':  regress loss_nomemory p*
-	
-	if `plantation_yesno' == 1 test p`X_I'0a p`X_I'0b p`X_I'1 p`X_I'2 p`X_I'4 p`X_I'5 ///
-		p`X_I'6a_c p`X_I'6d_h_i p`X_I'6e 		p`X_I'6f p`X_I'6g p`X_I'6j_k_7_8_9c
-	if `plantation_yesno' == 1 test p`X_I'0a p`X_I'1 p`X_I'2 p`X_I'4 p`X_I'5 ///
-		p`X_I'6a_c p`X_I'6d_h_i p`X_I'6e 		p`X_I'6f p`X_I'6g p`X_I'6j_k_7_8_9c
-	local p`name'`class'`plantation_yesno'_joint_test=r(p)
-	corr p* loss
-	
-	
-	
-	eststo pnm`name'`class'`plantation_yesno':  regress loss p*
-	
-	if `plantation_yesno' == 1 test p`X_I'0a p`X_I'0b p`X_I'1 p`X_I'2 p`X_I'4 p`X_I'5 ///
-		p`X_I'6a_c p`X_I'6d_h_i p`X_I'6e 		p`X_I'6f p`X_I'6g p`X_I'6j_k_7_8_9c
-	if `plantation_yesno' == 1 test p`X_I'0a p`X_I'1 p`X_I'2 p`X_I'4 p`X_I'5 ///
-		p`X_I'6a_c p`X_I'6d_h_i p`X_I'6e 		p`X_I'6f p`X_I'6g p`X_I'6j_k_7_8_9c
-	local pnm`name'`class'`plantation_yesno'_joint_test=r(p)
-	corr p* loss_nomemory
-	
+  esttab ln_p* using "$hamburggit/Results/Structural change/Individual_reg_`classification'_`X_I'.csv", replace csv
 	
 
 end
-
-
+eststo clear
+composition_trade_ind_reg  national Exports product_sitc_simplEN all
 
