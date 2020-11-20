@@ -97,8 +97,7 @@ args plantation_yesno direction X_I classification period
 	
 	corr ln_p* loss
 	esttab . using "$hamburggit/Paper - Impact of War/Paper/corr_ln_p_loss.tex", ///
-	label not unstack compress noobs replace  
-
+	label not unstack compress noobs replace  nostar 
 	blif
 	
 	corr ln_p* loss_nomemory
