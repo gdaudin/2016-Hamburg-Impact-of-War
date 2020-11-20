@@ -59,6 +59,8 @@ save temp_for_hotelling.dta, replace
 do "$hamburggit/Do-files/To see results/Composition of trade test.do"
 do "$hamburggit/Do-files/To create graphs/Composition of trade graph.do"
 do "$hamburggit/Do-files/To see results/Composition of trade reg.do"
+do "$hamburggit/Do-files/To see results/Composition of trade corr.do"
+
 ***********These just to put the programs in memory
 
 ////those commented cannot be run because of too few obs
@@ -105,6 +107,18 @@ args  X_I classification period
 	esttab 	p`name'`class'1 pnm`name'`class'1 p`name'`class'0 pnm`name'`class'0, ///
 	mtitles("Loss" "Loss no memory" "Loss" "Loss no memory") nonumber 
 end
+
+capture program drop corr_launcher
+program corr_launcher 
+args  X_I classification period
+	if "`classification'"=="product_sitc_simplEN" local class sitc
+	if "`X_I'"=="Exports" local name X
+	else if "`X_I'"=="Imports" local name I
+	else local name I_X
+	composition_trade_corr 1 national `X_I' `classification' `period'
+	composition_trade_corr 0 national `X_I' `classification' `period'
+end
+
 /*
 test_graph_launcher peace war product_sitc_simplEN
 test_graph_launcher seven peace1764_1777 product_sitc_simplEN
@@ -124,11 +138,14 @@ outtable using "$hamburggit/Paper - Impact of War/Paper/manova_test_sitc", ///
 reg_launcher  Exports product_sitc_simplEN pre1795
 reg_launcher  Exports product_sitc_simplEN all
 
+reg_launcher  Imports product_sitc_simplEN pre1795
+reg_launcher  Imports product_sitc_simplEN all
 
-blif
-reg_launcher  Imports product_sitc_simplEN 
-reg_launcher  X_I product_sitc_simplEN 
+corr_launcher  Exports product_sitc_simplEN pre1795
+corr_launcher  Exports product_sitc_simplEN all 
 
+corr_launcher  Imports product_sitc_simplEN pre1795
+corr_launcher  Imports product_sitc_simplEN all 
 
 
 /// by geography 

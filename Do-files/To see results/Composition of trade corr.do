@@ -1,6 +1,6 @@
 
-capture program drop composition_trade_reg
-program composition_trade_reg
+capture program drop composition_trade_corr
+program composition_trade_corr
 args plantation_yesno direction X_I classification period
 
 	use temp_for_hotelling.dta, clear
@@ -73,49 +73,30 @@ args plantation_yesno direction X_I classification period
 	else if "`X_I'"=="Imports" local name I
 	else local name I_X
 	
+	if "`classification'" == "product_sitc_simplEN"{
+		label var p`X_I'0a "Other foodstuff"
+		label var p`X_I'1 "Drinks and tobacco"
+		label var p`X_I'2 "Crude material"
+		label var p`X_I'4 "Oils"
+		label var p`X_I'5 "Chemical products"
+		label var p`X_I'6a_c "Leather wood and paper product"
+		label var p`X_I'6d_h_i_p "Drinks and tobacco"
+		label var p`X_I'6e "Drinks and tobacco"
+		label var p`X_I'6f "Drinks and tobacco"
+		label var p`X_I'6g "Drinks and tobacco"
+		label var p`X_I'6j_k_7_8_9c "Drinks and tobacco"
+		if `plantation_yesno'==0 label var p`X_I'0b "Plantation foodstuff"
+	}
+	
 	if "`classification'" == "product_sitc_simplEN" local class sitc
 	else if "`classification'" == "partner_grouping_8" local class pays8
 	
-	eststo ln_p`name'`class'`plantation_yesno': regress loss ln_p*
-	
-	if `plantation_yesno' == 1 test ln_p`X_I'0a ln_p`X_I'0b ln_p`X_I'1 ln_p`X_I'2 ln_p`X_I'4 ln_p`X_I'5 ///
-		ln_p`X_I'6a_c ln_p`X_I'6d_h_i ln_p`X_I'6e 		ln_p`X_I'6f ln_p`X_I'6g ln_p`X_I'6j_k_7_8_9c
-	if `plantation_yesno' == 0 test ln_p`X_I'0a ln_p`X_I'1 ln_p`X_I'2 ln_p`X_I'4 ln_p`X_I'5 ///
-		ln_p`X_I'6a_c ln_p`X_I'6d_h_i ln_p`X_I'6e 		ln_p`X_I'6f ln_p`X_I'6g ln_p`X_I'6j_k_7_8_9c
-	local ln_p`name'`class'`plantation_yesno'_joint_test=r(p)
 	corr ln_p* loss
 	
-	
-	
-	eststo ln_pnm`name'`class'`plantation_yesno': regress loss_nomemory ln_p*
-	
-	if `plantation_yesno' == 1 test ln_p`X_I'0a ln_p`X_I'0b ln_p`X_I'1 ln_p`X_I'2 ln_p`X_I'4 ln_p`X_I'5 ///
-		ln_p`X_I'6a_c ln_p`X_I'6d_h_i ln_p`X_I'6e 		ln_p`X_I'6f ln_p`X_I'6g ln_p`X_I'6j_k_7_8_9c
-	if `plantation_yesno' == 0 test ln_p`X_I'0a ln_p`X_I'1 ln_p`X_I'2 ln_p`X_I'4 ln_p`X_I'5 ///
-		ln_p`X_I'6a_c ln_p`X_I'6d_h_i ln_p`X_I'6e 		ln_p`X_I'6f ln_p`X_I'6g ln_p`X_I'6j_k_7_8_9c
-	local ln_pnm`name'`class'`plantation_yesno'_joint_test=r(p)
 	corr ln_p* loss_nomemory
 	
-	
-
-	eststo p`name'`class'`plantation_yesno':  regress loss_nomemory p*
-	
-	if `plantation_yesno' == 1 test p`X_I'0a p`X_I'0b p`X_I'1 p`X_I'2 p`X_I'4 p`X_I'5 ///
-		p`X_I'6a_c p`X_I'6d_h_i p`X_I'6e 		p`X_I'6f p`X_I'6g p`X_I'6j_k_7_8_9c
-	if `plantation_yesno' == 1 test p`X_I'0a p`X_I'1 p`X_I'2 p`X_I'4 p`X_I'5 ///
-		p`X_I'6a_c p`X_I'6d_h_i p`X_I'6e 		p`X_I'6f p`X_I'6g p`X_I'6j_k_7_8_9c
-	local p`name'`class'`plantation_yesno'_joint_test=r(p)
 	corr p* loss
 	
-	
-	
-	eststo pnm`name'`class'`plantation_yesno':  regress loss p*
-	
-	if `plantation_yesno' == 1 test p`X_I'0a p`X_I'0b p`X_I'1 p`X_I'2 p`X_I'4 p`X_I'5 ///
-		p`X_I'6a_c p`X_I'6d_h_i p`X_I'6e 		p`X_I'6f p`X_I'6g p`X_I'6j_k_7_8_9c
-	if `plantation_yesno' == 1 test p`X_I'0a p`X_I'1 p`X_I'2 p`X_I'4 p`X_I'5 ///
-		p`X_I'6a_c p`X_I'6d_h_i p`X_I'6e 		p`X_I'6f p`X_I'6g p`X_I'6j_k_7_8_9c
-	local pnm`name'`class'`plantation_yesno'_joint_test=r(p)
 	corr p* loss_nomemory
 	
 	
