@@ -77,17 +77,17 @@ args plantation_yesno direction X_I classification period
 	local macro p ln_p
 	foreach i of local macro{
 		label var `i'`X_I'0a "Other foodstuff"
-		label var p`X_I'1 "Drinks and tobacco"
-		label var p`X_I'2 "Crude material"
-		label var p`X_I'4 "Oils"
-		label var p`X_I'5 "Chemical products"
-		label var p`X_I'6a_c "Leather wood and paper product"
-		label var p`X_I'6d_h_i_p "Other threads and fabric"
-		label var p`X_I'6e "Wool threads and fabric"
-		label var p`X_I'6f "Silk threads and fabric"
-		label var p`X_I'6g "Cotton threads and fabric"
-		label var p`X_I'6j_k_7_8_9c "Other industrial products"
-		if `plantation_yesno'==0 label var p`X_I'0b "Plantation foodstuff"
+		label var `i'`X_I'1 "Drinks and tobacco"
+		label var `i'`X_I'2 "Crude material"
+		label var `i'`X_I'4 "Oils"
+		label var `i'`X_I'5 "Chemical products"
+		label var `i'`X_I'6a_c "Leather wood and paper product"
+		label var `i'`X_I'6d_h_i "Other threads and fabric"
+		label var `i'`X_I'6e "Wool threads and fabric"
+		label var `i'`X_I'6f "Silk threads and fabric"
+		label var `i'`X_I'6g "Cotton threads and fabric"
+		label var `i'`X_I'6j_k_7_8_9c "Other industrial products"
+		if `plantation_yesno'==1 label var `i'`X_I'0b "Plantation foodstuff"
 	}
 		
 	}
@@ -96,6 +96,13 @@ args plantation_yesno direction X_I classification period
 	else if "`classification'" == "partner_grouping_8" local class pays8
 	
 	corr ln_p* loss
+	
+	esttab . using "$hamburggit/Paper - Impact of War/Paper/corr_ln_p_loss.tex", ///
+	tex label not unstack noobs replace  nostar ///
+	prehead(`"\setlength{\tabcolsep}{5pt}"' `"\begin{tabular}"') ///
+	postfoot(`"\end{tabular}"')
+	
+	blif
 	
 	corr ln_p* loss_nomemory
 	
