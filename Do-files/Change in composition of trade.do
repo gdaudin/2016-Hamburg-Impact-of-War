@@ -4,7 +4,7 @@ capture ssc install estout
 
 if "`c(username)'"=="guillaumedaudin" ///
 		global hamburg "~/Documents/Recherche/2016 Hambourg et Guerre"
-		global hamburggit "~/Documents/Recherche/2016 Hambourg et Guerre/2016-Hamburg-Impact-of-War"
+		global hamburggit "~/Répertoires GIT/2016-Hamburg-Impact-of-War"
 
 if "`c(username)'" =="Tirindelli" {
 	global hamburg "/Users/Tirindelli/Google Drive/Hamburg"
@@ -124,8 +124,6 @@ outtable using "$hamburggit/Paper - Impact of War/Paper/manova_test_sitc", ///
 reg_launcher  Exports product_sitc_simplEN pre1795
 reg_launcher  Exports product_sitc_simplEN all
 
-
-blif
 reg_launcher  Imports product_sitc_simplEN 
 reg_launcher  X_I product_sitc_simplEN 
 

@@ -1,7 +1,7 @@
 
 if "`c(username)'"=="guillaumedaudin" ///
 		global hamburg "~/Documents/Recherche/2016 Hambourg et Guerre"
-		global hamburggit "~/Documents/Recherche/2016 Hambourg et Guerre/2016-Hamburg-Impact-of-War"
+		global hamburggit "~/Répertoires GIT/2016-Hamburg-Impact-of-War"
 		global toflit18 "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France"
 
 if "`c(username)'" =="Tirindelli" {
@@ -35,7 +35,7 @@ replace year=1787 if year==1787.2
 *drop if partner_grouping=="????" | partner_grouping=="Divers" | partner_grouping=="France" | ///
 *		partner_grouping=="Inconnu" | partner_grouping=="Monde"
 
-keep if best_guess_national_partner == 1 | best_guess_national_product==1
+keep if best_guess_national_partner==1 | best_guess_national_product==1
 		
 		
 /*		

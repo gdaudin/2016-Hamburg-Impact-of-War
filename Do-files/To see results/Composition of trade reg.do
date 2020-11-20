@@ -6,8 +6,9 @@ args plantation_yesno direction X_I classification period
 	use temp_for_hotelling.dta, clear
 
 	if "`direction'"=="national"{
-		if "`classification'"=="product_sitc_simplEN" keep if best_guess_national_prodxpart==1 
-		if "`classification'"=="sitc_aggr" keep if best_guess_national_prodxpart==1 
+		blif
+		if "`classification'"=="product_sitc_simplEN" keep if best_guess_national_product==1 
+		if "`classification'"=="sitc_aggr" keep if best_guess_national_product==1 
 		if "`classification'"=="partner_grouping_8" keep if best_guess_national_partner==1 
 	}
 	
