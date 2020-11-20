@@ -96,8 +96,12 @@ args plantation_yesno direction X_I classification period
 	else if "`classification'" == "partner_grouping_8" local class pays8
 	
 	corr ln_p* loss
+	
 	esttab . using "$hamburggit/Paper - Impact of War/Paper/corr_ln_p_loss.tex", ///
-	label not unstack compress noobs replace  nostar 
+	tex label not unstack noobs replace  nostar ///
+	prehead(`"\setlength{\tabcolsep}{5pt}"' `"\begin{tabular}"') ///
+	postfoot(`"\end{tabular}"')
+	
 	blif
 	
 	corr ln_p* loss_nomemory
