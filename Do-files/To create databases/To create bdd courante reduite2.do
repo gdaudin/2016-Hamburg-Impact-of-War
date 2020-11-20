@@ -37,7 +37,6 @@ replace year=1787 if year==1787.2
 
 keep if best_guess_national_partner==1 | best_guess_national_product==1
 		
-		
 /*		
 capture drop national_product_best_guess
 gen national_product_best_guess = 0		
