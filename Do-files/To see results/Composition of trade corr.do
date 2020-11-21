@@ -95,12 +95,15 @@ args plantation_yesno direction X_I classification period
 	if "`classification'" == "product_sitc_simplEN" local class sitc
 	else if "`classification'" == "partner_grouping_8" local class pays8
 	
-	corr ln_p* loss
-	
+	estpost corr ln_p* loss, matrix
 	esttab . using "$hamburggit/Paper - Impact of War/Paper/corr_ln_p_loss.tex", ///
-	tex label not unstack noobs replace  nostar ///
-	prehead(`"\setlength{\tabcolsep}{5pt}"' `"\begin{tabular}"') ///
+	label not unstack noobs replace  nostar compress nonumber ///
+	prehead(`"\begin{tabular}{p{2.3cm} p{1.5cm} p{1.5cm} p{1.5cm} p{2.3cm} p{1.5cm} p{1.5cm} p{1.5cm} p{2.3cm} p{1.5cm} p{1.5cm} p{1.5cm} p{2.3cm} p{2.3cm} p{2.3cm}}"') ///
 	postfoot(`"\end{tabular}"')
+	
+	// this is a command to create table with a custom column width. the correlation matrix is still 
+	// way too big to decently fit a page, so since there are four of them, I suggest we put them in appendix as longtables
+	// and leave only the correlation with loss in the main body of the text
 	
 	blif
 	

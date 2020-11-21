@@ -626,9 +626,12 @@ Both  Figure \ref{Number_of_protagonists} and Figure \ref{loss_by_war_status_XI}
 To go further and understand the reason behind this behaviour, we need to look into the changing goods structure of trade during the wars.
 
 \section{Econometric analysis}  \label{economtrics}
+\newgeometry{left=0.5cm,right=0.5cm,top=.8in,bottom=.8in,}
 \begin{table}
 \input{corr_ln_p_loss.tex}
 \end{table}
+\restoregeometry
+
 Before moving on to look into composition of trade we want to quantify the effects observed so far. This is not an easy task because the number of observations is limited - we only have 12 countries for 65 years in the best case - which does not leave us enough degrees of freedom to run any properly specified regression including all the variables. We have therefore opted for running a regression for each single variable of interest. We have done so for the total loss function, for the loss function broken down for neutral allies and foes and for the loss function disaggregated by country \footnote{In all those cases we have clustered the standard error by periods}. \\
 We start by regressing the loss function on our index of colonial power and controlling for peace and war period. Table \ref{effects_colonial_power} shows the results. 
 \begin{figure}
