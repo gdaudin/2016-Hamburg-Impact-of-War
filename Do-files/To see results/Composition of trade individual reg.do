@@ -132,4 +132,6 @@ args direction X_I classification period
 end
 eststo clear
 composition_trade_ind_reg  national Exports product_sitc_simplEN all
+composition_trade_ind_reg  national Imports product_sitc_simplEN all
+
 
