@@ -51,7 +51,10 @@ capture drop national_geography_best_guess
 gen national_geography_best_guess = 0
 replace national_geography_best_guess = 1 if source_type=="Tableau Général" | source_type=="Résumé"
 */		
-		
+
+if "`c(username)'" =="rober"{
+	save "D:Il mio Drive\Hamburg\database_dta\bdd courante reduite2.dta", replace 
+}		
 save "$hamburg/database_dta/bdd courante reduite2.dta", replace 
 
 /*
