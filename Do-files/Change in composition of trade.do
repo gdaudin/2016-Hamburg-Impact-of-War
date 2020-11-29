@@ -12,7 +12,7 @@ if "`c(username)'" =="Tirindelli" {
 }
 
 if "`c(username)'" =="tirindee" {
-	global hamburg "C:\Users\tirindee\Google Drive\ETE\Thesis"
+	global hamburg "G:\Il mio Drive\Hamburg"
 	global hamburggit "C:\Users\TIRINDEE\Google Drive\ETE/Thesis/Data/do_files/Hamburg"
 }
 
