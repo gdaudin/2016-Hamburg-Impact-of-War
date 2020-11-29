@@ -10,11 +10,12 @@ if "`c(username)'" =="Tirindelli" {
 	global hamburggit "/Users/Tirindelli/Google Drive/Hamburg/Paper"
 }
 
-if "`c(username)'" =="tirindee" {
-	global hamburg "C:\Users\tirindee\Google Drive\ETE\Thesis"
-	global toflit18 "$hamburg/toflit18_data_GIT"
-	global hamburggit "C:\Users\TIRINDEE\Google Drive\ETE/Thesis/Data/do_files/Hamburg"
+if "`c(username)'" =="rober" {
+	global hamburg "D:\Eli_git\Hamburg"
+	global toflit18 "D:\Eli_git\Hamburg\toflit18_data"
+	global hamburggit "D:\Eli_git\Hamburg\Paper"
 }
+
 		
 use "$toflit18/Données Stata/bdd courante.dta", clear	
 
