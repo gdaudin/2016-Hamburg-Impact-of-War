@@ -105,33 +105,45 @@ args direction X_I classification period
 	
 	local i = 0
 	
+	
+	quietly describe ln_p*
+	local nbr_var = r(k)
 	foreach var of varlist ln_p* {
+			
+			local i = `i'+1
 			eststo `var'_loss: regress loss `var'
 			eststo `var'_loss_nom: regress loss_nomemory `var'
 			eststo `var'_ln_loss: regress ln_loss `var'
 			eststo `var'_ln_loss_nom: regress ln_loss_nomemory `var'
 			
-			if `i' ==0 esttab ln_p* using "$hamburggit/Results/Structural change/Individual_reg_`classification'_`X_I'.csv", append csv label compress b(%8.2f) ///
+			if `i' ==1 esttab ln_p* using "$hamburggit/Results/Structural change/Individual_reg_`classification'_`X_I'.csv", append csv label compress b(%8.2f) ///
 					noconstant noobs nonumber nonotes nolines noeqlines
 
 			else esttab ln_p* using "$hamburggit/Results/Structural change/Individual_reg_`classification'_`X_I'.csv", append csv label compress b(%8.2f) ///
 					noconstant noobs nonumber nomtitle nonotes  nolines noeqlines
 					
-			if `i' ==0 esttab ln_p* using "$hamburggit/Paper - Impact of War/Paper/Individual_reg_`classification'_`X_I'.tex", append tex label compress b(%8.2f) ///
-					noconstant noobs nonumber nonotes nolines noeqlines
-
-			else esttab ln_p* using "$hamburggit/Paper - Impact of War/Paper/Individual_reg_`classification'_`X_I'.tex", append tex label compress b(%8.2f) ///
-					noconstant noobs nonumber nomtitle nonotes  nolines noeqlines
+			if `i' ==1 esttab ln_p* using "$hamburggit/Paper - Impact of War/Paper/Individual_reg_`classification'_`X_I'.tex", append wide tex label compress b(%8.2f) ///
+					noconstant noobs nonumber nonotes   r2(%8.2f) ///
+						prehead(`"\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}"' `"\begin{tabular}{p{4cm} p{1.4cm} p{1.2cm} p{1.5cm}  p{1.5cm} p{1.4cm} p{1.2cm} p{1.5cm} p{1.5cm}  p{1.5cm} p{1.5cm} }"') ///
+						postfoot(`"\end{tabular}"')
+						
+			else esttab ln_p* using "$hamburggit/Paper - Impact of War/Paper/Individual_reg_`classification'_`X_I'.tex", append wide tex label ///
+					compress b(%8.2f) noconstant noobs nonumber nonotes  nomtitle  r2(%8.2f) ///
+					prehead(`"\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}"' `"\begin{tabular}{p{4cm} p{1.4cm} p{1.2cm} p{1.5cm}  p{1.5cm} p{1.4cm} p{1.2cm} p{1.5cm} p{1.5cm}  p{1.5cm} p{1.5cm} }"') ///
+					postfoot(`"\end{tabular}"')
+										
 			eststo clear
-			local i = `i'+1
+			
+
 	}
 
   *esttab ln_p* using "$hamburggit/Results/Structural change/Individual_reg_`classification'_`X_I'.csv", replace csv label
 	
 
 end
+/*
 eststo clear
 composition_trade_ind_reg  national Exports product_sitc_simplEN all
 composition_trade_ind_reg  national Imports product_sitc_simplEN all
-
+*/
 
