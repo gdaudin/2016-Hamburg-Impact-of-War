@@ -18,6 +18,9 @@ if "`c(username)'" =="rober" {
 
 		
 use "$toflit18/Données Stata/bdd courante.dta", clear	
+if "`c(username)'" =="rober" {
+	use "G:\Il mio Drive\Hamburg\Données Stata\bdd courante.dta", clear
+}
 
 * Keep only necessary variables
 
@@ -53,7 +56,7 @@ replace national_geography_best_guess = 1 if source_type=="Tableau Général" | 
 */		
 
 if "`c(username)'" =="rober"{
-	save "D:Il mio Drive\Hamburg\database_dta\bdd courante reduite2.dta", replace 
+	save "G:\Il mio Drive\Hamburg\database_dta\bdd courante reduite2.dta", replace
 }		
 save "$hamburg/database_dta/bdd courante reduite2.dta", replace 
 

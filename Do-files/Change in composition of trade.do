@@ -4,7 +4,7 @@ capture ssc install estout
 
 if "`c(username)'"=="guillaumedaudin" ///
 		global hamburg "~/Documents/Recherche/2016 Hambourg et Guerre"
-		global hamburggit "~/Documents/Recherche/2016 Hambourg et Guerre/2016-Hamburg-Impact-of-War"
+		global hamburggit "~/Répertoires GIT/2016-Hamburg-Impact-of-War"
 
 if "`c(username)'" =="Tirindelli" {
 	global hamburg "/Users/Tirindelli/Google Drive/Hamburg"
@@ -108,6 +108,16 @@ args  X_I classification period
 	mtitles("Loss" "Loss no memory" "Loss" "Loss no memory") nonumber 
 end
 
+capture program drop ind_reg_launcher
+program ind_reg_launcher 
+args  X_I classification period
+	if "`classification'"=="product_sitc_simplEN" local class sitc
+	if "`X_I'"=="Exports" local name X
+	else if "`X_I'"=="Imports" local name I
+	else local name I_X
+	composition_trade_ind_reg national `X_I' `classification' `period'
+end
+
 capture program drop corr_launcher
 program corr_launcher 
 args  X_I classification period
@@ -134,6 +144,13 @@ outtable using "$hamburggit/Paper - Impact of War/Paper/manova_test_sitc", ///
 				mat(hotelling_test) clabel(tab:manova_test_sitc) ///
 				caption("Multivariate Analisys of Variance - by SITC") replace 
 */
+
+
+composition_trade_ind_reg  national Exports product_sitc_simplEN all
+composition_trade_ind_reg  national Imports product_sitc_simplEN all
+
+blifaie
+
 
 reg_launcher  Exports product_sitc_simplEN pre1795
 reg_launcher  Exports product_sitc_simplEN all
