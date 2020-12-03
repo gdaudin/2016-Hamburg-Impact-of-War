@@ -5,6 +5,8 @@ args direction X_I classification period
 
 	use temp_for_hotelling.dta, clear
 
+	if period=="pre1795" keep if year <=1795
+	
 	if "`direction'"=="national"{
 		if "`classification'"=="product_sitc_simplEN" keep if best_guess_national_product==1 
 		if "`classification'"=="sitc_aggr" keep if best_guess_national_product==1 
@@ -80,18 +82,19 @@ args direction X_I classification period
 		local macro p ln_p
 		foreach i of local macro{
 			label var `i'`X_I'0a "Other foodstuff"
+			label var `i'`X_I'0b "Plantation foodstuff"
 			label var `i'`X_I'1 "Drinks and tobacco"
 			label var `i'`X_I'2 "Crude material"
 			label var `i'`X_I'4 "Oils"
 			label var `i'`X_I'5 "Chemical products"
-			label var `i'`X_I'6a_c "Leather wood and paper product"
-			label var `i'`X_I'6d_h_i "Other threads and fabric"
-			label var `i'`X_I'6e "Wool threads and fabric"
-			label var `i'`X_I'6f "Silk threads and fabric"
-			label var `i'`X_I'6g "Cotton threads and fabric"
+			label var `i'`X_I'6a_c "Leather wood and paper products"
+			label var `i'`X_I'6d_h_i "Other threads and fabrics"
+			label var `i'`X_I'6e "Wool threads and fabrics"
+			label var `i'`X_I'6f "Silk threads and fabrics"
+			label var `i'`X_I'6g "Cotton threads and fabrics"
 			label var `i'`X_I'6j_k_7_8_9c "Other industrial products"
-			label var `i'`X_I'0b "Plantation foodstuff"
 		}
+		local textitle "\shortstack{Other\\foodstuff}" "\shortstack{Plantation\\foodstuff}" "\shortstack{Drinks\\and\\tobacco}" "\shortstack{Crude\\material}" "Oils" "\shortstack{Chemical\\products}" "\shortstack{Leather\\wood and\\paper\\products}" "\shortstack{Other\\threads\\and fabric}"  "\shortstack{Wool\\threads\\and fabrics}" "\shortstack{Silk\\threads\\and fabrics}" "\shortstack{Cotton\\threads\\and fabrics}" "\shortstack{Other\\industrial\\products}"
 	}
 	else if "`classification'" == "partner_grouping_8" local class pays8
 	
@@ -100,50 +103,57 @@ args direction X_I classification period
 	if "`X_I'"=="Imports" rename *Imports* *I*
 	rename *6j_k_7_8_9c* *other*
 	
-	capture erase "$hamburggit/Results/Structural change/Individual_reg_`classification'_`X_I'.csv"
-	capture erase "$hamburggit/Paper - Impact of War/Paper/Individual_reg_`classification'_`X_I'.tex"
+	capture erase "$hamburggit/Results/Structural change/Individual_reg_`classification'_`X_I'_`period'.csv"
+	capture erase "$hamburggit/Paper - Impact of War/Paper/Individual_reg_`classification'_`X_I'_`period'.tex"
 	
 	local i = 0
 	
+	label var loss "loss"
+	label var loss_nomemory "loss_nm"
+	label var ln_loss "ln(loss)"
+	label var ln_loss_nomemory "ln(loss_nm)"
 	
 	quietly describe ln_p*
 	local nbr_var = r(k)
-	foreach var of varlist ln_p* {
-			
-			local i = `i'+1
-			eststo `var'_loss: regress loss `var'
-			eststo `var'_loss_nom: regress loss_nomemory `var'
-			eststo `var'_ln_loss: regress ln_loss `var'
-			eststo `var'_ln_loss_nom: regress ln_loss_nomemory `var'
-			
-			if `i' ==1 esttab ln_p* using "$hamburggit/Results/Structural change/Individual_reg_`classification'_`X_I'.csv", append csv label compress b(%8.2f) ///
-					noconstant noobs nonumber nonotes nolines noeqlines
+	foreach loss in loss loss_nomemory ln_loss ln_loss_nomemory {
+		local i = `i'+1
+		foreach var of varlist ln_p* {
+			eststo `var'_loss: regress `var' `loss' year
+		}
+				
+		if `i' ==1 esttab ln_p* using "$hamburggit/Results/Structural change/Individual_reg_`classification'_`X_I'_`period'.csv", append csv compress b(%8.2f) ///
+				noconstant noobs nonumber nonotes nolines noeqlines
 
-			else esttab ln_p* using "$hamburggit/Results/Structural change/Individual_reg_`classification'_`X_I'.csv", append csv label compress b(%8.2f) ///
-					noconstant noobs nonumber nomtitle nonotes  nolines noeqlines
-					
-			if `i' ==1 esttab ln_p* using "$hamburggit/Paper - Impact of War/Paper/Individual_reg_`classification'_`X_I'.tex", append wide tex label compress b(%8.2f) ///
-					noconstant noobs nonumber nonotes   r2(%8.2f) ///
-						prehead(`"\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}"' `"\begin{tabular}{p{4cm} p{1.4cm} p{1.2cm} p{1.5cm}  p{1.5cm} p{1.4cm} p{1.2cm} p{1.5cm} p{1.5cm}  p{1.5cm} p{1.5cm} }"') ///
-						postfoot(`"\end{tabular}"')
-						
-			else esttab ln_p* using "$hamburggit/Paper - Impact of War/Paper/Individual_reg_`classification'_`X_I'.tex", append wide tex label ///
-					compress b(%8.2f) noconstant noobs nonumber nonotes  nomtitle  r2(%8.2f) ///
-					prehead(`"\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}"' `"\begin{tabular}{p{4cm} p{1.4cm} p{1.2cm} p{1.5cm}  p{1.5cm} p{1.4cm} p{1.2cm} p{1.5cm} p{1.5cm}  p{1.5cm} p{1.5cm} }"') ///
-					postfoot(`"\end{tabular}"')
-										
-			eststo clear
-			
+		else esttab ln_p* using "$hamburggit/Results/Structural change/Individual_reg_`classification'_`X_I'_`period'.csv", append csv label compress b(%8.2f) ///
+				noconstant noobs nonumber nomtitle nonotes  nolines noeqlines
+				
+		if `i' ==1 esttab ln_p* using "$hamburggit/Paper - Impact of War/Paper/Individual_reg_`classification'_`X_I'_`period'.tex", ///
+				append tex label compress b(%8.2f) wrap nogaps ///
+				noconstant noobs nonumber nonotes   r2(%8.2f) alignment(c) ///
+				mtitle(`macval(textitle)')  ///
+				prehead(`"\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}"' ///
+				`"\begin{tabular}{p{1.5cm} p{1.7cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} }"') ///
+				postfoot(`"\end{tabular}"')
+									
+		else esttab ln_p* using "$hamburggit/Paper - Impact of War/Paper/Individual_reg_`classification'_`X_I'_`period'.tex", ///
+				append tex label compress b(%8.2f) wrap nogaps ///
+				noconstant noobs nonumber nonotes  nomtitle r2(%8.2f) alignment(c) ///
+				prehead(`"\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}"' ///
+				`"\begin{tabular}{p{1.5cm} p{1.7cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} }"') ///
+				postfoot(`"\end{tabular}"')
 
+		eststo clear
+	
 	}
 
-  *esttab ln_p* using "$hamburggit/Results/Structural change/Individual_reg_`classification'_`X_I'.csv", replace csv label
+  *esttab ln_p* using "$hamburggit/Results/Structural change/Individual_reg_`classification'_`X_I'_`period'.csv", replace csv label
 	
 
 end
-/*
+
 eststo clear
 composition_trade_ind_reg  national Exports product_sitc_simplEN all
+/*
 composition_trade_ind_reg  national Imports product_sitc_simplEN all
 */
 

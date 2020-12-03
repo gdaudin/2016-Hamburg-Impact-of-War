@@ -60,6 +60,7 @@ do "$hamburggit/Do-files/To see results/Composition of trade test.do"
 do "$hamburggit/Do-files/To create graphs/Composition of trade graph.do"
 do "$hamburggit/Do-files/To see results/Composition of trade reg.do"
 do "$hamburggit/Do-files/To see results/Composition of trade corr.do"
+do "$hamburggit/Do-files/To see results/Composition of trade individual reg.do"
 
 ***********These just to put the programs in memory
 
@@ -148,6 +149,9 @@ outtable using "$hamburggit/Paper - Impact of War/Paper/manova_test_sitc", ///
 
 composition_trade_ind_reg  national Exports product_sitc_simplEN all
 composition_trade_ind_reg  national Imports product_sitc_simplEN all
+
+composition_trade_ind_reg  national Exports product_sitc_simplEN pre1795
+composition_trade_ind_reg  national Imports product_sitc_simplEN pre1795
 
 blifaie
 

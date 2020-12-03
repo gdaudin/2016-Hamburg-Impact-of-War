@@ -4,6 +4,7 @@
 \usepackage{amsfonts}
 \usepackage{longtable}
 \usepackage{amssymb}
+\usepackage{pdflscape}
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage[a4paper, left=.6in,right=.6in,top=.8in,bottom=.8in,]{geometry}
@@ -28,7 +29,7 @@
   \newcolumntype{d}[1]{D{.}{.}{#1}}  
 
 \author{
-  Guillaume Daudin\thanks{Université Paris-Dauphine, PSL Research University, LEDa, 75016 PARIS, FRANCE Université Paris-Dauphine, PSL Research University, IRD, LEDa, UMR 225, DIAL, 75016 PARIS, FRANCE email: guillaume.daudin@dauphine.fr}
+  Guillaume Daudin\thanks{Université Paris-Dauphine, PSL Research University, CNRS, 8007, IRD, 260, LEDa, DIAL, 75016, Paris, France. Sciences Po, OFCE, 75007, Paris. Corresponding author. E-mail: guillaume.daudin@dauphine.psl.eu}
   \and
   Elisa Tirindelli\thanks{Trinity College Dublin, email: tirindee@tcd.ie}
 }
@@ -495,16 +496,22 @@ Livre tournois silver value: \cite{Dewailly1857} and \cite{Hoffman2000}; Pound s
 \end{figure}
 \end{center}
 
+
+
 \section{Regression}
+\begin{landscape}
 \begin{table}[h!]
-	\caption{Regression the loss functions on the log of the sectorial shares of exports}
-	\input{Individual_reg_product_sitc_simplEN_Exports.tex}
+	\caption{Regression of the various the loss functions on the log of sectorial shares of exports}
+	\footnotesize
+	\input{Individual_reg_product_sitc_simplEN_Exports_all.tex}
 \end{table}
 
 \begin{table}
 	\caption{Regression the loss functions on the log of the sectorial shares of imports}
-	\input{Individual_reg_product_sitc_simplEN_Imports.tex}
+	\input{Individual_reg_product_sitc_simplEN_Imports_all.tex}
 \end{table}
+
+\end{landscape}
 
 \section{MANOVA test} 
 \begin{table}[h!]
