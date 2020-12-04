@@ -113,6 +113,14 @@ args direction X_I classification period
 	label var ln_loss "ln(loss)"
 	label var ln_loss_nomemory "ln(loss_nm)"
 	
+	egen min_ln_loss=min(ln_loss)
+	replace ln_loss=min_ln_loss if ln_loss==. & loss!=.
+
+	egen min_ln_loss_nomemory=min(ln_loss_nomemory)
+	replace ln_loss_nomemory=min_ln_loss_nomemory if ln_loss_nomemory==. & loss_nomemory!=.
+
+	
+	
 	quietly describe ln_p*
 	local nbr_var = r(k)
 	foreach loss in loss loss_nomemory ln_loss ln_loss_nomemory {
