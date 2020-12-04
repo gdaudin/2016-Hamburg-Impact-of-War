@@ -1,85 +1,41 @@
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\begin{tabular}{p{4cm} p{1.4cm} p{1.2cm} p{1.5cm}  p{1.5cm} p{1.4cm} p{1.2cm} p{1.5cm} p{1.5cm}  p{1.5cm} p{1.5cm} }
-                &\multicolumn{2}{c}{loss}    &\multicolumn{2}{c}{loss\_nomemory}&\multicolumn{2}{c}{ln\_loss} &\multicolumn{2}{c}{ln\_loss\_nomemory}\\
+\begin{tabular}{p{1.5cm} p{1.7cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} }
+                &\multicolumn{1}{c}{\shortstack{Other\\foodstuff}"}&\multicolumn{1}{c}{\shortstack{Plantation\\foodstuff}}&\multicolumn{1}{c}{\shortstack{Drinks\\and\\tobacco}}&\multicolumn{1}{c}{\shortstack{Crude\\material}}&\multicolumn{1}{c}{Oils}&\multicolumn{1}{c}{\shortstack{Chemical\\products}}&\multicolumn{1}{c}{\shortstack{Leather\\wood and\\paper\\products}}&\multicolumn{1}{c}{\shortstack{Other\\threads\\and fabric}}&\multicolumn{1}{c}{\shortstack{Wool\\threads\\and fabrics}}&\multicolumn{1}{c}{\shortstack{Silk\\threads\\and fabrics}}&\multicolumn{1}{c}{\shortstack{Cotton\\threads\\and fabrics}}&\multicolumn{1}{c}{\shortstack{Other\\industrial\\products}}\\
 \hline
-Other foodstuff &    -0.24         &  (-1.99)&    -0.24         &  (-2.02)&    -1.35\sym{*}  &  (-2.22)&    -0.07         &  (-0.09)\\
+loss            &    -0.49         &    -2.21\sym{**} &     0.54\sym{*}  &    -1.08\sym{**} &    -0.10         &    -0.44         &     0.42         &    -0.07         &     1.96\sym{***}&     1.27\sym{***}&    -1.50\sym{**} &     0.22         \\
+                &  (-1.76)         &  (-3.20)         &   (2.73)         &  (-3.61)         &  (-0.37)         &  (-1.05)         &   (1.99)         &  (-0.28)         &   (4.99)         &   (6.57)         &  (-3.17)         &   (1.20)         \\
+year            &     0.01         &     0.03\sym{**} &     0.00         &     0.02\sym{***}&     0.01         &     0.00         &    -0.00         &    -0.02\sym{***}&    -0.03\sym{***}&    -0.00         &     0.01         &    -0.02\sym{***}\\
+                &   (1.83)         &   (3.10)         &   (1.42)         &   (3.85)         &   (1.83)         &   (0.73)         &  (-1.29)         &  (-4.24)         &  (-5.43)         &  (-1.44)         &   (1.77)         &  (-5.28)         \\
 \hline
-\(R^{2}\)       &     0.14         &         &     0.14         &         &     0.16         &         &     0.00         &         \\
+\(R^{2}\)       &     0.24         &     0.49         &     0.26         &     0.58         &     0.14         &     0.07         &     0.22         &     0.43         &     0.73         &     0.67         &     0.39         &     0.57         \\
 \end{tabular}
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\begin{tabular}{p{4cm} p{1.4cm} p{1.2cm} p{1.5cm}  p{1.5cm} p{1.4cm} p{1.2cm} p{1.5cm} p{1.5cm}  p{1.5cm} p{1.5cm} }
+\begin{tabular}{p{1.5cm} p{1.7cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} }
 \hline
-Plantation foodstuff&    -0.12\sym{**} &  (-3.22)&    -0.15\sym{***}&  (-5.23)&    -0.42\sym{*}  &  (-2.12)&    -0.47\sym{*}  &  (-2.50)\\
+loss\_nm         &    -0.42         &    -2.87\sym{***}&     0.67\sym{**} &    -1.11\sym{**} &    -0.01         &    -0.52         &     0.56\sym{*}  &     0.08         &     2.01\sym{***}&     1.41\sym{***}&    -1.74\sym{**} &     0.25         \\
+                &  (-1.39)         &  (-4.42)         &   (3.43)         &  (-3.47)         &  (-0.05)         &  (-1.19)         &   (2.64)         &   (0.30)         &   (4.69)         &   (7.50)         &  (-3.61)         &   (1.32)         \\
+year            &     0.01         &     0.02\sym{*}  &     0.01\sym{*}  &     0.01\sym{**} &     0.01         &     0.00         &    -0.00         &    -0.02\sym{***}&    -0.03\sym{***}&     0.00         &     0.01         &    -0.01\sym{***}\\
+                &   (1.43)         &   (2.20)         &   (2.25)         &   (2.83)         &   (1.76)         &   (0.41)         &  (-0.62)         &  (-3.84)         &  (-3.96)         &   (0.22)         &   (0.90)         &  (-4.70)         \\
 \hline
-\(R^{2}\)       &     0.29         &         &     0.52         &         &     0.15         &         &     0.22         &         \\
+\(R^{2}\)       &     0.21         &     0.60         &     0.35         &     0.57         &     0.13         &     0.09         &     0.29         &     0.43         &     0.71         &     0.73         &     0.44         &     0.58         \\
 \end{tabular}
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\begin{tabular}{p{4cm} p{1.4cm} p{1.2cm} p{1.5cm}  p{1.5cm} p{1.4cm} p{1.2cm} p{1.5cm} p{1.5cm}  p{1.5cm} p{1.5cm} }
+\begin{tabular}{p{1.5cm} p{1.7cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} }
 \hline
-Drinks and tobacco&     0.40\sym{*}  &   (2.49)&     0.42\sym{*}  &   (2.59)&     1.68         &   (1.97)&     1.68\sym{*}  &   (2.15)\\
+ln(loss)        &    -0.12\sym{*}  &    -0.34\sym{*}  &     0.08         &    -0.22\sym{***}&    -0.01         &    -0.03         &     0.09\sym{*}  &    -0.02         &     0.38\sym{***}&     0.24\sym{***}&    -0.34\sym{***}&     0.03         \\
+                &  (-2.29)         &  (-2.38)         &   (2.01)         &  (-3.92)         &  (-0.18)         &  (-0.40)         &   (2.18)         &  (-0.34)         &   (5.01)         &   (6.05)         &  (-4.05)         &   (0.73)         \\
+year            &     0.01\sym{*}  &     0.04\sym{**} &     0.00         &     0.02\sym{***}&     0.01         &     0.01         &    -0.01         &    -0.02\sym{***}&    -0.04\sym{***}&    -0.01\sym{*}  &     0.02\sym{*}  &    -0.02\sym{***}\\
+                &   (2.12)         &   (3.30)         &   (1.02)         &   (4.45)         &   (1.90)         &   (0.87)         &  (-1.56)         &  (-4.26)         &  (-6.11)         &  (-2.14)         &   (2.34)         &  (-5.41)         \\
 \hline
-\(R^{2}\)       &     0.20         &         &     0.21         &         &     0.13         &         &     0.17         &         \\
+\(R^{2}\)       &     0.30         &     0.42         &     0.17         &     0.60         &     0.13         &     0.04         &     0.24         &     0.43         &     0.73         &     0.64         &     0.49         &     0.56         \\
 \end{tabular}
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\begin{tabular}{p{4cm} p{1.4cm} p{1.2cm} p{1.5cm}  p{1.5cm} p{1.4cm} p{1.2cm} p{1.5cm} p{1.5cm}  p{1.5cm} p{1.5cm} }
+\begin{tabular}{p{1.5cm} p{1.7cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} }
 \hline
-Crude material  &    -0.25\sym{**} &  (-3.43)&    -0.29\sym{***}&  (-4.28)&    -1.20\sym{**} &  (-3.09)&    -1.16         &  (-1.46)\\
+ln(loss\_nm)     &    -0.08         &    -0.33\sym{*}  &     0.08\sym{*}  &    -0.21\sym{***}&     0.00         &    -0.03         &     0.09\sym{*}  &    -0.01         &     0.35\sym{***}&     0.23\sym{***}&    -0.29\sym{**} &     0.03         \\
+                &  (-1.70)         &  (-2.58)         &   (2.18)         &  (-4.22)         &   (0.05)         &  (-0.46)         &   (2.49)         &  (-0.31)         &   (5.17)         &   (6.91)         &  (-3.70)         &   (0.91)         \\
+year            &     0.01         &     0.03\sym{*}  &     0.01         &     0.02\sym{**} &     0.01         &     0.01         &    -0.00         &    -0.02\sym{***}&    -0.03\sym{***}&    -0.00         &     0.01         &    -0.02\sym{***}\\
+                &   (1.55)         &   (2.56)         &   (1.55)         &   (3.33)         &   (1.85)         &   (0.72)         &  (-0.90)         &  (-4.15)         &  (-4.66)         &  (-0.49)         &   (1.25)         &  (-4.98)         \\
 \hline
-\(R^{2}\)       &     0.32         &         &     0.42         &         &     0.28         &         &     0.09         &         \\
-\end{tabular}
-\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\begin{tabular}{p{4cm} p{1.4cm} p{1.2cm} p{1.5cm}  p{1.5cm} p{1.4cm} p{1.2cm} p{1.5cm} p{1.5cm}  p{1.5cm} p{1.5cm} }
-\hline
-Oils            &    -0.10         &  (-0.64)&    -0.11         &  (-0.72)&    -0.18         &  (-0.24)&     0.55         &   (0.72)\\
-\hline
-\(R^{2}\)       &     0.02         &         &     0.02         &         &     0.00         &         &     0.02         &         \\
-\end{tabular}
-\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\begin{tabular}{p{4cm} p{1.4cm} p{1.2cm} p{1.5cm}  p{1.5cm} p{1.4cm} p{1.2cm} p{1.5cm} p{1.5cm}  p{1.5cm} p{1.5cm} }
-\hline
-Chemical products&    -0.11         &  (-1.20)&    -0.14         &  (-1.47)&    -0.21         &  (-0.44)&    -0.76         &  (-1.73)\\
-\hline
-\(R^{2}\)       &     0.05         &         &     0.08         &         &     0.01         &         &     0.12         &         \\
-\end{tabular}
-\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\begin{tabular}{p{4cm} p{1.4cm} p{1.2cm} p{1.5cm}  p{1.5cm} p{1.4cm} p{1.2cm} p{1.5cm} p{1.5cm}  p{1.5cm} p{1.5cm} }
-\hline
-Leather wood and paper product&     0.35\sym{*}  &   (2.19)&     0.46\sym{**} &   (3.12)&     1.77\sym{*}  &   (2.18)&     1.13         &   (1.21)\\
-\hline
-\(R^{2}\)       &     0.16         &         &     0.28         &         &     0.16         &         &     0.06         &         \\
-\end{tabular}
-\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\begin{tabular}{p{4cm} p{1.4cm} p{1.2cm} p{1.5cm}  p{1.5cm} p{1.4cm} p{1.2cm} p{1.5cm} p{1.5cm}  p{1.5cm} p{1.5cm} }
-\hline
-Other threads and fabric&     0.04         &   (0.30)&     0.18         &   (1.48)&    -0.09         &  (-0.13)&     0.06         &   (0.10)\\
-\hline
-\(R^{2}\)       &     0.00         &         &     0.08         &         &     0.00         &         &     0.00         &         \\
-\end{tabular}
-\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\begin{tabular}{p{4cm} p{1.4cm} p{1.2cm} p{1.5cm}  p{1.5cm} p{1.4cm} p{1.2cm} p{1.5cm} p{1.5cm}  p{1.5cm} p{1.5cm} }
-\hline
-Wool threads and fabric&     0.17\sym{***}&   (4.04)&     0.20\sym{***}&   (5.24)&     0.78\sym{**} &   (3.35)&     0.93         &   (1.98)\\
-\hline
-\(R^{2}\)       &     0.40         &         &     0.52         &         &     0.31         &         &     0.15         &         \\
-\end{tabular}
-\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\begin{tabular}{p{4cm} p{1.4cm} p{1.2cm} p{1.5cm}  p{1.5cm} p{1.4cm} p{1.2cm} p{1.5cm} p{1.5cm}  p{1.5cm} p{1.5cm} }
-\hline
-Silk threads and fabric&     0.49\sym{***}&   (6.74)&     0.52\sym{***}&   (8.13)&     2.34\sym{***}&   (5.74)&     2.85\sym{***}&   (4.58)\\
-\hline
-\(R^{2}\)       &     0.65         &         &     0.73         &         &     0.57         &         &     0.49         &         \\
-\end{tabular}
-\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\begin{tabular}{p{4cm} p{1.4cm} p{1.2cm} p{1.5cm}  p{1.5cm} p{1.4cm} p{1.2cm} p{1.5cm} p{1.5cm}  p{1.5cm} p{1.5cm} }
-\hline
-Cotton threads and fabric&    -0.19\sym{**} &  (-3.35)&    -0.22\sym{***}&  (-4.25)&    -1.05\sym{***}&  (-3.81)&    -0.77         &  (-2.02)\\
-\hline
-\(R^{2}\)       &     0.31         &         &     0.42         &         &     0.37         &         &     0.16         &         \\
-\end{tabular}
-\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\begin{tabular}{p{4cm} p{1.4cm} p{1.2cm} p{1.5cm}  p{1.5cm} p{1.4cm} p{1.2cm} p{1.5cm} p{1.5cm}  p{1.5cm} p{1.5cm} }
-\hline
-Other industrial products&     0.20         &   (1.43)&     0.32\sym{*}  &   (2.42)&     0.48         &   (0.64)&     0.56         &   (0.76)\\
-\hline
-\(R^{2}\)       &     0.08         &         &     0.19         &         &     0.02         &         &     0.03         &         \\
+\(R^{2}\)       &     0.24         &     0.44         &     0.19         &     0.63         &     0.13         &     0.04         &     0.27         &     0.43         &     0.74         &     0.69         &     0.45         &     0.56         \\
 \end{tabular}
