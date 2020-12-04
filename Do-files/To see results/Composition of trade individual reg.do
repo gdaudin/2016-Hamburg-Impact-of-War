@@ -136,7 +136,7 @@ args direction X_I classification period
 				noconstant noobs nonumber nomtitle nonotes  nolines noeqlines
 				
 		if `i' ==1 esttab ln_p* using "$hamburggit/Paper - Impact of War/Paper/Individual_reg_`classification'_`X_I'_`period'.tex", ///
-				append tex label compress b(%8.2f) wrap nogaps ///
+				append tex label compress b(%8.3f) wrap nogaps ///
 				noconstant noobs nonumber nonotes   /*r2(%8.2f)*/ alignment(c) ///
 				mtitle(`macval(textitle)')  ///
 				prehead(`"\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}"' ///
@@ -144,7 +144,7 @@ args direction X_I classification period
 				postfoot(`"\end{tabular}"')
 									
 		else esttab ln_p* using "$hamburggit/Paper - Impact of War/Paper/Individual_reg_`classification'_`X_I'_`period'.tex", ///
-				append tex label compress b(%8.2f) wrap nogaps ///
+				append tex label compress b(%8.3f) wrap nogaps ///
 				noconstant noobs nonumber nonotes  nomtitle /*r2(%8.2f)*/ alignment(c) ///
 				prehead(`"\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}"' ///
 				`"\begin{tabular}{p{1.5cm} p{1.7cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} }"') ///
