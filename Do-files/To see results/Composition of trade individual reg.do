@@ -122,6 +122,9 @@ args direction X_I classification period
 	label var ln_loss "ln(loss)"
 	label var ln_loss_nomemory "ln(loss_nm)"
 	
+*	replace loss= 0 if loss==.
+*	replace loss_nomemory= 0 if loss_nomemory==.
+	
 	egen min_ln_loss=min(ln_loss)
 	replace ln_loss=min_ln_loss if ln_loss==. & loss!=.
 
