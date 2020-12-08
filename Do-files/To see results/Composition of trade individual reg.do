@@ -145,7 +145,7 @@ args direction X_I classification period
 		if `i' ==1 esttab ln_p* using "$hamburggit/Paper - Impact of War/Paper/Individual_reg_`classification'_`X_I'_`period'.tex", ///
 				append tex label compress b(%8.3f) wrap nogaps ///
 				noconstant noobs nonumber nonotes   /*r2(%8.2f)*/ alignment(c) ///
-				mtitle(`macval(textitle)')  ///
+				mtitle("`textitle'")  ///
 				prehead(`"\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}"' ///
 				`"\begin{tabular}{`tabular_columns'}"') ///
 				postfoot(`"\end{tabular}"')
