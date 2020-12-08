@@ -36,4 +36,4 @@ label var Industry "Cotton, textile, industry, manufacture and factory"
 twoway (line France year) (line War year)  (line Industry year), scheme(s1color) note("Including inflexions, not case-sensitive") ///
 	ytitle("Share in Google Books" "British English corpus (2019)")
 
-graph export "$hamburggit/Paper - Impact of War/Ngram.png", replace
+graph export "$hamburggit/Paper - Impact of War/Paper/Ngram.png", replace
