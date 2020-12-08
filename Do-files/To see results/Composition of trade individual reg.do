@@ -28,7 +28,7 @@ args direction X_I classification period
 		if "`direction'"=="LR" keep if direction=="La Rochelle"	
 		if "`direction'"=="bayo" keep if direction=="Bayonne"
 	}
-	collapse (sum) value, by(year `classification' export_import period_str)
+	collapse (sum) value, by(year `classification' export_import period_str war)
 	if "`period'"=="pre1795" drop if year >= 1795
 	
 
@@ -47,7 +47,9 @@ args direction X_I classification period
 	if "`classification'" == "product_sitc_simplEN" drop if product_sitc_simplEN == "Other"
 	if "`classification'" == "partner_grouping_8" drop if partner_grouping_8 == ""
 	
-	keep year export_import `classification' percent ln_percent
+	
+	
+	keep year export_import `classification' percent ln_percent war
 	
 	if "`classification'" == "product_sitc_simplEN"{
 		rename product_sitc_simplEN sitc_simplen
@@ -133,7 +135,7 @@ args direction X_I classification period
 	foreach loss in loss loss_nomemory ln_loss ln_loss_nomemory {
 		local i = `i'+1
 		foreach var of varlist ln_p* {
-			eststo `var'_loss: regress `var' `loss' year
+			eststo `var'_loss: regress `var' `loss' war year
 		}
 				
 		if `i' ==1 esttab ln_p* using "$hamburggit/Results/Structural change/Individual_reg_`classification'_`X_I'_`period'.csv", append csv compress b(%8.2f) ///

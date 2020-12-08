@@ -28,6 +28,9 @@ replace period_str ="War 1793-1807" if year   >= 1793 & year <=1807
 replace period_str ="Blockade 1808-1815" if year   >= 1808 & year <=1815
 replace period_str ="Peace 1816-1840" if year >= 1816
 
+gen war=0
+replace war=1 if year   >= 1744 & year <=1748 | year   >= 1756 & year <=1763 | year   >= 1778 & year <=1783 | year   >= 1793 & year <=1801 | year   >= 1803 & year <=1815
+
 drop if product_sitc_simplEN == "Precious metals"
 
 gen partner_grouping_8=""
