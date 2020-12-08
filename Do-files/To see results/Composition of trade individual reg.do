@@ -28,7 +28,7 @@ args direction X_I classification period
 		if "`direction'"=="LR" keep if direction=="La Rochelle"	
 		if "`direction'"=="bayo" keep if direction=="Bayonne"
 	}
-	collapse (sum) value, by(year product_sitc_simplEN export_import period_str)
+	collapse (sum) value, by(year `classification' export_import period_str)
 	if "`period'"=="pre1795" drop if year >= 1795
 	
 
@@ -45,6 +45,7 @@ args direction X_I classification period
 			
 	gen ln_percent=ln(percent)
 	if "`classification'" == "product_sitc_simplEN" drop if product_sitc_simplEN == "Other"
+	if "`classification'" == "partner_grouping_8" drop if partner_grouping_8 == ""
 	
 	keep year export_import `classification' percent ln_percent
 	
@@ -77,10 +78,10 @@ args direction X_I classification period
 	
 
 	
-	if "`classification'" == "product_sitc_simplEN" {
+	if "`classification'" == "product_sitc_simplEN" {		
 		local class sitc
 		local macro p ln_p
-		foreach i of local macro{
+		foreach i of local macro {
 			label var `i'`X_I'0a "Other foodstuff"
 			label var `i'`X_I'0b "Plantation foodstuff"
 			label var `i'`X_I'1 "Drinks and tobacco"
@@ -94,14 +95,20 @@ args direction X_I classification period
 			label var `i'`X_I'6g "Cotton threads and fabrics"
 			label var `i'`X_I'6j_k_7_8_9c "Other industrial products"
 		}
+		rename *6j_k_7_8_9c* *other*
 		local textitle "\shortstack{Other\\foodstuff}" "\shortstack{Plantation\\foodstuff}" "\shortstack{Drinks\\and\\tobacco}" "\shortstack{Crude\\material}" "Oils" "\shortstack{Chemical\\products}" "\shortstack{Leather\\wood and\\paper\\products}" "\shortstack{Other\\threads\\and fabric}"  "\shortstack{Wool\\threads\\and fabrics}" "\shortstack{Silk\\threads\\and fabrics}" "\shortstack{Cotton\\threads\\and fabrics}" "\shortstack{Other\\industrial\\products}"
+		local tabular_columns  p{1.5cm} p{1.7cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm}
 	}
-	else if "`classification'" == "partner_grouping_8" local class pays8
+	
+	
+	if "`classification'" == "partner_grouping_8" {
+		local textitle "\shortstack{Germany\\and\\Switzerland}" "Iberia" "Italy" "\shortstack{Low\\Countries}" "\shortstack{North\\of\\Holland}" "Overseas" "\shortstack{United\\Kingdom}"  "\shortstack{United\\States}"
+		local tabular_columns  p{1.5cm} p{2cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm}
+	}
 	
 	
 	if "`X_I'"=="Exports" rename *Exports* *E*
 	if "`X_I'"=="Imports" rename *Imports* *I*
-	rename *6j_k_7_8_9c* *other*
 	
 	capture erase "$hamburggit/Results/Structural change/Individual_reg_`classification'_`X_I'_`period'.csv"
 	capture erase "$hamburggit/Paper - Impact of War/Paper/Individual_reg_`classification'_`X_I'_`period'.tex"
@@ -140,14 +147,14 @@ args direction X_I classification period
 				noconstant noobs nonumber nonotes   /*r2(%8.2f)*/ alignment(c) ///
 				mtitle(`macval(textitle)')  ///
 				prehead(`"\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}"' ///
-				`"\begin{tabular}{p{1.5cm} p{1.7cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} }"') ///
+				`"\begin{tabular}{`tabular_columns'}"') ///
 				postfoot(`"\end{tabular}"')
 									
 		else esttab ln_p* using "$hamburggit/Paper - Impact of War/Paper/Individual_reg_`classification'_`X_I'_`period'.tex", ///
 				append tex label compress b(%8.3f) wrap nogaps ///
 				noconstant noobs nonumber nonotes  nomtitle /*r2(%8.2f)*/ alignment(c) ///
 				prehead(`"\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}"' ///
-				`"\begin{tabular}{p{1.5cm} p{1.7cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} }"') ///
+				`"\begin{tabular}{`tabular_columns'}"') ///
 				postfoot(`"\end{tabular}"')
 
 		eststo clear
@@ -160,6 +167,9 @@ args direction X_I classification period
 end
 
 eststo clear
+
+composition_trade_ind_reg  national Exports partner_grouping_8 all
+
 /*
 composition_trade_ind_reg  national Exports product_sitc_simplEN all
 composition_trade_ind_reg  national Imports product_sitc_simplEN all

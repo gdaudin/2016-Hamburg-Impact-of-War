@@ -31,19 +31,16 @@ replace period_str ="Peace 1816-1840" if year >= 1816
 drop if product_sitc_simplEN == "Precious metals"
 
 gen partner_grouping_8=""
-replace partner_grouping_8="Italy" if partner_grouping=="Italie"
+replace partner_grouping_8="Italy" if partner_grouping=="Italie" | partner_simplification=="Autriche" & year >= 1814
 replace partner_grouping_8="United Kingdom" if partner_grouping=="Angleterre"
-replace partner_grouping_8="Spain" if partner_grouping=="Espagne"
-replace partner_grouping_8="Holland" if partner_grouping=="Hollande"
-replace partner_grouping_8="Germany" if partner_grouping=="Allemagne"
-replace partner_grouping_8="Ottoman Empire" if partner_grouping=="Levant et Barbarie"
-replace partner_grouping_8="Spain" if partner_grouping=="Portugal"
-replace partner_grouping_8="Germany" if partner_grouping=="Suisse"
+replace partner_grouping_8="Iberia" if partner_grouping=="Espagne" | partner_grouping=="Portugal"
+replace partner_grouping_8="Low Countries" if partner_grouping=="Hollande" | ///
+			(partner_grouping=="Flandre et autres états de l'Empereur" & year <= 1792)   | partner_grouping=="Suisse"
+replace partner_grouping_8="GermanySwitz" if partner_grouping=="Allemagne" | (partner_grouping=="Flandre et autres états de l'Empereur" & year >= 1797)
 replace partner_grouping_8="United States" if partner_grouping=="États-Unis d'Amérique"
-replace partner_grouping_8="Holland" if partner_grouping=="Flandre et autres états de l'Empereur" & year < 1792
-replace partner_grouping_8="Germany" if partner_grouping=="Flandre et autres états de l'Empereur" & year > 1797
-replace partner_grouping_8="Baltic, Scandinavia and Russia" if partner_grouping=="Nord"
-replace partner_grouping_8="Ialie" if partner_simplification=="Autriche" & year > 1814
+replace partner_grouping_8="North of Holland" if partner_grouping=="Nord"
+replace partner_grouping_8="Overseas" if partner_grouping=="Levant et Barbarie" | partner_grouping=="Amériques" | partner_grouping=="Asie" | ///
+			partner_grouping=="Afrique" | partner_grouping=="Outre-mers"
 
 gen sitc_aggr=product_sitc_simplEN
 replace sitc_aggr="Other threads and fabrics" if product_sitc_simplEN=="Wool threads and fabrics"
@@ -146,6 +143,15 @@ outtable using "$hamburggit/Paper - Impact of War/Paper/manova_test_sitc", ///
 				caption("Multivariate Analisys of Variance - by SITC") replace 
 */
 
+composition_trade_ind_reg  national Exports partner_grouping_8 all
+composition_trade_ind_reg  national Imports partner_grouping_8 all
+
+composition_trade_ind_reg  national Exports product_sitc_simplEN all
+composition_trade_ind_reg  national Imports product_sitc_simplEN all
+
+
+blifaie
+
 
 composition_trade_ind_reg  national Exports product_sitc_simplEN all
 composition_trade_ind_reg  national Imports product_sitc_simplEN all
@@ -153,7 +159,6 @@ composition_trade_ind_reg  national Imports product_sitc_simplEN all
 composition_trade_ind_reg  national Exports product_sitc_simplEN pre1795
 composition_trade_ind_reg  national Imports product_sitc_simplEN pre1795
 
-blifaie
 
 
 reg_launcher  Exports product_sitc_simplEN pre1795
