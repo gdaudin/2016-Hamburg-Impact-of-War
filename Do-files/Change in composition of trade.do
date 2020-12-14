@@ -7,8 +7,8 @@ if "`c(username)'"=="guillaumedaudin" ///
 		global hamburggit "~/Répertoires GIT/2016-Hamburg-Impact-of-War"
 
 if "`c(username)'" =="Tirindelli" {
-	global hamburg "/Users/Tirindelli/Google Drive/Hamburg"
-	global hamburggit "/Users/Tirindelli/Google Drive/Hamburg/Paper"
+	global hamburg "/Volumes/GoogleDrive/My Drive/Hamburg"
+	global hamburggit "/Volumes/GoogleDrive/My Drive/Hamburg/Paper"
 }
 
 if "`c(username)'" =="tirindee" {
@@ -52,7 +52,7 @@ replace sitc_aggr="Other foodstuff and live animals" if product_sitc_simplEN=="O
 replace sitc_aggr="Other foodstuff and live animals" if product_sitc_simplEN=="Drinks and tobacco"
 replace sitc_aggr="Other" if product_sitc_simplEN=="Chemical products"
 
-save "$hamburg/database_dta/temp_for_hotelling.dta", replace
+save temp_for_hotelling.dta, replace
 
 
 ***************pie chart and violin chart for all war periods***************************
