@@ -3,7 +3,7 @@ capture program drop composition_trade_ind_reg
 program composition_trade_ind_reg
 args direction X_I classification period
 
-	use temp_for_hotelling.dta, clear
+	use "$hamburg/database_dta/temp_for_hotelling.dta", clear
 
 	if period=="pre1795" keep if year <=1795
 	

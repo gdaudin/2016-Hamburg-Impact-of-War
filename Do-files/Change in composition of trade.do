@@ -52,7 +52,7 @@ replace sitc_aggr="Other foodstuff and live animals" if product_sitc_simplEN=="O
 replace sitc_aggr="Other foodstuff and live animals" if product_sitc_simplEN=="Drinks and tobacco"
 replace sitc_aggr="Other" if product_sitc_simplEN=="Chemical products"
 
-save temp_for_hotelling.dta, replace
+save "$hamburg/database_dta/temp_for_hotelling.dta", replace
 
 
 ***************pie chart and violin chart for all war periods***************************
