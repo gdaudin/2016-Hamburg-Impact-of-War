@@ -149,25 +149,39 @@ The latter is available between 1787 and 1789 and between 1797 and 1821. It does
 Lesser complete sources are Local sources and the \textit{Tableau Général}. Local data are available from 1716 to 1780 and in 1789, which allows for partial reconstruction of total trade.
 The \textit{Tableau Général} exists in the French archives that provides French bilateral trade, though not broken down by product (\cite{Romano1957}). 
 
-All sources provide the value of trade in the current French currency. This is the \textit{livre tournois} up to 1795 and the \textit{franc} afterward. The value of the \textit{livre} was fluctuating in the early eighteenth century. In 1726, its value was fixed at a value of 4.505 grams of fine silver \citep{Dewailly1857}. Because of the monetary crisis during the revolution, we use data extracted from published appreciation tables to fix the value of the \textit{livre} at 2.9 grams of silver in 1792 (\cite{Hoffman2000}). The French \textit{franc} contained 4.5 grams of fine silver. We convert the trade flows in fine silver; obviously, this does not solve the inflation issue, but we argue that inflation in terms of silver was relatively limited during that period. \todo[inline, color = blue!40]{Citation here?}
+All sources provide the value of trade in the current French currency. This is the \textit{livre tournois} up to 1795 and the \textit{franc} afterward. The value of the \textit{livre} was fluctuating in the early eighteenth century. In 1726, its value was fixed at a value of 4.505 grams of fine silver \citep{Dewailly1857}. Because of the monetary crisis during the revolution, we use data extracted from published appreciation tables to fix the value of the \textit{livre} at 2.9 grams of silver in 1792 (\cite{Hoffman2000}). The French \textit{franc} contained 4.5 grams of fine silver. We convert the trade flows in fine silver; obviously, this does not solve the inflation issue, but we argue that inflation in terms of silver was relatively limited during that period. \todo[inline, color = blue!40]{Citation here? -- GD Yes, we need to have a deep long conversation about inflation (including how it changes the loss function. Stull mulling this one.).}
 
 \section{A qualitative analysis}
-As explained more in detail in section \ref{sec:empirical_analysis} we construct a loss function to observe the trend of French losses throughout the period in analysis. \todo[inline, color = blue!40]{I can't remember how you were suggesting to introduce this part}
+As explained more in detail in section \ref{sec:empirical_analysis} we construct a loss function to observe the trend of French losses throughout the period in analysis. \todo[inline, color = YellowGreen]{I can't remember how you were suggesting to introduce this part -- GD the idea was to try to identify the channels the British policy was using to reduce French trade and how we could measure / proxy them. Does that make sense ? }
+This section explores what were the policy tools Great Britain used to wage war of French trade and discusses their evolution.
 
-\subsection{Destruction of French shipping}\label{section:DestructionofFrenchshipping}
-The overall value of prizes captured by the British navy and privateers provides a good measure of the 
-the pressure maritime war exerted on trade. By pooling together different sources we aim to provide here an idea of the size of this effect. \todo[inline, color = blue!40]{"as British state limited its alternative, ransoming more and more drastically from 1744 (see \cite{Hillmann2011}, p. 734 )": I dont understand this sentence}
+\subsection{Predation on French shipping}\label{section:DestructionofFrenchshipping}
+Most of French international trade was conducted by sea (see Figure \ref{share_by_sea}). 
+Great Britain had three ways of affecting sea trade: outright destruction of merchant vessels, ransoming, and prize taking.
+Direct destruction of merchant vessels was rare as it was not a gainful activity for the British Navy and privateers.
+Dangers linked to the British Navy and privateers probably led French merchant ships to take more navigational risks, such as sailing off-season to escape them. 
+This would have led to more shipwrecks due to weather or sailing through dangerous or less knowns waters.
+This would lead to indirect destruction of merchant vessels, but we have little information on that subject.
+
+Ransoming implied coercing a merchant vessel into paying a ransom to the privateer of the Navy ship. However, it left the door open to abuse. As a consequence, British government limited it more and more drastically from 1744, and forbade it by the time of American Revolutionary war((see \cite{Hillmann2011}, p. 734 ). \todo[inline, color = YellowGreen]{"as British state limited its alternative, ransoming more and more drastically from 1744 (see \cite{Hillmann2011}, p. 734 )": I dont understand this sentence -- better ? GD}
+
+Prize taking was much easier to monitor by the British state.
+The French vessel was brought back along with some members of its crew to a British port.
+The captors had to demonstrate "the prize was lawfull and the rights of neutral and allied ships engaged in legal trade had not been harmed" (see \cite{Hillmann2011}, p. 734 ) in front of the High Court of Admiralty (if the captor was a civilian ship: the procedure was different for captures by the Navy).
+That activity led to a paper trail that allows some measure of it.
+Because direct destruction must have been rare and ransoming was limited, the overall value of prizes captured by the British navy and privateers provides a good measure of the the pressure maritime war exerted on trade.
+By pooling together different sources we aim to provide here an idea of the size of this effect. 
 
 From \cite{Hillmann2011} we get an estimate of about 11.5 percent of French merchant ships intercepted by the British, for a total of 4 percent of the value of French overseas trade during the War of Austrian Succession, the Seven Years War and the War of American Independence. Thanks to additional data provided by Henning Hillmann (coming mainly from records at the PRO High Court of the Admiralty archives and underlying \cite{Hillmann2011}), we can compute an approximation of the number and the nationality of prizes captured by privateers up to 1809. 
 \cite{Starkey1990} provides the number of prizes condemned as legal by the High Court of the Admiralty in London, both from privateers and the Royal Navy from 1702 to 1785. 
-\todo[inline, color = blue!40]{I think we need to provide a little bit more of background here or before. What is this story that it was up to he High Court of the Admiralty to declare prizes legal? there is no mention of this before}
+\todo[inline, color = YellowGreen]{I think we need to provide a little bit more of background here or before. What is this story that it was up to he High Court of the Admiralty to declare prizes legal? there is no mention of this before -- GD is that better ?}
 \cite{Benjamin2009} provides a chronology of prizes taken by the Royal Navy in the sample first gathered by \cite{Hill1998}.
-Figure \ref{Prizes} represents all the above mentioned data together. We see here that the share of privateering activity was very significant until Seven Years War but became marginal during the Revolutionary \& Napoleonic Wars. This can be explained by the development of other profit alternatives. \todo[inline, color = blue!40]{Like what?} 
+Figure \ref{Prizes} represents all the above mentioned data together. We see here that the share of privateering activity was very significant until Seven Years War but became marginal during the Revolutionary \& Napoleonic Wars. According to \cite{Hillman2011}, this was explained by the development of war-time trade profit opportunites that made privateering a less interesting alternative for British merchants. \todo[inline, color = YellowGreen]{Like what? -- GD Clearer?} 
 The total number of prizes after 1813 declines abruptly. This does not necessarily mean that probability of capture became smaller but could be due to a smaller number of French ships sailing altogether.
-\todo[inline, color = blue!40]{From figure Prizes I dont see it declining except that at the very end. I assumed you referred to that }
+\todo[inline, color=YellowGreen]{From figure Prizes I dont see it declining except that at the very end. I assumed you referred to that--GD I am not sure what you mean?}
 \todo[inline]{This graphs are not readable enough. We need to add axis ticks and have axis labels in interval of ten. }
-Another measure of the pressure British exercised on French trade comes from data on prize goods imported in Great Britain up to 1800 (see Figure \ref{Prize goods imports})).
-\todo[inline, color = blue!40]{What's the source for this graph? is it still the same three above? What is the takeaway from this? }
+Another measure of the pressure British exercised on French trade comes from English and British trade statistcts that measure prize goods imported in Great Britain up to 1800 (\cite{Ashton1960}) (see Figure \ref{Prize goods imports})).
+\todo[inline, color = YellowGreen]{What is the source for this graph? is it still the same three above? What is the takeaway from this?--GD the source is clearer I hope. The takeaway I am not sure. Just confirming other data I guess. Maybe put the whole thing in appendix. What do you think}
 
 
 
@@ -176,9 +190,9 @@ British naval supremacy over France meant that the British could blockade French
 To have a sense of the superiority of the British navy over its enemies, we compare the number of warships available to Great Britain and its allies with that available to France and its allies, as provided in \cite{Modelski1988}. 
 A complete discussion of what we classify as ally or enemy during each war is provided in appendix \ref{app:historical_summary}. 
 Figure \ref{naval_supremacy_ratios} reports the ratio of the number of warships of France and Great Britain, France and its allies and Britain and its allies, France its allies and neutral countries and Britain and its allies.
-We see here that the most favourable war for France, its allies and neutral countries was the Seven Years War, when the number of neutral warships or ships on the French side was more than twice as much that of Britain and its allies. This number is probably inflated by the increase in navy expenditure and size of Sweden and Russia, \todo[inline, color = blue!40]{I remember Sweden and Russia have a bigger navy in this period so I just assumed they increased expenditure. Is this really true? If so it could be worthwhile mentioning a source!} even though there was no common naval action with France. Nonetheless, the ratio without the neutrals is still the highest throughout the period in analysis, suggesting a nearly one to one relation between the two navy sizes. 
-During the American Revolutionary War and the Napoleonic Wars the ratio is lower, even though there are some spikes, which bring it again close to one. \todo[inline, color = blue!40]{Do we know why?}
-The least favourable of all wars was the Austrian Succession War, which should not be surprising as the mercantilist war had not yet started. \todo[inline, color = blue!40]{Is this true?}
+We see here that the most favourable war for France, its allies and neutral countries was the Seven Years War, when the number of neutral warships or ships on the French side was more than twice as much that of Britain and its allies. This number is increase by the fact that both Russia and Sweden were France’s allies, \todo[inline, color = YellowGreen]{I remember Sweden and Russia have a bigger navy in this period so I just assumed they increased expenditure. Is this really true? If so it could be worthwhile mentioning a source!--I just meant that Sweden and Russia, for this war, were allied to France. That was a rather untypical situation. Is clearer now? I do not think we need to get much deeper} even though there was no common naval action with France and not a lot of French ships in the Baltic and the Black Sea for them to protect. Nonetheless, the ratio without the neutrals is still the highest throughout the period in analysis, suggesting a nearly one to one relation between the two navy sizes. 
+During the American Revolutionary War and the Napoleonic Wars the ratio is lower, even though there are some spikes, which bring it again close to one, depending on the shifting alliances (eg both Spain and Russian were neutral in 1795, the Ottoman Empire became neutral in 1802, etc.). \todo[inline, color = YellowGreen]{Do we know why? -- GD are the examples enough?}
+The least favourable of all wars was the Austrian Succession War, as the Dutch and the Russian were then allied to Britain.  \todo[inline, color = YellowGreen]{Is this true? -- GD "which should not be surprising as the mercantilist war had not yet started." I am not sure what you meant. I have clarified the questions}
 
 
 
@@ -195,9 +209,9 @@ In 1796, order was partly restored and a portion of the plantation was being cul
 Guadeloupe was also important for its sugar production and was lost to the British between 1759 to 1763 and between 1810 and 1816.
 Martinique was controlled almost continuously by the British, from 1794-1815, to be traded back to France, after the Napoleonic Wars.
 
-Figure \ref{colony_loss} shows the evolution of the colony loss measure. We see here that the colonial loss of the Seven Years War were minimal (Canada was not an important trade partner for France) whereas a large part of the empire was gradually lost in the Revolutionary \& Napoleonic Wars. 
-In 1814, the Restauration attempted to re-create the colonial system from the late eighteenth century.
-This included the re-establishment of the \textit{Exclusif} and reconquest of St-Domingue or the establishment of some substitute colony (\cite{Todd2011}). In a secret clause of the 1814 peace treaty, however, Great-Britain pledged not to hinder the re-instauration of French sovereignty on St-Domingue (\cite{Schefer1907}). \todo[inline, color = blue!40]{How does this last part relate to the rest? What was the point we wanted to make?}
+Figure \ref{colony_loss} shows the evolution of the colony loss measure. We see here that the colonial loss of the Seven Years War were minimal (Canada was not an important trade partner for France) whereas a large part of the French Empire was gradually lost in the Revolutionary \& Napoleonic Wars. 
+In 1814, the Restauration attempted to re-create the late eighteenth century colonial system.
+This included the re-establishment of the \textit{Exclusif} and reconquest of St-Domingue or the establishment of some substitute colony (\cite{Todd2011}). In a secret clause of the 1814 peace treaty, Great-Britain pledged not to hinder the re-instauration of French sovereignty on St-Domingue (\cite{Schefer1907}). Yet, France never managed to re-create its "First" Empire, and the ecoomic loss was not recouped. \todo[inline, color = YellowGreen]{How does this last part relate to the rest? What was the point we wanted to make? GD I have added a sentence. Is it clearer ? I meant to say that the colonial loss was long-term}
 
 
 \subsection{Neutral policy}
@@ -218,10 +232,10 @@ This experiment however did not have a long lasting success and it was finally p
 Nonetheless, Ancien Régime France was active at protecting the rights of neutral shipping, as it saw it as a means to continue its trade during war years (\cite{Schnakenbourg2013}, p. 129). This came to the extent that in 1784, France gave the West Indies island of St. Barthelemy to Sweden partly to encourage neutral trade during wars (\cite{Schnakenbourg2013}, p. 326).
 
 The situation changed with the Revolutionary \& Napoleonic wars. During this period 
-the United States had become a new powerful independent actor in international trade and it played an important role in ``neutralizing'' French trade \citep{Marzagalli2005,Marzagalli2015}) and in mediating between Great Britain and Spanish America (\cite{Cuenca-Esteban2014}).
-\todo[inline, color = blue!40]{Why do we care of its role as mediation between GB and Spanish America? I would remove the last bit of sentence but just in case..}
-Considering the dynamism of their economy, they were not as easy to dismiss when peace returned, however this was not sufficient to save their shipping income, which was down to one fourth with respect to the level of 1807 and 1811 (40 Million US\$) and the 1820s (less than 10 Million US\$) \citep[tables A-4 and B-2]{North1960}.
-\todo[inline, color = blue!40]{do you mean here that in 1820 it was at level 10m while it was 40m in 1807?}
+the United States had become a new powerful independent actor in international trade (eg in mediating between Great Britain and Spanish America (\cite{Cuenca-Esteban2014} )and it played an important role in ``neutralizing'' French trade \citep{Marzagalli2005,Marzagalli2015})).
+\todo[inline, color = YellowGreen]{Why do we care of its role as mediation between GB and Spanish America? I would remove the last bit of sentence but just in case..--GD it is an illustration of its new found important role. I have rephrased. Is it better?}
+Considering the dynamism of their economy, they were not as easy to dismiss as small neutral trading nations when peace returned. Still, peace had an important role on their shipping income, which was in the 1820s down to one fourth with respect to the level of 1807 and 1811 (less than 10 Million US\$ vs. 40 Million US\$)  \citep[tables A-4 and B-2]{North1960}.
+\todo[inline, color = YellowGreen]{do you mean here that in 1820 it was at level 10m while it was 40m in 1807? -- GD Yes. Is it clearer?}
 On top of this, France become more and more hostile to neutral shipping in trying to isolate Great Britain. With both countries trying to curtail neutral shipping, the system through which France had manage to continue trading crumbled down. 
 In 1793, with the outburst of the French Revolution and, subsequently, the Revolutionary Wars, most British goods were prohibited in France.
 As a response, the British adopted a policy for blockading the coast of France and, subsequently, both countries took action against neutral shipping.
@@ -288,7 +302,7 @@ In terms of the former, we use an adapted version of the SITC classification, wh
 What we want to test here, is whether there is a correlation between a longer lasting change in the structure of trade and the loss in French trade. More precisely, we want to investigate whether higher losses to French trade, hence a successful British trade war strategy, were associated not only to the necessity to restructure trade during war time, but also to hinder the capacity to get back to the pre-war trade structure (which, in some sense, we consider ``optimal''). \\
 In order test this we conduct a Multivariate Analysis of Variance (MANOVA), allowing for heterogeneous co-variances, using the affine-invariant modification by \cite{Krishnamoorthy2004} of the test proposed by \cite{Nel1986}. The two mean vectors here are the 13- or 9-dimensional vectors whose components are the SITC or the country trade shares respectively and the groups are the war-peace periods or the pre-war and post-war peace periods. 
 We do it for imports, exports and imports exports together and then excluding plantation foodstuff. Resulting p-values are reported in tables \ref{tab:manova_test_sitc} and \ref{tab:manova_test_pays} and graphs from \ref{peace_war_nat_distr_sitc} to \ref{seven_peace1764_1777_nat_distr_pays7} show the distribution for each sitc and country in each period. \\
-Considering a 5\% threshold for rejecting the null hypothesis of equality of means, we observe from table \ref{tab:manova_test_sitc} that there is undoubtedly a change in trade structure by products between war and peace periods overall. The p-value is zero, which implies that at least one sitc category (which is not necessarily Plantation foodstuff, because the p-value increases after removing it from the analysis) changes between the two periods. Narrowing down our analysis we proceed to observe the difference between trade structure in war and preceding or following peace periods. Both because of lack of data and of very short peace periods, the comparison is not always possible. We could only examine the difference between Seven Years Wars and the 1764-1777 peace, 1764-1777 peace and War of American Independence, French Revolutionary Wars and Continental Blockade and Continental Blockade and the 1816-1840 peace. In the first case we observe that we can reject the hypothesis that the two mean vectors are the same, i.e. at the end of the Seven Years War there was a clear shift in composition of trade. The only exception is for the case of aggregate imports and exports, including Plantation Foodstuff, where we fail to reject the null hypothesis, however individually on imports and exports the significance for rejection is quite high. Such dramatic change did not happen with the beginning of the War of American Independence, we observe in fact that the p-values are all above the 5\% level, and even if they decrease upon eliminating Plantation Foodstuff, they remain above the threshold. Hence in this case we can say that the outburst of the conflict did not have consequences on French trading pattern. The same cannot be said for the difference between French Revolutionary Wars and Continental Blockade, when there was once again a clear shift in composition of trade, which does not only depend on Plantation Foodstuff, i.e. the share of at least another category of the SITC classification changed significantly between the two periods. We also observe that the change was longer lasting. At the end of the Continental Blockade in fact, France does not seem to recover its pre-Blockade trade structure. This cannot only be due to the fact that it lost its main source of Plantation Foodstuff import and re-export, because even excluding this category the result is consistent. 
+Considering a 5\% threshold for rejecting the null hypothesis of equality of means, we observe from table \ref{tab:manova_test_sitc} that there is undoubtedly a change in trade structure by products between war and peace periods overall. The p-value is zero, which implies that at least one sitc category (which is not necessarily Plantation foodstuff, because the p-value increases after removing it from the analysis) changes between the two periods. Narrowing down our analysis we proceed to observe the difference between trade structure in war and preceding or following peace periods. Both because of lack of data and of very short peace periods, the comparison is not always possible. We could only examine the difference between Seven Years Wars and the 1764-1777 peace, 1764-1777 peace and War of American Independence, French Revolutionary Wars and Continental Blockade and Continental Blockade and the 1816-1840 peace. In the first case we observe that we can reject the hypothesis that the two mean vectors are the same, i.e. at the end of the Seven Years War there was a clear shift in composition of trade. The only exception is for the case of aggregate imports and exports, including Plantation Foodstuff, where we fail to reject the null hypothesis, however individually on imports and exports the significance for rejection is quite high. Such dramatic change did not happen with the beginning of the War of American Independence, we observe in fact that the p-values are all above the 5\% level, and even if they decrease upon eliminating Plantation Foodstuff, they remain above the threshold. Hence in this case we can say that the outburst of the conflict did not have consequences on French trading pattern. The same cannot be said for the difference between French Revolutionary Wars and Continental Blockade, when there was once again a clear shift in composition of trade, which does not only depend on Plantation Foodstuff, i.e. the share of at least another category of the SITC classification changed significantly between the two periods. We also observe tµhat the change was longer lasting. At the end of the Continental Blockade in fact, France does not seem to recover its pre-Blockade trade structure. This cannot only be due to the fact that it lost its main source of Plantation Foodstuff import and re-export, because even excluding this category the result is consistent. 
 \todo[inline, color = YellowGreen]{MANOVA by geography}
 
 \subsection{Regression}
@@ -330,417 +344,417 @@ British could efficiently curtail French trade only by blockading neutral countr
 \newgeometry{left=0.5cm,right=0.5cm,top=.8in,bottom=.8in,}
 \addtocontents{toc}{\protect\contentsline{chapter}{Appendix:}{}}
 
-%\section{Introduction}
-%
-%\begin{figure}[h!]
-%	\caption{What were eighteenth-century Britons preoccupied by?}
-%	\centering
-%	\includegraphics[scale=.4]{"Ngram".png}
-%	\source{https://books.google.com/ngrams}
-%	\label{Ngram}
-%\end{figure}
-%
-%
-%
-%\begin{figure}[h!]
-%\caption{French, British trade and Anglo-French wars}
-%\centering
-%\includegraphics[scale=.4]{"Total silver trade FR GB".png}
-%\source{French trade up to 1821: \cite{Daudin2020}. French trade 1822-1840: \cite{Federico2016} / \cite{Dedinger2017},
-%England/British trade up to 1800: \cite{Deane1969}. UK trade from 1801 to 1840: \cite{Federico2016} / \cite{Dedinger2017},
-%Livre tournois silver value: \cite{Dewailly1857} and \cite{Hoffman2000}; Pound sterling silver value: \cite{Clark2006} and \cite{Jastram1981}}
-%\label{FrBritTrade}
-%\end{figure}
-%
-%\section{Historical summary}
-%
-%\begin{table}[h!]
-%\centering
-%\caption{Summary of war status for trade partners, 1792-1815}\label{war_peace}
-%\input{war_peace.tex}
-%\end{table} 
-%
-%\begin{center}
-%\begin{figure}[h!]
-%\caption{Number of protagonists}
-%\label{Number_of_protagonists}
-%\centering
-%\includegraphics[scale=1]{"Number of protagonists".pdf}
-%\end{figure}
-%\end{center}
-%
-%\section{The Anglo-French war}
-%\begin{figure}[h!]
-%	\caption{Share of French trade conducted by sea}
-%	\centering
-%	\includegraphics[scale=.4]{"Share_by_sea".png}
-%	\source{TOFLIT and 1792 data on the share of sea trade per country in AN F/12/1834 B}
-%	\label{Share_by_sea}
-%\end{figure}
-%
-%
-%\section{Explained variable}
-%
-%\begin{center}
-%\begin{figure}[h!]
-%\caption{Annual Loss Function}
-%\label{annual_loss_function}
-%\centering
-%\includegraphics[scale=0.5]{Annual_loss_function}
-%\caption{Mean Loss Function}
-%\label{mean_loss_function}
-%\includegraphics[scale=0.5]{Mean_loss_function}
-%\end{figure}
-%\end{center}
-%
-%\begin{center}
-%\begin{figure}[h!]
-%\caption{GB Annual Loss Function}
-%\label{GBannual_loss_function}
-%\centering
-%\includegraphics[scale=0.9]{GBAnnual_loss_function.pdf}
-%\caption{GB Mean Loss Function}
-%\label{GBmean_loss_function}
-%\includegraphics[scale=0.9]{GBMean_loss_function.pdf}
-%\end{figure}
-%\end{center}
-%
-%\section{Can we do a cost-benefit analysis?}
-%\begin{center}
-%	\begin{figure}[h!]
-%		\caption{British Navy budget and French trade losses}
-%		\label{Expenditures}
-%		\centering
-%		\includegraphics[scale=0.5]{Expenditures_Annual_Loss.png}
-%		\source{See text and \cite[pp. 570-587]{mitchell1988}}
-%	\end{figure}
-%\end{center}
-%\begin{center}
-%	\begin{figure}[h!]
-%		\caption{Ratio between French trade losses and the British Navy budget, high and low hypothesis}
-%		\label{Ratio_BR_Expenditures}
-%		\centering
-%		\includegraphics[scale=0.4]{Ratio_BR_Expenditures_Annual_LossH.png}
-%		\includegraphics[scale=0.4]{Ratio_BR_Expenditures_Annual_LossL.png}
-%		\source{See text and \cite[pp. 570-587]{mitchell1988}}
-%	    \caption*{For these graphs, French trade loss are assumed to be nil for 1783-1786, 1790-1791 and at the 1797 level for 1793-1796}
-%	\end{figure}
-%\end{center}
-%
-%\section{destruction of French shipping}
-%\begin{center}
-%	\begin{figure}[h!]
-%		\caption{Ships captured by Great-Britain}
-%		\label{Prizes}
-%		\centering
-%		\includegraphics[scale=0.7]{Prizes.png}
-%		\source{\cite{Starkey1990}, data provided by Hennening Hillmann, underlying \cite{Hillmann2011} and  \cite{Benjamin2009}, based of the work done by Hill for \cite{Hill1998}}
-%	\end{figure}
-%\end{center}
-%
-%\begin{center}
-%	\begin{figure}[h!]
-%		\caption{Prize goods imports in Great-Britain}
-%		\label{Prize goods imports}
-%		\centering
-%		\includegraphics[scale=0.7]{Prizes_imports.png}
-%		\source{\cite{Ashton1960}}
-%	\end{figure}
-%\end{center}
-%
-%\section{Naval Supremacy}
-%\begin{center}
-%\begin{figure}[h!]
-%\caption{Naval Supremacy Ratio}
-%\label{naval_supremacy_ratios}
-%\centering
-%\includegraphics[scale=.51]{naval_supremacy_ratios.png}
-%\end{figure}
-%\end{center}
-%
-%\section{Measure of colonial power}
-%\begin{center}
-%\begin{figure}[h!]
-%\caption{Colonial empire loss}
-%\label{colony_loss}
-%\centering
-%\includegraphics[scale=.51]{colony_loss.png}
-%\end{figure}
-%\end{center}
-%
-%\section{Neutral policy}
-%\begin{center}
-%	\begin{figure}[h!]
-%		\caption{Nationality of non-French British prizes}
-%		\label{Prizes_nationality}
-%		\centering
-%		\includegraphics[scale=.51]{Prizes_nationality.png}
-%		\source{See Figure \ref{Prizes}}
-%	\end{figure}
-%\end{center}
-%
-%
-%\begin{table}[h!]
-%\centering
-%\caption{Measure of neutral policy}
-%\label{neutral_policy}
-%\input{neutral_policy}
-%\end{table}
-%
-%\begin{table}[ht]
-%\centering
-%\caption{Summary of expected effects}
-%\label{summary}
-%\input{summary.tex}
-%\end{table}
-%
-%\begin{center}
-%\begin{figure}[h!]
-%\centering
-%\caption{Trade loss by war status}
-%\label{loss_by_war_status_XI}
-%\includegraphics[scale=1.2]{loss_by_war_status_XI.pdf}
-%\end{figure}
-%\end{center}
-%
-%
-%
-%\section{Regression}
-%\begin{landscape}
-%\begin{table}[h!]
-%	\caption{Regression of the various the loss functions on the log of sectorial shares of exports (N=54)}
-%	\footnotesize
-%	\input{Individual_reg_product_sitc_simplEN_Exports_all.tex}
-%	\source{The log of "negative" losses is replaces by the log of the minimum loss in the data)}
-%\end{table}
-%
-%\begin{table}[h!]
-%	\caption{Regression the loss functions on the log of the sectorial shares of imports(N=54)}
-%	\label{key}\footnotesize
-%	\input{Individual_reg_product_sitc_simplEN_Imports_all.tex}
-%	\source{The log of "negative" losses is replaces by the log of the minimum loss in the data)}
-%\end{table}
-%
-%\end{landscape}
-%
-%\begin{table}[h!]
-%	\caption{Regression the loss functions on the log of the geography of exports(N=67)}
-%	\label{key}\footnotesize
-%	\input{Individual_reg_partner_grouping_8_Exports_all.tex}
-%	\source{The log of "negative" losses is replaces by the log of the minimum loss in the data)}
-%\end{table}
-%
-%\begin{table}[h!]
-%	\caption{Regression the loss functions on the log of the geography of imports(N=67)}
-%	\label{key}\footnotesize
-%	\input{Individual_reg_partner_grouping_8_Imports_all.tex}
-%	\source{The log of "negative" losses is replaces by the log of the minimum loss in the data)}
-%\end{table}
-%
-%
-%
-%
-%\section{MANOVA test} 
-%\begin{table}[h!]
-%\centering
-%\caption{SITC18 Classification}
-%\label{tab:class_sitc18}
-%\input{class_sitc18.tex}
-%\end{table}
-%\begin{table}[h!]
-%\centering
-%\caption{Country Classification}
-%\label{tab:class_pay7}
-%\input{class_pays7.tex}
-%\end{table}
-%\input{manova_test_sitc.tex}
-%\input{manova_test_pays.tex}
-%\input{manova_test_aggr.tex}
-%
-%%\input{hotelling_test_hom.tex}
-%
-%\begin{figure}[h!]
-%\caption{All War and Peace period}
-%\label{peace_war_nat_distr_sitc}
-%\includegraphics[scale=.4]{peace_war_nat_distr_Isitc}
-%\includegraphics[scale=.4]{peace_war_nat_distr_Xsitc}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\caption{American Independence War and Peace 1764-1777}
-%\label{peace1764_1777_indep_nat_distr_sitc}
-%\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Isitc}
-%\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Xsitc}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\caption{Peace 1816-1840 and Continental Blockade}
-%\label{peace1816_1840_block_nat_distr_sitc}
-%\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Isitc}
-%\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Xsitc}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\caption{Revolutionary War and Continental Blockade}
-%\label{rev_block_nat_distr_sitc}
-%\includegraphics[scale=.4]{rev_block_nat_distr_Isitc}
-%\includegraphics[scale=.4]{rev_block_nat_distr_Xsitc}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\caption{Seven Years War and Peace 1816-1821}
-%\label{seven_peace1764_1777_nat_distr_sitc}
-%\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Isitc}
-%\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Xsitc}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\caption{Peace 1749-1755 and Peace 1764-1777}
-%\label{seven_peace1764_1777_nat_distr_sitc}
-%\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Isitc}
-%\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Xsitc}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\caption{Peace 1764-1777 and Peace 1784-1792}
-%\label{seven_peace1764_1777_nat_distr_sitc}
-%\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Isitc}
-%\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Xsitc}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\caption{All War and Peace period}
-%\label{peace_war_nat_distr_pays7}
-%\includegraphics[scale=.4]{peace_war_nat_distr_Ipays7}
-%\includegraphics[scale=.4]{peace_war_nat_distr_Xpays7}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\caption{American Independence War and Peace 1764-1777}
-%\label{peace1764_1777_indep_nat_distr_pays7}
-%\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Ipays7}
-%\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Xpays7}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\caption{Peace 1816-1840 and Continental Blockade}
-%\label{peace1816_1840_block_nat_distr_pays7}
-%\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Ipays7}
-%\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Xpays7}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\caption{Revolutionary War and Continental Blockade}
-%\label{rev_block_nat_distr_pays7}
-%\includegraphics[scale=.4]{rev_block_nat_distr_Ipays7}
-%\includegraphics[scale=.4]{rev_block_nat_distr_Xpays7}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\caption{Seven Years War and Peace 1816-1821}
-%\label{seven_peace1764_1777_nat_distr_pays7}
-%\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Ipays7}
-%\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Xpays7}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\caption{Peace 1749-1755 and Peace 1764-1777}
-%\label{seven_peace1764_1777_nat_distr_pays7}
-%\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Ipays7}
-%\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Xpays7}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\caption{Peace 1764-1777 and Peace 1784-1792}
-%\label{seven_peace1764_1777_nat_distr_pays7}
-%\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Ipays7}
-%\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Xpays7}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\caption{Peace 1784-1792 and Peace 1816-1821}
-%\label{peace1784_1792_peace1816_1821_nat_distr_pays7}
-%\includegraphics[scale=.4]{peace1784_1792_peace1816_1840_nat_distr_Ipays7}
-%\includegraphics[scale=.4]{peace1784_1792_peace1816_1840_nat_distr_Xpays7}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\caption{All War and Peace period}
-%\label{peace_war_nat_distr_aggr}
-%\includegraphics[scale=.4]{peace_war_nat_distr_Iaggr}
-%\includegraphics[scale=.4]{peace_war_nat_distr_Xaggr}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\caption{American Independence War and Peace 1764-1777}
-%\label{peace1764_1777_indep_nat_distr_aggr}
-%\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Iaggr}
-%\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Xaggr}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\caption{Peace 1816-1840 and Continental Blockade}
-%\label{peace1816_1840_block_nat_distr_aggr}
-%\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Iaggr}
-%\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Xaggr}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\caption{Revolutionary War and Continental Blockade}
-%\label{rev_block_nat_distr_aggr}
-%\includegraphics[scale=.4]{rev_block_nat_distr_Iaggr}
-%\includegraphics[scale=.4]{rev_block_nat_distr_Xaggr}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\caption{Seven Years War and Peace 1816-1821}
-%\label{seven_peace1764_1777_nat_distr_aggr}
-%\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Iaggr}
-%\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Xaggr}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\caption{Peace 1749-1755 and Peace 1764-1777}
-%\label{seven_peace1764_1777_nat_distr_aggr}
-%\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Iaggr}
-%\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Xaggr}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\caption{Peace 1764-1777 and Peace 1784-1792}
-%\label{seven_peace1764_1777_nat_distr_aggr}
-%\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Iaggr}
-%\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Xaggr}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\caption{Peace 1784-1792 and Peace 1816-1821}
-%\label{peace1784_1792_peace1816_1840_nat_distr_Iaggr}
-%\includegraphics[scale=.4]{peace1784_1792_peace1816_1840_nat_distr_Iaggr}
-%\includegraphics[scale=.4]{peace1784_1792_peace1816_1840_nat_distr_Xaggr}
-%\end{figure}
-%
-%\newgeometry{left=.6in,right=.6in,top=.8in,bottom=.8in,}
+\section{Introduction}
+
+\begin{figure}[h!]
+	\caption{What were eighteenth-century Britons preoccupied by?}
+	\centering
+	\includegraphics[scale=.4]{"Ngram".png}
+	\source{https://books.google.com/ngrams}
+	\label{Ngram}
+\end{figure}
+
+
+
+\begin{figure}[h!]
+\caption{French, British trade and Anglo-French wars}
+\centering
+\includegraphics[scale=.4]{"Total silver trade FR GB".png}
+\source{French trade up to 1821: \cite{Daudin2020}. French trade 1822-1840: \cite{Federico2016} / \cite{Dedinger2017},
+England/British trade up to 1800: \cite{Deane1969}. UK trade from 1801 to 1840: \cite{Federico2016} / \cite{Dedinger2017},
+Livre tournois silver value: \cite{Dewailly1857} and \cite{Hoffman2000}; Pound sterling silver value: \cite{Clark2006} and \cite{Jastram1981}}
+\label{FrBritTrade}
+\end{figure}
+
+\section{Historical summary}
+
+\begin{table}[h!]
+\centering
+\caption{Summary of war status for trade partners, 1792-1815}\label{war_peace}
+\input{war_peace.tex}
+\end{table} 
+
+\begin{center}
+\begin{figure}[h!]
+\caption{Number of protagonists}
+\label{Number_of_protagonists}
+\centering
+\includegraphics[scale=1]{"Number of protagonists".pdf}
+\end{figure}
+\end{center}
+
+\section{The Anglo-French war}
+\begin{figure}[h!]
+	\caption{Share of French trade conducted by sea}
+	\centering
+	\includegraphics[scale=.4]{"Share_by_sea".png}
+	\source{TOFLIT and 1792 data on the share of sea trade per country in AN F/12/1834 B}
+	\label{Share_by_sea}
+\end{figure}
+
+
+\section{Explained variable}
+
+\begin{center}
+\begin{figure}[h!]
+\caption{Annual Loss Function}
+\label{annual_loss_function}
+\centering
+\includegraphics[scale=0.5]{Annual_loss_function}
+\caption{Mean Loss Function}
+\label{mean_loss_function}
+\includegraphics[scale=0.5]{Mean_loss_function}
+\end{figure}
+\end{center}
+
+\begin{center}
+\begin{figure}[h!]
+\caption{GB Annual Loss Function}
+\label{GBannual_loss_function}
+\centering
+\includegraphics[scale=0.9]{GBAnnual_loss_function.pdf}
+\caption{GB Mean Loss Function}
+\label{GBmean_loss_function}
+\includegraphics[scale=0.9]{GBMean_loss_function.pdf}
+\end{figure}
+\end{center}
+
+\section{Can we do a cost-benefit analysis?}
+\begin{center}
+	\begin{figure}[h!]
+		\caption{British Navy budget and French trade losses}
+		\label{Expenditures}
+		\centering
+		\includegraphics[scale=0.5]{Expenditures_Annual_Loss.png}
+		\source{See text and \cite[pp. 570-587]{mitchell1988}}
+	\end{figure}
+\end{center}
+\begin{center}
+	\begin{figure}[h!]
+		\caption{Ratio between French trade losses and the British Navy budget, high and low hypothesis}
+		\label{Ratio_BR_Expenditures}
+		\centering
+		\includegraphics[scale=0.4]{Ratio_BR_Expenditures_Annual_LossH.png}
+		\includegraphics[scale=0.4]{Ratio_BR_Expenditures_Annual_LossL.png}
+		\source{See text and \cite[pp. 570-587]{mitchell1988}}
+	    \caption*{For these graphs, French trade loss are assumed to be nil for 1783-1786, 1790-1791 and at the 1797 level for 1793-1796}
+	\end{figure}
+\end{center}
+
+\section{destruction of French shipping}
+\begin{center}
+	\begin{figure}[h!]
+		\caption{Ships captured by Great-Britain}
+		\label{Prizes}
+		\centering
+		\includegraphics[scale=0.7]{Prizes.png}
+		\source{\cite{Starkey1990}, data provided by Hennening Hillmann, underlying \cite{Hillmann2011} and  \cite{Benjamin2009}, based of the work done by Hill for \cite{Hill1998}}
+	\end{figure}
+\end{center}
+
+\begin{center}
+	\begin{figure}[h!]
+		\caption{Prize goods imports in Great-Britain}
+		\label{Prize goods imports}
+		\centering
+		\includegraphics[scale=0.7]{Prizes_imports.png}
+		\source{\cite{Ashton1960}}
+	\end{figure}
+\end{center}
+
+\section{Naval Supremacy}
+\begin{center}
+\begin{figure}[h!]
+\caption{Naval Supremacy Ratio}
+\label{naval_supremacy_ratios}
+\centering
+\includegraphics[scale=.51]{naval_supremacy_ratios.png}
+\end{figure}
+\end{center}
+
+\section{Measure of colonial power}
+\begin{center}
+\begin{figure}[h!]
+\caption{Colonial empire loss}
+\label{colony_loss}
+\centering
+\includegraphics[scale=.51]{colony_loss.png}
+\end{figure}
+\end{center}
+
+\section{Neutral policy}
+\begin{center}
+	\begin{figure}[h!]
+		\caption{Nationality of non-French British prizes}
+		\label{Prizes_nationality}
+		\centering
+		\includegraphics[scale=.51]{Prizes_nationality.png}
+		\source{See Figure \ref{Prizes}}
+	\end{figure}
+\end{center}
+
+
+\begin{table}[h!]
+\centering
+\caption{Measure of neutral policy}
+\label{neutral_policy}
+\input{neutral_policy}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Summary of expected effects}
+\label{summary}
+\input{summary.tex}
+\end{table}
+
+\begin{center}
+\begin{figure}[h!]
+\centering
+\caption{Trade loss by war status}
+\label{loss_by_war_status_XI}
+\includegraphics[scale=1.2]{loss_by_war_status_XI.pdf}
+\end{figure}
+\end{center}
+
+
+
+\section{Regression}
+\begin{landscape}
+\begin{table}[h!]
+	\caption{Regression of the various the loss functions on the log of sectorial shares of exports (N=54)}
+	\footnotesize
+	\input{Individual_reg_product_sitc_simplEN_Exports_all.tex}
+	\source{The log of "negative" losses is replaces by the log of the minimum loss in the data)}
+\end{table}
+
+\begin{table}[h!]
+	\caption{Regression the loss functions on the log of the sectorial shares of imports(N=54)}
+	\label{key}\footnotesize
+	\input{Individual_reg_product_sitc_simplEN_Imports_all.tex}
+	\source{The log of "negative" losses is replaces by the log of the minimum loss in the data)}
+\end{table}
+
+\end{landscape}
+
+\begin{table}[h!]
+	\caption{Regression the loss functions on the log of the geography of exports(N=67)}
+	\label{key}\footnotesize
+	\input{Individual_reg_partner_grouping_8_Exports_all.tex}
+	\source{The log of "negative" losses is replaces by the log of the minimum loss in the data)}
+\end{table}
+
+\begin{table}[h!]
+	\caption{Regression the loss functions on the log of the geography of imports(N=67)}
+	\label{key}\footnotesize
+	\input{Individual_reg_partner_grouping_8_Imports_all.tex}
+	\source{The log of "negative" losses is replaces by the log of the minimum loss in the data)}
+\end{table}
+
+
+
+
+\section{MANOVA test} 
+\begin{table}[h!]
+\centering
+\caption{SITC18 Classification}
+\label{tab:class_sitc18}
+\input{class_sitc18.tex}
+\end{table}
+\begin{table}[h!]
+\centering
+\caption{Country Classification}
+\label{tab:class_pay7}
+\input{class_pays7.tex}
+\end{table}
+\input{manova_test_sitc.tex}
+\input{manova_test_pays.tex}
+\input{manova_test_aggr.tex}
+
+%\input{hotelling_test_hom.tex}
+
+\begin{figure}[h!]
+\caption{All War and Peace period}
+\label{peace_war_nat_distr_sitc}
+\includegraphics[scale=.4]{peace_war_nat_distr_Isitc}
+\includegraphics[scale=.4]{peace_war_nat_distr_Xsitc}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\caption{American Independence War and Peace 1764-1777}
+\label{peace1764_1777_indep_nat_distr_sitc}
+\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Isitc}
+\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Xsitc}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\caption{Peace 1816-1840 and Continental Blockade}
+\label{peace1816_1840_block_nat_distr_sitc}
+\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Isitc}
+\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Xsitc}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\caption{Revolutionary War and Continental Blockade}
+\label{rev_block_nat_distr_sitc}
+\includegraphics[scale=.4]{rev_block_nat_distr_Isitc}
+\includegraphics[scale=.4]{rev_block_nat_distr_Xsitc}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\caption{Seven Years War and Peace 1816-1821}
+\label{seven_peace1764_1777_nat_distr_sitc}
+\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Isitc}
+\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Xsitc}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\caption{Peace 1749-1755 and Peace 1764-1777}
+\label{seven_peace1764_1777_nat_distr_sitc}
+\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Isitc}
+\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Xsitc}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\caption{Peace 1764-1777 and Peace 1784-1792}
+\label{seven_peace1764_1777_nat_distr_sitc}
+\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Isitc}
+\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Xsitc}
+\end{figure}
+
+\begin{figure}[h!]
+\caption{All War and Peace period}
+\label{peace_war_nat_distr_pays7}
+\includegraphics[scale=.4]{peace_war_nat_distr_Ipays7}
+\includegraphics[scale=.4]{peace_war_nat_distr_Xpays7}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\caption{American Independence War and Peace 1764-1777}
+\label{peace1764_1777_indep_nat_distr_pays7}
+\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Ipays7}
+\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Xpays7}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\caption{Peace 1816-1840 and Continental Blockade}
+\label{peace1816_1840_block_nat_distr_pays7}
+\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Ipays7}
+\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Xpays7}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\caption{Revolutionary War and Continental Blockade}
+\label{rev_block_nat_distr_pays7}
+\includegraphics[scale=.4]{rev_block_nat_distr_Ipays7}
+\includegraphics[scale=.4]{rev_block_nat_distr_Xpays7}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\caption{Seven Years War and Peace 1816-1821}
+\label{seven_peace1764_1777_nat_distr_pays7}
+\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Ipays7}
+\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Xpays7}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\caption{Peace 1749-1755 and Peace 1764-1777}
+\label{seven_peace1764_1777_nat_distr_pays7}
+\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Ipays7}
+\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Xpays7}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\caption{Peace 1764-1777 and Peace 1784-1792}
+\label{seven_peace1764_1777_nat_distr_pays7}
+\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Ipays7}
+\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Xpays7}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\caption{Peace 1784-1792 and Peace 1816-1821}
+\label{peace1784_1792_peace1816_1821_nat_distr_pays7}
+\includegraphics[scale=.4]{peace1784_1792_peace1816_1840_nat_distr_Ipays7}
+\includegraphics[scale=.4]{peace1784_1792_peace1816_1840_nat_distr_Xpays7}
+\end{figure}
+
+\begin{figure}[h!]
+\caption{All War and Peace period}
+\label{peace_war_nat_distr_aggr}
+\includegraphics[scale=.4]{peace_war_nat_distr_Iaggr}
+\includegraphics[scale=.4]{peace_war_nat_distr_Xaggr}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\caption{American Independence War and Peace 1764-1777}
+\label{peace1764_1777_indep_nat_distr_aggr}
+\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Iaggr}
+\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Xaggr}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\caption{Peace 1816-1840 and Continental Blockade}
+\label{peace1816_1840_block_nat_distr_aggr}
+\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Iaggr}
+\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Xaggr}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\caption{Revolutionary War and Continental Blockade}
+\label{rev_block_nat_distr_aggr}
+\includegraphics[scale=.4]{rev_block_nat_distr_Iaggr}
+\includegraphics[scale=.4]{rev_block_nat_distr_Xaggr}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\caption{Seven Years War and Peace 1816-1821}
+\label{seven_peace1764_1777_nat_distr_aggr}
+\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Iaggr}
+\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Xaggr}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\caption{Peace 1749-1755 and Peace 1764-1777}
+\label{seven_peace1764_1777_nat_distr_aggr}
+\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Iaggr}
+\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Xaggr}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\caption{Peace 1764-1777 and Peace 1784-1792}
+\label{seven_peace1764_1777_nat_distr_aggr}
+\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Iaggr}
+\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Xaggr}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\caption{Peace 1784-1792 and Peace 1816-1821}
+\label{peace1784_1792_peace1816_1840_nat_distr_Iaggr}
+\includegraphics[scale=.4]{peace1784_1792_peace1816_1840_nat_distr_Iaggr}
+\includegraphics[scale=.4]{peace1784_1792_peace1816_1840_nat_distr_Xaggr}
+\end{figure}
+
+\newgeometry{left=.6in,right=.6in,top=.8in,bottom=.8in,}
 
 \section{Blockade}\label{app:appendix_blockade}
 There were essentially two possible types of blockades \citep{Corbett2004}; the open and the closed blockade. The former consisted of keeping the ships at port, but ready to sail, as soon as the enemy fleet left its harbour. This technique was much less straining for men and ships, but less efficient when it came to blockading. On the other hand, the closed blockade consisted of keeping the rival fleet blocked in its own port, impeding it from exiting. This was much more of an efficient technique, however, the maintenance of both ships and men at sea for such a long time was a substantial issue.
@@ -822,7 +836,7 @@ The extension of France in the Low Countries, Germany and Italy changed the actu
 
 
 
-%\tableofcontents
+\tableofcontents
 
 
 %plainnat
