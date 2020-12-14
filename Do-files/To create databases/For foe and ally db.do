@@ -1,7 +1,7 @@
 
 if "`c(username)'" =="guillaumedaudin" {
-	global hamburg "~/Documents/Recherche/2016 Hambourg et Guerre"
-	global hamburggit "~/Documents/Recherche/2016 Hambourg et Guerre/2016-Hamburg-Impact-of-War"
+		global hamburg "~/Documents/Recherche/2016 Hambourg et Guerre"
+		global hamburggit "~/Répertoires GIT/2016-Hamburg-Impact-of-War"
 }
 
 else if "`c(username)'" =="tirindee" {
@@ -16,7 +16,7 @@ else if "`c(username)'" =="Tirindelli" {
 }
 
 if "`c(username)'" =="guillaumedaudin" {
-insheet using "$hamburg/2016-Hamburg-Impact-of-War/External Data/WarAndPeace.csv", case clear
+insheet using "$hamburggit/External Data/WarAndPeace.csv", case clear
 }
 
 else insheet using "$hamburggit/External Data/WarAndPeace.csv", case clear
