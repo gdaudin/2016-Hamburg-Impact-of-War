@@ -1,5 +1,6 @@
 \documentclass[12pt,a4paper,notitlepage,english]{article}
 \usepackage[utf8]{inputenc}
+\usepackage[title,titletoc,toc]{appendix}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{longtable}
@@ -340,7 +341,10 @@ British could efficiently curtail French trade only by blockading neutral countr
 \bibliography{How_to_wage_a_trade_war}
 
 \clearpage
-\appendix
+
+
+\begin{appendix}
+
 \newgeometry{left=0.5cm,right=0.5cm,top=.8in,bottom=.8in,}
 \addtocontents{toc}{\protect\contentsline{chapter}{Appendix:}{}}
 
@@ -836,13 +840,17 @@ The extension of France in the Low Countries, Germany and Italy changed the actu
 
 
 
-\tableofcontents
+
 
 
 %plainnat
+
+
+\end{appendix}
+
+\tableofcontents
+
 \listoftodos[Notes]
-
-
 
 \end{document}
 
