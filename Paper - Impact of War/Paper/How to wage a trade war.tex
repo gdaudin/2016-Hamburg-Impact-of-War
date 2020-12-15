@@ -28,7 +28,10 @@
 \usepackage[section]{placeins}
 \usepackage{ctable}
 \newcolumntype{?}{!{\vrule width 2pt}}
-  \newcolumntype{d}[1]{D{.}{.}{#1}}  
+ \newcolumntype{d}[1]{D{.}{.}{#1}} 
+\DeclareUnicodeCharacter{202F}{ }
+
+ 
 
 \author{
   Guillaume Daudin\thanks{Université Paris-Dauphine, PSL Research University, CNRS, 8007, IRD, 260, LEDa, DIAL, 75016, Paris, France. Sciences Po, OFCE, 75007, Paris. Corresponding author. E-mail: guillaume.daudin@dauphine.psl.eu}
@@ -178,24 +181,29 @@ Figure \ref{colony_loss} shows the evolution of the colony loss measure. The col
 \subsection{Predation on French shipping}\label{section:DestructionofFrenchshipping}
 Most of French international trade was conducted by sea (see Figure \ref{share_by_sea}). 
 Great Britain had three ways of affecting sea trade: outright destruction of merchant vessels, ransoming, and prize taking.
-Direct destruction of merchant vessels was rare as it was not a gainful activity for the British Navy and privateers.
-Dangers linked to the British Navy and privateers probably led French merchant ships to take more navigational risks, such as sailing off-season to escape them. 
-This would have led to more shipwrecks due to weather or sailing through dangerous or less knowns waters.
-This would lead to indirect destruction of merchant vessels, but we have little information on that subject.
-\todo[inline, color = blue!40]{How do these three sentences relate to the rest? (from "Dangers linked to the... " to "...little information on that subject". I think we should try to be more organic while writing a paragraph, there are a lot of sentences that are disconnected from each other but we want is to have a coherent and readable paragraph! Voth teaches..}
+
+The destruction of merchant vessels could be direct or indirect. Direct destruction was rare as it was not a gainful activity for the British Navy and privateers.
+Yet, dangers linked to the British Navy and privateers probably led French merchant ships to take more navigational risks, such as sailing off-season to escape them. 
+This would have led to more shipwrecks due to weather or sailing through dangerous waters.
+We have little information on this indirect destruction of merchant vessels.
+\todo[inline, color = YellowGreen]{How do these three sentences relate to the rest? (from "Dangers linked to the... " to "...little information on that subject". I think we should try to be more organic while writing a paragraph, there are a lot of sentences that are disconnected from each other but we want is to have a coherent and readable paragraph! Voth teaches.. --GD is it clearer? }
 Ransoming implied coercing a merchant vessel into paying a ransom to the privateer of the Navy ship. However, it left the door open to abuse. As a consequence, British government limited it more and more drastically from 1744, and forbade it by the time of American Revolutionary war (see \cite{Hillmann2011}, p. 734 ). 
+
 Prize taking was much easier to monitor by the British state.
 The French vessel was brought back along with some members of its crew to a British port.
-The captors had to demonstrate ``the prize was lawful and the rights of neutral and allied ships engaged in legal trade had not been harmed'' (see \cite{Hillmann2011}, p. 734 ) in front of the High Court of Admiralty (if the captor was a civilian ship; the procedure was different for captures by the Navy). This procedure led to a paper trail that deemed or not the prizes as ``fair''.
+The captors had to demonstrate ``the prize was lawful and the rights of neutral and allied ships engaged in legal trade had not been harmed'' (see \cite{Hillmann2011}, p. 734 ) in front of the High Court of Admiralty (if the captor was a civilian ship; the procedure was different for captures by the Navy).
+This procedure led to a paper trail that deemed or not the prizes as ``fair''.
 Because direct destruction was rare and ransoming was limited, the overall value of prizes captured by the British navy and privateers provides a good measure of the the pressure maritime war exerted on trade.
 By pooling together different sources we aim to provide here an idea of the size of this effect. 
 
 From \cite{Hillmann2011} we get an estimate of about 11.5 percent of French merchant ships intercepted by the British, for a total of 4 percent of the value of French overseas trade during the War of Austrian Succession, the Seven Years War and the War of American Independence. Thanks to additional data provided by Henning Hillmann (coming mainly from records at the PRO High Court of the Admiralty archives and underlying \cite{Hillmann2011}), we can compute an approximation of the number and the nationality of prizes captured by privateers up to 1809. 
 \cite{Starkey1990} provides the number of prizes condemned as legal by the High Court of the Admiralty in London, both from privateers and the Royal Navy from 1702 to 1785. 
 \cite{Benjamin2009} provides a chronology of prizes taken by the Royal Navy in the sample first gathered by \cite{Hill1998}.
-Figure \ref{Prizes} represents all the above mentioned data together. We see here that the share of privateering activity was very significant until Seven Years War but became marginal during the Revolutionary \& Napoleonic Wars. According to \cite{Hillman2011},\todo[inline, color = blue!40]{Citiation missing in the bib file!}  
-this is explained by the development of war-time trade profit opportunities that made privateering a less interesting alternative for British merchants. 
-The total number of prizes after 1813 declines abruptly. This does not necessarily mean that probability of capture became smaller but could be due to a smaller number of French ships sailing altogether. \todo[inline, color = blue!40]{In the graphs "Prizes" I only see the last two "Observation" that are much lower, not for the entirety of the two wars though} 
+Figure \ref{Prizes} represents all the above mentioned data together.\footnote{From 1793 onward, we use the data on the value of Navy Prizes from \cite{Benjamin2009}, based on \cite{Hill1998}. Before that period (and from 1793 for privateers) the data come from \cite{Starkey1990,Hillmann2011}. Before 1793, we assume the same median value and share of French prize for the Navy Prizes that what is available for privateers }
+ We see here that the share of privateering activity was very significant until Seven Years War but became marginal during the Revolutionary \& Napoleonic Wars. According to \cite{Hillmann2011}, this is explained by the development of war-time trade profit opportunities that made privateering a less interesting alternative for British merchants.
+The British Navy substituted itself to the privateers.
+
+The total number of prizes after 1813 declines abruptly. This does not necessarily mean that probability of capture became smaller but could be due to a smaller number of French ships sailing altogether. \todo[inline, color = YellowGreen]{In the graphs "Prizes" I only see the last two "Observation" that are much lower, not for the entirety of the two wars though -- GD I have silghtly clarified. Yes, the number of observations is lower only from 1813. That is the point. The preceeding paragaph is about the share of privateers. Is it clearer?} 
 \todo[inline]{This graphs are not readable enough. We need to add axis ticks and have axis labels in interval of ten. }
 Another measure of the pressure British exercised on French trade comes from English and British trade statistcts that measure prize goods imported in Great Britain up to 1800 (\cite{Ashton1960}) (see Figure \ref{Prize goods imports})).
 \todo[inline, color = YellowGreen]{What is the source for this graph? is it still the same three above? What is the takeaway from this?--GD the source is clearer I hope. The takeaway I am not sure. Just confirming other data I guess. Maybe put the whole thing in appendix. What do you think}
@@ -236,11 +244,12 @@ However, they had no better luck than France in the war, which was ultimately wo
 The situation started to unravel only around 1810, when Russia pulled out of the Continental Blockade, pushing Napoleon to attempt an invasion, which ultimately led to his final defeat, but put an end to the Blockade System and to the threat for neutral trade.
 
 Figures \ref{Prizes_nationality}, \ref{Number_of_protagonists} and \ref{loss_by_war_status_XI} provide some figures to contextualise these events. 
-In figure \ref{Prizes_nationality}
-Presumably, some ships flying a neutral flag were declared ``French'' at the High Court of the Admiralty.
-Still, it also adjudicated that some neutral ships were fair prizes (e.g. Dutch ships before the Fourth Anglo-Dutch war that started in 1781 and US ships during the 1790s).
-\todo[inline, color = blue!40]{I think it would worthwhile omitting the peak share of Danish price in the graph so that it becomes more readable. We can just mention the value a say we omitted it for readability reasons. Also, do we know why there is such a big peak? I left the other two sentences even though I dont really understand to what they relate to}
-Figure \ref{Number_of_protagonists} shows the polarization of French trade partners during the Revolutionary \& Napoleonic Wars. War engulfed the whole of Europe and the only remaining neutrals trading region during the Napoleonic period was the \textit{Levant}. \todo[inline, color = blue!40]{From the graph mentioned it does not seem to the case, as the bar is still above 5}
+Figure \ref{Prizes_nationality} gives the nationality of non-French prizes adjudicated by the High Court of the Admiralty.
+It is dominated by Dutch losses during first year of the Fourth Anglo-Dutch war that started in 1781.
+Yet, it shows that neutral ships were somethimes declared fair prizes ((e.g. Dutch ships 1779 and 1780 and US ships during the 1790s).
+Still, it shows that the British threat on neutral shipping was real, even though it gives an incomplete vision of the predation of the British on neutral shipping as some ships flying a neutral flag were declared ``French'' at the High Court of the Admiralty.
+\todo[inline, color = YellowGreen]{I think it would worthwhile omitting the peak share of Danish price in the graph so that it becomes more readable. We can just mention the value a say we omitted it for readability reasons. Also, do we know why there is such a big peak? I left the other two sentences even though I dont really understand to what they relate to -- GD is it better now ?}
+Figure \ref{Number_of_protagonists} shows the polarization of French trade partners during the Revolutionary \& Napoleonic Wars. War engulfed the whole of Europe and the only remaining neutrals trading region during the Napoleonic period was the \textit{Levant}. \todo[inline, color = YellowGreen]{From the graph mentioned it does not seem to the case, as the bar is still above 5 -- GD Yes, there was something wrong. I hope I have solved it.}
 It could hardly play a role in sustaining French trade.
 Figure \ref{loss_by_war_status_XI} is constructed by computing the mean country-specific trade loss function by war status based on all preceding peace periods\footnote{More on the definition of the loss function in section XXX}
 We have both a trade-weighted measure and a non-trade weighted measure, where we had to exclude \textit{Empereur} after 1794, because of a territorial change\footnote{trade was mainly with current Belgium before 1794 and mainly with Austria after 1794} and \textit{Hollande} after 1814 as it included current day Belgium from 1815.
@@ -248,11 +257,11 @@ The negative trade loss number for trade with foes in 1787-1789 can be explained
 
 Notice that trade with neutral countries does not recover at all after the Seven Years War and hardly recovers after the Revolutionary \& Napoleonic Wars. 
 Both  Figure \ref{Number_of_protagonists} and Figure \ref{loss_by_war_status_XI} suggests that trade with neutral is important in explaining the contrasting resilience of French trade after each of its war with Great-Britain.
-\todo[inline, color = blue!40]{I think we should have e maximum of one graph per section and leave the rest to the appendix. Like here maybe the number of protagonists?}
+\todo[inline, color = YellowGreen]{I think we should have e maximum of one graph per section and leave the rest to the appendix. Like here maybe the number of protagonists? -- GD No opposition. See the next comment anyway}
 \todo[inline]{This section needs to be revisited after we have a more coherent idea of what we want with it}
 
 
-\section{Peace-time strategies to fight enemy's trade} \label{sec:empirical_analysis}
+\section{Peace-time consequences} \label{sec:empirical_analysis}
 In this section we exploit statistical tools to test the relation between wars and changes in composition of trade. We want to investigate whether the secret of an effective trade war was to force the enemy into restructuring its trade permanently. We do this in two ways. First we run a MANOVA test comparing all peace and all wars periods. Then we run a regression of an estimation of French trade loss on the share of French products.
 
 \subsection{MANOVA test}
@@ -272,15 +281,24 @@ We test here this hypothesis using 13 different linear regression of a loss func
 \section{Can we do a cost-benefit analysis?}
 \label{sec:cost_benefit}
 In a cost-benefit analysis of the efficiency of the British war on French trade, the reduction of French trade would be a good place to start. 
-The cost for the French economy however, cannot be reduced to the loss trade per-se. It is rather the loss of economic activity entailed by the reduction in trade. What were the decrease in wages and profits, both for French actors of trade and French producer? This is a tricky question. \cite[p. 408]{Daudin2005} evaluate the income of French actor at 38.5\% of the value of intercontinental trade and 27.5-35\% of the total value of trade.
-\todo[inline, color = blue!40]{By intercontinental trade it's meant trade with the Americas and total trade is trade with the America plus the rest?}
-Intercontinental trade was more affected by the British war on French trade, so maybe we should favour the higher estimate. On the other hand, at least part of the workers, entrepreneurs and capital could find alternative use and did not stand completely idle after the reduction of trade. 
-\cite[p. 421]{Daudin2005} estimate a 40\% loss of the value of the production. If we take these numbers seriously, it means a 100 livres tournois decline in the value of French trade forced workers, entrepreneurs, capitalists earning 35 livres tournois to find another employment for their labour and their capital. This other occupation only yielded an income of 21 livres tournois, and hence to a loss of 14 livres tournois for French GDP. \todo[inline, color = blue!40]{I dont get how you worked out these last two numbers}
+The cost for the French economy however, cannot be identifed to the loss trade per-se.
+It is rather the loss of economic activity entailed by the reduction in trade.
+What were the decrease in wages and profits, both for French actors of trade and French producer?
+This is a tricky question.
+\cite[p. 408]{Daudin2005} evaluate the income of French actor at 38.5\% of the value of intercontinental trade (i.e. trade with Africa, America and Asia, minus Mediterranean trade) and 27.5-35\% of the total value of trade.
+\todo[inline, color = Yellow]{By intercontinental trade it's meant trade with the Americas and total trade is trade with the America plus the rest? -- GD is it clearer ?}
+Intercontinental trade was more affected by the British war on French trade, so maybe we should favour the higher estimate (35 \%).
+Of course, at least part of the workers, entrepreneurs and capital could find alternative use and did not stand completely idle after the reduction of trade. 
+\cite[p. 421]{Daudin2005} estimate the net loss was 40\% loss of the value of the production, or 14\% of the value of trade (i.e. 0.4x0.35 = 0.14). 
+To put it in another way, a 100 livres tournois decline in the value of French trade forced workers, entrepreneurs, capitalists earning 35 livres tournois to find another employment for their labour and their capital. This other occupation only yielded an income of 21 livres tournois (35x(1-0.4) = 0.14).
+Hence a decline of 100 livres tournois in French trade induced a loss of 14 livres tournois for French GDP (14=35-)). \todo[inline, color = YellowGreen]{I dont get how you worked out these last two numbers -- GD is it clearer ?}
+
+
 This number is highly uncertain. \cite{Daudin2005} argues we should take into account the dynamic effect of this income loss through lost savings and investments. 
-This means that we can include in French losses also the expenditures on military Navy, - as one of its main goal was to protect trade\footnote{Unfortnately, the French Navy budget data stops in 1782 \cite{Acerra1997, Villiers1997,Petitfils2015}) but up until that date, it was always smaller than the British one.} - and the destruction or capture of French ships. This is tentatively possible thanks to information on French prizes captured both by the British Navy and British privateers, discussed in section \ref{section:DestructionofFrenchshipping}.\footnote{From 1793 onward, we use the data on the value of Navy Prizes from \cite{Benjamin2009}, based on \cite{Hill1998}. Before that period (and from 1793 for privateers) the data come from \cite{Starkey1990,Hillmann2011}. Before 1793, we assume the same median value and share of French prize for the Navy Prizes that what is available for privateers }
-\todo[inline, color=blue!40]{I think we can delete this footnote, everything should be explained extensively in the section on privateers}
+This means that we can include in French losses also the expenditures on military Navy, - as one of its main goal was to protect trade\footnote{Unfortnately, the French Navy budget data stops in 1782 \cite{Acerra1997, Villiers1997,Petitfils2015}) but up until that date, it was always smaller than the British one.} - and the destruction or capture of French ships. This is tentatively possible thanks to information on French prizes captured both by the British Navy and British privateers, discussed in section \ref{section:DestructionofFrenchshipping}.
+\todo[inline, color=YellowGreen]{I think we can delete this footnote, everything should be explained extensively in the section on privateers -- GD done.}
 Finally, how much did Britain pay to reduce French GDP? Again, that is probably not possible to compute. A good place to start, though, is the budget of the British Navy. \cite[pp. 570-587]{mitchell1988} provides the net expenditures up to 1801 (1800 is incomplete)) and the gross ones from 1802.
-Figure \ref{Expenditures} presents these data. Except for the War of the American Independence, the French Navy budget always was smaller than the British one. The total value of prizes was rather small, apart during the early Seven Years War\footnote{Prizes are pretty important in the cost/benefit analysis during the Seven Years War, in part because of the success of the British predation of French trade before the official declaration of war, but they loose their importance in the latter part of the period.}.\todo[inline, color=blue!40]{I think it is probably worthwhile keeping only the ration graph and eventually the other one in the appendix}
+Figure \ref{Expenditures} presents these data. Except for the War of the American Independence, the French Navy budget always was smaller than the British one. The total value of prizes was rather small, apart during the early Seven Years War\footnote{Prizes are pretty important in the cost/benefit analysis during the Seven Years War, in part because of the success of the British predation of French trade before the official declaration of war, but they loose their importance in the latter part of the period.}.\todo[inline, color=YellowGreen]{I think it is probably worthwhile keeping only the ration graph and eventually the other one in the appendix -- GD no objection. We are nout sure what we will do anyway.}
 Figure \ref{Ratio_BR_Expenditures} compares the cumulative British expenditures and French losses. A value less than one means that the war on trade is costing more resources to the British than to the French (neglecting the value of French prizes). 
 The result depends on the hypothesise one makes about the existence of alternative employment opportunities for French production factors pushed out of trade. The ``no alternative occupation'' hypothesis is the most favourable to the trade war policy, as it assumes that French labour and French capital invested in trade just become unemployed when trade is reduced: hence French income losses are 35\% of French trade losses. The ``alternative occupation''' hypothesis is probably more reasonable and assumes that French labour and capital find alternative, less remunerating, employment: hence French income losses are 14\% of French trade losses.
 
@@ -357,7 +375,7 @@ Livre tournois silver value: \cite{Dewailly1857} and \cite{Hoffman2000}; Pound s
 \caption{Number of protagonists}
 \label{Number_of_protagonists}
 \centering
-\includegraphics[scale=1]{"Number of protagonists".pdf}
+\includegraphics[scale=.4]{"Number of protagonists".png}
 \end{figure}
 \end{center}
 
@@ -801,7 +819,8 @@ However, because of the victories and defeats of one and the other, sides of oth
 \textit{Espagne} fought France for the period 1793 and 1794, she became then an ally until 1807 (with the exception of 1795, in which she was neutral), and then again an enemy from 1808 onwards.
 \textit{Empereur} is Austria, whose position was easy to adjudicate. It was a foe until Campo Formio (June 1801), neutral till the Third Coalition (1805), then a foe in 1805, to become neutral again in 1806 until 1808.
 Lastly, after one more year of neutrality in 1809, she became an ally starting from 1810, and declared war again in 1813.
-\textit{Etats Unis} was always neutral throughout the war, except for the un-declared war between 1798 and 1800.
+\textit{États Unis} was always neutral throughout the war, except for the un-declared war between 1798 and 1800 and it co-belligerance against the United Kingdom from 1812 to 1814.
+We classify them as "Allies" during this period of co-belligerence.
 \textit{Hollande} fought France till 1794 and was then aligned to it till late 1813, when William-Frederik of Orange-Nassau took power.
 \textit{Italy} was briefly a foe until 1796, then neutral until 1813, and then again a foe starting 1814.
 \textit{Levant} stayed out of the war, except when the French invaded Egypt from 1798 to 1801.
