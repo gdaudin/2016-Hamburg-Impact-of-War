@@ -79,8 +79,8 @@ year,p_Allemagne ,p_Angleterre ,p_Espagne ,p_Flandre et autres états de l'Emper
 1810,ally,foe,foe,ally,neutral,ally,ally,neutral,ally,ally,foe,ally,,,ally,neutral,ally
 1811,ally,foe,foe,ally,neutral,ally,ally,neutral,ally,ally,foe,ally,,,ally,neutral,ally
 1812,ally,foe,foe,ally,neutral,ally,ally,neutral,ally,ally,foe,ally,,,ally,neutral,foe
-1813,ally,foe,foe,foe,neutral,ally,ally,neutral,ally,ally,foe,ally,,,ally,foe,foe
-1814,foe,foe,foe,foe,neutral,foe,foe,neutral,neutral,ally,foe,neutral,,,neutral,foe,foe
+1813,ally,foe,foe,foe,ally,ally,ally,neutral,ally,ally,foe,ally,,,ally,foe,foe
+1814,foe,foe,foe,foe,ally,foe,foe,neutral,neutral,ally,foe,neutral,,,neutral,foe,foe
 1815,foe,foe,foe,foe,neutral,foe,foe,neutral,neutral,ally,foe,neutral,,,neutral,foe,foe
 1816,foe,foe,foe,foe,neutral,foe,foe,neutral,neutral,ally,foe,neutral,,,neutral,foe,foe
 1817,foe,foe,foe,foe,neutral,foe,foe,neutral,neutral,ally,foe,neutral,,,neutral,foe,foe

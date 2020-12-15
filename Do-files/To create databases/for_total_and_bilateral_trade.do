@@ -9,7 +9,7 @@
 
 if "`c(username)'" =="guillaumedaudin" {
 	global hamburg "~/Documents/Recherche/2016 Hambourg et Guerre"
-	global hamburggit "$hamburg/2016-Hamburg-Impact-of-War"
+	global hamburggit "~/Répertoires Git/2016-Hamburg-Impact-of-War"
 }
 
 if "`c(username)'" =="tirindee" {
@@ -160,10 +160,11 @@ use "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance 
 if "`c(username)'" =="Tirindelli"{
 use "$hamburg/Données Stata/bdd courante.dta", clear
 }
- 
-keep if source_type == "Tableau Général" | source_type=="Résumé"
-drop if product_sitc=="9a"
 
+keep if best_guess_national_partner==1
+ 
+
+drop if product_sitc=="9a"
 
 replace year=1806 if year==1805.75
 merge m:1 year using "$hamburg/database_dta/FR_silver.dta"
@@ -174,7 +175,7 @@ gen valueFR_silver=FR_silver*value/(1000*1000)
 drop if year>1840
 
 
-
+replace partner_grouping="Outre-mers" if partner_grouping=="Afrique" | partner_grouping=="Asie" | partner_grouping=="Amériques"
 
 collapse (sum) valueFR_silver value, by (year export_import ///
 				partner_grouping FR_silver)
@@ -194,9 +195,11 @@ collapse (sum) value , by (year)
 insobs 1
 replace year=1793 if year==.
 
+
+
 append using "$hamburg/database_dta/FRfederico_tena.dta"
 
-merge m:1 year using "$hamburg/database_dta/FR_silver.dta"
+merge 1:1 year using "$hamburg/database_dta/FR_silver.dta"
 
 drop if _merge==2
 drop _merge
