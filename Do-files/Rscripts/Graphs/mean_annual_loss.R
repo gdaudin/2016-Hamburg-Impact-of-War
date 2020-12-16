@@ -30,6 +30,9 @@ annual_loss = ggplot(df) +
   geom_line(aes(x=year, y= loss, color=loss_type)) +
   theme(legend.title = element_blank(),
         legend.position = 'bottom',
+        aspect.ratio = 1, 
+        legend.background = element_blank(),
+        legend.box.background = element_rect(colour = "black"),
         axis.title = element_blank(),
         panel.background = element_blank(),
         panel.grid.major.y = element_line(color = "grey", size = 0.15),
@@ -40,6 +43,7 @@ annual_loss = ggplot(df) +
   scale_x_continuous(breaks = seq(1740, 1840, by = 10), limits = c(1740,1840)) +
   scale_y_continuous(breaks = seq(-1, 1, by = .2), limits = c(-1,1)) +
   ggtitle("Annual loss function")
+print(annual_loss)
 
 mean_loss = ggplot(df) + 
   geom_rect(aes(xmin=1745, xmax=1748, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#999999") +
@@ -51,6 +55,9 @@ mean_loss = ggplot(df) +
   geom_line(aes(x=year, y= mean_loss, color=loss_type)) +
   theme(legend.title = element_blank(),
         legend.position = 'bottom',
+        aspect.ratio = 1, 
+        legend.background = element_blank(),
+        legend.box.background = element_rect(colour = "black"),
         axis.title = element_blank(),
         panel.background = element_blank(),
         panel.grid.major.y = element_line(color = "grey", size = 0.15),
