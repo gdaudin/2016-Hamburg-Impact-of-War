@@ -45,6 +45,7 @@ df = rbind(
     loss_mean_annual = "Mean loss function")
   )
 
+df = df[df$year < 1830,]
 loss = floss_plot(df)
 print(loss)
 ggsave(paste(HamburgDir,RscriptDir,NewgraphsDir, "mean_annual_loss.pdf", sep = "" ))
