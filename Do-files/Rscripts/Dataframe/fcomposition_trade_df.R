@@ -1,4 +1,4 @@
-fcomposition_trade_test = function(df, period1, period2, plantation_yesno, direction, X_I, classification){
+fcomposition_trade_df = function(df, period1, period2, plantation_yesno, direction, X_I, classification){
   names(df)[names(df) == classification] = "class"
   if(direction=="national"){
     if(classification=="product_sitc_simplEN") df = df[df$best_guess_national_product==1,]
@@ -22,11 +22,6 @@ fcomposition_trade_test = function(df, period1, period2, plantation_yesno, direc
   df = df[(df$period_str == period1 | df$period_str == period2),]
   df = df[df$class!="",]
   df = df %>% group_by(year) %>% mutate(percent = ifelse(is.na(percent), min(percent/2, na.rm = TRUE), percent))
-  df$ln_percent = log(df$percent)    
-  df_for_manova = data.frame(year=df$year, class=df$class, period = df$period_str, ln_percent=df$ln_percent)
-  df_for_manova = df_for_manova %>% pivot_wider(names_from = class, values_from = ln_percent)
-  matrix_period1 = data.matrix(df_for_manova[df_for_manova$period==period1, 3:ncol(df_for_manova)])
-  matrix_period2 = data.matrix(df_for_manova[df_for_manova$period==period2, 3:ncol(df_for_manova)])
-  man = hotelling.test(matrix_period1, matrix_period2)
-  return(man$p.value)
+  df$ln_percent = log(df$percent)   
+  return(df)
 }
