@@ -5,6 +5,7 @@ capture ssc install estout
 if "`c(username)'"=="guillaumedaudin" ///
 		global hamburg "~/Documents/Recherche/2016 Hambourg et Guerre"
 		global hamburggit "~/Répertoires GIT/2016-Hamburg-Impact-of-War"
+		global toflit18_stata "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata"
 
 if "`c(username)'" =="Tirindelli" {
 	global hamburg "/Volumes/GoogleDrive/My Drive/Hamburg"
@@ -16,7 +17,10 @@ if "`c(username)'" =="tirindee" {
 	global hamburggit "C:\Users\TIRINDEE\Google Drive\ETE/Thesis/Data/do_files/Hamburg"
 }
 
-use "$hamburg/database_dta/bdd courante reduite2.dta", clear
+*use "$hamburg/database_dta/bdd courante reduite2.dta", clear THIS DOES NOT WORK AS IT EXCLUDES LOCAL DATA
+use "$toflit18_stata/bdd courante.dta", clear
+
+
 		
 gen period_str=""
 replace period_str ="Peace 1749-1755" if year >= 1749 & year <=1755
@@ -52,7 +56,8 @@ replace sitc_aggr="Other foodstuff and live animals" if product_sitc_simplEN=="O
 replace sitc_aggr="Other foodstuff and live animals" if product_sitc_simplEN=="Drinks and tobacco"
 replace sitc_aggr="Other" if product_sitc_simplEN=="Chemical products"
 
-save temp_for_hotelling.dta, replace
+
+save "$hamburg/database_dta/temp_for_hotelling.dta", replace
 
 
 ***************pie chart and violin chart for all war periods***************************

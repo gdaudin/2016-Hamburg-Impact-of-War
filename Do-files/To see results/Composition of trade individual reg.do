@@ -13,6 +13,30 @@ args direction X_I classification period
 		if "`classification'"=="partner_grouping_8" keep if best_guess_national_partner==1 
 	}
 	
+	
+	else if "`direction'"=="regional"{
+		**Computing total trade
+		gen pour_calcul_national = best_guess_national_partner*value
+		bysort year export_import : egen commerce_national = total(pour_calcul_national)
+		drop pour_calcul_national
+		
+		**Keeping nationl by department when available
+		generate source_tout_department_one = 1 if source_type=="National toutes directions tous partenaires" | source_type=="National toutes directions sans produits"
+		bysort year : egen source_tout_department = max(source_tout_department_one)
+		drop if source_tout_department==1 & source_type != "National toutes directions tous partenaires" & source_type !="National toutes directions sans produits"
+		
+		**Keeping best_guess_department_prodxpart (or the next best thing for 1789) otherwise. Nantes is 1789 is not complete
+		drop if best_guess_department_prodxpart !=1 & source_tout_department!=1 & year!=1789
+		drop if year==1789 & best_guess_national_department ==0
+		drop if year==1789 & tax_department =="Nantes"
+		
+		**Various
+		drop if year==1714
+		
+		**Now to compute the share of trade
+		collapse (sum) value, by(tax_department_grouping export_import year commerce_national)
+	}
+	
 	else{
 		gen commerce_local = 1 if source_type=="Local" & year!=1750 | ///
 			source_type=="National toutes directions tous partenaires" | ////
@@ -28,6 +52,11 @@ args direction X_I classification period
 		if "`direction'"=="LR" keep if direction=="La Rochelle"	
 		if "`direction'"=="bayo" keep if direction=="Bayonne"
 	}
+	
+	blif
+	
+	
+	
 	collapse (sum) value, by(year `classification' export_import period_str war)
 	if "`period'"=="pre1795" drop if year >= 1795
 	
@@ -173,6 +202,9 @@ end
 
 eststo clear
 
+composition_trade_ind_reg  regional Exports regional all
+
+/*
 composition_trade_ind_reg  national Exports partner_grouping_8 all
 
 /*
