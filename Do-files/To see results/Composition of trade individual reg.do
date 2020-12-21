@@ -34,7 +34,13 @@ args direction X_I classification period
 		drop if year==1714
 		
 		**Now to compute the share of trade
-		collapse (sum) value, by(tax_department_grouping export_import year commerce_national)
+		collapse (sum) value, by(tax_department_grouping export_import year commerce_national period_str war)
+		gen percent=value/commerce_national
+		drop if tax_department_grouping =="France" |  tax_department_grouping =="Colonies Françaises de l'Amérique"  |  tax_department_grouping =="" 
+		
+		
+		rename tax_department_grouping regional
+		replace regional = "Saint_Quentin" if regional=="Saint-Quentin"s
 	}
 	
 	else{
@@ -53,25 +59,20 @@ args direction X_I classification period
 		if "`direction'"=="bayo" keep if direction=="Bayonne"
 	}
 	
-	blif
 	
 	
+	if "`X_I'"=="Exports" | "`X_I'"=="Imports" keep if export_import=="`X_I'"
+
 	
-	collapse (sum) value, by(year `classification' export_import period_str war)
+	
 	if "`period'"=="pre1795" drop if year >= 1795
 	
-
-	if "`X_I'"=="Exports" | "`X_I'"=="Imports"{
-		keep if export_import=="`X_I'"
+	if "`direction'"!="regional" {
+		collapse (sum) value, by(year `classification' export_import period_str war)
 		bysort year: egen total=sum(value)
 		gen percent= value/total
 	}
-
-	else{
-		bysort year: egen total=sum(value)
-		gen percent= value/total
-	}
-			
+		
 	gen ln_percent=ln(percent)
 	if "`classification'" == "product_sitc_simplEN" drop if product_sitc_simplEN == "Other"
 	if "`classification'" == "partner_grouping_8" drop if partner_grouping_8 == ""
@@ -136,6 +137,11 @@ args direction X_I classification period
 		local textitle "\shortstack{Germany\\and\\Switzerland}" "Iberia" "Italy" "\shortstack{Low\\Countries}" "\shortstack{North\\of\\Holland}" "Overseas" "\shortstack{United\\Kingdom}"  "\shortstack{United\\States}"
 		local tabular_columns  p{1.5cm} p{2cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm}
 	}
+	
+	if "`classification'" == "regional" {
+
+	}
+
 	
 	
 	if "`X_I'"=="Exports" rename *Exports* *E*
@@ -202,7 +208,8 @@ end
 
 eststo clear
 
-composition_trade_ind_reg  regional Exports regional all
+*composition_trade_ind_reg  regional Exports regional all
+composition_trade_ind_reg  regional Imports regional all
 
 /*
 composition_trade_ind_reg  national Exports partner_grouping_8 all
