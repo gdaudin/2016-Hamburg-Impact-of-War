@@ -6,7 +6,7 @@ fcomposition_trade_df = function(df, period1, period2, plantation_yesno, directi
     if(classification=="partner_grouping_8") df = df[df$best_guess_national_partner==1,]
   }
   df = df %>% group_by(year, class, export_import, period_str) %>% 
-    summarize(sum_value = sum(value))
+    summarize(sum_value = sum(value, na.rm = TRUE))
   
   if(plantation_yesno==0 & classification=="product_sitc_simplEN") df = df[df$product_sitc_simplEN!="Plantation foodstuff",]
   
