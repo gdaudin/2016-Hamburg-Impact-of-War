@@ -144,7 +144,7 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 yline(0, lwidth(medium) lcolor(grey)) xtitle("")  ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white))
  
-graph export "$hamburggit/Annual_loss_function.png", as(png) replace
+graph export "$hamburggit/Paper - Impact of War/Paper/Annual_loss_function.png", as(png) replace
 
 save temp.dta, replace
 
