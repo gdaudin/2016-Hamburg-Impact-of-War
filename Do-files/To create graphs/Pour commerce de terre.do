@@ -15,19 +15,16 @@ if "`c(username)'" =="tirindee" {
 
 
 if "`c(username)'" =="Tirindelli" {
-	global hamburg "/Users/Tirindelli/Google Drive/Hamburg"
-	global hamburggit "/Users/Tirindelli/Google Drive/Hamburg/Paper"
+	global hamburg "/Volumes/GoogleDrive/My Drive/Hamburg"
+	global hamburggit "/Volumes/GoogleDrive/My Drive/Hamburg/Paper"
 }
 
 
+if "`c(username)'" =="guillaumedaudin"{
+	use "/Users/guillaumedaudin/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta",  clear
+} 
+else use "$hamburg/Données Stata/bdd courante.dta"
 
-
-
-
-
-
-
-use "/Users/guillaumedaudin/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta",  clear
 keep if year==1792 & source_type=="Tableau Général" 
 gen par_mer=1
 replace par_mer=0 if strpos(pays,"par terre")!=0
@@ -50,7 +47,7 @@ gen value_land=value*(1-share_par_mer)
 collapse (sum) value_sea value_land, by(year)
 
 gen share_sea=value_sea/(value_sea+value_land)
-
+export delimited "$hamburg/database_csv/share_by_sea.csv"
 
 local maxvalue 1
 

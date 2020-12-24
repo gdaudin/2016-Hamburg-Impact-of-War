@@ -11,8 +11,8 @@ if "`c(username)'" =="tirindee" {
 
 
 if "`c(username)'" =="Tirindelli" {
-	global hamburg "/Users/Tirindelli/Google Drive/Hamburg"
-	global hamburggit "/Users/Tirindelli/Google Drive/Hamburg/Paper"
+	global hamburg "/Volumes/GoogleDrive/My Drive/Hamburg"
+	global hamburggit "/Volumes/GoogleDrive/My Drive/Hamburg/Paper"
 }
 
 
@@ -24,11 +24,9 @@ set more off
 use "$hamburg/database_dta/warships.dta", clear
 
 
-
 bys war_status year : keep if _n==1
 
-blif
-drop partner_grouping warships
+drop partner_grouping warships war
 
 reshape wide side_warships, i(year) j(war_status) string
 
@@ -53,9 +51,9 @@ generate war4		=`maxvalue' if year >=1793 & year <=1802
 generate war5		=`maxvalue' if year >=1803 & year <=1807
 generate blockade	=`maxvalue' if year >=1807 & year <=1815
 
-
-
 sort year
+export delimited "$hamburg/database_csv/naval_supremacy.csv", replace
+
 
 graph twoway (area wara year, color(gs14%30)) ///
 			 (area warb year, color(gs14%30)) ///

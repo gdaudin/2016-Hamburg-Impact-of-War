@@ -13,8 +13,8 @@ if "`c(username)'" =="tirindee" {
 
 
 if "`c(username)'" =="Tirindelli" {
-	global hamburg "/Users/Tirindelli/Google Drive/Hamburg"
-	global hamburggit "/Users/Tirindelli/Google Drive/Hamburg/Paper"
+	global hamburg "/Volumes/GoogleDrive/My Drive/Hamburg"
+	global hamburggit "/Volumes/GoogleDrive/My Drive/Hamburg/Paper"
 }
 
 
@@ -50,7 +50,7 @@ twoway (bar war_nbr_pays year, cmissing(n)) if war_status=="foe", ///
 graph combine (neutral ally foe), ycommon plotregion(fcolor(white)) graphregion(fcolor(white))
 graph export "$hamburggit/Results/Loss graphs/by war_status/Number of protagonists.pdf", replace
 graph export "$hamburggit/Paper - Impact of War/Paper/Number of protagonists.pdf", replace
-
+export delimited "$hamburg/database_csv/number_protagonist.csv"
 ***********************************
 
 
@@ -95,6 +95,7 @@ foreach year in 1783 1784 1785 1786 1790 1791 1793 1794 1795 1796 {
 fillin year export_import war_status
 drop if export_import=="" | war_status==""
 replace weighted_mean_loss=. if weighted_mean_loss==0 & war_status=="colonies"
+export delimited "$hamburg/database_csv/loss_by_war_status.csv"
 
 
 foreach loop_war_status in colonies foe ally neutral {
