@@ -6,7 +6,8 @@ library(ggthemes)
 library(tidyverse)
 loadfonts()
 
-HamburgDir = "/Volumes/GoogleDrive/My Drive/Hamburg/"
+if(username()=="Tirindelli") HamburgDir = "/Volumes/GoogleDrive/My Drive/Hamburg/"
+
 RscriptDir = "Paper/Do-files/Rscripts/"
 GraphDir = "Graphs/"
 DataframeDir = "Dataframe/"
