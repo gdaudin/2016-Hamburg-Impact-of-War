@@ -43,23 +43,6 @@ args direction X_I classification period
 		replace regional = "Saint_Quentin" if regional=="Saint-Quentin"s
 	}
 	
-	else{
-		gen commerce_local = 1 if source_type=="Local" & year!=1750 | ///
-			source_type=="National toutes directions tous partenaires" | ////
-			(source_type=="National toutes directions partenaires manquants" & year==1788 & partner_grouping=="Outre-mers") | ////
-			(source_type=="National toutes directions partenaires manquants" & year==1789 & partner_grouping=="Pas Outre-mers")
-	
-		keep if commerce_local==1
-		drop commerce_local
-		if "`direction'"=="mars" keep if direction=="Marseille"
-		if "`direction'"=="nant" keep if direction=="Nantes"
-		if "`direction'"=="renn" keep if direction=="Rennes"
-		if "`direction'"=="bord" keep if direction=="Bordeaux"
-		if "`direction'"=="LR" keep if direction=="La Rochelle"	
-		if "`direction'"=="bayo" keep if direction=="Bayonne"
-	}
-	
-	
 	
 	if "`X_I'"=="Exports" | "`X_I'"=="Imports" keep if export_import=="`X_I'"
 
@@ -125,9 +108,9 @@ args direction X_I classification period
 			label var `i'`X_I'6e "Wool threads and fabrics"
 			label var `i'`X_I'6f "Silk threads and fabrics"
 			label var `i'`X_I'6g "Cotton threads and fabrics"
-			label var `i'`X_I'6j_k_7_8_9c "Other industrial products"
+			label var `i'`X_I'6j_k_7_8 "Other industrial products"
 		}
-		rename *6j_k_7_8_9c* *other*
+		rename *6j_k_7_8* *other*
 		local textitle "\shortstack{Other\\foodstuff}" "\shortstack{Plantation\\foodstuff}" "\shortstack{Drinks\\and\\tobacco}" "\shortstack{Crude\\material}" "Oils" "\shortstack{Chemical\\products}" "\shortstack{Leather\\wood and\\paper\\products}" "\shortstack{Other\\threads\\and fabric}"  "\shortstack{Wool\\threads\\and fabrics}" "\shortstack{Silk\\threads\\and fabrics}" "\shortstack{Cotton\\threads\\and fabrics}" "\shortstack{Other\\industrial\\products}"
 		local tabular_columns  p{1.5cm} p{1.7cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm}
 	}
@@ -208,6 +191,9 @@ end
 
 eststo clear
 
+
+composition_trade_ind_reg  national Exports product_sitc_simplEN all
+
 *composition_trade_ind_reg  regional Exports regional all
 composition_trade_ind_reg  regional Imports regional all
 
@@ -215,7 +201,7 @@ composition_trade_ind_reg  regional Imports regional all
 composition_trade_ind_reg  national Exports partner_grouping_8 all
 
 /*
-composition_trade_ind_reg  national Exports product_sitc_simplEN all
+
 composition_trade_ind_reg  national Imports product_sitc_simplEN all
 */
 
