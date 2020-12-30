@@ -11,8 +11,8 @@ if "`c(username)'" =="tirindee" {
 
 
 if "`c(username)'" =="Tirindelli" {
-	global hamburg "/Users/Tirindelli/Google Drive/Hamburg"
-	global hamburggit "/Users/Tirindelli/Google Drive/Hamburg/Paper"
+	global hamburg "/Volumes/GoogleDrive/My Drive/Hamburg"
+	global hamburggit "/Volumes/GoogleDrive/My Drive/Hamburg/Paper"
 }
 
 
@@ -83,6 +83,7 @@ generate war5    	=`maxvalue' if year >=1803 & year <=1807
 generate blockade	=`maxvalue' if year >=1807 & year <=1815
 
 replace weight_france = weight_france
+export delimited "$hamburg/database_csv/colony_loss.csv", replace
 
 graph twoway ///
 			 (area warb year, color(gs14)) ///

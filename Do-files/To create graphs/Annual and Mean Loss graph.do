@@ -129,6 +129,7 @@ gen minwar4=-0.2 if war4!=.
 gen minwar5=-0.2 if war5!=.
 gen minblockade=-0.2 if blockade!=.
 keep if year >=1740
+export delimited "$hamburg/database_csv/mean_annual_loss.csv"
 
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
@@ -233,6 +234,7 @@ replace NavyNet=10^NavyNet
 replace FrenchBudget = 10^FrenchBudget	 
 
 replace FR_Prize_value=. if FR_Prize_value==0
+export delimited "$hamburg/database_csv/expenditures_annual_loss.csv"
 
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
@@ -263,6 +265,7 @@ replace war3=3000 if war3!=.
 replace war4=3000 if war4!=.
 replace war5=3000 if war5!=.
 replace blockade=3000 if blockade!=.
+export delimited "$hamburg/database_csv/costs_and_benefits.csv"
 
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
@@ -324,7 +327,7 @@ replace minwar3=2 if war3!=.
 replace minwar4=2 if war4!=.
 replace minwar5=2 if war5!=.
 replace minblockade=2 if blockade!=.
-
+export delimited "$hamburg/database_csv/cumulated_costs_and_benefits.csv"
 
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
@@ -436,7 +439,7 @@ replace war5=2.5 if war5!=.
 replace blockade=2.5 if blockade!=.
 
 
-
+export delimited "$hamburg/database_csv/ratio_BR_expenditures_ennual_lossH.csv"
 
 graph twoway (area war1 year , color(gs9)) (area war2 year , color(gs9)) ///
 			 (area war3 year , color(gs9)) (area war4 year , color(gs9)) ///
@@ -474,7 +477,7 @@ replace ratio_abs_v3    = ((10^loss_abs_cum)*0.14+10^FR_Prize_value_cum+10^FRbud
 replace ratio_nm_abs_v3 = ((10^loss_nm_abs_cum)*0.14+10^FR_Prize_value_cum+10^FRbudget_cum)/(10^Navy_cum-10^FR_Prize_value_cum)
 
 
-
+export delimited "$hamburg/database_csv/ratio_BR_expenditures_ennual_lossL.csv"
 graph twoway (area war1 year , color(gs9)) (area war2 year , color(gs9)) ///
 			 (area war3 year , color(gs9)) (area war4 year , color(gs9)) ///
 			 (area war5 year , color(gs9)) (area blockade year , color(gs4)) ///
