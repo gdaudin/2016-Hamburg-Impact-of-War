@@ -191,7 +191,7 @@ end
 
 eststo clear
 
-
+/*
 composition_trade_ind_reg  national Exports product_sitc_simplEN all
 
 *composition_trade_ind_reg  regional Exports regional all
