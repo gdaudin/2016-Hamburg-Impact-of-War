@@ -195,14 +195,13 @@ The French vessel was brought back along with some members of its crew to a Brit
 The captors had to demonstrate ``the prize was lawful and the rights of neutral and allied ships engaged in legal trade had not been harmed'' (see \cite{Hillmann2011}, p. 734 ) in front of the High Court of Admiralty (if the captor was a civilian ship; the procedure was different for captures by the Navy).
 This procedure led to a paper trail that deemed or not the prizes as ``fair''.
 Because direct destruction was rare and ransoming was limited, the overall value of prizes captured by the British navy and privateers provides a good measure of the the pressure war-time predation exerted on trade.
-From \cite{Hillmann2011} we get an estimate of about 11.5 percent of French merchant ships intercepted by the British, \todo[inline, color = blue!40]{Is this by British navy or navy+privateers? }
-for a total of 4 percent of the value of French overseas trade during the War of Austrian Succession, the Seven Years War and the War of American Independence. Thanks to additional data provided by Henning Hillmann (coming mainly from records at the PRO High Court of the Admiralty archives and underlying \cite{Hillmann2011}), we can compute an approximation of the number and the nationality of prizes captured by privateers up to 1809. 
+From \cite{Hillmann2011} we get an estimate of about 11.5 percent of French merchant ships intercepted by British privateers, for a total of 4 percent of the value of French overseas trade during the War of Austrian Succession, the Seven Years War and the War of American Independence.
+Thanks to additional data provided by Henning Hillmann (coming mainly from records at the PRO High Court of the Admiralty archives and underlying \cite{Hillmann2011}), we can compute an approximation of the number and the nationality of prizes captured by privateers up to 1809, but that does not include captures by the Royal Navy. 
 \cite{Starkey1990} provides the number of prizes condemned as legal by the High Court of the Admiralty in London, both from privateers and the Royal Navy from 1702 to 1785. 
-\todo[inline, color = blue!40]{Is this second source just a double check with the first or it provides a different insight? }
-\cite{Benjamin2009} provides a chronology of prizes taken by the Royal Navy in the sample first gathered by \cite{Hill1998}.
-\todo[inline, color = blue!40]{Chronology of values or of number of prizes? could you clarify a bit what is added by Bejamanin to hill source? }
-Data from these three different sources are summarised in figure \ref{Prizes} in the appendix.\footnote{From 1793 onward, we use the data on the value of Navy Prizes from \cite{Benjamin2009}, based on \cite{Hill1998}. Before that period (and from 1793 for privateers) the data come from \cite{Starkey1990,Hillmann2011}. Before 1793, we assume the same median value and share of French prize for the Navy Prizes that what is available for privateers }
-\todo[inline, color = YellowGreen]{This footnote should be an annotation in the graph}
+\todo[inline, color = YellowGreen]{Is this second source just a double check with the first or it provides a different insight? -- GD do I need to go further? }
+\cite{Benjamin2009} provides the annual number of prizes taken by the Royal Navy from 1793 from the sample gathered, but not published, by \cite{Hill1998}.
+\todo[inline, color = YellowGreen]{Chronology of values or of number of prizes? could you clarify a bit what is added by Bejamanin to hill source? -- GD do I need to go further?}
+Data from these sources are summarised in figure \ref{Prizes} in the appendix.
 The share of privateering activity was very significant until Seven Years War but became marginal during the Revolutionary \& Napoleonic Wars. According to \cite{Hillmann2011}, this is explained by the development of other war-time trade profit opportunities that made privateering a less interesting alternative for British merchants. The total number of prizes however, remained high until 1813, suggesting that the British navy compensated for the lack of privateers actions and kept the threat of predation constant.
 In 18013 the total number of prizes declines abruptly. This does not necessarily mean that probability of capture became smaller but could be due to a smaller number of French ships sailing altogether. 
 \todo[inline, color = YellowGreen]{This graphs are not readable enough. We need to add axis ticks and have axis labels in interval of ten. }
@@ -260,9 +259,27 @@ Considering a 5\% threshold for rejecting the null hypothesis of equality of mea
 \todo[inline, color = YellowGreen]{MANOVA by geography}
 
 \subsection{Regression}
-We test here this hypothesis using 13 different linear regression of a loss function on the share of each product and of trade to each country. We run individual regressions for each product because of collinearity of the explanatory variables (which are share, therefore highly correlated) and the little number of observations, which compromises the individual estimation of each coefficient.\todo[inline]{We need a better point here} We also do a joint test of significance for all the variables. 
+We test here this hypothesis using different linear regression of a loss function on the share of each product and of trade to each country.
+We run individual regressions for each product because of collinearity of the explanatory variables (which are share, therefore highly correlated) and the little number of observations, which compromises the individual estimation of each coefficient.\todo[inline]{We need a better point here}.
+\ref{Individual_regressions_sector_exports} and \ref{Individual_regressions_sector_imports} show that, even when controlling for a time trend and the contemporanous effect of war, the changing level of total French trade losses is associated with changes in the industrial structure of trade: reduction in the export share of plantation foodstuffs, crude materials and increase in the export share of leather, wood and paper products, wool and silk threads and fabrics, and other industrial products).
+Changes in the import structure are less clear, but again higher losses are associated with higher share of leather, wood and paper products and wool and silk threads and fabrics and other industrial products and lower imports of cotton threads and fabrics.
+This does not establish causality.
+Yet, the most plausible channel explaining these findings is that "successful" wars (from the British point of view) forced the structure of French trade to adapt.
+These adapatations were difficult to reveres after the wars and French trade was durably locked into a less dynamic structure.
 
-\todo[inline, color=blue!40]{Could you write a quick two-lines on the takeway of the regression by geography?}
+\ref{Individual_regressions_partner_exports} and \ref{Individual_regressions_partner_imports} show similar changes in the partner share of French trade.
+The share of exports to Germany, Switzerland, Spain and Portugal increased when French trade was the reduced, as the share of imports from Spain, Portugal and Italy. 
+Again, this suggests that wars forced French trade to develop its links with close eastern and southern neighbours, further away from the British influence.
+
+\ref{Individual_regressions_partner_exports} and \ref{Individual_regressions_partner_imports} show similar changes in the regional share of French trade up to 1789
+Even if the pattern is clearer for imports than for exports, it seems that landlocked regions (Bourgogne, Châlons, Lyon and Saint-Quentin), secondary coastal regions (Amiens, Bayonne, Caen and Rennes), and Marseille have a larger share of trade when French trade is reduced.
+While large Atlantic ports (Bordeaux and Nantes) have a smaller share of trade.
+
+
+
+ We also do a joint test of significance for all the variables. 
+
+\todo[inline, color=YellowGreen]{Could you write a quick two-lines on the takeway of the regression by geography? -- GD is it fine ?}
 
 \section{Can we do a cost-benefit analysis?}
 \label{sec:cost_benefit}
@@ -430,7 +447,7 @@ Livre tournois silver value: \cite{Dewailly1857} and \cite{Hoffman2000}; Pound s
 		\label{Prizes}
 		\centering
 		\includegraphics[scale=0.7]{Prizes.png}
-		\source{\cite{Starkey1990}, data provided by Hennening Hillmann, underlying \cite{Hillmann2011} and  \cite{Benjamin2009}, based of the work done by Hill for \cite{Hill1998}}
+		\source{For privateers and before 1785 for the Royal Navy, \cite{Starkey1990,Hillmann2011}. For post-1793 Royal Navy prizes, we use the data on the value of Navy Prizes from \cite{Benjamin2009}, based on \cite{Hill1998}.}
 	\end{figure}
 \end{center}
 
@@ -505,35 +522,56 @@ Livre tournois silver value: \cite{Dewailly1857} and \cite{Hoffman2000}; Pound s
 \begin{landscape}
 \begin{table}[h!]
 	\caption{Regression of the various the loss functions on the log of sectorial shares of exports (N=54)}
+	\label{Individual_regressions_sector_exports}
 	\footnotesize
 	\input{Individual_reg_product_sitc_simplEN_Exports_all.tex}
-	\source{The log of "negative" losses is replaces by the log of the minimum loss in the data)}
+	\source{The log of "negative" losses is replaces by the log of the minimum loss in the data}
 \end{table}
 
 \begin{table}[h!]
 	\caption{Regression the loss functions on the log of the sectorial shares of imports(N=54)}
-	\label{key}\footnotesize
+	\label{Individual_regressions_sector_imports}
+	\footnotesize
 	\input{Individual_reg_product_sitc_simplEN_Imports_all.tex}
-	\source{The log of "negative" losses is replaces by the log of the minimum loss in the data)}
+	\source{The log of "negative" losses is replaces by the log of the minimum loss in the data}
 \end{table}
 
 \end{landscape}
 
 \begin{table}[h!]
-	\caption{Regression the loss functions on the log of the geography of exports(N=67)}
-	\label{key}\footnotesize
+	\caption{Regression the loss functions on the log of the geography of exports(N=66)}
+	\label{Individual_regressions_partner_exports}
+	\footnotesize
 	\input{Individual_reg_partner_grouping_8_Exports_all.tex}
-	\source{The log of "negative" losses is replaces by the log of the minimum loss in the data)}
+	\source{The log of "negative" losses is replaces by the log of the minimum loss in the data}
 \end{table}
 
 \begin{table}[h!]
-	\caption{Regression the loss functions on the log of the geography of imports(N=67)}
-	\label{key}\footnotesize
+	\caption{Regression the loss functions on the log of the geography of imports(N=66)}
+	\label{Individual_regressions_partner_imports}
+	\footnotesize
 	\input{Individual_reg_partner_grouping_8_Imports_all.tex}
-	\source{The log of "negative" losses is replaces by the log of the minimum loss in the data)}
+	\source{The log of "negative" losses is replaces by the log of the minimum loss in the data}
 \end{table}
 
-
+\begin{landscape}
+	\begin{table}[h!]
+		\caption{Regression of the various the loss functions on the log of regional shares of exports (up to 1789)}
+		\label{Individual_regressions_region_exports}
+		\footnotesize
+		\input{Individual_reg_regional_Exports_all.tex}
+		\source{The log of "negative" losses is replaces by the log of the minimum loss in the data. Results for Charleville, Flandres, La Rochelle, Langres, Montpellier, Narbonne and Rouen are not statistically significant and are not shown}
+	\end{table}
+	
+	\begin{table}[h!]
+		\caption{Regression the loss functions on the log of the regional shares of imports (up to 1789)}
+		\label{Individual_regressions_region_imports}
+		\footnotesize
+		\input{Individual_reg_regional_Imports_all.tex}
+		\source{The log of "negative" losses is replaces by the log of the minimum loss in the data. Results for Charleville, Flandres, La Rochelle, Langres, Montpellier, Narbonne and Rouen are not statistically significant and are not shown}
+	\end{table}
+	
+\end{landscape}
 
 
 \section{MANOVA test} 

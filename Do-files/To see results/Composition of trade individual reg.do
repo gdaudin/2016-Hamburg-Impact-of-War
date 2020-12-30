@@ -40,7 +40,11 @@ args direction X_I classification period
 		
 		
 		rename tax_department_grouping regional
-		replace regional = "Saint_Quentin" if regional=="Saint-Quentin"s
+		replace regional = "Saint_Quentin" if regional=="Saint-Quentin"
+		
+		drop if regional=="Charleville" | regional=="Flandre" | regional=="La Rochelle" | regional=="Langres" | regional=="Rouen" | regional=="Montpellier" | regional=="Narbonne"
+		**There is no usefull results for these
+		
 	}
 	
 	
@@ -117,13 +121,15 @@ args direction X_I classification period
 	
 	
 	if "`classification'" == "partner_grouping_8" {
-		local textitle "\shortstack{Germany\\and\\Switzerland}" "Iberia" "Italy" "\shortstack{Low\\Countries}" "\shortstack{North\\of\\Holland}" "Overseas" "\shortstack{United\\Kingdom}"  "\shortstack{United\\States}"
+		local textitle "\shortstack{Germany\\and\\Switzerland\\by land}" "Iberia" "Italy" "\shortstack{Low\\Countries}" "\shortstack{North\\of\\Holland\\by sea}" "\shortstack{Overseas\\N=62}" "\shortstack{United\\Kingdom}"  "\shortstack{United\\States\\N=33}"
 		local tabular_columns  p{1.5cm} p{2cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm}
 	}
 	
 	if "`classification'" == "regional" {
-
+				local textitle "\shortstack{Amiens\\N=14}" "\shortstack{Bayonne\\N=35}" "\shortstack{Bordeaux\\N=37}" "\shortstack{Bourgogne\\N=14}" "\shortstack{Caen\\N=17}"  "\shortstack{Châlons\\N=14}"  "\shortstack{Lyon\\N=15}" "\shortstack{Marseille\\N=33}" "\shortstack{Nantes\\N=33}" "\shortstack{Rennes\\N=33}" "\shortstack{Saint-Quentin\\N=14}"
+		local tabular_columns  p{1.5cm} p{2cm} p{1.7cm} p{1.7cm}  p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} 
 	}
+
 
 	
 	
@@ -191,10 +197,14 @@ end
 
 eststo clear
 
+
+composition_trade_ind_reg  regional Exports regional all
+composition_trade_ind_reg  regional Imports regional all
+
 /*
 composition_trade_ind_reg  national Exports product_sitc_simplEN all
 
-*composition_trade_ind_reg  regional Exports regional all
+
 composition_trade_ind_reg  regional Imports regional all
 
 /*

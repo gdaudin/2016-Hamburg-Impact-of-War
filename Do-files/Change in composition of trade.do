@@ -151,6 +151,10 @@ outtable using "$hamburggit/Paper - Impact of War/Paper/manova_test_sitc", ///
 				caption("Multivariate Analisys of Variance - by SITC") replace 
 */
 
+
+composition_trade_ind_reg  regional Exports regional all
+composition_trade_ind_reg  regional Imports regional all
+
 composition_trade_ind_reg  national Exports partner_grouping_8 all
 composition_trade_ind_reg  national Imports partner_grouping_8 all
 
