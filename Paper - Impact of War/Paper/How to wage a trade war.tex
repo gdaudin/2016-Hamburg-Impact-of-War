@@ -31,6 +31,7 @@
  \newcolumntype{d}[1]{D{.}{.}{#1}} 
 \DeclareUnicodeCharacter{202F}{ }
 \usepackage{comment}
+\usepackage{tikz}
  
 
 \author{
@@ -519,6 +520,32 @@ Livre tournois silver value: \cite{Dewailly1857} and \cite{Hoffman2000}; Pound s
 
 
 \section{Regression}
+
+% This code uses the tikz package
+
+\begin{center}
+	\begin{figure}[h!]
+		\centering
+		\caption{Directed acyclical graphs (DAG) of causality between war and peacetime losses (\cite{Pearl2000,Pearl2018,Schneider2020})}
+		\label{DAG}
+		\includegraphics[scale=0.8]{dagitty-model-War-to-PeaceTimeLosses.png}
+	\end{figure}
+\end{center}
+
+\begin{tikzpicture}
+	\node (v0) at (0,0) {War};
+	\node (v1) at (10,0) {Peace-time losses};
+	\node (v2) at (-0,5) {War time losses};
+	\node (v3) at (5,5) {Structural change};
+	\draw [->] (v0) edge (v2);
+	\draw [->] (v2) edge (v3);
+	\draw [->] (v3) edge (v1);
+	\draw [->] (v0) edge (v3);
+	\draw [->] (v0) edge (v1);
+\end{tikzpicture}
+
+
+
 \begin{landscape}
 \begin{table}[h!]
 	\caption{Regression of the various the loss functions on the log of sectorial shares of exports (N=54)}
