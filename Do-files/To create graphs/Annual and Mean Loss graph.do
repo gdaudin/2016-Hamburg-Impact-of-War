@@ -5,7 +5,7 @@
 
 if "`c(username)'" =="guillaumedaudin" {
 	global hamburg "/Users/guillaumedaudin/Documents/Recherche/2016 Hambourg et Guerre"
-	global hamburggit "~/Répertoires GIT/2016-Hamburg-Impact of War"
+	global hamburggit "~/Répertoires GIT/2016-Hamburg-Impact-of-War"
 }
 
 if "`c(username)'" =="tirindee" {
@@ -149,7 +149,6 @@ graph export "$hamburggit/Paper - Impact of War/Paper/Annual_loss_function.png",
 
 save temp.dta, replace
 
-blif
 
 ************* Pour les graphiques avec les dépenses
 
