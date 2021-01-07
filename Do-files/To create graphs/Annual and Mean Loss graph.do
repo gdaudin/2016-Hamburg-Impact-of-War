@@ -5,7 +5,7 @@
 
 if "`c(username)'" =="guillaumedaudin" {
 	global hamburg "/Users/guillaumedaudin/Documents/Recherche/2016 Hambourg et Guerre"
-	global hamburggit "~/Documents/Recherche/2016 Hambourg et Guerre/2016-Hamburg-Impact-of-War"
+	global hamburggit "~/Répertoires GIT/2016-Hamburg-Impact of War"
 }
 
 if "`c(username)'" =="tirindee" {
@@ -129,7 +129,7 @@ gen minwar4=-0.2 if war4!=.
 gen minwar5=-0.2 if war5!=.
 gen minblockade=-0.2 if blockade!=.
 keep if year >=1740
-export delimited "$hamburg/database_csv/mean_annual_loss.csv"
+export delimited "$hamburg/database_csv/mean_annual_loss.csv", replace
 
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
@@ -148,6 +148,8 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 graph export "$hamburggit/Paper - Impact of War/Paper/Annual_loss_function.png", as(png) replace
 
 save temp.dta, replace
+
+blif
 
 ************* Pour les graphiques avec les dépenses
 
