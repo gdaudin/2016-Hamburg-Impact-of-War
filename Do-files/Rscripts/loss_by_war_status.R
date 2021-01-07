@@ -4,6 +4,7 @@ library(ggpubr)
 library(extrafont)
 library(ggthemes)
 library(tidyverse)
+library(whoami)
 loadfonts()
 
 if(username()=="Tirindelli") HamburgDir = "/Volumes/GoogleDrive/My Drive/Hamburg/"

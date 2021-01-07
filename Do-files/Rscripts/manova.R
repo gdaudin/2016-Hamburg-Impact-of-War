@@ -5,6 +5,7 @@ library(ggplot2)
 library(ggthemes)
 library(tidyverse)
 library(devtools)
+library(whoami)
 loadfonts()
 
 if(username()=="Tirindelli") HamburgDir = "/Volumes/GoogleDrive/My Drive/Hamburg/"
