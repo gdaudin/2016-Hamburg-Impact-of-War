@@ -5,7 +5,7 @@
 
 if "`c(username)'" =="guillaumedaudin" {
 	global hamburg "/Users/guillaumedaudin/Documents/Recherche/2016 Hambourg et Guerre"
-	global hamburggit "~/Documents/Recherche/2016 Hambourg et Guerre/2016-Hamburg-Impact-of-War"
+	global hamburggit "~/Répertoires GIT/2016-Hamburg-Impact-of-War"
 }
 
 if "`c(username)'" =="tirindee" {
@@ -129,7 +129,7 @@ gen minwar4=-0.2 if war4!=.
 gen minwar5=-0.2 if war5!=.
 gen minblockade=-0.2 if blockade!=.
 keep if year >=1740
-export delimited "$hamburg/database_csv/mean_annual_loss.csv"
+export delimited "$hamburg/database_csv/mean_annual_loss.csv", replace
 
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
@@ -148,6 +148,7 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 graph export "$hamburggit/Paper - Impact of War/Paper/Annual_loss_function.png", as(png) replace
 
 save temp.dta, replace
+
 
 ************* Pour les graphiques avec les dépenses
 
@@ -234,7 +235,7 @@ replace NavyNet=10^NavyNet
 replace FrenchBudget = 10^FrenchBudget	 
 
 replace FR_Prize_value=. if FR_Prize_value==0
-export delimited "$hamburg/database_csv/expenditures_annual_loss.csv"
+export delimited "$hamburg/database_csv/expenditures_annual_loss.csv", replace
 
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
@@ -265,7 +266,7 @@ replace war3=3000 if war3!=.
 replace war4=3000 if war4!=.
 replace war5=3000 if war5!=.
 replace blockade=3000 if blockade!=.
-export delimited "$hamburg/database_csv/costs_and_benefits.csv"
+export delimited "$hamburg/database_csv/costs_and_benefits.csv", replace
 
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
@@ -327,7 +328,7 @@ replace minwar3=2 if war3!=.
 replace minwar4=2 if war4!=.
 replace minwar5=2 if war5!=.
 replace minblockade=2 if blockade!=.
-export delimited "$hamburg/database_csv/cumulated_costs_and_benefits.csv"
+export delimited "$hamburg/database_csv/cumulated_costs_and_benefits.csv", replace
 
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
@@ -439,7 +440,7 @@ replace war5=2.5 if war5!=.
 replace blockade=2.5 if blockade!=.
 
 
-export delimited "$hamburg/database_csv/ratio_BR_expenditures_ennual_lossH.csv"
+export delimited "$hamburg/database_csv/ratio_BR_expenditures_ennual_lossH.csv", replace
 
 graph twoway (area war1 year , color(gs9)) (area war2 year , color(gs9)) ///
 			 (area war3 year , color(gs9)) (area war4 year , color(gs9)) ///
@@ -477,7 +478,7 @@ replace ratio_abs_v3    = ((10^loss_abs_cum)*0.14+10^FR_Prize_value_cum+10^FRbud
 replace ratio_nm_abs_v3 = ((10^loss_nm_abs_cum)*0.14+10^FR_Prize_value_cum+10^FRbudget_cum)/(10^Navy_cum-10^FR_Prize_value_cum)
 
 
-export delimited "$hamburg/database_csv/ratio_BR_expenditures_ennual_lossL.csv"
+export delimited "$hamburg/database_csv/ratio_BR_expenditures_ennual_lossL.csv", replace
 graph twoway (area war1 year , color(gs9)) (area war2 year , color(gs9)) ///
 			 (area war3 year , color(gs9)) (area war4 year , color(gs9)) ///
 			 (area war5 year , color(gs9)) (area blockade year , color(gs4)) ///
@@ -580,7 +581,7 @@ erase temp.dta
 
 keep year loss loss_nomemory loss_mean loss_mean_nomemory
 
-save "$hamburg/database_dta/FR_loss.dta"
+save "$hamburg/database_dta/FR_loss.dta", replace
 
 
 
