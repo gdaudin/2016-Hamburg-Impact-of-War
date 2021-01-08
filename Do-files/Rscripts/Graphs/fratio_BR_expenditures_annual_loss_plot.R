@@ -1,4 +1,6 @@
-fratio_BR_expenditures_annual_loss_plot = function(ratio_exp){
+fratio_BR_expenditures_annual_loss_plot = function(ratio_exp, L_H){
+  if(L_H=="H") title = ggtitle("French trade loss*0.35")
+  if(L_H=="L") title = ggtitle("French trade loss*0.18")
   loss = ggplot(ratio_exp) + 
     geom_rect(aes(xmin=1745, xmax=1748, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#999999") +
     geom_rect(aes(xmin=1756, xmax=1763, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#999999") +
@@ -21,5 +23,6 @@ fratio_BR_expenditures_annual_loss_plot = function(ratio_exp){
           strip.text = element_text(size=15, family ="LM Roman 10")) +
     scale_x_continuous(breaks = seq(1740, 1825, by = 10), limits = c(1740,1825)) +
     scale_color_manual(values=c("#E69F00", "#56B4E9", "#009E73")) +
-    guides(colour = guide_legend(override.aes = list(linetype = 1)))
+    guides(colour = guide_legend(override.aes = list(linetype = 1))) +
+    title
 }
