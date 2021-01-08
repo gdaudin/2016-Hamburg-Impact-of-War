@@ -13,6 +13,10 @@ if "`c(username)'" =="tirindee" {
 	global hamburggit "C:\Users\tirindee\Google Drive\ETE/Thesis/Data/do_files/Hamburg/"
 }
 
+if "`c(username)'" =="rober" {
+	global hamburg "G:\Il mio Drive\Hamburg"
+	global hamburggit "G:\Il mio Drive\Hamburg\Paper"
+}
 
 if "`c(username)'" =="Tirindelli" {
 	global hamburg "/Volumes/GoogleDrive/My Drive/Hamburg"

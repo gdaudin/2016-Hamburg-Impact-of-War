@@ -1,0 +1,109 @@
+library(dplyr)
+library(ggplot2)
+library(ggpubr)
+library(extrafont)
+library(ggthemes)
+library(tidyverse)
+library(whoami)
+library(ggpubr)
+loadfonts()
+
+if(username()=="Tirindelli") HamburgDir = "/Volumes/GoogleDrive/My Drive/Hamburg/"
+RscriptDir = "Paper/Do-files/Rscripts/"
+GraphDir = "Graphs/"
+DataframeDir = "Dataframe/"
+NewgraphsDir = "New graphs/"
+
+source(paste(HamburgDir,RscriptDir,DataframeDir, "fprizes_nationality_df.R", sep = "" ))
+source(paste(HamburgDir,RscriptDir,GraphDir, "fratio_BR_expenditures_annual_loss_plot.R", sep = "" ))
+
+fills = c("Navy's prizes (estimated time of capture from 1973)" = "#0072B2", 
+           "Privateers' prizes" = "#56B4E9",
+          "Share of non Fench prizes among privateers's prizes" = NA) 
+color = c("Navy's prizes (estimated time of capture from 1973)" = NA, 
+          "Privateers' prizes" = NA,
+          "Share of non Fench prizes among privateers's prizes" = "#E69F00")
+
+prizes = read.csv(paste(HamburgDir,"database_csv/prizes.csv", sep = ""))
+ggplot(prizes, aes(x=year)) +
+  geom_bar(aes(y=Number_of_prizes_Total_All, fill = "#0072B2", color=NA), 
+           stat="identity", size=.1, color = "#000000") + 
+  geom_bar(aes(y=Number_of_prizes_Privateers_All, fill = "#56B4E9", color=NA), 
+           stat="identity", size=.1, color = "#000000") + 
+  geom_line(aes(y=share_of_non_FR_prizes*700, fill = NA, color ="#E69F00"), color= "#E69F00") +
+  geom_point(aes(y=share_of_non_FR_prizes*700, fill = NA, color ="#E69F00"), color= "#E69F00") +
+  theme_few() +
+  theme(legend.title = element_blank(),
+        legend.position = "bottom",
+        legend.key.height=unit(.5, "cm"),
+        axis.title.y = element_text(family ="LM Roman 10"),
+        axis.title.x = element_blank(),
+        axis.text = element_text(family ="LM Roman 10"),
+        panel.background = element_blank(),
+        legend.box.background = element_rect(colour = "black"),
+        panel.grid.major.y = element_line(color = "grey", size = 0.12),
+        panel.border = element_rect(color = "black", fill = NA),
+        plot.title = element_text(hjust = 0.5, family ="LM Roman 10"),
+        strip.text = element_text(size=15, family ="LM Roman 10")) +
+  scale_x_continuous(breaks = seq(1740, 1800, by = 10), limits = c(1740,1801)) +
+  scale_y_continuous(name = "Number of prizes",
+                     sec.axis = sec_axis(~./700, name = "Share of privateers' prizes")) +
+  scale_fill_identity(guide = "legend") +
+  scale_color_identity(guide = "legend")
+  scale_fill_manual(values = fills) +
+  scale_color_manual(values = colors)
+ggsave(paste(HamburgDir,RscriptDir,NewgraphsDir, "Prizes.pdf", sep = "" ))
+
+prizes = read.csv(paste(HamburgDir,"database_csv/prizes_imports.csv", sep = ""))
+ggplot(prizes, aes(x=year)) +
+  geom_bar(aes(y=importofprizegoodspoundsterling), stat="identity", size=.1, fill = "#0072B2", color = "#000000") + 
+  geom_line(aes(y=share_prizes*14500), color = "#E69F00") +
+  geom_point(aes(y=share_prizes*14500), color = "#E69F00") +
+  theme_few() +
+  theme(legend.title = element_blank(),
+        legend.position = "bottom",
+        legend.key.height=unit(.5, "cm"),
+        axis.title.y = element_text(family ="LM Roman 10"),
+        axis.title.x = element_blank(),
+        axis.text = element_text(family ="LM Roman 10"),
+        panel.background = element_blank(),
+        legend.box.background = element_rect(colour = "black"),
+        panel.grid.major.y = element_line(color = "grey", size = 0.12),
+        panel.border = element_rect(color = "black", fill = NA),
+        plot.title = element_text(hjust = 0.5, family ="LM Roman 10"),
+        strip.text = element_text(size=15, family ="LM Roman 10")) +
+  scale_x_continuous(breaks = seq(1740, 1800, by = 10), limits = c(1740,1801)) +
+  guides(colour = guide_legend(override.aes = list(linetype = 1))) +
+  scale_y_continuous(name = "Imports of prize goods (£000)",
+                       sec.axis = sec_axis(~./14500, name = "Share of French trade"))
+ggsave(paste(HamburgDir,RscriptDir,NewgraphsDir, "Prizes_imports.pdf", sep = "" ))
+
+prizes = read.csv(paste(HamburgDir,"database_csv/prizes_nationality.csv", sep = ""))
+prizes_nat = fprizes_nationality_df(prizes)
+prizes_nat$prizes = ifelse(prizes_nat$prizes>100, NA, prizes_nat$prizes)
+
+loss = ggplot(prizes_nat) + 
+  geom_rect(aes(xmin=1745, xmax=1748, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#999999") +
+  geom_rect(aes(xmin=1756, xmax=1763, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#999999") +
+  geom_rect(aes(xmin=1778, xmax=1783, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#999999") +
+  geom_rect(aes(xmin=1793, xmax=1807, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#999999") +
+  geom_rect(aes(xmin=1808, xmax=1815, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#0072B2") +
+  geom_line(aes(x=year, y= prizes, color = prizes_nationality)) +
+  geom_point(aes(x=year, y= prizes, color = prizes_nationality)) +
+  theme_few() +
+  theme(legend.title = element_blank(),
+        legend.position = "bottom",
+        legend.key.height=unit(.5, "cm"),
+        axis.title = element_blank(),
+        axis.text = element_text(family ="LM Roman 10"),
+        panel.background = element_blank(),
+        legend.box.background = element_rect(colour = "black"),
+        panel.grid.major.y = element_line(color = "grey", size = 0.12),
+        panel.border = element_rect(color = "black", fill = NA),
+        plot.title = element_text(hjust = 0.5, family ="LM Roman 10"),
+        strip.text = element_text(size=15, family ="LM Roman 10")) +
+  scale_x_continuous(breaks = seq(1740, 1815, by = 10), limits = c(1740,1815)) +
+  scale_color_manual(values=c("#E69F00", "#56B4E9", "#009E73", "#F0E442")) +
+  guides(colour = guide_legend(override.aes = list(linetype = 1)))
+print(loss)
+ggsave(paste(HamburgDir,RscriptDir,NewgraphsDir, "Prizes_nationality.pdf", sep = "" ))

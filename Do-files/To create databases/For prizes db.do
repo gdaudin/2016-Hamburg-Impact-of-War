@@ -10,9 +10,14 @@ else if "`c(username)'" =="tirindee" {
 }
 
 
+if "`c(username)'" =="rober"{
+	global hamburg "G:\Il mio Drive\Hamburg"
+	global hamburggit "G:\Il mio Drive\Hamburg\Paper"
+}
+
 if "`c(username)'" =="Tirindelli" {
-	global hamburg "/Users/Tirindelli/Google Drive/Hamburg"
-	global hamburggit "/Users/Tirindelli/Google Drive/Hamburg/Paper"
+	global hamburg "/Volumes/GoogleDrive/My Drive/Hamburg"
+	global hamburggit "/Volumes/GoogleDrive/My Drive/Hamburg/Paper"
 }
 
 
@@ -232,6 +237,7 @@ sort year
 
 replace share_prizes = . if share_prizes ==0
 
+export delimited "$hamburg/database_csv/prizes_imports.csv", replace
 twoway (bar importofprizegoodspoundsterling year, cmissing(n)) (connected share_prizes year,yaxis(2) lpattern(solid) mcolor(black) cmissing(n))/*
 		*/ if year>=1740 & year <=1801 /*
 		*/, name(Prize_imports, replace) scheme(s1mono) ytitle("Imports of prize goods (£000)") ytitle("Share of French trade", axis(2)) /*
@@ -324,7 +330,7 @@ rename Nbr_HCA34_and_other_FR Number_of_prizes_Privateers_FR
 rename Nbr_HCA34_and_other Number_of_prizes_Privateers_All
 
 
-
+export delimited "$hamburg/database_csv/prizes.csv", replace
  twoway (bar Number_of_prizes_Total_All year, color(gs10)) /*
 	*/  (bar Number_of_prizes_Privateers_All year, color(gs5)) /*
 	*/  (connected share_of_non_FR_prizes year, lpattern(solid) mcolor(black) cmissing(n) msymbol(diamond) yaxis(2)) /*
@@ -351,6 +357,7 @@ erase "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta"
 
 recode Nbr_HCA34_and_other_* (0=.), 
 
+export delimited "$hamburg/database_csv/prizes_nationality.csv", replace
 twoway (connected Nbr_HCA34_and_other_Other year, cmissing(n) msize(small)) /*
 	*/ (connected Nbr_HCA34_and_other_Spain year, cmissing(n) msize(small)) (connected Nbr_HCA34_and_other_Neth year, cmissing(n) msize(small)) /*
 	*/ (connected Nbr_HCA34_and_other_US year, cmissing(n) msize(small)) /*

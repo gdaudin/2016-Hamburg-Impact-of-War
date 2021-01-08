@@ -17,10 +17,14 @@ if "`c(username)'" =="tirindee" {
 	global hamburggit "C:\Users\TIRINDEE\Google Drive\ETE/Thesis/Data/do_files/Hamburg"
 }
 
+if "`c(username)'" =="rober" {
+	global hamburg "G:\Il mio Drive\Hamburg"
+	global hamburggit "G:\Il mio Drive\Hamburg\Paper"
+}
 
 if "`c(username)'" =="Tirindelli" {
-	global hamburg "/Users/Tirindelli/Google Drive/Hamburg"
-	global hamburggit "/Users/Tirindelli/Google Drive/Hamburg/Paper"
+	global hamburg "/Volumes/GoogleDrive/My Drive/Hamburg"
+	global hamburggit "/Volumes/GoogleDrive/My Drive/Hamburg/Paper"
 }
 
 
@@ -153,11 +157,11 @@ save "$hamburg/database_dta/UKfederico_tena.dta", replace
 				VOLUME OF TRADE BETWEEN 1716 AND 1820
 ------------------------------------------------------------------------------*/
 
-if "`c(username)'" =="guillaumedaudin" {
+if "`c(username)'" =="guillaumedaudin"{
 use "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta", clear
 }
 
-if "`c(username)'" =="Tirindelli"{
+if "`c(username)'" !="guillaumedaudin"{
 use "$hamburg/Données Stata/bdd courante.dta", clear
 }
 

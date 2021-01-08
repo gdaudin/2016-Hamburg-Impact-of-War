@@ -1,4 +1,4 @@
-fratio_BR_expenditures_annual_lossL_df = function(fdf){
+fratio_BR_expenditures_annual_loss_df = function(fdf){
   df = rbind(
     data.frame(
       year = fdf$year,
