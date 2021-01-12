@@ -316,7 +316,7 @@ generate Navy_Net_cum    = sum(NavyNet)
 replace Navy_Net_cum = Navy_Net_cum + (1229+1428)/2 if year >=1800
 generate Navy_Gross_cum  = sum(NavyGross)
 generate Navy_cum=log10(Navy_Gross_cum+Navy_Net_cum)
-generate FRbudget_cum = log10(sum(FrenchBudget)) if year <=1782
+generate FRbudget_cum = log10(sum(FrenchBudget))
 generate FR_Prize_value_cum = log10(sum(FR_Prize_value))
 
 

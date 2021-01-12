@@ -97,15 +97,14 @@ egen FrenchBudget=rowmax(Source1 Source10 Source11 Source13 Source14)
 replace FrenchBudget=Source6*1.025 if FrenchBudget==. & year <=1750
 replace FrenchBudget=Source6*1.06 if FrenchBudget==. & year <=1789
 set obs `=_N+8' 
-replace year=1793 if _N==77
-replace year=1793 if _n==77
-replace year=1794 if _n==78
-replace year=1795 if _n==79
-replace year=1796 if _n==80
-replace year=1797 if _n==81
-replace year=1798 if _n==82
-replace year=1799 if _n==83
-replace year=1800 if _n==84
+replace year=1793 if _n==79
+replace year=1794 if _n==80
+replace year=1795 if _n==81
+replace year=1796 if _n==82
+replace year=1797 if _n==83
+replace year=1798 if _n==84
+replace year=1799 if _n==85
+replace year=1800 if _n==87
 replace FrenchBudget=2.2477+(2.6235-2.2477)*(year-1792)*1/9 if FrenchBudget==. & year <=1801
 sort year
 twoway (connected FrenchBudget year)
