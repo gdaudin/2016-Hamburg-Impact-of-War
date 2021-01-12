@@ -1,5 +1,4 @@
 year,FrenchBudget,SourceID,Source
-1818,"44,8",1,"37,309 dépensés au 31/12/18 ; Comptes-Rendus par le Ministre Secrétaire d'Etat des finances pour l'année 1818: "
 1801,"93,38",1,"Celui-ci et les suivants viennent de Brenda 2019  – Je répartis l’arriéré impérial sur 1814, 1813 et 1812 au pro-rata temporis des mois"
 1802,"96,17",1,"Celui-ci et les suivants viennent de Brenda 2019  – Je répartis l’arriéré impérial sur 1814, 1813 et 1812 au pro-rata temporis des mois"
 1803,"151,7",1,"Celui-ci et les suivants viennent de Brenda 2019  – Je répartis l’arriéré impérial sur 1814, 1813 et 1812 au pro-rata temporis des mois"
@@ -15,13 +14,14 @@ year,FrenchBudget,SourceID,Source
 1813,"184,22",1,"Celui-ci et les suivants viennent de Brenda 2019  – Je répartis l’arriéré impérial sur 1814, 1813 et 1812 au pro-rata temporis des mois"
 1814,"75,01",1,"Celui-ci et les suivants viennent de Brenda 2019  – Je répartis l’arriéré impérial sur 1814, 1813 et 1812 au pro-rata temporis des mois"
 1815,"39,5",1,"Celui-ci et les suivants viennent de Brenda 2019  – Je répartis l’arriéré impérial sur 1814, 1813 et 1812 au pro-rata temporis des mois"
-1821,"52,275",1,Compte rendu par le ministre ... des finances: Pour l'année 1823
+1816,"47,98",1,Comptes rendus par les Ministres pour l’année 1816
 1817,"47,558",1,Compte rendu par le Ministre secrétaire d'État des Finances Pour l'année 1817
+1818,"44,8",1,"37,309 dépensés au 31/12/18 ; Comptes-Rendus par le Ministre Secrétaire d'Etat des finances pour l'année 1818: "
 1819,"45,9",1,Compte rendu par le Ministre secrétaire d'État des Finances pour l'année 1819
 1820,"47,386",1,Compte rendu par le Ministre sécrétaire d'État des Finances pour l'année 1820
+1821,"52,275",1,Compte rendu par le ministre ... des finances: Pour l'année 1823
 1822,"60,818",1,Compte rendu par le Ministre sécrétaire d'État des Finances pour l'année 1822
 1823,"74,588",1,Compte rendu par le Ministre sécrétaire d'État des Finances pour l'année 1823
-1816,"47,98",1,Comptes rendus par les Ministres pour l’année 1816
 1668,17,2,Accera et Zysberg – essentiellement tiré de BN n.a.f. 5399
 1669,17,2,Accera et Zysberg
 1670,17,2,Accera et Zysberg
@@ -169,27 +169,6 @@ year,FrenchBudget,SourceID,Source
 1699,11,4,AN G7 1830 d’après Legoherel – 2
 1700,"8,975",4,AN G7 1830 d’après Legoherel – 2
 1701,"18,123",4,AN G7 1830 d’après Legoherel – 2
-1740,"19,974",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
-1741,"23,452",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
-1742,"19,842",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
-1743,"19,786",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
-1744,"31,507",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
-1745,"27,539",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
-1746,"34,54",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
-1747,"35,137",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
-1748,"32,108",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
-1749,"25,696",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
-1750,"25,241",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
-1751,"24,672",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
-1752,"27,645",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
-1753,"23,528",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
-1754,"21,786",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
-1755,"34,495",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
-1756,"49,294",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
-1757,"60,269",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
-1758,"55,306",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
-1759,77,19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
-1760,"33,771",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
 1708,"15,106",5,AN G7 1830 d’après Legoherel – 3
 1709,"16,071",5,AN G7 1830 d’après Legoherel – 3
 1710,"15,075",5,AN G7 1830 d’après Legoherel – 3
@@ -307,56 +286,58 @@ year,FrenchBudget,SourceID,Source
 1705,18,7,Boislile d’après Legoherel
 1706,19,7,Boislile d’après Legoherel
 1707,"14,552",7,Boislile d’après Legoherel
-1745,"19,2",8,D’après Villiers (2002) par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
-1748,"24,8",8,D’après Villiers (2002) par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
-1749,20,8,D’après Villiers (2002) par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
-1690,27,9,Etat sommaire des Archives de la Marine d’après Legoherel – 1
-1691,"33,43",9,Etat sommaire des Archives de la Marine d’après Legoherel – 1
-1692,"33,27",9,Etat sommaire des Archives de la Marine d’après Legoherel – 1
-1693,"32,9",9,Etat sommaire des Archives de la Marine d’après Legoherel – 1
-1694,"24,2",9,Etat sommaire des Archives de la Marine d’après Legoherel – 1
-1695,"10,1",9,Etat sommaire des Archives de la Marine d’après Legoherel – 1
-1696,"22,9",9,Etat sommaire des Archives de la Marine d’après Legoherel – 1
-1697,"22,46",9,Etat sommaire des Archives de la Marine d’après Legoherel – 1
-1698,"14,9",9,Etat sommaire des Archives de la Marine d’après Legoherel – 1
-1699,"14,65",9,Etat sommaire des Archives de la Marine d’après Legoherel – 1
-1700,"12,6",9,Etat sommaire des Archives de la Marine d’après Legoherel – 1
-1701,"21,76",9,Etat sommaire des Archives de la Marine d’après Legoherel – 1
-1702,"28,3",9,Etat sommaire des Archives de la Marine d’après Legoherel – 1
-1703,"25,205",9,Etat sommaire des Archives de la Marine d’après Legoherel – 1
-1704,"21,9",9,Etat sommaire des Archives de la Marine d’après Legoherel – 1
-1705,"30,1",9,Etat sommaire des Archives de la Marine d’après Legoherel – 1
-1706,"21,5",9,Etat sommaire des Archives de la Marine d’après Legoherel – 1
-1707,"16,8",9,Etat sommaire des Archives de la Marine d’après Legoherel – 1
-1708,18,9,Etat sommaire des Archives de la Marine d’après Legoherel – 1
-1709,"11,4",9,Etat sommaire des Archives de la Marine d’après Legoherel – 1
-1770,"26,54",10,Etat sommaire des Archives de la Marine d’après Legoherel – 3
-1778,"101,153",10,Etat sommaire des Archives de la Marine d’après Legoherel – 3
-1779,"156,64",10,Etat sommaire des Archives de la Marine d’après Legoherel – 3
-1780,"168,988",10,Etat sommaire des Archives de la Marine d’après Legoherel – 3
-1781,"163,9",10,Etat sommaire des Archives de la Marine d’après Legoherel – 3
-1782,"199,896",10,Etat sommaire des Archives de la Marine d’après Legoherel – 3
-1783,158,10,Etat sommaire des Archives de la Marine d’après Legoherel – 3
-1764,"16,305",11,Etat sommaire des Archives de la Marine d’après Legoherel
-1765,"27,66",11,Etat sommaire des Archives de la Marine d’après Legoherel
-1766,"27,66",11,Etat sommaire des Archives de la Marine d’après Legoherel
-1767,"17,2",11,Etat sommaire des Archives de la Marine d’après Legoherel
-1768,"17,6",11,Etat sommaire des Archives de la Marine d’après Legoherel
-1769,19,11,Etat sommaire des Archives de la Marine d’après Legoherel
-1750,"17,65",11,Etat sommaire des Archives de la Marine d’après Legoherel // D’après Villiers (2002) par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
-1751,"18,7",11,Etat sommaire des Archives de la Marine d’après Legoherel // D’après Villiers (2002) par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
-1752,"22,256",11,Etat sommaire des Archives de la Marine d’après Legoherel // D’après Villiers (2002) par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
-1753,"17,395",11,Etat sommaire des Archives de la Marine d’après Legoherel // D’après Villiers (2002) par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
-1754,"17,746",11,Etat sommaire des Archives de la Marine d’après Legoherel // D’après Villiers (2002) par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
-1755,"31,326",11,Etat sommaire des Archives de la Marine d’après Legoherel // D’après Villiers (2002) par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
-1756,"40,006",11,Etat sommaire des Archives de la Marine d’après Legoherel // D’après Villiers (2002) par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
-1757,"39,006",11,Etat sommaire des Archives de la Marine d’après Legoherel // D’après Villiers (2002) par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
-1758,"42,37",11,Etat sommaire des Archives de la Marine d’après Legoherel // D’après Villiers (2002) par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
-1759,"59,904",11,Etat sommaire des Archives de la Marine d’après Legoherel // D’après Villiers (2002) par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
-1760,"23,713",11,Etat sommaire des Archives de la Marine d’après Legoherel // D’après Villiers (2002) par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
-1761,"30,2",11,Etat sommaire des Archives de la Marine d’après Legoherel // D’après Villiers (2002) par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
-1762,"24,5",11,Etat sommaire des Archives de la Marine d’après Legoherel // D’après Villiers (2002) par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
-1763,"20,065",11,Etat sommaire des Archives de la Marine d’après Legoherel // D’après Villiers (2002) par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
+1745,"19,2",11,"D’après Villiers (2002), p. 206 par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires"
+1748,"24,8",11,"D’après Villiers (2002), p. 206 par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires"
+1749,20,11,"D’après Villiers (2002), p. 206 par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires"
+1690,27,9,Etat sommaire des Archives de la Marine (p. 611) d’après Legoherel – 1
+1691,"33,43",9,Etat sommaire des Archives de la Marine (p. 611) d’après Legoherel – 1
+1692,"33,27",9,Etat sommaire des Archives de la Marine (p. 611) d’après Legoherel – 1
+1693,"32,5",9,Etat sommaire des Archives de la Marine  d’après Legoherel – 1. Corrigé d’après Neuville (p. 611)
+1694,"24,2",9,Etat sommaire des Archives de la Marine (p. 611) d’après Legoherel – 1
+1695,"10,4",9,Etat sommaire des Archives de la Marine  d’après Legoherel – 1. Corrigé d’après Neuville (p. 611)
+1696,"22,9",9,Etat sommaire des Archives de la Marine (p. 611) d’après Legoherel – 1
+1697,"22,46",9,Etat sommaire des Archives de la Marine (p. 611) d’après Legoherel – 1
+1698,"14,5",9,Etat sommaire des Archives de la Marine  d’après Legoherel – 1. Corrigé d’après Neuville (p. 611)
+1699,"14,65",9,Etat sommaire des Archives de la Marine (p. 611) d’après Legoherel – 1
+1700,"12,6",9,Etat sommaire des Archives de la Marine (p. 611) d’après Legoherel – 1
+1701,"21,76",9,Etat sommaire des Archives de la Marine (p. 611) d’après Legoherel – 1
+1702,"28,3",9,Etat sommaire des Archives de la Marine (p. 611) d’après Legoherel – 1
+1703,"25,205",9,Etat sommaire des Archives de la Marine (p. 611) d’après Legoherel – 1
+1704,"21,9",9,Etat sommaire des Archives de la Marine (p. 611) d’après Legoherel – 1
+1705,"30,1",9,Etat sommaire des Archives de la Marine (p. 611) d’après Legoherel – 1
+1706,"21,5",9,Etat sommaire des Archives de la Marine (p. 611) d’après Legoherel – 1
+1707,"16,8",9,Etat sommaire des Archives de la Marine (p. 611) d’après Legoherel – 1
+1708,18,9,Etat sommaire des Archives de la Marine (p. 611) d’après Legoherel – 1
+1709,"11,4",9,Etat sommaire des Archives de la Marine (p. 611) d’après Legoherel – 1
+1776,"47,257",10,"De Jonathan Dull, p. 348-350, repris par Villiers (2002) p. 497, présenté comme la même source que Castries par Legoherel"
+1777,"58,543",10,"De Jonathan Dull, p. 348-350, repris par Villiers (2002) p. 497, présenté comme la même source que Castries par Legoherel"
+1778,"101,153",10,"Etat sommaire des Archives de la Marine (p. 624) d’après Legoherel – 3 Castries – De Jonathan Dull, p. 348-350, repris par Villiers (2002) p. 497"
+1779,"156,64",10,"Etat sommaire des Archives de la Marine (p. 624) d’après Legoherel – 3 Castries – De Jonathan Dull, p. 348-350, repris par Villiers (2002) p. 497"
+1780,"168,988",10,"Etat sommaire des Archives de la Marine (p. 624) d’après Legoherel – 3 Castries – De Jonathan Dull, p. 348-350, repris par Villiers (2002) p. 497"
+1781,"163,9",10,"Etat sommaire des Archives de la Marine (p. 624) d’après Legoherel – 3 Castries – De Jonathan Dull, p. 348-350, repris par Villiers (2002) p. 497"
+1782,"199,896",10,"Etat sommaire des Archives de la Marine (p. 624) d’après Legoherel – 3 Castries – De Jonathan Dull, p. 348-350, repris par Villiers (2002) p. 497"
+1783,158,10,"Etat sommaire des Archives de la Marine (p. 624) d’après Legoherel – 3 Castries – De Jonathan Dull, p. 348-350, repris par Villiers (2002) p. 497"
+1750,"17,65",11,Etat sommaire des Archives de la Marine (p. 616-617) d’après Legoherel // D’après Villiers (2002) p.206  par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
+1751,"18,7",11,Etat sommaire des Archives de la Marine (p. 616-617) d’après Legoherel // D’après Villiers (2002) p.206  par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
+1752,"22,256",11,Etat sommaire des Archives de la Marine (p. 616-617) d’après Legoherel // D’après Villiers (2002) p.206  par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
+1753,"17,395",11,Etat sommaire des Archives de la Marine (p. 616-617) d’après Legoherel // D’après Villiers (2002) p.206  par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
+1754,"17,746",11,Etat sommaire des Archives de la Marine (p. 616-617) d’après Legoherel // D’après Villiers (2002) p.206  par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
+1755,"31,326",11,Etat sommaire des Archives de la Marine (p. 616-617) d’après Legoherel // D’après Villiers (2002) p.206  par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
+1756,"40,006",11,Etat sommaire des Archives de la Marine (p. 616-617) d’après Legoherel // D’après Villiers (2002) p.206  par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
+1757,"39,006",11,Etat sommaire des Archives de la Marine (p. 616-617) d’après Legoherel // D’après Villiers (2002) p.206  par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
+1758,"42,37",11,Etat sommaire des Archives de la Marine (p. 616-617) d’après Legoherel // D’après Villiers (2002) p.206  par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
+1759,"59,904",11,Etat sommaire des Archives de la Marine (p. 616-617) d’après Legoherel // D’après Villiers (2002) p.206  par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
+1760,"23,713",11,Etat sommaire des Archives de la Marine (p. 616-617) d’après Legoherel // D’après Villiers (2002) p.206  par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
+1761,"30,2",11,Etat sommaire des Archives de la Marine (p. 616-617) d’après Legoherel // D’après Villiers (2002) p.206  par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
+1762,"24,5",11,Etat sommaire des Archives de la Marine (p. 616-617) d’après Legoherel // D’après Villiers (2002) p.206 et 496  par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
+1763,"20,065",11,Etat sommaire des Archives de la Marine (p. 616-617) d’après Legoherel // D’après Villiers (2002) p.206 et 496  par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
+1764,"16,305",11,Etat sommaire des Archives de la Marine (p. 616-617) d’après Legoherel // D’après Villiers (2002) p. 496 Par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
+1765,"27,66",11,Etat sommaire des Archives de la Marine (p. 616-617) d’après Legoherel // D’après Villiers (2002) p. 496 Par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
+1766,"27,66",11,Etat sommaire des Archives de la Marine (p. 616-617) d’après Legoherel // D’après Villiers (2002) p. 496 Par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
+1767,"17,2",11,Etat sommaire des Archives de la Marine (p. 616-617) d’après Legoherel // D’après Villiers (2002) p. 496 Par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
+1768,"17,6",11,Etat sommaire des Archives de la Marine (p. 616-617) d’après Legoherel // D’après Villiers (2002) p. 496 Par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
+1769,19,11,Etat sommaire des Archives de la Marine (p. 616-617) d’après Legoherel // D’après Villiers (2002) p. 496 Par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
+1770,"26,54",11,Etat sommaire des Archives de la Marine (p. 616-617) d’après Legoherel // D’après Villiers (2002) p. 496 Par l’intendant Du Trousset d’Héricourt et comprend les fonds extraordinaires
 1690,"17,645",12,Forbonnais d’après Legoherel
 1691,"24,36",12,Forbonnais d’après Legoherel
 1692,"29,007",12,Forbonnais d’après Legoherel
@@ -388,20 +369,41 @@ year,FrenchBudget,SourceID,Source
 1790,50,13,"Lebrun dans Marion, Histoire Financière de la France, vol. 2 p. 259"
 1791,50,13,"Lebrun dans Marion, Histoire Financière de la France, vol. 2 p. 259"
 1792,61,13,"Lebrun dans Marion, Histoire Financière de la France, vol. 2 p. 332"
-1784,"62,725",14,Malouet d’après Legoherel
+1784,"63,725",14,Malouet d’après Legoherel Corrigé d’après Villiers 2002 p.1784
 1785,"62,912",14,Malouet d’après Legoherel
 1786,"52,727",14,Malouet d’après Legoherel
 1787,"69,272",14,Malouet d’après Legoherel
 1788,"82,525",14,Malouet d’après Legoherel
 1789,"49,287",14,Malouet d’après Legoherel
 1724,"8,744",15,Marion d’après Legoherel
-1776,"50,9",16,Marion d’après Legoherel
-1777,"50,6",16,Marion d’après Legoherel
-1778,"85,1",16,Marion d’après Legoherel
-1779,"131,6",16,Marion d’après Legoherel
-1780,"143,9",16,Marion d’après Legoherel
-1781,"147,5",16,Marion d’après Legoherel
-1782,"188,8",16,Marion d’après Legoherel
-1781,"29,2",17,Necker d’après Legoherel
-1789,"40,5",17,Necker d’après Legoherel
+1776,"50,9",16,Marion d’après Legoherel – Out d’après Dull d’après Villiers(2002) p. 497
+1777,"50,6",16,Marion d’après Legoherel – Out d’après Dull d’après Villiers(2002) p. 497
+1778,"85,1",16,Marion d’après Legoherel – Out d’après Dull d’après Villiers(2002) p. 497
+1779,"131,6",16,Marion d’après Legoherel – Out d’après Dull d’après Villiers(2002) p. 497
+1780,"143,9",16,Marion d’après Legoherel – Out d’après Dull d’après Villiers(2002) p. 497
+1781,"147,5",16,Marion d’après Legoherel – Out d’après Dull d’après Villiers(2002) p. 497
+1782,"188,8",16,Marion d’après Legoherel – Out d’après Dull d’après Villiers(2002) p. 497
+1781,"29,2",17,Necker d’après Legoherel – 1781 pas plausible out
+1789,"40,5",17,Necker d’après Legoherel – 1781 pas plausible out
 1788,"45,18",18,Braesch d’après Legoherel
+1740,"19,974",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
+1741,"23,452",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
+1742,"19,842",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
+1743,"19,786",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
+1744,"31,507",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
+1745,"27,539",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
+1746,"34,54",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
+1747,"35,137",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
+1748,"32,108",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
+1749,"25,696",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
+1750,"25,241",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
+1751,"24,672",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
+1752,"27,645",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
+1753,"23,528",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
+1754,"21,786",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
+1755,"34,495",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
+1756,"49,294",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
+1757,"60,269",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
+1758,"55,306",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
+1759,77,19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
+1760,"33,771",19,AN G7 1830 d’après Legoherel – 2 // Comprend probablement les colonies d’après Villiers (2002)
