@@ -371,13 +371,15 @@ save "$hamburg/database_dta/English_prizes.dta",  replace
 
 
 	
-insheet using "$hamburggit/External Data/Value of prizes.csv", case clear
+*insheet using "$hamburggit/External Data/Value of prizes.xlsx", case clear names
+import excel "$hamburggit/External Data/Value of prizes.xlsx", clear firstrow
 rename Year year
 rename TotalSilverTonsPrizeValue Navy_Total_Prize_value
 
-replace Navy_Total_Prize_value  =usubinstr(Navy_Total_Prize_value,",",".",.)
-destring Navy_Total_Prize_value, replace
+*replace Navy_Total_Prize_value  =usubinstr(Navy_Total_Prize_value,",",".",.)
+*destring Navy_Total_Prize_value, replace
 
+drop if year==.
 merge 1:1 year using "$hamburg/database_dta/English_prizes.dta"
 drop _merge
 
@@ -392,4 +394,9 @@ save "$hamburg/database_dta/English_prizes.dta",  replace
 keep if year >=1740 & year <=1820
 
 
-twoway(connected Total_Prize_value year) (connected FR_Prize_value year) (connected Privateers_Total_Prize_value year) (connected Navy_Total_Prize_value year) 
+*twoway(connected Total_Prize_value year) (connected FR_Prize_value year) (connected Privateers_Total_Prize_value year) (connected Navy_Total_Prize_value year) 
+twoway(bar Total_Prize_value year) (bar FR_Prize_value year), /*
+  */ ytitle("tons of silver", axis(1)) scheme(s1mono) /*
+  */ legend(order (1 "Total prize value" 2 "French prize value")) 
+ 
+ graph export "$hamburggit/Paper - Impact of War/Paper/Prizes_value.png", replace
