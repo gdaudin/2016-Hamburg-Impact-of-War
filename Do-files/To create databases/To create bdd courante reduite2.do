@@ -24,7 +24,7 @@ if "`c(username)'" =="rober" {
 
 * Keep only necessary variables
 
-keep year export_import product_simplification value source_type tax_department ///
+keep year export_import product_simplification value source_type customs_region ///
 	 product_sitc_EN product_sitc_simplEN partner_grouping partner_simplification product_RE_aggregate ///
 	 best_guess*
 	 
@@ -45,10 +45,10 @@ keep if best_guess_national_partner==1 | best_guess_national_product==1
 capture drop national_product_best_guess
 gen national_product_best_guess = 0		
 replace national_product_best_guess = 1 if (source_type=="Objet Général" & year<=1786) | ///
-		(source_type=="Résumé") | source_type=="National toutes tax_departments tous partenaires" 
+		(source_type=="Résumé") | source_type=="National toutes customs_regions tous partenaires" 
 
 egen year_CN = max(national_product_best_guess), by(year)
-replace national_product_best_guess=1 if year_CN == 1 & source_type=="Compagnie des Indes" & tax_department=="France par la Compagnie des Indes"
+replace national_product_best_guess=1 if year_CN == 1 & source_type=="Compagnie des Indes" & customs_region=="France par la Compagnie des Indes"
 
 capture drop national_geography_best_guess
 gen national_geography_best_guess = 0
@@ -70,7 +70,7 @@ save "$hamburg/database_dta/bdd courante reduite2.dta", replace
 
 * Calculer la valeur totale échangée par marchandise sur la période
 
-*by product_simplification tax_department export_import u_conv, sort: egen valeur_totale_par_marchandise=total(value)	
+*by product_simplification customs_region export_import u_conv, sort: egen valeur_totale_par_marchandise=total(value)	
 *label var valeur_totale_par_marchandise "Somme variable valeur par march_simpli, dir, expimp, u_conv" 	
 *drop if valeur_totale_par_marchandise<=100000
 *sort product_simplification year
@@ -85,16 +85,16 @@ save "$hamburg/database_dta/bdd courante reduite2.dta", replace
 * Calcul de la moyenne des prix par année en pondérant en fonction des quantités échangées pour un produit.unitée métrique
 
 *drop if quantities_metric==.
-*by year tax_department export_import u_conv product_simplification, sort: egen quantite_echangee=total(quantities_metric)
+*by year customs_region export_import u_conv product_simplification, sort: egen quantite_echangee=total(quantities_metric)
 *label var quantite_echangee "Quantités métric par dir expimp u_conv march_simpli"
 
 *generate prix_unitaire_pondere=(quantities_metric/quantite_echangee)*prix_unitaire_converti
 *label var prix_unitaire_pondere "Prix de chaque observation en u métrique en % de la quantit échangée totale" 
 
 
-*collapse (sum) value quantities_metric,by(year tax_department export_import u_conv product_simplification)
+*collapse (sum) value quantities_metric,by(year customs_region export_import u_conv product_simplification)
 
-* by year tax_department export_import u_conv product_simplification, sort: egen prix_pondere_annuel=total(prix_unitaire_pondere)
+* by year customs_region export_import u_conv product_simplification, sort: egen prix_pondere_annuel=total(prix_unitaire_pondere)
 
 
 gen prix_pondere_annuel = value/quantities_metric
@@ -104,7 +104,7 @@ sort product_simplification year
 *drop prix_unitaire_pondere
 
 * Encode panvar (sinon prend trop de temps) 
-gen panvar = product_simplification + export_import + tax_department + u_conv
+gen panvar = product_simplification + export_import + customs_region + u_conv
 encode panvar, gen(panvar_num)
 drop if year>1787 & year<1788
 tsset panvar_num year

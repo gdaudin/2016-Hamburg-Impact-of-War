@@ -20,26 +20,26 @@ args direction X_I classification period
 		bysort year export_import : egen commerce_national = total(pour_calcul_national)
 		drop pour_calcul_national
 		
-		**Keeping nationl by department when available
-		generate source_tout_department_one = 1 if source_type=="National toutes directions tous partenaires" | source_type=="National toutes directions sans produits"
-		bysort year : egen source_tout_department = max(source_tout_department_one)
-		drop if source_tout_department==1 & source_type != "National toutes directions tous partenaires" & source_type !="National toutes directions sans produits"
+		**Keeping nationl by region when available
+		generate source_tout_region_one = 1 if source_type=="National toutes directions tous partenaires" | source_type=="National toutes directions sans produits"
+		bysort year : egen source_tout_region = max(source_tout_region_one)
+		drop if source_tout_region==1 & source_type != "National toutes directions tous partenaires" & source_type !="National toutes directions sans produits"
 		
-		**Keeping best_guess_department_prodxpart (or the next best thing for 1789) otherwise. Nantes is 1789 is not complete
-		drop if best_guess_department_prodxpart !=1 & source_tout_department!=1 & year!=1789
-		drop if year==1789 & best_guess_national_department ==0
-		drop if year==1789 & tax_department =="Nantes"
+		**Keeping best_guess_region_prodxpart (or the next best thing for 1789) otherwise. Nantes is 1789 is not complete
+		drop if best_guess_region_prodxpart !=1 & source_tout_region!=1 & year!=1789
+		drop if year==1789 & best_guess_national_region ==0
+		drop if year==1789 & customs_region =="Nantes"
 		
 		**Various
 		drop if year==1714
 		
 		**Now to compute the share of trade
-		collapse (sum) value, by(tax_department_grouping export_import year commerce_national period_str war)
+		collapse (sum) value, by(customs_region_grouping export_import year commerce_national period_str war)
 		gen percent=value/commerce_national
-		drop if tax_department_grouping =="France" |  tax_department_grouping =="Colonies Françaises de l'Amérique"  |  tax_department_grouping =="" 
+		drop if customs_region_grouping =="France" |  customs_region_grouping =="Colonies Françaises de l'Amérique"  |  customs_region_grouping =="" 
 		
 		
-		rename tax_department_grouping regional
+		rename customs_region_grouping regional
 		replace regional = "Saint_Quentin" if regional=="Saint-Quentin"
 		
 		drop if regional=="Charleville" | regional=="Flandre" | regional=="La Rochelle" | regional=="Langres" | regional=="Rouen" | regional=="Montpellier" | regional=="Narbonne"
