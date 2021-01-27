@@ -27,7 +27,7 @@ else use "$hamburg/Données Stata/bdd courante.dta"
 
 keep if year==1792 & source_type=="Tableau Général" 
 gen par_mer=1
-replace par_mer=0 if strpos(pays,"par terre")!=0
+replace par_mer=0 if strpos(partner,"par terre")!=0
 collapse (sum) value, by(partner_grouping par_mer)
 reshape wide value,i(partner_grouping) j(par_mer)
 gen share_par_mer=0 if value0 !=. & value1==.
