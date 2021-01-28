@@ -302,11 +302,16 @@ save "$hamburg/database_dta/English_prizes.dta",  replace
 *=Sur le graphique, on veut : total number of prizes (including RN and privateers) ; total estimated number of French prizes ; total number of privateer prizes ; total number of French privateer prizes
 
 gen total_number_of_prizes = Nbr_HCA34_and_other + Nbr_prizes_GBNavy if year > 1735 & year <= 1815 
-gen estimated_number_of_prizes_FR = (Nbr_HCA34_and_other + Nbr_prizes_GBNavy)*Nbr_HCA34_and_other_FR/Nbr_HCA34_and_other if year > 1735 & year <= 1809
 gen share_of_non_FR_prizes = 1-Nbr_HCA34_and_other_FR/Nbr_HCA34_and_other if year <=1809 & Nbr_HCA34_and_other >=5
-replace share_of_non_FR_prizes = . if Nbr_HCA34_and_other==0
+**pour les années manquantes, je prends la moyenne de la période
+sum share_of_non_FR_prizes if year >=1793 & year <=1802 
+replace share_of_non_FR_prizes = r(mean) if year >=1793 & year <=1802 & share_of_non_FR_prizes==.
+
+sum share_of_non_FR_prizes if year >=1803 & year <=1815 
+replace share_of_non_FR_prizes = r(mean) if year >=1803 & year <=1815 & share_of_non_FR_prizes==.
 
 
+gen estimated_number_of_prizes_FR = (Nbr_HCA34_and_other + Nbr_prizes_GBNavy)*(1-share_of_non_FR_prizes)
 
 
 
