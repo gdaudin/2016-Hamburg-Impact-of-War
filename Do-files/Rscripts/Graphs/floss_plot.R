@@ -12,7 +12,6 @@ floss_plot = function(fdf){
     theme(legend.title = element_blank(),
           legend.position = 'bottom',
           legend.background = element_blank(),
-          legend.box.background = element_rect(colour = "black"),
           legend.text = element_text(family ="LM Roman 10"),
           axis.title = element_blank(),
           axis.text = element_text(family ="LM Roman 10"),
