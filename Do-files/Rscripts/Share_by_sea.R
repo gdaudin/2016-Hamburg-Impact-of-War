@@ -1,3 +1,4 @@
+rm(list = ls())
 library(dplyr)
 library(ggplot2)
 library(ggpubr)
@@ -7,14 +8,18 @@ library(tidyverse)
 library(whoami)
 loadfonts()
 
-if(username()=="Tirindelli") HamburgDir = "/Volumes/GoogleDrive/My Drive/Hamburg/"
+if(username()=="Tirindelli"){
+  HamburgPaperDir = "/Users/Tirindelli/Desktop/HamburgPaper/"
+  toflitDir = "/Volumes/GoogleDrive/My Drive/Hamburg/"
+}
 
 RscriptDir = "Paper/Do-files/Rscripts/"
 GraphDir = "Graphs/"
 DataframeDir = "Dataframe/"
 NewgraphsDir = "New graphs/"
+PaperDir = "Paper - Impact of War/Paper/"
 
-seatrade = read.csv(paste(HamburgDir,"database_csv/share_by_sea.csv", sep = ""))
+seatrade = read.csv(paste(toflitDir,"database_csv/share_by_sea.csv", sep = ""))
 
 trade = ggplot(seatrade) + 
   geom_rect(aes(xmin=1745, xmax=1748, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#999999") +

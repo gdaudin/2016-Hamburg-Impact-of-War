@@ -353,8 +353,6 @@ British could efficiently curtail French trade only by blockading neutral countr
 \newgeometry{left=0.5cm,right=0.5cm,top=.8in,bottom=.8in,}
 %\addtocontents{toc}{\protect\contentsline{chapter}{\protect\numberline{}Appendix:}{}{}}
 
-\section{Introduction}
-
 \begin{figure}[h!]
 	\caption{What were eighteenth-century Britons preoccupied by?}
 	\centering
@@ -366,16 +364,16 @@ British could efficiently curtail French trade only by blockading neutral countr
 
 
 \begin{figure}[h!]
-\caption{French, British trade and Anglo-French wars}
+\caption{French, British trade and Anglo-French wars}\label{FrBritTrade}
+\begin{minipage}{0.9\textwidth}
 \centering
-\includegraphics[scale=.4]{Total_silver_trade_FR_GB".pdf}
+\includegraphics[scale=.6]{Total_silver_trade_FR_GB".pdf}
 \source{French trade up to 1821: \cite{Daudin2020}. French trade 1822-1840: \cite{Federico2016} / \cite{Dedinger2017},
 England/British trade up to 1800: \cite{Deane1969}. UK trade from 1801 to 1840: \cite{Federico2016} / \cite{Dedinger2017},
 Livre tournois silver value: \cite{Dewailly1857} and \cite{Hoffman2000}; Pound sterling silver value: \cite{Clark2006} and \cite{Jastram1981}}
-\label{FrBritTrade}
+\end{minipage}
 \end{figure}
 
-\section{Historical summary}
 
 \begin{table}[h!]
 \centering
@@ -386,13 +384,12 @@ Livre tournois silver value: \cite{Dewailly1857} and \cite{Hoffman2000}; Pound s
 \begin{center}
 \begin{figure}[h!]
 \caption{Number of protagonists}
-\label{Number_of_protagonists}
+\label{Number_of_protagonist}
 \centering
-\includegraphics[scale=.4]{"Number of protagonists".png}
+\includegraphics[scale=.8]{Number_of_protagonist.pdf}
 \end{figure}
 \end{center}
 
-\section{The Anglo-French war}
 \begin{figure}[h!]
 	\caption{Share of French trade conducted by sea}
 	\centering
@@ -402,62 +399,60 @@ Livre tournois silver value: \cite{Dewailly1857} and \cite{Hoffman2000}; Pound s
 \end{figure}
 
 
-\section{Explained variable}
-
-\begin{center}
 \begin{figure}[h!]
-\caption{Annual Loss Function}
+\caption{Annual and Mean Loss Function - France}
 \label{annual_loss_function}
 \centering
-\includegraphics[scale=0.5]{Annual_loss_function}
-\caption{Mean Loss Function}
-\label{mean_loss_function}
-\includegraphics[scale=0.5]{Mean_loss_function}
+\includegraphics[scale=.7]{mean_annual_loss}
 \end{figure}
-\end{center}
 
-\begin{center}
 \begin{figure}[h!]
-\caption{GB Annual Loss Function}
+\caption{Annual and Mean Loss Function - UK}
 \label{GBannual_loss_function}
 \centering
-\includegraphics[scale=0.9]{GBAnnual_loss_function.pdf}
-\caption{GB Mean Loss Function}
-\label{GBmean_loss_function}
-\includegraphics[scale=0.9]{GBMean_loss_function.pdf}
+\includegraphics[scale=0.7]{GBmean_annual_loss}
 \end{figure}
-\end{center}
 
-\section{Can we do a cost-benefit analysis?}
 \begin{center}
 	\begin{figure}[h!]
 		\caption{British Navy budget and French trade losses}
 		\label{Expenditures}
 		\centering
-		\includegraphics[scale=0.5]{Expenditures_Annual_Loss.png}
+		\includegraphics[scale=0.7]{Expenditures_Annual_Loss}
 		\source{See text and \cite[pp. 570-587]{mitchell1988}}
 	\end{figure}
 \end{center}
+\begin{center}
+	\begin{figure}[h!]
+		\caption{Costs and benefits}
+		\label{Costs_and_benefits}
+		\centering
+		\includegraphics[scale=0.7]{Costs_and_benefits}
+	\end{figure}
+\end{center}
+
 \begin{center}
 	\begin{figure}[h!]
 		\caption{Ratio between French trade losses and the British Navy budget, high and low hypothesis}
 		\label{Ratio_BR_Expenditures}
+		\begin{minipage}{0.9\textwidth}
 		\centering
-		\includegraphics[scale=0.4]{Ratio_BR_Expenditures_Annual_LossH.png}
-		\includegraphics[scale=0.4]{Ratio_BR_Expenditures_Annual_LossL.png}
+		\includegraphics[scale=0.7]{ratio_BR_expenditures_ennual_loss}
 		\source{See text and \cite[pp. 570-587]{mitchell1988}}
 	    \caption*{For these graphs, French trade loss are assumed to be nil for 1783-1786, 1790-1791 and at the 1797 level for 1793-1796}
+	    \end{minipage}
 	\end{figure}
 \end{center}
 
-\section{destruction of French shipping}
 \begin{center}
 	\begin{figure}[h!]
 		\caption{Ships captured by Great-Britain}
 		\label{Prizes}
+		\begin{minipage}{0.9\textwidth}
 		\centering
-		\includegraphics[scale=0.7]{Prizes.png}
+		\includegraphics[scale=0.7]{Prizes}
 		\source{For privateers and before 1785 for the Royal Navy, \cite{Starkey1990,Hillmann2011}. For post-1793 Royal Navy prizes, we use the data on the value of Navy Prizes from \cite{Benjamin2009}, based on \cite{Hill1998}.}
+		\end{minipage}
 	\end{figure}
 \end{center}
 
@@ -466,69 +461,73 @@ Livre tournois silver value: \cite{Dewailly1857} and \cite{Hoffman2000}; Pound s
 		\caption{Prize goods imports in Great-Britain}
 		\label{Prize goods imports}
 		\centering
-		\includegraphics[scale=0.7]{Prizes_imports.png}
+		\includegraphics[scale=0.7]{Prizes_imports}
 		\source{\cite{Ashton1960}}
 	\end{figure}
 \end{center}
 
-\section{Naval Supremacy}
 \begin{center}
 \begin{figure}[h!]
 \caption{Naval Supremacy Ratio}
 \label{naval_supremacy_ratios}
 \centering
-\includegraphics[scale=.51]{naval_supremacy_ratios.png}
+\includegraphics[scale=.8]{naval_supremacy_ratio}
 \end{figure}
 \end{center}
 
-\section{Measure of colonial power}
 \begin{center}
 \begin{figure}[h!]
 \caption{Colonial empire loss}
 \label{colony_loss}
 \centering
-\includegraphics[scale=.51]{colony_loss.pdf}
+\includegraphics[scale=.8]{colony_loss}
 \end{figure}
 \end{center}
 
-\section{Neutral policy}
 \begin{center}
 	\begin{figure}[h!]
 		\caption{Nationality of non-French British prizes}
 		\label{Prizes_nationality}
 		\centering
-		\includegraphics[scale=.51]{Prizes_nationality.png}
+		\includegraphics[scale=.8]{Prizes_nationality}
 		\source{See Figure \ref{Prizes}}
 	\end{figure}
 \end{center}
 
 
-\begin{table}[h!]
-\centering
-\caption{Measure of neutral policy}
-\label{neutral_policy}
-\input{neutral_policy}
-\end{table}
+%\begin{table}[h!]
+%\centering
+%\caption{Measure of neutral policy}
+%\label{neutral_policy}
+%\input{neutral_policy}
+%\end{table}
+%
+%\begin{table}[h!]
+%\centering
+%\caption{Summary of expected effects}
+%\label{summary}
+%\input{summary.tex}
+%\end{table}
 
-\begin{table}[ht]
+\begin{center}
+\begin{figure}[h!]
 \centering
-\caption{Summary of expected effects}
-\label{summary}
-\input{summary.tex}
-\end{table}
+\caption{Trade loss by war status - Total trade}
+\label{loss_by_war_status_XI}
+\includegraphics[scale=.7]{loss_by_war_status_XI}
+\end{figure}
+\end{center}
 
 \begin{center}
 \begin{figure}[h!]
 \centering
 \caption{Trade loss by war status}
-\label{loss_by_war_status_XI}
-\includegraphics[scale=1.2]{loss_by_war_status_XI.pdf}
+\label{loss_by_war_status_X_I}
+\includegraphics[scale=.8]{loss_by_war_status_X_I_combined}
 \end{figure}
 \end{center}
 
 
-
-\section{Regression}
 
 % This code uses the tikz package
 
@@ -637,186 +636,186 @@ Livre tournois silver value: \cite{Dewailly1857} and \cite{Hoffman2000}; Pound s
 
 %\input{hotelling_test_hom.tex}
 
-\begin{figure}[h!]
-\caption{All War and Peace period}
-\label{peace_war_nat_distr_sitc}
-\includegraphics[scale=.4]{peace_war_nat_distr_Isitc}
-\includegraphics[scale=.4]{peace_war_nat_distr_Xsitc}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\caption{American Independence War and Peace 1764-1777}
-\label{peace1764_1777_indep_nat_distr_sitc}
-\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Isitc}
-\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Xsitc}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\caption{Peace 1816-1840 and Continental Blockade}
-\label{peace1816_1840_block_nat_distr_sitc}
-\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Isitc}
-\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Xsitc}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\caption{Revolutionary War and Continental Blockade}
-\label{rev_block_nat_distr_sitc}
-\includegraphics[scale=.4]{rev_block_nat_distr_Isitc}
-\includegraphics[scale=.4]{rev_block_nat_distr_Xsitc}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\caption{Seven Years War and Peace 1816-1821}
-\label{seven_peace1764_1777_nat_distr_sitc}
-\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Isitc}
-\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Xsitc}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\caption{Peace 1749-1755 and Peace 1764-1777}
-\label{seven_peace1764_1777_nat_distr_sitc}
-\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Isitc}
-\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Xsitc}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\caption{Peace 1764-1777 and Peace 1784-1792}
-\label{seven_peace1764_1777_nat_distr_sitc}
-\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Isitc}
-\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Xsitc}
-\end{figure}
-
-\begin{figure}[h!]
-\caption{All War and Peace period}
-\label{peace_war_nat_distr_pays7}
-\includegraphics[scale=.4]{peace_war_nat_distr_Ipays7}
-\includegraphics[scale=.4]{peace_war_nat_distr_Xpays7}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\caption{American Independence War and Peace 1764-1777}
-\label{peace1764_1777_indep_nat_distr_pays7}
-\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Ipays7}
-\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Xpays7}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\caption{Peace 1816-1840 and Continental Blockade}
-\label{peace1816_1840_block_nat_distr_pays7}
-\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Ipays7}
-\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Xpays7}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\caption{Revolutionary War and Continental Blockade}
-\label{rev_block_nat_distr_pays7}
-\includegraphics[scale=.4]{rev_block_nat_distr_Ipays7}
-\includegraphics[scale=.4]{rev_block_nat_distr_Xpays7}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\caption{Seven Years War and Peace 1816-1821}
-\label{seven_peace1764_1777_nat_distr_pays7}
-\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Ipays7}
-\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Xpays7}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\caption{Peace 1749-1755 and Peace 1764-1777}
-\label{seven_peace1764_1777_nat_distr_pays7}
-\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Ipays7}
-\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Xpays7}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\caption{Peace 1764-1777 and Peace 1784-1792}
-\label{seven_peace1764_1777_nat_distr_pays7}
-\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Ipays7}
-\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Xpays7}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\caption{Peace 1784-1792 and Peace 1816-1821}
-\label{peace1784_1792_peace1816_1821_nat_distr_pays7}
-\includegraphics[scale=.4]{peace1784_1792_peace1816_1840_nat_distr_Ipays7}
-\includegraphics[scale=.4]{peace1784_1792_peace1816_1840_nat_distr_Xpays7}
-\end{figure}
-
-\begin{figure}[h!]
-\caption{All War and Peace period}
-\label{peace_war_nat_distr_aggr}
-\includegraphics[scale=.4]{peace_war_nat_distr_Iaggr}
-\includegraphics[scale=.4]{peace_war_nat_distr_Xaggr}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\caption{American Independence War and Peace 1764-1777}
-\label{peace1764_1777_indep_nat_distr_aggr}
-\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Iaggr}
-\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Xaggr}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\caption{Peace 1816-1840 and Continental Blockade}
-\label{peace1816_1840_block_nat_distr_aggr}
-\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Iaggr}
-\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Xaggr}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\caption{Revolutionary War and Continental Blockade}
-\label{rev_block_nat_distr_aggr}
-\includegraphics[scale=.4]{rev_block_nat_distr_Iaggr}
-\includegraphics[scale=.4]{rev_block_nat_distr_Xaggr}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\caption{Seven Years War and Peace 1816-1821}
-\label{seven_peace1764_1777_nat_distr_aggr}
-\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Iaggr}
-\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Xaggr}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\caption{Peace 1749-1755 and Peace 1764-1777}
-\label{seven_peace1764_1777_nat_distr_aggr}
-\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Iaggr}
-\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Xaggr}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\caption{Peace 1764-1777 and Peace 1784-1792}
-\label{seven_peace1764_1777_nat_distr_aggr}
-\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Iaggr}
-\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Xaggr}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\caption{Peace 1784-1792 and Peace 1816-1821}
-\label{peace1784_1792_peace1816_1840_nat_distr_Iaggr}
-\includegraphics[scale=.4]{peace1784_1792_peace1816_1840_nat_distr_Iaggr}
-\includegraphics[scale=.4]{peace1784_1792_peace1816_1840_nat_distr_Xaggr}
-\end{figure}
+%\begin{figure}[h!]
+%\caption{All War and Peace period}
+%\label{peace_war_nat_distr_sitc}
+%\includegraphics[scale=.4]{peace_war_nat_distr_Isitc}
+%\includegraphics[scale=.4]{peace_war_nat_distr_Xsitc}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\caption{American Independence War and Peace 1764-1777}
+%\label{peace1764_1777_indep_nat_distr_sitc}
+%\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Isitc}
+%\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Xsitc}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\caption{Peace 1816-1840 and Continental Blockade}
+%\label{peace1816_1840_block_nat_distr_sitc}
+%\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Isitc}
+%\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Xsitc}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\caption{Revolutionary War and Continental Blockade}
+%\label{rev_block_nat_distr_sitc}
+%\includegraphics[scale=.4]{rev_block_nat_distr_Isitc}
+%\includegraphics[scale=.4]{rev_block_nat_distr_Xsitc}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\caption{Seven Years War and Peace 1816-1821}
+%\label{seven_peace1764_1777_nat_distr_sitc}
+%\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Isitc}
+%\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Xsitc}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\caption{Peace 1749-1755 and Peace 1764-1777}
+%\label{seven_peace1764_1777_nat_distr_sitc}
+%\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Isitc}
+%\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Xsitc}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\caption{Peace 1764-1777 and Peace 1784-1792}
+%\label{seven_peace1764_1777_nat_distr_sitc}
+%\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Isitc}
+%\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Xsitc}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\caption{All War and Peace period}
+%\label{peace_war_nat_distr_pays7}
+%\includegraphics[scale=.4]{peace_war_nat_distr_Ipays7}
+%\includegraphics[scale=.4]{peace_war_nat_distr_Xpays7}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\caption{American Independence War and Peace 1764-1777}
+%\label{peace1764_1777_indep_nat_distr_pays7}
+%\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Ipays7}
+%\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Xpays7}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\caption{Peace 1816-1840 and Continental Blockade}
+%\label{peace1816_1840_block_nat_distr_pays7}
+%\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Ipays7}
+%\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Xpays7}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\caption{Revolutionary War and Continental Blockade}
+%\label{rev_block_nat_distr_pays7}
+%\includegraphics[scale=.4]{rev_block_nat_distr_Ipays7}
+%\includegraphics[scale=.4]{rev_block_nat_distr_Xpays7}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\caption{Seven Years War and Peace 1816-1821}
+%\label{seven_peace1764_1777_nat_distr_pays7}
+%\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Ipays7}
+%\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Xpays7}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\caption{Peace 1749-1755 and Peace 1764-1777}
+%\label{seven_peace1764_1777_nat_distr_pays7}
+%\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Ipays7}
+%\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Xpays7}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\caption{Peace 1764-1777 and Peace 1784-1792}
+%\label{seven_peace1764_1777_nat_distr_pays7}
+%\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Ipays7}
+%\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Xpays7}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\caption{Peace 1784-1792 and Peace 1816-1821}
+%\label{peace1784_1792_peace1816_1821_nat_distr_pays7}
+%\includegraphics[scale=.4]{peace1784_1792_peace1816_1840_nat_distr_Ipays7}
+%\includegraphics[scale=.4]{peace1784_1792_peace1816_1840_nat_distr_Xpays7}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\caption{All War and Peace period}
+%\label{peace_war_nat_distr_aggr}
+%\includegraphics[scale=.4]{peace_war_nat_distr_Iaggr}
+%\includegraphics[scale=.4]{peace_war_nat_distr_Xaggr}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\caption{American Independence War and Peace 1764-1777}
+%\label{peace1764_1777_indep_nat_distr_aggr}
+%\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Iaggr}
+%\includegraphics[scale=.4]{peace1764_1777_indep_nat_distr_Xaggr}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\caption{Peace 1816-1840 and Continental Blockade}
+%\label{peace1816_1840_block_nat_distr_aggr}
+%\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Iaggr}
+%\includegraphics[scale=.4]{peace1816_1840_block_nat_distr_Xaggr}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\caption{Revolutionary War and Continental Blockade}
+%\label{rev_block_nat_distr_aggr}
+%\includegraphics[scale=.4]{rev_block_nat_distr_Iaggr}
+%\includegraphics[scale=.4]{rev_block_nat_distr_Xaggr}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\caption{Seven Years War and Peace 1816-1821}
+%\label{seven_peace1764_1777_nat_distr_aggr}
+%\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Iaggr}
+%\includegraphics[scale=.4]{seven_peace1764_1777_nat_distr_Xaggr}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\caption{Peace 1749-1755 and Peace 1764-1777}
+%\label{seven_peace1764_1777_nat_distr_aggr}
+%\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Iaggr}
+%\includegraphics[scale=.4]{peace1749_1755_peace1764_1777_nat_distr_Xaggr}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\caption{Peace 1764-1777 and Peace 1784-1792}
+%\label{seven_peace1764_1777_nat_distr_aggr}
+%\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Iaggr}
+%\includegraphics[scale=.4]{peace1764_1777_peace1784_1792_nat_distr_Xaggr}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\caption{Peace 1784-1792 and Peace 1816-1821}
+%\label{peace1784_1792_peace1816_1840_nat_distr_Iaggr}
+%\includegraphics[scale=.4]{peace1784_1792_peace1816_1840_nat_distr_Iaggr}
+%\includegraphics[scale=.4]{peace1784_1792_peace1816_1840_nat_distr_Xaggr}
+%\end{figure}
 
 \newgeometry{left=.6in,right=.6in,top=.8in,bottom=.8in,}
 
