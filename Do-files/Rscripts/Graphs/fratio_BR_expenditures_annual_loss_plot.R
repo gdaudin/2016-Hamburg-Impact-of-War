@@ -16,7 +16,6 @@ fratio_BR_expenditures_annual_loss_plot = function(ratio_exp, L_H){
           axis.title = element_blank(),
           axis.text = element_text(family ="LM Roman 10"),
           panel.background = element_blank(),
-          legend.box.background = element_rect(colour = "black"),
           panel.grid.major.y = element_line(color = "grey", size = 0.12),
           panel.border = element_rect(color = "black", fill = NA),
           plot.title = element_text(hjust = 0.5, family ="LM Roman 10"),

@@ -9,20 +9,26 @@ library(whoami)
 library(ggpubr)
 loadfonts()
 
-if(username()=="Tirindelli") HamburgDir = "/Volumes/GoogleDrive/My Drive/Hamburg/"
-RscriptDir = "Paper/Do-files/Rscripts/"
+if(username()=="Tirindelli"){
+  HamburgPaperDir = "/Users/Tirindelli/Desktop/HamburgPaper/"
+  toflitDir = "/Volumes/GoogleDrive/My Drive/Hamburg/"
+}
+
+RscriptDir = "Do-files/Rscripts/"
 GraphDir = "Graphs/"
 DataframeDir = "Dataframe/"
 NewgraphsDir = "New graphs/"
+PaperDir = "Paper - Impact of War/Paper/"
 
-source(paste(HamburgDir,RscriptDir,DataframeDir, "fprizes_nationality_df.R", sep = "" ))
-source(paste(HamburgDir,RscriptDir,GraphDir, "fratio_BR_expenditures_annual_loss_plot.R", sep = "" ))
+source(paste(HamburgPaperDir,RscriptDir,DataframeDir, "fprizes_nationality_df.R", sep = "" ))
+source(paste(HamburgPaperDir,RscriptDir,GraphDir, "fratio_BR_expenditures_annual_loss_plot.R", sep = "" ))
 
 color = c("Navy's prizes (estimated time of capture from 1973)" = "#0072B2", 
           "Privateers' prizes" = "#56B4E9",
           "Share of non Fench prizes among privateers's prizes" = "#E69F00")
 
-prizes = read.csv(paste(HamburgDir,"database_csv/prizes.csv", sep = ""))
+prizes = read.csv(paste(toflitDir,"database_csv/prizes.csv", sep = ""))
+
 ggplot(prizes, aes(x=year)) +
   geom_bar(aes(y=Number_of_prizes_Total_All, fill = "Navy's prizes (estimated time of capture from 1973)"), 
            stat="identity", size=.1, color = "#000000") + 
@@ -42,7 +48,6 @@ ggplot(prizes, aes(x=year)) +
         #legend.box="vertical", 
         #legend.margin=margin(),
         panel.grid.major.y = element_line(color = "grey", size = 0.12),
-        panel.border = element_rect(color = "black", fill = NA),
         plot.title = element_text(hjust = 0.5, family ="LM Roman 10"),
         strip.text = element_text(size=15, family ="LM Roman 10")) +
   scale_x_continuous(breaks = seq(1740, 1800, by = 10), limits = c(1740,1801)) +
@@ -51,10 +56,10 @@ ggplot(prizes, aes(x=year)) +
   scale_fill_manual(values = color, guide = 'legend') +
   scale_color_manual(values = color) +
   guides(fill = guide_legend(nrow = 2))
-ggsave(paste(HamburgDir,RscriptDir,NewgraphsDir, "Prizes.pdf", sep = "" ))
+ggsave(paste(HamburgPaperDir,PaperDir, "Prizes.pdf", sep = "" ))
 
 
-prizes = read.csv(paste(HamburgDir,"database_csv/prizes_imports.csv", sep = ""))
+prizes = read.csv(paste(toflitDir,"database_csv/prizes_imports.csv", sep = ""))
 color = c("Absolute value" = "#0072B2", 
           "Share of French trade" = "#E69F00")
 
@@ -72,7 +77,6 @@ ggplot(prizes, aes(x=year)) +
         #panel.background = element_blank(),
         #legend.box.background = element_rect(colour = "black"),
         panel.grid.major.y = element_line(color = "grey", size = 0.12),
-        panel.border = element_rect(color = "black", fill = NA),
         plot.title = element_text(hjust = 0.5, family ="LM Roman 10"),
         strip.text = element_text(size=15, family ="LM Roman 10")) +
   scale_x_continuous(breaks = seq(1740, 1800, by = 10), limits = c(1740,1801)) +
@@ -81,9 +85,9 @@ ggplot(prizes, aes(x=year)) +
                        sec.axis = sec_axis(~./14500, name = "Share of French trade")) +
   scale_fill_manual(values = color, guide = 'legend') +
   scale_color_manual(values = color)
-ggsave(paste(HamburgDir,RscriptDir,NewgraphsDir, "Prizes_imports.pdf", sep = "" ))
+ggsave(paste(HamburgPaperDir,PaperDir, "Prizes_imports.pdf", sep = "" ))
 
-prizes = read.csv(paste(HamburgDir,"database_csv/prizes_nationality.csv", sep = ""))
+prizes = read.csv(paste(toflitDir,"database_csv/prizes_nationality.csv", sep = ""))
 prizes_nat = fprizes_nationality_df(prizes)
 prizes_nat$prizes = ifelse(prizes_nat$prizes>100, NA, prizes_nat$prizes)
 color = c("Absolute value" = "#0072B2", 
@@ -106,10 +110,9 @@ loss = ggplot(prizes_nat) +
         #panel.background = element_blank(),
         #legend.box.background = element_rect(colour = "black"),
         panel.grid.major.y = element_line(color = "grey", size = 0.12),
-        panel.border = element_rect(color = "black", fill = NA),
         plot.title = element_text(hjust = 0.5, family ="LM Roman 10"),
         strip.text = element_text(size=15, family ="LM Roman 10")) +
   scale_x_continuous(breaks = seq(1740, 1815, by = 10), limits = c(1740,1815)) +
   scale_color_manual(values=c("#E69F00", "#56B4E9", "#009E73", "#F0E442")) 
 print(loss)
-ggsave(paste(HamburgDir,RscriptDir,NewgraphsDir, "Prizes_nationality.pdf", sep = "" ))
+ggsave(paste(HamburgPaperDir,PaperDir, "Prizes_nationality.pdf", sep = "" ))

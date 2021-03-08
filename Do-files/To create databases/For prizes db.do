@@ -10,13 +10,8 @@ else if "`c(username)'" =="tirindee" {
 }
 
 
-if "`c(username)'" =="rober"{
-	global hamburg "G:\Il mio Drive\Hamburg"
-	global hamburggit "G:\Il mio Drive\Hamburg\Paper"
-}
-
 if "`c(username)'" =="Tirindelli" {
-	global hamburg "/Volumes/GoogleDrive/My Drive/Hamburg"
+	global hamburg "/Users/Tirindelli/Desktop/HamburgPaper"
 	global hamburggit "/Volumes/GoogleDrive/My Drive/Hamburg/Paper"
 }
 
