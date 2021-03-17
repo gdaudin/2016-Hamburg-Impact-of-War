@@ -23,7 +23,7 @@ PaperDir = "Paper - Impact of War/Paper/"
 source(paste(HamburgPaperDir,RscriptDir,DataframeDir, "fprizes_nationality_df.R", sep = "" ))
 source(paste(HamburgPaperDir,RscriptDir,GraphDir, "fratio_BR_expenditures_annual_loss_plot.R", sep = "" ))
 
-color = c("Navy's prizes (estimated time of capture from 1973)" = "#0072B2", 
+color = c("Navy's prizes (estimated time of capture from 1793)" = "#0072B2", 
           "Privateers' prizes" = "#56B4E9",
           "Share of non Fench prizes among privateers's prizes" = "#E69F00")
 

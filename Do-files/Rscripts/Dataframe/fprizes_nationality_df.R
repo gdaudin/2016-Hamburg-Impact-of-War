@@ -11,7 +11,7 @@ fprizes_nationality_df = function(fdf){
     data.frame(
       year = fdf$year,
       prizes = fdf$Nbr_HCA34_and_other_Neth,
-      prizes_nationality = rep("Danish prizes", length(fdf$Nbr_HCA34_and_other_Neth))),
+      prizes_nationality = rep("Dutch prizes", length(fdf$Nbr_HCA34_and_other_Neth))),
   data.frame(
     year = fdf$year,
     prizes = fdf$Nbr_HCA34_and_other_US,
