@@ -51,7 +51,7 @@ trade = ggplot(df) +
   geom_rect(aes(xmin=1778, xmax=1783, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#999999") +
   geom_rect(aes(xmin=1793, xmax=1807, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#999999") +
   geom_rect(aes(xmin=1808, xmax=1815, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#0072B2") +
-  geom_line(aes(x=year, y= value, color=country)) +
+  geom_line(aes(x=year, y= value, color=country),  size = 1) +
   theme_few() +
   theme(legend.title = element_blank(),
         legend.position = 'bottom',
@@ -71,5 +71,5 @@ trade = ggplot(df) +
   scale_x_continuous(breaks = seq(1740, 1830, by = 10), limits = c(1740,1830)) +
   ylab("Tons of silver, log10" )
 print(trade)
-ggsave(paste(HamburgPaperDir,PaperDir, "Total_silver_trade_FR_GB.pdf", sep = "" ))
+ggsave(paste(HamburgPaperDir,PaperDir, "Total_silver_trade_FR_GB.png", sep = "" ))
 

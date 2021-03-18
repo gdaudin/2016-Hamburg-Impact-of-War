@@ -1,6 +1,14 @@
 \documentclass[12pt,a4paper,notitlepage,english]{article}
+\usepackage{parskip}
+\setlength{\parskip}{\medskipamount}
+\makeatletter 
+\newcommand{\@minipagerestore}{
+\setlength{\parindent}{15pt}
+\setlength{\parskip}{\medskipamount}}
+\makeatother
 \usepackage[utf8]{inputenc}
 \usepackage[title,titletoc,toc]{appendix}
+\newcommand{\fontsmall}{\fontsize{10pt}{12pt}\selectfont}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{longtable}
@@ -32,7 +40,15 @@
 \DeclareUnicodeCharacter{202F}{ }
 \usepackage{comment}
 \usepackage{tikz}
- 
+
+
+%\newcommand{\saveparinfos}{%
+%\edef\myindent{\the\parindent}%
+%\edef\myparskip{\the\parskip}}
+%\newcommand{\useparinfo}{%
+%\setlength{\parindent}{\myindent}%
+%\setlength{\parskip}{\myparskip}}
+% 
 
 \author{
   Guillaume Daudin\thanks{Université Paris-Dauphine, PSL Research University, CNRS, 8007, IRD, 260, LEDa, DIAL, 75016, Paris, France. Sciences Po, OFCE, 75007, Paris. Corresponding author. E-mail: guillaume.daudin@dauphine.psl.eu}
@@ -333,8 +349,8 @@ British could efficiently curtail French trade only by blockading neutral countr
 
 \todo[inline, color = YellowGreen]{All graphs should be self-contained } 
 
-\newgeometry{left=0.5cm,right=0.5cm,top=.8in,bottom=.8in,}
-%\addtocontents{toc}{\protect\contentsline{chapter}{\protect\numberline{}Appendix:}{}{}}
+
+\newgeometry{left=1cm,right=0.3cm,top=.8in,bottom=.8in,}
 
 \begin{figure}[h!]
 	\caption{What were eighteenth-century Britons preoccupied by?}
@@ -345,40 +361,50 @@ British could efficiently curtail French trade only by blockading neutral countr
 \end{figure}
 
 
-
 \begin{figure}[h!]
 \caption{French, British trade and Anglo-French wars}\label{FrBritTrade}
-\begin{minipage}{0.9\textwidth}
 \centering
-\includegraphics[scale=.6]{Total_silver_trade_FR_GB".pdf}
+\includegraphics[scale=.2]{Total_silver_trade_FR_GB}
+\begin{minipage}{18cm}
+\begin{flushleft}
+\fontsmall
+The lines represent the value of trade for France and Britain in tons of silver (log scale). The shading in grey corresponds to the war periods, the shading in blue to the Continental Blockade.
 \source{French trade up to 1821: \cite{Daudin2020}. French trade 1822-1840: \cite{Federico2016} / \cite{Dedinger2017},
 England/British trade up to 1800: \cite{Deane1969}. UK trade from 1801 to 1840: \cite{Federico2016} / \cite{Dedinger2017},
-Livre tournois silver value: \cite{Dewailly1857} and \cite{Hoffman2000}; Pound sterling silver value: \cite{Clark2006} and \cite{Jastram1981}}
+Livre tournois silver value: \cite{Dewailly1857} and \cite{Hoffman2000}; Pound sterling silver value: \cite{Clark2006} and \cite{Jastram1981}. }
+\end{flushleft}
 \end{minipage}
 \end{figure}
 
-
-\begin{table}[h!]
-\centering
-\caption{Summary of war status for trade partners, 1792-1815}\label{war_peace}
-\input{war_peace.tex}
-\end{table} 
 
 \begin{center}
 \begin{figure}[h!]
 \caption{Number of protagonists}
 \label{fig:number_of_protagonist}
 \centering
-\includegraphics[scale=.8]{Number_of_protagonist.pdf}
+\includegraphics[scale=.18]{Number_of_protagonist}
+\begin{minipage}{.9\textwidth}
+\begin{flushleft}
+\fontsmall
+Number of protagonist by war status for each war in the period 1740 to 1830.
+\end{flushleft}
+\end{minipage}
 \end{figure}
 \end{center}
 
+
+
 \begin{figure}[h!]
-	\caption{Share of French trade conducted by sea}
+	\caption{Share of French trade conducted by sea}label\label{share_by_sea}
 	\centering
-	\includegraphics[scale=.7]{share_by_sea}
+	\includegraphics[scale=.2]{share_by_sea}
+	\begin{minipage}{18cm}
+	\begin{flushleft}
+	\fontsmall
+	Share of imports in French trade conducted by sea. 
 	\source{TOFLIT and 1792 data on the share of sea trade per country in AN F/12/1834 B}
-	\label{share_by_sea}
+	\end{flushleft}
+	\end{minipage}
 \end{figure}
 
 
@@ -519,7 +545,11 @@ The negative trade loss number for trade with foes in 1787-1789 can be explained
 	\draw [->] (v0) edge (v1);
 \end{tikzpicture}
 
-
+\begin{table}[h!]
+\centering
+\caption{Summary of war status for trade partners, 1792-1815}\label{war_peace}
+\input{war_peace.tex}
+\end{table} 
 
 \begin{landscape}
 \begin{table}[h!]

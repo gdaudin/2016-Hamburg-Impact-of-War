@@ -6,11 +6,16 @@ library(ggthemes)
 library(tidyverse)
 loadfonts()
 
-if(username()=="Tirindelli") HamburgDir = "/Volumes/GoogleDrive/My Drive/Hamburg/"
+if(username()=="Tirindelli"){
+  HamburgPaperDir = "/Users/Tirindelli/Desktop/HamburgPaper/"
+  toflitDir = "/Volumes/GoogleDrive/My Drive/Hamburg/"
+}
 
 RscriptDir = "Paper/Do-files/Rscripts/"
 GraphDir = "Graphs/"
+DataframeDir = "Dataframe/"
 NewgraphsDir = "New graphs/"
+PaperDir = "Paper - Impact of War/Paper/"
 
 df = read.csv(paste(HamburgDir,"database_csv/number_protagonist.csv", sep = ""))
 df = df[c("year", "war_nbr_pays", "war_status")]
@@ -32,4 +37,4 @@ ggplot(df, aes(year, war_nbr_pays)) +
         plot.title = element_text(hjust = 0.5),
         strip.text = element_text(size=15, family ="LM Roman 10")) +
   scale_x_continuous(breaks = seq(1740, 1830, by = 10), limits = c(1740,1830)) 
-ggsave(paste(HamburgDir,RscriptDir,NewgraphsDir, "Number of protagonist.pdf", sep = "" ))
+ggsave(paste(HamburgPaperDir,PaperDir, "Number_of_protagonist.png", sep = "" ))
