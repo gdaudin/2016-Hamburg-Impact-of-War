@@ -30,7 +30,7 @@ color = c("Navy's prizes (estimated time of capture from 1793)" = "#0072B2",
 prizes = read.csv(paste(toflitDir,"database_csv/prizes.csv", sep = ""))
 
 ggplot(prizes, aes(x=year)) +
-  geom_bar(aes(y=Number_of_prizes_Total_All, fill = "Navy's prizes (estimated time of capture from 1973)"), 
+  geom_bar(aes(y=Number_of_prizes_Total_All, fill = "Navy's prizes (estimated time of capture from 1793)"), 
            stat="identity", size=.1, color = "#000000") + 
   geom_bar(aes(y=Number_of_prizes_Privateers_All, fill = "Privateers' prizes"), 
            stat="identity", size=.1, color = "#000000") + 
@@ -50,7 +50,7 @@ ggplot(prizes, aes(x=year)) +
         panel.grid.major.y = element_line(color = "grey", size = 0.12),
         plot.title = element_text(hjust = 0.5, family ="LM Roman 10"),
         strip.text = element_text(size=15, family ="LM Roman 10")) +
-  scale_x_continuous(breaks = seq(1740, 1800, by = 10), limits = c(1740,1801)) +
+  scale_x_continuous(breaks = seq(1740, 1820, by = 10), limits = c(1740,1820)) +
   scale_y_continuous(name = "Number of prizes",
                      sec.axis = sec_axis(~./700, name = "Share of privateers' prizes")) +
   scale_fill_manual(values = color, guide = 'legend') +
@@ -79,7 +79,7 @@ ggplot(prizes, aes(x=year)) +
         panel.grid.major.y = element_line(color = "grey", size = 0.12),
         plot.title = element_text(hjust = 0.5, family ="LM Roman 10"),
         strip.text = element_text(size=15, family ="LM Roman 10")) +
-  scale_x_continuous(breaks = seq(1740, 1800, by = 10), limits = c(1740,1801)) +
+  scale_x_continuous(breaks = seq(1740, 1801, by = 10), limits = c(1740,1801)) +
   guides(colour = guide_legend(override.aes = list(linetype = 1))) +
   scale_y_continuous(name = "Imports of prize goods (£000)",
                        sec.axis = sec_axis(~./14500, name = "Share of French trade")) +
