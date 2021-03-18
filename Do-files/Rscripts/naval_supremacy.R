@@ -1,3 +1,4 @@
+rm(list = ls())
 library(dplyr)
 library(ggplot2)
 library(ggpubr)
@@ -7,17 +8,21 @@ library(tidyverse)
 library(whoami)
 loadfonts()
 
-if(username()=="Tirindelli") HamburgDir = "/Volumes/GoogleDrive/My Drive/Hamburg/"
+if(username()=="Tirindelli"){
+  HamburgPaperDir = "/Users/Tirindelli/Desktop/HamburgPaper/"
+  toflitDir = "/Volumes/GoogleDrive/My Drive/Hamburg/"
+}
 
-RscriptDir = "Paper/Do-files/Rscripts/"
+RscriptDir = "Do-files/Rscripts/"
 GraphDir = "Graphs/"
-NewgraphsDir = "New graphs/"
 DataframeDir = "Dataframe/"
+NewgraphsDir = "New graphs/"
+PaperDir = "Paper - Impact of War/Paper/"
 
-source(paste(HamburgDir,RscriptDir,GraphDir, "floss_plot.R", sep = "" ))
-source(paste(HamburgDir,RscriptDir,DataframeDir, "fnaval_supremacy_df.R", sep = "" ))
+source(paste(HamburgPaperDir,RscriptDir,GraphDir, "floss_plot.R", sep = "" ))
+source(paste(HamburgPaperDir,RscriptDir,DataframeDir, "fnaval_supremacy_df.R", sep = "" ))
 
-naval_supremacy = read.csv(paste(HamburgDir,"database_csv/naval_supremacy.csv", sep = ""))
+naval_supremacy = read.csv(paste(toflitDir,"database_csv/naval_supremacy.csv", sep = ""))
 
 df = fnaval_supremacy_df(naval_supremacy)
 
@@ -33,7 +38,6 @@ loss = ggplot(df) +
   theme(legend.title = element_blank(),
         legend.position = 'bottom',
         legend.background = element_blank(),
-        legend.box.background = element_rect(colour = "black"),
         legend.text = element_text(family ="LM Roman 10"),
         axis.title = element_blank(),
         axis.text = element_text(family ="LM Roman 10"),
@@ -47,5 +51,5 @@ loss = ggplot(df) +
                                 "France and its allies/GB and its allies" = "#E6AB02",
                                 "France, its allies and neutral/GB and its allies" = "#56B4E9")) 
 print(loss)
-ggsave(paste(HamburgDir,RscriptDir,NewgraphsDir, "naval_supremacy_ratio.pdf", sep = "" ))
+ggsave(paste(HamburgPaperDir,PaperDir, "naval_supremacy_ratio.pdf", sep = "" ))
 

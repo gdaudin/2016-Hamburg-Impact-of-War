@@ -34,8 +34,8 @@ gen share_par_mer=0 if value0 !=. & value1==.
 replace share_par_mer=1 if value1 !=. & value0==.
 replace share_par_mer=value1/(value0+value1) if share_par_mer!=0 & share_par_mer!=1
 drop value0 value1
-
-
+replace partner_grouping="Outre-mers" if partner_grouping=="Afrique" | partner_grouping=="Asie" | partner_grouping=="Amériques"
+bys partner_grouping: keep if _n==1
 
 merge 1:m partner_grouping using "$hamburg/database_dta/Best guess FR bilateral trade.dta"
 drop if partner_grouping=="France" | partner_grouping=="Inconnu"

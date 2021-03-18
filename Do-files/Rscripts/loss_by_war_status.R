@@ -7,14 +7,18 @@ library(tidyverse)
 library(whoami)
 loadfonts()
 
-if(username()=="Tirindelli") HamburgDir = "/Volumes/GoogleDrive/My Drive/Hamburg/"
+if(username()=="Tirindelli"){
+  HamburgPaperDir = "/Users/Tirindelli/Desktop/HamburgPaper/"
+  toflitDir = "/Volumes/GoogleDrive/My Drive/Hamburg/"
+}
 
-RscriptDir = "Paper/Do-files/Rscripts/"
+RscriptDir = "Do-files/Rscripts/"
 GraphDir = "Graphs/"
 NewgraphsDir = "New graphs/"
-source(paste(HamburgDir,RscriptDir,GraphDir, "floss_by_war_status_plot.R", sep = "" ))
+PaperDir = "Paper - Impact of War/Paper/"
+source(paste(HamburgPaperDir,RscriptDir,GraphDir, "floss_by_war_status_plot.R", sep = "" ))
 
-loss = read.csv(paste(HamburgDir,"database_csv/loss_by_war_status.csv", sep = ""))
+loss = read.csv(paste(toflitDir,"database_csv/loss_by_war_status.csv", sep = ""))
 
 df = rbind(
   data.frame(
@@ -37,7 +41,7 @@ df$war_status = ifelse(df$war_status=="neutral", "Neutral", df$war_status)
 df$war_status = ifelse(df$war_status=="colonies", "Colonies", df$war_status)
 
 loss = floss_by_war_status_plot(df[df$export_import=="XI",])
-ggsave(paste(HamburgDir,RscriptDir,NewgraphsDir, "loss_by_war_status_XI.pdf", sep = "" ))
+ggsave(paste(HamburgPaperDir,PaperDir, "loss_by_war_status_XI.pdf", sep = "" ))
 
 Xloss = floss_by_war_status_plot(df[df$export_import=="Exports",])
 Xloss = Xloss + 

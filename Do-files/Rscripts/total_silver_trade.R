@@ -1,3 +1,4 @@
+rm(list = ls())
 library(dplyr)
 library(ggplot2)
 library(ggpubr)
@@ -7,14 +8,18 @@ library(tidyverse)
 library(whoami)
 loadfonts()
 
-if(username()=="Tirindelli") HamburgDir = "/Volumes/GoogleDrive/My Drive/Hamburg/"
+if(username()=="Tirindelli"){
+  HamburgPaperDir = "/Users/Tirindelli/Desktop/HamburgPaper/"
+  toflitDir = "/Volumes/GoogleDrive/My Drive/Hamburg/"
+}
 
 RscriptDir = "Paper/Do-files/Rscripts/"
 GraphDir = "Graphs/"
 DataframeDir = "Dataframe/"
 NewgraphsDir = "New graphs/"
+PaperDir = "Paper - Impact of War/Paper/"
 
-total_trade = read.csv(paste(HamburgDir,"database_csv/Total_silver_trade_FR_GB.csv", sep = ""))
+total_trade = read.csv(paste(toflitDir,"database_csv/Total_silver_trade_FR_GB.csv", sep = ""))
 
 df1 = data.frame(
   year = total_trade$year,
@@ -51,7 +56,6 @@ trade = ggplot(df) +
   theme(legend.title = element_blank(),
         legend.position = 'bottom',
         legend.background = element_blank(),
-        legend.box.background = element_rect(colour = "black"),
         legend.text = element_text(family ="LM Roman 10"),
         axis.title.x = element_blank(),
         axis.title.y = element_text(family ="LM Roman 10"),
@@ -67,5 +71,5 @@ trade = ggplot(df) +
   scale_x_continuous(breaks = seq(1740, 1830, by = 10), limits = c(1740,1830)) +
   ylab("Tons of silver, log10" )
 print(trade)
-ggsave(paste(HamburgDir,RscriptDir,NewgraphsDir, "Total_silver_trade_FR_GB.pdf", sep = "" ))
+ggsave(paste(HamburgPaperDir,PaperDir, "Total_silver_trade_FR_GB.pdf", sep = "" ))
 
