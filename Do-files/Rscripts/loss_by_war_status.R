@@ -41,7 +41,7 @@ df$war_status = ifelse(df$war_status=="neutral", "Neutral", df$war_status)
 df$war_status = ifelse(df$war_status=="colonies", "Colonies", df$war_status)
 
 loss = floss_by_war_status_plot(df[df$export_import=="XI",])
-ggsave(paste(HamburgPaperDir,PaperDir, "loss_by_war_status_XI.pdf", sep = "" ))
+ggsave(paste(HamburgPaperDir,PaperDir, "loss_by_war_status_XI.png", sep = "" ))
 
 Xloss = floss_by_war_status_plot(df[df$export_import=="Exports",])
 Xloss = Xloss + 
@@ -62,6 +62,6 @@ Iloss = Iloss +
 ggarrange(Xloss, NULL, Iloss, ncol = 1, heights = c(1, 0.01, 1), 
           common.legend = TRUE, legend = "bottom", labels = c("Exports", "", "Imports"),
           font.label = list(family = "LM Roman 10", face = "bold"))
-ggsave(paste(HamburgDir,RscriptDir,NewgraphsDir, "loss_by_war_status_X_I_combined.pdf", sep = "" ), 
+ggsave(paste(HamburgPaperDir, PaperDir, "loss_by_war_status_X_I_combined.png", sep = "" ), 
        height = 9.5, width = 8.7)
 

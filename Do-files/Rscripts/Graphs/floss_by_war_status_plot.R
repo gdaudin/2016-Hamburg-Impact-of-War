@@ -2,7 +2,7 @@ floss_by_war_status_plot = function(fdf, plot_title){
   #http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/ for color blind friendly colors
   loss = ggplot(fdf) + 
     geom_hline(yintercept = 0, color = "#D55E00") +
-    geom_line(aes(x=year, y= loss, color=loss_type)) +
+    geom_line(aes(x=year, y= loss, color=loss_type), size = 1) +
     theme_few() +
     theme(legend.title = element_blank(),
           legend.position = 'bottom',

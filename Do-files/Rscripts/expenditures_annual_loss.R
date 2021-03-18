@@ -30,7 +30,7 @@ loss = ggplot(exp_loss) +
   geom_rect(aes(xmin=1778, xmax=1783, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#999999") +
   geom_rect(aes(xmin=1793, xmax=1807, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#999999") +
   geom_rect(aes(xmin=1808, xmax=1815, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#0072B2") +
-  geom_line(aes(x=year, y= loss, color = loss_type)) +
+  geom_line(aes(x=year, y= loss, color = str_wrap(loss_type, 47)), size = 1) +
   theme_few() +
   theme(legend.title = element_blank(),
         legend.position = "bottom",
@@ -44,6 +44,6 @@ loss = ggplot(exp_loss) +
   scale_x_continuous(breaks = seq(1740, 1825, by = 10), limits = c(1740,1825)) +
   scale_color_manual(values=c("#E69F00", "#56B4E9", "#009E73", "#F0E442","#D55E00", "#CC79A7"))
 print(loss)
-ggsave(paste(HamburgPaperDir,PaperDir, "Expenditures_Annual_Loss.pdf", sep = "" ))
+ggsave(paste(HamburgPaperDir,PaperDir, "Expenditures_Annual_Loss.png", sep = "" ))
 
 

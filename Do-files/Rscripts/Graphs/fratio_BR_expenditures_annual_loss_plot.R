@@ -7,8 +7,8 @@ fratio_BR_expenditures_annual_loss_plot = function(ratio_exp, L_H){
     geom_rect(aes(xmin=1778, xmax=1783, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#999999") +
     geom_rect(aes(xmin=1793, xmax=1807, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#999999") +
     geom_rect(aes(xmin=1808, xmax=1815, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#0072B2") +
-    geom_line(aes(x=year, y= ratio, color = str_wrap(ratio_type, 30))) +
-    geom_line(aes(x=year, y= ratio_nm, color = str_wrap(ratio_type, 30)), linetype="dashed") +
+    geom_line(aes(x=year, y= ratio, color = str_wrap(ratio_type, 40)), size = 1) +
+    geom_line(aes(x=year, y= ratio_nm, color = str_wrap(ratio_type, 40)), linetype="dashed", size = 1) +
     theme_few() +
     theme(legend.title = element_blank(),
           legend.position = "bottom",

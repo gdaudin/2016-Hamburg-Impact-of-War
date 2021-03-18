@@ -32,5 +32,5 @@ loss = loss %>% group_by(period) %>% mutate(mean_loss_nomemory=mean(loss_nomemor
 df = fmean_annual_loss_df(loss)
 loss = floss_plot(df)
 print(loss)
-ggsave(paste(HamburgPaperDir,PaperDir, "GBmean_annual_loss.pdf", sep = "" ))
+ggsave(paste(HamburgPaperDir,PaperDir, "GBmean_annual_loss.png", sep = "" ))
 

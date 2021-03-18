@@ -36,4 +36,4 @@ ratio_expH_plot = fratio_BR_expenditures_annual_loss_plot(ratio_expH, "H")
 print(ratio_expH_plot)
 
 ggarrange(ratio_expL_plot, ratio_expH_plot, common.legend = TRUE, legend = "bottom")
-ggsave(paste(HamburgPaperDir,PaperDir, "ratio_BR_expenditures_ennual_loss.pdf", sep = "" ))
+ggsave(paste(HamburgPaperDir,PaperDir, "ratio_BR_expenditures_annual_loss.png", sep = "" ))

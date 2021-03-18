@@ -7,7 +7,7 @@ floss_plot = function(fdf){
     geom_rect(aes(xmin=1793, xmax=1807, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#999999") +
     geom_rect(aes(xmin=1808, xmax=1815, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#0072B2") +
     geom_hline(yintercept = 0, color = "#D55E00") +
-    geom_line(aes(x=year, y= loss, color=loss_type)) +
+    geom_line(aes(x=year, y= loss, color=loss_type), size = 1) +
     theme_few() +
     theme(legend.title = element_blank(),
           legend.position = 'bottom',

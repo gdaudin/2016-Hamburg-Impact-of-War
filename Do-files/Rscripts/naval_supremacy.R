@@ -33,7 +33,7 @@ loss = ggplot(df) +
   geom_rect(aes(xmin=1793, xmax=1807, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#999999") +
   geom_rect(aes(xmin=1808, xmax=1815, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#0072B2") +
   geom_hline(yintercept = 1, color = "#D55E00") +
-  geom_line(aes(x=year, y= naval_supremacy_ratio, color=naval_supremacy_type)) +
+  geom_line(aes(x=year, y= naval_supremacy_ratio, color=naval_supremacy_type), size = 1) +
   theme_few() +
   theme(legend.title = element_blank(),
         legend.position = 'bottom',
@@ -51,5 +51,5 @@ loss = ggplot(df) +
                                 "France and its allies/GB and its allies" = "#E6AB02",
                                 "France, its allies and neutral/GB and its allies" = "#56B4E9")) 
 print(loss)
-ggsave(paste(HamburgPaperDir,PaperDir, "naval_supremacy_ratio.pdf", sep = "" ))
+ggsave(paste(HamburgPaperDir,PaperDir, "naval_supremacy_ratio.png", sep = "" ))
 

@@ -30,5 +30,5 @@ df = fmean_annual_loss_df(loss)
 df = df[df$year < 1830,]
 loss = floss_plot(df)
 print(loss)
-ggsave(paste(HamburgPaperDir,PaperDir, "mean_annual_loss.pdf", sep = "" ))
+ggsave(paste(HamburgPaperDir,PaperDir, "mean_annual_loss.png", sep = "" ))
 

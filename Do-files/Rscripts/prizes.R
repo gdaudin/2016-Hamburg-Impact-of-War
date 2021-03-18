@@ -34,7 +34,7 @@ ggplot(prizes, aes(x=year)) +
            stat="identity", size=.1, color = "#000000") + 
   geom_bar(aes(y=Number_of_prizes_Privateers_All, fill = "Privateers' prizes"), 
            stat="identity", size=.1, color = "#000000") + 
-  geom_line(aes(y=share_of_non_FR_prizes*700, color ="Share of non Fench prizes among privateers's prizes")) +
+  geom_line(aes(y=share_of_non_FR_prizes*700, color ="Share of non Fench prizes among privateers's prizes"), size = 1) +
   geom_point(aes(y=share_of_non_FR_prizes*700, color ="Share of non Fench prizes among privateers's prizes")) +
   theme_few() +
   theme(legend.title = element_blank(),
@@ -56,7 +56,7 @@ ggplot(prizes, aes(x=year)) +
   scale_fill_manual(values = color, guide = 'legend') +
   scale_color_manual(values = color) +
   guides(fill = guide_legend(nrow = 2))
-ggsave(paste(HamburgPaperDir,PaperDir, "Prizes.pdf", sep = "" ))
+ggsave(paste(HamburgPaperDir,PaperDir, "Prizes.png", sep = "" ))
 
 
 prizes = read.csv(paste(toflitDir,"database_csv/prizes_imports.csv", sep = ""))
@@ -65,7 +65,7 @@ color = c("Absolute value" = "#0072B2",
 
 ggplot(prizes, aes(x=year)) +
   geom_bar(aes(y=importofprizegoodspoundsterling, fill = "Absolute value"), stat="identity", size=.1, color = "#000000") + 
-  geom_line(aes(y=share_prizes*14500, color = "Share of French trade")) +
+  geom_line(aes(y=share_prizes*14500, color = "Share of French trade"), size = 1) +
   geom_point(aes(y=share_prizes*14500, color = "Share of French trade")) +
   theme_few() +
   theme(legend.title = element_blank(),
@@ -85,7 +85,7 @@ ggplot(prizes, aes(x=year)) +
                        sec.axis = sec_axis(~./14500, name = "Share of French trade")) +
   scale_fill_manual(values = color, guide = 'legend') +
   scale_color_manual(values = color)
-ggsave(paste(HamburgPaperDir,PaperDir, "Prizes_imports.pdf", sep = "" ))
+ggsave(paste(HamburgPaperDir,PaperDir, "Prizes_imports.png", sep = "" ))
 
 prizes = read.csv(paste(toflitDir,"database_csv/prizes_nationality.csv", sep = ""))
 prizes_nat = fprizes_nationality_df(prizes)
@@ -99,20 +99,22 @@ loss = ggplot(prizes_nat) +
   geom_rect(aes(xmin=1778, xmax=1783, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#999999") +
   geom_rect(aes(xmin=1793, xmax=1807, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#999999") +
   geom_rect(aes(xmin=1808, xmax=1815, ymin=-Inf, ymax=Inf), alpha=.03, fill = "#0072B2") +
-  geom_line(aes(x=year, y= prizes, color = prizes_nationality)) +
+  geom_line(aes(x=year, y= prizes, color = prizes_nationality), size = 1) +
   geom_point(aes(x=year, y= prizes, color = prizes_nationality)) +
   theme_few() +
   theme(legend.title = element_blank(),
         legend.position = "bottom",
         legend.key.height=unit(.5, "cm"),
-        axis.title = element_blank(),
+        axis.title.x = element_blank(),
+        axis.title.y = element_text(family ="LM Roman 10"),
         axis.text = element_text(family ="LM Roman 10"),
         #panel.background = element_blank(),
         #legend.box.background = element_rect(colour = "black"),
         panel.grid.major.y = element_line(color = "grey", size = 0.12),
         plot.title = element_text(hjust = 0.5, family ="LM Roman 10"),
         strip.text = element_text(size=15, family ="LM Roman 10")) +
+  scale_y_continuous(name = "Number of prizes") +
   scale_x_continuous(breaks = seq(1740, 1815, by = 10), limits = c(1740,1815)) +
   scale_color_manual(values=c("#E69F00", "#56B4E9", "#009E73", "#F0E442")) 
 print(loss)
-ggsave(paste(HamburgPaperDir,PaperDir, "Prizes_nationality.pdf", sep = "" ))
+ggsave(paste(HamburgPaperDir,PaperDir, "Prizes_nationality.png", sep = "" ))
