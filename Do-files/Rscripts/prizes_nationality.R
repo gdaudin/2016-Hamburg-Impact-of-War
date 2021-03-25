@@ -85,5 +85,9 @@ gB = ggplotGrob(loss2)
 maxWidth = grid::unit.pmax(gA$widths[2:5], gB$widths[2:5])
 gA$widths[2:5] = as.list(maxWidth)
 gB$widths[2:5] = as.list(maxWidth)
-grid.arrange(gB, gA, ncol=1, heights=c(0.15,0.85))
-ggsave(paste(HamburgPaperDir,PaperDir, "Prizes_nationality.png", sep = "" ))
+loss = grid.arrange(gB, gA, ncol=1, heights=c(0.15,0.85))
+ggsave(paste(HamburgPaperDir,PaperDir, "Prizes_nationality.png", sep = "" ), loss)
+
+
+
+
