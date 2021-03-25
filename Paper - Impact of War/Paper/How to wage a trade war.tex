@@ -233,7 +233,6 @@ It was well understood that enemy cargo could be seized, however the crux of the
 During the War of Austrian Succession, shipping between a non-belligerent country and a non-blockaded port in France was allowed by the rule of war, provided that both the ship and the goods belonged to neutral merchants. Shipping to blockaded ports on the other hand could be seized \citep[p. 112]{Schnakenbourg2013}. The true nationality of the cargo, however, was difficult to ascertain, as neutral ships would not yield to inspection, especially when they were escorted by neutral warships.\footnote{they had claimed from the seventeenth century the ``right of convoys'', that is ``immunity from search for neutral merchant vessels sailing under the convoy of a warship of the neutral'' \citep{TheEditorsofEncyclopaediaBritannica2014}} This left the door open to trade under neutral flag, especially for French merchant. 
 During the second half of the eighteenth century, Great Britain decided to close off these ways for enemy's trade to continue. 
 In 1756, during Seven Years War, the British introduced the \textit{Doctrine of Continuous Voyage} along with the \textit{Rule of War of 1756}, that stated that the very beginning of the journey and the very end should be taken into account to determine the nationality of the cargo. They also claimed the right to seize neutral shipping to look for contraband and exercised it, as figure \ref{fig:prizes_nationality} shows. 
-\todo[inline, color = YellowGreen]{A separate graph with share of non French prizes could be more relevant here -- no objections GD}
 %This figure shows how Dutch and US cargo were sometimes also declared ``fair prize'' by the High Court of Admiralty. 
 Moreover, they forbid neutrals, in time of war, to enjoy a trade from which they were barred in time of peace. 
 As the French colonies were under the regime of the \textit{Exclusif} \citep{Tarrade1972}, and that all their trade had to be conducted by French ships, that basically barred neutrals from trading with the French colonies.
@@ -274,16 +273,15 @@ We want to relate these events with the loss function. We acknowledge there is n
 \section{Peace-time consequences} \label{sec:empirical_analysis}
 
 In this section we exploit statistical tools to investigate whether the secret of an effective trade war was to force the enemy into restructuring its trade permanently. 
-We consider the structure of trade in terms of goods, destination geography and origin geography. 
-In terms of the former, we use an adapted version of the SITC classification, which is reported in table \ref{tab:class_sitc18} in the appendix.\footnote{More on how this SITC18 classification is defined is available \href{http://toflit18.medialab.sciences-po.fr/\#/home}{here}} As per what concerns destination geography, we have grouped trade flows into 9 different destinations, which are reported in table \ref{tab:class_pays7}, also in appendix. Finally, for the origin geography we consider all the XX ports the goods were shipped from, which we also report in appendix in table XX. 
-\todo[inline, color =YellowGreen]{Is this true for ports? -- I am not sure what you mean. I am no fan of the expression "destination geography" and "origin geography" I would rather use "trade partners" and "French trade regions" ?}
+We consider the structure of trade in terms of goods, trade partners and French trade regions. 
+In terms of the former, we use an adapted version of the SITC classification, which is reported in table \ref{tab:class_sitc18} in the appendix.\footnote{More on how this SITC18 classification is defined is available \href{http://toflit18.medialab.sciences-po.fr/\#/home}{here}} As per what concerns trade partners, we have grouped countries into 9 different destinations, which are reported in table \ref{tab:class_pays7}, also in appendix. Finally, for French trade regions we consider all the XX ports the goods were shipped from, which we also report in appendix in table XX. 
+\todo[inline, color =RoyalBlue]{I am sorry, my questions was how many "directions" are using in the regression? all of them or just the main ones? I wanted to make a clarifying table}
 
-We test this hypothesis using different linear regressions of a loss function on the share of trade of each of these categories, i.e. SITC, destination geography and origin geography.
+We test this hypothesis using different linear regressions of a loss function on the share of trade of each of these categories, i.e. SITC, trade partners and French trade regions.
 We run individual regressions because of collinearity of the explanatory variables (which are share, therefore highly correlated) and the little number of observations, which compromises the individual estimation of each coefficient.
 Tables \ref{Individual_regressions_sector_exports} and \ref{Individual_regressions_sector_imports} show that, even when controlling for a time trend and the contemporaneous effect of war, the changing level of total French trade losses is associated with changes in the industrial structure of trade: reduction in the export share of plantation foodstuffs, crude materials and increase in the export share of leather, wood and paper products, wool and silk threads and fabrics, and other industrial products).
 Changes in the import structure are less clear, but again higher losses are associated with higher share of leather, wood and paper products and wool and silk threads and fabrics and other industrial products and lower imports of cotton threads and fabrics.
-This does not establish causality.
-Yet, the most plausible channel explaining these findings is that ``successful'' wars (from the British point of view) forced the structure of French trade to adapt.
+This does not establish causality. Yet, the most plausible channel explaining these findings is that ``successful'' wars (from the British point of view) forced the structure of French trade to adapt.
 These adaptations were difficult to reverse after the wars and French trade was durably locked into a less dynamic structure.
 
 Tables \ref{Individual_regressions_partner_exports} and \ref{Individual_regressions_partner_imports} show similar changes in the partner share of French trade.
@@ -293,10 +291,6 @@ Again, this suggests that wars forced French trade to develop its links with clo
 Tables \ref{Individual_regressions_region_exports} and \ref{Individual_regressions_region_imports} show similar changes in the regional share of French trade up to 1789.
 Even if the pattern is clearer for imports than for exports, it seems that landlocked regions (Bourgogne, Châlons, Lyon and Saint-Quentin), secondary coastal regions (Amiens, Bayonne, Caen and Rennes), and Marseille have a larger share of trade when French trade is reduced.
 While large Atlantic ports (Bordeaux and Nantes) have a smaller share of trade.
-
-We also do a joint test of significance for all the variables. 
-
-\todo[inline, color=YellowGreen]{What is the result of the joint significance test? -- I am not sure anymore what that refers to. Some old analysis ? Just drop it for the time being ? -- GD }
 
 \section{Can we do a cost-benefit analysis?}
 \label{sec:cost_benefit}
@@ -544,8 +538,9 @@ The line shows the proportion of French colonial empire as of 1740 owned at each
 \label{fig:prizes_nationality}
 \begin{minipage}{0.9\textwidth}
 \centering
-\includegraphics[scale=.2]{Prizes_nationality}
-\source{For privateers and before 1785 for the Royal Navy, \cite{Starkey1990} and \cite{Hillmann2011}. For post-1793 Royal Navy prizes, we use the data on the value of Navy Prizes from \cite{Benjamin2009}, based on \cite{Hill1998}. The peak in Dutch prices in 1781 is omitted in this figure for readability. \todo[inline, color = YellowGreen]{Why was there the peak?? I cant remember anymore. Also what is the y axis here? -- The peak comes from the beginning of the 4th Anglo-Dutch War. I am not sure it should be omitted : it is an important fact.Maybe cut the Y axis ? This kind of stuff ? https://www.extendoffice.com/documents/excel/2716-excel-chart-break-axis.html  Some of these Dutch guys were doing French trave, obviously. Y-axis is the number of prizes}}
+\includegraphics[scale=.8]{Prizes_nationality}
+\source{For privateers and before 1785 for the Royal Navy, \cite{Starkey1990} and \cite{Hillmann2011}. For post-1793 Royal Navy prizes, we use the data on the value of Navy Prizes from \cite{Benjamin2009}, based on \cite{Hill1998}.
+The peak in 1781 comes from the beginning of the 4th Anglo-Dutch War.  \todo[inline, color = RoyalBlue]{What do you think of this solution?}}
 \end{minipage}
 \end{figure}
 
