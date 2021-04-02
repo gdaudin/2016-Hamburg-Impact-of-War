@@ -11,8 +11,8 @@ else if "`c(username)'" =="tirindee" {
 
 
 if "`c(username)'" =="Tirindelli" {
-	global hamburg "/Users/Tirindelli/Desktop/HamburgPaper"
-	global hamburggit "/Volumes/GoogleDrive/My Drive/Hamburg/Paper"
+	global hamburg "/Volumes/GoogleDrive/My Drive/Hamburg"
+	global hamburggit "/Users/Tirindelli/Desktop/HamburgPaper"
 }
 
 
@@ -233,12 +233,15 @@ sort year
 replace share_prizes = . if share_prizes ==0
 
 export delimited "$hamburg/database_csv/prizes_imports.csv", replace
+
+/*
 twoway (bar importofprizegoodspoundsterling year, cmissing(n)) (connected share_prizes year,yaxis(2) lpattern(solid) mcolor(black) cmissing(n))/*
 		*/ if year>=1740 & year <=1801 /*
 		*/, name(Prize_imports, replace) scheme(s1mono) ytitle("Imports of prize goods (£000)") ytitle("Share of French trade", axis(2)) /*
 		*/ legend(order (1 "Absolute value" 2 "Share of French trade"))
 		
 graph export "$hamburggit/Paper - Impact of War/Paper/Prizes_imports.png", replace
+*/
 
 sort year
 
@@ -331,6 +334,8 @@ rename Nbr_HCA34_and_other Number_of_prizes_Privateers_All
 
 
 export delimited "$hamburg/database_csv/prizes.csv", replace
+
+/*
  twoway (bar Number_of_prizes_Total_All year, color(gs10)) /*
 	*/  (bar Number_of_prizes_Privateers_All year, color(gs5)) /*
 	*/  (connected share_of_non_FR_prizes year, lpattern(solid) mcolor(black) cmissing(n) msymbol(diamond) yaxis(2)) /*
@@ -344,7 +349,7 @@ export delimited "$hamburg/database_csv/prizes.csv", replace
 	*/ scheme(s1mono)
 	
 graph export "$hamburggit/Paper - Impact of War/Paper/Prizes.png", replace	
-
+*/
 
 erase "$hamburg/database_dta/HCA34_prizes.dta"
 erase "$hamburg/database_dta/GBNavy_prizes.dta"
@@ -357,6 +362,7 @@ erase "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta"
 
 recode Nbr_HCA34_and_other_* (0=.), 
 
+/*
 export delimited "$hamburg/database_csv/prizes_nationality.csv", replace
 twoway (connected Nbr_HCA34_and_other_Other year, cmissing(n) msize(small)) /*
 	*/ (connected Nbr_HCA34_and_other_Spain year, cmissing(n) msize(small)) (connected Nbr_HCA34_and_other_Neth year, cmissing(n) msize(small)) /*
@@ -366,6 +372,7 @@ twoway (connected Nbr_HCA34_and_other_Other year, cmissing(n) msize(small)) /*
 	*/ scheme(s1mono) name(Prize_nationality, replace)
 	
 graph export "$hamburggit/Paper - Impact of War/Paper/Prizes_nationality.png", replace
+*/
 
 save "$hamburg/database_dta/English_prizes.dta",  replace
 

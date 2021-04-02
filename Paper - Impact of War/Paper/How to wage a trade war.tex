@@ -277,10 +277,10 @@ We want to relate these events with the loss function. We acknowledge there is n
 \section{Peace-time consequences} \label{sec:empirical_analysis}
 
 In this section we exploit statistical tools to investigate whether the secret of an effective trade war was to force the enemy into restructuring its trade permanently. 
-We consider the structure of trade in terms of goods, trade partners and French trade regions. 
+We consider the structure of trade in terms of goods, trade partners and French custom regions. 
 
-In terms of the former, we use an adapted version of the SITC classification, which is reported in table \ref{tab:class_sitc18} in the appendix.\footnote{More on how this SITC18 classification is defined is available \href{http://toflit18.medialab.sciences-po.fr/\#/home}{here}} As per what concerns trade partners, we have grouped countries into 9 different destinations, which are reported in table \ref{tab:class_pays7}, also in appendix. Finally, for French trade regions we consider all the XX ports the goods were shipped from, which we also report in appendix in table XX. 
-\todo[inline, color =YellowGreen]{I am sorry, my questions was how many "directions" are using in the regression? all of them or just the main ones? I wanted to make a clarifying table -- 18 see table 18}
+In terms of the former, we use an adapted version of the SITC classification, which is reported in table \ref{tab:class_sitc18} in the appendix.\footnote{More on how this SITC18 classification is defined is available \href{http://toflit18.medialab.sciences-po.fr/\#/home}{here}} As per what concerns trade partners, we have grouped countries into 9 different destinations, which are reported in table \ref{tab:class_pays7}, also in appendix. Finally, for French custom regions we consider all the XX ports the goods were shipped from, which we also report in appendix in table XX. 
+\todo[inline, color =YellowGreen]{I wanted to make a clarifying table -- 18 see table 18}
 
 We test this hypothesis using different linear regressions of a loss function on the share of trade of each of these categories, i.e. SITC, trade partners and French trade regions.
 We run individual regressions because of collinearity of the explanatory variables (which are share, therefore highly correlated) and the little number of observations, which compromises the individual estimation of each coefficient.
@@ -446,12 +446,12 @@ Right panel: mean loss function for Great Britain over each war and peace period
 \caption{British Navy budget and French trade losses}
 \label{Expenditures}
 \centering
-\includegraphics[scale=0.2]{Expenditures_Annual_Loss}
+\includegraphics[scale=0.17]{Expenditures_Annual_Loss}
 \begin{minipage}{18cm}
 \begin{flushleft}
 \fontsmall
-This graph shows the comparison of French losses with British expenditures to cause these losses. The loss function is reported both using all past peace period to impute the trend and just one preceding period. 
-\todo[inline, color = NavyBlue]{Could you please quickly comment on this graph? Net and gross are expenditures are referred to what exactly? French Navy expenditures are net/gross? }
+This graph shows the comparison of French losses with British expenditures to cause these losses. Gross expenses are total expensive of the British Navy for the trade war. Net expenses are meant of the British Navy net of their budget. 
+The loss function is reported both using all past peace period to impute the trend and just one preceding period. 
 \end{flushleft}
 \end{minipage}
 \source{See text and \cite{mitchell1988}, pp. 570-587}
@@ -465,7 +465,7 @@ This graph shows the comparison of French losses with British expenditures to ca
 \begin{minipage}{18cm}
 \begin{flushleft}
 \fontsmall 
-\todo[inline, color = NavyBlue]{Isnt this graphs redundant? Or rather, the \ref{Expenditures} has all the info quite squeezed so maybe it's worth splitting them in two graphs with separate info}
+This figure is a zoomed-in picture of figure \ref{Expenditures}. Therefore gross expenses are total expensive of the British Navy for the trade war. Net expenses are meant of the British Navy net of their budget. 
 \end{flushleft}
 \end{minipage}
 \end{figure}
@@ -474,11 +474,11 @@ This graph shows the comparison of French losses with British expenditures to ca
 \caption{Ratio between French trade losses and the British Navy budget, high and low hypothesis}
 \label{Ratio_BR_Expenditures}
 \centering
-\includegraphics[scale=0.2]{ratio_BR_expenditures_annual_loss}
+\includegraphics[scale=0.17]{ratio_BR_expenditures_annual_loss}
 \begin{minipage}{18cm}
 \begin{flushleft}
 \fontsmall 
-This graph shows French trade losses (green line), to which we added the value of captured French prizes (blue line), to which we then added also the French Navy budget (orange line). The latter is only available until 1783. \\
+This graph shows French trade losses (green line), to which we added the value of captured French prizes (blue line), to which we then add also the French Navy budget (orange line). The solid line represents the loss function using one preceding peace period for the peace trend while the dashed line represents the loss function using all preceding peace period for the peace trend. \\
 Source: See text and \cite{mitchell1988}, pp. 570-587. For these graphs, French trade loss are assumed to be nil for 1783-1786, 1790-1791 and at the 1797 level for 1793-1796.
 \end{flushleft}
 \end{minipage}
@@ -553,11 +553,10 @@ The peak in 1781 comes from the beginning of the 4th Anglo-Dutch War. }
 \centering
 \caption{Trade loss by war status - Total trade}
 \label{fig:loss_by_war_status_XI}
-\includegraphics[scale=.2]{loss_by_war_status_XI}
+\includegraphics[scale=.17]{loss_by_war_status_XI}
 \begin{minipage}{.95\textwidth}
 \fontsmall 
-This figure shows the loss function of total trade by war status, computed as explained in section \ref{sec:loss}. 
-\todo[inline, color = YellowGreen]{What are the weights we used here? I cant remember -- just remove the weights GD ?}
+This figure shows the average loss over of total trade by war status over the war period, computed as explained in section \ref{sec:loss}. 
 \source{This figure is constructed by computing the mean country-specific trade loss function by war status based on all preceding peace periods.
 We have both a trade-weighted measure and a non-trade weighted measure, where we had to exclude \textit{Empereur} after 1794, because of a territorial change- trade was mainly with current Belgium before 1794 and mainly with Austria after 1794 - and \textit{Hollande} after 1814 as it included current day Belgium from 1815.
 The negative trade loss number for trade with foes in 1787-1789 can be explained by the large effect of the Eden treaty.}
@@ -571,8 +570,7 @@ The negative trade loss number for trade with foes in 1787-1789 can be explained
 \includegraphics[scale=.2]{loss_by_war_status_X_I_combined}
 \begin{minipage}{.95\textwidth}
 \fontsmall 
-This figure shows the loss function of total trade by war status, computed as explained in section \ref{sec:loss}. 
-\todo[inline, color = YellowGreen]{What are the weights we used here? I cant remember -- just remove the weights GD ?}
+This figure shows the average loss over of imports and exports separately by war status over the war period, computed as explained in section \ref{sec:loss}. 
 \source{This figure is constructed by computing the mean country-specific trade loss function by war status based on all preceding peace periods.
 We have both a trade-weighted measure and a non-trade weighted measure, where we had to exclude \textit{Empereur} after 1794, because of a territorial change- trade was mainly with current Belgium before 1794 and mainly with Austria after 1794 - and \textit{Hollande} after 1814 as it included current day Belgium from 1815.
 The negative trade loss number for trade with foes in 1787-1789 can be explained by the large effect of the Eden treaty.}

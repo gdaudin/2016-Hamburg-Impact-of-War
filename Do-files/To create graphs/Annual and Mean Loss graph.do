@@ -20,7 +20,7 @@ if "`c(username)'" =="rober" {
 
 if "`c(username)'" =="Tirindelli" {
 	global hamburg "/Volumes/GoogleDrive/My Drive/Hamburg"
-	global hamburggit "/Volumes/GoogleDrive/My Drive/Hamburg/Paper"
+	global hamburggit "/Users/Tirindelli/Desktop/HamburgPaper"
 }
 
 
@@ -135,6 +135,7 @@ gen minblockade=-0.2 if blockade!=.
 keep if year >=1740
 export delimited "$hamburg/database_csv/mean_annual_loss.csv", replace
 
+/*
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
 			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
@@ -150,6 +151,7 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white))
  
 graph export "$hamburggit/Paper - Impact of War/Paper/Annual_loss_function.png", as(png) replace
+*/
 
 save temp.dta, replace
 
@@ -241,6 +243,7 @@ replace FrenchBudget = 10^FrenchBudget
 replace FR_Prize_value=. if FR_Prize_value==0
 export delimited "$hamburg/database_csv/expenditures_annual_loss.csv", replace
 
+/*
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
 			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
@@ -262,7 +265,7 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) 
 
 graph export "$hamburggit/Paper - Impact of War/Paper/Expenditures_Annual_Loss.png", as(png) replace
-
+*/
 
 replace war1=3000 if war1!=.
 replace war2=3000 if war2!=.
@@ -272,6 +275,7 @@ replace war5=3000 if war5!=.
 replace blockade=3000 if blockade!=.
 export delimited "$hamburg/database_csv/costs_and_benefits.csv", replace
 
+/*
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
 			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
@@ -290,7 +294,7 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) 
 
 graph export "$hamburggit/Paper - Impact of War/Paper/Costs_and_benefits.png", as(png) replace
-
+*/
 
 
 
@@ -334,6 +338,7 @@ replace minwar5=2 if war5!=.
 replace minblockade=2 if blockade!=.
 export delimited "$hamburg/database_csv/cumulated_costs_and_benefits.csv", replace
 
+/*
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
 			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
@@ -356,7 +361,7 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white))
 			 
 graph export "$hamburggit/Paper - Impact of War/Paper/Cumulated_Costs_and_benefits.png", as(png) replace
-			 
+*/			 
 			 
 generate ratio_abs    = 10^loss_abs_cum/10^Navy_cum
 generate ratio_nm_abs = 10^loss_nm_abs_cum/10^Navy_cum
@@ -402,7 +407,7 @@ replace blockade=10 if blockade!=.
 
 
 
-
+/*
 graph twoway (area war1 year , color(gs9)) (area war2 year , color(gs9)) ///
 			 (area war3 year , color(gs9)) (area war4 year , color(gs9)) ///
 			 (area war5 year , color(gs9)) (area blockade year , color(gs4)) ///
@@ -424,7 +429,7 @@ graph twoway (area war1 year , color(gs9)) (area war2 year , color(gs9)) ///
 			 ytitle("Ratio between cumulated French trade losses" "and the cumulated British costs", size(small)) /*ylabel(1 (1) 4)*/ ///
 			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("") ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white))		 
-
+*/
 			 
 			 
 replace ratio_abs		=	ratio_abs*0.35
@@ -446,6 +451,7 @@ replace blockade=2.5 if blockade!=.
 
 export delimited "$hamburg/database_csv/ratio_BR_expenditures_ennual_lossH.csv", replace
 
+/*
 graph twoway (area war1 year , color(gs9)) (area war2 year , color(gs9)) ///
 			 (area war3 year , color(gs9)) (area war4 year , color(gs9)) ///
 			 (area war5 year , color(gs9)) (area blockade year , color(gs4)) ///
@@ -470,7 +476,7 @@ graph twoway (area war1 year , color(gs9)) (area war2 year , color(gs9)) ///
 			 
 			
 graph export "$hamburggit/Paper - Impact of War/Paper/Ratio_BR_Expenditures_Annual_LossH.png", as(png) replace
-
+*/
 
 replace ratio_abs		=	ratio_abs*0.14/0.35
 replace ratio_nm_abs		=	ratio_nm_abs*0.14/0.35 
@@ -483,6 +489,8 @@ replace ratio_nm_abs_v3 = ((10^loss_nm_abs_cum)*0.14+10^FR_Prize_value_cum+10^FR
 
 
 export delimited "$hamburg/database_csv/ratio_BR_expenditures_ennual_lossL.csv", replace
+
+/*
 graph twoway (area war1 year , color(gs9)) (area war2 year , color(gs9)) ///
 			 (area war3 year , color(gs9)) (area war4 year , color(gs9)) ///
 			 (area war5 year , color(gs9)) (area blockade year , color(gs4)) ///
@@ -507,7 +515,7 @@ graph twoway (area war1 year , color(gs9)) (area war2 year , color(gs9)) ///
 			 
 			
 graph export "$hamburggit/Paper - Impact of War/Paper/Ratio_BR_Expenditures_Annual_LossL.png", as(png) replace
-
+*/
 
 
 *********************Travail sur les moyennes
@@ -562,7 +570,7 @@ replace minwar5=-0.2 if war5!=.
 replace minblockade=-0.2 if blockade!=.
 keep if year >=1740
 
-
+/*
 graph twoway 	(area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 				(area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
 				(area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
@@ -578,7 +586,7 @@ graph twoway 	(area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 				ylabel(-0.2 (0.2) 1) xtitle("")
 
 graph export "$hamburggit/Paper - Impact of War/Paper/Mean_loss_function.png", as(png) replace
-
+*/
 
 
 erase temp.dta
