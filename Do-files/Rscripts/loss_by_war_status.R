@@ -20,20 +20,26 @@ source(paste(HamburgPaperDir,RscriptDir,GraphDir, "floss_by_war_status_plot.R", 
 
 loss = read.csv(paste(toflitDir,"database_csv/loss_by_war_status.csv", sep = ""))
 
-df = rbind(
-  data.frame(
-    year = loss$year,
-    export_import = loss$export_import,
-    war_status = loss$war_status,
-    loss = loss$weighted_mean_loss,
-    loss_type = rep("Weighted mean loss", length(loss$weighted_mean_loss))),
-  data.frame(
-    year = loss$year,
-    export_import = loss$export_import,
-    war_status = loss$war_status,
-    loss = loss$average_mean_loss,
-    loss_type = rep("Average mean loss", length(loss$weighted_mean_loss)))
-)
+# df = rbind(
+#   data.frame(
+#     year = loss$year,
+#     export_import = loss$export_import,
+#     war_status = loss$war_status,
+#     loss = loss$weighted_mean_loss,
+#     loss_type = rep("Weighted mean loss", length(loss$weighted_mean_loss))),
+#   data.frame(
+#     year = loss$year,
+#     export_import = loss$export_import,
+#     war_status = loss$war_status,
+#     loss = loss$average_mean_loss,
+#     loss_type = rep("Average mean loss", length(loss$weighted_mean_loss)))
+# )
+
+df = data.frame(
+  year = loss$year,
+  export_import = loss$export_import,
+  war_status = loss$war_status,
+  loss = loss$weighted_mean_loss)
 
 df$war_status = ifelse(df$war_status=="ally", "Ally", df$war_status)
 df$war_status = ifelse(df$war_status=="foe", "Foe", df$war_status)
