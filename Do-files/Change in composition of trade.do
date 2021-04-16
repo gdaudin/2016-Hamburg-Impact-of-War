@@ -8,8 +8,9 @@ if "`c(username)'"=="guillaumedaudin" ///
 		global toflit18_stata "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata"
 
 if "`c(username)'" =="Tirindelli" {
-	global hamburg "/Volumes/GoogleDrive/My Drive/Hamburg"
-	global hamburggit "/Volumes/GoogleDrive/My Drive/Hamburg/Paper"
+	global hamburg "/Volumes/Google Drive/My Drive/Hamburg"
+	global hamburggit "/Users/Tirindelli/Desktop/HamburgPaper"
+	global toflit18_stata "/Volumes/GoogleDrive/My Drive/Hamburg/Données Stata"
 }
 
 if "`c(username)'" =="tirindee" {
@@ -27,7 +28,7 @@ replace period_str ="Peace 1749-1755" if year >= 1749 & year <=1755
 replace period_str ="War 1756-1763" if year   >= 1756 & year <=1763
 replace period_str ="Peace 1764-1777" if year >= 1764 & year <=1777
 replace period_str ="War 1778-1783" if year   >= 1778 & year <=1783
-replace period_str ="Peace 1784-1792" if year >= 1784 & year <=1792
+replace period_str ="Peace 1784-1792" if year >= 1784 & year <=1792 
 replace period_str ="War 1793-1807" if year   >= 1793 & year <=1807
 replace period_str ="Blockade 1808-1815" if year   >= 1808 & year <=1815
 replace period_str ="Peace 1816-1840" if year >= 1816
@@ -58,6 +59,8 @@ replace sitc_aggr="Other" if product_sitc_simplEN=="Chemical products"
 
 
 save "$hamburg/database_dta/temp_for_hotelling.dta", replace
+export delimited "$hamburg/database_csv/temp_for_hotelling.cvs", replace
+
 
 
 ***************pie chart and violin chart for all war periods***************************

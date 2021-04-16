@@ -32,6 +32,9 @@ naval_sup = naval_sup[c("year", "France_vs_GB", "ally_vs_foe", "allyandneutral_v
 prizes = read.csv(paste(HamburgDir,"database_csv/prizes.csv", sep = ""))
 prizes = prizes[c("year", "Number_of_prizes_Total_All", 
                   "Number_of_prizes_Privateers_All", "importofprizegoodspoundsterling")]
+
+hotelling = read.csv(paste(HamburgDir,"database_csv/temp_for_hotelling.csv", sep = ""))
+
   
 war_strat = left_join(loss, colony_loss, by = "year")
 war_strat = left_join(war_strat, naval_sup, by = "year")
