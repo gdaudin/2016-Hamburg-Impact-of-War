@@ -273,7 +273,6 @@ replace war3=3000 if war3!=.
 replace war4=3000 if war4!=.
 replace war5=3000 if war5!=.
 replace blockade=3000 if blockade!=.
-export delimited "$hamburg/database_csv/costs_and_benefits.csv", replace
 
 /*
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///

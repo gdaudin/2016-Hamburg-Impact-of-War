@@ -239,6 +239,8 @@ generate war5=`maxvalue' if year >=1803 & year <=1807
 generate blockade=`maxvalue' if year >=1807 & year <=1815
 
 sort year
+export delimited "$hamburg/database_csv/Total_silver_trade_FR_GB.csv", replace
+
 
 graph twoway (area warla year, color(gs9)) ///
 			 (area warsp year, color(gs9)) ///

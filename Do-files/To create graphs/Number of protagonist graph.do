@@ -47,6 +47,7 @@ twoway (bar war_nbr_pays year, cmissing(n)) if war_status=="foe", ///
 graph combine (neutral ally foe), ycommon plotregion(fcolor(white)) graphregion(fcolor(white))
 graph export "$hamburggit/Results/Loss graphs/by war_status/Number of protagonists.png", replace
 graph export "$hamburggit/Paper - Impact of War/Paper/Number of protagonists.png", replace
+export delimited "$hamburg/database_csv/number_protagonist.csv", replace
 
 
 

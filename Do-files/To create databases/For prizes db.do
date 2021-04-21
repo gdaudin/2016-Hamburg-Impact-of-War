@@ -362,8 +362,9 @@ erase "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta"
 
 recode Nbr_HCA34_and_other_* (0=.), 
 
-/*
 export delimited "$hamburg/database_csv/prizes_nationality.csv", replace
+
+/*
 twoway (connected Nbr_HCA34_and_other_Other year, cmissing(n) msize(small)) /*
 	*/ (connected Nbr_HCA34_and_other_Spain year, cmissing(n) msize(small)) (connected Nbr_HCA34_and_other_Neth year, cmissing(n) msize(small)) /*
 	*/ (connected Nbr_HCA34_and_other_US year, cmissing(n) msize(small)) /*
