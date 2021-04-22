@@ -6,8 +6,7 @@ library(ggthemes)
 library(tidyverse)
 library(whoami)
 library(zoo)
-
-loadfonts()
+library(data.table)
 
 if(username()=="Tirindelli"){
   HamburgPaperDir = "/Users/Tirindelli/Desktop/HamburgPaper/"
@@ -35,21 +34,39 @@ prizes = prizes[c("year", "Number_of_prizes_Total_All",
 
 hotelling = read.csv(paste(HamburgDir,"database_csv/temp_for_hotelling.csv", sep = ""))
 
-  
+#merge loss function db with wartime strageties db
 war_strat = left_join(loss, colony_loss, by = "year")
 war_strat = left_join(war_strat, naval_sup, by = "year")
 war_strat = left_join(war_strat, prizes, by = "year")
 
+#rename variables
 names(war_strat)[names(war_strat) == "importofprizegoodspoundsterling"] = "prizes_import"
 names(war_strat)[names(war_strat) == "Number_of_prizes_Total_All"] = "num_prizes"
 names(war_strat)[names(war_strat) == "Number_of_prizes_Privateers_All"] = "num_prizes_priv"
 names(war_strat)[names(war_strat) == "weight_france"] = "colony_loss"
 
-fwartime_corr_df = function(fwar_strat, findep){
+#create war variable
+war_strat$Wcut= cut(war_strat$year, 
+                     breaks=c(1739,1748,1755,1763,1777,1783, 1792, 1807,1815, 1840), 
+                     labels = FALSE)
+war_strat$war = ifelse(((war_strat$Wcut %% 2) == 0), 0, 1)
+war_strat$war = ifelse((war_strat$Wcut == 9), 0, war_strat$war)
+war_strat$war = ifelse((war_strat$Wcut == 8), 1, war_strat$war)
+
+#define a function that compute the regression
+fwartime_corr_df = function(fwar_strat, findep, fonlywar){
   
   names(fwar_strat)[names(fwar_strat) == findep] = "findep"
+  if(fonlywar == 1){
+    fDwar_strat = fwar_strat[fwar_strat$war==1,]
+    fDwar_strat$Dfindep = fDwar_strat$findep
+  }else{
+    fwar_strat$findep = ifelse(is.na(fwar_strat$findep), 0, fwar_strat$findep)
+    fwar_strat = setDT(fwar_strat)
+    fDwar_strat = fwar_strat[,Dfindep:=sapply(1:.N,function(k) sum(0.9**(k-1:k)*head(findep,k)))]
+  }
 
-  m = lm(fwar_strat$loss~fwar_strat$findep)
+  m = lm(fDwar_strat$loss~fDwar_strat$Dfindep)
   df = data.frame(
     "var" = findep,
     "corr" = round(m$coefficients[2], 3),
@@ -57,46 +74,35 @@ fwartime_corr_df = function(fwar_strat, findep){
   )
 }
 
+
+#list of wartime strategies var of interest
 indep_var = c("prizes_import", "num_prizes", "num_prizes_priv", "colony_loss", "France_vs_GB",
               "ally_vs_foe", "allyandneutral_vs_foe")
 
+#apply function to all wartime strategies var of interest
 dflist = list(
-  fwartime_corr_df(war_strat, "prizes_import"),
-  fwartime_corr_df(war_strat, "num_prizes"),
-  fwartime_corr_df(war_strat, "num_prizes_priv"),
-  fwartime_corr_df(war_strat, "colony_loss"), 
-  fwartime_corr_df(war_strat, "France_vs_GB"),
-  fwartime_corr_df(war_strat, "ally_vs_foe"),
-  fwartime_corr_df(war_strat, "allyandneutral_vs_foe")
+  fwartime_corr_df(war_strat, "prizes_import",1),
+  fwartime_corr_df(war_strat, "num_prizes",1),
+  fwartime_corr_df(war_strat, "num_prizes_priv",1),
+  fwartime_corr_df(war_strat, "colony_loss",1), 
+  fwartime_corr_df(war_strat, "France_vs_GB",1),
+  fwartime_corr_df(war_strat, "ally_vs_foe",1),
+  fwartime_corr_df(war_strat, "allyandneutral_vs_foe",1)
 )
 
+#make a df with results
 wartime_corr = bind_rows(dflist)
 
-Dwar_strat = war_strat
-Dwar_strat$Wcut= cut(Dwar_strat$year, 
-                     breaks=c(1739,1748,1755,1763,1777,1783, 1792, 1807,1815, 1840), 
-                     labels = FALSE)
-Dwar_strat$war = ifelse(((Dwar_strat$Wcut %% 2) == 0), 0, 1)
-Dwar_strat$war = ifelse((Dwar_strat$Wcut == 9), 0, Dwar_strat$war)
-Dwar_strat$war = ifelse((Dwar_strat$Wcut == 8), 1, Dwar_strat$war)
-
-Dwar_strat = Dwar_strat %>% group_by(Wcut) %>% mutate(counter = row_number())
-
-f = function(x){
-  x = na.locf(x)
-  x = ifelse(Dwar_strat$war ==0, x*exp(-Dwar_strat$counter), x)
-}
-
-Dwar_strat[indep_var] = lapply(Dwar_strat[indep_var], f)
-
 dflist = list(
-  fwartime_corr_df(Dwar_strat, "prizes_import"),
-  fwartime_corr_df(Dwar_strat, "num_prizes"),
-  fwartime_corr_df(Dwar_strat, "num_prizes_priv"),
-  fwartime_corr_df(Dwar_strat, "colony_loss"), 
-  fwartime_corr_df(Dwar_strat, "France_vs_GB"),
-  fwartime_corr_df(Dwar_strat, "ally_vs_foe"),
-  fwartime_corr_df(Dwar_strat, "allyandneutral_vs_foe")
+  fwartime_corr_df(war_strat, "prizes_import",0),
+  fwartime_corr_df(war_strat, "num_prizes",0),
+  fwartime_corr_df(war_strat, "num_prizes_priv",0),
+  fwartime_corr_df(war_strat, "colony_loss",0), 
+  fwartime_corr_df(war_strat, "France_vs_GB",0),
+  fwartime_corr_df(war_strat, "ally_vs_foe",0),
+  fwartime_corr_df(war_strat, "allyandneutral_vs_foe",0)
 )
 
+#make a df with results
 Dwartime_corr = bind_rows(dflist)
+

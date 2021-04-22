@@ -8,7 +8,7 @@ if "`c(username)'"=="guillaumedaudin" ///
 		global toflit18_stata "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata"
 
 if "`c(username)'" =="Tirindelli" {
-	global hamburg "/Volumes/Google Drive/My Drive/Hamburg"
+	global hamburg "/Volumes/GoogleDrive/My Drive/Hamburg"
 	global hamburggit "/Users/Tirindelli/Desktop/HamburgPaper"
 	global toflit18_stata "/Volumes/GoogleDrive/My Drive/Hamburg/Données Stata"
 }
