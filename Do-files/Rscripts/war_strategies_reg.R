@@ -22,9 +22,9 @@ PaperDir = "Paper - Impact of War/Paper/"
 halt = function(hint = "Combination not available \n Process stopped.\n") {
   writeLines(hint)
   require(tools, quietly = TRUE)
-  processId <- Sys.getpid() 
+  processId = Sys.getpid() 
   pskill(processId, SIGINT)
-  iddleTime <- 1.00
+  iddleTime = 1.00
   Sys.sleep(iddleTime)
 }
 
@@ -52,7 +52,7 @@ war_strat = left_join(war_strat, prizes, by = "year")
 names(war_strat)[names(war_strat) == "importofprizegoodspoundsterling"] = "prizes_import"
 names(war_strat)[names(war_strat) == "Number_of_prizes_Total_All"] = "num_prizes"
 names(war_strat)[names(war_strat) == "Number_of_prizes_Privateers_All"] = "num_prizes_priv"
-names(war_strat)[names(war_strat) == "weight_france"] = "colony_loss"
+names(war_strat)[names(war_strat) == "weight_france"] = "colonial_empire"
 
 #create war variable
 war_strat$Wcut= cut(war_strat$year, 
@@ -86,7 +86,7 @@ fwartime_corr_df = function(fwar_strat, findep, fonlywar, frunning_sum){
   m = lm(fDwar_strat$loss~fDwar_strat$Dfindep)
   df = data.frame(
     "var" = findep,
-    "corr" = round(m$coefficients[2], 3),
+    "coeff" = round(m$coefficients[2], 3),
     "pval" = round(summary(m)$coefficients[2,4], 3),
     "R2" = round(summary(m)$r.squared, 3)
   )
@@ -95,7 +95,7 @@ fwartime_corr_df = function(fwar_strat, findep, fonlywar, frunning_sum){
 
 
 #list of wartime strategies var of interest
-indep_var = c("prizes_import", "num_prizes", "num_prizes_priv", "colony_loss", "France_vs_GB",
+indep_var = c("prizes_import", "num_prizes", "num_prizes_priv", "colonial_empire", "France_vs_GB",
               "ally_vs_foe", "allyandneutral_vs_foe")
 
 #apply function to all wartime strategies var of interest 
@@ -104,7 +104,7 @@ dflist = list(
   fwartime_corr_df(war_strat, "prizes_import",1,0),
   fwartime_corr_df(war_strat, "num_prizes",1,0),
   fwartime_corr_df(war_strat, "num_prizes_priv",1,0),
-  fwartime_corr_df(war_strat, "colony_loss",1,0), 
+  fwartime_corr_df(war_strat, "colonial_empire",1,0), 
   fwartime_corr_df(war_strat, "France_vs_GB",1,0),
   fwartime_corr_df(war_strat, "ally_vs_foe",1,0),
   fwartime_corr_df(war_strat, "allyandneutral_vs_foe",1,0)
@@ -119,7 +119,7 @@ dflist = list(
   fwartime_corr_df(war_strat, "prizes_import",1,1),
   fwartime_corr_df(war_strat, "num_prizes",1,1),
   fwartime_corr_df(war_strat, "num_prizes_priv",1,1),
-  fwartime_corr_df(war_strat, "colony_loss",1,1), 
+  fwartime_corr_df(war_strat, "colonial_empire",1,1), 
   fwartime_corr_df(war_strat, "France_vs_GB",1,1),
   fwartime_corr_df(war_strat, "ally_vs_foe",1,1),
   fwartime_corr_df(war_strat, "allyandneutral_vs_foe",1,1)
@@ -134,7 +134,7 @@ dflist = list(
   fwartime_corr_df(war_strat, "prizes_import",0,1),
   fwartime_corr_df(war_strat, "num_prizes",0,1),
   fwartime_corr_df(war_strat, "num_prizes_priv",0,1),
-  fwartime_corr_df(war_strat, "colony_loss",0,1), 
+  fwartime_corr_df(war_strat, "colonial_empire",0,1), 
   fwartime_corr_df(war_strat, "France_vs_GB",0,1),
   fwartime_corr_df(war_strat, "ally_vs_foe",0,1),
   fwartime_corr_df(war_strat, "allyandneutral_vs_foe",0,1)
