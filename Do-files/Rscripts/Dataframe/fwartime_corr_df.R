@@ -2,14 +2,21 @@ fwartime_corr_df = function(fwar_strat, findep, fonlywar, frunning_sum, log_max)
   
   if(fonlywar == 0 & frunning_sum==0) halt()
   
-  if(findep=="num_prizes" | findep=="num_prizes_priv" | findep=="prizes_import") 
-    fwar_strat$loss = fwar_strat$loss*100
+  rescale = FALSE
+  if(findep=="num_prizes" | findep=="num_prizes_priv" | findep=="prizes_import") rescale = TRUE
   
   names(fwar_strat)[names(fwar_strat) == findep] = "findep"
-  if(log_max=="max") fwar_strat$findep = fwar_strat$findep/max(fwar_strat$findep, na.rm = TRUE)
+  
+  if(rescale){
+    fwar_strat$loss = fwar_strat$loss*100
+    if(log_max=="max") fwar_strat$findep = fwar_strat$findep/max(fwar_strat$findep, na.rm = TRUE)
+  }
 
   if(frunning_sum==0){
-    if(log_max=="log") fwar_strat$findep = log(fwar_strat$findep)
+    if(log_max=="log"){
+      fwar_strat$findep = ifelse(fwar_strat$findep ==0, NA, fwar_strat$findep)
+      fwar_strat$findep = log(fwar_strat$findep)
+    }
     fDwar_strat = fwar_strat[fwar_strat$war==1,]
     fDwar_strat$Dfindep = fDwar_strat$findep
   }else{
@@ -27,5 +34,6 @@ fwartime_corr_df = function(fwar_strat, findep, fonlywar, frunning_sum, log_max)
     "pval" = round(summary(m)$coefficients[2,4], 3),
     "R2" = round(summary(m)$r.squared, 3)
   )
-  return(df)
+  return_list = list(df, fDwar_strat$Dfindep)
+  return(return_list)
 }
