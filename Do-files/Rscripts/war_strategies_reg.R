@@ -74,11 +74,13 @@ dflist = list(
   fwartime_corr_df(war_strat, "colonial_empire",1,0, "max")[[1]], 
   fwartime_corr_df(war_strat, "France_vs_GB",1,0, "max")[[1]],
   fwartime_corr_df(war_strat, "ally_vs_foe",1,0, "max")[[1]],
-  fwartime_corr_df(war_strat, "allyandneutral_vs_foe",1,0, "max")[[1]]
+  fwartime_corr_df(war_strat, "allyandneutral_vs_foe",1,0, "max")[[1]],
+  fwartime_corr_df(war_strat, "battle_dummy",1,0, "max")[[1]]
 )
 #make a df with results of univariate regression
 max_wartime_nosum_corr = bind_rows(dflist)
-#make a df with results of multivariate regression
+
+#make a df with results of multivariate regression for only war years and no running sum
 max_wartime_nosum_mreg = data.frame(
   year = war_strat[war_strat$war==1,]$year, 
   loss = war_strat[war_strat$war==1,]$loss, 
@@ -88,12 +90,13 @@ max_wartime_nosum_mreg = data.frame(
   colonial_empire = fwartime_corr_df(war_strat, "colonial_empire",1,0, "max")[[2]], 
   France_vs_GB = fwartime_corr_df(war_strat, "France_vs_GB",1,0, "max")[[2]],
   ally_vs_foe = fwartime_corr_df(war_strat, "ally_vs_foe",1,0, "max")[[2]],
-  allyandneutral_vs_foe = fwartime_corr_df(war_strat, "allyandneutral_vs_foe",1,0, "max")[[2]]
+  allyandneutral_vs_foe = fwartime_corr_df(war_strat, "allyandneutral_vs_foe",1,0, "max")[[2]], 
+  battle_dummy = fwartime_corr_df(war_strat, "battle_dummy",1,0, "max")[[2]]
 )
 m = lm(loss~prizes_import + num_prizes+num_prizes_priv+colonial_empire+
-         France_vs_GB+ally_vs_foe+allyandneutral_vs_foe,
+         France_vs_GB+ally_vs_foe+allyandneutral_vs_foe + battle_dummy,
        data = max_wartime_nosum_mreg)
-
+summary(m)
 
 #apply function to all wartime strategies var of interest 
 #for only war years and running sum
@@ -105,11 +108,11 @@ dflist = list(
   fwartime_corr_df(war_strat, "France_vs_GB",1,1, "max")[[1]],
   fwartime_corr_df(war_strat, "ally_vs_foe",1,1, "max")[[1]],
   fwartime_corr_df(war_strat, "allyandneutral_vs_foe",1,1, "max")[[1]],
-  fwartime_corr_df(war_strat, "battle_dummy",1,1, "max")[[1]]
 )
 #make a df with results
 max_wartime_sum_corr = bind_rows(dflist)
-#make a df with results of multivariate regression
+#make a df with results of multivariate regression for only war years and running sum 
+#(battle dummy is included as a regular dummy) 
 max_wartime_sum_mreg = data.frame(
   year = war_strat[war_strat$war==1,]$year, 
   loss = war_strat[war_strat$war==1,]$loss, 
@@ -120,10 +123,10 @@ max_wartime_sum_mreg = data.frame(
   France_vs_GB=fwartime_corr_df(war_strat, "France_vs_GB",1,1, "max")[[2]],
   ally_vs_foe=fwartime_corr_df(war_strat, "ally_vs_foe",1,1, "max")[[2]],
   allyandneutral_vs_foe=fwartime_corr_df(war_strat, "allyandneutral_vs_foe",1,1, "max")[[2]],
-  battle_dummy=fwartime_corr_df(war_strat, "battle_dummy",1,1, "max")[[2]]
+  battle_dummy = fwartime_corr_df(war_strat, "battle_dummy",1,0, "max")[[2]]
 )
 m = lm(loss~prizes_import + num_prizes+num_prizes_priv+colonial_empire+
-         France_vs_GB+ally_vs_foe+allyandneutral_vs_foe,
+         France_vs_GB+ally_vs_foe+allyandneutral_vs_foe + battle_dummy,
        data = max_wartime_sum_mreg)
 summary(m)
 
@@ -140,7 +143,7 @@ dflist = list(
 )
 #make a df with results
 max_peacewartime_sum_corr = bind_rows(dflist)
-#make a df with results of multivariate regression
+#make a df with results of multivariate regression for all years and running sum
 max_peacewartime_sum_mreg = data.frame(
   year = war_strat$year, 
   loss = war_strat$loss, 
@@ -150,16 +153,18 @@ max_peacewartime_sum_mreg = data.frame(
   colonial_empire=fwartime_corr_df(war_strat, "colonial_empire",0,1, "max")[[2]], 
   France_vs_GB=fwartime_corr_df(war_strat, "France_vs_GB",0,1, "max")[[2]],
   ally_vs_foe=fwartime_corr_df(war_strat, "ally_vs_foe",0,1, "max")[[2]],
-  allyandneutral_vs_foe=fwartime_corr_df(war_strat, "allyandneutral_vs_foe",0,1, "max")[[2]]
+  allyandneutral_vs_foe=fwartime_corr_df(war_strat, "allyandneutral_vs_foe",0,1, "max")[[2]],
+  battle_dummy = fwartime_corr_df(war_strat, "battle_dummy",0,0, "max")[[2]]
 )
 m = lm(loss~prizes_import + num_prizes+num_prizes_priv+colonial_empire+
-         France_vs_GB+ally_vs_foe+allyandneutral_vs_foe,
+         France_vs_GB+ally_vs_foe+allyandneutral_vs_foe + battle_dummy,
        data = max_peacewartime_sum_mreg)
 summary(m)
 
 #######################################LOG#############################
+#when in log it is a semi-elasticity --> one percent increase in log findep means a one percentage point change in loss
 #apply function to all wartime strategies var of interest 
-#for war years only and running sum
+#for war years only and no running sum
 dflist = list(
   fwartime_corr_df(war_strat, "prizes_import",1,0, "log")[[1]],
   fwartime_corr_df(war_strat, "num_prizes",1,0, "log")[[1]],
@@ -171,7 +176,7 @@ dflist = list(
 )
 #make a df with results
 log_wartime_nosum_corr = bind_rows(dflist)
-#make a df with results of multivariate regression
+#make a df with results of multivariate regression for war years only and no running sum
 log_wartime_nosum_mreg = data.frame(
   year = war_strat[war_strat$war==1,]$year, 
   loss = war_strat[war_strat$war==1,]$loss, 
@@ -181,10 +186,11 @@ log_wartime_nosum_mreg = data.frame(
   colonial_empire=fwartime_corr_df(war_strat, "colonial_empire",1,0, "log")[[2]], 
   France_vs_GB=fwartime_corr_df(war_strat, "France_vs_GB",1,0, "log")[[2]],
   ally_vs_foe=fwartime_corr_df(war_strat, "ally_vs_foe",1,0, "log")[[2]],
-  allyandneutral_vs_foe=fwartime_corr_df(war_strat, "allyandneutral_vs_foe",1,0, "log")[[2]]
+  allyandneutral_vs_foe=fwartime_corr_df(war_strat, "allyandneutral_vs_foe",1,0, "log")[[2]],
+  battle_dummy=fwartime_corr_df(war_strat, "battle_dummy",1,0, "max")[[2]]
 )
 m = lm(loss~prizes_import + num_prizes+num_prizes_priv+colonial_empire+
-         France_vs_GB+ally_vs_foe+allyandneutral_vs_foe,
+         France_vs_GB+ally_vs_foe+allyandneutral_vs_foe+ battle_dummy,
        data = log_wartime_nosum_mreg)
 summary(m)
 
@@ -202,6 +208,7 @@ dflist = list(
 )
 #make a df with results
 log_wartime_sum_corr = bind_rows(dflist)
+#multivariate regression for only war years and running sum
 log_wartime_sum_mreg = data.frame(
   year = war_strat[war_strat$war==1,]$year, 
   loss = war_strat[war_strat$war==1,]$loss, 
@@ -211,10 +218,11 @@ log_wartime_sum_mreg = data.frame(
   colonial_empire=fwartime_corr_df(war_strat, "colonial_empire",1,1, "log")[[2]], 
   France_vs_GB=fwartime_corr_df(war_strat, "France_vs_GB",1,1, "log")[[2]],
   ally_vs_foe=fwartime_corr_df(war_strat, "ally_vs_foe",1,1, "log")[[2]],
-  allyandneutral_vs_foe=fwartime_corr_df(war_strat, "allyandneutral_vs_foe",1,1, "log")[[2]]
+  allyandneutral_vs_foe=fwartime_corr_df(war_strat, "allyandneutral_vs_foe",1,1, "log")[[2]],
+  battle_dummy=fwartime_corr_df(war_strat, "battle_dummy",1,0, "max")[[2]]
 )
 m = lm(loss~prizes_import + num_prizes+num_prizes_priv+colonial_empire+
-         France_vs_GB+ally_vs_foe+allyandneutral_vs_foe,
+         France_vs_GB+ally_vs_foe+allyandneutral_vs_foe+battle_dummy,
        data = log_wartime_sum_mreg)
 summary(m)
 
@@ -234,7 +242,7 @@ dflist = list(
 
 #make a df with results
 log_peacewartime_sum_corr = bind_rows(dflist)
-
+#multivariate regression for all years and running sum
 log_peacewartime_sum_mreg = data.frame(
   year = war_strat$year, 
   loss = war_strat$loss, 
@@ -244,9 +252,10 @@ log_peacewartime_sum_mreg = data.frame(
   colonial_empire=fwartime_corr_df(war_strat, "colonial_empire",0,1, "log")[[2]], 
   France_vs_GB=fwartime_corr_df(war_strat, "France_vs_GB",0,1, "log")[[2]],
   ally_vs_foe=fwartime_corr_df(war_strat, "ally_vs_foe",0,1, "log")[[2]],
-  allyandneutral_vs_foe=fwartime_corr_df(war_strat, "allyandneutral_vs_foe",0,1, "log")[[2]]
+  allyandneutral_vs_foe=fwartime_corr_df(war_strat, "allyandneutral_vs_foe",0,1, "log")[[2]],
+  battle_dummy=fwartime_corr_df(war_strat, "battle_dummy",0,0, "max")[[2]]
 )
 m = lm(loss~prizes_import + num_prizes+num_prizes_priv+colonial_empire+
-         France_vs_GB+ally_vs_foe+allyandneutral_vs_foe,
+         France_vs_GB+ally_vs_foe+allyandneutral_vs_foe+battle_dummy,
        data = log_peacewartime_sum_mreg)
 summary(m)

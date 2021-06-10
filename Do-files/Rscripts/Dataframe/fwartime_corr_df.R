@@ -1,6 +1,6 @@
 fwartime_corr_df = function(fwar_strat, findep, fonlywar, frunning_sum, log_max){
   
-  if(fonlywar == 0 & frunning_sum==0) halt()
+  if(fonlywar == 0 & frunning_sum==0 & findep != "battle_dummy") halt()
   
   rescale = FALSE
   if(findep=="num_prizes" | findep=="num_prizes_priv" | findep=="prizes_import") rescale = TRUE
@@ -12,12 +12,13 @@ fwartime_corr_df = function(fwar_strat, findep, fonlywar, frunning_sum, log_max)
     if(log_max=="max") fwar_strat$findep = fwar_strat$findep/max(fwar_strat$findep, na.rm = TRUE)
   }
 
-  if(frunning_sum==0){
+  if(frunning_sum==0){#if running_sum == 0 onlywar has to be equal 1
     if(log_max=="log"){
       fwar_strat$findep = ifelse(fwar_strat$findep ==0, NA, fwar_strat$findep)
       fwar_strat$findep = log(fwar_strat$findep)
     }
-    fDwar_strat = fwar_strat[fwar_strat$war==1,]
+    fDwar_strat = fwar_strat
+    if(fonlywar==1) fDwar_strat = fwar_strat[fwar_strat$war==1,]
     fDwar_strat$Dfindep = fDwar_strat$findep
   }else{
     fwar_strat$findep = ifelse(is.na(fwar_strat$findep), 0, fwar_strat$findep)
