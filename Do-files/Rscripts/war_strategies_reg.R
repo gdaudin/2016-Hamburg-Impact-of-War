@@ -8,6 +8,7 @@ library(tidyverse)
 library(whoami)
 library(zoo)
 library(data.table)
+library(stargazer)
 
 if(username()=="Tirindelli"){
   HamburgPaperDir = "/Users/Tirindelli/Desktop/HamburgPaper/"
@@ -65,17 +66,24 @@ war_strat$battle= cut(war_strat$year,
                     labels = FALSE)
 war_strat$battle_dummy = ifelse(((war_strat$Wcut %% 2) == 0), 1, 0)
 
+indep_label = c("Prizes import", "Number of prizes", "Privateers \n prizes", 
+                "Colonial Empire", "France vs Britain", "France vs Britain \n + allies", 
+                "France vs Britain \n + allies \n + foes", "Battle dummy")
+log_max = "max"
+
 #apply function to all wartime strategies var of interest 
 #for only war years and no running sum
+onlywar = 1
+running_sum = 0
 dflist = list(
-  fwartime_corr_df(war_strat, "prizes_import",1,0, "max")[[1]],
-  fwartime_corr_df(war_strat, "num_prizes",1,0, "max")[[1]],
-  fwartime_corr_df(war_strat, "num_prizes_priv",1,0, "max")[[1]],
-  fwartime_corr_df(war_strat, "colonial_empire",1,0, "max")[[1]], 
-  fwartime_corr_df(war_strat, "France_vs_GB",1,0, "max")[[1]],
-  fwartime_corr_df(war_strat, "ally_vs_foe",1,0, "max")[[1]],
-  fwartime_corr_df(war_strat, "allyandneutral_vs_foe",1,0, "max")[[1]],
-  fwartime_corr_df(war_strat, "battle_dummy",1,0, "max")[[1]]
+  fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "num_prizes",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "num_prizes_priv",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "colonial_empire",onlywar,running_sum, log_max)[[1]], 
+  fwartime_corr_df(war_strat, "France_vs_GB",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "ally_vs_foe",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[1]]
 )
 #make a df with results of univariate regression
 max_wartime_nosum_corr = bind_rows(dflist)
@@ -84,127 +92,202 @@ max_wartime_nosum_corr = bind_rows(dflist)
 max_wartime_nosum_mreg = data.frame(
   year = war_strat[war_strat$war==1,]$year, 
   loss = war_strat[war_strat$war==1,]$loss, 
-  prizes_import=fwartime_corr_df(war_strat, "prizes_import",1,0, "max")[[2]],
-  num_prizes = fwartime_corr_df(war_strat, "num_prizes",1,0, "max")[[2]],
-  num_prizes_priv = fwartime_corr_df(war_strat, "num_prizes_priv",1,0, "max")[[2]],
-  colonial_empire = fwartime_corr_df(war_strat, "colonial_empire",1,0, "max")[[2]], 
-  France_vs_GB = fwartime_corr_df(war_strat, "France_vs_GB",1,0, "max")[[2]],
-  ally_vs_foe = fwartime_corr_df(war_strat, "ally_vs_foe",1,0, "max")[[2]],
-  allyandneutral_vs_foe = fwartime_corr_df(war_strat, "allyandneutral_vs_foe",1,0, "max")[[2]], 
-  battle_dummy = fwartime_corr_df(war_strat, "battle_dummy",1,0, "max")[[2]]
+  prizes_import=fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[2]],
+  num_prizes = fwartime_corr_df(war_strat, "num_prizes",onlywar,running_sum, log_max)[[2]],
+  num_prizes_priv = fwartime_corr_df(war_strat, "num_prizes_priv",onlywar,running_sum, log_max)[[2]],
+  colonial_empire = fwartime_corr_df(war_strat, "colonial_empire",onlywar,running_sum, log_max)[[2]], 
+  France_vs_GB = fwartime_corr_df(war_strat, "France_vs_GB",onlywar,running_sum, log_max)[[2]],
+  ally_vs_foe = fwartime_corr_df(war_strat, "ally_vs_foe",onlywar,running_sum, log_max)[[2]],
+  allyandneutral_vs_foe = fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[2]], 
+  battle_dummy = fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[2]]
 )
 m = lm(loss~prizes_import + num_prizes+num_prizes_priv+colonial_empire+
          France_vs_GB+ally_vs_foe+allyandneutral_vs_foe + battle_dummy,
        data = max_wartime_nosum_mreg)
-summary(m)
+stargazer(fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "num_prizes",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "num_prizes_priv",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "colonial_empire",onlywar,running_sum, log_max)[[3]], 
+          fwartime_corr_df(war_strat, "France_vs_GB",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "ally_vs_foe",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[3]],
+          m, font.size = "small", type = 'latex', covariate.labels= indep_label,
+          title="Single and multivariate regressions for war years only",
+          label = "tab:max_wartime_nosum_mreg", column.sep.width = "-15pt",
+          align=TRUE, dep.var.caption = c("Loss"), dep.var.labels.include = FALSE,
+          omit.stat=c("LL","ser","f"), no.space=TRUE, model.numbers=FALSE,
+          out = paste(HamburgPaperDir, PaperDir,"max_wartime_nosum_mreg.tex", sep = ""))
+rm(dflist, onlywar, running_sum, m)
 
 #apply function to all wartime strategies var of interest 
 #for only war years and running sum
+onlywar = 1
+running_sum = 1
+
 dflist = list(
-  fwartime_corr_df(war_strat, "prizes_import",1,1, "max")[[1]],
-  fwartime_corr_df(war_strat, "num_prizes",1,1, "max")[[1]],
-  fwartime_corr_df(war_strat, "num_prizes_priv",1,1, "max")[[1]],
-  fwartime_corr_df(war_strat, "colonial_empire",1,1, "max")[[1]], 
-  fwartime_corr_df(war_strat, "France_vs_GB",1,1, "max")[[1]],
-  fwartime_corr_df(war_strat, "ally_vs_foe",1,1, "max")[[1]],
-  fwartime_corr_df(war_strat, "allyandneutral_vs_foe",1,1, "max")[[1]],
+  fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "num_prizes",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "num_prizes_priv",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "colonial_empire",onlywar,running_sum, log_max)[[1]], 
+  fwartime_corr_df(war_strat, "France_vs_GB",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "ally_vs_foe",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[1]]
 )
+
 #make a df with results
 max_wartime_sum_corr = bind_rows(dflist)
+
 #make a df with results of multivariate regression for only war years and running sum 
 #(battle dummy is included as a regular dummy) 
 max_wartime_sum_mreg = data.frame(
   year = war_strat[war_strat$war==1,]$year, 
   loss = war_strat[war_strat$war==1,]$loss, 
-  prizes_import=fwartime_corr_df(war_strat, "prizes_import",1,1, "max")[[2]],
-  num_prizes=fwartime_corr_df(war_strat, "num_prizes",1,1, "max")[[2]],
-  num_prizes_priv=fwartime_corr_df(war_strat, "num_prizes_priv",1,1, "max")[[2]],
-  colonial_empire=fwartime_corr_df(war_strat, "colonial_empire",1,1, "max")[[2]], 
-  France_vs_GB=fwartime_corr_df(war_strat, "France_vs_GB",1,1, "max")[[2]],
-  ally_vs_foe=fwartime_corr_df(war_strat, "ally_vs_foe",1,1, "max")[[2]],
-  allyandneutral_vs_foe=fwartime_corr_df(war_strat, "allyandneutral_vs_foe",1,1, "max")[[2]],
-  battle_dummy = fwartime_corr_df(war_strat, "battle_dummy",1,0, "max")[[2]]
+  prizes_import=fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[2]],
+  num_prizes = fwartime_corr_df(war_strat, "num_prizes",onlywar,running_sum, log_max)[[2]],
+  num_prizes_priv = fwartime_corr_df(war_strat, "num_prizes_priv",onlywar,running_sum, log_max)[[2]],
+  colonial_empire = fwartime_corr_df(war_strat, "colonial_empire",onlywar,running_sum, log_max)[[2]], 
+  France_vs_GB = fwartime_corr_df(war_strat, "France_vs_GB",onlywar,running_sum, log_max)[[2]],
+  ally_vs_foe = fwartime_corr_df(war_strat, "ally_vs_foe",onlywar,running_sum, log_max)[[2]],
+  allyandneutral_vs_foe = fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[2]], 
+  battle_dummy = fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[2]]
 )
 m = lm(loss~prizes_import + num_prizes+num_prizes_priv+colonial_empire+
          France_vs_GB+ally_vs_foe+allyandneutral_vs_foe + battle_dummy,
        data = max_wartime_sum_mreg)
-summary(m)
+stargazer(fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "num_prizes",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "num_prizes_priv",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "colonial_empire",onlywar,running_sum, log_max)[[3]], 
+          fwartime_corr_df(war_strat, "France_vs_GB",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "ally_vs_foe",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[3]],
+          m, font.size = "small", type = 'latex', covariate.labels= indep_label,
+          title="Single and multivariate regressions for war years only and running sum",
+          label = "tab:max_wartime_sum_mreg", column.sep.width = "-15pt",
+          align=TRUE, dep.var.caption = c("Loss"), dep.var.labels.include = FALSE,
+          omit.stat=c("LL","ser","f"), no.space=TRUE, model.numbers=FALSE,
+          out = paste(HamburgPaperDir, PaperDir,"max_wartime_sum_mreg.tex", sep = ""))
+rm(dflist, onlywar, running_sum, m)
 
 #apply function to all wartime strategies var of interest 
 #for all years and running sum
+onlywar = 0
+running_sum = 1
 dflist = list(
-  fwartime_corr_df(war_strat, "prizes_import",0,1, "max")[[1]],
-  fwartime_corr_df(war_strat, "num_prizes",0,1, "max")[[1]],
-  fwartime_corr_df(war_strat, "num_prizes_priv",0,1, "max")[[1]],
-  fwartime_corr_df(war_strat, "colonial_empire",0,1, "max")[[1]], 
-  fwartime_corr_df(war_strat, "France_vs_GB",0,1, "max")[[1]],
-  fwartime_corr_df(war_strat, "ally_vs_foe",0,1, "max")[[1]],
-  fwartime_corr_df(war_strat, "allyandneutral_vs_foe",0,1, "max")[[1]]
+  fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "num_prizes",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "num_prizes_priv",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "colonial_empire",onlywar,running_sum, log_max)[[1]], 
+  fwartime_corr_df(war_strat, "France_vs_GB",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "ally_vs_foe",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[1]]
 )
 #make a df with results
 max_peacewartime_sum_corr = bind_rows(dflist)
+
 #make a df with results of multivariate regression for all years and running sum
 max_peacewartime_sum_mreg = data.frame(
   year = war_strat$year, 
   loss = war_strat$loss, 
-  prizes_import=fwartime_corr_df(war_strat, "prizes_import",0,1, "max")[[2]],
-  num_prizes=fwartime_corr_df(war_strat, "num_prizes",0,1, "max")[[2]],
-  num_prizes_priv=fwartime_corr_df(war_strat, "num_prizes_priv",0,1, "max")[[2]],
-  colonial_empire=fwartime_corr_df(war_strat, "colonial_empire",0,1, "max")[[2]], 
-  France_vs_GB=fwartime_corr_df(war_strat, "France_vs_GB",0,1, "max")[[2]],
-  ally_vs_foe=fwartime_corr_df(war_strat, "ally_vs_foe",0,1, "max")[[2]],
-  allyandneutral_vs_foe=fwartime_corr_df(war_strat, "allyandneutral_vs_foe",0,1, "max")[[2]],
-  battle_dummy = fwartime_corr_df(war_strat, "battle_dummy",0,0, "max")[[2]]
+  prizes_import=fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[2]],
+  num_prizes = fwartime_corr_df(war_strat, "num_prizes",onlywar,running_sum, log_max)[[2]],
+  num_prizes_priv = fwartime_corr_df(war_strat, "num_prizes_priv",onlywar,running_sum, log_max)[[2]],
+  colonial_empire = fwartime_corr_df(war_strat, "colonial_empire",onlywar,running_sum, log_max)[[2]], 
+  France_vs_GB = fwartime_corr_df(war_strat, "France_vs_GB",onlywar,running_sum, log_max)[[2]],
+  ally_vs_foe = fwartime_corr_df(war_strat, "ally_vs_foe",onlywar,running_sum, log_max)[[2]],
+  allyandneutral_vs_foe = fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[2]], 
+  battle_dummy = fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[2]]
 )
 m = lm(loss~prizes_import + num_prizes+num_prizes_priv+colonial_empire+
          France_vs_GB+ally_vs_foe+allyandneutral_vs_foe + battle_dummy,
        data = max_peacewartime_sum_mreg)
-summary(m)
-
+stargazer(fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "num_prizes",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "num_prizes_priv",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "colonial_empire",onlywar,running_sum, log_max)[[3]], 
+          fwartime_corr_df(war_strat, "France_vs_GB",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "ally_vs_foe",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[3]],
+          m, font.size = "small", type = 'latex', covariate.labels= indep_label,
+          title="Single and multivariate regressions for all years and running sum",
+          label = "tab:max_peacewartime_sum_mreg", column.sep.width = "-15pt",
+          align=TRUE, dep.var.caption = c("Loss"), dep.var.labels.include = FALSE,
+          omit.stat=c("LL","ser","f"), no.space=TRUE, model.numbers=FALSE,
+          out = paste(HamburgPaperDir, PaperDir,"max_peacewartime_sum_mreg.tex", sep = ""))
+rm(dflist, onlywar, running_sum, m)
+rm(log_max)
 #######################################LOG#############################
 #when in log it is a semi-elasticity --> one percent increase in log findep means a one percentage point change in loss
 #apply function to all wartime strategies var of interest 
 #for war years only and no running sum
+log_max = "log"
+
+onlywar = 1
+running_sum = 0
 dflist = list(
-  fwartime_corr_df(war_strat, "prizes_import",1,0, "log")[[1]],
-  fwartime_corr_df(war_strat, "num_prizes",1,0, "log")[[1]],
-  fwartime_corr_df(war_strat, "num_prizes_priv",1,0, "log")[[1]],
-  fwartime_corr_df(war_strat, "colonial_empire",1,0, "log")[[1]], 
-  fwartime_corr_df(war_strat, "France_vs_GB",1,0, "log")[[1]],
-  fwartime_corr_df(war_strat, "ally_vs_foe",1,0, "log")[[1]],
-  fwartime_corr_df(war_strat, "allyandneutral_vs_foe",1,0, "log")[[1]]
+  fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "num_prizes",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "num_prizes_priv",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "colonial_empire",onlywar,running_sum, log_max)[[1]], 
+  fwartime_corr_df(war_strat, "France_vs_GB",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "ally_vs_foe",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[1]]
 )
 #make a df with results
 log_wartime_nosum_corr = bind_rows(dflist)
+
 #make a df with results of multivariate regression for war years only and no running sum
 log_wartime_nosum_mreg = data.frame(
   year = war_strat[war_strat$war==1,]$year, 
   loss = war_strat[war_strat$war==1,]$loss, 
-  prizes_import=fwartime_corr_df(war_strat,"prizes_import",1,0, "log")[[2]],
-  num_prizes=fwartime_corr_df(war_strat, "num_prizes",1,0, "log")[[2]],
-  num_prizes_priv=fwartime_corr_df(war_strat, "num_prizes_priv",1,0, "log")[[2]],
-  colonial_empire=fwartime_corr_df(war_strat, "colonial_empire",1,0, "log")[[2]], 
-  France_vs_GB=fwartime_corr_df(war_strat, "France_vs_GB",1,0, "log")[[2]],
-  ally_vs_foe=fwartime_corr_df(war_strat, "ally_vs_foe",1,0, "log")[[2]],
-  allyandneutral_vs_foe=fwartime_corr_df(war_strat, "allyandneutral_vs_foe",1,0, "log")[[2]],
-  battle_dummy=fwartime_corr_df(war_strat, "battle_dummy",1,0, "max")[[2]]
+  prizes_import=fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[2]],
+  num_prizes = fwartime_corr_df(war_strat, "num_prizes",onlywar,running_sum, log_max)[[2]],
+  num_prizes_priv = fwartime_corr_df(war_strat, "num_prizes_priv",onlywar,running_sum, log_max)[[2]],
+  colonial_empire = fwartime_corr_df(war_strat, "colonial_empire",onlywar,running_sum, log_max)[[2]], 
+  France_vs_GB = fwartime_corr_df(war_strat, "France_vs_GB",onlywar,running_sum, log_max)[[2]],
+  ally_vs_foe = fwartime_corr_df(war_strat, "ally_vs_foe",onlywar,running_sum, log_max)[[2]],
+  allyandneutral_vs_foe = fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[2]], 
+  battle_dummy = fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[2]]
 )
 m = lm(loss~prizes_import + num_prizes+num_prizes_priv+colonial_empire+
          France_vs_GB+ally_vs_foe+allyandneutral_vs_foe+ battle_dummy,
        data = log_wartime_nosum_mreg)
-summary(m)
+stargazer(fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "num_prizes",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "num_prizes_priv",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "colonial_empire",onlywar,running_sum, log_max)[[3]], 
+          fwartime_corr_df(war_strat, "France_vs_GB",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "ally_vs_foe",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[3]],
+          m, font.size = "small", type = 'latex', covariate.labels= indep_label,
+          title="Single and multivariate regressions for war years only, semi-elasticities",
+          label = "tab:log_wartime_nosum_mreg", column.sep.width = "-15pt",
+          align=TRUE, dep.var.caption = c("Loss"), dep.var.labels.include = FALSE,
+          omit.stat=c("LL","ser","f"), no.space=TRUE, model.numbers=FALSE,
+          out = paste(HamburgPaperDir, PaperDir,"log_wartime_nosum_mreg.tex", sep = ""))
+rm(dflist, onlywar, running_sum, m)
 
 
 #apply function to all wartime strategies var of interest 
 #for only war years and running sum
+onlywar = 1
+running_sum = 1
 dflist = list(
-  fwartime_corr_df(war_strat, "prizes_import",1,1, "log")[[1]],
-  fwartime_corr_df(war_strat, "num_prizes",1,1, "log")[[1]],
-  fwartime_corr_df(war_strat, "num_prizes_priv",1,1, "log")[[1]],
-  fwartime_corr_df(war_strat, "colonial_empire",1,1, "log")[[1]], 
-  fwartime_corr_df(war_strat, "France_vs_GB",1,1, "log")[[1]],
-  fwartime_corr_df(war_strat, "ally_vs_foe",1,1, "log")[[1]],
-  fwartime_corr_df(war_strat, "allyandneutral_vs_foe",1,1, "log")[[1]]
+  fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "num_prizes",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "num_prizes_priv",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "colonial_empire",onlywar,running_sum, log_max)[[1]], 
+  fwartime_corr_df(war_strat, "France_vs_GB",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "ally_vs_foe",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[1]]
 )
 #make a df with results
 log_wartime_sum_corr = bind_rows(dflist)
@@ -212,32 +295,49 @@ log_wartime_sum_corr = bind_rows(dflist)
 log_wartime_sum_mreg = data.frame(
   year = war_strat[war_strat$war==1,]$year, 
   loss = war_strat[war_strat$war==1,]$loss, 
-  prizes_import=fwartime_corr_df(war_strat,"prizes_import",1,1, "log")[[2]],
-  num_prizes=fwartime_corr_df(war_strat, "num_prizes",1,1, "log")[[2]],
-  num_prizes_priv=fwartime_corr_df(war_strat, "num_prizes_priv",1,1, "log")[[2]],
-  colonial_empire=fwartime_corr_df(war_strat, "colonial_empire",1,1, "log")[[2]], 
-  France_vs_GB=fwartime_corr_df(war_strat, "France_vs_GB",1,1, "log")[[2]],
-  ally_vs_foe=fwartime_corr_df(war_strat, "ally_vs_foe",1,1, "log")[[2]],
-  allyandneutral_vs_foe=fwartime_corr_df(war_strat, "allyandneutral_vs_foe",1,1, "log")[[2]],
-  battle_dummy=fwartime_corr_df(war_strat, "battle_dummy",1,0, "max")[[2]]
+  prizes_import=fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[2]],
+  num_prizes = fwartime_corr_df(war_strat, "num_prizes",onlywar,running_sum, log_max)[[2]],
+  num_prizes_priv = fwartime_corr_df(war_strat, "num_prizes_priv",onlywar,running_sum, log_max)[[2]],
+  colonial_empire = fwartime_corr_df(war_strat, "colonial_empire",onlywar,running_sum, log_max)[[2]], 
+  France_vs_GB = fwartime_corr_df(war_strat, "France_vs_GB",onlywar,running_sum, log_max)[[2]],
+  ally_vs_foe = fwartime_corr_df(war_strat, "ally_vs_foe",onlywar,running_sum, log_max)[[2]],
+  allyandneutral_vs_foe = fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[2]], 
+  battle_dummy = fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[2]]
 )
 m = lm(loss~prizes_import + num_prizes+num_prizes_priv+colonial_empire+
          France_vs_GB+ally_vs_foe+allyandneutral_vs_foe+battle_dummy,
        data = log_wartime_sum_mreg)
-summary(m)
+stargazer(fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "num_prizes",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "num_prizes_priv",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "colonial_empire",onlywar,running_sum, log_max)[[3]], 
+          fwartime_corr_df(war_strat, "France_vs_GB",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "ally_vs_foe",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[3]],
+          m, font.size = "small", type = 'latex', covariate.labels= indep_label,
+          title="Single and multivariate regressions for war years only and running sum, semi-elasticities",
+          label = "tab:log_wartime_sum_mreg", column.sep.width = "-15pt",
+          align=TRUE, dep.var.caption = c("Loss"), dep.var.labels.include = FALSE,
+          omit.stat=c("LL","ser","f"), no.space=TRUE, model.numbers=FALSE,
+          out = paste(HamburgPaperDir, PaperDir,"log_wartime_sum_mreg.tex", sep = ""))
 
+rm(dflist, onlywar, running_sum, m)
 
 
 #apply function to all wartime strategies var of interest 
 #for all years and running sum
+onlywar = 0
+running_sum = 1
 dflist = list(
-  fwartime_corr_df(war_strat, "prizes_import",0,1, "log"),
-  fwartime_corr_df(war_strat, "num_prizes",0,1, "log"),
-  fwartime_corr_df(war_strat, "num_prizes_priv",0,1, "log"),
-  fwartime_corr_df(war_strat, "colonial_empire",0,1, "log"), 
-  fwartime_corr_df(war_strat, "France_vs_GB",0,1, "log"),
-  fwartime_corr_df(war_strat, "ally_vs_foe",0,1, "log"),
-  fwartime_corr_df(war_strat, "allyandneutral_vs_foe",0,1, "log")
+  fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "num_prizes",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "num_prizes_priv",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "colonial_empire",onlywar,running_sum, log_max)[[1]], 
+  fwartime_corr_df(war_strat, "France_vs_GB",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "ally_vs_foe",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[1]],
+  fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[1]]
 )
 
 #make a df with results
@@ -246,16 +346,29 @@ log_peacewartime_sum_corr = bind_rows(dflist)
 log_peacewartime_sum_mreg = data.frame(
   year = war_strat$year, 
   loss = war_strat$loss, 
-  prizes_import=fwartime_corr_df(war_strat,"prizes_import",0,1, "log")[[2]],
-  num_prizes=fwartime_corr_df(war_strat, "num_prizes",0,1, "log")[[2]],
-  num_prizes_priv=fwartime_corr_df(war_strat, "num_prizes_priv",0,1, "log")[[2]],
-  colonial_empire=fwartime_corr_df(war_strat, "colonial_empire",0,1, "log")[[2]], 
-  France_vs_GB=fwartime_corr_df(war_strat, "France_vs_GB",0,1, "log")[[2]],
-  ally_vs_foe=fwartime_corr_df(war_strat, "ally_vs_foe",0,1, "log")[[2]],
-  allyandneutral_vs_foe=fwartime_corr_df(war_strat, "allyandneutral_vs_foe",0,1, "log")[[2]],
-  battle_dummy=fwartime_corr_df(war_strat, "battle_dummy",0,0, "max")[[2]]
+  prizes_import=fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[2]],
+  num_prizes = fwartime_corr_df(war_strat, "num_prizes",onlywar,running_sum, log_max)[[2]],
+  num_prizes_priv = fwartime_corr_df(war_strat, "num_prizes_priv",onlywar,running_sum, log_max)[[2]],
+  colonial_empire = fwartime_corr_df(war_strat, "colonial_empire",onlywar,running_sum, log_max)[[2]], 
+  France_vs_GB = fwartime_corr_df(war_strat, "France_vs_GB",onlywar,running_sum, log_max)[[2]],
+  ally_vs_foe = fwartime_corr_df(war_strat, "ally_vs_foe",onlywar,running_sum, log_max)[[2]],
+  allyandneutral_vs_foe = fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[2]], 
+  battle_dummy = fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[2]]
 )
 m = lm(loss~prizes_import + num_prizes+num_prizes_priv+colonial_empire+
          France_vs_GB+ally_vs_foe+allyandneutral_vs_foe+battle_dummy,
        data = log_peacewartime_sum_mreg)
-summary(m)
+stargazer(fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "num_prizes",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "num_prizes_priv",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "colonial_empire",onlywar,running_sum, log_max)[[3]], 
+          fwartime_corr_df(war_strat, "France_vs_GB",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "ally_vs_foe",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[3]],
+          fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[3]],
+          m, font.size = "small", type = 'latex', covariate.labels= indep_label,
+          title="Single and multivariate regressions for all years and running sum, semi-elasticities",
+          label = "tab:log_peacewartime_sum_mreg", column.sep.width = "-15pt",
+          align=TRUE, dep.var.caption = c("Loss"), dep.var.labels.include = FALSE,
+          omit.stat=c("LL","ser","f"), no.space=TRUE, model.numbers=FALSE,
+          out = paste(HamburgPaperDir, PaperDir,"log_peacewartime_sum_mreg.tex", sep = ""))
