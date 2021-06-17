@@ -108,6 +108,9 @@ Germany and Japan transformed themselves into prosperous export powers a few dec
 Yet Britain seems to have achieved a long lasting change in relative economic fortune with its attacks on Dutch trade in the seventeenth century and on French trade in the long eighteenth century.
 These feats have inspired generations of naval strategists such as Mahan.
 How they were exactly achieved is not clear.
+\todo[inline, color = RoyalBlue]{Develop. Some say the "guerre d’escadre" was decisive, some say it was the "guerre de course". La guerre d’escadre n’a pas en tant que telle des effets directs sur le commerce. La guerre de course décline durant la période, ce qui suggère qu’elle n’a pas été décisive non plus. Le Blocus continental aussi a pu jouer un rôle ?}
+
+
 This paper examines the mechanisms explaining the success of the British war on French trade from 1744 to 1815.
  
 This is an important question.
@@ -212,25 +215,12 @@ We aim to show it was a difficult and costly endeavor; the key factor was not to
 %This avails the hypothesis of the role of neutral countries in modern trade and its importance for its success.
 
 \section{Measuring the achievements of trade wars}
-In this section we start by providing a brief summary of the historical setting we are analysing. We give an overview of the standard practices in trade wars at the time, which we analyse more detail in section \ref{sec:wartime_strategies}. We then define a measure, which we call loss function, to illustrate the disruption in French trade due to wars. We reckon this is an approximate measure (see section \ref{sec:cost_benefit}) however it provides a first idea of which wars were more disruptive and the length of their effects. 
+In this section
+%we start by providing a brief summary of the historical setting we are analysing. We give an overview of the standard practices in trade wars at the time, which we analyse more detail in section \ref{sec:wartime_strategies}. We then
+we define a loss function that quantifies the disruption in French trade due to wars. We reckon this is an approximate measure (see section \ref{sec:cost_benefit}) however it provides a first idea of which wars were more disruptive and the length of their effects. 
 
-\subsection{Historical background}
-\label{sec:historical_background}
-The eighteen century was a period of ``eternal wars''. Two out of three years experienced a conflict and the main protagonists were always the French and the British. 
-A priori, the Anglo-French Wars were destructive for trade. 
-Both sides used ``direct'' and ``indirect'' means to capture or destroy their enemy's merchant shipping. In fact, along with deploying the navy for this purpose, they were also allowing predation by private actors called privateers. 
-These actors could either be private men-of-war, whose main aim was the capture of ships, or merchant vessels, that would have been happy to capture enemy ships if the occasion were to arise.
-The role of privateers depended on the attractiveness of alternative profit-making activities \citep[p. 673]{Villiers2002,Hillmann2011} - i.e. on the degree to which regular trade was endangered  - but their impact on the French merchant fleet was especially strong during the War of American Independence (see table 1 ``Impact of British privateering on French trade'' in \cite{Hillmann2011},
-Figure \ref{Prizes} and Figure \ref{Prize goods imports}).
-Together with the threat to cargo, captivity for sailors also represented a problem. Even though they were liberated at peace time (and sometime earlier through exchange of prisoners), mortality in British prisons was such that their capture represented a long-term loss for the French navy and merchant fleet \citep{LeGoff1998}.
-Clearly merchants were reticent to trade in these settings and a first solution was to rely on insurance. Forgone profits however could not be insured (\cite{Ducoin1993}, p 160, \cite{Villiers2002}, \cite{Butel1973}, p. 690-720) and sometimes insurance rates were increasing so much that shipping was discouraged altogether. 
-As a consequence, the standard response was ultimately, in the eighteenth century like in the twentieth century, to organize convoys protected by military warships \cite[p. 393, 407, 448, 641]{Villiers2002}. Despite the misgivings of merchants that saw their commercial liberty curtailed, convoys were a good solution, as long as the French navy was powerful enough to defend the merchants vessels. This, however, was no longer the case during the Seven Year War or the Revolution and Napoleonic Wars, as the British became better at organizing the blockade of French ports (more details on the British blockade is reported in appendix \ref{app:appendix_blockade}).
-Another solution was to rely on neutral shipping. Neutral carriers were somewhat protected from British predation on the sea and, when possible, French merchants hid their cargo ownership behind a neutral partner or moved to neutral countries and operated from there altogether \citep{Marzagalli2016}. This happened to the extent that historians have even reflected that war periods might have been necessary to the functioning of the \textit{Exclusif Colonial}, i.e. the theoretical monopoly of French merchants on French colonial trade \citep{Lespagnol1997, Morineau1997, Marzagalli2016}.\footnote{
-The argument rests on the large peace time trade imbalances between France and its Northern European clients for colonial goods that could have been balanced by large service income of Northern European merchants during war time as they, as neutrals, provided shipping and various trade services to the French empire. The quality of the available balance of payment data is not good enough to test that hypothesis. Along these lines, \cite{Juhasz2018} finds that regions of the French Empire which were protected from trade with the British during the Continental Blockade increased capacity in mechanized cotton spinning to a larger extent than regions which remained more exposed to trade.}
-Again, this was a viable solution only as long as the British and the French accepted the possibility of the other benefiting from trade with neutral partners. This was no longer the case during the Seven Years War and the Continental Blockade, when more and more severe measure towards neutral countries were introduced. 
-\todo[inline, color = NavyBlue]{What do we want to say with this section?}
 
-\subsection{Loss function}
+%\subsection{Loss function}
 \label{sec:loss}
 In the preceding section we explained the main tools used to hinder the enemy's trade in war time. We provide here our approximate measure of loss for French trade. Our data come from the \textit{Bureau de la Balance du Commerce}.\footnote{see appendix \ref{sec:dataset} for more detail on the data} We construct the loss function as the difference between predicted trade value in the absence of war and the actual value of trade, divided by the predicted trade value:
 \begin{equation}
@@ -307,6 +297,22 @@ According to it, the colonial losses during the Seven Years War were minimal (Ca
 In contrast, a large part of the French Empire was gradually lost in the Revolutionary \& Napoleonic Wars.
 Computing a correlation between the colonial empire measure and the loss function we obtained a value of 30\% considering only war years and down to 4\% considering cumulative discounted losses during the whole period. There is no doubt the loss of Saint Domingue was decisive in the trade war. However, our goal is to identify the mechanisms that made it a successful strategy. 
 
+
+\subsection{Historical background}
+\label{sec:historical_background}
+The eighteen century was a period of ``eternal wars''. Two out of three years experienced a conflict and the main protagonists were always the French and the British. 
+A priori, the Anglo-French Wars were destructive for trade. 
+Both sides used ``direct'' and ``indirect'' means to capture or destroy their enemy's merchant shipping. In fact, along with deploying the navy for this purpose, they were also allowing predation by private actors called privateers. 
+These actors could either be private men-of-war, whose main aim was the capture of ships, or merchant vessels, that would have been happy to capture enemy ships if the occasion were to arise.
+The role of privateers depended on the attractiveness of alternative profit-making activities \citep[p. 673]{Villiers2002,Hillmann2011} - i.e. on the degree to which regular trade was endangered  - but their impact on the French merchant fleet was especially strong during the War of American Independence (see table 1 ``Impact of British privateering on French trade'' in \cite{Hillmann2011},
+Figure \ref{Prizes} and Figure \ref{Prize goods imports}).
+Together with the threat to cargo, captivity for sailors also represented a problem. Even though they were liberated at peace time (and sometime earlier through exchange of prisoners), mortality in British prisons was such that their capture represented a long-term loss for the French navy and merchant fleet \citep{LeGoff1998}.
+Clearly merchants were reticent to trade in these settings and a first solution was to rely on insurance. Forgone profits however could not be insured (\cite{Ducoin1993}, p 160, \cite{Villiers2002}, \cite{Butel1973}, p. 690-720) and sometimes insurance rates were increasing so much that shipping was discouraged altogether. 
+As a consequence, the standard response was ultimately, in the eighteenth century like in the twentieth century, to organize convoys protected by military warships \cite[p. 393, 407, 448, 641]{Villiers2002}. Despite the misgivings of merchants that saw their commercial liberty curtailed, convoys were a good solution, as long as the French navy was powerful enough to defend the merchants vessels. This, however, was no longer the case during the Seven Year War or the Revolution and Napoleonic Wars, as the British became better at organizing the blockade of French ports (more details on the British blockade is reported in appendix \ref{app:appendix_blockade}).
+Another solution was to rely on neutral shipping. Neutral carriers were somewhat protected from British predation on the sea and, when possible, French merchants hid their cargo ownership behind a neutral partner or moved to neutral countries and operated from there altogether \citep{Marzagalli2016}. This happened to the extent that historians have even reflected that war periods might have been necessary to the functioning of the \textit{Exclusif Colonial}, i.e. the theoretical monopoly of French merchants on French colonial trade \citep{Lespagnol1997, Morineau1997, Marzagalli2016}.\footnote{
+	The argument rests on the large peace time trade imbalances between France and its Northern European clients for colonial goods that could have been balanced by large service income of Northern European merchants during war time as they, as neutrals, provided shipping and various trade services to the French empire. The quality of the available balance of payment data is not good enough to test that hypothesis. Along these lines, \cite{Juhasz2018} finds that regions of the French Empire which were protected from trade with the British during the Continental Blockade increased capacity in mechanized cotton spinning to a larger extent than regions which remained more exposed to trade.}
+Again, this was a viable solution only as long as the British and the French accepted the possibility of the other benefiting from trade with neutral partners. This was no longer the case during the Seven Years War and the Continental Blockade, when more and more severe measure towards neutral countries were introduced. 
+\todo[inline, color = NavyBlue]{What do we want to say with this section?}
 
 \subsection{Predation on neutral shipping}
 The role of neutrals in wars, and especially during wars on trade, is very important.
