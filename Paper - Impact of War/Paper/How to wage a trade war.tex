@@ -239,11 +239,11 @@ Altogether the loss function for the two countries suggests that Britain was not
 \section{War-time strategies to fight enemy's trade}
 \label{sec:wartime_strategies}
 \todo[inline, color = NavyBlue]{Mahan believed in decisive battles and Blockade, not in the attack of enemy's trade. The \textit{Jeune école} believed attack on trade could be efficient (e.g. U-boats)}
-In trade wars, many were the strategies implemented to disrupt trade. Some were more efficient than other however, to the best of our knowledge, an explanation of what are the underlying mechanism has not yet been provided. With this paper we aim provide an answer to this question. 
-In section \ref{sec:loss} we construct a loss function to quantify French trade losses throughout the period.
-In this section we study the link between this loss function and the tools used by the British against French trade.
+In trade wars, many were the strategies implemented to disrupt the enemy's trade. For this work, we have gathered data on the most common techniques adopted and we provide here a quantification of their effect. 
+We do so by creating a quantitative measure from the data and by linking it to the loss function, as constructed in section \ref{sec:loss}. 
+We run six different univariate regressions for each strategy and one multivariate regression including all strategies. We first consider a linear model for war years only, then we do so considering discounted running sum\footnote{the discounted running sum is defined as $\sum_{t=1}^N value*e^{N-t}$} and finally we compute discounted sums for all years. We repeat this exercise in log, therefore estimating semi-elasticities. 
 %We aim to identify the channels used by the British to disrupt French trade and disentangle their success. In order to do so, we create a quantitative measure, to assess their efficacy and compare it more easily to the loss function.
-We examine in detail the following four possible strategies: 1) ship building and alliance making 2) capture of colonies 3) predation on shipping on neutral shipping 4) predation on french shipping. We create a measure for each one of the them and we quantify the degree to which they are related with the loss function.
+We examine in detail the following four possible strategies: 1) ship building and alliance making 2) capture of colonies 3) predation on shipping on neutral shipping 4) predation on french shipping. 
 
 \subsection{Ship building and alliance making}
 British ships were doing the concrete activity of blockading French ports and capturing French ships.
@@ -254,12 +254,10 @@ A complete discussion of what we classify as ally or enemy during each war is pr
  
 Figure \ref{naval_supremacy_ratios} reports the ratio between the number of warships of France and Great Britain, France and its allies and Britain and its allies, France its allies and neutral countries and Britain and its allies (co-belligerants are treated as allies).
 The most favourable war for France, its allies and neutral countries was the Seven Years War.
-In this war, the number of neutral warships or ships on the French side was more than twice the number of ships on British side.
+In this war, the number of neutral warships or ships on the French side was more than twice the number of ships on the British side.
 During the American Revolutionary War and the Napoleonic Wars the ratio is lower, even though there are spikes close to one, which depend on shifting alliances (eg both Spain and Russia were neutral in 1795, the Ottoman Empire became neutral in 1802, etc.). 
-The least favourable of all wars was the Austrian Succession War, as the Dutch and the Russians were then allied to Britain.  \\
-As we saw in section \ref{sec:loss}, the most disruptive wars were the Seven Years War and the Revolutionary \& Napoleonic Wars. A correlation between the loss function and the ratio of warships reveals no significant link between these two phenomena, both considering only war years and using a discounted running sum which also includes peace years.\footnote{the discounted running sum is defined as $\sum_{t=1}^N value*e^{N-t}$}
-Hence, naval superiority alone was not the ``secret ingredient'' that made a trade war successful. 
-
+The least favourable of all wars was the Austrian Succession War, as the Dutch and the Russians were then allied to Britain.  
+The regressions provide mostly insignificant coefficients and generally very small. In the linear case, the only significant coefficients are for the running sum cases (all years and war years only); one suggests an increase in the loss function of 0.043 percentage points for a one percentage point increase in the ration between navy sizes and the other a decrease even of 0.012 percentage points. As for the semi-elasticities, again there appears to be a decrease in the loss function for an increase in the ratio between navy sizes considering war years only and all years with the discounted sum, but an increase if we consider all years and no discounted sum. Overall the link with the loss function is always very mild, as suggested by the very low R squared, which never reaches 50\%. 
 We are aware that this could be due to the fact that our proxy for naval superiority is too coarse a measure.
 For example, the French navy advantage during the Seven Years war is explained by the fact that Russia and Sweden were allied to France.
 Yet, there was no common naval action with France and limited French shipping in the Baltic that could be protected by Russia or Sweden (the Russian Black Sea fleet was created in 1783, after the Seven Years war).
