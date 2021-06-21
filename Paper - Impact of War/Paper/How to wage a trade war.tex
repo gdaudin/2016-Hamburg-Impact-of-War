@@ -222,23 +222,16 @@ we define a loss function that quantifies the disruption in French trade due to 
 
 %\subsection{Loss function}
 \label{sec:loss}
-Our data on French trade come from the \textit{Bureau de la Balance du Commerce} through the TOFLIT18 project (see appendix \ref{sec:dataset}). We construct the loss function as the difference between predicted trade value in the absence of war and the actual value of trade, divided by the predicted trade value:
+In the preceding section we explained the main tools used to hinder the enemy's trade in war time. We provide here our approximate measure of loss for French trade. Our data come from the \textit{Bureau de la Balance du Commerce}.\footnote{see appendix \ref{sec:dataset} for more detail on the data} We construct the loss function as the difference between predicted trade value in the absence of war and the actual value of trade, divided by the predicted trade value:
 \begin{equation}
 \label{eqn:loss}
 \text{Loss} = \frac{\text{Expected value based on past peace trend - Observed value}}{\text{Expected value based on past peace trend}}
 \end{equation}
 Figure \ref{fig:mean_annual_loss} shows the annual loss function and the mean loss function by peace and war period for France. 
 The green line shows observed trade versus trade predicted based on all preceding peace periods, whereas the yellow line shows the comparison with the prediction based one preceding peace period only (``memoryless loss'').\footnote{We exclude 1792 from the computation of peace time trends when we take into account only the preceding peace period. Its value, in an era of inflation, is doubtful and there are very limited peace years with data available from 1784 to 1792: only 4 (including 1792). Including it increases the past peace time trend for the pre-1815 period from 1.4 p.c. to 2.9 p.c. Including it does not change much when computing the peace trend based on all past peace periods: it stays at 2.65 p.c.)}
-
-Other events than war could have affected French trade, notably the political upheavals linked to the French Revolution. 
-Though wars were such massive events that so obviously affected French trade that the existence of a causal effect of wars on these trend deviations is quite plausible.
-Anyway, disentangling the effects of war from the effects of the Revolution is probably impossible \citep{Charles2021}).
-The same issue would apply to other periods where the evolution of French trade is multicausal.
-For this reason, even if causality is not rigorously proven, we will use the language of causality in the rest of the paper, .
-
-Figure \ref{fig:mean_annual_loss} suggests that the most successful wars from the point of view of Britain were the Revolutionary \& Napoleonic War and the Seven Years War.
+This graph suggests that the most successful wars from the point of view of Britain were the Revolutionary \& Napoleonic War and the Seven Years War.
 The loss function is substantially higher during these conflicts (more than 40\% and 60\% respectively for loss and memoryless loss respectively) than during the Austrian Succession War and the American Revolutionary War (respectively 20\% and 30\%).
-Furthermore, for the Revolutionary \& Napoleonic War and the Seven Years War, the loss stays positive also after the end of the conflicts, meaning the effects were long lasting, whereas it becomes negative after the Austrian Succession War and the American Revolutionary War. This implies that the disruption of French trade lasted through peacetime for the Revolutionary \& Napoleonic War and the Seven Years War. The right-hand panel in this figure reaffirms the point. We observe, in fact, that post-Seven Years War loss (during peace) is roughly comparable to the war-time loss during the American Revolutionary War altogether.
+Furthermore, for the Revolutionary \& Napoleonic War and the Seven Years War, the loss stays positive also after the end of the conflicts, meaning the effects were long lasting, whereas it becomes negative after the Austrian Succession War and the American Revolutionary War. This implies that the disruption of French trade lasted through peacetime for these two wars. The right-hand panel in this figure reaffirms the point. We observe, in fact, that post-Seven Years War loss (during peace) is roughly comparable to the war-time loss during the American Revolutionary War altogether.
 Though approximate, this loss function gives a first idea of the question we want to answer in this paper. Certain wars were more disruptive than other, as the loss function shows. What we intend to do in the rest of the paper is to find the best explanation that matches the trend of the loss function. \\ 
 For the sake of comparison, we also compute the loss function for Great Britain (figure \ref{fig:GBmean_annual_loss}). We observe here that losses are much less significant than for France for the overall period. In particular, the loss function is negative - which suggests an increased trade with respect to peace time - between 1756 and 1778 and after 1781 - at least while using all past period to predict the trend. \\
 Altogether the loss function for the two countries suggests that Britain was not systemically successful in curtailing French trade, however British trade was never as affected by wars in general.  
@@ -250,7 +243,7 @@ In trade wars, many were the strategies implemented to disrupt the enemy's trade
 We do so by creating a measure from the data and by linking it to the loss function, as constructed in section \ref{sec:loss}. 
 We run six different univariate regressions for each strategy and one multivariate regression including all strategies. We first consider a linear model for war years only, then we do so considering discounted running sum\footnote{the discounted running sum is defined as $\sum_{t=1}^N value*e^{N-t}$} and finally we compute discounted sums for all years. We repeat this exercise in log, therefore estimating semi-elasticities. 
 %We aim to identify the channels used by the British to disrupt French trade and disentangle their success. In order to do so, we create a quantitative measure, to assess their efficacy and compare it more easily to the loss function.
-We examine in detail the following four possible strategies: 1) ship building and alliance making 2) capture of colonies 3) predation on shipping on neutral shipping 4) predation on french shipping. 
+We examine in detail the following four possible strategies: 1) ship building and alliance making 2) capture of colonies 3) predation on French shipping. We also analyse the case of predation on neutral shipping, however we could not create a measure reliable enough to run a regression. 
 
 \subsection{Ship building and alliance making}
 British ships were doing the concrete activity of blockading French ports and capturing French ships.
@@ -301,6 +294,49 @@ Yet, France never managed to re-create its ``first'' empire, and the economic lo
 Figure \ref{colony_loss} shows the evolution of the colonial empire measure. This figure suggests that the French colonial empire was roughly halved around the year 1800, to become only 25\% of its maximum expansion later in the nineteenth century. During the second half of the eighteenth century, on the other hand, it remained at its maximum extension almost constantly (Canada was not an important trade partner for France).
 The regressions in this case all show a negative and significant coefficient and a higher R squared. In the linear case the coefficients range between an effect of -0.3 and -0.03 percentage points, depending on whether we consider war years only or all years and discounted sum. The R squared also varies, and it is between 20 and 50 percent. Considering semi-elasticities also provides similar results. Coefficients are again negative and significant, ranging between -0.123 and -0.03 percent loss for a one percent increase in the extension of the colonial empire. R squared are also similar to the linear case and range between 15 and 40 percent.  
 Overall, for what our measures reveal so far, the extension of colonial empire was more decisive that the action of the British Navy. Still, the correlation between lost trade and lost colonies (which is the R square of the regression) is as high as one would expect.  
+
+\subsection{Predation on French shipping}\label{sec:DestructionofFrenchshipping}
+Most of French international trade was conducted by sea (see Figure \ref{share_by_sea}).
+Hence a direct way to affect French trade was to impair French sea trade.
+Great Britain had three ways of directly affecting French sea trade: outright destruction of merchant vessels, ransoming, and prize taking.\\
+The destruction of merchant vessels could be direct or indirect.
+Dangers linked to potential capture by the British led French merchant ships to take more navigational risks, such as sailing off-season to escape them.
+This was likely to lead to more shipwrecks due to weather or sailing through dangerous waters, which we define ``indirect'' way of destruction.
+We have little information on the size of this effects.
+ \todo[inline, color = RoyalBlue]{use insurance rates in Ducoin ?}
+Direct destruction of merchant vessels by the British Navy and privateers was rare as it was not a gainful activity.
+
+Ransoming implied coercing a merchant vessel into paying a ransom to the privateer or the Navy ship.
+However, it left the door open to abuse.
+This induced the British government to limit it more and more drastically from 1744, and forbade it altogether by the time of American Revolutionary war \cite[see][p. 734]{Hillmann2011}.
+
+Prize taking was much easier to monitor by the British state.
+French vessels were threatened into submission.
+Once captured, the French vessel was brought back along with some members of its crew to a British port.
+The captors had to demonstrate ``the prize was lawful and the rights of neutral and allied ships engaged in legal trade had not been harmed'' \cite[see][p. 734]{Hillmann2011} in front of the High Court of Admiralty if the captor was a civilian ship.
+The procedure was different but similar for captures by the British Navy.
+This procedure led to a paper trail that deemed or not the prizes as ``fair''.
+
+Because direct destruction was rare and ransoming was limited, the overall value of prizes captured by the British navy and privateers provides a good measure of the pressure war-time predation exerted on trade.
+From \cite{Hillmann2011} we get an estimate of about 11.5\% of French merchant ships intercepted by British privateers, for a total of 4 percent of the value of French overseas trade during the War of Austrian Succession, the Seven Years War and the War of American Independence.
+Thanks to additional data provided by Henning Hillmann (These data come mainly from records at the PRO High Court of the Admiralty archives and underlying \cite{Hillmann2011}) we can compute approximately the number and the nationality of prizes captured by privateers up to 1809.
+For prizes captured by the British navy, we use data from \cite{Starkey1990} and \cite{Benjamin2009}. 
+The former provides the number of prizes condemned as legal by the High Court of the Admiralty in London, both from privateers and the Royal Navy from 1702 to 1785, while the latter provides the annual number of prizes taken by the Royal Navy from 1793 to 1815 from the sample gathered, but not published, by \cite{Hill1998}.
+Data from these sources are summarised in figure \ref{Prizes}.
+
+The share of privateering activity was very significant until the War of American Independence but became marginal during the Revolutionary \& Napoleonic Wars.
+According to \cite{Hillmann2011}, this can be explained by the development of other war-time trade profit opportunities that made privateering a less interesting alternative for British merchants.
+The total number of prizes however, remained high until 1813, suggesting that the British navy compensated for the lack of privateers actions and kept the threat of predation high.
+In 1813 the total number of prizes declines abruptly.
+This does not necessarily mean that probability of capture became smaller but could be due to a smaller number of French ships sailing altogether. 
+Another measure of the pressure British exercised on French trade comes from English and British trade statistics on the value of prize goods imported in Great Britain up to 1800 (see figure \ref{Prize goods imports}).
+Unfortunately we could not gather data on the Blockade period.
+Still, the numbers are very telling, especially when we look at the value of prizes as shares of total trade.
+In fact, at its peak, the value of prizes captured gets to 10\% of the value of total French trade. 
+What's more, this happens during the War of American Independence, while during the Revolutionary War it gets as low as 3\%.
+As for the other war-time strategies we perform a regression on the loss function of the following covariates; prizes imports, number of prizes and number of privateer's prizes. 
+In the linear regression specification we rescale the covariates to their maximum level, in order to ease their interpretation. 
+It has to be noted here that the number of observations for prizes imports is very little (20 or 36, depending on whether we use the running sum) and therefore the estimates cannot be accurate. The coefficients for the linear regression in fact are not significant, except for the all-year and running sum case, where it is significant but negative (i.e. prizes import increase and the loss decrease, which is quite counter-intuitive). The R squared however never goes above 5 percent. The same happens with semi-elasticities, with the only significant coefficient being for all years and running sum and again negative. Again the R squared is quite low (at most 11 percent). As per what concerns number of prizes, coefficients in the linear specification are positive and significant except for the all-years running sum case. They vary substantially across specifications, ranging from 6 to 16 percent (so for a percentage point increase in number of prizes with respect to their maximum level there is an increase of 6 to 16 percentage points for the loss function). The R squared is also higher, between 20 and 40 percent. In the log-specification the picture change quite substantially. The coefficient range from 0.8 percent to 11 percent and R square is also between 5 and 40 percent. Finally, the regression on privateers' prizes is the most counter-intuitive. The coefficients are all very significant and all negative, which would imply privateer's action increase trade. This is true for all specifications with an R squared between 16 and 40 percent. We cannot really explain this result.
 
 \subsection{Historical background}
 \label{sec:historical_background}
@@ -381,49 +417,30 @@ They did so to the extent that, even when peace was restored, French trade could
 
 %It is clearly dominated by Dutch losses during first year of the Fourth Anglo-Dutch war that started in 1781. However, it shows that neutral ships were sometimes declared fair prizes (e.g. Dutch ships 1779 and 1780 and US ships during the 1790s) and that the British threat on neutral shipping was real. The extent of predation on neutral shipping might be underestimated in this graph as some ships flying a neutral flag were declared ``French'' at the High Court of the Admiralty.
 
-\subsection{Predation on French shipping}\label{sec:DestructionofFrenchshipping}
-Most of French international trade was conducted by sea (see Figure \ref{share_by_sea}).
-Hence a direct way to affect French trade was to impair French sea trade.
-Great Britain had three ways of directly affecting French sea trade: outright destruction of merchant vessels, ransoming, and prize taking.\\
-The destruction of merchant vessels could be direct or indirect.
-Dangers linked to potential capture by the British led French merchant ships to take more navigational risks, such as sailing off-season to escape them.
-This was likely to lead to more shipwrecks due to weather or sailing through dangerous waters, which we define ``indirect'' way of destruction.
-We have little information on the size of this effects.
- \todo[inline, color = RoyalBlue]{use insurance rates in Ducoin ?}
-Direct destruction of merchant vessels by the British Navy and privateers was rare as it was not a gainful activity.
+ 
 
-Ransoming implied coercing a merchant vessel into paying a ransom to the privateer or the Navy ship.
-However, it left the door open to abuse.
-This induced the British government to limit it more and more drastically from 1744, and forbade it altogether by the time of American Revolutionary war \cite[see][p. 734]{Hillmann2011}.
+\section{Peace-time consequences} \label{sec:empirical_analysis}
 
-Prize taking was much easier to monitor by the British state.
-French vessels were threatened into submission.
-Once captured, the French vessel was brought back along with some members of its crew to a British port.
-The captors had to demonstrate ``the prize was lawful and the rights of neutral and allied ships engaged in legal trade had not been harmed'' \cite[see][p. 734]{Hillmann2011} in front of the High Court of Admiralty if the captor was a civilian ship.
-The procedure was different but similar for captures by the British Navy.
-This procedure led to a paper trail that deemed or not the prizes as ``fair''.
+In this section we exploit statistical tools to investigate whether the secret of an effective trade war was to force the enemy into restructuring its trade permanently. 
+We consider the structure of trade in terms of goods, trade partners and French custom regions. 
 
-Because direct destruction was rare and ransoming was limited, the overall value of prizes captured by the British navy and privateers provides a good measure of the pressure war-time predation exerted on trade.
-From \cite{Hillmann2011} we get an estimate of about 11.5\% of French merchant ships intercepted by British privateers, for a total of 4 percent of the value of French overseas trade during the War of Austrian Succession, the Seven Years War and the War of American Independence.
-Thanks to additional data provided by Henning Hillmann (These data come mainly from records at the PRO High Court of the Admiralty archives and underlying \cite{Hillmann2011}) we can compute approximately the number and the nationality of prizes captured by privateers up to 1809.
-For prizes captured by the British navy, we use data from \cite{Starkey1990} and \cite{Benjamin2009}. 
-The former provides the number of prizes condemned as legal by the High Court of the Admiralty in London, both from privateers and the Royal Navy from 1702 to 1785, while the latter provides the annual number of prizes taken by the Royal Navy from 1793 to 1815 from the sample gathered, but not published, by \cite{Hill1998}.
-Data from these sources are summarised in figure \ref{Prizes}.
+In terms of the former, we use an adapted version of the SITC classification, which is reported in table \ref{tab:class_sitc18} in the appendix.\footnote{More on how this SITC18 classification is defined is available \href{http://toflit18.medialab.sciences-po.fr/\#/home}{here}} As per what concerns trade partners, we have grouped countries into 9 different destinations, which are reported in table \ref{tab:class_pays7}, also in appendix. Finally, for French custom regions we consider all the XX ports the goods were shipped from, which we also report in appendix in table XX. 
+\todo[inline, color =YellowGreen]{I wanted to make a clarifying table -- 18 see table 18}
 
-The share of privateering activity was very significant until the War of American Independence but became marginal during the Revolutionary \& Napoleonic Wars.
-According to \cite{Hillmann2011}, this can be explained by the development of other war-time trade profit opportunities that made privateering a less interesting alternative for British merchants.
-The total number of prizes however, remained high until 1813, suggesting that the British navy compensated for the lack of privateers actions and kept the threat of predation high.
-In 1813 the total number of prizes declines abruptly.
-This does not necessarily mean that probability of capture became smaller but could be due to a smaller number of French ships sailing altogether. 
-Another measure of the pressure British exercised on French trade comes from English and British trade statistics on the value of prize goods imported in Great Britain up to 1800 (see figure \ref{Prize goods imports}).
-Unfortunately we could not gather data on the Blockade period.
-Still, the numbers are very telling, especially when we look at the value of prizes as shares of total trade.
-In fact, at its peak, the value of prizes captured gets to 10\% of the value of total French trade. 
-What's more, this happens during the War of American Independence, while during the Revolutionary War it gets as low as 3\%.
-As for the other war-time strategies we perform a regression on the loss function of the following covariates; prizes imports, number of prizes and number of privateer's prizes. 
-In the linear regression specification we rescale the covariates to their maximum level, in order to ease their interpretation. 
-It has to be noted here that the number of observations for prizes imports is very little (20 or 36, depending on whether we use the running sum) and therefore the estimates cannot be accurate. The coefficients for the linear regression in fact are not significant, except for the all-year and running sum case, where it is significant but negative (i.e. prizes import increase and the loss decrease, which is quite counter-intuitive). The R squared however never goes above 5 percent. The same happens with semi-elasticities, with the only significant coefficient being for all years and running sum and again negative. Again the R squared is quite low (at most 11 percent). As per what concerns number of prizes, coefficients in the linear specification are positive and significant except for the all-years running sum case. They vary substantially across specifications, ranging from 6 to 16 percent (so for a percentage point increase in number of prizes with respect to their maximum level there is an increase of 6 to 16 percentage points for the loss function). The R squared is also higher, between 20 and 40 percent. In the log-specification the picture change quite substantially. The coefficient range from 0.8 percent to 11 percent and R square is also between 5 and 40 percent. Finally, the regression on privateers' prizes is the most counter-intuitive. The coefficients are all very significant and all negative, which would imply privateer's action increase trade. This is true for all specifications with an R squared between 16 and 40 percent. We cannot really explain this result. 
+We test this hypothesis using different linear regressions of a loss function on the share of trade of each of these categories, i.e. SITC, trade partners and French trade regions.
+We run individual regressions because of collinearity of the explanatory variables (which are share, therefore highly correlated) and the little number of observations, which compromises the individual estimation of each coefficient.
+Tables \ref{Individual_regressions_sector_exports} and \ref{Individual_regressions_sector_imports} show that, even when controlling for a time trend and the contemporaneous effect of war, the changing level of total French trade losses is associated with changes in the industrial structure of trade: reduction in the export share of plantation foodstuffs, crude materials and increase in the export share of leather, wood and paper products, wool and silk threads and fabrics, and other industrial products).
+Changes in the import structure are less clear, but again higher losses are associated with higher share of leather, wood and paper products and wool and silk threads and fabrics and other industrial products and lower imports of cotton threads and fabrics.
+This does not establish causality. Yet, the most plausible channel explaining these findings is that ``successful'' wars (from the British point of view) forced the structure of French trade to adapt.
+These adaptations were difficult to reverse after the wars and French trade was durably locked into a less dynamic structure.
 
+Tables \ref{Individual_regressions_partner_exports} and \ref{Individual_regressions_partner_imports} show similar changes in the partner share of French trade.
+The share of exports to Germany, Switzerland, Spain and Portugal increased when French trade was reduced, as the share of imports from Spain, Portugal and Italy. 
+Again, this suggests that wars forced French trade to develop its links with close eastern and southern neighbours, further away from the British influence.
+
+Tables \ref{Individual_regressions_region_exports} and \ref{Individual_regressions_region_imports} show similar changes in the regional share of French trade up to 1789.
+Even if the pattern is clearer for imports than for exports, it seems that landlocked regions (Bourgogne, Châlons, Lyon and Saint-Quentin), secondary coastal regions (Amiens, Bayonne, Caen and Rennes), and Marseille have a larger share of trade when French trade is reduced.
+While large Atlantic ports (Bordeaux and Nantes) have a smaller share of trade.
 
 \section{Can we do a cost-benefit analysis?}
 \todo[inline, color=RoyalBlue]{Discuss political cost of Neutral policy (Spain 1760, US 1812, League of armed Neutralty)}
@@ -448,30 +465,6 @@ Figure \ref{Expenditures} presents these data. Except for the War of the America
 Figure \ref{Ratio_BR_Expenditures} compares the cumulative British expenditures and French losses. A value less than one means that the war on trade is costing more resources to the British than to the French (neglecting the value of French prizes). 
 The result depends on the hypothesis one makes about the existence of alternative employment opportunities for French production factors pushed out of trade. The ``no alternative occupation'' hypothesis is the most favourable to the trade war policy, as it assumes that French labour and French capital invested in trade just become unemployed when trade is reduced: hence French income losses are 35\% of French trade losses. The ``alternative occupation''' hypothesis is probably more reasonable and assumes that French labour and capital find alternative, less remunerating, employment: hence French income losses are 14\% of French trade losses.
 
-
-
-\section{Peace-time consequences} \label{sec:empirical_analysis}
-
-In this section we exploit statistical tools to investigate whether the secret of an effective trade war was to force the enemy into restructuring its trade permanently. 
-We consider the structure of trade in terms of goods, trade partners and French custom regions. 
-
-In terms of the former, we use an adapted version of the SITC classification, which is reported in table \ref{tab:class_sitc18} in the appendix.\footnote{More on how this SITC18 classification is defined is available \href{http://toflit18.medialab.sciences-po.fr/\#/home}{here}} As per what concerns trade partners, we have grouped countries into 9 different destinations, which are reported in table \ref{tab:class_pays7}, also in appendix. Finally, for French custom regions we consider all the XX ports the goods were shipped from, which we also report in appendix in table XX. 
-\todo[inline, color =YellowGreen]{I wanted to make a clarifying table -- 18 see table 18}
-
-We test this hypothesis using different linear regressions of a loss function on the share of trade of each of these categories, i.e. SITC, trade partners and French trade regions.
-We run individual regressions because of collinearity of the explanatory variables (which are share, therefore highly correlated) and the little number of observations, which compromises the individual estimation of each coefficient.
-Tables \ref{Individual_regressions_sector_exports} and \ref{Individual_regressions_sector_imports} show that, even when controlling for a time trend and the contemporaneous effect of war, the changing level of total French trade losses is associated with changes in the industrial structure of trade: reduction in the export share of plantation foodstuffs, crude materials and increase in the export share of leather, wood and paper products, wool and silk threads and fabrics, and other industrial products).
-Changes in the import structure are less clear, but again higher losses are associated with higher share of leather, wood and paper products and wool and silk threads and fabrics and other industrial products and lower imports of cotton threads and fabrics.
-This does not establish causality. Yet, the most plausible channel explaining these findings is that ``successful'' wars (from the British point of view) forced the structure of French trade to adapt.
-These adaptations were difficult to reverse after the wars and French trade was durably locked into a less dynamic structure.
-
-Tables \ref{Individual_regressions_partner_exports} and \ref{Individual_regressions_partner_imports} show similar changes in the partner share of French trade.
-The share of exports to Germany, Switzerland, Spain and Portugal increased when French trade was reduced, as the share of imports from Spain, Portugal and Italy. 
-Again, this suggests that wars forced French trade to develop its links with close eastern and southern neighbours, further away from the British influence.
-
-Tables \ref{Individual_regressions_region_exports} and \ref{Individual_regressions_region_imports} show similar changes in the regional share of French trade up to 1789.
-Even if the pattern is clearer for imports than for exports, it seems that landlocked regions (Bourgogne, Châlons, Lyon and Saint-Quentin), secondary coastal regions (Amiens, Bayonne, Caen and Rennes), and Marseille have a larger share of trade when French trade is reduced.
-While large Atlantic ports (Bordeaux and Nantes) have a smaller share of trade.
 
 \section{Conclusion} \label{conclusion}
 In this paper we have analysed the effects of different conflicts on French trade in the eighteenth century.
