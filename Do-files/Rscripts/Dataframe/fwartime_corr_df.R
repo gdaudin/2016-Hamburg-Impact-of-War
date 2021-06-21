@@ -21,9 +21,9 @@ fwartime_corr_df = function(fwar_strat, findep, fonlywar, frunning_sum, flog_max
     if(fonlywar==1) fDwar_strat = fwar_strat[fwar_strat$war==1,]
     fDwar_strat$Dfindep = fDwar_strat$findep
   }else{
-    fwar_strat$findep = ifelse(is.na(fwar_strat$findep), 0, fwar_strat$findep)
+    fwar_strat$findep = ifelse((is.na(fwar_strat$findep)) & (fwar_strat$war == 0), 0, fwar_strat$findep)
     fwar_strat = setDT(fwar_strat)
-    fDwar_strat = fwar_strat[,Dfindep:=sapply(1:.N,function(k) sum(0.9**(k-1:k)*head(findep,k)))]
+    fDwar_strat = fwar_strat[,Dfindep:=sapply(1:.N,function(k) sum(0.9**(k-1:k)*head(findep,k), na.rm = TRUE))]
     if(flog_max=="log") fDwar_strat$Dfindep = log(fDwar_strat$Dfindep)
     if(fonlywar==1) fDwar_strat = fwar_strat[fwar_strat$war==1,]
   }

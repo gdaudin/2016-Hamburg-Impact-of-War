@@ -101,7 +101,7 @@ max_wartime_nosum_mreg = data.frame(
   allyandneutral_vs_foe = fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[2]], 
   battle_dummy = fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[2]]
 )
-m = lm(loss~prizes_import + num_prizes+num_prizes_priv+colonial_empire+
+m = lm(loss~ num_prizes+num_prizes_priv+colonial_empire+
          France_vs_GB+ally_vs_foe+allyandneutral_vs_foe + battle_dummy,
        data = max_wartime_nosum_mreg)
 stargazer(fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[3]],
@@ -153,7 +153,7 @@ max_wartime_sum_mreg = data.frame(
   allyandneutral_vs_foe = fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[2]], 
   battle_dummy = fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[2]]
 )
-m = lm(loss~prizes_import + num_prizes+num_prizes_priv+colonial_empire+
+m = lm(loss~ num_prizes+num_prizes_priv+colonial_empire+
          France_vs_GB+ally_vs_foe+allyandneutral_vs_foe + battle_dummy,
        data = max_wartime_sum_mreg)
 stargazer(fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[3]],
@@ -202,7 +202,7 @@ max_peacewartime_sum_mreg = data.frame(
   allyandneutral_vs_foe = fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[2]], 
   battle_dummy = fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[2]]
 )
-m = lm(loss~prizes_import + num_prizes+num_prizes_priv+colonial_empire+
+m = lm(loss~ num_prizes+num_prizes_priv+colonial_empire+
          France_vs_GB+ally_vs_foe+allyandneutral_vs_foe + battle_dummy,
        data = max_peacewartime_sum_mreg)
 stargazer(fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[3]],
@@ -255,7 +255,7 @@ log_wartime_nosum_mreg = data.frame(
   allyandneutral_vs_foe = fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[2]], 
   battle_dummy = fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[2]]
 )
-m = lm(loss~prizes_import + num_prizes+num_prizes_priv+colonial_empire+
+m = lm(loss~ num_prizes+num_prizes_priv+colonial_empire+
          France_vs_GB+ally_vs_foe+allyandneutral_vs_foe+ battle_dummy,
        data = log_wartime_nosum_mreg)
 stargazer(fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[3]],
@@ -304,7 +304,7 @@ log_wartime_sum_mreg = data.frame(
   allyandneutral_vs_foe = fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[2]], 
   battle_dummy = fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[2]]
 )
-m = lm(loss~prizes_import + num_prizes+num_prizes_priv+colonial_empire+
+m = lm(loss~num_prizes+num_prizes_priv+colonial_empire+
          France_vs_GB+ally_vs_foe+allyandneutral_vs_foe+battle_dummy,
        data = log_wartime_sum_mreg)
 stargazer(fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[3]],
@@ -355,7 +355,7 @@ log_peacewartime_sum_mreg = data.frame(
   allyandneutral_vs_foe = fwartime_corr_df(war_strat, "allyandneutral_vs_foe",onlywar,running_sum, log_max)[[2]], 
   battle_dummy = fwartime_corr_df(war_strat, "battle_dummy",onlywar,running_sum, "max")[[2]]
 )
-m = lm(loss~prizes_import + num_prizes+num_prizes_priv+colonial_empire+
+m = lm(loss~ num_prizes+num_prizes_priv+colonial_empire+
          France_vs_GB+ally_vs_foe+allyandneutral_vs_foe+battle_dummy,
        data = log_peacewartime_sum_mreg)
 stargazer(fwartime_corr_df(war_strat, "prizes_import",onlywar,running_sum, log_max)[[3]],
