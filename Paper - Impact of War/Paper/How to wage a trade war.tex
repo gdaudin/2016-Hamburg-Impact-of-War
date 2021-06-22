@@ -222,16 +222,23 @@ we define a loss function that quantifies the disruption in French trade due to 
 
 %\subsection{Loss function}
 \label{sec:loss}
-In the preceding section we explained the main tools used to hinder the enemy's trade in war time. We provide here our approximate measure of loss for French trade. Our data come from the \textit{Bureau de la Balance du Commerce}.\footnote{see appendix \ref{sec:dataset} for more detail on the data} We construct the loss function as the difference between predicted trade value in the absence of war and the actual value of trade, divided by the predicted trade value:
+In the preceding section we explained the main tools used to hinder the enemy's trade in war time. We provide here our approximate measure of loss for French trade.
+Our data on French trade come from the \textit{Bureau de la Balance du Commerce} through the TOFLIT18 project (see appendix \ref{sec:dataset}).
+We construct the loss function as the difference between predicted trade value in the absence of war and the actual value of trade, divided by the predicted trade value:
 \begin{equation}
 \label{eqn:loss}
 \text{Loss} = \frac{\text{Expected value based on past peace trend - Observed value}}{\text{Expected value based on past peace trend}}
 \end{equation}
 Figure \ref{fig:mean_annual_loss} shows the annual loss function and the mean loss function by peace and war period for France. 
 The green line shows observed trade versus trade predicted based on all preceding peace periods, whereas the yellow line shows the comparison with the prediction based one preceding peace period only (``memoryless loss'').\footnote{We exclude 1792 from the computation of peace time trends when we take into account only the preceding peace period. Its value, in an era of inflation, is doubtful and there are very limited peace years with data available from 1784 to 1792: only 4 (including 1792). Including it increases the past peace time trend for the pre-1815 period from 1.4 p.c. to 2.9 p.c. Including it does not change much when computing the peace trend based on all past peace periods: it stays at 2.65 p.c.)}
-This graph suggests that the most successful wars from the point of view of Britain were the Revolutionary \& Napoleonic War and the Seven Years War.
+Other events than war could have affected French trade, notably the political upheavals linked to the French Revolution. 
+Though wars were such massive events that so obviously affected French trade that the existence of a causal effect of wars on these trend deviations is quite plausible.
+Anyway, disentangling the effects of war from the effects of the Revolution is probably impossible \citep{Charles2021}).
+The same issue would apply to other periods where the evolution of French trade is multicausal.
+For this reason, even if causality is not rigorously proven, we will use the language of causality in the rest of the paper .
+Figure \ref{fig:mean_annual_loss} suggests that the most successful wars from the point of view of Britain were the Revolutionary \& Napoleonic War and the Seven Years War.
 The loss function is substantially higher during these conflicts (more than 40\% and 60\% respectively for loss and memoryless loss respectively) than during the Austrian Succession War and the American Revolutionary War (respectively 20\% and 30\%).
-Furthermore, for the Revolutionary \& Napoleonic War and the Seven Years War, the loss stays positive also after the end of the conflicts, meaning the effects were long lasting, whereas it becomes negative after the Austrian Succession War and the American Revolutionary War. This implies that the disruption of French trade lasted through peacetime for these two wars. The right-hand panel in this figure reaffirms the point. We observe, in fact, that post-Seven Years War loss (during peace) is roughly comparable to the war-time loss during the American Revolutionary War altogether.
+Furthermore, for the Revolutionary \& Napoleonic War and the Seven Years War, the loss stays positive also after the end of the conflicts, meaning the effects were long lasting, whereas it becomes negative after the Austrian Succession War and the American Revolutionary War. This implies that the disruption of French trade lasted through peacetime for the Revolutionary \& Napoleonic War and the Seven Years War. The right-hand panel in this figure reaffirms the point. We observe, in fact, that post-Seven Years War loss (during peace) is roughly comparable to the war-time loss during the American Revolutionary War altogether.
 Though approximate, this loss function gives a first idea of the question we want to answer in this paper. Certain wars were more disruptive than other, as the loss function shows. What we intend to do in the rest of the paper is to find the best explanation that matches the trend of the loss function. \\ 
 For the sake of comparison, we also compute the loss function for Great Britain (figure \ref{fig:GBmean_annual_loss}). We observe here that losses are much less significant than for France for the overall period. In particular, the loss function is negative - which suggests an increased trade with respect to peace time - between 1756 and 1778 and after 1781 - at least while using all past period to predict the trend. \\
 Altogether the loss function for the two countries suggests that Britain was not systemically successful in curtailing French trade, however British trade was never as affected by wars in general.  
@@ -419,6 +426,30 @@ They did so to the extent that, even when peace was restored, French trade could
 
  
 
+\section{Can we do a cost-benefit analysis?}
+\todo[inline, color=RoyalBlue]{Discuss political cost of Neutral policy (Spain 1760, US 1812, League of armed Neutralty)}
+\label{sec:cost_benefit}
+In a cost-benefit analysis of the efficiency of the British war on French trade, the reduction of French trade would be a good place to start. 
+The cost for the French economy however cannot be identified to lost trade per-se.
+It is rather the loss of economic activity entailed by the reduction in trade.
+What were the decrease in wages and profits, both for French actors of trade and French producer?
+This is a tricky question.
+\cite{Daudin2005} (p. 408) evaluate the income of French actor at 38.5\% of the value of intercontinental trade (i.e. trade with Africa, America and Asia, minus Mediterranean trade) and 27.5-35\% of the total value of trade.
+Intercontinental trade was more affected by the British war on French trade, so maybe we should favour the higher estimate (35\%).
+Of course, at least part of the workers, entrepreneurs and capital could find alternative use and did not stand completely idle after the reduction of trade. 
+\cite{Daudin2005}, p. 421, estimate the net loss was 40\% of the value of the production, or 14\% of the value of trade (i.e. 0.4x0.35 = 0.14). 
+To put it in another way, a 100 livres tournois decline in the value of French trade forced workers, entrepreneurs, capitalists earning 35 livres tournois to find another employment for their labour and their capital. This other occupation only yielded an income of 21 livres tournois (35x(1-0.4) = 21).
+Hence a decline of 100 livres tournois in French trade induced a loss of 14 livres tournois for French GDP (21-35 = -14). 
+
+This number is highly uncertain. \cite{Daudin2005} argues we should take into account the dynamic effect of this income loss through lost savings and investments. 
+This means that we can include in French losses also the expenditures on military Navy, - as one of its main goal was to protect trade\footnote{See appendix \ref{french_budget}} - and the destruction or capture of French ships. This is tentatively possible thanks to information on French prizes captured both by the British Navy and British privateers, discussed in section \ref{sec:DestructionofFrenchshipping}.
+
+Finally, we are left to estimate the amount paid by the British to reduce French trade. Again, that is probably not possible to compute. A good place to start, though, is the budget of the British Navy. \cite{mitchell1988}, pp. 570-587, provides the net expenditures up to 1801 (1800 is incomplete) and the gross ones from 1802.
+Figure \ref{Expenditures} presents these data. Except for the War of the American Independence, the French Navy budget was always smaller than the British one. The total value of prizes was rather small, except during the early Seven Years War.\footnote{Prizes are pretty important in the cost/benefit analysis during the Seven Years War, partly because of the success of the British predation of French trade before the official declaration of war, but they loose their importance in the latter part of the period.}
+Figure \ref{Ratio_BR_Expenditures} compares the cumulative British expenditures and French losses. A value less than one means that the war on trade is costing more resources to the British than to the French (neglecting the value of French prizes). 
+The result depends on the hypothesis one makes about the existence of alternative employment opportunities for French production factors pushed out of trade. The ``no alternative occupation'' hypothesis is the most favourable to the trade war policy, as it assumes that French labour and French capital invested in trade just become unemployed when trade is reduced: hence French income losses are 35\% of French trade losses. The ``alternative occupation''' hypothesis is probably more reasonable and assumes that French labour and capital find alternative, less remunerating, employment: hence French income losses are 14\% of French trade losses.
+
+
 \section{Peace-time consequences} \label{sec:empirical_analysis}
 
 In this section we exploit statistical tools to investigate whether the secret of an effective trade war was to force the enemy into restructuring its trade permanently. 
@@ -442,28 +473,6 @@ Tables \ref{Individual_regressions_region_exports} and \ref{Individual_regressio
 Even if the pattern is clearer for imports than for exports, it seems that landlocked regions (Bourgogne, Châlons, Lyon and Saint-Quentin), secondary coastal regions (Amiens, Bayonne, Caen and Rennes), and Marseille have a larger share of trade when French trade is reduced.
 While large Atlantic ports (Bordeaux and Nantes) have a smaller share of trade.
 
-\section{Can we do a cost-benefit analysis?}
-\todo[inline, color=RoyalBlue]{Discuss political cost of Neutral policy (Spain 1760, US 1812, League of armed Neutralty)}
-\label{sec:cost_benefit}
-In a cost-benefit analysis of the efficiency of the British war on French trade, the reduction of French trade would be a good place to start. 
-The cost for the French economy however cannot be identified to lost trade per-se.
-It is rather the loss of economic activity entailed by the reduction in trade.
-What were the decrease in wages and profits, both for French actors of trade and French producer?
-This is a tricky question.
-\cite{Daudin2005} (p. 408) evaluate the income of French actor at 38.5\% of the value of intercontinental trade (i.e. trade with Africa, America and Asia, minus Mediterranean trade) and 27.5-35\% of the total value of trade.
-Intercontinental trade was more affected by the British war on French trade, so maybe we should favour the higher estimate (35\%).
-Of course, at least part of the workers, entrepreneurs and capital could find alternative use and did not stand completely idle after the reduction of trade. 
-\cite{Daudin2005}, p. 421, estimate the net loss was 40\% of the value of the production, or 14\% of the value of trade (i.e. 0.4x0.35 = 0.14). 
-To put it in another way, a 100 livres tournois decline in the value of French trade forced workers, entrepreneurs, capitalists earning 35 livres tournois to find another employment for their labour and their capital. This other occupation only yielded an income of 21 livres tournois (35x(1-0.4) = 21).
-Hence a decline of 100 livres tournois in French trade induced a loss of 14 livres tournois for French GDP (21-35 = -14). 
-
-This number is highly uncertain. \cite{Daudin2005} argues we should take into account the dynamic effect of this income loss through lost savings and investments. 
-This means that we can include in French losses also the expenditures on military Navy, - as one of its main goal was to protect trade\footnote{See appendix \ref{french_budget}} - and the destruction or capture of French ships. This is tentatively possible thanks to information on French prizes captured both by the British Navy and British privateers, discussed in section \ref{sec:DestructionofFrenchshipping}.
-
-Finally, we are left to estimate the amount paid by the British to reduce French trade. Again, that is probably not possible to compute. A good place to start, though, is the budget of the British Navy. \cite{mitchell1988}, pp. 570-587, provides the net expenditures up to 1801 (1800 is incomplete) and the gross ones from 1802.
-Figure \ref{Expenditures} presents these data. Except for the War of the American Independence, the French Navy budget was always smaller than the British one. The total value of prizes was rather small, except during the early Seven Years War.\footnote{Prizes are pretty important in the cost/benefit analysis during the Seven Years War, partly because of the success of the British predation of French trade before the official declaration of war, but they loose their importance in the latter part of the period.}
-Figure \ref{Ratio_BR_Expenditures} compares the cumulative British expenditures and French losses. A value less than one means that the war on trade is costing more resources to the British than to the French (neglecting the value of French prizes). 
-The result depends on the hypothesis one makes about the existence of alternative employment opportunities for French production factors pushed out of trade. The ``no alternative occupation'' hypothesis is the most favourable to the trade war policy, as it assumes that French labour and French capital invested in trade just become unemployed when trade is reduced: hence French income losses are 35\% of French trade losses. The ``alternative occupation''' hypothesis is probably more reasonable and assumes that French labour and capital find alternative, less remunerating, employment: hence French income losses are 14\% of French trade losses.
 
 
 \section{Conclusion} \label{conclusion}
