@@ -108,6 +108,13 @@ Germany and Japan transformed themselves into prosperous export powers a few dec
 Yet Britain seems to have achieved a long lasting change in relative economic fortune with its attacks on Dutch trade in the seventeenth century and on French trade in the long eighteenth century.
 These feats have inspired generations of naval strategists such as Mahan.
 How they were exactly achieved is not clear.
+Mahan believed in decisive battles and blockade conducted by capital ships.
+He was especially dismissive of direct attacks on enemy's trade.
+The French \textit{Jeune école} believed attack on trade could be efficient \cite{Aube1882}.
+These ideas would lead to the German U-boat strategy, for example.
+
+
+-----------
 \todo[inline, color = RoyalBlue]{Develop. Some say the "guerre d’escadre" was decisive, some say it was the "guerre de course". La guerre d’escadre n’a pas en tant que telle des effets directs sur le commerce. La guerre de course décline durant la période, ce qui suggère qu’elle n’a pas été décisive non plus. Le Blocus continental aussi a pu jouer un rôle ?}
 
 
@@ -217,14 +224,14 @@ We aim to show it was a difficult and costly endeavor; the key factor was not to
 \section{Measuring the achievements of trade wars}
 In this section
 %we start by providing a brief summary of the historical setting we are analysing. We give an overview of the standard practices in trade wars at the time, which we analyse more detail in section \ref{sec:wartime_strategies}. We then
-we define a loss function that quantifies the disruption in French trade due to wars. We reckon this is an approximate measure (see section \ref{sec:cost_benefit}) however it provides a first idea of which wars were more disruptive and the length of their effects. 
+we define a loss function that quantifies the disruption in French trade due to wars. We reckon this is an approximate measure (see section \ref{sec:cost_benefit}) however it provides at least an approximation of which wars were more disruptive and the length of their effects. 
 
 
 %\subsection{Loss function}
 \label{sec:loss}
 In the preceding section we explained the main tools used to hinder the enemy's trade in war time. We provide here our approximate measure of loss for French trade.
 Our data on French trade come from the \textit{Bureau de la Balance du Commerce} through the TOFLIT18 project (see appendix \ref{sec:dataset}).
-We construct the loss function as the difference between predicted trade value in the absence of war and the actual value of trade, divided by the predicted trade value:
+We construct the loss function as the difference between predicted trade value in the absence of war (assuming a geometric trend) and the actual value of trade, divided by the predicted trade value:
 \begin{equation}
 \label{eqn:loss}
 \text{Loss} = \frac{\text{Expected value based on past peace trend - Observed value}}{\text{Expected value based on past peace trend}}
@@ -238,19 +245,22 @@ The same issue would apply to other periods where the evolution of French trade 
 For this reason, even if causality is not rigorously proven, we will use the language of causality in the rest of the paper .
 Figure \ref{fig:mean_annual_loss} suggests that the most successful wars from the point of view of Britain were the Revolutionary \& Napoleonic War and the Seven Years War.
 The loss function is substantially higher during these conflicts (more than 40\% and 60\% respectively for loss and memoryless loss respectively) than during the Austrian Succession War and the American Revolutionary War (respectively 20\% and 30\%).
-Furthermore, for the Revolutionary \& Napoleonic War and the Seven Years War, the loss stays positive also after the end of the conflicts, meaning the effects were long lasting, whereas it becomes negative after the Austrian Succession War and the American Revolutionary War. This implies that the disruption of French trade lasted through peacetime for the Revolutionary \& Napoleonic War and the Seven Years War. The right-hand panel in this figure reaffirms the point. We observe, in fact, that post-Seven Years War loss (during peace) is roughly comparable to the war-time loss during the American Revolutionary War altogether.
-Though approximate, this loss function gives a first idea of the question we want to answer in this paper. Certain wars were more disruptive than other, as the loss function shows. What we intend to do in the rest of the paper is to find the best explanation that matches the trend of the loss function. \\ 
-For the sake of comparison, we also compute the loss function for Great Britain (figure \ref{fig:GBmean_annual_loss}). We observe here that losses are much less significant than for France for the overall period. In particular, the loss function is negative - which suggests an increased trade with respect to peace time - between 1756 and 1778 and after 1781 - at least while using all past period to predict the trend. \\
-Altogether the loss function for the two countries suggests that Britain was not systemically successful in curtailing French trade, however British trade was never as affected by wars in general.  
+Furthermore, the loss stays positive after the end of the the Revolutionary \& Napoleonic War and the Seven Years War, meaning their effects were long lasting, whereas it becomes negative after the Austrian Succession War and the American Revolutionary War.
+The right-hand panel in this figure reaffirms the point.
+We observe, in fact, that post-Seven Years War loss (during peace) is roughly comparable to the war-time loss during the American Revolutionary War altogether.
+Certain wars were more disruptive than other, as the loss function shows. What we intend to do in the rest of the paper is to find the best explanation that matches the trend of the loss function. \\ 
+For the sake of comparison, we also compute the loss function for Great Britain (figure \ref{fig:GBmean_annual_loss}).
+We observe here that losses are much less significant than for France for the overall period. In particular, the loss function is negative - which suggests war increased trade compared to peace time - between 1756 and 1778 and after 1781 - at least while using all past period to predict the trend. \\
+Altogether the loss function for the two countries suggests that British trade was not negatively affected by wars and that Britain was always successful at curtailing French trade during wars and sometimes even after the war.  
 
 \section{War-time strategies to fight enemy's trade}
 \label{sec:wartime_strategies}
-\todo[inline, color = NavyBlue]{Mahan believed in decisive battles and Blockade, not in the attack of enemy's trade. The \textit{Jeune école} believed attack on trade could be efficient (e.g. U-boats)}
-In trade wars, many were the strategies implemented to disrupt the enemy's trade. For this paper, we have gathered data on the most common techniques adopted and we provide here a quantification of their effect. 
-We do so by creating a measure from the data and by linking it to the loss function, as constructed in section \ref{sec:loss}. 
+
+We look at what Britain did during the eighteenth-century and provide a quantification of the effect of the different tools it used by linking it to the loss function, as constructed in section \ref{sec:loss}. 
+We examine in detail the following four aspects of British strategy, moving from Mahan to the \textit{Jeune école}, as it were : 1) ship building and alliance making 2) capture of colonies 3) predation on French shipping. We also analyse the case of predation on neutral shipping, however we could not create a measure reliable enough to run a regression.
 We run six different univariate regressions for each strategy and one multivariate regression including all strategies. We first consider a linear model for war years only, then we do so considering discounted running sum\footnote{the discounted running sum is defined as $\sum_{t=1}^N value*e^{N-t}$} and finally we compute discounted sums for all years. We repeat this exercise in log, therefore estimating semi-elasticities. 
 %We aim to identify the channels used by the British to disrupt French trade and disentangle their success. In order to do so, we create a quantitative measure, to assess their efficacy and compare it more easily to the loss function.
-We examine in detail the following four possible strategies: 1) ship building and alliance making 2) capture of colonies 3) predation on French shipping. We also analyse the case of predation on neutral shipping, however we could not create a measure reliable enough to run a regression. 
+ 
 
 \subsection{Ship building and alliance making}
 British ships were doing the concrete activity of blockading French ports and capturing French ships.
@@ -336,20 +346,20 @@ According to \cite{Hillmann2011}, this can be explained by the development of ot
 The total number of prizes however, remained high until 1813, suggesting that the British navy compensated for the lack of privateers actions and kept the threat of predation high.
 In 1813 the total number of prizes declines abruptly.
 This does not necessarily mean that probability of capture became smaller but could be due to a smaller number of French ships sailing altogether. 
+
 Another measure of the pressure British exercised on French trade comes from English and British trade statistics on the value of prize goods imported in Great Britain up to 1800 (see figure \ref{Prize goods imports}).
 Unfortunately we could not gather data on the Blockade period.
 Still, the numbers are very telling, especially when we look at the value of prizes as shares of total trade.
 In fact, at its peak, the value of prizes captured gets to 10\% of the value of total French trade. 
 What's more, this happens during the War of American Independence, while during the Revolutionary War it gets as low as 3\%.
+
 As for the other war-time strategies we perform a regression on the loss function of the following covariates; prizes imports, number of prizes and number of privateer's prizes. 
 In the linear regression specification we rescale the covariates to their maximum level, in order to ease their interpretation. 
 It has to be noted here that the number of observations for prizes imports is very little (20 or 36, depending on whether we use the running sum) and therefore the estimates cannot be accurate. The coefficients for the linear regression in fact are not significant, except for the all-year and running sum case, where it is significant but negative (i.e. prizes import increase and the loss decrease, which is quite counter-intuitive). The R squared however never goes above 5 percent. The same happens with semi-elasticities, with the only significant coefficient being for all years and running sum and again negative. Again the R squared is quite low (at most 11 percent). As per what concerns number of prizes, coefficients in the linear specification are positive and significant except for the all-years running sum case. They vary substantially across specifications, ranging from 6 to 16 percent (so for a percentage point increase in number of prizes with respect to their maximum level there is an increase of 6 to 16 percentage points for the loss function). The R squared is also higher, between 20 and 40 percent. In the log-specification the picture change quite substantially. The coefficient range from 0.8 percent to 11 percent and R square is also between 5 and 40 percent. Finally, the regression on privateers' prizes is the most counter-intuitive. The coefficients are all very significant and all negative, which would imply privateer's action increase trade. This is true for all specifications with an R squared between 16 and 40 percent. We cannot really explain this result.
 
-\subsection{Historical background}
-\label{sec:historical_background}
-The eighteen century was a period of ``eternal wars''. Two out of three years experienced a conflict and the main protagonists were always the French and the British. 
-A priori, the Anglo-French Wars were destructive for trade. 
-Both sides used ``direct'' and ``indirect'' means to capture or destroy their enemy's merchant shipping. In fact, along with deploying the navy for this purpose, they were also allowing predation by private actors called privateers. 
+-------------------------------------------------
+Move up, along with the beginning of 3.3 ?
+----------
 These actors could either be private men-of-war, whose main aim was the capture of ships, or merchant vessels, that would have been happy to capture enemy ships if the occasion were to arise.
 The role of privateers depended on the attractiveness of alternative profit-making activities \citep[p. 673]{Villiers2002,Hillmann2011} - i.e. on the degree to which regular trade was endangered  - but their impact on the French merchant fleet was especially strong during the War of American Independence (see table 1 ``Impact of British privateering on French trade'' in \cite{Hillmann2011},
 Figure \ref{Prizes} and Figure \ref{Prize goods imports}).
