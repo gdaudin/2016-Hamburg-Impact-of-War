@@ -258,9 +258,66 @@ Altogether the loss function for the two countries suggests that British trade w
 \section{War-time strategies}
 \label{sec:wartime_strategies}
 
+How did Britain curtail French trade in war time ?
+Most of French international trade was conducted by sea (see Figure \ref{share_by_sea}).
+Reducing French trade could thus be done either by intercepting trade-carrying vessels or discouraging them.
+Both actions were complementary, as systematic interception would discourage trade. 
+In this section, we study how interception was done, what counter-measures were implemented by the French and what ressources Britain deployed in response.
+Along the way, we study the quantitative link between the the loss function of French trade and these measures, counter-measures and further responses.
+
+\subsection{Interception of French trade}
+
+The interception of French trade came from the activities of the British Navy and privateers, either private men-of-war, whose main aim was the capture of ships, or merchant vessels, that would have been happy to profit from enemy ships if the occasion were to arise.
+Both needed letters of marque procured by the State.
+Great Britain had three ways of directly affecting French sea trade: outright destruction of merchant vessels, ransoming, and prize taking.
+Direct destruction of merchant vessels by the British Navy and privateers was rare as it was not a gainful activity.
+Ransoming implied coercing a merchant vessel into paying a ransom to the privateer or the Navy ship.
+However, it left the door open to abuse.
+This induced the British government to limit it more and more drastically from 1744, and forbade it altogether by the time of American Revolutionary war \cite[see][p. 734]{Hillmann2011}.
+Prize taking was much easier to monitor by the British state.
+French vessels were threatened into submission.
+Once captured, the French vessel was brought back along with some members of its crew to a British port.
+The captors had to demonstrate ``the prize was lawful and the rights of neutral and allied ships engaged in legal trade had not been harmed'' \cite[see][p. 734]{Hillmann2011} in front of the High Court of Admiralty if the captor was a civilian ship.
+The procedure was different but similar for captures by the British Navy.
+This procedure led to a paper trail that deemed or not the prizes as ``fair''.
+
+Because direct destruction was rare and ransoming was limited, prizes captured by the British navy and privateers provides a good measure of the pressure war-time predation exerted on trade.
+English and British trade statistics provide the value of prize goods imported in Great Britain up to 1800 (see figure \ref{Prize goods imports}).
+Still, the numbers are very telling, especially when we look at the value of prizes as shares of total trade.
+In fact, at its peak, the value of prizes captured amounted to 10\% of the value of total French trade. 
+This happened during the War of American Independence, while during the Revolutionary War it gets as low as 3\%.
+These numbers are not given in post 1800 source.
+
+They can be complemented by indictations on the total value of captured ships given in the High Court of Admiralty. For example, the impact of privateering on the French merchant fleet was especially strong during the War of American Independence (see table 1 ``Impact of British privateering on French trade'' in \cite{Hillmann2011}, Figure \ref{Prizes} and Figure \ref{Prize goods imports}).
+\cite{Hillmann2011} estimates that about 11.5\% of French merchant ships were intercepted by British privateers, for a total of 4 percent of the value of French overseas trade during the War of Austrian Succession, the Seven Years War and the War of American Independence.
+Thanks to additional data provided by Henning Hillmann (These data come mainly from records at the PRO High Court of the Admiralty archives and underlying \cite{Hillmann2011}) we can compute approximately the number and the nationality of prizes captured by privateers up to 1809.
+The share of privateering activity was very significant until the War of American Independence but became marginal during the Revolutionary \& Napoleonic Wars.
+We need to complement data on prizes captured by privateers by data on the actions of the British Navy.
+We use data from \cite{Starkey1990} and \cite{Benjamin2009}. 
+The former provides the number of prizes condemned as legal by the High Court of the Admiralty in London, both from privateers and the Royal Navy from 1702 to 1785, while the latter provides the annual number of prizes taken by the Royal Navy from 1793 to 1815 from the sample gathered, but not published, by \cite{Hill1998}.
+Data from these sources are summarised in figure \ref{Prizes}.
+
+
+The role of privateers depended on the attractiveness of alternative profit-making activities \citep[p. 673]{Villiers2002,Hillmann2011} - i.e. on the degree to which regular trade was endangered  - but their
+According to \cite{Hillmann2011}, this can be explained by the development of other war-time trade profit opportunities that made privateering a less interesting alternative for British merchants.
+The total number of prizes however, remained high until 1813, suggesting that the British navy compensated for the lack of privateers actions and kept the threat of predation high.
+In 1813 the total number of prizes declines abruptly.
+This does not necessarily mean that probability of capture became smaller but could be due to a smaller number of French ships sailing altogether. 
+
+Together with the threat to cargo, captivity for sailors also represented a problem. Even though they were liberated at peace time (and sometime earlier through exchange of prisoners), mortality in British prisons was such that their capture represented a long-term loss for the French navy and merchant fleet \citep{LeGoff1998}. We have not found data on the total British captures.
+
+
+
+.....
+
+
+
+
 We look at what Britain did during the eighteenth-century and provide a quantification of the effect of the different tools it used by linking it to the loss function, as constructed in section \ref{sec:loss}. 
 We examine in detail the following four aspects of British strategy, moving from Mahan to the \textit{Jeune école}, as it were : 1) ship building and alliance making 2) capture of colonies 3) predation on French shipping. We also analyse the case of predation on neutral shipping, however we could not create a measure reliable enough to run a regression.
 We run six different univariate regressions for each strategy and one multivariate regression including all strategies. We first consider a linear model for war years only, then we do so considering discounted running sum\footnote{the discounted running sum is defined as $\sum_{t=1}^N value*e^{N-t}$} and finally we compute discounted sums for all years. We repeat this exercise in log, therefore estimating semi-elasticities. 
+
+
 %We aim to identify the channels used by the British to disrupt French trade and disentangle their success. In order to do so, we create a quantitative measure, to assess their efficacy and compare it more easily to the loss function.
  
 
@@ -315,45 +372,15 @@ The regressions in this case all show a negative and significant coefficient and
 Overall, for what our measures reveal so far, the extension of colonial empire was more decisive that the action of the British Navy. Still, the correlation between lost trade and lost colonies (which is the R square of the regression) is as high as one would expect.  
 
 \subsection{Predation on French shipping}\label{sec:DestructionofFrenchshipping}
-Most of French international trade was conducted by sea (see Figure \ref{share_by_sea}).
-Hence a direct way to affect French trade was to impair French sea trade.
-Great Britain had three ways of directly affecting French sea trade: outright destruction of merchant vessels, ransoming, and prize taking.\\
+
+
 The destruction of merchant vessels could be direct or indirect.
 Dangers linked to potential capture by the British led French merchant ships to take more navigational risks, such as sailing off-season to escape them.
 This was likely to lead to more shipwrecks due to weather or sailing through dangerous waters, which we define ``indirect'' way of destruction.
 We have little information on the size of this effects.
  \todo[inline, color = RoyalBlue]{use insurance rates in Ducoin ?}
-Direct destruction of merchant vessels by the British Navy and privateers was rare as it was not a gainful activity.
+ 
 
-Ransoming implied coercing a merchant vessel into paying a ransom to the privateer or the Navy ship.
-However, it left the door open to abuse.
-This induced the British government to limit it more and more drastically from 1744, and forbade it altogether by the time of American Revolutionary war \cite[see][p. 734]{Hillmann2011}.
-
-Prize taking was much easier to monitor by the British state.
-French vessels were threatened into submission.
-Once captured, the French vessel was brought back along with some members of its crew to a British port.
-The captors had to demonstrate ``the prize was lawful and the rights of neutral and allied ships engaged in legal trade had not been harmed'' \cite[see][p. 734]{Hillmann2011} in front of the High Court of Admiralty if the captor was a civilian ship.
-The procedure was different but similar for captures by the British Navy.
-This procedure led to a paper trail that deemed or not the prizes as ``fair''.
-
-Because direct destruction was rare and ransoming was limited, the overall value of prizes captured by the British navy and privateers provides a good measure of the pressure war-time predation exerted on trade.
-From \cite{Hillmann2011} we get an estimate of about 11.5\% of French merchant ships intercepted by British privateers, for a total of 4 percent of the value of French overseas trade during the War of Austrian Succession, the Seven Years War and the War of American Independence.
-Thanks to additional data provided by Henning Hillmann (These data come mainly from records at the PRO High Court of the Admiralty archives and underlying \cite{Hillmann2011}) we can compute approximately the number and the nationality of prizes captured by privateers up to 1809.
-For prizes captured by the British navy, we use data from \cite{Starkey1990} and \cite{Benjamin2009}. 
-The former provides the number of prizes condemned as legal by the High Court of the Admiralty in London, both from privateers and the Royal Navy from 1702 to 1785, while the latter provides the annual number of prizes taken by the Royal Navy from 1793 to 1815 from the sample gathered, but not published, by \cite{Hill1998}.
-Data from these sources are summarised in figure \ref{Prizes}.
-
-The share of privateering activity was very significant until the War of American Independence but became marginal during the Revolutionary \& Napoleonic Wars.
-According to \cite{Hillmann2011}, this can be explained by the development of other war-time trade profit opportunities that made privateering a less interesting alternative for British merchants.
-The total number of prizes however, remained high until 1813, suggesting that the British navy compensated for the lack of privateers actions and kept the threat of predation high.
-In 1813 the total number of prizes declines abruptly.
-This does not necessarily mean that probability of capture became smaller but could be due to a smaller number of French ships sailing altogether. 
-
-Another measure of the pressure British exercised on French trade comes from English and British trade statistics on the value of prize goods imported in Great Britain up to 1800 (see figure \ref{Prize goods imports}).
-Unfortunately we could not gather data on the Blockade period.
-Still, the numbers are very telling, especially when we look at the value of prizes as shares of total trade.
-In fact, at its peak, the value of prizes captured gets to 10\% of the value of total French trade. 
-What's more, this happens during the War of American Independence, while during the Revolutionary War it gets as low as 3\%.
 
 As for the other war-time strategies we perform a regression on the loss function of the following covariates; prizes imports, number of prizes and number of privateer's prizes. 
 In the linear regression specification we rescale the covariates to their maximum level, in order to ease their interpretation. 
@@ -362,10 +389,7 @@ It has to be noted here that the number of observations for prizes imports is ve
 -------------------------------------------------
 Move up, along with the beginning of 3.3 ?
 ----------
-These actors could either be private men-of-war, whose main aim was the capture of ships, or merchant vessels, that would have been happy to capture enemy ships if the occasion were to arise.
-The role of privateers depended on the attractiveness of alternative profit-making activities \citep[p. 673]{Villiers2002,Hillmann2011} - i.e. on the degree to which regular trade was endangered  - but their impact on the French merchant fleet was especially strong during the War of American Independence (see table 1 ``Impact of British privateering on French trade'' in \cite{Hillmann2011},
-Figure \ref{Prizes} and Figure \ref{Prize goods imports}).
-Together with the threat to cargo, captivity for sailors also represented a problem. Even though they were liberated at peace time (and sometime earlier through exchange of prisoners), mortality in British prisons was such that their capture represented a long-term loss for the French navy and merchant fleet \citep{LeGoff1998}.
+
 Clearly merchants were reticent to trade in these settings and a first solution was to rely on insurance. Forgone profits however could not be insured (\cite{Ducoin1993}, p 160, \cite{Villiers2002}, \cite{Butel1973}, p. 690-720) and sometimes insurance rates were increasing so much that shipping was discouraged altogether. 
 As a consequence, the standard response was ultimately, in the eighteenth century like in the twentieth century, to organize convoys protected by military warships \cite[p. 393, 407, 448, 641]{Villiers2002}. Despite the misgivings of merchants that saw their commercial liberty curtailed, convoys were a good solution, as long as the French navy was powerful enough to defend the merchants vessels. This, however, was no longer the case during the Seven Year War or the Revolution and Napoleonic Wars, as the British became better at organizing the blockade of French ports (more details on the British blockade is reported in appendix \ref{app:appendix_blockade}).
 Another solution was to rely on neutral shipping. Neutral carriers were somewhat protected from British predation on the sea and, when possible, French merchants hid their cargo ownership behind a neutral partner or moved to neutral countries and operated from there altogether \citep{Marzagalli2016}. This happened to the extent that historians have even reflected that war periods might have been necessary to the functioning of the \textit{Exclusif Colonial}, i.e. the theoretical monopoly of French merchants on French colonial trade \citep{Lespagnol1997, Morineau1997, Marzagalli2016}.\footnote{
