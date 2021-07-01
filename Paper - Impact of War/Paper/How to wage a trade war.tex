@@ -298,27 +298,91 @@ The former provides the number of prizes condemned as legal by the High Court of
 Data from these sources are summarised in figure \ref{Prizes}.
 
 
-The role of privateers depended on the attractiveness of alternative profit-making activities \citep[p. 673]{Villiers2002,Hillmann2011} - i.e. on the degree to which regular trade was endangered  - but their
-According to \cite{Hillmann2011}, this can be explained by the development of other war-time trade profit opportunities that made privateering a less interesting alternative for British merchants.
+
+
+Together with the threat to cargo and ship, captivity for sailors also represented a problem. Even though they were liberated at peace time (and sometime earlier through exchange of prisoners), mortality in British prisons was such that their capture represented a long-term loss for the French navy and merchant fleet \citep{LeGoff1998}. We have not found data on the total British captures.
+
+%We look at what Britain did during the eighteenth-century and provide a quantification of the effect of the different tools it used by linking it to the loss function, as constructed in section \ref{sec:loss}. 
+%We examine in detail the following four aspects of British strategy, moving from Mahan to the \textit{Jeune école}, as it were : 1) ship building and alliance making 2) capture of colonies 3) predation on French shipping. We also analyse the case of predation on neutral shipping, however we could not create a measure reliable enough to run a regression.
+
+Interception of French trade increases trade costs.
+This discouraged trade as these increases had to be absorbed by producers or passed on to consumer.
+Both options decreased the volume of trade and hence should have increased the loss function.
+
+To quantify the effect of the interception of trade, we estimate the following fours equations.
+%We run six different univariate regressions for each strategy and one multivariate regression including all strategies.
+We first consider a linear model for war years only, then we do so considering discounted running sum\footnote{the discounted running sum is defined as $\sum_{t=1}^N value*e^{N-t}$}. We repeat this exercise in log, therefore estimating semi-elasticities. 
+In the linear regression specification we rescale the covariates to their maximum level, in order to ease their interpretation. 
+
+\todo[inline, color = YellowGreen]{Write down the estimated four equations (just for war years))}
+
+We perform a regression on the loss function of the following explanatory variables; prizes imports, number of prizes and number of privateer's prizes. 
+
+There is no statistical link between prize imports and the French loss function. This is not very suprising, as many observations are missing for this variable (see column 1 in tables \ref{tab:max_wartime_nosum_mreg},  \ref{tab:max_wartime_sum_mreg}, \ref{tab:log_wartime_nosum_mreg} and   \ref{tab:log_wartime_sum_mreg}).
+
+\todo[inline, color = YellowGreen]{We should have only 20 years for the running sum regression on prizes imports}
+
+
+%It has to be noted here that the number of observations for prizes imports is very little (20 or 36, depending on whether we use the running sum) and therefore the estimates cannot be accurate. The coefficients for the linear regression in fact are not significant, except for the all-year and running sum case, where it is significant but negative (i.e. prizes import increase and the loss decrease, which is quite counter-intuitive). The R squared however never goes above 5 percent. The same happens with semi-elasticities, with the only significant coefficient being for all years and running sum and again negative. Again the R squared is quite low (at most 11 percent).
+
+
+Data on privateers prizes is much more abundant.
+Yet, we know that the British privateer activity depended on the attractiveness of alternative profit-making activities \citep[p. 673]{Villiers2002,Hillmann2011} - e.g. on the degree to which regular trade was endangered. That explains the sharp decline in privateer prizes after 1793, when French predation on British trade was strongly reduced.
+Privateering became relatively less less interesting for British merchants and investors.
 The total number of prizes however, remained high until 1813, suggesting that the British navy compensated for the lack of privateers actions and kept the threat of predation high.
-In 1813 the total number of prizes declines abruptly.
-This does not necessarily mean that probability of capture became smaller but could be due to a smaller number of French ships sailing altogether. 
-
-Together with the threat to cargo, captivity for sailors also represented a problem. Even though they were liberated at peace time (and sometime earlier through exchange of prisoners), mortality in British prisons was such that their capture represented a long-term loss for the French navy and merchant fleet \citep{LeGoff1998}. We have not found data on the total British captures.
-
+So this change in the variable was not linked to a change in the pressure applied on French shipping.
+Accordingly, column 3 in tables  \ref{tab:max_wartime_nosum_mreg},  \ref{tab:max_wartime_sum_mreg}, \ref{tab:log_wartime_nosum_mreg} and   \ref{tab:log_wartime_sum_mreg}  suggest that privateers prize-taking had a positive effect on French trade.
+This is easily explained : the decline of privateers coincided with the worst years for French trade.
 
 
-.....
+%Finally, the regression on privateers' prizes is the most counter-intuitive. The coefficients are all very significant and all negative, which would imply privateer's action increase trade. This is true for all specifications with an R squared between 16 and 40 percent. We cannot really explain this result.
 
 
+The total number of prizes is more promising, despite the fact that In 1813 the total number of prizes declines abruptly.
+This does not necessarily mean that probability of capture became smaller but could be due to a smaller number of French ships sailing altogether..
+The coefficients in the linear specifications are positive and significant (see column 2 in tables  \ref{tab:max_wartime_nosum_mreg} and  \ref{tab:max_wartime_sum_mreg}.
+%except for the all-years running sum case.
+They vary substantially across specifications, ranging from 6 to 16 percent (so for a percentage point increase in number of prizes with respect to their maximum level there is an increase of 6 to 16 percentage points for the loss function).
+\todo[inline, color = YellowGreen]{Really ? This seems way too large. Did you scale to 100 or to 1 ?}
+
+The R squared is also higher, between 20 and 40 percent.
+\todo[inline, color = YellowGreen]{I see 8 percents in table 8 ?}
+
+In the log-specification the picture change quite substantially (column 2 in tables \ref{tab:log_wartime_nosum_mreg} and \ref{tab:log_wartime_sum_mreg}).
+The coefficient range from 0.8 percent to 11 percent and R square is also between 5 and 40 percent.
+
+\todo[inline, color = YellowGreen]{I see 5 and 0.08. That is quite a large difference. Again, it does not seem plausible}
 
 
-We look at what Britain did during the eighteenth-century and provide a quantification of the effect of the different tools it used by linking it to the loss function, as constructed in section \ref{sec:loss}. 
-We examine in detail the following four aspects of British strategy, moving from Mahan to the \textit{Jeune école}, as it were : 1) ship building and alliance making 2) capture of colonies 3) predation on French shipping. We also analyse the case of predation on neutral shipping, however we could not create a measure reliable enough to run a regression.
-We run six different univariate regressions for each strategy and one multivariate regression including all strategies. We first consider a linear model for war years only, then we do so considering discounted running sum\footnote{the discounted running sum is defined as $\sum_{t=1}^N value*e^{N-t}$} and finally we compute discounted sums for all years. We repeat this exercise in log, therefore estimating semi-elasticities. 
+\todo[inline, color = YellowGreen]{Why not use the value of prizes ?}
 
 
 %We aim to identify the channels used by the British to disrupt French trade and disentangle their success. In order to do so, we create a quantitative measure, to assess their efficacy and compare it more easily to the loss function.
+ 
+ 
+ \subsection{French counter-measures}
+ 
+
+Large uncertainty on ships’ security increased trade costs.
+Merchants often increased their profit margins to justify the risk Still, that discouraged consumers and producers.
+To mitigate risk, outfitters relied on insurance.
+Ironically, the most advantageous market place for French merchants in that period often was London.
+As the British market for merchant ships became glutted because of the arrival of prizes, French shippers would buy them back with insurance money \citep[p. 55]{Tracy1991}. 
+This could only go so far.
+Forgone profits however could not be insured (\cite[p. 160]{Ducoin1993}, \cite{Villiers2002}, \citep[p. 690-720]{Butel1973}).
+Insurance is most efficient to mitigate idiosyncrazic.
+War and British predation was a "market risk", correlated  for all ships.
+As a result, Insurance rates often increased so much in war time that insurance became prohibitive and shipping was discouraged altogether.
+We do not know of any long-term series on insurance rates for French shipping that would allow to relate them with the evolution of French trade.
+Anyway, the British made insurance on ennemy vessel illegal in 1748 and from 1793 \citep[p.55]{Tracy1991}.
+
+
+ 
+ As a consequence, the standard response was ultimately, in the eighteenth century like in the twentieth century, to organize convoys protected by military warships \cite[p. 393, 407, 448, 641]{Villiers2002}. Despite the misgivings of merchants that saw their commercial liberty curtailed, convoys were a good solution, as long as the French navy was powerful enough to defend the merchants vessels. This, however, was no longer the case during the Seven Year War or the Revolution and Napoleonic Wars, as the British became better at organizing the blockade of French ports (more details on the British blockade is reported in appendix \ref{app:appendix_blockade}).
+ Another solution was to rely on neutral shipping. Neutral carriers were somewhat protected from British predation on the sea and, when possible, French merchants hid their cargo ownership behind a neutral partner or moved to neutral countries and operated from there altogether \citep{Marzagalli2016}. This happened to the extent that historians have even reflected that war periods might have been necessary to the functioning of the \textit{Exclusif Colonial}, i.e. the theoretical monopoly of French merchants on French colonial trade \citep{Lespagnol1997, Morineau1997, Marzagalli2016}.\footnote{
+ 	The argument rests on the large peace time trade imbalances between France and its Northern European clients for colonial goods that could have been balanced by large service income of Northern European merchants during war time as they, as neutrals, provided shipping and various trade services to the French empire. The quality of the available balance of payment data is not good enough to test that hypothesis. Along these lines, \cite{Juhasz2018} finds that regions of the French Empire which were protected from trade with the British during the Continental Blockade increased capacity in mechanized cotton spinning to a larger extent than regions which remained more exposed to trade.}
+ Again, this was a viable solution only as long as the British and the French accepted the possibility of the other benefiting from trade with neutral partners. This was no longer the case during the Seven Years War and the Continental Blockade, when more and more severe measure towards neutral countries were introduced. 
+ \todo[inline, color = NavyBlue]{What do we want to say with this section?}
  
 
 \subsection{Ship building and alliance making}
@@ -382,20 +446,13 @@ We have little information on the size of this effects.
  
 
 
-As for the other war-time strategies we perform a regression on the loss function of the following covariates; prizes imports, number of prizes and number of privateer's prizes. 
-In the linear regression specification we rescale the covariates to their maximum level, in order to ease their interpretation. 
-It has to be noted here that the number of observations for prizes imports is very little (20 or 36, depending on whether we use the running sum) and therefore the estimates cannot be accurate. The coefficients for the linear regression in fact are not significant, except for the all-year and running sum case, where it is significant but negative (i.e. prizes import increase and the loss decrease, which is quite counter-intuitive). The R squared however never goes above 5 percent. The same happens with semi-elasticities, with the only significant coefficient being for all years and running sum and again negative. Again the R squared is quite low (at most 11 percent). As per what concerns number of prizes, coefficients in the linear specification are positive and significant except for the all-years running sum case. They vary substantially across specifications, ranging from 6 to 16 percent (so for a percentage point increase in number of prizes with respect to their maximum level there is an increase of 6 to 16 percentage points for the loss function). The R squared is also higher, between 20 and 40 percent. In the log-specification the picture change quite substantially. The coefficient range from 0.8 percent to 11 percent and R square is also between 5 and 40 percent. Finally, the regression on privateers' prizes is the most counter-intuitive. The coefficients are all very significant and all negative, which would imply privateer's action increase trade. This is true for all specifications with an R squared between 16 and 40 percent. We cannot really explain this result.
+
 
 -------------------------------------------------
 Move up, along with the beginning of 3.3 ?
 ----------
 
-Clearly merchants were reticent to trade in these settings and a first solution was to rely on insurance. Forgone profits however could not be insured (\cite{Ducoin1993}, p 160, \cite{Villiers2002}, \cite{Butel1973}, p. 690-720) and sometimes insurance rates were increasing so much that shipping was discouraged altogether. 
-As a consequence, the standard response was ultimately, in the eighteenth century like in the twentieth century, to organize convoys protected by military warships \cite[p. 393, 407, 448, 641]{Villiers2002}. Despite the misgivings of merchants that saw their commercial liberty curtailed, convoys were a good solution, as long as the French navy was powerful enough to defend the merchants vessels. This, however, was no longer the case during the Seven Year War or the Revolution and Napoleonic Wars, as the British became better at organizing the blockade of French ports (more details on the British blockade is reported in appendix \ref{app:appendix_blockade}).
-Another solution was to rely on neutral shipping. Neutral carriers were somewhat protected from British predation on the sea and, when possible, French merchants hid their cargo ownership behind a neutral partner or moved to neutral countries and operated from there altogether \citep{Marzagalli2016}. This happened to the extent that historians have even reflected that war periods might have been necessary to the functioning of the \textit{Exclusif Colonial}, i.e. the theoretical monopoly of French merchants on French colonial trade \citep{Lespagnol1997, Morineau1997, Marzagalli2016}.\footnote{
-	The argument rests on the large peace time trade imbalances between France and its Northern European clients for colonial goods that could have been balanced by large service income of Northern European merchants during war time as they, as neutrals, provided shipping and various trade services to the French empire. The quality of the available balance of payment data is not good enough to test that hypothesis. Along these lines, \cite{Juhasz2018} finds that regions of the French Empire which were protected from trade with the British during the Continental Blockade increased capacity in mechanized cotton spinning to a larger extent than regions which remained more exposed to trade.}
-Again, this was a viable solution only as long as the British and the French accepted the possibility of the other benefiting from trade with neutral partners. This was no longer the case during the Seven Years War and the Continental Blockade, when more and more severe measure towards neutral countries were introduced. 
-\todo[inline, color = NavyBlue]{What do we want to say with this section?}
+
 
 \subsection{Predation on neutral shipping}
 The role of neutrals in wars, and especially during wars on trade, is very important.
@@ -487,6 +544,11 @@ The result depends on the hypothesis one makes about the existence of alternativ
 
 
 \section{Peace-time consequences} \label{sec:empirical_analysis}
+
+
+and finally we compute discounted sums for all years
+
+\todo[inline, color = YellowGreen]{Discuss regressions including peace time here}
 
 In this section we exploit statistical tools to investigate whether the secret of an effective trade war was to force the enemy into restructuring its trade permanently. 
 We consider the structure of trade in terms of goods, trade partners and French custom regions. 
