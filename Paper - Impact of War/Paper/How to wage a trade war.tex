@@ -259,11 +259,55 @@ Altogether the loss function for the two countries suggests that British trade w
 \label{sec:wartime_strategies}
 
 How did Britain curtail French trade in war time ?
-Most of French international trade was conducted by sea (see Figure \ref{share_by_sea}).
-Reducing French trade could thus be done either by intercepting trade-carrying vessels or discouraging them.
-Both actions were complementary, as systematic interception would discourage trade. 
+The basis of French carry trade was the shipping of colonial products from the French West Indies to France and then to Europe.
+This trade was protected by a French trade monopoly named "L’Exclusif".
+One way to interrupt this carry trade was to capture the French West Indies.
+An alternative was to interdict French ships, as most of French international trade was conducted by sea (see Figure \ref{share_by_sea}).
+Reducing French trade could thus be done either by cutting its source, intercepting trade-carrying vessels or discouraging them.
+These latter actions were complementary, as systematic interception would discourage trade. 
 In this section, we study how interception was done, what counter-measures were implemented by the French and what ressources Britain deployed in response.
 Along the way, we study the quantitative link between the the loss function of French trade and these measures, counter-measures and further responses.
+
+\subsection{Capture of colonies}
+West Indian French colonies were major sources of sugar, coffee and other colonial goods whose imports and re-exports were the most dynamic part of French trade.
+They were also important markets for French products.
+Hence the loss of these colonies was bound to be disruptive. 
+As a consequence, the British steadily tried to erode the French colonial empire (see appendix \ref{app:appendix_blockade}).
+
+
+To provide a measure of the evolution of the French colonial empire, we proxy the importance of each territory by its share in colonial imports in 1788, when the empire was at its maximum (neglecting Canada which was not a major source of trade products).
+Hence, the variable is set at 1 in 1788 and gets reduced by an amount proportional to the share of trade whenever a colony is lost. 
+Figure \ref{colony_loss} shows the evolution of the colonial empire measure.
+This figure suggests that the French colonial empire was roughly halved around the year 1800, to become only 25\% of its maximum expansion later in the nineteenth century.
+During the second half of the eighteenth century, on the other hand, it remained at its maximum extension almost constantly (Canada was not an important trade partner for France).
+
+\todo[inline, color = RoyalBlue]{Give an element why it does not dramatically overestimate the role of Saint-Domingue))}
+
+To quantify the effect of the interception of trade, we estimate the following fours equations.
+%We run six different univariate regressions for each strategy and one multivariate regression including all strategies.
+We first consider a linear model for war years only, then we do so considering discounted running sum\footnote{the discounted running sum is defined as $\sum_{t=1}^N value*e^{N-t}$}. We repeat this exercise in log, therefore estimating semi-elasticities. 
+In the linear regression specification we rescale the covariates to their maximum level, in order to ease their interpretation. 
+
+\todo[inline, color = YellowGreen]{Write down the estimated four equations (just for war years))}
+\todo[inline, color = YellowGreen]{Does the running sum really make sense here ?))}
+
+
+The regressions (see column (see column 4 in tables \ref{tab:max_wartime_nosum_mreg},  \ref{tab:max_wartime_sum_mreg}, \ref{tab:log_wartime_nosum_mreg} and   \ref{tab:log_wartime_sum_mreg}).) in this case all show a negative and significant coefficient with a high R squared for an univariate regression.
+This is the expected sign.
+In the linear case the coefficients range between an effect of -0.3 and -0.03 percentage points, depending on whether we consider war years only or all years and discounted sum.
+The R squared also varies, and it is between 20 and 50 percent.
+Considering semi-elasticities also provides similar results.
+Coefficients are again negative and significant, ranging between -0.123 and -0.03 percent loss for a one percent increase in the extension of the colonial empire.
+R squared are also similar to the linear case and range between 15 and 40 percent.
+\todo[inline, color = YellowGreen]{All this might be difficult to interpret. Think about that variable ))}
+
+Looking at \ref{colony_loss}, the capture of the French empire is feature of the War of the Revolution and the Empire, and especially the Continental System period.
+This has two consequences:
+First, the correlation between the size of the empire and French trade might be caused by other specificities of that that period.
+Second, this variable does not tell us much about the action of the British Navy during most of the eighteenth century.
+The bread and butter of British effort was not large amphibious actions, but rather regular interception of French trade.
+
+%Overall, for what our measures reveal so far, the extension of colonial empire was more decisive that the action of the British Navy. Still, the correlation between lost trade and lost colonies (which is the R square of the regression) is as high as one would expect.  
 
 \subsection{Interception of French trade}
 
@@ -271,6 +315,11 @@ The interception of French trade came from the activities of the British Navy an
 Both needed letters of marque procured by the State.
 Great Britain had three ways of directly affecting French sea trade: outright destruction of merchant vessels, ransoming, and prize taking.
 Direct destruction of merchant vessels by the British Navy and privateers was rare as it was not a gainful activity.
+Indirect destruction was possible as well.
+Dangers linked to potential capture by the British might ed French merchant ships to take more navigational risks, such as sailing off-season to escape them.
+This was likely to lead to more shipwrecks due to weather or sailing through dangerous waters, which we define ``indirect'' way of destruction.
+We have little information on the size of this effects.
+\todo[inline, color = RoyalBlue]{use insurance rates in Ducoin ?}
 Ransoming implied coercing a merchant vessel into paying a ransom to the privateer or the Navy ship.
 However, it left the door open to abuse.
 This induced the British government to limit it more and more drastically from 1744, and forbade it altogether by the time of American Revolutionary war \cite[see][p. 734]{Hillmann2011}.
@@ -309,12 +358,7 @@ Interception of French trade increases trade costs.
 This discouraged trade as these increases had to be absorbed by producers or passed on to consumer.
 Both options decreased the volume of trade and hence should have increased the loss function.
 
-To quantify the effect of the interception of trade, we estimate the following fours equations.
-%We run six different univariate regressions for each strategy and one multivariate regression including all strategies.
-We first consider a linear model for war years only, then we do so considering discounted running sum\footnote{the discounted running sum is defined as $\sum_{t=1}^N value*e^{N-t}$}. We repeat this exercise in log, therefore estimating semi-elasticities. 
-In the linear regression specification we rescale the covariates to their maximum level, in order to ease their interpretation. 
 
-\todo[inline, color = YellowGreen]{Write down the estimated four equations (just for war years))}
 
 We perform a regression on the loss function of the following explanatory variables; prizes imports, number of prizes and number of privateer's prizes. 
 
@@ -362,10 +406,9 @@ The coefficient range from 0.8 percent to 11 percent and R square is also betwee
  
  \subsection{French counter-measures: insurance}
  
-
 Large uncertainty on ships’ security increased trade costs.
 Merchants often increased their profit margins to justify the risk.
- Still, that discouraged consumers and producers.
+Still, that discouraged consumers and producers.
 To mitigate risk, outfitters relied on insurance.
 Ironically, the most advantageous market place for French merchants in that period often was London.
 As the British market for merchant ships became glutted because of the arrival of prizes, French shippers would buy them back with insurance money \citep[p. 55]{Tracy1991}. 
@@ -377,9 +420,10 @@ As a result, Insurance rates often increased so much in war time that insurance 
 We do not know of any long-term series on insurance rates for French shipping that would allow to relate them with the evolution of French trade.
 Anyway, the British made insurance on ennemy vessel illegal in 1748 and from 1793 to the end of the period. \citep[p.55]{Tracy1991}.
 
- \subsection{French counter-measures: French naval power}
+ \subsection{French counter-measures:  naval power}
  
 Other responses relied on French naval power.
+Preventing British amphibious operations to capture the French colonies depended on the 
 If the French Navy could deny the British Navy mastery of the sea through naval victories or because of strategic overreach, the risk for French ships was much smaller.
 That seemed only attainable during the War of American Independance. 
 Another possibility )was, in the eighteenth century as in the twentieth century, to organize convoys protected by military warships \cite[p. 393, 407, 448, 641]{Villiers2002}.
@@ -403,9 +447,15 @@ Including both allies and neutral brings the coefficient in negative territory i
  \todo[inline, color = YellowGreen]{it is even smaller, non ?}
  That suggests that only the fleet of naval powers had an importance.
  
- Another way to measure naval supremacy is to look at its most important ouptut according to Mahan : naval battles.
+ Another way to measure naval supremacy is to look at its most important ouptut according to Mahan: naval battles.
+ Major naval battles won by the British had a significant effect on French trade ( see tables \ref{tab:max_wartime_nosum_mreg},  \ref{tab:max_wartime_sum_mreg}, \ref{tab:log_wartime_nosum_mreg} and   \ref{tab:log_wartime_sum_mreg}).
+ This probably reflects increased British naval supremacy after the battle while the French navy had to retreat and regroup.
+ The effect is sizeable: in years including a major naval victory, French trade declined by 20 p.c. according to the linear regressions.
  
- \todo[inline, color = YellowGreen]{Present results and give the list of battles ?}
+ 
+  \todo[inline, color = YellowGreen]{Present results and give the list of battles ?}
+ \todo[inline, color = YellowGreen]{I am not sure of how to interpret the running sum results, as I do not know what the variable looks like}
+  \todo[inline, color = YellowGreen]{Maybe we should do battles at t-1 to get Granger causality?}
 %We are aware that this could be due to the fact that our proxy for naval superiority is too coarse a measure.
 %For example, the French navy advantage during the Seven Years war is explained by the fact that Russia and Sweden were allied to France.
 %Yet, there was no common naval action with France and limited French shipping in the Baltic that could be protected by Russia or Sweden (the Russian Black Sea fleet was created in 1783, after the Seven Years war).
@@ -414,122 +464,57 @@ Including both allies and neutral brings the coefficient in negative territory i
 
  \subsection{French counter-measures: neutral carriers}
 
- Another solution was to rely on neutral shipping. Neutral carriers were somewhat protected from British predation on the sea and, when possible, French merchants hid their cargo ownership behind a neutral partner or moved to neutral countries and operated from there altogether \citep{Marzagalli2016}. This happened to the extent that historians have even reflected that war periods might have been necessary to the functioning of the \textit{Exclusif Colonial}, i.e. the theoretical monopoly of French merchants on French colonial trade \citep{Lespagnol1997, Morineau1997, Marzagalli2016}.\footnote{
- 	The argument rests on the large peace time trade imbalances between France and its Northern European clients for colonial goods that could have been balanced by large service income of Northern European merchants during war time as they, as neutrals, provided shipping and various trade services to the French empire. The quality of the available balance of payment data is not good enough to test that hypothesis. Along these lines, \cite{Juhasz2018} finds that regions of the French Empire which were protected from trade with the British during the Continental Blockade increased capacity in mechanized cotton spinning to a larger extent than regions which remained more exposed to trade.}
- Again, this was a viable solution only as long as the British and the French accepted the possibility of the other benefiting from trade with neutral partners. This was no longer the case during the Seven Years War and the Continental Blockade, when more and more severe measure towards neutral countries were introduced. 
- \todo[inline, color = NavyBlue]{What do we want to say with this section?}
+ Another countermeasure for the French was to avoid confrontation with the British as much as possble by relying on neutral shipping.
+ Neutral carriers were somewhat protected from British predation on the sea and, when possible, French merchants hid their cargo ownership behind a neutral partner or moved to neutral countries and operated from there altogether \citep{Marzagalli2016}.
  
+% This happened to the extent that historians have even reflected that war periods might have been necessary to the functioning of the \textit{Exclusif Colonial}, i.e. the theoretical monopoly of French merchants on French colonial trade \citep{Lespagnol1997, Morineau1997, Marzagalli2016}.\footnote{
+% 	The argument rests on the large peace time trade imbalances between France and its Northern European clients for colonial goods that could have been balanced by large service income of Northern European merchants during war time as they, as neutrals, provided shipping and various trade services to the French empire.
+%The quality of the available balance of payment data is not good enough to test that hypothesis.
+% Along these lines, \cite{Juhasz2018} finds that regions of the French Empire which were protected from trade with the British during the Continental Blockade increased capacity in mechanized cotton spinning to a larger extent than regions which remained more exposed to trade.}
 
-\subsection{Ship building and alliance making}
-British ships were doing the concrete activity of blockading French ports and capturing French ships.
-This was easier to do if 
-
-Yet, our measure provides a rough idea of what was the extent of the damage due to naval superiority and it suggests that the efforts of the British to curtail trade were not necessarily always successful. 
-These difficulties suggest it might be wise move the focus from the inputs of naval superiority to its outputs: the capture of territories and destruction of trade.
-
-\subsection{Capture of colonies}
-West Indian French colonies were major sources of sugar, coffee and other colonial goods whose imports and re-exports were the most dynamic part of French trade.
-They were also important markets for French products, hence the loss of these colonies was bound to be disruptive. 
-As a consequence, the British steadily tried to erode the French colonial empire.
-Guadeloupe was taken by the British in 1759, given back in late 1763; taken again in 1810, given back in 1816.
-Maurice was taken in 1811.
-Réunion and the Indian trade posts were taken in 1811, given back in 1815.
-French Guyana was taken in 1810 and given back in 1817.
-Tobago was taken in 1793.
-Martinique was taken if 1794 and given back in 1815.
-Saint-Domingue is a special case: It revolted in 1793, was partly integrated back to the French trade network in 1796 and gained its independence in 1805. 
-
-To provide a measure of the evolution of the French colonial empire, we proxy the importance of each territory by its share in colonial imports in 1788, when the empire was at its maximum (neglecting Canada which was not a major source of trade products).
-Hence, the variable is set at 1 in 1788 and gets reduced by an amount proportional to the share of trade whenever a colony is lost. 
-
-Assigning colonial supremacy over Saint-Domingue requires additional explanations as it experienced a complex transition to independence. 
-The revolt of the slaves in Haiti was a long and bloody episode and sugar production was lost well before independence was ultimately acquired.
-We have coded it as ``lost'' between 1793 and 1795, when the revolt started, and production was mostly destroyed or fields burnt.
-In 1796, order was partly restored and a portion of the plantation was being cultivated normally - so we consider it again as a colony - but ultimately in 1805 Haiti became independent and the production was lost completely.
-In 1814, the \textit{Restauration} attempted to re-create the late eighteenth century colonial system.
-This included the re-establishment of the \textit{Exclusif} and reconquest of Saint-Domingue or the establishment of some substitute colony \citep{Todd2011}.
-In a secret clause of the 1814 peace treaty, Great-Britain pledged not to hinder the re-instauration of French sovereignty on Saint-Domingue \citep{Schefer1907}.
-Yet, France never managed to re-create its ``first'' empire, and the economic loss was not recouped.
-
-Figure \ref{colony_loss} shows the evolution of the colonial empire measure. This figure suggests that the French colonial empire was roughly halved around the year 1800, to become only 25\% of its maximum expansion later in the nineteenth century. During the second half of the eighteenth century, on the other hand, it remained at its maximum extension almost constantly (Canada was not an important trade partner for France).
-The regressions in this case all show a negative and significant coefficient and a higher R squared. In the linear case the coefficients range between an effect of -0.3 and -0.03 percentage points, depending on whether we consider war years only or all years and discounted sum. The R squared also varies, and it is between 20 and 50 percent. Considering semi-elasticities also provides similar results. Coefficients are again negative and significant, ranging between -0.123 and -0.03 percent loss for a one percent increase in the extension of the colonial empire. R squared are also similar to the linear case and range between 15 and 40 percent.  
-Overall, for what our measures reveal so far, the extension of colonial empire was more decisive that the action of the British Navy. Still, the correlation between lost trade and lost colonies (which is the R square of the regression) is as high as one would expect.  
-
-\subsection{Predation on French shipping}\label{sec:DestructionofFrenchshipping}
-
-
-The destruction of merchant vessels could be direct or indirect.
-Dangers linked to potential capture by the British led French merchant ships to take more navigational risks, such as sailing off-season to escape them.
-This was likely to lead to more shipwrecks due to weather or sailing through dangerous waters, which we define ``indirect'' way of destruction.
-We have little information on the size of this effects.
- \todo[inline, color = RoyalBlue]{use insurance rates in Ducoin ?}
  
+%\subsection{Ship building and alliance making}
+%British ships were doing the concrete activity of blockading French ports and capturing French ships.
+%This was easier to do if 
+%
+%Yet, our measure provides a rough idea of what was the extent of the damage due to naval superiority and it suggests that the efforts of the British to curtail trade were not necessarily always successful. 
+%These difficulties suggest it might be wise move the focus from the inputs of naval superiority to its outputs: the capture of territories and destruction of trade.
 
-
-
-
--------------------------------------------------
-Move up, along with the beginning of 3.3 ?
-----------
-
-
-
-\subsection{Predation on neutral shipping}
 The role of neutrals in wars, and especially during wars on trade, is very important.
 On the one hand they were the only ones who could provide goods that were not otherwise available due to the war \citep{Hedberg2015}.
 On the other hand, they were an expedient for merchants who hid their cargoes as neutral cargo and could continue to trade \cite[see][]{Carriere1973,Schnakenbourg2013,Schnakenbourg2015}. 
-It was well accepted by international law that enemy cargo and contraband (e.g. weapons and munitions) could be seized.
+It was well accepted by international law that enemy cargo and contraband (e.g. weapons and munitions) could be seized on neutral ships.
 The difficulty was how to define and identify enemy cargo and contraband.
 
-British policy regarding neutral trade varied.
-During the War of Austrian Succession, shipping between a non-belligerent country and a non-blockaded port in France was allowed by the rule of war, provided that both the ship and the goods belonged to neutral merchants.
-Shipping to ``closely blockaded'' ports on the other hand could be seized \citep[p. 112]{Schnakenbourg2013}.
-The true nationality of the cargo, however, was difficult to ascertain, as neutral ships would not yield to inspection, especially when they were escorted by neutral warships.
-They had claimed from the seventeenth century the ``right of convoys'', that is ``immunity from search for neutral merchant vessels sailing under the convoy of a warship of the neutral'' \citep{TheEditorsofEncyclopaediaBritannica2014}.
- \todo[inline, color = RoyalBlue]{Citer Tracy plutôt ?}
+This was a viable solution only as long as the British were willing to tolerand the French accepted the possibility of the other benefiting from trade with neutral partners. This was no longer the case during the Seven Years War and the Continental Blockade, when more and more severe measure towards neutral countries were introduced. 
 
-This left the door open to trade under neutral flag, especially for French merchants. 
-During the second half of the eighteenth century, Great Britain decided to close off these ways for French trade to continue. 
-In 1756, during Seven Years War, the British introduced the \textit{Doctrine of Continuous Voyage} along with the \textit{Rule of War of 1756}.
-They stated that the very beginning of the journey and the very end should be taken into account to determine the nationality of the cargo. They also claimed the right to seize neutral shipping to look for contraband and exercised it, as figure \ref{fig:prizes_nationality} shows.
+British policy regarding neutral trade varied (see appendix \ref{app:appendix_neutral_policy}).
+
+
+Figure \ref{fig:prizes_nationality} can be used to quantify the British policy.
+\todo[inline, color = RoyalBlue]{Hum... Not sure. Mull about it.}
 %This figure shows how Dutch and US cargo were sometimes also declared ``fair prize'' by the High Court of Admiralty. 
 
-Moreover, they forbid neutrals, in time of war, to enjoy a trade from which they were barred in time of peace. 
-As the French colonies were under the regime of the \textit{Exclusif} \citep{Tarrade1972}, and that all their trade had to be conducted by French ships, that basically barred neutrals from trading with the French colonies.
-This had a considerable impact on French trade, which was heavily relying on Dutch ships to transport colonial goods.
-It also created great discontent among neutral countries, whose loss function is nearly as high as that of a belligerent countries, as shown in figures \ref{fig:loss_by_war_status_XI} and \ref{fig:loss_by_war_status_X_I}.
+
+
+whose loss function is nearly as high as that of a belligerent countries, as shown in figures \ref{fig:loss_by_war_status_XI} and \ref{fig:loss_by_war_status_X_I}.
 These figures show the loss function, as explained in section \ref{sec:loss}, for countries grouped by war status\footnote{more on the grouping by war status to be found in appendix \ref{app:historical_summary}} and provide evidence of how neutral countries, during the Seven Years Wars and the subsequent years, had losses sometimes higher than foes (this is the case for imports). 
-As a consequence, on the eve of the American Independence War, Russia, Denmark and Sweden funded the \textit{League of Armed Neutrality} to protect their interest against the threat of new losses.
-Their claim was that neutral ships travelling under the protection of neutral warships were not to be inspected as the absence of ``enemy cargo'' was guaranteed by the neutral sovereign \cite[p. 121-125]{Schnakenbourg2013}.
-This experiment however did not have a long lasting success and it was finally put to an end in 1783 with the treaty of Paris\footnote{The number of vessels Russia, Denmark and Sweden owned combined were still less than the entire British navy, therefore this league was bound to be weak from the very beginning.} \citep{Griffiths1971}.
-Nonetheless, France remained active at protecting the rights of neutral shipping, as it saw it as a means to continue its trade during war years \cite[p. 129]{Schnakenbourg2013}.
-This came to the extent that in 1784, France gave the West Indies island of St. Barthelemy to Sweden partly to encourage neutral trade during wars \cite[p. 326]{Schnakenbourg2013}.
-However this attitude changed during the Revolutionary \& Napoleonic wars.
 
-In 1793, with the outburst of the French Revolution and, subsequently, the Revolutionary Wars, most British goods were prohibited in France.
-As a response, the British adopted a policy of blockading the whole coast of France from afar.
-France initially gave access to its colonies to neutral shipping and encouraged neutral trade.
-Britain took action against neutrals and France found neutral shipping too compliant to British demands (e.g. the 1794 Jay treaty was an important point of conflict between France and the Unites States).
-Tensions between France and the neutrals multiplied up to the acme of the Quasi-War between France and the United States from 1798 to 1800 \cite[pp. 106-118]{Marzagalli2015a}. 
-From 1800 however, Bonaparte reconciled France with the neutrals and encouraged the formation of the \textit{Second League of Armed Neutrality}, between Denmark, Sweden, Russia and Prussia.
-The league attempted to protect their rights mainly against Britain. 
-No later than 1801, though, the British blockaded them (with the exception of Prussia) and bombed Copenhagen to end the League for good.
 
-The situation deteriorated further for the neutrals in the subsequent years.
-In 1806 Napoleon enacted the Berlin decree, that provided the basic structure of the Continental System.
-The provisions of the Berlin Decree included: (1) prohibition of all trade with the British; (2) all British subjects in French-occupied areas were prisoners of war and their property was ``fair prize''; (3) all trade in British goods was prohibited and all goods from England and her colonies were ``fair prize'' (and one-half their value was to be used to indemnify French merchants for losses to the British); and (4) no ships coming from the ports of Britain or its colonies would be permitted to use any port on the Continent \citep{Davis2006}.
-Britain responded to this policy with a related Order in Council, which required that neutral vessels call at a British port before proceeding to the continent.
-The Napoleonic Milan Decree (1807) declared that all neutral shipping using British ports or paying British tariffs were to be regarded as British and seized.
-This clearly created an unsustainable situation where all countries were barred from trading with either French or Britain and a war started that engulfed the whole of Europe (see figure \ref{fig:number_of_protagonist}).
-The situation started to unravel only around 1810, when Russia pulled out of the Continental Blockade, pushing Napoleon to attempt an invasion, which ultimately led to his final defeat, and put an end to the Blockade System and to the threat for neutral trade. 
 
-It has to be noted here that the United States had become a new powerful actor in international trade \citep{Cuenca-Esteban2014}. Considering the size and dynamism of their economy, they were not as easy to dismiss as other small neutral trading nations when peace returned.
-Therefore, when both France and Britain threatened their trade, they attempted to fight back, as during the Quasi-War.
-They first enacted, in 1807, an Embargo Act directed against trade with both France and Britain, which was followed by the Non-Intercourse Act of 1809, and finally, after failure of both provisions, by a war against Britain (1812-1814). 
-Despite their size and newly gained role, however, they had no better luck than France in the war, which was ultimately won by the British.
-Nonetheless, losses were substantial on both sides.\footnote{less than 10 Million US\$ in 1820 vs. 40 Million US\$ in 1807, \citep[tables A-4 and B-2]{North1960}}
+
 
 We want to relate these events with the loss function. We acknowledge there is no one-to-one relation with the policy adopted towards neutral trade however we claim that the higher losses were experienced when neutral trade was mostly reduced. The mechanism we want to justify is the following. French merchants continued trading under neutral flag, even in war time, which explains the limited loss in the first half of the century. When British understood the trick, they started seizing neutral ships and effectively curtailing trade in war time.
+
+\todo[inline, color = YellowGreen]{Find a regression to do ? Number of non-French prizes ?}
+
+
+
+ \subsection{Multivariate analysis}
+ 
+ 
+ 
+ \todo[inline, color = YellowGreen]{Discuss the multivariate regression. Probably restrict the regression to actually useful variables (ie the ones that were found to be useful in the univariate regressions instead of everybody ?))}
 
 \todo[inline, color = YellowGreen]{Maybe separate the peace-time consequences and the war-time consequences? Or use this as transition even more than you already do?}
 They did so to the extent that, even when peace was restored, French trade could not go back to its initial level. In section \ref{sec:empirical_analysis} we explain and quantify how the structure of trade was changed permanently.  
@@ -537,30 +522,7 @@ They did so to the extent that, even when peace was restored, French trade could
 
 %It is clearly dominated by Dutch losses during first year of the Fourth Anglo-Dutch war that started in 1781. However, it shows that neutral ships were sometimes declared fair prizes (e.g. Dutch ships 1779 and 1780 and US ships during the 1790s) and that the British threat on neutral shipping was real. The extent of predation on neutral shipping might be underestimated in this graph as some ships flying a neutral flag were declared ``French'' at the High Court of the Admiralty.
 
- 
 
-\section{Can we do a cost-benefit analysis?}
-\todo[inline, color=RoyalBlue]{Discuss political cost of Neutral policy (Spain 1760, US 1812, League of armed Neutralty)}
-\label{sec:cost_benefit}
-In a cost-benefit analysis of the efficiency of the British war on French trade, the reduction of French trade would be a good place to start. 
-The cost for the French economy however cannot be identified to lost trade per-se.
-It is rather the loss of economic activity entailed by the reduction in trade.
-What were the decrease in wages and profits, both for French actors of trade and French producer?
-This is a tricky question.
-\cite{Daudin2005} (p. 408) evaluate the income of French actor at 38.5\% of the value of intercontinental trade (i.e. trade with Africa, America and Asia, minus Mediterranean trade) and 27.5-35\% of the total value of trade.
-Intercontinental trade was more affected by the British war on French trade, so maybe we should favour the higher estimate (35\%).
-Of course, at least part of the workers, entrepreneurs and capital could find alternative use and did not stand completely idle after the reduction of trade. 
-\cite{Daudin2005}, p. 421, estimate the net loss was 40\% of the value of the production, or 14\% of the value of trade (i.e. 0.4x0.35 = 0.14). 
-To put it in another way, a 100 livres tournois decline in the value of French trade forced workers, entrepreneurs, capitalists earning 35 livres tournois to find another employment for their labour and their capital. This other occupation only yielded an income of 21 livres tournois (35x(1-0.4) = 21).
-Hence a decline of 100 livres tournois in French trade induced a loss of 14 livres tournois for French GDP (21-35 = -14). 
-
-This number is highly uncertain. \cite{Daudin2005} argues we should take into account the dynamic effect of this income loss through lost savings and investments. 
-This means that we can include in French losses also the expenditures on military Navy, - as one of its main goal was to protect trade\footnote{See appendix \ref{french_budget}} - and the destruction or capture of French ships. This is tentatively possible thanks to information on French prizes captured both by the British Navy and British privateers, discussed in section \ref{sec:DestructionofFrenchshipping}.
-
-Finally, we are left to estimate the amount paid by the British to reduce French trade. Again, that is probably not possible to compute. A good place to start, though, is the budget of the British Navy. \cite{mitchell1988}, pp. 570-587, provides the net expenditures up to 1801 (1800 is incomplete) and the gross ones from 1802.
-Figure \ref{Expenditures} presents these data. Except for the War of the American Independence, the French Navy budget was always smaller than the British one. The total value of prizes was rather small, except during the early Seven Years War.\footnote{Prizes are pretty important in the cost/benefit analysis during the Seven Years War, partly because of the success of the British predation of French trade before the official declaration of war, but they loose their importance in the latter part of the period.}
-Figure \ref{Ratio_BR_Expenditures} compares the cumulative British expenditures and French losses. A value less than one means that the war on trade is costing more resources to the British than to the French (neglecting the value of French prizes). 
-The result depends on the hypothesis one makes about the existence of alternative employment opportunities for French production factors pushed out of trade. The ``no alternative occupation'' hypothesis is the most favourable to the trade war policy, as it assumes that French labour and French capital invested in trade just become unemployed when trade is reduced: hence French income losses are 35\% of French trade losses. The ``alternative occupation''' hypothesis is probably more reasonable and assumes that French labour and capital find alternative, less remunerating, employment: hence French income losses are 14\% of French trade losses.
 
 
 \section{Peace-time consequences} \label{sec:empirical_analysis}
@@ -590,6 +552,31 @@ Again, this suggests that wars forced French trade to develop its links with clo
 Tables \ref{Individual_regressions_region_exports} and \ref{Individual_regressions_region_imports} show similar changes in the regional share of French trade up to 1789.
 Even if the pattern is clearer for imports than for exports, it seems that landlocked regions (Bourgogne, Châlons, Lyon and Saint-Quentin), secondary coastal regions (Amiens, Bayonne, Caen and Rennes), and Marseille have a larger share of trade when French trade is reduced.
 While large Atlantic ports (Bordeaux and Nantes) have a smaller share of trade.
+
+ 
+
+\section{Was it worth it?}
+\todo[inline, color=RoyalBlue]{Discuss political cost of Neutral policy (Spain 1760, US 1812, League of armed Neutralty)}
+\label{sec:cost_benefit}
+In a cost-benefit analysis of the efficiency of the British war on French trade, the reduction of French trade would be a good place to start. 
+The cost for the French economy however cannot be identified to lost trade per-se.
+It is rather the loss of economic activity entailed by the reduction in trade.
+What were the decrease in wages and profits, both for French actors of trade and French producer?
+This is a tricky question.
+\cite{Daudin2005} (p. 408) evaluate the income of French actor at 38.5\% of the value of intercontinental trade (i.e. trade with Africa, America and Asia, minus Mediterranean trade) and 27.5-35\% of the total value of trade.
+Intercontinental trade was more affected by the British war on French trade, so maybe we should favour the higher estimate (35\%).
+Of course, at least part of the workers, entrepreneurs and capital could find alternative use and did not stand completely idle after the reduction of trade. 
+\cite{Daudin2005}, p. 421, estimate the net loss was 40\% of the value of the production, or 14\% of the value of trade (i.e. 0.4x0.35 = 0.14). 
+To put it in another way, a 100 livres tournois decline in the value of French trade forced workers, entrepreneurs, capitalists earning 35 livres tournois to find another employment for their labour and their capital. This other occupation only yielded an income of 21 livres tournois (35x(1-0.4) = 21).
+Hence a decline of 100 livres tournois in French trade induced a loss of 14 livres tournois for French GDP (21-35 = -14). 
+
+This number is highly uncertain. \cite{Daudin2005} argues we should take into account the dynamic effect of this income loss through lost savings and investments. 
+This means that we can include in French losses also the expenditures on military Navy, - as one of its main goal was to protect trade\footnote{See appendix \ref{french_budget}} - and the destruction or capture of French ships. This is tentatively possible thanks to information on French prizes captured both by the British Navy and British privateers, discussed in section \ref{sec:DestructionofFrenchshipping}.
+
+Finally, we are left to estimate the amount paid by the British to reduce French trade. Again, that is probably not possible to compute. A good place to start, though, is the budget of the British Navy. \cite{mitchell1988}, pp. 570-587, provides the net expenditures up to 1801 (1800 is incomplete) and the gross ones from 1802.
+Figure \ref{Expenditures} presents these data. Except for the War of the American Independence, the French Navy budget was always smaller than the British one. The total value of prizes was rather small, except during the early Seven Years War.\footnote{Prizes are pretty important in the cost/benefit analysis during the Seven Years War, partly because of the success of the British predation of French trade before the official declaration of war, but they loose their importance in the latter part of the period.}
+Figure \ref{Ratio_BR_Expenditures} compares the cumulative British expenditures and French losses. A value less than one means that the war on trade is costing more resources to the British than to the French (neglecting the value of French prizes). 
+The result depends on the hypothesis one makes about the existence of alternative employment opportunities for French production factors pushed out of trade. The ``no alternative occupation'' hypothesis is the most favourable to the trade war policy, as it assumes that French labour and French capital invested in trade just become unemployed when trade is reduced: hence French income losses are 35\% of French trade losses. The ``alternative occupation''' hypothesis is probably more reasonable and assumes that French labour and capital find alternative, less remunerating, employment: hence French income losses are 14\% of French trade losses.
 
 
 
@@ -1048,11 +1035,83 @@ The \textit{Tableau Général} exists in the French archives that provides Frenc
 
 All sources provide the value of trade in the current French currency. This is the \textit{livre tournois} up to 1795 and the \textit{franc} afterward. The value of the \textit{livre} was fluctuating in the early eighteenth century. In 1726, its value was fixed at a value of 4.505 grams of fine silver \citep{Dewailly1857}. Because of the monetary crisis during the revolution, we use data extracted from published appreciation tables to fix the value of the \textit{livre} at 2.9 grams of silver in 1792 (\cite{Hoffman2000}). The French \textit{franc} contained 4.5 grams of fine silver. We convert the trade flows in fine silver; obviously, this does not solve the inflation issue, but we argue that inflation in terms of silver was relatively limited during that period. \todo[inline, color = RoyalBlue]{Citation here? -- GD Yes, we need to have a deep long conversation about inflation (including how it changes the loss function. Still mulling this one.).}
 
+\subsection{Colonial losses }\label{app:appendix_colonial_losse}
+
+Guadeloupe was taken by the British in 1759, given back in late 1763; taken again in 1810, given back in 1816.
+Maurice was taken in 1811.
+Réunion and the Indian trade posts were taken in 1811, given back in 1815.
+French Guyana was taken in 1810 and given back in 1817.
+Tobago was taken in 1793.
+Martinique was taken if 1794 and given back in 1815.
+Saint-Domingue is a special case: It revolted in 1793, was partly integrated back to the French trade network in 1796 and gained its independence in 1805. 
+
+Assigning colonial supremacy over Saint-Domingue requires additional explanations as it experienced a complex transition to independence. 
+The revolt of the slaves in Haiti was a long and bloody episode and sugar production was lost well before independence was ultimately acquired.
+We have coded it as ``lost'' between 1793 and 1795, when the revolt started, and production was mostly destroyed or fields burnt.
+In 1796, order was partly restored and a portion of the plantation was being cultivated normally - so we consider it again as a colony - but ultimately in 1805 Haiti became independent and the production was lost completely.
+In 1814, the \textit{Restauration} attempted to re-create the late eighteenth century colonial system.
+This included the re-establishment of the \textit{Exclusif} and reconquest of Saint-Domingue or the establishment of some substitute colony \citep{Todd2011}.
+In a secret clause of the 1814 peace treaty, Great-Britain pledged not to hinder the re-instauration of French sovereignty on Saint-Domingue \citep{Schefer1907}.
+Yet, France never managed to re-create its ``first'' empire, and the economic loss was not recouped.
+
 \subsection{Blockade}\label{app:appendix_blockade}
 There were essentially two possible types of blockades \citep{Corbett2004}; the open and the closed blockade. The former consisted of keeping the ships at port, but ready to sail, as soon as the enemy fleet left its harbour. This technique was much less straining for men and ships, but less efficient when it came to blockading. On the other hand, the closed blockade consisted of keeping the rival fleet blocked in its own port, impeding it from exiting. This was much more of an efficient technique, however, the maintenance of both ships and men at sea for such a long time was a substantial issue.
 By the end of eighteenth century, the British had implemented a very efficient system of resupply, in which supply ships delivered victuals to the fleet at sea, thus allowing it not to return at port regularly for supplies. 
 Also, they were being very careful to provide a balanced diet against scurvy, which passed from being a major issue for sails-men, to accounting for only 2 per cent of British naval patients between 1795 and 1800 \citep{Rodger2005}. On top of this, British had started to coat their ships with copper, to fight the issue of barnacles, oysters and the shipworm, which were seriously hindering the speed and the security of their vessels. This dramatically reduced the possibility of avoid the blockade and allowed British to impede unwanted trade more efficiently.
 One would think that the number of ships captured declined as not many ships tried to run the blockade, but that is not confirmed by data on prizes \cite{Benjamin2009}.
+
+
+
+
+\subsection{British policy toward neutral trade}\label{app:appendix_neutral_policy}
+
+During the War of Austrian Succession, shipping between a non-belligerent country and a non-blockaded port in France was allowed by the rule of war, provided that both the ship and the goods belonged to neutral merchants.
+Shipping to ``closely blockaded'' ports on the other hand could be seized \citep[p. 112]{Schnakenbourg2013}.
+The true nationality of the cargo, however, was difficult to ascertain, as neutral ships would not yield to inspection, especially when they were escorted by neutral warships.
+They had claimed from the seventeenth century the ``right of convoys'', that is ``immunity from search for neutral merchant vessels sailing under the convoy of a warship of the neutral'' \citep[p. 17]{Davis2006}.
+
+This left the door open to trade under neutral flag, especially for French merchants. 
+During the second half of the eighteenth century, Great Britain decided to close off these ways for French trade to continue. 
+In 1756, during Seven Years War, the British introduced the \textit{Doctrine of Continuous Voyage} along with the \textit{Rule of War of 1756}.
+They stated that the very beginning of the journey and the very end should be taken into account to determine the nationality of the cargo. They also claimed the right to seize neutral shipping to look for contraband and exercised it.
+
+Moreover, they forbid neutrals, in time of war, to enjoy a trade from which they were barred in time of peace. 
+As the French colonies were under the regime of the \textit{Exclusif} \citep{Tarrade1972}, and that all their trade had to be conducted by French ships, that basically barred neutrals from trading with the French colonies.
+This had a considerable impact on French trade, which was heavily relying on Dutch ships to transport colonial goods.
+It also created great discontent among neutral countries
+
+
+
+
+As a consequence, on the eve of the American Independence War, Russia, Denmark and Sweden funded the \textit{League of Armed Neutrality} to protect their interest against the threat of new losses.
+Their claim was that neutral ships travelling under the protection of neutral warships were not to be inspected as the absence of ``enemy cargo'' was guaranteed by the neutral sovereign \cite[p. 121-125]{Schnakenbourg2013}.
+This experiment however did not have a long lasting success and it was finally put to an end in 1783 with the treaty of Paris\footnote{The number of vessels Russia, Denmark and Sweden owned combined were still less than the entire British navy, therefore this league was bound to be weak from the very beginning.} \citep{Griffiths1971}.
+Nonetheless, France remained active at protecting the rights of neutral shipping, as it saw it as a means to continue its trade during war years \cite[p. 129]{Schnakenbourg2013}.
+This came to the extent that in 1784, France gave the West Indies island of St. Barthelemy to Sweden partly to encourage neutral trade during wars \cite[p. 326]{Schnakenbourg2013}.
+However this attitude changed during the Revolutionary \& Napoleonic wars.
+
+In 1793, with the outburst of the French Revolution and, subsequently, the Revolutionary Wars, most British goods were prohibited in France.
+As a response, the British adopted a policy of blockading the whole coast of France from afar.
+France initially gave access to its colonies to neutral shipping and encouraged neutral trade.
+Britain took action against neutrals and France found neutral shipping too compliant to British demands (e.g. the 1794 Jay treaty was an important point of conflict between France and the Unites States).
+Tensions between France and the neutrals multiplied up to the acme of the Quasi-War between France and the United States from 1798 to 1800 \cite[pp. 106-118]{Marzagalli2015a}. 
+From 1800 however, Bonaparte reconciled France with the neutrals and encouraged the formation of the \textit{Second League of Armed Neutrality}, between Denmark, Sweden, Russia and Prussia.
+The league attempted to protect their rights mainly against Britain. 
+No later than 1801, though, the British blockaded them (with the exception of Prussia) and bombed Copenhagen to end the League for good.
+
+The situation deteriorated further for the neutrals in the subsequent years.
+In 1806 Napoleon enacted the Berlin decree, that provided the basic structure of the Continental System.
+The provisions of the Berlin Decree included: (1) prohibition of all trade with the British; (2) all British subjects in French-occupied areas were prisoners of war and their property was ``fair prize''; (3) all trade in British goods was prohibited and all goods from England and her colonies were ``fair prize'' (and one-half their value was to be used to indemnify French merchants for losses to the British); and (4) no ships coming from the ports of Britain or its colonies would be permitted to use any port on the Continent \citep{Davis2006}.
+Britain responded to this policy with a related Order in Council, which required that neutral vessels call at a British port before proceeding to the continent.
+The Napoleonic Milan Decree (1807) declared that all neutral shipping using British ports or paying British tariffs were to be regarded as British and seized.
+This clearly created an unsustainable situation where all countries were barred from trading with either French or Britain and a war started that engulfed the whole of Europe (see figure \ref{fig:number_of_protagonist}).
+The situation started to unravel only around 1810, when Russia pulled out of the Continental Blockade, pushing Napoleon to attempt an invasion, which ultimately led to his final defeat, and put an end to the Blockade System and to the threat for neutral trade. 
+
+It has to be noted here that the United States had become a new powerful actor in international trade \citep{Cuenca-Esteban2014}. Considering the size and dynamism of their economy, they were not as easy to dismiss as other small neutral trading nations when peace returned.
+Therefore, when both France and Britain threatened their trade, they attempted to fight back, as during the Quasi-War.
+They first enacted, in 1807, an Embargo Act directed against trade with both France and Britain, which was followed by the Non-Intercourse Act of 1809, and finally, after failure of both provisions, by a war against Britain (1812-1814). 
+Despite their size and newly gained role, however, they had no better luck than France in the war, which was ultimately won by the British.
+Nonetheless, losses were substantial on both sides.\footnote{less than 10 Million US\$ in 1820 vs. 40 Million US\$ in 1807, \citep[tables A-4 and B-2]{North1960}}
 
 \subsection{Historical summary and classification of country grouping} \label{app:historical_summary}
 In this section we provide a brief overview of the main wars that took place in Europe in the period of analysis and we explain how we classify the belligerent status (compared to France) of the country grouping at stake. As a general rule, we consider \textit{Outre-mers} as ally and \textit{Levant} as neutral. \\
