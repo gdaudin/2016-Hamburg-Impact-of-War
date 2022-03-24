@@ -360,8 +360,7 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white))
 			 
 graph export "$hamburggit/Paper - Impact of War/Paper/Cumulated_Costs_and_benefits.png", as(png) replace
-	
-blif		 
+			 
 			 
 generate ratio_abs    = 10^loss_abs_cum/10^Navy_cum
 generate ratio_nm_abs = 10^loss_nm_abs_cum/10^Navy_cum
