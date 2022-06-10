@@ -113,7 +113,39 @@ twoway (connected FrenchBudget year)
 merge 1:1 year using "$hamburg/database_dta/Expenditures.dta"
 drop _merge
 sort year
-twoway (line NavyNet  year) (line NavyGross  year) (line FrenchBudget year) if year >=1740
+merge 1:1 year using "$hamburg/database_dta/Total silver trade FR GB.dta"
+drop _merge
+
+replace war1=3.5 if war1!=.
+replace war2=3.5 if war2!=.
+replace war3=3.5 if war3!=.
+replace war4=3.5 if war4!=.
+replace war5=3.5 if war5!=.
+replace blockade=3.5 if blockade!=.
+gen minwar1=1.5 if war1!=.
+gen minwar2=1.5 if war2!=.
+gen minwar3=1.5 if war3!=.
+gen minwar4=1.5 if war4!=.
+gen minwar5=1.5 if war5!=.
+gen minblockade=1.5 if blockade!=.
+drop if year >=1825
+
+graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
+			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
+			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
+			 (area minwar1 year, color(gs9)) (area minwar2 year, color(gs9)) ///
+			 (area minwar3 year, color(gs9)) (area minwar4 year, color(gs9)) ///
+			 (area minwar5 year, color(gs9)) (area minblockade year, color(gs4)) ///
+			 (line NavyNet  year,lcolor(red)) (line NavyGross  year,lcolor(red) lpattern(dash)) ///
+			 (line FrenchBudget year, lcolor(blue)) ///
+			 if year >=1740 & year<=1830, scheme(s1color) ///
+			 legend(order (13 14 15) label(13 "Net British Navy expenditures") label(14 "Gross British Navy expenditures") ///
+			 label(15 "French Navy expenditures") rows(3)) ///
+			 ytitle("Tons of silver, log(10)")
+	
+	
+	
+graph export "$hamburggit/Paper - Impact of War/Paper/FR_GB_Budget.png", replace
 
 save "$hamburg/database_dta/Expenditures.dta",  replace
 

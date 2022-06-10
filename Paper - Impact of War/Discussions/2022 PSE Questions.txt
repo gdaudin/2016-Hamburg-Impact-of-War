@@ -1,0 +1,41 @@
+• Re-exports taken out in the loss function ?
+
+- Try non-linear trends
+
+• Give Trade/GDP ratio
+
+- Compare trade trends with the Sound Toll navigation series
+
+• Paul Bairoch : international marketing costs were . 10% of the value of goods for cotton
+
+• Importance of extensive margin : look at the number
+of products traded ?
+
+• Link the navy budget and losses
+
+• Trade with India loss ?
+
+- correct the equation : time trend (actually ok ?)
+
+• Run regressions without that war years
+
+• Regressions : make sure to compare 7YW and Napoleonic
+
+• Look at absolute number losses athée than shares.
+
+• Qualité de la flotte
+
+• what is the British navy supposed to
+be doing
+
+• Hillman a book on Saint-Malo
+
+• Comparer les changements structurels en Fr et en Angleterre pour avoir une baseline.
+
+	• Niels Fergusson sur “Pity of War"
+Le fait que l'Agleterre a fait la guerre
+à l'Allemagne pour éviter sa domination au XXe siècle et n’a pas pu l’empêcher
+
+Todoroff sur l'effort de guerre Napoléoniens
+
+• Moins sur l'Angleterre et sa fonction objectif. Peut-être plutôt faire quelque chose sur la structure des pertes ?
