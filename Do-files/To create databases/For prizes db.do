@@ -379,8 +379,8 @@ save "$hamburg/database_dta/English_prizes.dta",  replace
 
 
 	
-*insheet using "$hamburggit/External Data/Value of prizes.xlsx", case clear names
-import excel "$hamburggit/External Data/Value of prizes.xlsx", clear firstrow
+*insheet using "$hamburggit/External Data/Value of British prizes.xlsx", case clear names
+import excel "$hamburggit/External Data/Value of British prizes.xlsx", clear firstrow
 rename Year year
 rename TotalSilverTonsPrizeValue Navy_Total_Prize_value
 
@@ -392,6 +392,9 @@ merge 1:1 year using "$hamburg/database_dta/English_prizes.dta"
 drop _merge
 
 generate Privateers_Total_Prize_value = MedianValuePrivateers * Number_of_prizes_Privateers_All*ST_silver/1000000
+generate Privateers_Investment = Privateers_Total_Prize_value/1.7
+**This assumes the British privateers are more successfull than the French one during the War of Austrian Succession
+**See "Résultats de la course française.xlsx"
 
 generate Total_Prize_value = MedianValuePrivateers * Number_of_prizes_Total_All*ST_silver/1000000 if year <=1792
 
@@ -403,8 +406,44 @@ keep if year >=1740 & year <=1820
 
 
 *twoway(connected Total_Prize_value year) (connected FR_Prize_value year) (connected Privateers_Total_Prize_value year) (connected Navy_Total_Prize_value year) 
-twoway(bar Total_Prize_value year) (bar FR_Prize_value year), /*
+twoway(bar Total_Prize_value year) (bar FR_Prize_value year) (line Privateers_Investment year, cmissing (n)), /*
   */ ytitle("tons of silver", axis(1)) scheme(s1mono) /*
-  */ legend(order (1 "Total prize value" 2 "French prize value")) 
+  */ legend(order (1 "Total prize value" 2 "French prize value" 3 "Outfitting of privateers (excluding the RN" )) 
  
  graph export "$hamburggit/Paper - Impact of War/Paper/Prizes_value.png", replace
+ 
+ 
+ 
+ ****** For prizes by both sides
+ import excel "$hamburggit/External Data/Résultats de la course française.xlsx", sheet("Output") firstrow clear
+ merge 1:1 year using "$hamburg/database_dta/English_prizes.dta"
+ drop _merge
+ keep if year >=1740 & year <=1820
+ replace FR_silver = 4.5 if year ==1793 | year==1794 | year==1795 | year==1796
+ 
+ label var Frenchincome "French gross predation income"
+ label var Frenchinvestment "French privateers’ outfitting"
+ 
+ replace Frenchincome = Frenchincome*FR_silver/1000
+ replace Frenchinvestment= Frenchinvestment*FR_silver/1000
+ **Les données françaises sont en milliers de livres tournois. * la valeur en grammes, cela donne des kg. Il faut donc diviser encore par 1000 pour avoir des tonnes.
+ 
+ 
+sort year
+ 
+ 
+ twoway(connected Total_Prize_value year,  cmissing(n)) (connected FR_Prize_value year,  cmissing(n)) (line Frenchincome year, cmissing(n)), /*
+  */ ytitle("tons of silver", axis(1)) scheme(s1mono) /*
+  */ legend(rows(3) order (1 "English gross income from predation" 2 "English gross income from predation on France" 3 "French gross predation income")) 
+ graph export "$hamburggit/Paper - Impact of War/Paper/FR&BR_Prizes_value_gross.png", replace
+ 
+ generate French_net_income = Frenchincome-Frenchinvestment
+ generate English_net_income= Total_Prize_value-Privateers_Investment
+ 
+  twoway(connected English_net_income year,  cmissing(n)) (line French_net_income year,  cmissing(n)) , /*
+  */ ytitle("tons of silver", axis(1)) scheme(s1mono) /*
+  */ legend(rows(2) order (1 "English income from predation, net of privateers’ outfiting" 2 "Frenche income from predation, net of privateers' outfitting")) 
+ graph export "$hamburggit/Paper - Impact of War/Paper/FR&BR_Prizes_value_net.png", replace
+ 
+ 
+ save "$hamburg/database_dta/English&French_prizes.dta",  replace

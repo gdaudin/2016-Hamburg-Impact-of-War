@@ -232,18 +232,21 @@ replace minwar5=0 if war5!=.
 replace minblockade=0 if blockade!=.
 
 
-merge 1:1 year using "$hamburg/database_dta/English_prizes.dta"
+merge 1:1 year using "$hamburg/database_dta/English&French_prizes.dta"
 drop _merge
 keep if year >=1740
 keep if year <=1825
 replace NavyGross=10^NavyGross
 replace NavyNet=10^NavyNet		
 replace FrenchBudget = 10^FrenchBudget	 
+generate BR_predation_gain = Total_Prize_value - Privateers_Investment - Frenchincome
+generate FR_predation_loss = Frenchinvestment+FR_Prize_value-Frenchincome
+
 
 replace FR_Prize_value=. if FR_Prize_value==0
 export delimited "$hamburg/database_csv/expenditures_annual_loss.csv", replace
 
-/*
+
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
 			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
@@ -255,17 +258,21 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (line NavyGross year if year <=1825, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ ) ///
 			 (line NavyNet year if year <=1825, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ lpattern(dash)) ///
 			 (line FrenchBudget year, cmissing(n) lcolor(blue)) /*mcolor(red) msize(vsmall)*/ ///
-			 (line FR_Prize_value year, cmissing(n) lcolor(grey)), ///
-			 legend(order (13 14 16 15 17 18) label(13 "Using all past peace periods for the peace trend") ///
+			 (line BR_predation_gain year, cmissing(n) lcolor(grey)) ///
+			 (connected FR_predation_loss year, cmissing(n) lcolor(grey) msize(tiny)), ///
+			 legend(order (13 14 16 15 17 18 19) label(13 "Using all past peace periods for the peace trend") ///
 			 label(14 "Using the preceeding peace period for the peace trend") ///
 			 label(15 "Gross British Navy expenditures") label(16 "Net British Navy expenditures")   ///
-			 label(17 "French Navy expenditures") label(18 "Value of French prizes captured by Britain") rows(6)) ///
+			 label(17 "French Navy expenditures") label(18 "Net British predation gains")  ///
+			 label(19 "Net French predation losses") rows(7)) ///
 			 ytitle("Tons of silver", size(small)) /*ylabel(1 (1) 4)*/ ///
 			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("")  ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) 
 
 graph export "$hamburggit/Paper - Impact of War/Paper/Expenditures_Annual_Loss.png", as(png) replace
-*/
+
+
+
 
 replace war1=3000 if war1!=.
 replace war2=3000 if war2!=.
@@ -319,8 +326,13 @@ generate Navy_Net_cum    = sum(NavyNet)
 replace Navy_Net_cum = Navy_Net_cum + (1229+1428)/2 if year >=1800
 generate Navy_Gross_cum  = sum(NavyGross)
 generate Navy_cum=log10(Navy_Gross_cum+Navy_Net_cum)
+
+generate BR_predation_gain_cum = log10(sum(BR_predation_gain))
+
 generate FRbudget_cum = log10(sum(FrenchBudget))
 generate FR_Prize_value_cum = log10(sum(FR_Prize_value))
+
+generate FR_predation_loss_cum = log10(sum(FR_predation_loss))
 
 
 replace war1=6 if war1!=.
@@ -348,19 +360,22 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (connected loss_nm_abs_cum year if year <=1825, cmissing(n) lcolor(red) mcolor(red) msize(vsmall)) ///
 			 (line Navy_cum year if year <=1825, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ ) ///
 			 (line FRbudget_cum year, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ lpattern(dash)) ///
-			 (line FR_Prize_value_cum year, cmissing(n) lcolor(grey) /*mcolor(red) msize(vsmall)*/ lpattern(dash)) ///
+			 (line BR_predation_gain_cum year, cmissing(n) lcolor(grey) /*mcolor(red) msize(vsmall)*/ lpattern(dash)) ///
+			 (connected FR_predation_loss_cum year, cmissing(n) lcolor(grey) /*mcolor(red)*/ msize(tiny) lpattern(dash)) ///
 			, ///
-			 legend(order (13 14 15 16 17) label(13 "Using all past peace periods for the peace trend") ///
+			 legend(order (13 14 15 16 17 18) label(13 "Using all past peace periods for the peace trend") ///
 			 label(14 "Using the preceeding peace period for the peace trend") ///
 			 label(15 "Royal Navy expenditures")  ///
 			 label(16 "French Navy expenditures") ///
-			 label(17 "Value of French prizes captured by Britain") rows(5)) ///
+			 label(17 "Net British predation gains") ///
+			 label(18 "Net French predation losses") rows(6)) ///
 			 ytitle("Tons of silver, log(10)", size(small)) /*ylabel(1 (1) 4)*/ ///
 			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("")  ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white))
 			 
 graph export "$hamburggit/Paper - Impact of War/Paper/Cumulated_Costs_and_benefits.png", as(png) replace
-			 
+
+
 			 
 generate ratio_abs    = 10^loss_abs_cum/10^Navy_cum
 generate ratio_nm_abs = 10^loss_nm_abs_cum/10^Navy_cum
@@ -391,11 +406,11 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 
 generate Total_Prize_value_cum=sum(Total_Prize_value)
 		
-generate ratio_abs_v2    = 10^loss_abs_cum/(10^Navy_cum-10^FR_Prize_value_cum)
-generate ratio_nm_abs_v2 = 10^loss_nm_abs_cum/(10^Navy_cum-10^FR_Prize_value_cum)
+generate ratio_abs_v2    = (10^loss_abs_cum+10^FR_predation_loss_cum)/(10^Navy_cum-10^BR_predation_gain_cum)
+generate ratio_nm_abs_v2 = (10^loss_nm_abs_cum+10^FR_predation_loss_cum)/(10^Navy_cum-10^BR_predation_gain_cum)
 
-generate ratio_abs_v3    = 10^loss_abs_cum/(10^Navy_cum-10^FRbudget_cum-Total_Prize_value_cum)
-generate ratio_nm_abs_v3 = 10^loss_nm_abs_cum/(10^Navy_cum-10^FRbudget_cum-Total_Prize_value_cum)
+generate ratio_abs_v3    = (10^loss_abs_cum+10^FR_predation_loss_cum+10^FRbudget_cum) /(10^Navy_cum-10^BR_predation_gain_cum)
+generate ratio_nm_abs_v3 = (10^loss_nm_abs_cum+10^FR_predation_loss_cum+10^FRbudget_cum) /(10^Navy_cum-10^BR_predation_gain_cum)
 
 replace war1=10 if war1!=.
 replace war2=10 if war2!=.
@@ -434,23 +449,23 @@ graph twoway (area war1 year , color(gs9)) (area war2 year , color(gs9)) ///
 replace ratio_abs		=	ratio_abs*0.35
 replace ratio_nm_abs		=	ratio_nm_abs*0.35	 
 
-replace ratio_abs_v2    = ((10^loss_abs_cum)*0.35+10^FR_Prize_value_cum)/(10^Navy_cum-Total_Prize_value_cum)
-replace ratio_nm_abs_v2 = ((10^loss_nm_abs_cum)*0.35+10^FR_Prize_value_cum)/(10^Navy_cum-Total_Prize_value_cum)
+replace ratio_abs_v2    = ((10^loss_abs_cum)*0.35+10^FR_predation_loss_cum)/(10^Navy_cum-BR_predation_gain_cum)
+replace ratio_nm_abs_v2 = ((10^loss_nm_abs_cum)*0.35+10^FR_predation_loss_cum)/(10^Navy_cum-BR_predation_gain_cum)
 
-replace ratio_abs_v3    = ((10^loss_abs_cum)*0.35+10^FR_Prize_value_cum+10^FRbudget_cum)/(10^Navy_cum-Total_Prize_value_cum)
-replace ratio_nm_abs_v3 = ((10^loss_nm_abs_cum)*0.35+10^FR_Prize_value_cum+10^FRbudget_cum)/(10^Navy_cum-Total_Prize_value_cum)
+replace ratio_abs_v3    = ((10^loss_abs_cum)*0.35+10^FR_predation_loss_cum+10^FRbudget_cum)/(10^Navy_cum-BR_predation_gain_cum)
+replace ratio_nm_abs_v3 = ((10^loss_nm_abs_cum)*0.35+10^FR_predation_loss_cum+10^FRbudget_cum)/(10^Navy_cum-BR_predation_gain_cum)
 
-replace war1=2.5 if war1!=.
-replace war2=2.5 if war2!=.
-replace war3=2.5 if war3!=.
-replace war4=2.5 if war4!=.
-replace war5=2.5 if war5!=.
-replace blockade=2.5 if blockade!=.
+replace war1=2 if war1!=.
+replace war2=2 if war2!=.
+replace war3=2 if war3!=.
+replace war4=2 if war4!=.
+replace war5=2 if war5!=.
+replace blockade=2 if blockade!=.
 
 
-export delimited "$hamburg/database_csv/ratio_BR_expenditures_ennual_lossH.csv", replace
+export delimited "$hamburg/database_csv/ratio_BR_expenditures_annual_lossH.csv", replace
 
-/*
+
 graph twoway (area war1 year , color(gs9)) (area war2 year , color(gs9)) ///
 			 (area war3 year , color(gs9)) (area war4 year , color(gs9)) ///
 			 (area war5 year , color(gs9)) (area blockade year , color(gs4)) ///
@@ -466,30 +481,30 @@ graph twoway (area war1 year , color(gs9)) (area war2 year , color(gs9)) ///
 			 , ///
 			 legend(order (14 16 18)  ///
 			 label(14 "French losses = French trade losses*0.35 ")  ///
-			 label(16 "French losses = idem + value of captured French prizes")  ///
+			 label(16 "French losses = idem + French predation losses")  ///
 			 label(18 "French losses = idem + French Navy budget") note ("Dash: Using all preceeding peace periods for the peace trend" "Line: Using the preceeding peace period for the peace trend")  ///
 			 rows(8)) ///
-			 ytitle("Ratio between cumulated French losses" "and the cumulated British costs" "British navy budget (- prizes for red and green lines)" , size(small)) /*ylabel(1 (1) 4)*/ ///
+			 ytitle("Ratio between cumulated French losses" "and the cumulated British costs" "British navy budget (- British predation gains for" "red and green lines)" , size(small)) /*ylabel(1 (1) 4)*/ ///
 			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("") ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white))		 
 			 
 			
 graph export "$hamburggit/Paper - Impact of War/Paper/Ratio_BR_Expenditures_Annual_LossH.png", as(png) replace
-*/
+
 
 replace ratio_abs		=	ratio_abs*0.14/0.35
 replace ratio_nm_abs		=	ratio_nm_abs*0.14/0.35 
 
-replace ratio_abs_v2    = ((10^loss_abs_cum)*0.14+10^FR_Prize_value_cum)/(10^Navy_cum-10^FR_Prize_value_cum)
-replace ratio_nm_abs_v2 = ((10^loss_nm_abs_cum)*0.14+10^FR_Prize_value_cum)/(10^Navy_cum-10^FR_Prize_value_cum)
+replace ratio_abs_v2    = ((10^loss_abs_cum)*0.14+10^FR_predation_loss_cum)/(10^Navy_cum-10^BR_predation_gain_cum)
+replace ratio_nm_abs_v2 = ((10^loss_nm_abs_cum)*0.14+10^FR_predation_loss_cum)/(10^Navy_cum-10^BR_predation_gain_cum)
 
-replace ratio_abs_v3    = ((10^loss_abs_cum)*0.14+10^FR_Prize_value_cum+10^FRbudget_cum)/(10^Navy_cum-10^FR_Prize_value_cum)
-replace ratio_nm_abs_v3 = ((10^loss_nm_abs_cum)*0.14+10^FR_Prize_value_cum+10^FRbudget_cum)/(10^Navy_cum-10^FR_Prize_value_cum)
+replace ratio_abs_v3    = ((10^loss_abs_cum)*0.14+10^FR_predation_loss_cum+10^FRbudget_cum)/(10^Navy_cum-10^FR_Prize_value_cum)
+replace ratio_nm_abs_v3 = ((10^loss_nm_abs_cum)*0.14+10^FR_predation_loss_cum+10^FRbudget_cum)/(10^Navy_cum-10^FR_Prize_value_cum)
 
 
-export delimited "$hamburg/database_csv/ratio_BR_expenditures_ennual_lossL.csv", replace
+export delimited "$hamburg/database_csv/ratio_BR_expenditures_annual_lossL.csv", replace
 
-/*
+
 graph twoway (area war1 year , color(gs9)) (area war2 year , color(gs9)) ///
 			 (area war3 year , color(gs9)) (area war4 year , color(gs9)) ///
 			 (area war5 year , color(gs9)) (area blockade year , color(gs4)) ///
@@ -505,16 +520,18 @@ graph twoway (area war1 year , color(gs9)) (area war2 year , color(gs9)) ///
 			 , ///
 			 legend(order (14 16 18)  ///
 			 label(14 "French losses = French trade losses*0.14 ")  ///
-			 label(16 "French losses = idem + value of captured French prizes")  ///
+			 label(16 "French losses = idem + French predation losses")  ///
 			 label(18 "French losses = idem + French Navy budget") note ("Dash: Using all preceeding peace periods for the peace trend" "Line: Using the preceeding peace period for the peace trend")  ///
 			 rows(8)) ///
-			 ytitle("Ratio between cumulated French losses" "and the cumulated British costs" "British navy budget (- prizes for red and green lines)", size(small)) /*ylabel(1 (1) 4)*/ ///
+			 ytitle("Ratio between cumulated French losses" "and the cumulated British costs" "British navy budget (- predation gains for" "red and green lines)", size(small)) /*ylabel(1 (1) 4)*/ ///
 			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("") ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white))		 
 			 
 			
 graph export "$hamburggit/Paper - Impact of War/Paper/Ratio_BR_Expenditures_Annual_LossL.png", as(png) replace
-*/
+
+
+blink
 
 
 *********************Travail sur les moyennes
