@@ -92,7 +92,10 @@ merge m:1 year using "$hamburg/database_dta/National Reexports"
 drop _merge
 sort year
 
+generate imputed_reexports=1 if OM_imports*reexport_nat_share_predict!=. & reexports==.
 replace reexports=OM_imports*reexport_nat_share_predict if reexports==.
+replace imputed_reexports=reexports if imputed_reexports==1
+
 
 gen period_str=""
 replace period_str ="Peace 1749-1755" if year >= 1749 & year <=1755
@@ -110,8 +113,8 @@ replace war=1 if year   >= 1744 & year <=1748 | year   >= 1756 & year <=1763 | y
 gen war1=4.3e+08 if year >=1744 & year<=1748
 gen war2=4.3e+08 if year >=1756 & year<=1762
 gen war3=4.3e+08 if year >=1778 & year<=1782
-gen war4=4.3e+08 if year >=1793 & year<=1802
-gen war5=4.3e+08 if year >=1804 & year<=1807
+gen war4=4.3e+08 if year >=1793 & year<=1803
+gen war5=4.3e+08 if year >=1804 & year<=1808
 gen blockade=4.3e+08 if year >=1808 & year<=1814
 
 
@@ -119,6 +122,12 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) ///
 			 (area war4 year, color(gs9)) (area war5 year, color(gs9)) ///
 			 (area blockade year, color(gs18)) ///
-			 (connected reexports year) (connected OM_imports year)
+			 (connected reexports year, msize(tiny) lcolor(red) mcolor(red)) ///
+			 (connected imputed_reexports year, msize(tiny) cmissing(n) lcolor(green) mcolor(green)) ///
+			 (connected OM_imports year, msize(tiny) lcolor(blue) mcolor(blue)), ///
+			 legend(order (9 7 8) label(9 "Colonial imports") label(7 "Colonial re-exports") label(8 "Imputed colonial re-exports")) ///
+			 scheme(s1color)
+			 
+
 
 
