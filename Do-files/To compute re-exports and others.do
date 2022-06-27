@@ -19,7 +19,7 @@ if "`c(username)'" =="tirindee" {
 }
 
 
-/*
+
 **Do a db of reexports share
 use "$toflit18_stata/bdd courante.dta", clear
 gen reexports = value if product_reexportations=="Réexportation" & export_import=="Exports" & best_guess_national_prodxpart==1
@@ -37,7 +37,7 @@ gen reexport_share = reexports/OM_imports
 graph twoway (connected reexport_share year)
 
 save "$hamburg/database_dta/National Reexports", replace
-*/
+
 **Do a db of reexports share by port
 use "$toflit18_stata/bdd courante.dta", clear
 keep if best_guess_region_prodxpart==1
@@ -88,13 +88,15 @@ graph twoway (connect reexport_share year if year <=1782) (connect reexport_pred
 keep year  reexport_nat_share_predict
 
 ***Re-merge for final computations
-merge m:1 year using "$hamburg/database_dta/National Reexports"
+merge m:1 year using "$hamburg/database_dta/National Reexports.dta"
 drop _merge
 sort year
 
 generate imputed_reexports=1 if OM_imports*reexport_nat_share_predict!=. & reexports==.
 replace reexports=OM_imports*reexport_nat_share_predict if reexports==.
 replace imputed_reexports=reexports if imputed_reexports==1
+
+save "$hamburg/database_dta/National Reexports.dta", replace
 
 
 gen period_str=""
@@ -129,5 +131,5 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 scheme(s1color)
 			 
 
-
+graph export "$hamburggit/Paper - Impact of War/Paper/Fr_reexports.png", as(png) replace
 
