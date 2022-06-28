@@ -154,7 +154,7 @@ save "$hamburg/database_dta/UKfederico_tena.dta", replace
 
 
 /*------------------------------------------------------------------------------
-				VOLUME OF TRADE BETWEEN 1716 AND 1820
+				VOLUME OF TRADE BETWEEN 1716 AND 1821
 ------------------------------------------------------------------------------*/
 
 if "`c(username)'" =="guillaumedaudin"{
@@ -194,24 +194,40 @@ replace valueFR_silver=0 if value==0
 save "$hamburg/database_dta/Best guess FR bilateral trade.dta", replace
 
 
-collapse (sum) value , by (year)
+collapse (sum) value , by (year export_import)
 
 insobs 1
-replace year=1793 if year==.
+
+drop if year==.
+drop if year==1793
+reshape wide value,i(year) j(export_import) string
+rename value* *
+gen value=Exports+Imports
+
+merge 1:1 year using "$hamburg/database_dta/National Reexports.dta"
+gen Exports_special=Exports-reexports
+gen Imports_special=Imports-reexports
+drop _merge
+
+
+
 
 
 
 append using "$hamburg/database_dta/FRfederico_tena.dta"
+drop if value==.
 
 merge 1:1 year using "$hamburg/database_dta/FR_silver.dta"
 
 drop if _merge==2
 drop _merge
-gen valueFR_silver=FR_silver*value/(1000*1000)
+
+foreach var of varlist value Imports Exports reexports Imports_special Exports_special {
+	gen `var'FR_silver=FR_silver*`var'/(1000*1000)
+	gen log10_`var'FR_silver=log10(`var'FR_silver)
+}
 
 drop if year>1840
-
-gen log10_valueFR_silver = log10(valueFR_silver)
 
 
 rename value valueFR
@@ -223,6 +239,7 @@ merge m:1 year using "$hamburg/database_dta/UKfederico_tena.dta"
 drop _merge
 
 sort year
+
 
 local maxvalue 4.5
 
@@ -240,6 +257,7 @@ generate blockade=`maxvalue' if year >=1807 & year <=1815
 
 sort year
 export delimited "$hamburg/database_csv/Total_silver_trade_FR_GB.csv", replace
+save "$hamburg/database_dta/Total silver trade FR GB.dta", replace
 
 
 graph twoway (area warla year, color(gs9)) ///
@@ -260,9 +278,26 @@ graph twoway (area warla year, color(gs9)) ///
 
 			 
 *graph save "$hamburggit/Paper/Total silver trade FR GB.png", replace
-graph export "$hamburggit/Paper - Impact of War/Paper/Total silver trade FR GB.png", as(png) replace			 
-	
-save "$hamburg/database_dta/Total silver trade FR GB.dta", replace
+graph export "$hamburggit/Paper - Impact of War/Paper/Total silver trade FR GB.png", as(png) replace
+		 
+gen log10_Imps_Exps_silver = log10(Imports_specialFR_silver + Exports_specialFR_silver)
+keep if year >=1710
+
+graph twoway (area wara year, color(gs14)) ///
+			 (area warb year, color(gs14)) ///
+			 (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
+			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
+			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
+			 (connected log10_valueFR_silver year, lcolor(blue) ///
+			 msize(tiny) mcolor(blue) ) ///
+			 (connected log10_Imps_Exps_silver year, lcolor(red) msize(tiny) mcolor(red)) ///
+			 (connected log10_Imports_specialFR_silver year, lcolor(green) msize(tiny) mcolor(green)), ///
+			 legend(order(11 "Special imports" 10 "Special trade (I+X)" ///
+			 9 "Total trade")) ///
+			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
+			 ytitle("Tons of silver, log10")
+
+graph export "$hamburggit/Paper - Impact of War/Paper/Breakdown of FR trade (silver).png", as(png) replace
 
 
 
