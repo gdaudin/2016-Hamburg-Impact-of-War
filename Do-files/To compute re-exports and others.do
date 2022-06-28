@@ -96,6 +96,11 @@ generate imputed_reexports=1 if OM_imports*reexport_nat_share_predict!=. & reexp
 replace reexports=OM_imports*reexport_nat_share_predict if reexports==.
 replace imputed_reexports=reexports if imputed_reexports==1
 
+merge 1:1 year using "$hamburg/database_dta/FR_silver.dta"
+gen reexports_silver = reexports*FR_silver/(1000*1000)
+gen OM_imports_silver=OM_imports*FR_silver/(1000*1000)
+gen imputed_reexports_silver = imputed_reexports*FR_silver/(1000*1000)
+
 save "$hamburg/database_dta/National Reexports.dta", replace
 
 
@@ -111,24 +116,28 @@ replace period_str ="Peace 1816-1840" if year >= 1816
 
 gen war=0
 replace war=1 if year   >= 1744 & year <=1748 | year   >= 1756 & year <=1763 | year   >= 1778 & year <=1783 | year   >= 1793 & year <=1801 | year   >= 1803 & year <=1815
+keep if year >=1715 & year <=1830
 
-gen war1=4.3e+08 if year >=1744 & year<=1748
-gen war2=4.3e+08 if year >=1756 & year<=1762
-gen war3=4.3e+08 if year >=1778 & year<=1782
-gen war4=4.3e+08 if year >=1793 & year<=1803
-gen war5=4.3e+08 if year >=1804 & year<=1808
-gen blockade=4.3e+08 if year >=1808 & year<=1814
+local maxvalue 1500
 
+gen war1=`maxvalue' if year >=1744 & year<=1748
+gen war2=`maxvalue' if year >=1756 & year<=1762
+gen war3=`maxvalue' if year >=1778 & year<=1782
+gen war4=`maxvalue' if year >=1793 & year<=1803
+gen war5=`maxvalue' if year >=1804 & year<=1808
+gen blockade=`maxvalue' if year >=1808 & year<=1814
+
+sort year
 
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) ///
 			 (area war4 year, color(gs9)) (area war5 year, color(gs9)) ///
 			 (area blockade year, color(gs18)) ///
-			 (connected reexports year, msize(tiny) lcolor(red) mcolor(red)) ///
-			 (connected imputed_reexports year, msize(tiny) cmissing(n) lcolor(green) mcolor(green)) ///
-			 (connected OM_imports year, msize(tiny) lcolor(blue) mcolor(blue)), ///
+			 (connected reexports_silver year, msize(tiny) lcolor(red) mcolor(red)) ///
+			 (connected imputed_reexports_silver year, msize(tiny) cmissing(n) lcolor(green) mcolor(green)) ///
+			 (connected OM_imports_silver year, msize(tiny) lcolor(blue) mcolor(blue)), ///
 			 legend(order (9 7 8) label(9 "Colonial imports") label(7 "Colonial re-exports") label(8 "Imputed colonial re-exports")) ///
-			 scheme(s1color)
+			 scheme(s1color) ytitle("Tons of silver")
 			 
 
 graph export "$hamburggit/Paper - Impact of War/Paper/Fr_reexports.png", as(png) replace

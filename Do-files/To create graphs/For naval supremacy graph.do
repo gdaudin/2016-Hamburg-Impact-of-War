@@ -26,7 +26,7 @@ use "$hamburg/database_dta/warships.dta", clear
 
 bys war_status year : keep if _n==1
 
-drop partner_grouping warships war
+drop partner_grouping warships /*war*/
 
 reshape wide side_warships, i(year) j(war_status) string
 
@@ -80,7 +80,7 @@ graph twoway (area wara year, color(gs14%30)) ///
 			 (area war1 year, color(gs9%30)) (area war2 year, color(gs9%30)) ///
 			 (area war3 year, color(gs9%30)) (area war4 year, color(gs9%30)) ///
 			 (area war5 year, color(gs9%30)) (area blockade year, color(gs4%30)) ///
-			 (line France_vs_GB year,  lpattern(dot) cmissing(n)) ///
+			 (line France_vs_GB year,  lcolor(red) cmissing(n) lwidth(thick)) ///
 			 (line ally_vs_foe year, cmissing(n) lwidth(thick)) ///
 			 (line allyandneutral_vs_foe year, lpattern(dash) cmissing(n)), ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
