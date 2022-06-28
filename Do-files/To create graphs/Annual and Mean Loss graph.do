@@ -2,6 +2,7 @@
 
 
 *global hamburg "/Users/Tirindelli/Google Drive/Hamburg"
+global vardinteret value Imports Exports reexports Imports_special Exports_special
 
 if "`c(username)'" =="guillaumedaudin" {
 	global hamburg "/Users/guillaumedaudin/Documents/Recherche/2016 Hambourg et Guerre"
@@ -27,9 +28,9 @@ if "`c(username)'" =="Tirindelli" {
 use "$hamburg/database_dta/Total silver trade FR GB.dta", clear
 
 
-
-
-gen ln_value=ln(valueFR_silver)
+foreach var of global vardinteret {
+	gen ln_`var'=ln(`var'FR_silver)
+} 
 
 
 
@@ -47,35 +48,38 @@ replace period_str ="Blockade 1808-1815" if year   >= 1808 & year <=1815
 replace period_str ="Peace 1816-1840" if year >= 1816
 
 encode period_str, gen(period)
-
-reg ln_value i.period#c.year i.period year
-
-foreach per of num 1/10 {
-	gen log10_value_period`per'=log10_valueFR_silver if period==`per'
-}
-
+foreach var of global vardinteret {
+	reg ln_`var' i.period#c.year i.period year
+	foreach per of num 1/10 {
+		gen log10_`var'_period`per'=log10_`var'FR_silver if period==`per'
+	}
 
 
-/*
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
 			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
-			 (lfit log10_value_period1 year, lpattern(line) lcolor(black)) ///
-			 (lfit log10_value_period2 year, lpattern(line) lcolor(black)) ///
-			 (lfit log10_value_period3 year, lpattern(line) lcolor(black)) ///
-			 (lfit log10_value_period4 year, lpattern(line) lcolor(black)) ///
-			 (lfit log10_value_period5 year, lpattern(line) lcolor(black)) ///
-			 (lfit log10_value_period6 year, lpattern(line) lcolor(black)) ///
-			 (lfit log10_value_period7 year, lpattern(line) lcolor(black)) ///
-			 (lfit log10_value_period8 year, lpattern(line) lcolor(black)) ///
-			 (lfit log10_value_period9 year, lpattern(line) lcolor(black)) ///
-			 (lfit log10_value_period10 year, lpattern(line) lcolor(black)), ///
+			 (lfit log10_`var'_period1 year, lpattern(line) lcolor(black)) ///
+			 (lfit log10_`var'_period2 year, lpattern(line) lcolor(black)) ///
+			 (lfit log10_`var'_period3 year, lpattern(line) lcolor(black)) ///
+			 (lfit log10_`var'_period4 year, lpattern(line) lcolor(black)) ///
+			 (lfit log10_`var'_period5 year, lpattern(line) lcolor(black)) ///
+			 (lfit log10_`var'_period6 year, lpattern(line) lcolor(black)) ///
+			 (lfit log10_`var'_period7 year, lpattern(line) lcolor(black)) ///
+			 (lfit log10_`var'_period8 year, lpattern(line) lcolor(black)) ///
+			 (lfit log10_`var'_period9 year, lpattern(line) lcolor(black)) ///
+			 (lfit log10_`var'_period10 year, lpattern(line) lcolor(black)), ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-			 legend (off) ytitle("Time trends of French trade in tons of silver, log10") xtitle("Year: Mercantilist and R&N wars") 
+			 legend (off) ///
+			 ytitle("Time trends of French trade in tons of silver, log10") ///
+			 xtitle("Year: Mercantilist and R&N wars") ///
+			 title("`var'")
 
-graph export "$hamburggit/Paper - Impact of War/Paper/Time trends of French trade - with blockade.png", as(png) replace
-*/
+graph export "$hamburggit/Paper - Impact of War/Paper/Time trends of French trade `var'- with blockade.png", as(png) replace
 
+
+}
+
+blink
 ************Now to compute the losses
 keep if year >= 1716
 
