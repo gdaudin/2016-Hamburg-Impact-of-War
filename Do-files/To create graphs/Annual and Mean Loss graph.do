@@ -2,7 +2,7 @@
 
 
 *global hamburg "/Users/Tirindelli/Google Drive/Hamburg"
-global vardinteret value Imports Exports reexports Imports_special Exports_special
+
 
 if "`c(username)'" =="guillaumedaudin" {
 	global hamburg "/Users/guillaumedaudin/Documents/Recherche/2016 Hambourg et Guerre"
@@ -27,6 +27,7 @@ if "`c(username)'" =="Tirindelli" {
 
 use "$hamburg/database_dta/Total silver trade FR GB.dta", clear
 
+global vardinteret value /*Imports Exports reexports Imports_special Exports_special*/
 
 foreach var of global vardinteret {
 	gen ln_`var'=ln(`var'FR_silver)
@@ -46,6 +47,25 @@ replace period_str ="Peace 1784-1792" if year >= 1784 & year <=1792
 replace period_str ="War 1793-1807" if year   >= 1793 & year <=1807
 replace period_str ="Blockade 1808-1815" if year   >= 1808 & year <=1815
 replace period_str ="Peace 1816-1840" if year >= 1816
+
+keep if year >= 1716
+
+gen war = 1
+replace war = 0 if year <= 1744 | (year >= 1749 & year <=1755) | (year >= 1763 & year <=1777) | (year >= 1784 & year <=1792) | year >=1816
+
+replace war1=1 if war1!=.
+replace war2=1 if war2!=.
+replace war3=1 if war3!=.
+replace war4=1 if war4!=.
+replace war5=1 if war5!=.
+replace blockade=1 if blockade!=.
+capture drop minwar* minblockade
+gen minwar1=-0.2 if war1!=.
+gen minwar2=-0.2 if war2!=.
+gen minwar3=-0.2 if war3!=.
+gen minwar4=-0.2 if war4!=.
+gen minwar5=-0.2 if war5!=.
+gen minblockade=-0.2 if blockade!=.
 
 
 
@@ -80,12 +100,11 @@ graph export "$hamburggit/Paper - Impact of War/Paper/Time trends of French trad
 */
 }
 
+save temp.dta, replace
+
+
 
 ************Now to compute the losses
-keep if year >= 1716
-
-gen war = 1
-replace war = 0 if year <= 1744 | (year >= 1749 & year <=1755) | (year >= 1763 & year <=1777) | (year >= 1784 & year <=1792) | year >=1816
 
 
 foreach var of global vardinteret {
@@ -118,7 +137,7 @@ foreach var of global vardinteret {
 	replace loss = 1-(`var'FR_silver/exp(ln_`var'_peace1_4)) if year >=1793
 	replace loss =. if ln_`var'==.
 	replace loss=max(-.2,loss)
-	replace loss =. if ln_`var'==.
+	replace loss =. if year <=1744
 	
 	
 	capture drop loss_nomemory
@@ -129,6 +148,7 @@ foreach var of global vardinteret {
 	replace loss_nomemory  =. if ln_`var'==.
 	replace loss_nomemory=max(-.2,loss_nomemory)
 	replace loss_nomemory  =. if ln_`var'==.
+	replace loss_nomemory =. if year <=1744
 
 
 
@@ -174,12 +194,59 @@ foreach var of global vardinteret {
 	graph export "$hamburggit/Paper - Impact of War/Paper/Annual_loss_function `title'.png", as(png) replace
 
 
-	save temp.dta, replace
+	
 
 }
-blif
 
+use temp.dta, clear
 ************* Pour les graphiques avec les dépenses
+
+local var value
+capture drop loss
+capture drop loss_nomemory
+capture drop ln_value_p*
+
+reg ln_`var' year if year <= 1744 & war==0
+predict ln_`var'_peace1
+reg ln_`var' year if year <=1755 & war==0
+predict ln_`var'_peace1_2
+reg ln_`var' year if year <=1777  & war==0
+predict ln_`var'_peace1_3
+reg ln_`var' year if year <=1791  & war==0
+predict ln_`var'_peace1_4
+reg ln_`var' year if war==0
+predict ln_`var'_peace_all
+
+
+reg ln_`var' year if (year >= 1749 & year <=1755) & war==0
+predict ln_`var'_peace2
+reg ln_`var' year if (year >= 1763 & year <=1777) & war==0
+predict ln_`var'_peace3
+reg ln_`var' year if (year >= 1784 & year <=1791) & war==0
+predict ln_`var'_peace4
+
+
+	
+gen     loss = 1-(`var'FR_silver/exp(ln_`var'_peace1)) 	if year >=1745 & year <=1755
+replace loss = 1-(`var'FR_silver/exp(ln_`var'_peace1_2)) if year >=1756 & year <=1777
+replace loss = 1-(`var'FR_silver/exp(ln_`var'_peace1_3)) if year >=1778 & year <=1792
+replace loss = 1-(`var'FR_silver/exp(ln_`var'_peace1_4)) if year >=1793
+replace loss =. if ln_`var'==.
+replace loss=max(-.2,loss)
+replace loss =. if ln_`var'==.
+replace loss =. if year <=1744
+	
+	
+
+gen     loss_nomemory  = 1-(`var'FR_silver/exp(ln_`var'_peace1)) if year >=1745 & year <=1755
+replace loss_nomemory  = 1-(`var'FR_silver/exp(ln_`var'_peace2)) if year >=1756 & year <=1777
+replace loss_nomemory  = 1-(`var'FR_silver/exp(ln_`var'_peace3)) if year >=1778 & year <=1792
+replace loss_nomemory  = 1-(`var'FR_silver/exp(ln_`var'_peace4)) if year >=1793
+replace loss_nomemory  =. if ln_`var'==.
+replace loss_nomemory=max(-.2,loss_nomemory)
+replace loss_nomemory  =. if ln_`var'==.
+replace loss_nomemory =. if year <=1744
+
 
 
 merge 1:1 year using "$hamburg/database_dta/Expenditures.dta" 
