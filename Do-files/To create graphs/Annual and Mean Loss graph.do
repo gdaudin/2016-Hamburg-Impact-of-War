@@ -329,12 +329,19 @@ keep if year <=1825
 replace NavyGross=10^NavyGross
 replace NavyNet=10^NavyNet		
 replace FrenchBudget = 10^FrenchBudget	 
-generate BR_predation_gain = Total_Prize_value - Privateers_Investment - Frenchincome
-generate FR_predation_loss = Frenchinvestment+FR_Prize_value-Frenchincome
+
+***Assume that the costs on the robbed person are twice the value for the privateer
+generate BR_predation_gain = Total_Prize_value - Privateers_Investment - Frenchincome*2
+generate FR_predation_loss = Frenchinvestment+FR_Prize_value*2-Frenchincome
+
+
+graph twoway (connected BR_predation_gain year, cmissing(n) ) (connected FR_predation_loss year, cmissing(n))
 
 
 replace FR_Prize_value=. if FR_Prize_value==0
 export delimited "$hamburg/database_csv/expenditures_annual_loss.csv", replace
+
+
 
 
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
@@ -414,15 +421,22 @@ generate loss_nm_abs_cum = log10(sum(loss_nm_abs))
 
 generate Navy_Net_cum    = sum(NavyNet)
 replace Navy_Net_cum = Navy_Net_cum + (1229+1428)/2 if year >=1800
+*As we have two measures for 1800
 generate Navy_Gross_cum  = sum(NavyGross)
-generate Navy_cum=log10(Navy_Gross_cum+Navy_Net_cum)
+generate log_Navy_cum=log10(Navy_Gross_cum+Navy_Net_cum)
+generate Navy_cum=Navy_Gross_cum+Navy_Net_cum
 
-generate BR_predation_gain_cum = log10(sum(BR_predation_gain))
+generate log_BR_predation_gain_cum = log10(sum(BR_predation_gain))
+generate BR_predation_gain_cum = sum(BR_predation_gain)
 
-generate FRbudget_cum = log10(sum(FrenchBudget))
-generate FR_Prize_value_cum = log10(sum(FR_Prize_value))
+generate log_FRbudget_cum = log10(sum(FrenchBudget))
+generate FRbudget_cum = sum(FrenchBudget)
 
-generate FR_predation_loss_cum = log10(sum(FR_predation_loss))
+generate log_FR_Prize_value_cum = log10(sum(FR_Prize_value))
+generate FR_Prize_value_cum = sum(FR_Prize_value)
+
+generate log_FR_predation_loss_cum = log10(sum(FR_predation_loss))
+generate FR_predation_loss_cum = sum(FR_predation_loss)
 
 
 replace war1=6 if war1!=.
@@ -446,12 +460,12 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area minwar1 year, color(gs9)) (area minwar2 year, color(gs9)) ///
 			 (area minwar3 year, color(gs9)) (area minwar4 year, color(gs9)) ///
 			 (area minwar5 year, color(gs9)) (area minblockade year, color(gs4)) ///
-		(connected loss_abs_cum year if year <=1825, cmissing(n) lcolor(black) mcolor(black) msize(vsmall) lpattern(dash) ) ///
-			 (connected loss_nm_abs_cum year if year <=1825, cmissing(n) lcolor(red) mcolor(red) msize(vsmall)) ///
-			 (line Navy_cum year if year <=1825, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ ) ///
-			 (line FRbudget_cum year, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ lpattern(dash)) ///
-			 (line BR_predation_gain_cum year, cmissing(n) lcolor(grey) /*mcolor(red) msize(vsmall)*/ lpattern(dash)) ///
-			 (connected FR_predation_loss_cum year, cmissing(n) lcolor(grey) /*mcolor(red)*/ msize(tiny) lpattern(dash)) ///
+		(connected loss_abs_cum year if year <=1825, cmissing(n) lcolor(blue) mcolor(blue) msize(vsmall) lpattern(dash) ) ///
+			 (line loss_nm_abs_cum year if year <=1825, cmissing(n) lcolor(blue) mcolor(blue) msize(vsmall)) ///
+			 (line log_Navy_cum year if year <=1825, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ ) ///
+			 (line log_FRbudget_cum year, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ lpattern(dash)) ///
+			 (line log_BR_predation_gain_cum year, cmissing(n) lcolor(red) mcolor(red)/* msize(vsmall)*/) ///
+			 (line log_FR_predation_loss_cum year, cmissing(n) lcolor(red) mcolor(red) msize(tiny) lpattern(dash)) ///
 			, ///
 			 legend(order (13 14 15 16 17 18) label(13 "Using all past peace periods for the peace trend") ///
 			 label(14 "Using the preceeding peace period for the peace trend") ///
@@ -467,8 +481,8 @@ graph export "$hamburggit/Paper - Impact of War/Paper/Cumulated_Costs_and_benefi
 
 
 			 
-generate ratio_abs    = 10^loss_abs_cum/10^Navy_cum
-generate ratio_nm_abs = 10^loss_nm_abs_cum/10^Navy_cum
+generate ratio_abs    = 10^loss_abs_cum/Navy_cum
+generate ratio_nm_abs = 10^loss_nm_abs_cum/Navy_cum
 
 
 replace war1=4 if war1!=.
@@ -496,11 +510,11 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 
 generate Total_Prize_value_cum=sum(Total_Prize_value)
 		
-generate ratio_abs_v2    = (10^loss_abs_cum+10^FR_predation_loss_cum)/(10^Navy_cum-10^BR_predation_gain_cum)
-generate ratio_nm_abs_v2 = (10^loss_nm_abs_cum+10^FR_predation_loss_cum)/(10^Navy_cum-10^BR_predation_gain_cum)
+generate ratio_abs_v2    = (10^loss_abs_cum+FR_predation_loss_cum)/(Navy_cum-BR_predation_gain_cum)
+generate ratio_nm_abs_v2 = (10^loss_nm_abs_cum+FR_predation_loss_cum)/(Navy_cum-BR_predation_gain_cum)
 
-generate ratio_abs_v3    = (10^loss_abs_cum+10^FR_predation_loss_cum+10^FRbudget_cum) /(10^Navy_cum-10^BR_predation_gain_cum)
-generate ratio_nm_abs_v3 = (10^loss_nm_abs_cum+10^FR_predation_loss_cum+10^FRbudget_cum) /(10^Navy_cum-10^BR_predation_gain_cum)
+generate ratio_abs_v3    = (10^loss_abs_cum+FR_predation_loss_cum+FRbudget_cum) /(Navy_cum-BR_predation_gain_cum)
+generate ratio_nm_abs_v3 = (10^loss_nm_abs_cum+FR_predation_loss_cum+10^FRbudget_cum) /(Navy_cum-BR_predation_gain_cum)
 
 replace war1=10 if war1!=.
 replace war2=10 if war2!=.
@@ -539,11 +553,11 @@ graph twoway (area war1 year , color(gs9)) (area war2 year , color(gs9)) ///
 replace ratio_abs		=	ratio_abs*0.35
 replace ratio_nm_abs		=	ratio_nm_abs*0.35	 
 
-replace ratio_abs_v2    = ((10^loss_abs_cum)*0.35+10^FR_predation_loss_cum)/(10^Navy_cum-BR_predation_gain_cum)
-replace ratio_nm_abs_v2 = ((10^loss_nm_abs_cum)*0.35+10^FR_predation_loss_cum)/(10^Navy_cum-BR_predation_gain_cum)
+replace ratio_abs_v2    = ((10^loss_abs_cum)*0.35+FR_predation_loss_cum)/(Navy_cum-BR_predation_gain_cum)
+replace ratio_nm_abs_v2 = ((10^loss_nm_abs_cum)*0.35+FR_predation_loss_cum)/(Navy_cum-BR_predation_gain_cum)
 
-replace ratio_abs_v3    = ((10^loss_abs_cum)*0.35+10^FR_predation_loss_cum+10^FRbudget_cum)/(10^Navy_cum-BR_predation_gain_cum)
-replace ratio_nm_abs_v3 = ((10^loss_nm_abs_cum)*0.35+10^FR_predation_loss_cum+10^FRbudget_cum)/(10^Navy_cum-BR_predation_gain_cum)
+replace ratio_abs_v3    = ((10^loss_abs_cum)*0.35+FR_predation_loss_cum+FRbudget_cum)/(Navy_cum-BR_predation_gain_cum)
+replace ratio_nm_abs_v3 = ((10^loss_nm_abs_cum)*0.35+FR_predation_loss_cum+FRbudget_cum)/(Navy_cum-BR_predation_gain_cum)
 
 replace war1=2 if war1!=.
 replace war2=2 if war2!=.
@@ -585,11 +599,11 @@ graph export "$hamburggit/Paper - Impact of War/Paper/Ratio_BR_Expenditures_Annu
 replace ratio_abs		=	ratio_abs*0.14/0.35
 replace ratio_nm_abs		=	ratio_nm_abs*0.14/0.35 
 
-replace ratio_abs_v2    = ((10^loss_abs_cum)*0.14+10^FR_predation_loss_cum)/(10^Navy_cum-10^BR_predation_gain_cum)
-replace ratio_nm_abs_v2 = ((10^loss_nm_abs_cum)*0.14+10^FR_predation_loss_cum)/(10^Navy_cum-10^BR_predation_gain_cum)
+replace ratio_abs_v2    = ((10^loss_abs_cum)*0.14+FR_predation_loss_cum)/(Navy_cum-BR_predation_gain_cum)
+replace ratio_nm_abs_v2 = ((10^loss_nm_abs_cum)*0.14+FR_predation_loss_cum)/(Navy_cum-BR_predation_gain_cum)
 
-replace ratio_abs_v3    = ((10^loss_abs_cum)*0.14+10^FR_predation_loss_cum+10^FRbudget_cum)/(10^Navy_cum-10^FR_Prize_value_cum)
-replace ratio_nm_abs_v3 = ((10^loss_nm_abs_cum)*0.14+10^FR_predation_loss_cum+10^FRbudget_cum)/(10^Navy_cum-10^FR_Prize_value_cum)
+replace ratio_abs_v3    = ((10^loss_abs_cum)*0.14+FR_predation_loss_cum+FRbudget_cum)/(Navy_cum-FR_Prize_value_cum)
+replace ratio_nm_abs_v3 = ((10^loss_nm_abs_cum)*0.14+FR_predation_loss_cum+FRbudget_cum)/(Navy_cum-FR_Prize_value_cum)
 
 
 export delimited "$hamburg/database_csv/ratio_BR_expenditures_annual_lossL.csv", replace
