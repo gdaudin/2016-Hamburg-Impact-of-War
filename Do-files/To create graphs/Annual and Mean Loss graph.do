@@ -147,7 +147,14 @@ foreach var of global vardinteret {
 	gen minblockade=-0.2 if blockade!=.
 	keep if year >=1740
 	export delimited "$hamburg/database_csv/mean_annual_loss `var'.csv", replace
-
+	
+	
+	if "`var'"=="value" local title "Total trade"
+	if "`var'"=="Imports" | "`var'"=="Exports" local title "`var'"
+	if "`var'"=="reexports" local title "Reexports"
+	if "`var'"=="Imports_special" local title "Special imports"
+	if "`var'"=="Exports_special" local title "Special exports"
+	
 
 	graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
@@ -162,16 +169,16 @@ foreach var of global vardinteret {
 			 ytitle("1-(predicted trade based on peace trend)/(actual trade)", size(small)) ylabel(-0.2 (0.2) 1) ///
 			 yline(0, lwidth(medium) lcolor(grey)) xtitle("")  ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-			 title("`var'")
+			 title("`title'")
  
-	graph export "$hamburggit/Paper - Impact of War/Paper/Annual_loss_function `var'.png", as(png) replace
+	graph export "$hamburggit/Paper - Impact of War/Paper/Annual_loss_function `title'.png", as(png) replace
 
 
 	save temp.dta, replace
 
 }
-
 blif
+
 ************* Pour les graphiques avec les dépenses
 
 
