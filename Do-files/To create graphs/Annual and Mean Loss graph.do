@@ -37,8 +37,8 @@ foreach var of global vardinteret {
 
 gen period_str=""
 
-replace period_str ="Peace 1716-1744" if year <= 1744
-replace period_str ="War 1745-1748" if year   >= 1745 & year <=1748
+replace period_str ="Peace 1716-1743" if year <= 1743
+replace period_str ="War 1744-1748" if year   >= 1744 & year <=1748
 replace period_str ="Peace 1749-1755" if year >= 1749 & year <=1755
 replace period_str ="War 1756-1763" if year   >= 1756 & year <=1763
 replace period_str ="Peace 1763-1777" if year >= 1763 & year <=1777
@@ -51,7 +51,7 @@ replace period_str ="Peace 1816-1840" if year >= 1816
 keep if year >= 1716
 
 gen war = 1
-replace war = 0 if year <= 1744 | (year >= 1749 & year <=1755) | (year >= 1763 & year <=1777) | (year >= 1784 & year <=1792) | year >=1816
+replace war = 0 if year <= 1743 | (year >= 1749 & year <=1755) | (year >= 1763 & year <=1777) | (year >= 1784 & year <=1792) | year >=1816
 
 replace war1=1 if war1!=.
 replace war2=1 if war2!=.
@@ -108,7 +108,7 @@ save temp.dta, replace
 
 
 foreach var of global vardinteret {
-	reg ln_`var' year if year <= 1744 & war==0
+	reg ln_`var' year if year <= 1743 & war==0
 	predict ln_`var'_peace1
 	reg ln_`var' year if year <=1755 & war==0
 	predict ln_`var'_peace1_2
@@ -131,24 +131,24 @@ foreach var of global vardinteret {
 	*twoway (line ln_value_peace1 year) (line ln_value_peace1_2 year) (line 	ln_value_peace1_3 year) (line ln_value_peace1_4 year) (line ln_value_peace_all year) ///
 	*		(line ln_value year)
 	capture drop loss	
-	gen     loss = 1-(`var'FR_silver/exp(ln_`var'_peace1)) 	if year >=1745 & year <=1755
+	gen     loss = 1-(`var'FR_silver/exp(ln_`var'_peace1)) 	if year >=1744 & year <=1755
 	replace loss = 1-(`var'FR_silver/exp(ln_`var'_peace1_2)) if year >=1756 & year <=1777
 	replace loss = 1-(`var'FR_silver/exp(ln_`var'_peace1_3)) if year >=1778 & year <=1792
 	replace loss = 1-(`var'FR_silver/exp(ln_`var'_peace1_4)) if year >=1793
 	replace loss =. if ln_`var'==.
 	replace loss=max(-.2,loss)
-	replace loss =. if year <=1744
+	replace loss =. if year <=1743
 	
 	
 	capture drop loss_nomemory
-	gen     loss_nomemory  = 1-(`var'FR_silver/exp(ln_`var'_peace1)) if year >=1745 & year <=1755
+	gen     loss_nomemory  = 1-(`var'FR_silver/exp(ln_`var'_peace1)) if year >=1744 & year <=1755
 	replace loss_nomemory  = 1-(`var'FR_silver/exp(ln_`var'_peace2)) if year >=1756 & year <=1777
 	replace loss_nomemory  = 1-(`var'FR_silver/exp(ln_`var'_peace3)) if year >=1778 & year <=1792
 	replace loss_nomemory  = 1-(`var'FR_silver/exp(ln_`var'_peace4)) if year >=1793
 	replace loss_nomemory  =. if ln_`var'==.
 	replace loss_nomemory=max(-.2,loss_nomemory)
 	replace loss_nomemory  =. if ln_`var'==.
-	replace loss_nomemory =. if year <=1744
+	replace loss_nomemory =. if year <=1743
 
 
 
@@ -206,7 +206,7 @@ capture drop loss
 capture drop loss_nomemory
 capture drop ln_value_p*
 
-reg ln_`var' year if year <= 1744 & war==0
+reg ln_`var' year if year <= 1743 & war==0
 predict ln_`var'_peace1
 reg ln_`var' year if year <=1755 & war==0
 predict ln_`var'_peace1_2
@@ -227,25 +227,25 @@ predict ln_`var'_peace4
 
 
 	
-gen     loss = 1-(`var'FR_silver/exp(ln_`var'_peace1)) 	if year >=1745 & year <=1755
+gen     loss = 1-(`var'FR_silver/exp(ln_`var'_peace1)) 	if year >=1744 & year <=1755
 replace loss = 1-(`var'FR_silver/exp(ln_`var'_peace1_2)) if year >=1756 & year <=1777
 replace loss = 1-(`var'FR_silver/exp(ln_`var'_peace1_3)) if year >=1778 & year <=1792
 replace loss = 1-(`var'FR_silver/exp(ln_`var'_peace1_4)) if year >=1793
 replace loss =. if ln_`var'==.
 replace loss=max(-.2,loss)
 replace loss =. if ln_`var'==.
-replace loss =. if year <=1744
+replace loss =. if year <=1743
 	
 	
 
-gen     loss_nomemory  = 1-(`var'FR_silver/exp(ln_`var'_peace1)) if year >=1745 & year <=1755
+gen     loss_nomemory  = 1-(`var'FR_silver/exp(ln_`var'_peace1)) if year >=1744 & year <=1755
 replace loss_nomemory  = 1-(`var'FR_silver/exp(ln_`var'_peace2)) if year >=1756 & year <=1777
 replace loss_nomemory  = 1-(`var'FR_silver/exp(ln_`var'_peace3)) if year >=1778 & year <=1792
 replace loss_nomemory  = 1-(`var'FR_silver/exp(ln_`var'_peace4)) if year >=1793
 replace loss_nomemory  =. if ln_`var'==.
 replace loss_nomemory=max(-.2,loss_nomemory)
 replace loss_nomemory  =. if ln_`var'==.
-replace loss_nomemory =. if year <=1744
+replace loss_nomemory =. if year <=1743
 
 
 
@@ -559,12 +559,12 @@ replace ratio_nm_abs_v2 = ((10^loss_nm_abs_cum)*0.35+FR_predation_loss_cum)/(Nav
 replace ratio_abs_v3    = ((10^loss_abs_cum)*0.35+FR_predation_loss_cum+FRbudget_cum)/(Navy_cum-BR_predation_gain_cum)
 replace ratio_nm_abs_v3 = ((10^loss_nm_abs_cum)*0.35+FR_predation_loss_cum+FRbudget_cum)/(Navy_cum-BR_predation_gain_cum)
 
-replace war1=2 if war1!=.
-replace war2=2 if war2!=.
-replace war3=2 if war3!=.
-replace war4=2 if war4!=.
-replace war5=2 if war5!=.
-replace blockade=2 if blockade!=.
+replace war1=2.5 if war1!=.
+replace war2=2.5 if war2!=.
+replace war3=2.5 if war3!=.
+replace war4=2.5 if war4!=.
+replace war5=2.5 if war5!=.
+replace blockade=2.5 if blockade!=.
 
 
 export delimited "$hamburg/database_csv/ratio_BR_expenditures_annual_lossH.csv", replace
@@ -635,7 +635,7 @@ graph twoway (area war1 year , color(gs9)) (area war2 year , color(gs9)) ///
 graph export "$hamburggit/Paper - Impact of War/Paper/Ratio_BR_Expenditures_Annual_LossL.png", as(png) replace
 
 
-blink
+
 
 
 *********************Travail sur les moyennes
@@ -643,7 +643,7 @@ blink
 
 use temp.dta, clear
 			 
-egen loss_war1		=mean(loss) if year >=1745 & year <=1748
+egen loss_war1		=mean(loss) if year >=1744 & year <=1748
 egen loss_peace1	=mean(loss) if year >=1749 & year <=1755
 egen loss_war2		=mean(loss) if year >=1756 & year <=1762
 egen loss_peace2	=mean(loss) if year >=1763 & year <=1777
@@ -659,7 +659,7 @@ graph twoway (area loss_mean year) (line loss year)
 
 
 
-egen loss_war_nomemory1		=mean(loss_nomemory) if year >=1745 & year <=1748
+egen loss_war_nomemory1		=mean(loss_nomemory) if year >=1744 & year <=1748
 egen loss_peace_nomemory1	=mean(loss_nomemory) if year >=1749 & year <=1755
 egen loss_war_nomemory2		=mean(loss_nomemory) if year >=1756 & year <=1762
 egen loss_peace_nomemory2	=mean(loss_nomemory) if year >=1763 & year <=1777
