@@ -418,7 +418,7 @@ twoway(bar Total_Prize_value year) (bar FR_Prize_value year) (line Privateers_In
  import excel "$hamburggit/External Data/Résultats de la course française.xlsx", sheet("Output") firstrow clear
  merge 1:1 year using "$hamburg/database_dta/English_prizes.dta"
  drop _merge
- keep if year >=1740 & year <=1820
+ *keep if year >=1740 & year <=1820
  replace FR_silver = 4.5 if year ==1793 | year==1794 | year==1795 | year==1796
  
  label var Frenchincome "French gross predation income"
@@ -430,35 +430,10 @@ twoway(bar Total_Prize_value year) (bar FR_Prize_value year) (line Privateers_In
  
  
 sort year
+generate French_net_income = Frenchincome-Frenchinvestment
+generate English_net_income= Total_Prize_value-Privateers_Investment
+replace Frenchinvestment=-Frenchinvestment
+replace Privateers_Investment=-Privateers_Investment
+save "$hamburg/database_dta/English&French_prizes.dta",  replace
+
  
- 
- twoway(connected Total_Prize_value year,  cmissing(n)) (connected FR_Prize_value year,  cmissing(n)) (line Frenchincome year, cmissing(n)), /*
-  */ ytitle("tons of silver", axis(1)) scheme(s1mono) /*
-  */ legend(rows(3) order (1 "English gross income from predation" 2 "English gross income from predation on France" 3 "French gross predation income")) 
- graph export "$hamburggit/Paper - Impact of War/Paper/FR&BR_Prizes_value_gross.png", replace
- 
- generate French_net_income = Frenchincome-Frenchinvestment
- generate English_net_income= Total_Prize_value-Privateers_Investment
- 
-  twoway(connected English_net_income year,  cmissing(n)) (line French_net_income year,  cmissing(n)) , /*
-  */ ytitle("tons of silver", axis(1)) scheme(s1mono) /*
-  */ legend(rows(2) order (1 "English income from predation, net of privateers’ outfiting" 2 "French income from predation, net of privateers' outfitting")) 
- graph export "$hamburggit/Paper - Impact of War/Paper/FR&BR_Prizes_value_net.png", replace
- 
- replace Frenchinvestment=-Frenchinvestment
- replace Privateers_Investment=-Privateers_Investment
- 
-   twoway (line Total_Prize_value year, lpattern(dash) lcolor(red)  cmissing(n)) ///
-   (line FR_Prize_value year,  cmissing(n) lcolor(red)) ///
-   (line Frenchincome year, cmissing(n) lcolor(blue) msize(tiny)) ///
-   (connected Privateers_Investment year,  lcolor(red) mcolor(red) cmissing(n) msize(tiny)) /*
-   */ (connected Frenchinvestment year,  lcolor(blue) mcolor(blue) cmissing(n) msize(tiny)), /*
-  */ yline(0, lcolor(black))  ytitle("tons of silver", axis(1)) scheme(s1color) /*
-  */ legend(rows(5) order (1 "English income from all prizes" 2 "English income from French prizes" /*
-  */ 3 "French income from privateering" 4 "English private investment in privateering" /*
-  */ 5 "French private investment in privateering"))
- graph export "$hamburggit/Paper - Impact of War/Paper/FR&BR_Predation.png", replace
- blif
- 
- 
- save "$hamburg/database_dta/English&French_prizes.dta",  replace
