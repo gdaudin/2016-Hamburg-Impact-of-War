@@ -119,6 +119,7 @@ save "$hamburg/database_dta/English_prizes_list.dta",  replace
 insheet using "$hamburggit/External Data/Other_prizes.csv", case clear
 rename Year year
 **Drop the British ships taken by the yankee or the French and the early ones
+**As the big work done by Hillmann et Gathmann on HC34 only covers 1740-1809 (not a big deal for the latter years as private prizes become small)
 
 drop if Shiporigin=="britain" | Shiporigin=="liverpool" | year <=1738
 
@@ -416,9 +417,14 @@ twoway(bar Total_Prize_value year) (bar FR_Prize_value year) (line Privateers_In
  
  ****** For prizes by both sides
  import excel "$hamburggit/External Data/Résultats de la course française.xlsx", sheet("Output") firstrow clear
+ drop D E
+
  merge 1:1 year using "$hamburg/database_dta/English_prizes.dta"
  drop _merge
  *keep if year >=1740 & year <=1820
+drop FR_silver
+ merge 1:1 year using "$hamburg/database_dta/FR_silver.dta"
+
  replace FR_silver = 4.5 if year ==1793 | year==1794 | year==1795 | year==1796
  
  label var Frenchincome "French gross predation income"
@@ -427,8 +433,7 @@ twoway(bar Total_Prize_value year) (bar FR_Prize_value year) (line Privateers_In
  replace Frenchincome = Frenchincome*FR_silver/1000
  replace Frenchinvestment= Frenchinvestment*FR_silver/1000
  **Les données françaises sont en milliers de livres tournois. * la valeur en grammes, cela donne des kg. Il faut donc diviser encore par 1000 pour avoir des tonnes.
- 
- 
+
 sort year
 generate French_net_income = Frenchincome-Frenchinvestment
 generate English_net_income= Total_Prize_value-Privateers_Investment
