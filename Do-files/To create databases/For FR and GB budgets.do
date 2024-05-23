@@ -133,16 +133,17 @@ drop Blif
 **** Pour prendre en compte la sous-évaluation de la source 6 signalée par Villiers à partir des sources 11 et 10
 replace FrenchBudget=Source6*1.025 if FrenchBudget==. & year <=1750 
 replace FrenchBudget=Source6*1.06 if FrenchBudget==. & year <=1789
+local N = _N
 set obs `=_N+8' 
-replace year=1793 if _n==79
-replace year=1794 if _n==80
-replace year=1795 if _n==81
-replace year=1796 if _n==82
-replace year=1797 if _n==83
-replace year=1798 if _n==84
-replace year=1799 if _n==85
-replace year=1800 if _n==87
-replace FrenchBudget=2.2477+(2.6235-2.2477)*(year-1792)*1/9 if FrenchBudget==. & year <=1801
+replace year=1793 if _n==`N'+1
+replace year=1794 if _n==`N'+2
+replace year=1795 if _n==`N'+3
+replace year=1796 if _n==`N'+4
+replace year=1797 if _n==`N'+5
+replace year=1798 if _n==`N'+6
+replace year=1799 if _n==`N'+7
+replace year=1800 if _n==`N'+8
+replace FrenchBudget=2.2477+(2.6235-2.2477)*(year-1792)*1/9 if FrenchBudget==. & year <=1801 & year >=1793
 sort year
 twoway (connected FrenchBudget year)
 drop if year ==.
@@ -207,8 +208,8 @@ graph twoway (area warminus1 year, color(gs9)) (area warminus2 year, color(gs9))
 			 (line NavyNet  year,lcolor(red)) (line NavyGross  year,lcolor(red) lpattern(dash)) ///
 			 (line FrenchBudget year, lcolor(blue)) ///
 			 if year >=1680 & year<=1830, scheme(s1color) ///
-			 legend(order (13 14 15) label(13 "Net British Navy expenditures") label(14 "Gross British Navy expenditures") ///
-			 label(15 "French Navy expenditures") rows(3)) ///
+			 legend(order (17 18 19) label(17 "Net British Navy expenditures") label(18 "Gross British Navy expenditures") ///
+			 label(19 "French Navy expenditures") rows(3)) ///
 			 ytitle("Tons of silver, log(10)") xlabel(1680(20)1820) ///
 	
 graph export "$hamburggit/Paper - Impact of War/Paper/FR_GB_Budgetfrom1688.png", replace
