@@ -31,13 +31,4 @@ replace partner_grouping="États-Unis d'Amérique" if strmatch(partner_grouping,
 drop if partner_grouping=="États-Unis d'Amérique" & year <=1777
 drop v*
 
-
-gen war=0
-
-replace war =1 if year  >= 1740 & year <=1748
-replace war =1  if year >= 1756 & year <=1763
-replace war =1  if year >= 1778 & year <=1783
-replace war =1  if year >= 1793 & year <=1815
-replace war=0 if year==1802
-
 save "$hamburg/database_dta/WarAndPeace.dta",  replace

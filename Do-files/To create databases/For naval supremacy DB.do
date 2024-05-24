@@ -32,7 +32,7 @@ foreach country in Spain Sweden Venice OttomanEmpire Denmark Portugal {
 	drop warships`country'
 	rename warships`country'_ipol warships`country'
 }
-keep if year >=1700 & year <1830
+keep if year >=1688 & year <1830
 
 
 
@@ -48,19 +48,24 @@ replace partner_grouping="Levant et Barbarie" if partner_grouping=="OttomanEmpir
 replace partner_grouping="Russiapourmemoire" if partner_grouping=="Russia"
 replace partner_grouping="Swedenpourmemoire" if partner_grouping=="Sweden"
 replace partner_grouping="Denmarkpourmemoire" if partner_grouping=="Denmark"
+replace partner_grouping="États-Unis d'Amérique" if partner_grouping=="USA"
 
 *replace country="Portugal
 
+
 collapse (sum) warships, by(year partner_grouping)
 
-merge 1:1 partner_grouping year using "$hamburg/database_dta/WarAndPeace.dta", keep (1 3)
-drop if year <=1732 | year >=1822
 
 
+merge 1:1 partner_grouping year using "$hamburg/database_dta/WarAndPeace.dta"
+drop if year <=1687 | year >=1822
+keep if _merge==3 | _merge==1
 drop _merge
+drop if war==.
 
 replace war_status = "France" if partner_grouping=="France"
 replace war_status = "Angleterre" if partner_grouping=="Angleterre"
 egen side_warships=total(warships), by(war_status year)
+
 
 save "$hamburg/database_dta/warships.dta", replace
