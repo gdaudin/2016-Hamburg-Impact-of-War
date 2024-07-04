@@ -263,7 +263,7 @@ We construct the loss function as the difference between predicted trade value i
 Figure \ref{fig:mean_annual_loss} shows the annual loss function and the mean loss function by peace and war period for France. 
 The lower green line shows observed trade versus trade predicted using all preceding peace periods, whereas the lower yellow line shows observed trade versus trade predicted using only the immediately preceding peace period (``memoryless loss'').
 \footnote{We exclude 1792 from the computation of peace time trends when computing the ``memoryless loss''. Its value is doubtful and dependant on inflation and has an inordinate effect on the peace time trend (it increases it from 1.4 p.c. to 2.9 p.c.) because there are so few peace years with data available from 1784 to 1792: only 4 (including 1792). Including it dramatically increases the estimated trade losses. Including it does not change much when computing the peace trend based on all past peace periods: it stays at 2.65 p.c.)}
-\todo[inline, color = YellowGreen]{Our graphs need to be color-independent}
+
 
 \begin{figure}[h!]
 	\caption{Annual and Mean Loss Function - France}
@@ -658,7 +658,8 @@ British could efficiently curtail French trade only by blockading neutral countr
 
 \newgeometry{left=1cm,right=0.3cm,top=1.2cm,bottom=1.5cm,footskip=0.1in}
 
-
+\renewcommand\thefigure{A\arabic{figure}}  
+\setcounter{figure}{0}   
 
 \begin{center}
 \begin{figure}[h!]
@@ -697,7 +698,8 @@ Source: TOFLIT and 1792 data on the share of sea trade per country in AN F/12/18
 \caption{Annual and Mean Loss Function - GB}
 \label{fig:GBmean_annual_loss}
 \centering
-\includegraphics[scale=0.2]{GBmean_annual_loss}
+\includegraphics[scale=0.6]{GBannual_loss_function}
+\includegraphics[scale=0.6]{GBmean_loss_function}
 \begin{minipage}{18cm}
 \begin{flushleft}
 \fontsmall

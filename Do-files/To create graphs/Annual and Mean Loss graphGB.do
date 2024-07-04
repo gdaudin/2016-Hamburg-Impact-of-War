@@ -1,3 +1,4 @@
+version 18
 
 if "`c(username)'" =="guillaumedaudin" {
 	global hamburg "~/Documents/Recherche/2016 Hambourg et Guerre"
@@ -104,15 +105,15 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area minwar5 year, color(gs9)) (area minblockade year, color(gs4)) ///
 			 (connected loss_war year, cmissing(n) lcolor(black) mcolor(black) ///
 			 msize(vsmall) lpattern(dash)) ///
-			 (connected loss_war_nomemory year, cmissing(n) lcolor(red) mcolor(red) msize(vsmall)), ///
+			 (connected loss_war_nomemory year, cmissing(n) lpattern(solid) lcolor(red) mcolor(red) msize(vsmall)), ///
 			 legend(order (13 14) label(13 "Using all past peace periods for the peace trend") ///
 			 label(14 "Using the preceeding peace period for the peace trend") rows(2)) ///
 			 ylabel(-0.2 (0.2) 1) ytitle("1-(predicted trade based on peace trend/actual trade)", size(small)) ///
-			 yline(0, lwidth(medium) lcolor(grey)) name("GB_annual_loss", replace) ///
-			 plotregion(fcolor(white)) graphregion(fcolor(white)) xtitle("")
+			 yline(0, lwidth(medium) lcolor(gray)) name("GB_annual_loss", replace) ///
+			 plotregion(fcolor(white)) graphregion(fcolor(white)) xtitle("") scheme(stsj)
  
-graph export "$hamburggit/Results/Loss graphs/GBAnnual_loss_function.pdf", replace
-graph export "$hamburggit/Paper - Impact of War/Paper/GBAnnual_loss_function.pdf", replace
+graph export "$hamburggit/Results/Loss graphs/GBAnnual_loss_function.png", replace
+graph export "$hamburggit/Paper - Impact of War/Paper/GBAnnual_loss_function.png", replace
 
 
 
@@ -128,7 +129,7 @@ egen loss_peace4	=mean(loss_war) if year >=1816
 
 egen loss = rmax(loss_war1 loss_war2 loss_war3 loss_war4 loss_peace1 loss_peace2 loss_peace3 loss_peace4 loss_blockade)
 
-graph twoway (area loss year) (line loss_war year)
+graph twoway (area loss year) (line loss_war year), scheme(stsj)
 
 
 
@@ -146,7 +147,7 @@ egen loss_nomemory = rmax(loss_war_nomemory1 loss_war_nomemory2 loss_war_nomemor
 			loss_peace_nomemory1 loss_peace_nomemory2 loss_peace_nomemory3 loss_peace_nomemory4 ///
 			loss_blockade_nomemory)
 
-graph twoway (area loss_nomemory year)
+graph twoway (area loss_nomemory year), scheme(stsj)
 
 graph twoway 	(area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 				(area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
@@ -155,15 +156,15 @@ graph twoway 	(area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 				(area minwar3 year, color(gs9)) (area minwar4 year, color(gs9)) ///
 				(area minwar5 year, color(gs9)) (area minblockade year, color(gs4)) ///
 				(line loss year, lpattern(dash) lcolor(black)) ///
-				(line loss_nomemory year,lcolor(red)) ///
+				(line loss_nomemory year,lpattern(solid) lcolor(red)) ///
 				,plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 				legend(order (13 14) label(13 "Using all past peace periods for the peace trend") ///
 				label(14 "Using the preceeding peace period for the peace trend") rows(2)) ///
-				yline(0, lwidth(medium) lcolor(grey)) ///
+				yline(0, lwidth(medium) lcolor(gray)) ///
 				ytitle("1-(predicted trade based on peace trend/actual trade)", size(small)) ///
-				ylabel(-0.2 (0.2) 1) name("GB_mean_loss", replace) xtitle("")
-graph export "$hamburggit/Results/Loss graphs/GBMean_loss_function.pdf", replace
-graph export "$hamburggit//Paper - Impact of War/Paper/GBMean_loss_function.pdf", replace
+				ylabel(-0.2 (0.2) 1) name("GB_mean_loss", replace) xtitle("") scheme(stsj)
+graph export "$hamburggit/Results/Loss graphs/GBMean_loss_function.png", replace
+graph export "$hamburggit//Paper - Impact of War/Paper/GBMean_loss_function.png", replace
 
 
 /*

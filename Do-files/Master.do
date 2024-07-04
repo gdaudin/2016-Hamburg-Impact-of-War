@@ -13,4 +13,6 @@ do "$git_path/Do-files/To compute re-exports and others.do"
 *Predation DB (+ some graphs)
 do "$git_path/Do-files/To create databases/For prizes db.do"
 
-*For loss functions
+*For loss functions and graphs
+do "$git_path/Do-files/To create graphs/Annual and Mean Loss graph.do"
+do "$git_path/Do-files/To create graphs/Annual and Mean Loss graphGB.do"
