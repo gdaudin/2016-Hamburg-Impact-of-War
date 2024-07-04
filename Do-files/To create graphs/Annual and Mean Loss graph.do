@@ -198,8 +198,12 @@ foreach var of global vardinteret {
 
 }
 
-use temp.dta, clear
+save temp.dta, replace
+
+
 ************* Pour les graphiques avec les dépenses
+use temp.dta, clear
+
 
 local var value
 capture drop loss
@@ -296,7 +300,7 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 label(15 "Gross Royal Navy expenditures") label(16 "Net Royal Navy expenditures") ///
 			 label(17 "French Navy expenditures") rows(5)) ///
 			 ytitle("Tons of silver, log10", size(small)) ylabel(1 (1) 4) ///
-			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("") xscale(range(1740 1830)) ///
+			 /*yline(0, lwidth(medium) lcolor(gray))*/ xtitle("") xscale(range(1740 1830)) ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) scheme(stsj)
 			 
 
@@ -355,15 +359,15 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (line NavyGross year if year <=1825, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ ) ///
 			 (line NavyNet year if year <=1825, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ lpattern(dash)) ///
 			 (line FrenchBudget year, cmissing(n) lcolor(blue)) /*mcolor(red) msize(vsmall)*/ ///
-			 (line BR_predation_gain year, cmissing(n) lcolor(grey)) ///
-			 (connected FR_predation_loss year, cmissing(n) lcolor(grey) msize(tiny)), ///
+			 (line BR_predation_gain year, cmissing(n) lcolor(gray)) ///
+			 (connected FR_predation_loss year, cmissing(n) lcolor(gray) msize(tiny)), ///
 			 legend(order (13 14 16 15 17 18 19) label(13 "Using all past peace periods for the peace trend") ///
 			 label(14 "Using the preceeding peace period for the peace trend") ///
 			 label(15 "Gross British Navy expenditures") label(16 "Net British Navy expenditures")   ///
 			 label(17 "French Navy expenditures") label(18 "Net British predation gains")  ///
 			 label(19 "Net French predation losses") rows(7)) ///
 			 ytitle("Tons of silver", size(small)) /*ylabel(1 (1) 4)*/ ///
-			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("")  ///
+			 /*yline(0, lwidth(medium) lcolor(gray))*/ xtitle("")  ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) 
 
 graph export "$hamburggit/Paper - Impact of War/Paper/Expenditures_Annual_Loss.png", as(png) replace
@@ -388,12 +392,12 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (line NavyGross year if year <=1825, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ ) ///
 			 (line NavyNet year if year <=1825, cmissing(n) lcolor(green) /*mcolor(red) msize(vsmall)*/ lpattern(dash)) ///
 			 (line FrenchBudget year, cmissing(n) lcolor(blue)) /*mcolor(red) msize(vsmall)*/ ///
-			 (line FR_Prize_value year, cmissing(n) lcolor(grey)), ///
+			 (line FR_Prize_value year, cmissing(n) lcolor(gray)), ///
 			 legend(order (13 14 16 15) ///
 			 label(13 "Gross British Navy expenditures") label(14 "Net British Navy expenditures")   ///
 			 label(15 "French Navy expenditures") label(16 "Value of French prizes captured by Britain") rows(4)) ///
 			 ytitle("Tons of silver", size(small)) /*ylabel(1 (1) 4)*/ ///
-			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("")  ///
+			 /*yline(0, lwidth(medium) lcolor(gray))*/ xtitle("")  ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) 
 
 graph export "$hamburggit/Paper - Impact of War/Paper/Costs_and_benefits.png", as(png) replace
@@ -474,8 +478,8 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 label(17 "Net British predation gains") ///
 			 label(18 "Net French predation losses") rows(6)) ///
 			 ytitle("Tons of silver, log(10)", size(small)) /*ylabel(1 (1) 4)*/ ///
-			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("")  ///
-			 plotregion(fcolor(white)) graphregion(fcolor(white))
+			 /*yline(0, lwidth(medium) lcolor(gray))*/ xtitle("")  ///
+			 plotregion(fcolor(white)) graphregion(fcolor(white)) scheme(stsj)
 			 
 graph export "$hamburggit/Paper - Impact of War/Paper/Cumulated_Costs_and_benefits.png", as(png) replace
 
@@ -504,7 +508,7 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 legend(order (13 14) label(13 "Using all past peace periods for the peace trend") ///
 			 label(14 "Using the preceeding peace period for the peace trend") rows(2)) ///
 			 ytitle("Ratio between cumulated French trade losses" "and the cumulated British Navy budget", size(small)) /*ylabel(1 (1) 4)*/ ///
-			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("") ///
+			 /*yline(0, lwidth(medium) lcolor(gray))*/ xtitle("") ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white))		 
 			 
 			 
@@ -545,7 +549,7 @@ graph twoway (area war1 year , color(gs9)) (area war2 year , color(gs9)) ///
 			 label(18 "British costs = idem - French Navy budget") note ("Line: Using all past peace periods for the peace trend" "Dash: Using the preceeding peace period for the peace trend")  ///
 			 rows(8)) ///
 			 ytitle("Ratio between cumulated French trade losses" "and the cumulated British costs", size(small)) /*ylabel(1 (1) 4)*/ ///
-			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("") ///
+			 /*yline(0, lwidth(medium) lcolor(gray))*/ xtitle("") ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white))		 
 */
 			 
@@ -589,8 +593,8 @@ graph twoway (area war1 year , color(gs9)) (area war2 year , color(gs9)) ///
 			 label(18 "French losses = idem + French Navy budget") note ("Dash: Using all preceeding peace periods for the peace trend" "Line: Using the preceeding peace period for the peace trend")  ///
 			 rows(8)) ///
 			 ytitle("Ratio between cumulated French losses" "and the cumulated British costs" "British navy budget (- British predation gains for" "red and green lines)" , size(small)) /*ylabel(1 (1) 4)*/ ///
-			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("") ///
-			 plotregion(fcolor(white)) graphregion(fcolor(white))		 
+			 /*yline(0, lwidth(medium) lcolor(gray))*/ xtitle("") ///
+			 plotregion(fcolor(white)) graphregion(fcolor(white)) scheme(stsj)
 			 
 			
 graph export "$hamburggit/Paper - Impact of War/Paper/Ratio_BR_Expenditures_Annual_LossH.png", as(png) replace
@@ -628,7 +632,7 @@ graph twoway (area war1 year , color(gs9)) (area war2 year , color(gs9)) ///
 			 label(18 "French losses = idem + French Navy budget") note ("Dash: Using all preceeding peace periods for the peace trend" "Line: Using the preceeding peace period for the peace trend")  ///
 			 rows(8)) ///
 			 ytitle("Ratio between cumulated French losses" "and the cumulated British costs" "British navy budget (- predation gains for" "red and green lines)", size(small)) /*ylabel(1 (1) 4)*/ ///
-			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("") ///
+			 /*yline(0, lwidth(medium) lcolor(gray))*/ xtitle("") ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white))		 
 			 
 			
@@ -702,7 +706,7 @@ graph twoway 	(area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 				,plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 				legend(order (13 14) label(13 "Using all past peace periods for the peace trend") ///
 				label(14 "Using the preceeding peace period for the peace trend") rows(2)) ///
-				ytitle("Mean loss by war or peace period") yline(0, lwidth(medium) lcolor(grey)) ///
+				ytitle("Mean loss by war or peace period") yline(0, lwidth(medium) lcolor(gray)) ///
 				ylabel(-0.2 (0.2) 1) xtitle("")
 
 graph export "$hamburggit/Paper - Impact of War/Paper/Mean_loss_function.png", as(png) replace
