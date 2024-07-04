@@ -33,7 +33,7 @@ egen Industry=rsum(cotton-v38)
 label var France "France and french"
 label var Industry "Cotton, textile, industry, manufacture and factory"
 
-twoway (line France year) (line War year)  (line Industry year), scheme(s1color) note("Including inflexions, not case-sensitive") ///
-	ytitle("Share in Google Books" "British English corpus (2019)")
+twoway (line France year) (line War year)  (line Industry year), scheme(stsj) note("Including inflexions, not case-sensitive") ///
+	ytitle("Share in Google Books" "British English corpus (2019)", margin(medium))
 
 graph export "$hamburggit/Paper - Impact of War/Paper/Ngram.png", replace
