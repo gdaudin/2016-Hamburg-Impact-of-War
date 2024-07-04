@@ -1,4 +1,4 @@
-
+version 18
 
 
 
@@ -47,7 +47,7 @@ gen value_land=value*(1-share_par_mer)
 collapse (sum) value_sea value_land, by(year)
 
 gen share_sea=value_sea/(value_sea+value_land)
-export delimited "$hamburg/database_csv/share_by_sea.csv"
+export delimited "$hamburg/database_csv/share_by_sea.csv", replace
 
 local maxvalue 1
 
