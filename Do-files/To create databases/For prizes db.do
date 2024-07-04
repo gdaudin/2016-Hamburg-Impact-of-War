@@ -1,3 +1,4 @@
+version 18
 
 if "`c(username)'" =="guillaumedaudin" {
 	global hamburg "~/Documents/Recherche/2016 Hambourg et Guerre"
@@ -424,6 +425,7 @@ twoway(bar Total_Prize_value year) (bar FR_Prize_value year) (line Privateers_In
  *keep if year >=1740 & year <=1820
 drop FR_silver
  merge 1:1 year using "$hamburg/database_dta/FR_silver.dta"
+ drop _merge
 
  replace FR_silver = 4.5 if year ==1793 | year==1794 | year==1795 | year==1796
  

@@ -1,4 +1,4 @@
-
+version 18
 
 
 *global hamburg "/Users/Tirindelli/Google Drive/Hamburg"
@@ -187,9 +187,9 @@ foreach var of global vardinteret {
 			 , ///
 			 legend(order (13 14) label(13 "Using all past peace periods for the peace trend") label(14 "Using the preceeding peace period for the peace trend") rows(2)) ///
 			 ytitle("1-(predicted trade based on peace trend)/(actual trade)", size(small)) ylabel(-0.2 (0.2) 1) ///
-			 yline(0, lwidth(medium) lcolor(grey)) xtitle("")  ///
+			 yline(0, lwidth(medium) lcolor(gray)) xtitle("")  ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-			 title("`title'")
+			 title("`title'") scheme(stsj)
  
 	graph export "$hamburggit/Paper - Impact of War/Paper/Annual_loss_function `title'.png", as(png) replace
 
@@ -297,7 +297,7 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 label(17 "French Navy expenditures") rows(5)) ///
 			 ytitle("Tons of silver, log10", size(small)) ylabel(1 (1) 4) ///
 			 /*yline(0, lwidth(medium) lcolor(grey))*/ xtitle("") xscale(range(1740 1830)) ///
-			 plotregion(fcolor(white)) graphregion(fcolor(white))
+			 plotregion(fcolor(white)) graphregion(fcolor(white)) scheme(stsj)
 			 
 
 
