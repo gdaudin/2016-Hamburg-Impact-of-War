@@ -100,6 +100,7 @@ merge 1:1 year using "$hamburg/database_dta/FR_silver.dta"
 gen reexports_silver = reexports*FR_silver/(1000*1000)
 gen OM_imports_silver=OM_imports*FR_silver/(1000*1000)
 gen imputed_reexports_silver = imputed_reexports*FR_silver/(1000*1000)
+drop _merge
 
 save "$hamburg/database_dta/National Reexports.dta", replace
 

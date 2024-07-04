@@ -179,6 +179,8 @@ gen valueFR_silver=FR_silver*value/(1000*1000)
 drop if year>1840
 
 
+
+
 replace partner_grouping="Outre-mers" if partner_grouping=="Afrique" | partner_grouping=="Asie" | partner_grouping=="Amériques"
 
 collapse (sum) valueFR_silver value, by (year export_import ///
@@ -204,6 +206,8 @@ reshape wide value,i(year) j(export_import) string
 rename value* *
 gen value=Exports+Imports
 
+
+
 merge 1:1 year using "$hamburg/database_dta/National Reexports.dta"
 gen Exports_special=Exports-reexports
 gen Imports_special=Imports-reexports
@@ -214,10 +218,16 @@ drop _merge
 
 
 
-append using "$hamburg/database_dta/FRfederico_tena.dta"
+merge 1:1 year using "$hamburg/database_dta/FRfederico_tena.dta", update
+
+drop if year >1840
 drop if value==.
+drop _merge
+
 
 merge 1:1 year using "$hamburg/database_dta/FR_silver.dta"
+
+
 
 drop if _merge==2
 drop _merge
@@ -226,6 +236,7 @@ foreach var of varlist value Imports Exports reexports Imports_special Exports_s
 	gen `var'FR_silver=FR_silver*`var'/(1000*1000)
 	gen log10_`var'FR_silver=log10(`var'FR_silver)
 }
+
 
 drop if year>1840
 
@@ -259,7 +270,7 @@ sort year
 export delimited "$hamburg/database_csv/Total_silver_trade_FR_GB.csv", replace
 save "$hamburg/database_dta/Total silver trade FR GB.dta", replace
 
-
+/*Color graph
 graph twoway (area warla year, color(gs9)) ///
 			 (area warsp year, color(gs9)) ///
 			 (area wara year, color(gs14)) ///
@@ -276,9 +287,25 @@ graph twoway (area warla year, color(gs9)) ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			 ytitle("Tons of silver, log10")
 
-			 
+*/
+graph twoway (area warla year, color(gs9)) ///
+			 (area warsp year, color(gs9)) ///
+			 (area wara year, color(gs14)) ///
+			 (area warb year, color(gs14)) ///
+			 (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
+			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
+			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
+			 (line log10_valueFR_silver year, lpattern(solid) msize(large)) ///
+			 (line log10_valueST_silverEN year, lpattern(shortdash)  lcolor(black)) ///
+			 (line log10_valueST_silverGB year, lpattern(shortdash)  lcolor(black)) ///
+			 (line log10_valueST_silver_tena year, lpattern(shortdash)  lcolor(black)), ///
+			 legend(order(11 "French trade" 12 "English/GB/UK trade")) ///
+			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
+			 ytitle("Tons of silver, log10") scheme(stsj)
+
 *graph save "$hamburggit/Paper/Total silver trade FR GB.png", replace
 graph export "$hamburggit/Paper - Impact of War/Paper/Total silver trade FR GB.png", as(png) replace
+
 		 
 gen log10_Imps_Exps_silver = log10(Imports_specialFR_silver + Exports_specialFR_silver)
 
