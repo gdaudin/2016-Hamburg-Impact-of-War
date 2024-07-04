@@ -91,9 +91,9 @@ graph twoway ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
 			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
 			 (connected weight_france year if year>1739, ///
-			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-			 msize(vsmall) legend(order(8 "Share of colonial empire")) ///
-			 xlabel(1740(20)1820) xscale(ra(1740 1820)) )
+			 plotregion(fcolor(white)) graphregion(fcolor(white)) lcolor(black) ///
+			 msize(vsmall) mcolor(black) legend(order(8 "Share of colonial empire")) ///
+			 xlabel(1740(20)1820) xscale(ra(1740 1820))), scheme(sjst)
 			 
 graph export "$hamburggit/Paper - Impact of War/Paper/colony_loss.png", as(png) replace
 
