@@ -59,7 +59,7 @@ replace sitc_aggr="Other" if product_sitc_simplEN=="Chemical products"
 
 
 save "$hamburg/database_dta/temp_for_hotelling.dta", replace
-export delimited "$hamburg/database_csv/temp_for_hotelling.cvs", replace
+export delimited "$hamburg/database_csv/temp_for_hotelling.csv", replace
 
 
 
