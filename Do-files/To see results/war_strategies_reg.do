@@ -50,7 +50,7 @@ keep year Number_of_prizes_Total_All Number_of_prizes_Privateers_All importofpri
 tempfile prizes
 save `prizes'
 
-import delimited using "`HamburgDir'database_csv/temp_for_hotelling.csv", clear
+*import delimited using "`HamburgDir'database_csv/temp_for_hotelling.csv", clear /// I am not sure what this is for
 
 // Merge datasets
 use `loss', clear
@@ -110,24 +110,164 @@ local indep_label "Prizes import" "Number of prizes" "Privateers \n prizes" ///
 
 local log_max "max"
 
-// Apply function to all wartime strategies var of interest for only war years and no running sum
-gen byte onlywar = 1
-gen byte running_sum = 0
-* Add the function call to `fwartime_corr_df' and its outputs, adapt them for Stata
 
-// Prepare the table with the results
-local outpath = "`HamburgPaperDir'`PaperDir'max_wartime_nosum_mreg.tex"
 
-// Run the regression
-if running_sum == 0 {
-    regress loss num_prizes num_prizes_priv colonial_empire France_vs_GB ally_vs_foe allyandneutral_vs_foe battle_dummy if war == 1
-    estimates store est_1
-    
-    esttab est_1 using `outpath', ///
-        title("Single and multivariate regressions for war years only") ///
-        keep(num_prizes num_prizes_priv colonial_empire France_vs_GB ally_vs_foe allyandneutral_vs_foe battle_dummy) ///
-        label replace
+*********************** Regressions capture of empire
+
+regress loss colonial_empire if war == 1
+estimates store colonial_empire_1
+regress loss colonial_empire
+estimates store colonial_empire_2
+
+*****************Regressions predation
+
+
+gen ln_year = ln(year)
+gen priv_prizes_share = num_prizes_priv/num_prizes
+gen num_prizes_RN = num_prizes-num_prizes_priv
+
+
+regress loss prizes_import if war == 1
+regress loss num_prizes if war == 1
+regress loss num_prizes_priv if war == 1
+regress loss num_prizes_RN if war == 1
+regress loss num_prizes_priv num_prizes_RN if war == 1
+regress loss num_prizes_priv num_prizes_RN year if war == 1
+regress loss num_prizes_priv num_prizes_RN ln_year if war == 1
+
+foreach var in num_prizes num_prizes_RN num_prizes_priv {
+    replace `var'=0 if `var'==.
+    foreach year of numlist 1740(1)1815 {
+        levelsof `var' if year == `year', local(blif) clean
+        gen cum_`var'_`year' = `blif'*max(0,(1- 0.05*(year-`year'))) if year>=`year'
+    }
+    egen cum_`var' = rowtotal(cum_`var'_*)
+
+    regress loss cum_`var' if war==1
+    regress loss cum_`var'
+
+    regress loss `var' cum_`var' if war==1
+    regress loss `var' cum_`var' 
+
 }
 
-clear all
-```
+
+regress loss cum_num_prizes_RN cum_num_prizes_priv if war==1
+regress loss cum_num_prizes_RN cum_num_prizes_priv
+
+regress loss num_prizes_RN cum_num_prizes_RN num_prizes_priv cum_num_prizes_priv if war==1
+regress loss num_prizes_RN cum_num_prizes_RN num_prizes_priv cum_num_prizes_priv
+
+**All this suggests that num_prizes_RN explains better that num_prizes_priv, but I am not sure we can make much of that. It is very much a time trend.
+**Certainly, and that is interesting, the cumulated measure is much better than the single shock measure. 
+
+****Predation does not resist in front of colonial empire
+regress loss cum_num_prizes num_prizes colonial_empire
+
+regress loss cum_num_prizes num_prizes colonial_empire if year <=1820
+**Beware : the significativity of num_prizes depends on the end date
+
+
+
+*******************Naval Supremacy
+
+regress loss France_vs_GB if war == 1
+regress loss ally_vs_foe if war == 1
+regress loss allyandneutral_vs_foe if war == 1
+
+regress loss France_vs_GB ally_vs_foe allyandneutral_vs_foe if war == 1
+regress loss France_vs_GB ally_vs_foe allyandneutral_vs_foe year if war == 1
+regress loss France_vs_GB ally_vs_foe allyandneutral_vs_foe ln_year if war == 1
+
+**Nothing survives with a time trend thrown in...
+
+regress loss France_vs_GB ally_vs_foe allyandneutral_vs_foe ln_year if war != 1
+*A placebo regression outside of the war periods is very significant... Worrying. Maybe a common time trend ?
+regress loss France_vs_GB ally_vs_foe allyandneutral_vs_foe ln_year if war != 1 & year <=1820
+
+*There must be strange interactions between the NS variables
+
+regress loss allyandneutral_vs_foe ln_year if war != 1
+regress loss allyandneutral_vs_foe ln_year if war != 1 & year <=1820
+
+*This is reassuring 
+
+************Major battles
+regress loss battle_dummy  if war == 1
+regress loss battle_dummy ln_year if war == 1
+
+gen running_battle = 0
+local runningbattle =0
+local n = _N
+foreach i of numlist 1(1)`n' {
+    local runningbattle = battle_dummy[`i']+`runningbattle'*0.75
+    replace running_battle = `runningbattle' in `i'
+}
+
+regress loss battle_dummy running_battle ln_year if war == 1
+regress loss battle_dummy running_battle ln_year
+
+
+**What about integration issues ?
+
+
+
+*************************************Producing the tables
+
+local wartime_policies colonial_empire
+
+foreach var of local wartime_policies {
+
+    local outpath  `HamburgPaperDir'`PaperDir'univariate_regression_`var'.tex
+    display "`outpath'"
+
+esttab `var'* using "`HamburgPaperDir'`PaperDir'univariate_regression_`var'.tex", ///
+    cells("b(fmt(2)) se(fmt(2))") ///
+    label ///
+    stats(N r2_a) ///
+    starlevels(* 0.05 ** 0.01 *** 0.001) ///
+    replace
+}
+
+
+
+/*
+
+
+capture program drop univariate_regression
+program univariate_regression
+args varname
+
+regress loss `varname' if war == 1
+estimates store est_1
+
+tempvar log_varname
+gen `log_varname' = log(`varname')
+
+regress loss `log_varname' if war == 1
+estimates store est_2
+
+// Prepare the outside with the results
+local outpath  `HamburgPaperDir'`PaperDir'univariate_regression_`varname'.tex
+display "`outpath'"
+
+
+esttab est_1 est_2 using "`outpath'", ///
+    cells("b(fmt(2)) se(fmt(2))") ///
+    varlabels(`indep_label') ///
+    label ///
+    stats(N r2_a) ///
+    starlevels(* 0.05 ** 0.01 *** 0.001) ///
+    replace
+
+
+end
+
+univariate_regression prizes_import
+univariate_regression num_prizes
+univariate_regression num_prizes_priv
+univariate_regression colonial_empire
+univariate_regression France_vs_GB
+univariate_regression ally_vs_foe
+univariate_regression allyandneutral_vs_foe
+univariate_regression battle_dummy
