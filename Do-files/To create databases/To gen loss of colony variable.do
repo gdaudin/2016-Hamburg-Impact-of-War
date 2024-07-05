@@ -20,6 +20,12 @@ if "`c(username)'" =="Tirindelli" {
 set more off
 
 import delimited "$hamburggit/External Data/Loss of colonies.csv", clear
+foreach y of numlist 1821/1840 {
+	set obs `=_N+1'
+	replace year=`y' in `=_N'
+}
+
+fillin colonies year
 
 replace france=0
 
@@ -71,7 +77,7 @@ label var year Year
 
 preserve 
 
-drop if year<1740
+drop if year<1716
 
 local maxvalue 1
 generate warb		=`maxvalue' if year >=1740 & year <=1744
@@ -85,6 +91,8 @@ generate blockade	=`maxvalue' if year >=1807 & year <=1815
 replace weight_france = weight_france
 export delimited "$hamburg/database_csv/colony_loss.csv", replace
 
+
+drop if year<1740 | year >1820
 graph twoway ///
 			 (area warb year, color(gs14)) ///
 			 (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
@@ -93,7 +101,7 @@ graph twoway ///
 			 (connected weight_france year if year>1739, ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) lcolor(black) ///
 			 msize(vsmall) mcolor(black) legend(order(8 "Share of colonial empire")) ///
-			 xlabel(1740(20)1820) xscale(ra(1740 1820))), scheme(sjst)
+			 xlabel(1740(20)1820) xscale(ra(1740 1820))), scheme(stsj)
 			 
 graph export "$hamburggit/Paper - Impact of War/Paper/colony_loss.png", as(png) replace
 

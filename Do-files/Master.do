@@ -12,6 +12,7 @@ do "$git_path/Do-files/Change in composition of trade.do" /*Currently broken*/
 
 *Predation DB (+ some graphs)
 do "$git_path/Do-files/To create databases/For prizes db.do"
+do "$git_path/Do-files/To create databases/To gen loss of colony variable.do"
 
 *For loss functions and graphs
 do "$git_path/Do-files/To create graphs/Annual and Mean Loss graph.do"
@@ -20,3 +21,7 @@ do "$git_path/Do-files/To create graphs/Annual and Mean Loss graphGB.do"
 
 *Share of French trade by sea
 do "$git_path/Do-files/To create graphs/Pour commerce de terre.do"
+
+
+*Regressions effect of wartime strategies
+do "$git_path//Do-files/To see results/war_strategies_reg.do"
