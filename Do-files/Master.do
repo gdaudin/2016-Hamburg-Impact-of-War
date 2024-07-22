@@ -6,6 +6,7 @@ do "$git_path/Do-files/To create graphs/Pour intro N-gram.do"
 
 *For graph French, British trade and Anglo-French wars
 do "$git_path/Do-files/To create databases/for_total_and_bilateral_trade.do"
+**This requires the following files: bdd courante.dta. bdd courante.dta is the database of Toflit18. It can be obtained in that depository**
 
 do "$git_path/Do-files/To compute re-exports and others.do"
 do "$git_path/Do-files/Change in composition of trade.do" /*Currently broken*/

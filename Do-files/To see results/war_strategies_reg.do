@@ -173,7 +173,10 @@ foreach var in num_prizes_All num_prizes_RN_All num_prizes_priv_All num_prizes_F
 }
 
 twoway (line cum_num_prizes_All year) (line cum_num_prizes_RN_All year) (line cum_num_prizes_priv_All year) /*
-    */ (line cum_num_prizes_All year) (line cum_num_prizes_RN_All year) (line cum_num_prizes_priv_All year), scheme(stsj)
+    */ (line cum_num_prizes_FR year) (line cum_num_prizes_RN_FR year) (line cum_num_prizes_priv_FR year), scheme(stsj)
+
+twoway (line cum_num_prizes_All year) (line cum_num_prizes_FR year), scheme(stsj)
+
 
 blif
 
@@ -188,7 +191,11 @@ regress loss num_prizes_RN cum_num_prizes_RN num_prizes_priv cum_num_prizes_priv
 **All this suggests that num_prizes_RN explains better that num_prizes_priv, but I am not sure we can make much of that. It is very much a time trend.
 **Certainly, and that is interesting, the cumulated measure is much better than the single shock measure. 
 
-blif
+regress loss num_prizes_All cum_num_prizes_All num_prizes_FR cum_num_prizes_FR if war==1 & year >=1740
+regress loss num_prizes_All cum_num_prizes_All num_prizes_FR cum_num_prizes_FR if year >=1740
+**En temps de guerre, les pertes (cumulées) françaises sont plus importantes que les pertes totales
+**Sur l’ensemble des périodes, c’est l’inverse.
+
 
 ****Predation does not resist in front of colonial empire
 regress loss cum_num_prizes num_prizes colonial_empire
