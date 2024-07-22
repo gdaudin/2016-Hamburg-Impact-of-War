@@ -158,7 +158,9 @@ save "$hamburg/database_dta/UKfederico_tena.dta", replace
 ------------------------------------------------------------------------------*/
 
 if "`c(username)'" =="guillaumedaudin"{
-use "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta", clear
+	tempfile bdd_courante
+	unzipfile "~/Répertoires Git/toflit18_data_GIT/base/bdd courante.csv.zip", replace
+	import delimited using "~/Répertoires Git/toflit18_data_GIT/base/bdd courante.csv", clear
 }
 
 if "`c(username)'" !="guillaumedaudin"{
