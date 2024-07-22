@@ -24,4 +24,4 @@ do "$git_path/Do-files/To create graphs/Pour commerce de terre.do"
 
 
 *Regressions effect of wartime strategies
-do "$git_path//Do-files/To see results/war_strategies_reg.do"
+do "$git_path/Do-files/To see results/war_strategies_reg.do"

@@ -46,7 +46,7 @@ tempfile naval_sup
 save `naval_sup'
 
 import delimited using "`HamburgDir'database_csv/prizes.csv", clear case(preserve)
-keep year Number_of_prizes_Total_All Number_of_prizes_Privateers_All importofprizegoodspoundsterling
+keep year Number_of_prizes_* importofprizegoodspoundsterling
 tempfile prizes
 save `prizes'
 
@@ -63,8 +63,11 @@ drop _merge
 
 // Rename variables
 rename importofprizegoodspoundsterling prizes_import
-rename Number_of_prizes_Total_All num_prizes
-rename Number_of_prizes_Privateers_All num_prizes_priv
+rename Number_of_prizes_Total_All num_prizes_All
+rename Number_of_prizes_Total_FR num_prizes_FR
+rename Number_of_prizes_Privateers_All num_prizes_priv_All
+rename Number_of_prizes_Privateers_FR num_prizes_priv_FR
+
 rename weight_france colonial_empire
 
 // Create war variable
@@ -123,25 +126,43 @@ estimates store colonial_empire_2
 
 
 gen ln_year = ln(year)
-gen priv_prizes_share = num_prizes_priv/num_prizes
-gen num_prizes_RN = num_prizes-num_prizes_priv
+gen priv_prizes_share_All = num_prizes_priv_All/num_prizes_All
+gen num_prizes_RN_All = num_prizes_All-num_prizes_priv_All
+gen num_prizes_RN_FR = num_prizes_FR-num_prizes_priv_FR
 
 
-regress loss prizes_import if war == 1
-regress loss num_prizes if war == 1
-regress loss num_prizes_priv if war == 1
-regress loss num_prizes_RN if war == 1
-regress loss num_prizes_priv num_prizes_RN if war == 1
-regress loss num_prizes_priv num_prizes_RN year if war == 1
-regress loss num_prizes_priv num_prizes_RN ln_year if war == 1
 
-foreach var in num_prizes num_prizes_RN num_prizes_priv {
+
+foreach var in num_prizes_All num_prizes_RN_All num_prizes_priv_All num_prizes_FR num_prizes_RN_FR num_prizes_priv_FR {
     replace `var'=0 if `var'==.
     foreach year of numlist 1740(1)1815 {
         levelsof `var' if year == `year', local(blif) clean
         gen cum_`var'_`year' = `blif'*max(0,(1- 0.05*(year-`year'))) if year>=`year'
     }
     egen cum_`var' = rowtotal(cum_`var'_*)
+    drop cum_`var'_*
+}
+
+regress loss prizes_import if war == 1
+regress loss num_prizes_All if war == 1
+regress loss num_prizes_FR if war == 1
+regress loss num_prizes_priv_All if war == 1
+regress loss num_prizes_priv_FR if war == 1
+regress loss num_prizes_RN_All if war == 1
+regress loss num_prizes_RN_FR if war == 1
+
+regress loss num_prizes_priv_All num_prizes_RN_All if war == 1
+regress loss num_prizes_priv_All num_prizes_RN_All year if war == 1
+regress loss num_prizes_priv_All num_prizes_RN_All ln_year if war == 1
+
+regress loss num_prizes_priv_FR num_prizes_RN_FR if war == 1
+regress loss num_prizes_priv_FR num_prizes_RN_FR year if war == 1
+regress loss num_prizes_priv_FR num_prizes_RN_FR ln_year if war == 1
+
+
+
+foreach var in num_prizes_All num_prizes_RN_All num_prizes_priv_All num_prizes_FR num_prizes_RN_FR num_prizes_priv_FR {
+
 
     regress loss cum_`var' if war==1
     regress loss cum_`var'
@@ -150,6 +171,12 @@ foreach var in num_prizes num_prizes_RN num_prizes_priv {
     regress loss `var' cum_`var' 
 
 }
+
+twoway (line cum_num_prizes_All year) (line cum_num_prizes_RN_All year) (line cum_num_prizes_priv_All year) /*
+    */ (line cum_num_prizes_All year) (line cum_num_prizes_RN_All year) (line cum_num_prizes_priv_All year), scheme(stsj)
+
+blif
+
 
 
 regress loss cum_num_prizes_RN cum_num_prizes_priv if war==1
@@ -160,6 +187,8 @@ regress loss num_prizes_RN cum_num_prizes_RN num_prizes_priv cum_num_prizes_priv
 
 **All this suggests that num_prizes_RN explains better that num_prizes_priv, but I am not sure we can make much of that. It is very much a time trend.
 **Certainly, and that is interesting, the cumulated measure is much better than the single shock measure. 
+
+blif
 
 ****Predation does not resist in front of colonial empire
 regress loss cum_num_prizes num_prizes colonial_empire
