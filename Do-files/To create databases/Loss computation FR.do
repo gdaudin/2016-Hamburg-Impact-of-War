@@ -131,20 +131,33 @@ foreach var of global vardinteret {
 	*twoway (line ln_value_peace1 year) (line ln_value_peace1_2 year) (line 	ln_value_peace1_3 year) (line ln_value_peace1_4 year) (line ln_value_peace_all year) ///
 	*		(line ln_value year)
 	capture drop loss	
-	gen     loss = 1-(`var'FR_silver/exp(ln_`var'_peace1)) 	if year >=1744 & year <=1755
-	replace loss = 1-(`var'FR_silver/exp(ln_`var'_peace1_2)) if year >=1756 & year <=1777
-	replace loss = 1-(`var'FR_silver/exp(ln_`var'_peace1_3)) if year >=1778 & year <=1792
-	replace loss = 1-(`var'FR_silver/exp(ln_`var'_peace1_4)) if year >=1793
+	capture drop predicted_trade
+	
+	gen     predicted_trade = exp(ln_`var'_peace1) 	if year >=1744 & year <=1755
+	replace predicted_trade = exp(ln_`var'_peace1_2) if year >=1756 & year <=1777
+	replace predicted_trade = exp(ln_`var'_peace1_3) if year >=1778 & year <=1792
+	replace predicted_trade = exp(ln_`var'_peace1_4) if year >=1793
+	replace predicted_trade = . if ln_`var'==.
+	replace predicted_trade =. if year <=1743
+
+	gen     loss = 1-(`var'FR_silver/predicted_trade) 	if year >=1744
 	replace loss =. if ln_`var'==.
 	replace loss=max(-.2,loss)
 	replace loss =. if year <=1743
 	
 	
 	capture drop loss_nomemory
-	gen     loss_nomemory  = 1-(`var'FR_silver/exp(ln_`var'_peace1)) if year >=1744 & year <=1755
-	replace loss_nomemory  = 1-(`var'FR_silver/exp(ln_`var'_peace2)) if year >=1756 & year <=1777
-	replace loss_nomemory  = 1-(`var'FR_silver/exp(ln_`var'_peace3)) if year >=1778 & year <=1792
-	replace loss_nomemory  = 1-(`var'FR_silver/exp(ln_`var'_peace4)) if year >=1793
+	capture drop predicted_trade_nomemory
+
+	gen     predicted_trade_nomemory = exp(ln_`var'_peace1) if year >=1744 & year <=1755
+	replace predicted_trade_nomemory = exp(ln_`var'_peace2) if year >=1756 & year <=1777
+	replace predicted_trade_nomemory = exp(ln_`var'_peace3) if year >=1778 & year <=1792
+	replace predicted_trade_nomemory = exp(ln_`var'_peace4) if year >=1793
+	replace predicted_trade_nomemory = . if ln_`var'==.
+	replace predicted_trade_nomemory =. if year <=1743
+
+
+	gen     loss_nomemory  = 1-(`var'FR_silver/predicted_trade_nomemory) if year >=1744
 	replace loss_nomemory  =. if ln_`var'==.
 	replace loss_nomemory=max(-.2,loss_nomemory)
 	replace loss_nomemory  =. if ln_`var'==.
