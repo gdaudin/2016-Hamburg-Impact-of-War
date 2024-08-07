@@ -45,7 +45,7 @@ keep year France_vs_GB ally_vs_foe allyandneutral_vs_foe
 tempfile naval_sup
 save `naval_sup'
 
-import delimited using "`HamburgDir'database_csv/prizes.csv", clear case(preserve)
+import delimited using "`HamburgDir'database_csv/transformed_prizes.csv", clear case(preserve)
 keep year Number_of_prizes_* importofprizegoodspoundsterling
 tempfile prizes
 save `prizes'
@@ -62,11 +62,6 @@ merge 1:1 year using `prizes'
 drop _merge
 
 // Rename variables
-rename importofprizegoodspoundsterling prizes_import
-rename Number_of_prizes_Total_All num_prizes_All
-rename Number_of_prizes_Total_FR num_prizes_FR
-rename Number_of_prizes_Privateers_All num_prizes_priv_All
-rename Number_of_prizes_Privateers_FR num_prizes_priv_FR
 
 rename weight_france colonial_empire
 
@@ -126,22 +121,7 @@ estimates store colonial_empire_2
 
 
 gen ln_year = ln(year)
-gen priv_prizes_share_All = num_prizes_priv_All/num_prizes_All
-gen num_prizes_RN_All = num_prizes_All-num_prizes_priv_All
-gen num_prizes_RN_FR = num_prizes_FR-num_prizes_priv_FR
 
-
-
-
-foreach var in num_prizes_All num_prizes_RN_All num_prizes_priv_All num_prizes_FR num_prizes_RN_FR num_prizes_priv_FR {
-    replace `var'=0 if `var'==.
-    foreach year of numlist 1740(1)1815 {
-        levelsof `var' if year == `year', local(blif) clean
-        gen cum_`var'_`year' = `blif'*max(0,(1- 0.05*(year-`year'))) if year>=`year'
-    }
-    egen cum_`var' = rowtotal(cum_`var'_*)
-    drop cum_`var'_*
-}
 
 regress loss prizes_import if war == 1
 regress loss num_prizes_All if war == 1
@@ -172,10 +152,7 @@ foreach var in num_prizes_All num_prizes_RN_All num_prizes_priv_All num_prizes_F
 
 }
 
-twoway (line cum_num_prizes_All year) (line cum_num_prizes_RN_All year) (line cum_num_prizes_priv_All year) /*
-    */ (line cum_num_prizes_FR year) (line cum_num_prizes_RN_FR year) (line cum_num_prizes_priv_FR year), scheme(stsj)
 
-twoway (line cum_num_prizes_All year) (line cum_num_prizes_FR year), scheme(stsj)
 
 
 blif

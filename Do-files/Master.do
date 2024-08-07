@@ -13,6 +13,13 @@ do "$git_path/Do-files/Change in composition of trade.do" /*Currently broken*/
 
 *Predation DB (+ some graphs)
 do "$git_path/Do-files/To create databases/For prizes db.do"
+**The prize database increases through time because it depends on the size of French (potential) trade. We transform it as 
+** a ratio to predicted peace-time trade in the following file
+** We also create a cumulated prize variable, which is more interesting than the annual losses.
+do "$git_path/Do-files/To create databases/Transformation prizes db.do"
+
+
+
 do "$git_path/Do-files/To create databases/To gen loss of colony variable.do"
 
 *For loss functions and graphs
