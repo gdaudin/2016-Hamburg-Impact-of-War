@@ -65,6 +65,6 @@ twoway (line cum_num_prizes_All year) (line cum_num_prizes_RN_All year) (line cu
 
 twoway (line cum_num_prizes_All year) (line cum_num_prizes_FR year), scheme(stsj)
 
-export delimited "$hamburg/database_csv/transformed_prizes.csv", replace
+export delimited "`HamburgDir'database_csv/transformed_prizes.csv", replace
 
 
