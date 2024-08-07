@@ -395,7 +395,7 @@ drop _merge
 
 generate Privateers_Total_Prize_value = MedianValuePrivateers * Number_of_prizes_Privateers_All*ST_silver/1000000
 generate Privateers_Investment = Privateers_Total_Prize_value/1.7
-**This assumes the British privateers are more successfull than the French one during the War of Austrian Succession
+**This assumes the British privateers are more successfull than the French ones during the War of Austrian Succession
 **See "Résultats de la course française.xlsx"
 
 generate Total_Prize_value = MedianValuePrivateers * Number_of_prizes_Total_All*ST_silver/1000000 if year <=1792

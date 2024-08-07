@@ -23,6 +23,8 @@ do "$git_path/Do-files/To create databases/Transformation prizes db.do"
 do "$git_path/Do-files/To create databases/To gen loss of colony variable.do"
 
 *For loss functions and graphs
+do "$git_path/Do-files/To create databases/Loss computation FR.do" //This also creates simple graphs
+do "$git_path/Do-files/To create databases/Loss computation GB.do" //This also creates simple graphs
 do "$git_path/Do-files/To create graphs/Annual and Mean Loss graph.do"
 do "$git_path/Do-files/To create graphs/Annual and Mean Loss graphGB.do"
 
