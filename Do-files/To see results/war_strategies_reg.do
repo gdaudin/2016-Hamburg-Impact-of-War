@@ -45,11 +45,6 @@ keep year France_vs_GB ally_vs_foe allyandneutral_vs_foe
 tempfile naval_sup
 save `naval_sup'
 
-import delimited using "`HamburgDir'database_csv/transformed_prizes.csv", clear case(preserve)
-keep year Number_of_prizes_* importofprizegoodspoundsterling
-tempfile prizes
-save `prizes'
-
 *import delimited using "`HamburgDir'database_csv/temp_for_hotelling.csv", clear /// I am not sure what this is for
 
 // Merge datasets
@@ -58,13 +53,15 @@ merge 1:1 year using `colony_loss'
 drop _merge
 merge 1:1 year using `naval_sup'
 drop _merge
-merge 1:1 year using `prizes'
+merge 1:1 year using "`HamburgDir'database_dta/English&French_prizes.dta"
 drop _merge
+
 
 // Rename variables
 
 rename weight_france colonial_empire
 
+/* This is already present in the prizes database
 // Create war variable
 
 generate byte wara=1 if year >=1733 & year <=1738 
@@ -75,9 +72,13 @@ generate byte war3=1 if year >=1778 & year <=1783
 generate byte war4=1 if year >=1793 & year <=1802
 generate byte war5=1 if year >=1803 & year <=1807
 generate blockade=1 if year >=1807 & year <=1815
+*/
+
 
 gen war_all = max(wara, warb, war1, war2, war3, war4, war5, blockade)
+replace war_all = 1 if war_all != .
 gen war= max(war1, war2, war3, war4, war5, blockade)
+replace war = 1 if war != .
 
 // Create major battle variable
 gen byte battle = .

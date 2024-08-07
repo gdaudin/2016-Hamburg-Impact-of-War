@@ -23,10 +23,7 @@ local PaperDir "Paper - Impact of War/Paper/"
 local AuxFunctionDir "AuxFunction/"
 
 
-import delimited using "`HamburgDir'database_csv/prizes.csv", clear case(preserve)
-keep year Number_of_prizes_* importofprizegoodspoundsterling
-tempfile prizes
-save `prizes'
+use "`HamburgDir'database_dta/English&French_prizes.dta", clear
 
 
 // Rename variables
@@ -65,6 +62,5 @@ twoway (line cum_num_prizes_All year) (line cum_num_prizes_RN_All year) (line cu
 
 twoway (line cum_num_prizes_All year) (line cum_num_prizes_FR year), scheme(stsj)
 
-export delimited "`HamburgDir'database_csv/transformed_prizes.csv", replace
-
+save "`HamburgDir'database_dta/English&French_prizes.dta", replace
 
