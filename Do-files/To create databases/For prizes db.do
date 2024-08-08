@@ -19,14 +19,23 @@ if "`c(username)'" =="Tirindelli" {
 
 
 insheet using "$hamburggit/External Data/PrizeNationalities.csv", case clear
+// This comes from the following file («Data for Guillaume.xlsx», using the first two sheets): I have done the "AggregatedOrigin" column by myself (GD)
+// It is a correspondence table to unify the nationalities of the prizes
 
 
 save "$hamburg/database_dta/PrizeNationalities.dta",  replace
 
 
-insheet using "$hamburggit/External Data/HCA34_prizes.csv", case clear
+insheet using "$hamburggit/External Data/HCA34_prizes.csv", case clear // This comes from an xlsx file send by Hillmann on July 31st 2019 «Data for Guillaume.xlsx»
 
 rename yearofsentence year
+
+replace year=1748 if year==1750
+replace year=1762 if year==1763
+replace year=1783 if inlist(year,1784,1785,1786,1787)
+///I associate post-war prizes with the preceeding war (1 case 1750, 8 cases 1763, 35 cases in 1784, 5 cases if 1786 and 2 cases in 1787) on the last year of the war
+
+
 drop if year==.
 
 
@@ -35,7 +44,7 @@ merge m:1 Prizeshiporigin using "$hamburg/database_dta/PrizeNationalities.dta", 
 rename AggregatedOrigin AggregatedOrigin_source
 drop _merge 
 
-replace Prizeshiporigin= OriginbasedonName if OriginbasedonName !=""
+replace Prizeshiporigin= OriginbasedonName if OriginbasedonName !="" & Prizeshiporigin=="" // I have worked this OriginbasedonName by myself (GD)
 
 
 merge m:1 Prizeshiporigin using "$hamburg/database_dta/PrizeNationalities.dta", keep(1 3)
@@ -63,6 +72,8 @@ histogram year, discrete name(HCA34_prizes, replace)
 keep year AggregatedOrigin_source AggregatedOrigin_hypothesis
 
 gen source ="HCA34_w_duplicates"
+
+/// Now we drop duplicates
 
 save "$hamburg/database_dta/English_prizes_list.dta",  replace
 
