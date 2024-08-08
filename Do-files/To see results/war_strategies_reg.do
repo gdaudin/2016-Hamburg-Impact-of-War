@@ -80,27 +80,7 @@ replace war_all = 1 if war_all != .
 gen war= max(war1, war2, war3, war4, war5, blockade)
 replace war = 1 if war != .
 
-// Create major battle variable
-gen byte battle = .
-replace battle = 1 if inlist(year, 1739)
-replace battle = 2 if inlist(year, 1746)
-replace battle = 3 if inlist(year, 1747)
-replace battle = 4 if inlist(year, 1758)
-replace battle = 5 if inlist(year, 1760)
-replace battle = 6 if inlist(year, 1761)
-replace battle = 7 if inlist(year, 1762)
-replace battle = 8 if inlist(year, 1793)
-replace battle = 9 if inlist(year, 1794)
-replace battle = 10 if inlist(year, 1797)
-replace battle = 11 if inlist(year, 1798)
-replace battle = 12 if inlist(year, 1804)
-replace battle = 13 if inlist(year, 1806)
-replace battle = 14 if inlist(year, 1808)
-replace battle = 15 if inlist(year, 1809)
-replace battle = 16 if inlist(year, 1821)
 
-gen battle_dummy = 1 if battle !=.
-replace battle_dummy = 0 if battle ==.
 
 // Define independent labels
 local indep_label "Prizes import" "Number of prizes" "Privateers \n prizes" ///
@@ -191,7 +171,7 @@ regress loss normalized_m_val_prizes_FR if year >=1740
 
 
 
-blif
+
 
 
 ****Predation does not resist in front of colonial empire
@@ -229,19 +209,11 @@ regress loss allyandneutral_vs_foe ln_year if war != 1 & year <=1820
 regress loss battle_dummy  if war == 1
 regress loss battle_dummy ln_year if war == 1
 
-gen running_battle = 0
-local runningbattle =0
-local n = _N
-foreach i of numlist 1(1)`n' {
-    local runningbattle = battle_dummy[`i']+`runningbattle'*0.75
-    replace running_battle = `runningbattle' in `i'
-}
-
 regress loss battle_dummy running_battle ln_year if war == 1
 regress loss battle_dummy running_battle ln_year
 
 
-**What about integration issues ?
+
 
 
 

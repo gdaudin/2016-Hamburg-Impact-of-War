@@ -21,6 +21,7 @@ do "$git_path/Do-files/To create databases/Transformation prizes db.do"
 
 
 do "$git_path/Do-files/To create databases/To gen loss of colony variable.do"
+do "$git_path/Do-files/To create databases/To gen battle variable.do"
 
 *For loss functions and graphs
 do "$git_path/Do-files/To create databases/Loss computation FR.do" //This also creates simple graphs
@@ -34,4 +35,4 @@ do "$git_path/Do-files/To create graphs/Pour commerce de terre.do"
 
 
 *Regressions effect of wartime strategies
-do "$git_path/Do-files/To see results/war_strategies_reg.do"
+do "$git_path/Do-files/To see results/war_strategies_reg.do" //This also includes creating the battle variable.
