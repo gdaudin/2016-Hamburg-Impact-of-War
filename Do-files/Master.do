@@ -22,6 +22,7 @@ do "$git_path/Do-files/To create databases/Transformation prizes db.do"
 
 do "$git_path/Do-files/To create databases/To gen loss of colony variable.do"
 do "$git_path/Do-files/To create databases/To gen battle variable.do"
+do "$git_path/Do-files/To create databases/To gen war & period variables.do"
 
 *For loss functions and graphs
 do "$git_path/Do-files/To create databases/Loss computation FR.do" //This also creates simple graphs
