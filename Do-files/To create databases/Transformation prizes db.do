@@ -76,13 +76,56 @@ twoway (line cum_num_prizes_All year) (line cum_num_prizes_FR year), scheme(stsj
 merge 1:1 year using "$hamburg/database_dta/Loss_values.dta", keepusing(predicted_trade*)
 
 foreach var in val_prizes_All val_prizes_FR  {
-    gen normalized_m_`var' = `var'/predicted_trade
-    gen normalized_nm_`var' = `var'/predicted_trade_nomemory
-    gen normalized_m_cum_`var' = cum_`var'/predicted_trade
-    gen normalized_nm_cum_`var' = cum_`var'/predicted_trade_nomemory
+    if "`var'"=="val_prizes_All" local blif "all prizes"
+    if "`var'"=="val_prizes_FR" local blif "French prizes"
+    gen normalized_m_`var'      = `var'/predicted_trade
+    label var normalized_m_`var' "Value of `blif' normalized by predicted trade (with memory)"
+    gen normalized_nm_`var'     = `var'/predicted_trade_nomemory
+    label var normalized_nm_`var' "Value of `blif' normalized by predicted trade (no memory)"
+    gen normalized_m_cum_`var'  = cum_`var'/predicted_trade
+    label var normalized_m_cum_`var' "Cumulated value of `blif' normalized by predicted trade (with memory)"
+    gen normalized_nm_cum_`var' = cum_`var'/predicted_trade_nomemory 
+    label var normalized_nm_cum_`var' "Cumulated value of `blif' normalized by predicted trade (no memory)"
 }
 
-twoway (line normalized_m_cum_val_prizes_All year) (line normalized_m_cum_val_prizes_FR year), scheme(stsj)
+**To normalize (and insist the value of the normalized variables cannot be interpreted)
+levelsof normalized_m_cum_val_prizes_FR if year==1744, local(base) clean
+
+foreach var in val_prizes_All val_prizes_FR  {
+    replace normalized_m_`var'      = normalized_m_`var'/`base'
+    replace normalized_nm_`var'     = normalized_nm_`var'/`base'
+    replace normalized_m_cum_`var'  = normalized_m_cum_`var'/`base'
+    replace normalized_nm_cum_`var' = normalized_nm_cum_`var'/`base'
+}
 
 save "`HamburgDir'database_dta/English&French_prizes_transformed.dta", replace
+
+drop if year < 1740
+
+
+replace war1=8 if war1!=.
+replace war2=8 if war2!=.
+replace war3=8 if war3!=.
+replace war4=8 if war4!=.
+replace war5=8 if war5!=.
+replace blockade=8 if blockade!=.
+generate minwar1=0 if war1!=.
+generate minwar2=0 if war2!=.
+generate minwar3=0 if war3!=.
+generate minwar4=0 if war4!=.
+generate minwar5=0 if war5!=.
+generate minblockade=0 if blockade!=.
+
+twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
+			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
+			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
+			 (area minwar1 year, color(gs9)) (area minwar2 year, color(gs9)) ///
+			 (area minwar3 year, color(gs9)) (area minwar4 year, color(gs9)) ///
+			 (area minwar5 year, color(gs9)) (area minblockade year, color(gs4)) ///
+             (line normalized_m_cum_val_prizes_All year, lpattern(line)) (line normalized_m_cum_val_prizes_FR year, lpattern(dash)), ///
+                title("Prizes captured by the British") ytitle("Base 1 in 1744 (French prizes)") legend (order(13 14) rows(2) size(small)) scheme(stsj)
+
+graph export "$hamburggit/Paper - Impact of War/Paper/normalized_cum_val_prizes.png", as(png) replace
+
+
 
