@@ -14,8 +14,8 @@ gen period_str=""
 replace period_str ="War 1688-1697" if year >= 1688 & year <= 1697
 replace period_str ="Peace 1698-1701" if year >= 1698 & year <= 1701
 replace period_str ="War 1702-1713" if year >= 1702 & year <= 1713
-replace period_str ="Peace 1716-1744" if year >= 1716 & year <= 1744
-replace period_str ="War 1745-1748" if year   >= 1745 & year <=1748
+replace period_str ="Peace 1716-1743" if year >= 1716 & year <= 1743
+replace period_str ="War 1744-1748" if year   >= 1744 & year <=1748
 replace period_str ="Peace 1749-1755" if year >= 1749 & year <=1755
 replace period_str ="War 1756-1763" if year   >= 1756 & year <=1763
 replace period_str ="Peace 1763-1777" if year >= 1763 & year <=1777
@@ -29,7 +29,7 @@ encode period_str, gen(period)
 
 
 gen war = 1
-replace war = 0 if year <= 1744 | (year >= 1749 & year <=1755) | (year >= 1763 & year <=1777) | (year >= 1784 & year <=1792) | year >=1816
+replace war = 0 if year <= 1745 | (year >= 1749 & year <=1755) | (year >= 1763 & year <=1777) | (year >= 1784 & year <=1792) | year >=1816
 
 generate warla=1 if year >=1688 & year <=1697 
 generate warsp=1 if year >=1702 & year <=1713 
