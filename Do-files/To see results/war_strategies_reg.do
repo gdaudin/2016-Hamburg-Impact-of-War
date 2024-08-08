@@ -53,7 +53,7 @@ merge 1:1 year using `colony_loss'
 drop _merge
 merge 1:1 year using `naval_sup'
 drop _merge
-merge 1:1 year using "`HamburgDir'database_dta/English&French_prizes.dta"
+merge 1:1 year using "`HamburgDir'database_dta/English&French_prizes_transformed.dta", keepusing(*prize*)
 drop _merge
 
 
@@ -61,7 +61,7 @@ drop _merge
 
 rename weight_france colonial_empire
 
-/* This is already present in the prizes database
+
 // Create war variable
 
 generate byte wara=1 if year >=1733 & year <=1738 
@@ -72,7 +72,7 @@ generate byte war3=1 if year >=1778 & year <=1783
 generate byte war4=1 if year >=1793 & year <=1802
 generate byte war5=1 if year >=1803 & year <=1807
 generate blockade=1 if year >=1807 & year <=1815
-*/
+
 
 
 gen war_all = max(wara, warb, war1, war2, war3, war4, war5, blockade)
@@ -153,18 +153,11 @@ foreach var in num_prizes_All num_prizes_RN_All num_prizes_priv_All num_prizes_F
 
 }
 
+regress loss cum_num_prizes_RN_All cum_num_prizes_priv_All if war==1
+regress loss cum_num_prizes_RN_All cum_num_prizes_priv_All
 
-
-
-blif
-
-
-
-regress loss cum_num_prizes_RN cum_num_prizes_priv if war==1
-regress loss cum_num_prizes_RN cum_num_prizes_priv
-
-regress loss num_prizes_RN cum_num_prizes_RN num_prizes_priv cum_num_prizes_priv if war==1
-regress loss num_prizes_RN cum_num_prizes_RN num_prizes_priv cum_num_prizes_priv
+regress loss num_prizes_RN_All cum_num_prizes_RN_All num_prizes_priv_All cum_num_prizes_priv_All if war==1
+regress loss num_prizes_RN_All cum_num_prizes_RN_All num_prizes_priv_All cum_num_prizes_priv_All
 
 **All this suggests that num_prizes_RN explains better that num_prizes_priv, but I am not sure we can make much of that. It is very much a time trend.
 **Certainly, and that is interesting, the cumulated measure is much better than the single shock measure. 
@@ -173,6 +166,32 @@ regress loss num_prizes_All cum_num_prizes_All num_prizes_FR cum_num_prizes_FR i
 regress loss num_prizes_All cum_num_prizes_All num_prizes_FR cum_num_prizes_FR if year >=1740
 **En temps de guerre, les pertes (cumulées) françaises sont plus importantes que les pertes totales
 **Sur l’ensemble des périodes, c’est l’inverse.
+
+**With the cumulated and normalized value data (no effect in war time ; positive (!) effect in peace time)
+
+regress loss normalized_m_cum_val_prizes_All if war==1 & year >=1740
+regress loss normalized_m_cum_val_prizes_FR if war==1 & year >=1740
+
+regress loss normalized_m_cum_val_prizes_All if war!=1 & year >=1740
+regress loss normalized_m_cum_val_prizes_FR if war!=1 & year >=1740
+
+regress loss normalized_m_cum_val_prizes_All if year >=1740
+regress loss normalized_m_cum_val_prizes_FR if year >=1740
+
+**With the normalized value data (basically no effect)
+
+regress loss normalized_m_val_prizes_All if war==1 & year >=1740
+regress loss normalized_m_val_prizes_FR if war==1 & year >=1740
+
+regress loss normalized_m_val_prizes_All if war!=1 & year >=1740
+regress loss normalized_m_val_prizes_FR if war!=1 & year >=1740
+
+regress loss normalized_m_val_prizes_All if year >=1740
+regress loss normalized_m_val_prizes_FR if year >=1740
+
+
+
+blif
 
 
 ****Predation does not resist in front of colonial empire
