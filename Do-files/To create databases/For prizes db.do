@@ -220,11 +220,16 @@ drop _merge
 
 gen importofprizegoodssilvertons=importofprizegoodspoundsterling*1000*ST_silver/1000000
 
-merge 1:1 year using "$hamburg/database_dta/Total silver trade FR GB.dta"
+merge 1:1 year using "$hamburg/database_dta/Total silver trade FR GB.dta", keepusing(valueFR_silver)
+drop _merge
+
+
+merge 1:1 year using "$hamburg/database_dta/Total silver trade FR GB.dta", keepusing(valueFR_silver)
 drop _merge
 
 merge 1:1 year using "$hamburg/database_dta/Benjamin_captor_Navy.dta"
 drop _merge
+
 
 gen share_prizes= importofprizegoodssilvertons/valueFR_silver
 replace share_prizes = 0 if share_prizes ==.
@@ -236,14 +241,14 @@ replace share_prizes = . if share_prizes ==0
 
 export delimited "$hamburg/database_csv/prizes_imports.csv", replace
 
-/*
+
 twoway (bar importofprizegoodspoundsterling year, cmissing(n)) (connected share_prizes year,yaxis(2) lpattern(solid) mcolor(black) cmissing(n))/*
 		*/ if year>=1740 & year <=1801 /*
-		*/, name(Prize_imports, replace) scheme(s1mono) ytitle("Imports of prize goods (£000)") ytitle("Share of French trade", axis(2)) /*
-		*/ legend(order (1 "Absolute value" 2 "Share of French trade"))
+		*/, name(Prize_imports, replace) scheme(stsj) ytitle("Imports of prize goods (£000)") ytitle("Share of French trade", axis(2)) /*
+		*/ legend(order (1 "Absolute value" 2 "Share of French trade")) 
 		
 graph export "$hamburggit/Paper - Impact of War/Paper/Prizes_imports.png", replace
-*/
+
 
 sort year
 
@@ -337,10 +342,10 @@ rename Nbr_HCA34_and_other Number_of_prizes_Privateers_All
 
 export delimited "$hamburg/database_csv/prizes.csv", replace
 
-/*
+
  twoway (bar Number_of_prizes_Total_All year, color(gs10)) /*
 	*/  (bar Number_of_prizes_Privateers_All year, color(gs5)) /*
-	*/  (connected share_of_non_FR_prizes year, lpattern(solid) mcolor(black) cmissing(n) msymbol(diamond) yaxis(2)) /*
+	*/  (connected share_of_non_FR_prizes year, lpattern(solid) mcolor(black) cmissing(n) msymbol(diamond) msize(vsmall) yaxis(2)) /*
 	*/ if year >=1739 & year <=1815 /*
 	*/  ,legend(rows(3) order ( 2 "Privateers’ prizes"  /*
 	*/  1 "Navy’s prizes (estimated date of capture from 1793)" 3 "Share of non-French prizes among privateers’ prizes"  /*
@@ -348,10 +353,10 @@ export delimited "$hamburg/database_csv/prizes.csv", replace
 	*/  ytitle("number of prizes", axis(1)) ytitle("share of privateers’ prizes", axis(2))/*
 	*/  name(Prizes_for_paper, replace) /*
 	*/ note("Unless otherwise specified, the date is the year the prize was adjudicated") /*
-	*/ scheme(s1mono)
+	*/ scheme(stsj)
 	
 graph export "$hamburggit/Paper - Impact of War/Paper/Prizes.png", replace	
-*/
+
 
 erase "$hamburg/database_dta/HCA34_prizes.dta"
 erase "$hamburg/database_dta/GBNavy_prizes.dta"
@@ -423,7 +428,7 @@ twoway(bar Total_Prize_value year) (bar FR_Prize_value year) (line Privateers_In
  merge 1:1 year using "$hamburg/database_dta/English_prizes.dta"
  drop _merge
  *keep if year >=1740 & year <=1820
-drop FR_silver
+capture drop FR_silver
  merge 1:1 year using "$hamburg/database_dta/FR_silver.dta"
  drop _merge
 
