@@ -18,6 +18,55 @@ if "`c(username)'" =="Tirindelli" {
 
 
 
+
+***********
+*******************************
+****************Prize import data
+
+insheet using "$hamburggit/External Data/Ashton_Schumpeter_Prize_data.csv", case clear
+drop v3
+generate source="Prize_imports"
+twoway (bar importofprizegoodspoundsterling year, cmissing(n)), name(Prize_imports, replace) scheme(s1mono) ytitle("Imports of prize goods (£000)")
+save "$hamburg/database_dta/Ashton_Schumpeter_Prize_data.dta",  replace
+
+merge 1:1 year using "$hamburg/database_dta/ST_silver.dta", keep(3)
+drop _merge
+
+gen importofprizegoodssilvertons=importofprizegoodspoundsterling*1000*ST_silver/1000000
+
+merge 1:1 year using "$hamburg/database_dta/Total silver trade FR GB.dta", keepusing(valueFR_silver)
+drop _merge
+
+
+gen share_prizes= importofprizegoodssilvertons/valueFR_silver
+replace share_prizes = 0 if share_prizes ==.
+replace share_prizes = . if valueFR_silver ==.
+
+sort year 
+
+replace share_prizes = . if share_prizes ==0
+
+export delimited "$hamburg/database_csv/prizes_imports.csv", replace
+save "$hamburg/database_dta/Prizes_imports.dta",  replace
+
+
+twoway (bar importofprizegoodspoundsterling year, cmissing(n)) (connected share_prizes year,yaxis(2) lpattern(solid) mcolor(black) cmissing(n))/*
+		*/ if year>=1740 & year <=1801 /*
+		*/, name(Prize_imports, replace) scheme(stsj) ytitle("Imports of prize goods (£000)") ytitle("Share of French trade", axis(2)) /*
+		*/ legend(order (1 "Absolute value" 2 "Share of French trade")) 
+		
+graph export "$hamburggit/Paper - Impact of War/Paper/Prizes_imports.png", replace
+
+
+
+*****************************
+
+
+
+
+
+
+
 insheet using "$hamburggit/External Data/PrizeNationalities.csv", case clear
 // This comes from the following file («Data for Guillaume.xlsx», using the first two sheets): I have done the "AggregatedOrigin" column by myself (GD)
 // It is a correspondence table to unify the nationalities of the prizes
@@ -160,15 +209,6 @@ save "$hamburg/database_dta/English_prizes_list.dta",  replace
 histogram year, discrete freq name(All_prizes, replace)
 
 
-****************
-
-insheet using "$hamburggit/External Data/Ashton_Schumpeter_Prize_data.csv", case clear
-drop v3
-generate source="Prize_imports"
-twoway (bar importofprizegoodspoundsterling year, cmissing(n)), name(Prize_imports, replace) scheme(s1mono) ytitle("Imports of prize goods (£000)")
-save "$hamburg/database_dta/Ashton_Schumpeter_Prize_data.dta",  replace
-
-
 *******************
 insheet using "$hamburggit/External Data/Starkey -- Nbr of prizes -- 1990.csv", case clear
 rename Year year
@@ -220,45 +260,27 @@ recode Nbr* (miss=0 ) if year >=1777 & year <=1784
 recode Nbr* (miss=0 ) if year >=1793 & year <=1815
 
 
-merge 1:1 year using "$hamburg/database_dta/Ashton_Schumpeter_Prize_data.dta"
-drop source _merge
+
+
+***********************
 
 merge 1:1 year using "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta"
 drop _merge
 
-merge 1:1 year using "$hamburg/database_dta/ST_silver.dta", keep(3)
-drop _merge
 
-gen importofprizegoodssilvertons=importofprizegoodspoundsterling*1000*ST_silver/1000000
-
-merge 1:1 year using "$hamburg/database_dta/Total silver trade FR GB.dta", keepusing(valueFR_silver)
-drop _merge
-
-
-merge 1:1 year using "$hamburg/database_dta/Total silver trade FR GB.dta", keepusing(valueFR_silver)
-drop _merge
 
 merge 1:1 year using "$hamburg/database_dta/Benjamin_captor_Navy.dta"
 drop _merge
 
 
-gen share_prizes= importofprizegoodssilvertons/valueFR_silver
-replace share_prizes = 0 if share_prizes ==.
-replace share_prizes = . if valueFR_silver ==.
-
-sort year 
-
-replace share_prizes = . if share_prizes ==0
-
-export delimited "$hamburg/database_csv/prizes_imports.csv", replace
+merge 1:1 year using "$hamburg/database_dta/ST_silver.dta", keep(3)
+drop _merge
 
 
-twoway (bar importofprizegoodspoundsterling year, cmissing(n)) (connected share_prizes year,yaxis(2) lpattern(solid) mcolor(black) cmissing(n))/*
-		*/ if year>=1740 & year <=1801 /*
-		*/, name(Prize_imports, replace) scheme(stsj) ytitle("Imports of prize goods (£000)") ytitle("Share of French trade", axis(2)) /*
-		*/ legend(order (1 "Absolute value" 2 "Share of French trade")) 
-		
-graph export "$hamburggit/Paper - Impact of War/Paper/Prizes_imports.png", replace
+merge 1:1 year using "$hamburg/database_dta/Total silver trade FR GB.dta", keepusing(valueFR_silver)
+drop _merge
+
+
 
 
 sort year
