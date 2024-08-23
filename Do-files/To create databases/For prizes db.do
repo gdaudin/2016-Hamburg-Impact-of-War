@@ -73,6 +73,7 @@ save "$hamburg/database_dta/PrizeNationalities.dta",  replace
 
 
 insheet using "$hamburggit/External Data/HCA34_prizes.csv", case clear // This comes from an xlsx file send by Hillmann on July 31st 2019 «Data for Guillaume.xlsx»
+//I had to do some adjustementt for Le Pierre Andre (1744) because of wandering semicolon.
 
 rename yearofsentence year
 
@@ -96,6 +97,8 @@ replace Prizeshiporigin= OriginbasedonName if OriginbasedonName !="" & Prizeship
 merge m:1 Prizeshiporigin using "$hamburg/database_dta/PrizeNationalities.dta", keep(1 3)
 rename AggregatedOrigin AggregatedOrigin_hypothesis
 drop Prizeshiporigin
+
+
 
 /*
 preserve
@@ -286,10 +289,15 @@ replace AggregatedOrigin_hypothesis = "US" if AggregatedOrigin_hypothesis=="Unit
 replace AggregatedOrigin_hypothesis = "Neth" if AggregatedOrigin_hypothesis=="Netherlands"
 
 replace source= source+"_"+AggregatedOrigin_hypothesis if source !="GBNavy_Lyon"
+ 
+
 drop AggregatedOrigin_hypothesis
 
+tab source
 
-reshape wide Nbr_,i(year) j(source ) string
+
+
+reshape wide Nbr_,i(year) j(source) string
 
 recode Nbr* (miss=0 ) if year >=1739 & year <=1748
 recode Nbr* (miss=0 ) if year >=1756 & year <=1762
@@ -304,7 +312,9 @@ save "$hamburg/database_dta/English_prizes.dta",  replace
 merge 1:1 year using "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta"
 drop _merge
 
-blif
+egen Nbr_Hillman=rsum(Nbr_HCA34_wo_duplicates_France-Nbr_Other_Unknown)
+corr Starkey_captor_Privateers Nbr_Hillman if year >=1739 & (Starkey_captor_Privateers !=0 | Nbr_Hillman  !=0)
+
 
 merge 1:1 year using "$hamburg/database_dta/Benjamin_captor_Navy.dta"
 drop _merge
