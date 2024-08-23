@@ -27,7 +27,7 @@ insheet using "$hamburggit/External Data/Ashton_Schumpeter_Prize_data.csv", case
 drop v3
 generate source="Prize_imports"
 twoway (bar importofprizegoodspoundsterling year, cmissing(n)), name(Prize_imports, replace) scheme(s1mono) ytitle("Imports of prize goods (£000)")
-save "$hamburg/database_dta/Ashton_Schumpeter_Prize_data.dta",  replace
+*save "$hamburg/database_dta/Ashton_Schumpeter_Prize_data.dta",  replace
 
 merge 1:1 year using "$hamburg/database_dta/ST_silver.dta", keep(3)
 drop _merge
@@ -60,10 +60,7 @@ graph export "$hamburggit/Paper - Impact of War/Paper/Prizes_imports.png", repla
 
 
 *****************************
-
-
-
-
+** Now for prizes (ships and values) rather than imports
 
 
 
@@ -133,9 +130,10 @@ use "$hamburg/database_dta/HCA34_prizes.dta",  clear
 replace Prizeshipmaster= Prizeshipmasternormalized if Prizeshipmasternormalized !=""
 replace Prizeshipname= Prizeshipnamenormalized if Prizeshipnamenormalized !=""
 
+
 sort year
 bys Prizeshipname Prizeshipmaster: keep if _n==1
-
+///456 drops out of 2586
 
 keep year AggregatedOrigin*
 gen source="HCA34_wo_duplicates"
@@ -149,35 +147,10 @@ save "$hamburg/database_dta/English_prizes_list.dta",  replace
 tab AggregatedOrigin_source if AggregatedOrigin_source!="Unknown"
 tab AggregatedOrigin_hypothesis if AggregatedOrigin_hypothesis!="Unknown"
 
-
-
-**************************
-
-insheet using "$hamburggit/External Data/GBNavy_prizes.csv", case clear
-
-gen year=real(substr(YeartoNavy,1,4))
-
-
-drop if year==.
-save "$hamburg/database_dta/GBNavy_prizes.dta",  replace
-
-
-histogram year, discrete name(GBNavy_prizes, replace)
-
-keep if HowtoNavy=="Taken"
-
-histogram year, discrete freq name(GBNavy_prizes_Taken, replace)
-
-keep year
-gen source ="GBNavy"
-append using "$hamburg/database_dta/English_prizes_list.dta"
-save "$hamburg/database_dta/English_prizes_list.dta",  replace
-
-
 **************************
 
 
-insheet using "$hamburggit/External Data/Other_prizes.csv", case clear
+insheet using "$hamburggit/External Data/Other_prizes.csv", case clear // This comes from an xlsx file send by Hillmann on July 31st 2019 «Data for Guillaume.xlsx
 rename Year year
 **Drop the British ships taken by the yankee or the French and the early ones
 **As the big work done by Hillmann et Gathmann on HC34 only covers 1740-1809 (not a big deal for the latter years as private prizes become small)
@@ -195,9 +168,6 @@ rename AggregatedOrigin AggregatedOrigin_hypothesis
 drop _merge
 
 
-
-save "$hamburg/database_dta/Other_prizes.dta",  replace
-
 keep year AggregatedOrigin*
 keep if year >=1650
 generate source="Other"
@@ -208,12 +178,65 @@ save "$hamburg/database_dta/English_prizes_list.dta",  replace
 
 histogram year, discrete freq name(All_prizes, replace)
 
+*******
+*To the Navy
+
+**************************
+
+insheet using "$hamburggit/External Data/GBNavy_prizes.csv", case clear // This comes from an xlsx file send by Hillmann on July 31st 2019 «Data for Guillaume.xlsx»
+///Ultimate source : David Lyon. Sailing Navy List: All the Ships of the Royal Navy - Built, Purchased and Captured, 1688-1860. Conway Maritime Press, 1993. ISBN 0-85177-617-5.
+
+gen year=real(substr(YeartoNavy,1,4))
+
+drop if year==.
+
+
+//According to https://en.wikipedia.org/wiki/Rating_system_of_the_Royal_Navyhttps://en.wikipedia.org/wiki/Rating_system_of_the_Royal_Navy, we assume
+///that rated ships + everything including "sloop" are combattant ships, and the rest former civilian vessels. 
+gen warship=0
+replace warship=1 if strmatch(Type,"*rate*")==1 | strmatch(Type,"*loop*")==1
+***524 warships out of c.1,900 ships
+//we do not keep the warships
+keep if warship==0
+drop warship
+
+gen prize=0
+replace prize=1 if HowtoNavy=="Taken"
+
+preserve
+collapse (sum) prize (count) Dummy_Prize, by(year)
+///Dummy Prize is actually 1 for all observations. I am not sure why. I will use it for a total count of entry into the Navy
+twoway (connected prize year) (connected Dummy_Prize year)
+restore
+
+keep if HowtoNavy=="Taken"
+
+keep year
+gen source ="GBNavy_Lyon"
+append using "$hamburg/database_dta/English_prizes_list.dta"
+save "$hamburg/database_dta/English_prizes_list.dta",  replace
 
 *******************
-insheet using "$hamburggit/External Data/Starkey -- Nbr of prizes -- 1990.csv", case clear
+insheet using "$hamburggit/External Data/Starkey -- Nbr of prizes -- 1990.csv", case clear // From Starkey
+
+///Hillmann & Gathmann, 1990, note 73, p. 757 : Unfortunately, we cannot compare the number of prizes captured by the Royal Navy and privateers consistently 
+/// over time. The number of prizes taken by British privateers in the 1689–1815 period is consistently recorded in PRO, HCA 30 
+/// (from lists prepared for the Customs Commissioners) and HCA 34 (from the Admiralty Court prize sentences). 
+/// However, no directly comparable data exist for the Royal Navy over the same period. 
+/// Starkey, British Privateering, reports the number of prizes seized by the Royal Navy for the period 1702–1785. 
+/// Hill, Prizes of War, reconstructed the number of navy prizes between 1793 and 1815 using the HCA 2/300 series. 
+/// Yet, his source appears to include all prize actions of Royal Navy warships, including prizes condemned in colonial courts or captured warships 
+/// that are not included in the other records.
+
 rename Year year
 rename Privateers Starkey_captor_Privateers
 rename Navy Starkey_captor_Navy
+
+replace year=1748 if year==1750
+replace year=1762 if year==1763
+replace year=1783 if inlist(year,1784,1785,1786,1787)
+///I associate post-war prizes with the preceeding war -- As with the data presented before
+
 
 twoway (connected Starkey_captor_Privateers year, cmissing(n)) (connected Starkey_captor_Navy year, cmissing(n)), name(Starkey, replace)
 save "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta",  replace
@@ -229,7 +252,8 @@ rename number Benjamin_captor_Navy
 twoway (connected Benjamin_captor_Navy year, cmissing(n)), name(Benjamin_captor_Navy, replace)
 save "$hamburg/database_dta/Benjamin_captor_Navy.dta",  replace
 
-
+****************
+**End of primary sources
 ***********************
 
 use "$hamburg/database_dta/English_prizes_list.dta",  clear
@@ -248,7 +272,7 @@ bys year source AggregatedOrigin_hypothesis : keep if _n==1
 replace AggregatedOrigin_hypothesis = "US" if AggregatedOrigin_hypothesis=="United States"
 replace AggregatedOrigin_hypothesis = "Neth" if AggregatedOrigin_hypothesis=="Netherlands"
 
-replace source= source+"_"+AggregatedOrigin_hypothesis if source !="GBNavy"
+replace source= source+"_"+AggregatedOrigin_hypothesis if source !="GBNavy_Lyon"
 drop AggregatedOrigin_hypothesis
 
 
@@ -260,14 +284,14 @@ recode Nbr* (miss=0 ) if year >=1777 & year <=1784
 recode Nbr* (miss=0 ) if year >=1793 & year <=1815
 
 
-
+save "$hamburg/database_dta/English_prizes.dta",  replace
 
 ***********************
 
 merge 1:1 year using "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta"
 drop _merge
 
-
+blif
 
 merge 1:1 year using "$hamburg/database_dta/Benjamin_captor_Navy.dta"
 drop _merge
@@ -298,12 +322,12 @@ egen Nbr_prizes_GBNavy = rsum(Starkey_captor_Navy Benjamin_captor_Navy)
 
 save "$hamburg/database_dta/English_prizes.dta",  replace
 
-graph twoway (connected Nbr_prizes_GBNavy year, cmissing(n)) (connected Nbr_GBNavy year, cmissing(n)), /*
+graph twoway (connected Nbr_prizes_GBNavy_Taken year, cmissing(n)) (connected Nbr_GBNavy year, cmissing(n)), /*
 	*/ legend(order (1 "Number of Navy prizes included in the fleet " 2 "Number of Navy prizes")) /*
 	*/ name(Comp_Navy_prizes_and_GBNavy, replace)
 
 
-	
+blif
 graph twoway (connected Nbr_HCA34_wod year, cmissing(n)) (connected Starkey_captor_Privateers year, cmissing(n)) /*
 	*/ if year >=1735 & year <=1790 , /*
 	*/ legend(rows(2) order (1 "Number of prizes in the HCA34 (without duplicates)" 2 "Number of Privateers prizes (Starkey)")) /*
@@ -392,9 +416,6 @@ graph export "$hamburggit/Paper - Impact of War/Paper/Prizes.png", replace
 
 
 erase "$hamburg/database_dta/HCA34_prizes.dta"
-erase "$hamburg/database_dta/GBNavy_prizes.dta"
-erase "$hamburg/database_dta/Other_prizes.dta"
-erase "$hamburg/database_dta/Ashton_Schumpeter_Prize_data.dta"
 erase "$hamburg/database_dta/PrizeNationalities.dta"
 erase "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta"
 
