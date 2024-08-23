@@ -315,6 +315,10 @@ drop _merge
 egen Nbr_Hillman=rsum(Nbr_HCA34_wo_duplicates_France-Nbr_Other_Unknown)
 corr Starkey_captor_Privateers Nbr_Hillman if year >=1739 & (Starkey_captor_Privateers !=0 | Nbr_Hillman  !=0)
 
+corr Starkey_captor_Navy Nbr_GBNavy_Lyon if year >=1739 & (Starkey_captor_Privateers !=0 | Nbr_GBNavy_Lyon  !=0)
+
+
+
 
 merge 1:1 year using "$hamburg/database_dta/Benjamin_captor_Navy.dta"
 drop _merge
