@@ -211,7 +211,11 @@ restore
 
 keep if HowtoNavy=="Taken"
 
+replace year=1697 if year == 1701
+//To replace by actual war years
+//The rest (including 1755) seems plausible
 keep year
+
 gen source ="GBNavy_Lyon"
 append using "$hamburg/database_dta/English_prizes_list.dta"
 save "$hamburg/database_dta/English_prizes_list.dta",  replace
@@ -250,7 +254,7 @@ drop if Starkey_captor_Privateers==0 & Starkey_captor_Navy==0
 twoway (connected Starkey_captor_Privateers year, cmissing(n)) (connected Starkey_captor_Navy year, cmissing(n)), name(Starkey, replace)
 save "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta",  replace
 
-blif
+
 
 
 ***********************
@@ -287,7 +291,7 @@ drop AggregatedOrigin_hypothesis
 
 reshape wide Nbr_,i(year) j(source ) string
 
-recode Nbr* (miss=0 ) if year >=1740 & year <=1748
+recode Nbr* (miss=0 ) if year >=1739 & year <=1748
 recode Nbr* (miss=0 ) if year >=1756 & year <=1762
 recode Nbr* (miss=0 ) if year >=1777 & year <=1784
 recode Nbr* (miss=0 ) if year >=1793 & year <=1815
