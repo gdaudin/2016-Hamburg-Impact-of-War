@@ -232,16 +232,25 @@ rename Year year
 rename Privateers Starkey_captor_Privateers
 rename Navy Starkey_captor_Navy
 
-replace year=1748 if year==1750
-replace year=1762 if year==1763
-replace year=1783 if inlist(year,1784,1785,1786,1787)
+**This is to allocate the prizes to actual war years
+generate year_new=year
+replace year_new=1713 if year==1714
+replace year_new=1748 if inlist(year,1749, 1750, 1751)
+replace year_new=1762 if inlist(year,1763)
+replace year_new=1783 if inlist(year,1784,1785)
 ///I associate post-war prizes with the preceeding war -- As with the data presented before
+
+collapse (sum) Starkey_captor_Privateers Starkey_captor_Navy, by(year_new)
+rename year_new year
+drop if Starkey_captor_Privateers==0 & Starkey_captor_Navy==0
+
+
 
 
 twoway (connected Starkey_captor_Privateers year, cmissing(n)) (connected Starkey_captor_Navy year, cmissing(n)), name(Starkey, replace)
 save "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta",  replace
 
-
+blif
 
 
 ***********************
