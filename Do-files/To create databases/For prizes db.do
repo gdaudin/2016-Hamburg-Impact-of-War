@@ -236,8 +236,8 @@ insheet using "$hamburggit/External Data/Starkey -- Nbr of prizes -- 1990.csv", 
 /// that are not included in the other records.
 
 rename Year year
-rename Privateers Starkey_captor_Privateers
-rename Navy Starkey_captor_Navy
+rename Privateers Starkey_prizes_Privateers
+rename Navy Starkey_prizes_Navy
 
 **This is to allocate the prizes to actual war years
 generate year_new=year
@@ -247,14 +247,14 @@ replace year_new=1762 if inlist(year,1763)
 replace year_new=1783 if inlist(year,1784,1785)
 ///I associate post-war prizes with the preceeding war -- As with the data presented before
 
-collapse (sum) Starkey_captor_Privateers Starkey_captor_Navy, by(year_new)
+collapse (sum) Starkey_prizes_Privateers Starkey_prizes_Navy, by(year_new)
 rename year_new year
-drop if Starkey_captor_Privateers==0 & Starkey_captor_Navy==0
+drop if Starkey_prizes_Privateers==0 & Starkey_prizes_Navy==0
 
 
 
 
-twoway (connected Starkey_captor_Privateers year, cmissing(n)) (connected Starkey_captor_Navy year, cmissing(n)), name(Starkey, replace)
+twoway (connected Starkey_prizes_Privateers year, cmissing(n)) (connected Starkey_prizes_Navy year, cmissing(n)), name(Starkey, replace)
 save "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta",  replace
 
 
@@ -263,10 +263,10 @@ save "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta",  replace
 ***********************
 insheet using "$hamburggit/External Data/Benjamin RN prizes.csv", case clear
 drop share
-rename number Benjamin_captor_Navy
+rename number Benjamin_prizes_Navy
 
-twoway (connected Benjamin_captor_Navy year, cmissing(n)), name(Benjamin_captor_Navy, replace)
-save "$hamburg/database_dta/Benjamin_captor_Navy.dta",  replace
+twoway (connected Benjamin_prizes_Navy year, cmissing(n)), name(Benjamin_prizes_Navy, replace)
+save "$hamburg/database_dta/Benjamin_prizes_Navy.dta",  replace
 
 ****************
 **End of primary sources
@@ -295,8 +295,6 @@ drop AggregatedOrigin_hypothesis
 
 tab source
 
-
-
 reshape wide Nbr_,i(year) j(source) string
 
 recode Nbr* (miss=0 ) if year >=1739 & year <=1748
@@ -307,22 +305,9 @@ recode Nbr* (miss=0 ) if year >=1793 & year <=1815
 
 save "$hamburg/database_dta/English_prizes.dta",  replace
 
-***********************
-
-merge 1:1 year using "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta"
-drop _merge
-
-egen Nbr_Hillman=rsum(Nbr_HCA34_wo_duplicates_France-Nbr_Other_Unknown)
-corr Starkey_captor_Privateers Nbr_Hillman if year >=1739 & (Starkey_captor_Privateers !=0 | Nbr_Hillman  !=0)
-
-corr Starkey_captor_Navy Nbr_GBNavy_Lyon if year >=1739 & (Starkey_captor_Privateers !=0 | Nbr_GBNavy_Lyon  !=0)
 
 
-
-
-merge 1:1 year using "$hamburg/database_dta/Benjamin_captor_Navy.dta"
-drop _merge
-
+*********************** Merging data files
 
 merge 1:1 year using "$hamburg/database_dta/ST_silver.dta", keep(3)
 drop _merge
@@ -331,6 +316,49 @@ drop _merge
 merge 1:1 year using "$hamburg/database_dta/Total silver trade FR GB.dta", keepusing(valueFR_silver)
 drop _merge
 
+save "$hamburg/database_dta/English_prizes.dta",  replace
+
+******  Starkey and Benjamin to decide on a Navy prize series
+
+use "$hamburg/database_dta/English_prizes.dta",  replace
+
+merge 1:1 year using "$hamburg/database_dta/Starkey -- Nbr of prizes -- 1990.dta"
+drop _merge
+
+egen Nbr_Hillman=rsum(Nbr_HCA34_wo_duplicates_France-Nbr_Other_Unknown)
+corr Starkey_prizes_Privateers Nbr_Hillman if year >=1739 & (Starkey_prizes_Privateers !=0 | Nbr_Hillman  !=0)
+
+
+
+merge 1:1 year using "$hamburg/database_dta/Benjamin_prizes_Navy.dta"
+drop _merge
+
+**Checking teh consistency of the different sources on Navy prizes
+corr Starkey_prizes_Navy Nbr_GBNavy_Lyon if year >=1739 & (Starkey_prizes_Navy !=0 | Nbr_GBNavy_Lyon  !=0)
+egen Tot_Starkey_Navy = total(Starkey_prizes_Navy) if year >=1739 & year <=1790
+egen Tot_Lyon_Navy_FirstPeriod = total(Nbr_GBNavy_Lyon) if year >=1739 & year <=1790
+
+corr Benjamin_prizes_Navy Nbr_GBNavy_Lyon if year >=1739 & (Benjamin_prizes_Navy !=0 | Nbr_GBNavy_Lyon  !=0)
+egen Tot_Benjamin_Navy = total(Benjamin_prizes_Navy) if year >=1793
+egen Tot_Lyon_Navy_SecondPeriod = total(Nbr_GBNavy_Lyon) if year >=1793
+
+***But actually, the number of prizes taken into the navy (Lyon’s numbers) seem to be only a small fraction of the total number of prizes (5.6 \% of Starkey’s and 4.8\% of Hill’s), and so we use Starkey’s and Hill’s numbers.
+***To adjust Hill’s number, we assume the share of prizes taken into the navy is constant and multiply its numbers by 0.87 (= 0.048/0.056).
+
+gen blif = 0.87*Benjamin_prizes_Navy
+gen Nbr_prizes_GBNavy = Starkey_prizes_Navy if year <=1790
+replace Nbr_prizes_GBNavy = blif if year >=1791
+drop blif
+
+corr Nbr_prizes_GBNavy Nbr_GBNavy_Lyon if year >=1739 & (Nbr_prizes_GBNavy !=0 | Nbr_GBNavy_Lyon  !=0)
+
+
+graph twoway (connected Nbr_GBNavy_Lyon year, cmissing(n)) (connected Nbr_prizes_GBNavy year, cmissing(n)), /*
+	*/ legend(order (1 "Number of Navy prizes included in the fleet " 2 "Number of Navy prizes")) /*
+	*/ name(Comp_Navy_prizes_and_GBNavy, replace)
+
+
+*****Work on privateers’ prizes
 
 
 
@@ -345,17 +373,12 @@ recode Nbr* (miss=0 ) if year >=1756 & year <=1762
 recode Nbr* (miss=0 ) if year >=1777 & year <=1784
 recode Nbr* (miss=0 ) if year >=1793 & year <=1815
 
-egen Nbr_prizes_GBNavy = rsum(Starkey_captor_Navy Benjamin_captor_Navy)
 
-save "$hamburg/database_dta/English_prizes.dta",  replace
 
-graph twoway (connected Nbr_prizes_GBNavy_Taken year, cmissing(n)) (connected Nbr_GBNavy year, cmissing(n)), /*
-	*/ legend(order (1 "Number of Navy prizes included in the fleet " 2 "Number of Navy prizes")) /*
-	*/ name(Comp_Navy_prizes_and_GBNavy, replace)
 
 
 blif
-graph twoway (connected Nbr_HCA34_wod year, cmissing(n)) (connected Starkey_captor_Privateers year, cmissing(n)) /*
+graph twoway (connected Nbr_HCA34_wod year, cmissing(n)) (connected Starkey_prizes_Privateers year, cmissing(n)) /*
 	*/ if year >=1735 & year <=1790 , /*
 	*/ legend(rows(2) order (1 "Number of prizes in the HCA34 (without duplicates)" 2 "Number of Privateers prizes (Starkey)")) /*
 	*/ name(Comp_HCA34_prizes_and_Starkey, replace)
