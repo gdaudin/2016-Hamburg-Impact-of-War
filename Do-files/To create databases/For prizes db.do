@@ -511,10 +511,11 @@ graph export "$hamburggit/Paper - Impact of War/Paper/Prizes_nationality.png", r
 
 save "$hamburg/database_dta/English_prizes.dta",  replace
 
-blif
 ************************
 	
 *insheet using "$hamburggit/External Data/Value of British prizes.xlsx", case clear names
+///Data come from Hillman and Gathmann (2011) for the mean value of privateer’s prizes by period
+///From Benjamin (2009, figure 2) for the mean value of Navy’s prizes by year 
 import excel "$hamburggit/External Data/Value of British prizes.xlsx", clear firstrow
 rename Year year
 rename TotalSilverTonsPrizeValue Navy_Total_Prize_value
@@ -547,8 +548,8 @@ twoway(bar Total_Prize_value year) (bar FR_Prize_value year) (line Privateers_In
  
  graph export "$hamburggit/Paper - Impact of War/Paper/Prizes_value.png", replace
  
- 
- 
+ ******
+ *****END OF BRITISH DATA
  ****** For prizes by both sides
  import excel "$hamburggit/External Data/Résultats de la course française.xlsx", sheet("Output") firstrow clear
  drop D E

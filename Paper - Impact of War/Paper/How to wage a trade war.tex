@@ -1077,19 +1077,28 @@ That leads to the deletion of c. 450 observations (17.5 \% of the sample).
 We always keep the earliest observation.
 An alternative source would be from \cite{Starkey1990}.
 It provide the number of prizes condemned as legal by the High Court of the Admiralty in London, (both from privateers and the Royal Navy) from 1702 to 1785.
-The numbers given by Starkey and Hillman for privateers’ prizes are not the same, but the correlation between the two series is 0.8.
+The numbers given by Starkey and Hillman for privateers’ prizes are not the same, but the correlation between the two series is 0.8 (excluding peace years when both are at 0).
 We use Hillman’s serie as it covers a longuer time span and allows to extrapolate prizes’ nationalities.
 
-
-
 Data on prizes captured by privateers can be completed by data on the activity of the British Navy.
-Though it must be recognized that the sources are not completely comparable  \citep{Hillmann2011, p. 757, note 73}).
-The list of ships that integrated the Royal Navy after captures has been compiled by \cite{Lyon1993} (provided by Henning Hillmann).
+The list of ships that integrated the Royal Navy throughout the period after capture has been compiled by \cite{Lyon1993} (provided to us by Henning Hillmann).
 The list includes military ships, so we drop all the rated ships and the sloops.
-We use data from \cite{Starkey1990} and \cite{Benjamin2009}. 
-The former provides the number of prizes condemned as legal by the High Court of the Admiralty in London, both from privateers and the Royal Navy from 1702 to 1785
-(The numbers given by Starkey and Hillman for privateers’ prizes are not the same, but the correlation between the two series is 0.87 ; it is only 0.66 between Starkey’s navy prize and what can be deducted from Lyon) while the latter provides the annual number of prizes taken by the Royal Navy from 1793 to 1815 from the sample gathered, but not published, by \cite{Hill1998}.
-We assume
+\cite{Starkey1990} provides the number of Royal Navy’s prizes condemned as legal by the High Court of the Admiralty in London from 1702 to 1785.
+\cite{Benjamin2009, Figure 1 and text)} provides the annual number of prizes taken by the Royal Navy from 1793 to 1815 from the sample gathered using the HCA 2/300 series, but not published, by \cite{Hill1998}. 
+As noticed by \cite{Hillmann2011, p. 757, note 73}, Hill’s source appears to include all prize actions of Royal Navy warships, including prizes condemned in colonial courts or captured warships that are not included in the other records.
+Because of the close correlation between Starkey’s and Hillman’s data for privateer prices, we tend to trust Starkey’s data for the Navy’s prizes.
+The correlation between Starkey’s numbers ond Lyon’s is 0.68 (excluding peace years when both are at 0).
+The correlation between Hill’s numbers ond Lyon’s is -0.12 (excluding peace years when both are at 0).
+That would lead us to trust Lyon’s numbers over Hill’s.
+But actually, the number of prizes taken into the navy (Lyon’s numbers) seem to be only a small fraction of the total number of prizes (5.6 \% of Starkey’s and 4.8\% of Hill’s), and so we use Starkey’s and Hill’s numbers.
+To adjust Hill’s number, we assume the share of prizes taken into the navy is constant and multiply its numbers by 0.87 (= 0.048/0.056).
+
+We do not know the nationality of Navy’s prizes.
+We do not know the nationality of 2\% of privateer’s prizes.
+We assume the French share of prizes for all prizes is equal to the known French share of privateer’s prizes (when there is at least 5 observations).
+For 1796, we use the mean of the Revolutionnary Wars.
+For 1807, 1808, 1810-1815, we use the mean of the Napoleonic Wars.
+
 Data from these sources are summarised in figure \ref{Prizes}.
 
 \begin{figure}[h!]
@@ -1101,10 +1110,18 @@ Data from these sources are summarised in figure \ref{Prizes}.
 		\begin{flushleft}
 			\fontsmall 
 			The bars depict the total number of French prizes taken by capturer type (Navy or privateers, left y-axis). The line shows the percentage of non-French prizes out of all prizes captured by Great Britain (right y-axis). It is relevant in the context of predation of French shipping as these non-French prizes might be actually French owned, or carrying French cargo, or supplying France. 
-			\source{For privateers and before 1785 for the Royal Navy, \cite{Starkey1990,Hillmann2011}. For post-1793 Royal Navy prizes, we use the data on the value of Navy Prizes from \cite{Benjamin2009}, based on \cite{Hill1998}.}
+			\source{See text}
 		\end{flushleft}
 	\end{minipage}
 \end{figure}
+
+Data on the value of privateers’ prizes come from \cite{Hillmann2011}.
+For post-1793 Royal Navy prizes, we use the data from \cite{Benjamin2009, figure 2}, based on \cite{Hill1998}, reflated using the silver value of the pound sterling.
+We have rescaled the graph to get a total of 30.8 million pounds. 
+These data include warship prizes, which are more expensive than trade ships.
+We have no basis to adjust this number and thus we do no try.
+We could find no indication of the investment by British privateers.
+We thus assume it was 59\% of the value of the prizes, i.e. slightly less than for the French during their successfull War of Austrian Succession (see...).
 
 \subsection{British policy toward neutral trade}\label{app:appendix_neutral_policy}
 
