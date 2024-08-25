@@ -26,7 +26,7 @@ if "`c(username)'" =="Tirindelli" {
 insheet using "$hamburggit/External Data/Ashton_Schumpeter_Prize_data.csv", case clear
 drop v3
 generate source="Prize_imports"
-twoway (bar importofprizegoodspoundsterling year, cmissing(n)), name(Prize_imports, replace) scheme(s1mono) ytitle("Imports of prize goods (£000)")
+twoway (bar importofprizegoodspoundsterling year, cmissing(n)), name(Prize_imports, replace) scheme(stsj) ytitle("Imports of prize goods (£000)")
 *save "$hamburg/database_dta/Ashton_Schumpeter_Prize_data.dta",  replace
 
 merge 1:1 year using "$hamburg/database_dta/ST_silver.dta", keep(3)
@@ -393,18 +393,18 @@ generate Nbr_HCA34_and_other_Spain = 	Nbr_HCA34_wo_duplicates_Spain + Nbr_Other_
 generate Nbr_HCA34_and_other_Neth = 	Nbr_HCA34_wo_duplicates_Neth + Nbr_Other_Neth if year >= 1739
 generate Nbr_HCA34_and_other_US = 	Nbr_HCA34_wo_duplicates_US + Nbr_Other_US if year >= 1739
 generate Nbr_HCA34_and_other_Other = 	Nbr_HCA34_wo_duplicates_Other + Nbr_Other_Other if year >= 1739
-
+generate Nbr_HCA34_and_other_Unknown = 	Nbr_HCA34_wo_duplicates_Unknown + Nbr_Other_Unknown if year >= 1739
 
 graph twoway (connected Nbr_HCA34_and_other year, cmissing(n)) (connected Nbr_HCA34_and_other_FR year, cmissing(n)) if year >= 1739 & year<=1816, /*
 	*/ legend( rows(2) order (1 "Number of prize ships reports in the High Court of Admiralty (HCA34)" "(no duplicates) + Number of prizes (other sources)" 2 "Number of French prize ships reports in the High Court of Admiralty" " (HCA34) (no duplicates) + Number of prizes (other sources)")) /*
-	*/ scheme(s1mono) name(HCA34_and_Other, replace)	
+	*/ scheme(stsj) name(HCA34_and_Other, replace)	
 	
 
  twoway (connected share_totFT_prize_imports year,cmissing(n) msize(small)) (connected Nbr_HCA34_wod year,cmissing(n) yaxis(2) msize(small)) (connected Nbr_HCA34_wo_duplicates_France year,cmissing(n) yaxis(2) msize(small)) if year >=1739 & year <=1815, /*
 	*/ legend(rows(3) order (1 "Official value of prize goods imported in Britain as a share of French trade" /*
 	*/2 "Number of prize ships reports in the High Court of Admiralty (HCA34) (no duplicates)" 3 "idem, but only French ships") size(vsmall)) /*
 	*/ytitle(share of French trade) ytitle(number of ships, axis(2)) /*
-	*/ scheme(s1mono) name(HCA34_and_imports, replace)
+	*/ scheme(stsj) name(HCA34_and_imports, replace)
 	
 
 save "$hamburg/database_dta/English_prizes.dta",  replace
@@ -413,13 +413,34 @@ save "$hamburg/database_dta/English_prizes.dta",  replace
 
 *=Sur le graphique, on veut : total number of prizes (including RN and privateers) ; total estimated number of French prizes ; total number of privateer prizes ; total number of French privateer prizes
 
-gen total_number_of_prizes = Nbr_HCA34_and_other + Nbr_prizes_GBNavy if year > 1735 & year <= 1815 
-gen share_of_non_FR_prizes = 1-Nbr_HCA34_and_other_FR/Nbr_HCA34_and_other if year <=1809 & Nbr_HCA34_and_other >=5
+gen total_number_of_prizes = Nbr_HCA34_and_other + Nbr_prizes_GBNavy if year > 1735 & year <= 1815
+
+**for some descriptive statistics
+egen blif = total(total_number_of_prizes)
+egen blouf = total (Nbr_HCA34_and_other_Unknown)
+gen share_of_unknown_prizes = blouf/blif if year >=1739 & year <=1815
+codebook share_of_unknown_prizes
+drop blif blouf share_of_unknown_prizes
+
+
+
+gen Nbr_HCA34_and_other_Non_FR = Nbr_HCA34_and_other_Spain + Nbr_HCA34_and_other_Neth + Nbr_HCA34_and_other_US + Nbr_HCA34_and_other_Other
+gen share_of_non_FR_prizes = 1-Nbr_HCA34_and_other_FR/(Nbr_HCA34_and_other_Non_FR+Nbr_HCA34_and_other_FR) if year <=1809 & Nbr_HCA34_and_other >=5
+
+**for some descriptive statistics
+egen blif = total(Nbr_HCA34_and_other_Non_FR+Nbr_HCA34_and_other_FR)
+egen blouf = total (Nbr_HCA34_and_other_FR)
+gen share_of_FR_prizes = blouf/blif if year >=1739 & year <=1815
+codebook share_of_FR_prizes
+drop blif blouf share_of_FR_prizes
+
+
+ 
 **pour les années manquantes, je prends la moyenne de la période
 sum share_of_non_FR_prizes if year >=1793 & year <=1802 
 replace share_of_non_FR_prizes = r(mean) if year >=1793 & year <=1802 & share_of_non_FR_prizes==.
 
-blif
+
 
 sum share_of_non_FR_prizes if year >=1803 & year <=1815 
 replace share_of_non_FR_prizes = r(mean) if year >=1803 & year <=1815 & share_of_non_FR_prizes==.
@@ -439,7 +460,7 @@ gen estimated_number_of_prizes_FR = (Nbr_HCA34_and_other + Nbr_prizes_GBNavy)*(1
 	*/  3 "Total number of French prizes captured by privateers") size(vsmall)) /*
 	*/  ytitle(number of ships) /*
 	*/  name(for_paper, replace) /*
-	*/ scheme(s1mono)
+	*/ 	scheme(stsj)
 	
 
 
@@ -483,14 +504,15 @@ twoway (connected Nbr_HCA34_and_other_Other year, cmissing(n) msize(small)) /*
 	*/ (connected Nbr_HCA34_and_other_US year, cmissing(n) msize(small)) /*
 	*/ if year >=1739 & year <=1815 /*
 	*/ ,legend(rows(2) order (2 "Spanish prizes" 3 "Dutch prizes" 4 "US prizes" 1 "Other prizes")) /*
-	*/ scheme(s1mono) name(Prize_nationality, replace)
+	*/ scheme(stsj) name(Prize_nationality, replace)
 	
 graph export "$hamburggit/Paper - Impact of War/Paper/Prizes_nationality.png", replace
 */
 
 save "$hamburg/database_dta/English_prizes.dta",  replace
 
-
+blif
+************************
 	
 *insheet using "$hamburggit/External Data/Value of British prizes.xlsx", case clear names
 import excel "$hamburggit/External Data/Value of British prizes.xlsx", clear firstrow
@@ -520,7 +542,7 @@ keep if year >=1740 & year <=1820
 
 *twoway(connected Total_Prize_value year) (connected FR_Prize_value year) (connected Privateers_Total_Prize_value year) (connected Navy_Total_Prize_value year) 
 twoway(bar Total_Prize_value year) (bar FR_Prize_value year) (line Privateers_Investment year, cmissing (n)), /*
-  */ ytitle("tons of silver", axis(1)) scheme(s1mono) /*
+  */ ytitle("tons of silver", axis(1)) scheme(stsj) /*
   */ legend(rows(2) order (1 "Total prize value" 2 "French prize value" 3 "Outfitting of privateers (excluding the RN)" )) 
  
  graph export "$hamburggit/Paper - Impact of War/Paper/Prizes_value.png", replace
