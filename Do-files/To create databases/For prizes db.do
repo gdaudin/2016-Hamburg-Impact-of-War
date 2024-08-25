@@ -38,19 +38,19 @@ merge 1:1 year using "$hamburg/database_dta/Total silver trade FR GB.dta", keepu
 drop _merge
 
 
-gen share_prizes= importofprizegoodssilvertons/valueFR_silver
-replace share_prizes = 0 if share_prizes ==.
-replace share_prizes = . if valueFR_silver ==.
+gen share_totFT_prize_imports= importofprizegoodssilvertons/valueFR_silver
+replace share_totFT_prize_imports = 0 if share_totFT_prize_imports ==.
+replace share_totFT_prize_imports = . if valueFR_silver ==.
 
 sort year 
 
-replace share_prizes = . if share_prizes ==0
+replace share_totFT_prize_imports = . if share_totFT_prize_imports ==0
 
 export delimited "$hamburg/database_csv/prizes_imports.csv", replace
 save "$hamburg/database_dta/Prizes_imports.dta",  replace
 
 
-twoway (bar importofprizegoodspoundsterling year, cmissing(n)) (connected share_prizes year,yaxis(2) lpattern(solid) mcolor(black) cmissing(n))/*
+twoway (bar importofprizegoodspoundsterling year, cmissing(n)) (connected share_totFT_prize_imports year,yaxis(2) lpattern(solid) mcolor(black) cmissing(n))/*
 		*/ if year>=1740 & year <=1801 /*
 		*/, name(Prize_imports, replace) scheme(stsj) ytitle("Imports of prize goods (£000)") ytitle("Share of French trade", axis(2)) /*
 		*/ legend(order (1 "Absolute value" 2 "Share of French trade")) 
@@ -316,6 +316,9 @@ drop _merge
 merge 1:1 year using "$hamburg/database_dta/Total silver trade FR GB.dta", keepusing(valueFR_silver)
 drop _merge
 
+merge 1:1 year using "$hamburg/database_dta/Prizes_imports.dta"
+drop _merge
+
 save "$hamburg/database_dta/English_prizes.dta",  replace
 
 ******  Starkey and Benjamin to decide on a Navy prize series
@@ -358,7 +361,7 @@ graph twoway (connected Nbr_GBNavy_Lyon year, cmissing(n)) (connected Nbr_prizes
 	*/ name(Comp_Navy_prizes_and_GBNavy, replace)
 
 
-*****Work on privateers’ prizes
+*****Some more comparisons on the number of privateer’s prizes
 
 
 
@@ -375,9 +378,6 @@ recode Nbr* (miss=0 ) if year >=1793 & year <=1815
 
 
 
-
-
-blif
 graph twoway (connected Nbr_HCA34_wod year, cmissing(n)) (connected Starkey_prizes_Privateers year, cmissing(n)) /*
 	*/ if year >=1735 & year <=1790 , /*
 	*/ legend(rows(2) order (1 "Number of prizes in the HCA34 (without duplicates)" 2 "Number of Privateers prizes (Starkey)")) /*
@@ -400,7 +400,7 @@ graph twoway (connected Nbr_HCA34_and_other year, cmissing(n)) (connected Nbr_HC
 	*/ scheme(s1mono) name(HCA34_and_Other, replace)	
 	
 
- twoway (connected share_prizes year,cmissing(n) msize(small)) (connected Nbr_HCA34_wod year,cmissing(n) yaxis(2) msize(small)) (connected Nbr_HCA34_wo_duplicates_France year,cmissing(n) yaxis(2) msize(small)) if year >=1739 & year <=1815, /*
+ twoway (connected share_totFT_prize_imports year,cmissing(n) msize(small)) (connected Nbr_HCA34_wod year,cmissing(n) yaxis(2) msize(small)) (connected Nbr_HCA34_wo_duplicates_France year,cmissing(n) yaxis(2) msize(small)) if year >=1739 & year <=1815, /*
 	*/ legend(rows(3) order (1 "Official value of prize goods imported in Britain as a share of French trade" /*
 	*/2 "Number of prize ships reports in the High Court of Admiralty (HCA34) (no duplicates)" 3 "idem, but only French ships") size(vsmall)) /*
 	*/ytitle(share of French trade) ytitle(number of ships, axis(2)) /*
@@ -418,6 +418,8 @@ gen share_of_non_FR_prizes = 1-Nbr_HCA34_and_other_FR/Nbr_HCA34_and_other if yea
 **pour les années manquantes, je prends la moyenne de la période
 sum share_of_non_FR_prizes if year >=1793 & year <=1802 
 replace share_of_non_FR_prizes = r(mean) if year >=1793 & year <=1802 & share_of_non_FR_prizes==.
+
+blif
 
 sum share_of_non_FR_prizes if year >=1803 & year <=1815 
 replace share_of_non_FR_prizes = r(mean) if year >=1803 & year <=1815 & share_of_non_FR_prizes==.
