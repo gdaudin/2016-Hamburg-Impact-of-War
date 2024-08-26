@@ -53,7 +53,7 @@ save "$hamburg/database_dta/Prizes_imports.dta",  replace
 twoway (bar importofprizegoodspoundsterling year, cmissing(n)) (connected share_totFT_prize_imports year,yaxis(2) lpattern(solid) mcolor(black) cmissing(n))/*
 		*/ if year>=1740 & year <=1801 /*
 		*/, name(Prize_imports, replace) scheme(stsj) ytitle("Imports of prize goods (£000)") ytitle("Share of French trade", axis(2)) /*
-		*/ legend(order (1 "Absolute value" 2 "Share of French trade")) 
+		*/ legend(order (1 "Absolute value" 2 "Share of French trade"))  
 		
 graph export "$hamburggit/Paper - Impact of War/Paper/Prizes_imports.png", replace
 
@@ -593,4 +593,12 @@ replace Frenchinvestment=-Frenchinvestment
 replace Privateers_Investment=-Privateers_Investment
 save "$hamburg/database_dta/English&French_prizes.dta",  replace
 
+
+twoway(line Total_Prize_value year, cmissing (n)) (line FR_Prize_value year, cmissing (n)) (line Frenchincome year, cmissing (n)) /*
+  */ if year >=1680& year <=1815, /* 
+  */ ytitle("tons of silver", axis(1)) scheme(stsj) xlabel(1680(20)1820) /*
+  */ legend(rows(3) order (1 "English income from all prizes" 2 "English income from French prizes" 3 "French income from privateering")) /*
+  */ ytitle(,margin(medium))
+
  
+graph export "$hamburggit/Paper - Impact of War/Paper/Prizes_for_paper_with_Loic.png", replace
