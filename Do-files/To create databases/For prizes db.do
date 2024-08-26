@@ -529,8 +529,15 @@ drop _merge
 
 generate Privateers_Total_Prize_value = MedianValuePrivateers * Number_of_prizes_Privateers_All*ST_silver/1000000
 generate Privateers_Investment = Privateers_Total_Prize_value/1.7
+replace Privateers_Investment = Privateers_Investment*0.34/1.25 if year >=1689 & year <=1697
+replace Privateers_Investment = Privateers_Investment*0.34/0.73 if year >=1702 & year <=1713
+replace Privateers_Investment = Privateers_Investment*0.34/0.23 if year >=1756 & year <=1763
+replace Privateers_Investment = Privateers_Investment*0.34/0.49 if year >=1775 & year <=1783
+replace Privateers_Investment = Privateers_Investment*0.34/0.12 if year >=1793 & year <=1802
+replace Privateers_Investment = Privateers_Investment*0.34/0.10 if year >=1803 & year <=1815
 **This assumes the British privateers are more successfull than the French ones during the War of Austrian Succession
 **See "Résultats de la course française.xlsx"
+**And adjuste with Hillmann and Gathmann (2011), table 6
 
 generate Total_Prize_value = MedianValuePrivateers * Number_of_prizes_Total_All*ST_silver/1000000 if year <=1792
 
