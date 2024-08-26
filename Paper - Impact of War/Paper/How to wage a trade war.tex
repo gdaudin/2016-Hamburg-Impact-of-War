@@ -1066,7 +1066,7 @@ These numbers are not available after 1800.
 \end{figure}
 
 \subsubsection{Number and value of prizes}
-Thanks to additional data kindlely provided by Henning Hillmann (These data come mainly from records at the PRO High Court of the Admiralty archives underlying \cite{Hillmann2011}) we can compute approximately the number and the nationality of prizes captured by privateers up to 1809.
+Thanks to additional data kindlely provided by Henning Hillmann (These data come mainly from records at the PRO High Court of the Admiralty archives underlying \cite{Hillmann2011}) we can compute approximately the number and the nationality of prizes captured by privateers from 1740 up to 1809.
 There are c. 2,600 prizes in the data.
 The nationality of c. 1,000 prizes are missing.
 We have extrapolated the nationality of c. 900 prizes using the name of the ship or the captain.
@@ -1075,10 +1075,13 @@ We associate post-war prizes with the last year of the preceeding war (1 case 17
 We drop the duplicates we can identify based on prizes’ and prize captains’ names.
 That leads to the deletion of c. 450 observations (17.5 \% of the sample).
 We always keep the earliest observation.
+Hillmann has also provided less precise data of the pre-1740 and post-1809 prizes.
 An alternative source would be from \cite{Starkey1990}.
 It provide the number of prizes condemned as legal by the High Court of the Admiralty in London, (both from privateers and the Royal Navy) from 1702 to 1785.
-The numbers given by Starkey and Hillman for privateers’ prizes are not the same, but the correlation between the two series is 0.8 (excluding peace years when both are at 0).
-We use Hillman’s serie as it covers a longuer time span and allows to extrapolate prizes’ nationalities.
+The numbers given by Starkey and Hillman for privateers’ prizes are not the same, but the correlation between the two series is 0.8 from 1739 to 1785 (excluding peace years when both are at 0).
+We use Hillman’s serie after 1739 as it covers a longuer time span and allows to extrapolate prizes’ nationalities.
+For the previous period, comparison with Starkey shows that Hillman’s data are incomplete and we use Starkey for 1702-1713.
+We do not try to produce data for the Nine Years War.
 
 Data on prizes captured by privateers can be completed by data on the activity of the British Navy.
 The list of ships that integrated the Royal Navy throughout the period after capture has been compiled by \cite{Lyon1993} (provided to us by Henning Hillmann).
@@ -1117,12 +1120,26 @@ Data from these sources are summarised in figure \ref{Prizes}.
 
 Data on the gross value of privateers’ prizes come from \cite{Hillmann2011}, reflated by McCusker’s Composite Commodity Price Index  \citep{McCusker2001, Table D-1, column 4} (reference year: 1700) to obtain nominal values.
 \todo[inline, color = RoyalBlue]{Need to check if the deflator in McCusker’s 1978 book quoted by Hillmann is the same}
+The value of 1702-1713 prizes is surprisingly small.
 For post-1793 Royal Navy prizes, we use the data from \cite{Benjamin2009, figure 2}, based on \cite{Hill1998}, reflated using McCusker’s Composite Commodity Price Index (reference year: 1804).
 This is imperfect because Benjamin used the payment year rather than the capture year to deflate his numbers, but we do not have access to that data.
 We have rescaled the graph to get a gross total of 30.8 million pounds (notice that Benjamin gives an net total of 26.6 million pounds). 
 These data include warship prizes, which are more expensive than trade ships.
 We have no basis to adjust this number.
 Quite arbitrairly, we assume investment by British privateers was the same share of the value prizes as the French during their War of Austrian Succession (i.e. 59\%) and we adjust for the other wars using the prizes over vessels ration given by  \cite{Hillmann2011, table 6}. 
+Data from these sources are summarised in figure \ref{Prizes_valàe}.
+
+\begin{figure}[h!]
+	\caption{Ships captured by Great-Britain}
+	\label{Prizes_value}
+	\centering
+	\includegraphics[scale=0.6]{Prizes_value}
+	\begin{minipage}{18cm}
+		\begin{flushleft}
+			\source{See text}
+		\end{flushleft}
+	\end{minipage}
+\end{figure}
 
 \subsection{British policy toward neutral trade}\label{app:appendix_neutral_policy}
 
