@@ -1087,8 +1087,8 @@ Data on prizes captured by privateers can be completed by data on the activity o
 The list of ships that integrated the Royal Navy throughout the period after capture has been compiled by \cite{Lyon1993} (provided to us by Henning Hillmann).
 The list includes military ships, so we drop all the rated ships and the sloops.
 \cite{Starkey1990} provides the number of Royal Navy’s prizes condemned as legal by the High Court of the Admiralty in London from 1702 to 1785.
-\cite{Benjamin2009, Figure 1 and text)} provides the annual number of prizes taken by the Royal Navy from 1793 to 1815 from the sample gathered using the HCA 2/300 series, but not published, by \cite{Hill1998}. 
-As noticed by \cite{Hillmann2011, p. 757, note 73}, Hill’s source appears to include all prize actions of Royal Navy warships, including prizes condemned in colonial courts or captured warships that are not included in the other records.
+\cite[Figure 1 and text]{Benjamin2009} provides the annual number of prizes taken by the Royal Navy from 1793 to 1815 from the sample gathered using the HCA 2/300 series, but not published, by \cite{Hill1998}. 
+As noticed by \cite[p. 757, note 73]{Hillmann2011}, Hill’s source appears to include all prize actions of Royal Navy warships, including prizes condemned in colonial courts or captured warships that are not included in the other records.
 Because of the close correlation between Starkey’s and Hillman’s data for privateer prices, we tend to trust Starkey’s data for the Navy’s prizes.
 The correlation between Starkey’s numbers ond Lyon’s is 0.68 (excluding peace years when both are at 0).
 The correlation between Hill’s numbers ond Lyon’s is -0.12 (excluding peace years when both are at 0).
@@ -1105,7 +1105,7 @@ For 1807, 1808, 1810-1815, we use the mean of the Napoleonic Wars.
 Data from these sources are summarised in figure \ref{Prizes}.
 
 \begin{figure}[h!]
-	\caption{Ships captured by Great-Britain}
+	\caption{Prizes captured by Great-Britain}
 	\label{Prizes}
 	\centering
 	\includegraphics[scale=0.6]{Prizes}
@@ -1118,19 +1118,19 @@ Data from these sources are summarised in figure \ref{Prizes}.
 	\end{minipage}
 \end{figure}
 
-Data on the gross value of privateers’ prizes come from \cite{Hillmann2011}, reflated by McCusker’s Composite Commodity Price Index  \citep{McCusker2001, Table D-1, column 4} (reference year: 1700) to obtain nominal values.
+Data on the gross value of privateers’ prizes(including legal, administrative,... costs in Britain) come from \cite{Hillmann2011}, reflated by McCusker’s Composite Commodity Price Index  \citep[Table D-1, column 4]{McCusker2001} (reference year: 1700) to obtain nominal values.
 \todo[inline, color = RoyalBlue]{Need to check if the deflator in McCusker’s 1978 book quoted by Hillmann is the same}
 The value of 1702-1713 prizes is surprisingly small.
-For post-1793 Royal Navy prizes, we use the data from \cite{Benjamin2009, figure 2}, based on \cite{Hill1998}, reflated using McCusker’s Composite Commodity Price Index (reference year: 1804).
-This is imperfect because Benjamin used the payment year rather than the capture year to deflate his numbers, but we do not have access to that data.
-We have rescaled the graph to get a gross total of 30.8 million pounds (notice that Benjamin gives an net total of 26.6 million pounds). 
-These data include warship prizes, which are more expensive than trade ships.
+For post-1793 Royal Navy prizes, we use the data from \cite[figure 2]{Benjamin2009}, based on \cite{Hill1998}, reflated using McCusker’s Composite Commodity Price Index (reference year: 1804).
+This is imperfect because Benjamin used the payment year rather than the capture year to deflate his numbers, but we do not have access to these data.
+We have rescaled the figure to get a gross total of 30.8 million pounds (notice that Benjamin gives an net total of 26.6 million pounds). 
+These data include warship prizes, which are more expensive than civilian merchant ships.
 We have no basis to adjust this number.
-Quite arbitrairly, we assume investment by British privateers was the same share of the value prizes as the French during their War of Austrian Succession (i.e. 59\%) and we adjust for the other wars using the prizes over vessels ration given by  \cite{Hillmann2011, table 6}. 
-Data from these sources are summarised in figure \ref{Prizes_valàe}.
+Quite arbitrairly, we assume investment by British privateers was the same share of the value prizes as the French during their War of Austrian Succession (i.e. 59\%) and we adjust for the other wars using the prizes over vessels ration given by  \cite[table 6]{Hillmann2011}. 
+Data from these sources are summarised in figure \ref{Prizes_value}.
 
 \begin{figure}[h!]
-	\caption{Ships captured by Great-Britain}
+	\caption{Value of prizes captured by Great-Britain}
 	\label{Prizes_value}
 	\centering
 	\includegraphics[scale=0.6]{Prizes_value}
@@ -1299,10 +1299,32 @@ The resulting series is used in the paper.
 \subsection{French predation} \label{french_predation}
 We used : \cite{Villiers1991,Villiers2007,Marzagalli2013,Aumont2016,Aumont2016a,Crowhurst1989}.
 
-For 1744-1748, \cite[p. 327]{Villiers1991} gives an estimate of privateering investment for known expeditions in Dunkerque, Saint-Malo and Bayonne.
+For French predation, our main source is the remarkable work by Patrick Villiers.
+
+
+For the Nine Years’ War (1688-1697), data include Dutch and Spanish prizes captured by the French.
+\cite[p. 134 and 136]{Villiers1991} gives privateering’s outfitting in Saint-Malo and its cost.
+We adjust the total number because the source includes the size of only 90\% of privateers to compute an annual value of privateering outfitting.
+We assume that the privateers whose sizes we know are representative of all privateers.
+\cite[p. 134]{Villiers1991} gives similar numbers for Dunkerque, but they are superseded by \cite[p. 34-35]{Villiers2007} (also in \cite{Villiers2006}).
+We correct for slight computation mistakes in the original books (see the Excel file for more details).
+We again assume that the privateers whose sizes we know are representative of all privateers, and compute an annual value of privateering outfitting for the port. 
+Thanks to \cite[p. 37]{Villiers2007}, we know that Dunkerque and Saint-Malo took 51.2\% of the total legally aproved prizes. 
+We use this ratio to compute the French total annual investment in privateering.
+\cite[p.129 and 144]{Villiers1991} provides us the gross value of the total prizes in Dunkerque.
+\cite[p.137]{Villiers1991} indicates Saint-Malo’s profiteering was not profitable.
+We assume a 10\% loss to compute the gross value of prizes in Saint-Malo and Dunkerque.
+Assuming their profitability is representative of the othe ports, we compute an annual gross value of prizes for the whole of France.
+
+For the War of the Spanish succession (1702-1713), \cite[p. 142]{Villiers1991} and \cite[p. 39]{Villiers2007} give the annual numbrer of prizes per port. 
+\cite[p. 144]{Villiers1991} provides the total value of prizes per port for 1706.
+We use this to compute a mean value of prizes (and ransoms) and thus compute the total vaulue of prizes per year.
+Investment is difficult to compute. We assume a 80\% profitability (the profitability during the Nine Years’s War is 80.6\% and the profitability during the War of Austrian Succession is 76\%.) to derive an annual investment.
+
+For the War of Austrian succiossion For 1744-1748, \cite[p. 327]{Villiers1991} gives an estimate of privateering investment for known expeditions in Dunkerque, Saint-Malo and Bayonne.
 Villiers mentions the existence of unknown expeditions on the same pages, and increases the total investment in Dunkerque by 46\% and in Bayonne by 7\%.
 We thus increase annual investement in both towns by the same percentage.
-On pages 328, he offers a estimate of the total number of privateering expeditions in the Atlantic and the Channel port by port.
+On page 328, he offers a estimate of the total number of privateering expeditions in the Atlantic and the Channel port by port.
 Assuming the investment value is the same in the group Dunkerque, Saint-Malo and Bayonne on the one hand and in the rest of the ports, we  reach an estimate of total investment in the Atlantic and Channel.
 This estimation is 37 million l.t.
 This is higher than Villiers’s own reckoning (30-35 M.) But this number is based on a smaller estimation of investment for the three towns (18M) then the result of his hypotheses on p. 137.
@@ -1312,21 +1334,44 @@ We pick to mid-range of these estimates and compute a mean ratio between investe
 We then apply this ratio to annual French investment to get an annual income.
 The total private income for the war is 65 M l.t
 There does not seem to have been any sizeable predation gains by the French Royal Navy.
-
 \cite[p. 43]{Villiers2007} provides information on West Indies-based privateering.
 For the Martinique, he gives 10 M. l.t. for 1744-1748 and a table for the annual returns between 1744 and 1747 for a total of 7.5 M l.t. 
 We assigne the residual (2.5 M l.t.) for 1748.
-Privateering by Saint-Domingue existed, but seem to have been negligeable.
+Privateering by Saint-Domingue existed, but seems to have been negligeable.
 \cite[p. 43]{Villiers2007} gives a total of 208 prizes in the French West Indies ("Saint-Domingue et surtout la Martinique") between 1744 and 1746 and a total of 206 for Martinique, leaving only 2 for Saint-Domingue.
-Yet, for the time being, we do not integrate in our computation the non-metropolitan predation.
+Yet, for the time being, we do not integrate them in our computation the non-metropolitan predation.
 
-For 1756-1762, \cite{Villiers1991} and \cite{Villiers2007} give different numbers.
+For the Seven Years’ War (1756-1762), \cite{Villiers1991} and \cite{Villiers2007} give different numbers.
 E.g. \cite[p.45]{Villiers2007} gives 121 privateering expeditions from Dunkerque and \cite[p. 35]{Villiers1991} gives 145.
-We go with \cite{Villiers1991} which is more explicit.
-\cite[p. 355]{Villiers1991} gives an estimate of privateering investment for known expeditions in Dunkerque, Saint-Malo and Bayonne.
+We use\cite{Villiers1991} which has more details.
+\cite[p. 355]{Villiers1991} gives an annual estimate of privateering investment for known expeditions in Dunkerque, Saint-Malo and Bayonne.
+\cite[p. 351]{Villiers1991} gives the total numbre of expeditions in the whole of France.
+Using the same ratio, we compute an estimate of total annual investment.
+\cite[p. 364 and 368]{Villiers1991} provides the value of prizes and ransoms for Dunkerque and Bayonne.
+\cite[p. 357]{Villiers1991} gives separately the number of prizes and ransoms for Saint-Malo.
+We assume they have the same value as in Dunkerque (given in \cite[p. 370]{Villiers1991}) to compute total returns for Saint-Malo.
+We then assume that profitability in Dunkerque, Bayonne and Saint-Malo (70\%) is representative of national profitability to compute annual income from privateering.
+ \cite[p. 379]{Villiers1991} also provides an estimate for the value of prizes by the French Navy (16\% of the privateers).
+ We suppose the time profile of these returns is the same as for the privateers’ returns.
 
-We  
+For the War of American Independance (1778-1783), \cite[p. 657]{Villiers1991} gives an estimate of total privateers’ returns.
+ \cite[p. 656-657 and 665]{Villiers1991} provides investments and returns for Dunkerque, Le Havre and Saint Malo. We assume the same profitability of the all French privateers (43\%), and allocate investments and returns according to the time profile of Dunkerque’s outfittings.
+\cite[p. 672]{Villiers1991} gives an estimate of the French Navy’s returns (nearly as large as privateers’), and \cite[p. 671]{Villiers1991} an estimates of the numbers of prizes per year.
+We assume the  mean prize value is constant through time to compute their time profile of the French Navy’s returns.
 
+Patrick Villier has not worked on the Wars of the Revolution nor the Wars of the Empire.
+We use the rather dubvious \cite[appendix XXII]{Norman1887} for the number of British prizes captured by the French (presumably both privateers and Navy).
+The numbre of privateer outfitting for 1793-1801 comes from \cite{Crowhurst1989}, reprinted in  \cite[appendix I]{Acerra1988}.
+We evaluate the cost of each outfitting using the mean cost in Dunkerque during the War of American Independance, modified to take into account the silver value of the livre tournois and a 1\% inflation rate in silver.
+To compute the returns, we assume the same profitability rate as during the War of American Independance (43\%).
+\cite[appendix I]{Plouviez2018} indicates a net return of 64\% for Nantes, but that seems too high.
+We also assume that, like in the Seven Years’ War, the French Navy prizes are 15\% of the privateers’ prizes.
+We pick that number instead of the War of American Independance’s because the situation of French maritime trade and power was much less favorable.
+This allows us to compute nominal returns for 1793, 1796-1801.
+In 1794 and 1795, privateering was illegal.
+We assume all prizes reported by Norman for these years were captured by the French Navy and that the real value of prize was the mean of 1793 and 1796-1801.
+We use the same methode to compute the total value of prizes from 1803 to 1814.
+Again, we assume Navy’s share of prize is 13\% and privateers’ profitablity is 43\% to apportionate outfittings and captures. 
 
 %plainnat
 

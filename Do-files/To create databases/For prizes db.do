@@ -568,7 +568,7 @@ twoway(bar Total_Prize_value year) (bar FR_Prize_value year) (line Privateers_In
  *****END OF BRITISH DATA
  ****** For prizes by both sides
  import excel "$hamburggit/External Data/Résultats de la course française.xlsx", sheet("Output") firstrow clear
- drop D E
+ drop D F G
 
  merge 1:1 year using "$hamburg/database_dta/English_prizes.dta"
  drop _merge
@@ -577,9 +577,11 @@ capture drop FR_silver
  merge 1:1 year using "$hamburg/database_dta/FR_silver.dta"
  drop _merge
 
- replace FR_silver = 4.5 if year ==1793 | year==1794 | year==1795 | year==1796
- 
- label var Frenchincome "French gross predation income"
+ *replace FR_silver = 4.5 if year ==1793 | year==1794 | year==1795 | year==1796
+
+ gen Frenchincome = Frenchincomeprivateers + Frenchincomenavy if Frenchincomenavy !=.
+ replace Frenchincome = Frenchincomeprivateers if Frenchincomenavy ==. & Frenchincomeprivateers !=.
+ label var Frenchincome "French gross predation income (including the Navy from 1756)"
  label var Frenchinvestment "French privateers’ outfitting"
  
  replace Frenchincome = Frenchincome*FR_silver/1000
@@ -597,7 +599,7 @@ save "$hamburg/database_dta/English&French_prizes.dta",  replace
 twoway(line Total_Prize_value year, cmissing (n)) (line FR_Prize_value year, cmissing (n)) (line Frenchincome year, cmissing (n)) /*
   */ if year >=1680& year <=1815, /* 
   */ ytitle("tons of silver", axis(1)) scheme(stsj) xlabel(1680(20)1820) /*
-  */ legend(rows(3) order (1 "English income from all prizes" 2 "English income from French prizes" 3 "French income from privateering")) /*
+  */ legend(rows(3) order (1 "English income from all prizes" 2 "English income from French prizes" 3 "French income (including the Navy from 1756)")) /*
   */ ytitle(,margin(medium))
 
  
