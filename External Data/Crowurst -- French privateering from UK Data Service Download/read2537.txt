@@ -1,0 +1,54 @@
+SN 2537 -French Privateering, 1793-1815
+
+
+
+Data Set Type
+=============
+data files (2 files)
+
+
+
+Data Set Format
+===============
+The following data formats have been prepared by AHDS History.
+
+
+tab delimited text files (2 files)
+
+
+If requested, data may have been supplied in other formats where
+practicable.
+
+
+
+Data Notes
+==========
+A small number of entries in the date fields of each file contain 
+errors (e.g. '1910', '179').
+
+
+
+Documentation
+=============
+The file "f_priv_b.tab" contains two undocumented fields.
+
+One record in the file "f_priv_a" only contains data for the field "CREW".
+
+
+
+File Name Changes
+=================
+"AIR G ET M DESLANDES MARTIN BRE13202 T 1799" ("F1537A") --> "f_priv_a.tab"
+"RECOVERY TIERCE TRITON" ("F1537b") --> "f_priv_b.tab"
+
+
+
+AHDS History, (07/02/2005)
+UK Data Archive
+University of Essex
+Colchester CO4 3SQ
+
+Tel: +44 (0)1206 872326
+Fax: +44 (0)1206 872003
+Email: info@history.ahds.ac.uk
+URL: http://history.ahds.ac.uk/
