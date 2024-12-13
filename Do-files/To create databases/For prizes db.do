@@ -73,7 +73,7 @@ save "$hamburg/database_dta/PrizeNationalities.dta",  replace
 
 
 insheet using "$hamburggit/External Data/HCA34_prizes.csv", case clear // This comes from an xlsx file send by Hillmann on July 31st 2019 «Data for Guillaume.xlsx»
-//I had to do some adjustementt for Le Pierre Andre (1744) because of wandering semicolon.
+//I had to do some adjustement for Le Pierre Andre (1744) because of wandering semicolon.
 
 rename yearofsentence year
 
@@ -330,7 +330,7 @@ corr Starkey_prizes_Privateers Nbr_Hillman if year >=1739 & (Starkey_prizes_Priv
 merge 1:1 year using "$hamburg/database_dta/Benjamin_prizes_Navy.dta"
 drop _merge
 
-**Checking teh consistency of the different sources on Navy prizes
+**Checking the consistency of the different sources on Navy prizes
 corr Starkey_prizes_Navy Nbr_GBNavy_Lyon if year >=1739 & (Starkey_prizes_Navy !=0 | Nbr_GBNavy_Lyon  !=0)
 egen Tot_Starkey_Navy = total(Starkey_prizes_Navy) if  year <=1790
 egen Tot_Lyon_Navy_FirstPeriod = total(Nbr_GBNavy_Lyon) if year <=1790
