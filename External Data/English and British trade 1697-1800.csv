@@ -470,34 +470,34 @@ Year,Country,ExportsImports,value,Source
 1798,Scotland-current,Exports&re-exports,2248000,"From McCusker, 1971, table II"
 1799,Scotland-current,Exports&re-exports,2777000,"From McCusker, 1971, table II"
 1800,Scotland-current,Exports&re-exports,4165000,"From McCusker, 1971, table II"
-1705,England-official,Exports&re-exports,5259000,
-1712,England-official,Exports&re-exports,6869000,
-1775,England-official,Exports&re-exports,15202000,
-1776,England-official,Exports&re-exports,13730000,
-1777,England-official,Exports&re-exports,12653000,
-1778,England-official,Exports&re-exports,11551000,
-1779,England-official,Exports&re-exports,12693000,
-1780,England-official,Exports&re-exports,12552000,
-1781,England-official,Exports&re-exports,10569000,
-1782,England-official,Exports&re-exports,12356000,
-1783,England-official,Exports&re-exports,13852000,
-1784,England-official,Exports&re-exports,14171000,
-1785,England-official,Exports&re-exports,15673000,
-1786,England-official,Exports&re-exports,15386000,
-1787,England-official,Exports&re-exports,17181000,
-1788,England-official,Exports&re-exports,16935000,
-1789,England-official,Exports&re-exports,18843000,
-1790,England-official,Exports&re-exports,18885000,
-1791,England-official,Exports&re-exports,21436000,
-1792,England-official,Exports&re-exports,23674000,
-1793,England-official,Exports&re-exports,19364000,
-1794,England-official,Exports&re-exports,25663000,
-1795,England-official,Exports&re-exports,26146000,
-1796,England-official,Exports&re-exports,29196000,
-1797,England-official,Exports&re-exports,27700000,
-1798,England-official,Exports&re-exports,31923000,
-1799,England-official,Exports&re-exports,31274000,
-1800,England-official,Exports&re-exports,35774000,
+1705,England-official,Exports&re-exports,5259000,"From McCusker, 1971, table II"
+1712,England-official,Exports&re-exports,6869000,"From McCusker, 1971, table II"
+1775,England-official,Exports&re-exports,15202000,"From McCusker, 1971, table II"
+1776,England-official,Exports&re-exports,13730000,"From McCusker, 1971, table II"
+1777,England-official,Exports&re-exports,12653000,"From McCusker, 1971, table II"
+1778,England-official,Exports&re-exports,11551000,"From McCusker, 1971, table II"
+1779,England-official,Exports&re-exports,12693000,"From McCusker, 1971, table II"
+1780,England-official,Exports&re-exports,12552000,"From McCusker, 1971, table II"
+1781,England-official,Exports&re-exports,10569000,"From McCusker, 1971, table II"
+1782,England-official,Exports&re-exports,12356000,"From McCusker, 1971, table II"
+1783,England-official,Exports&re-exports,13852000,"From McCusker, 1971, table II"
+1784,England-official,Exports&re-exports,14171000,"From McCusker, 1971, table II"
+1785,England-official,Exports&re-exports,15673000,"From McCusker, 1971, table II"
+1786,England-official,Exports&re-exports,15386000,"From McCusker, 1971, table II"
+1787,England-official,Exports&re-exports,17181000,"From McCusker, 1971, table II"
+1788,England-official,Exports&re-exports,16935000,"From McCusker, 1971, table II"
+1789,England-official,Exports&re-exports,18843000,"From McCusker, 1971, table II"
+1790,England-official,Exports&re-exports,18885000,"From McCusker, 1971, table II"
+1791,England-official,Exports&re-exports,21436000,"From McCusker, 1971, table II"
+1792,England-official,Exports&re-exports,23674000,"From McCusker, 1971, table II"
+1793,England-official,Exports&re-exports,19364000,"From McCusker, 1971, table II"
+1794,England-official,Exports&re-exports,25663000,"From McCusker, 1971, table II"
+1795,England-official,Exports&re-exports,26146000,"From McCusker, 1971, table II"
+1796,England-official,Exports&re-exports,29196000,"From McCusker, 1971, table II"
+1797,England-official,Exports&re-exports,27700000,"From McCusker, 1971, table II"
+1798,England-official,Exports&re-exports,31923000,"From McCusker, 1971, table II"
+1799,England-official,Exports&re-exports,31274000,"From McCusker, 1971, table II"
+1800,England-official,Exports&re-exports,35774000,"From McCusker, 1971, table II"
 1755,Scotland-official,Exports&re-exports,536000,"From McCusker, 1971, table II"
 1756,Scotland-official,Exports&re-exports,626000,"From McCusker, 1971, table II"
 1757,Scotland-official,Exports&re-exports,829000,"From McCusker, 1971, table II"
@@ -544,3 +544,180 @@ Year,Country,ExportsImports,value,Source
 1798,Scotland-official,Exports&re-exports,1669000,"From McCusker, 1971, table II"
 1799,Scotland-official,Exports&re-exports,1917000,"From McCusker, 1971, table II"
 1800,Scotland-official,Exports&re-exports,2346000,"From McCusker, 1971, table II"
+1764,Great-Britain-current,Exports,16084590,Cuenca
+1765,Great-Britain-current,Exports,14036820,Cuenca
+1766,Great-Britain-current,Exports,13671530,Cuenca
+1767,Great-Britain-current,Exports,13220930,Cuenca
+1768,Great-Britain-current,Exports,13494260,Cuenca
+1769,Great-Britain-current,Exports,12603680,Cuenca
+1770,Great-Britain-current,Exports,13281790,Cuenca
+1771,Great-Britain-current,Exports,15529610,Cuenca
+1772,Great-Britain-current,Exports,14560160,Cuenca
+1773,Great-Britain-current,Exports,12649960,Cuenca
+1774,Great-Britain-current,Exports,13849750,Cuenca
+1775,Great-Britain-current,Exports,13673340,Cuenca
+1776,Great-Britain-current,Exports,13478880,Cuenca
+1777,Great-Britain-current,Exports,12822510,Cuenca
+1778,Great-Britain-current,Exports,11593170,Cuenca
+1779,Great-Britain-current,Exports,10744390,Cuenca
+1780,Great-Britain-current,Exports,12510610,Cuenca
+1781,Great-Britain-current,Exports,10397330,Cuenca
+1782,Great-Britain-current,Exports,13022380,Cuenca
+1783,Great-Britain-current,Exports,14588050,Cuenca
+1784,Great-Britain-current,Exports,15291660,Cuenca
+1785,Great-Britain-current,Exports,14848690,Cuenca
+1786,Great-Britain-current,Exports,16533420,Cuenca
+1787,Great-Britain-current,Exports,17157800,Cuenca
+1788,Great-Britain-current,Exports,17377270,Cuenca
+1789,Great-Britain-current,Exports,19005200,Cuenca
+1790,Great-Britain-current,Exports,20712640,Cuenca
+1791,Great-Britain-current,Exports,24358830,Cuenca
+1792,Great-Britain-current,Exports,27388890,Cuenca
+1793,Great-Britain-current,Exports,20331660,Cuenca
+1794,Great-Britain-current,Exports,25101530,Cuenca
+1795,Great-Britain-current,Exports,25601630,Cuenca
+1796,Great-Britain-current,Exports,31539890,Cuenca
+1797,Great-Britain-current,Exports,30211380,Cuenca
+1798,Great-Britain-current,Exports,32067350,Cuenca
+1799,Great-Britain-current,Exports,35904000,Cuenca
+1800,Great-Britain-current,Exports,36929000,Cuenca
+1801,Great-Britain-current,Exports,39731000,Cuenca
+1802,Great-Britain-current,Exports,45102000,Cuenca
+1803,Great-Britain-current,Exports,36128000,Cuenca
+1804,Great-Britain-current,Exports,37136000,Cuenca
+1805,Great-Britain-current,Exports,37234000,Cuenca
+1806,Great-Britain-current,Exports,39747000,Cuenca
+1807,Great-Britain-current,Exports,36394000,Cuenca
+1808,Great-Britain-current,Exports,36306000,Cuenca
+1809,Great-Britain-current,Exports,46050000,Cuenca
+1810,Great-Britain-current,Exports,47001000,Cuenca
+1811,Great-Britain-current,Exports,30851000,Cuenca
+1812,Great-Britain-current,Exports,39335000,Cuenca
+1813,Great-Britain-current,Exports,47791930,Cuenca
+1814,Great-Britain-current,Exports,46856940,Cuenca
+1815,Great-Britain-current,Exports,52074250,Cuenca
+1816,Great-Britain-current,Exports,42093900,Cuenca
+1817,Great-Britain-current,Exports,42698770,Cuenca
+1818,Great-Britain-current,Exports,47872820,Cuenca
+1819,Great-Britain-current,Exports,37209320,Cuenca
+1820,Great-Britain-current,Exports,37744830,Cuenca
+1821,Great-Britain-current,Exports,38543480,Cuenca
+1822,Great-Britain-current,Exports,38954100,Cuenca
+1764,Great-Britain-current,Re-exports,5593563,Cuenca
+1765,Great-Britain-current,Re-exports,5363467,Cuenca
+1766,Great-Britain-current,Re-exports,5137056,Cuenca
+1767,Great-Britain-current,Re-exports,5328682,Cuenca
+1768,Great-Britain-current,Re-exports,6647360,Cuenca
+1769,Great-Britain-current,Re-exports,5679700,Cuenca
+1770,Great-Britain-current,Re-exports,6173501,Cuenca
+1771,Great-Britain-current,Re-exports,7500483,Cuenca
+1772,Great-Britain-current,Re-exports,6955501,Cuenca
+1773,Great-Britain-current,Re-exports,7207958,Cuenca
+1774,Great-Britain-current,Re-exports,7052776,Cuenca
+1775,Great-Britain-current,Re-exports,7204344,Cuenca
+1776,Great-Britain-current,Re-exports,6084744,Cuenca
+1777,Great-Britain-current,Re-exports,5480943,Cuenca
+1778,Great-Britain-current,Re-exports,5512819,Cuenca
+1779,Great-Britain-current,Re-exports,4641821,Cuenca
+1780,Great-Britain-current,Re-exports,5778634,Cuenca
+1781,Great-Britain-current,Re-exports,4589049,Cuenca
+1782,Great-Britain-current,Re-exports,5077250,Cuenca
+1783,Great-Britain-current,Re-exports,4582660,Cuenca
+1784,Great-Britain-current,Re-exports,4245246,Cuenca
+1785,Great-Britain-current,Re-exports,5565051,Cuenca
+1786,Great-Britain-current,Re-exports,5173985,Cuenca
+1787,Great-Britain-current,Re-exports,5278505,Cuenca
+1788,Great-Britain-current,Re-exports,4237581,Cuenca
+1789,Great-Britain-current,Re-exports,5041326,Cuenca
+1790,Great-Britain-current,Re-exports,4652937,Cuenca
+1791,Great-Britain-current,Re-exports,5647796,Cuenca
+1792,Great-Britain-current,Re-exports,6117706,Cuenca
+1793,Great-Britain-current,Re-exports,5386946,Cuenca
+1794,Great-Britain-current,Re-exports,7653231,Cuenca
+1795,Great-Britain-current,Re-exports,8346249,Cuenca
+1796,Great-Britain-current,Re-exports,9971435,Cuenca
+1797,Great-Britain-current,Re-exports,11623010,Cuenca
+1798,Great-Britain-current,Re-exports,14000640,Cuenca
+1799,Great-Britain-current,Re-exports,11073020,Cuenca
+1800,Great-Britain-current,Re-exports,14540340,Cuenca
+1801,Great-Britain-current,Re-exports,12375260,Cuenca
+1802,Great-Britain-current,Re-exports,12878080,Cuenca
+1803,Great-Britain-current,Re-exports,9128393,Cuenca
+1804,Great-Britain-current,Re-exports,10905050,Cuenca
+1805,Great-Britain-current,Re-exports,10040200,Cuenca
+1806,Great-Britain-current,Re-exports,9786705,Cuenca
+1807,Great-Britain-current,Re-exports,10002800,Cuenca
+1808,Great-Britain-current,Re-exports,9088075,Cuenca
+1809,Great-Britain-current,Re-exports,15775000,Cuenca
+1810,Great-Britain-current,Re-exports,12726800,Cuenca
+1811,Great-Britain-current,Re-exports,9022340,Cuenca
+1812,Great-Britain-current,Re-exports,9679081,Cuenca
+1813,Great-Britain-current,Re-exports,24017790,Cuenca
+1814,Great-Britain-current,Re-exports,26890720,Cuenca
+1815,Great-Britain-current,Re-exports,19740550,Cuenca
+1816,Great-Britain-current,Re-exports,15074860,Cuenca
+1817,Great-Britain-current,Re-exports,12543750,Cuenca
+1818,Great-Britain-current,Re-exports,15030980,Cuenca
+1819,Great-Britain-current,Re-exports,12714290,Cuenca
+1820,Great-Britain-current,Re-exports,12043780,Cuenca
+1821,Great-Britain-current,Re-exports,12254280,Cuenca
+1822,Great-Britain-current,Re-exports,10403760,Cuenca
+1764,Great-Britain-current,Import-cif,17122320,Cuenca
+1765,Great-Britain-current,Import-cif,18635120,Cuenca
+1766,Great-Britain-current,Import-cif,19801730,Cuenca
+1767,Great-Britain-current,Import-cif,19105720,Cuenca
+1768,Great-Britain-current,Import-cif,18670060,Cuenca
+1769,Great-Britain-current,Import-cif,18981170,Cuenca
+1770,Great-Britain-current,Import-cif,19979110,Cuenca
+1771,Great-Britain-current,Import-cif,21767150,Cuenca
+1772,Great-Britain-current,Import-cif,21577640,Cuenca
+1773,Great-Britain-current,Import-cif,18589110,Cuenca
+1774,Great-Britain-current,Import-cif,20881070,Cuenca
+1775,Great-Britain-current,Import-cif,22007590,Cuenca
+1776,Great-Britain-current,Import-cif,19519680,Cuenca
+1777,Great-Britain-current,Import-cif,20202610,Cuenca
+1778,Great-Britain-current,Import-cif,18528070,Cuenca
+1779,Great-Britain-current,Import-cif,16236370,Cuenca
+1780,Great-Britain-current,Import-cif,18603240,Cuenca
+1781,Great-Britain-current,Import-cif,21054200,Cuenca
+1782,Great-Britain-current,Import-cif,18026940,Cuenca
+1783,Great-Britain-current,Import-cif,20248190,Cuenca
+1784,Great-Britain-current,Import-cif,24000410,Cuenca
+1785,Great-Britain-current,Import-cif,24491330,Cuenca
+1786,Great-Britain-current,Import-cif,23735250,Cuenca
+1787,Great-Britain-current,Import-cif,27958150,Cuenca
+1788,Great-Britain-current,Import-cif,27144510,Cuenca
+1789,Great-Britain-current,Import-cif,26294770,Cuenca
+1790,Great-Britain-current,Import-cif,28370670,Cuenca
+1791,Great-Britain-current,Import-cif,30997350,Cuenca
+1792,Great-Britain-current,Import-cif,33399350,Cuenca
+1793,Great-Britain-current,Import-cif,30186370,Cuenca
+1794,Great-Britain-current,Import-cif,32286440,Cuenca
+1795,Great-Britain-current,Import-cif,38681060,Cuenca
+1796,Great-Britain-current,Import-cif,41514340,Cuenca
+1797,Great-Britain-current,Import-cif,36259090,Cuenca
+1798,Great-Britain-current,Import-cif,50293890,Cuenca
+1799,Great-Britain-current,Import-cif,51673870,Cuenca
+1800,Great-Britain-current,Import-cif,58311280,Cuenca
+1801,Great-Britain-current,Import-cif,60708130,Cuenca
+1802,Great-Britain-current,Import-cif,51235630,Cuenca
+1803,Great-Britain-current,Import-cif,50227110,Cuenca
+1804,Great-Britain-current,Import-cif,51696590,Cuenca
+1805,Great-Britain-current,Import-cif,53582150,Cuenca
+1806,Great-Britain-current,Import-cif,50621710,Cuenca
+1807,Great-Britain-current,Import-cif,53500990,Cuenca
+1808,Great-Britain-current,Import-cif,45718700,Cuenca
+1809,Great-Britain-current,Import-cif,59851350,Cuenca
+1810,Great-Britain-current,Import-cif,74538060,Cuenca
+1811,Great-Britain-current,Import-cif,43292500,Cuenca
+1812,Great-Britain-current,Import-cif,55500770,Cuenca
+1813,Great-Britain-current,Import-cif,71262700,Cuenca
+1814,Great-Britain-current,Import-cif,75231830,Cuenca
+1815,Great-Britain-current,Import-cif,70838880,Cuenca
+1816,Great-Britain-current,Import-cif,50681730,Cuenca
+1817,Great-Britain-current,Import-cif,60179560,Cuenca
+1818,Great-Britain-current,Import-cif,80512410,Cuenca
+1819,Great-Britain-current,Import-cif,55272210,Cuenca
+1820,Great-Britain-current,Import-cif,53924590,Cuenca
+1821,Great-Britain-current,Import-cif,39144470,Cuenca
+1822,Great-Britain-current,Import-cif,39031820,Cuenca
