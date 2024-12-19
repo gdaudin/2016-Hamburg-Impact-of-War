@@ -111,9 +111,11 @@ save "$hamburg/database_dta/ST_silver.dta", replace
 				BRITISH DATA
 ------------------------------------------------------------------------------*/
 
-import delimited "$hamburggit/External Data/English and Brisith trade 1697-1800.csv", clear
+import delimited "$hamburggit/External Data/English and British trade 1697-1800.csv", clear
 sort year
-collapse (sum) value, by(year country)
+drop if source=="From McCusker, 1971, table II" 
+/*This has only exports*/
+collapse (sum) value, by(year country source)
 
 preserve 
 import delimited "$hamburggit/External Data/RICardo - Country - UnitedKingdom - 1796 - 1938.csv", clear
@@ -121,15 +123,28 @@ keep if partner=="WorldFedericoTena"
 drop if year>1840
 drop if year==1800
 collapse (sum) total, by(year)
+gen source="Federico_Tena"
 save "$hamburg/database_dta/UKfederico_tena.dta", replace
 restore
 
 append using "$hamburg/database_dta/UKfederico_tena.dta"
 
+***Comparaison des sources
+
+
+
 merge m:1 year using "$hamburg/database_dta/ST_silver.dta"
 
 drop if _merge==2
 drop _merge
+
+replace value=total if source=="Federico_Tena"
+graph twoway (line value year if source=="Cuenca") (line value year if strmatch(source,"*Cole*")==1 & country=="England-official") (line value year if strmatch(source,"*Cole*")==1 & country=="Great-Britain-official") (connected value year if source=="Brezis via Crouzet") (line value year if source=="Federico_Tena")
+gen value_ST_silver = value * ST_silver/(1000*1000)
+gen log10_valueST_silver = log10(value_ST_silver)
+
+graph twoway (line log10_valueST_silver year if source=="Cuenca") (line log10_valueST_silver year if strmatch(source,"*Cole*")==1 & country=="England-official") (line log10_valueST_silver year if strmatch(source,"*Cole*")==1 & country=="Great-Britain-official") (connected log10_valueST_silver year if source=="Brezis via Crouzet") (line log10_valueST_silver year if source=="Federico_Tena")
+
 
 gen vaulueST_silver_tena=total*ST_silver/(1000*1000) 
 gen vaulueST_silverGB= value*ST_silver/(1000*1000) if country=="Great-Britain"
@@ -154,7 +169,7 @@ save "$hamburg/database_dta/UKfederico_tena.dta", replace
 
 
 /*------------------------------------------------------------------------------
-				VOLUME OF TRADE BETWEEN 1716 AND 1821
+				VALUE OF TRADE BETWEEN 1716 AND 1821
 ------------------------------------------------------------------------------*/
 
 if "`c(username)'" =="guillaumedaudin"{
