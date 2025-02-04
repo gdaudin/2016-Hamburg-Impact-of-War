@@ -596,6 +596,8 @@ replace Privateers_Investment=-Privateers_Investment
 save "$hamburg/database_dta/English&French_prizes.dta",  replace
 
 
+*****For Paper with Loïc
+
 twoway(line Total_Prize_value year, cmissing (n)) (line FR_Prize_value year, cmissing (n)) (line Frenchincome year, cmissing (n)) /*
   */ if year >=1680& year <=1815, /* 
   */ ytitle("tons of silver", axis(1)) scheme(stsj) xlabel(1680(20)1820) /*
@@ -604,3 +606,12 @@ twoway(line Total_Prize_value year, cmissing (n)) (line FR_Prize_value year, cmi
 
  
 graph export "$hamburggit/Paper - Impact of War/Paper/Prizes_for_paper_with_Loic.png", replace
+
+keep if year > 1680 & year <=1815
+keep Total_Prize_value FR_Prize_value Frenchincome year
+rename Total_Prize_value Englishincomefromallprizes 
+rename FR_Prize_value EnglishincomefromFrenchprizes
+rename Frenchincome FrenchincomeincludingtheNavy
+export delimited using "~/Library/CloudStorage/Dropbox/2022 Economic Warfare/2025 02 Graphs/DataFigure1.csv", delimiter(,) replace
+
+

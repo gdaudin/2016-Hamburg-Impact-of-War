@@ -217,3 +217,8 @@ graph export "$hamburggit/Paper - Impact of War/Paper/FR_GB_Budgetfrom1688.png",
 
 save "$hamburg/database_dta/Expenditures.dta",  replace
 
+keep  if year > 1680 & year <=1815
+keep year war* minwar* NavyNet NavyGross FrenchBudget blockade minblockade
+
+export delimited using "~/Library/CloudStorage/Dropbox/2022 Economic Warfare/2025 02 Graphs/DataFigure3.csv", delimiter(,) replace
+

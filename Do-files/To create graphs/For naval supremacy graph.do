@@ -106,3 +106,6 @@ graph twoway (line France_vs_GB year,  lcolor(red) cmissing(n) lwidth(thick)) //
 			 legend (position(bottom) order(1 "France/GB" 2 "France and its allies/GB and its allies" 3 "France and its allies and neutrals/GB and its allies") rows(3))
 			 
 graph export "$hamburggit/Paper - Impact of War/Paper/naval_supremacy_ratios_from1688.png", as(png) replace
+
+keep year France_vs_GB ally_vs_foe allyandneutral_vs_foe
+export delimited using "~/Library/CloudStorage/Dropbox/2022 Economic Warfare/2025 02 Graphs/DataFigure2.csv", delimiter(,) replace
