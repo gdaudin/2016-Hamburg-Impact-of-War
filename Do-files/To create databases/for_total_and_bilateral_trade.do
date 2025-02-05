@@ -77,6 +77,7 @@ save "$hamburg/database_dta/FRfederico_tena.dta", replace
 
 import delimited "$hamburggit/External Data/Silver equivalent of the lt and franc (Hoffman).csv", clear
 
+/*
 rename v1 year
 rename v4 FR_silver
 drop v5-v12 
@@ -84,10 +85,16 @@ drop v2 v3
 drop if year=="Source:"
 drop if year==""
 drop if FR_silver==""
+*/
+rename value_of_livre FR_silver
+replace FR_silver=subinstr(FR_silver,",",".",.)
 destring year, replace
 destring FR_silver, replace
 drop if year<1668 
 drop if year>1840
+
+
+
 
 save "$hamburg/database_dta/FR_silver.dta", replace
 
@@ -113,8 +120,7 @@ save "$hamburg/database_dta/ST_silver.dta", replace
 
 import delimited "$hamburggit/External Data/English and British trade 1697-1800.csv", clear
 sort year
-drop if source=="From McCusker, 1971, table II" 
-/*This has only exports*/
+drop if source=="From McCusker, 1971, table II" /*This has only exports*/
 collapse (sum) value, by(year country source)
 
 preserve 
@@ -143,46 +149,58 @@ graph twoway (line value year if source=="Cuenca") (line value year if strmatch(
 gen value_ST_silver = value * ST_silver/(1000*1000)
 gen log10_valueST_silver = log10(value_ST_silver)
 
-graph twoway (line log10_valueST_silver year if source=="Cuenca") (line log10_valueST_silver year if strmatch(source,"*Cole*")==1 & country=="England-official") (line log10_valueST_silver year if strmatch(source,"*Cole*")==1 & country=="Great-Britain-official") (connected log10_valueST_silver year if source=="Brezis via Crouzet") (line log10_valueST_silver year if source=="Federico_Tena")
+graph twoway (line log10_valueST_silver year if source=="Cuenca") ///
+	(line log10_valueST_silver year if strmatch(source,"*Cole*")==1 & country=="England-official") ///
+	(line log10_valueST_silver year if strmatch(source,"*Cole*")==1 & country=="Great-Britain-official") ///
+	(connected log10_valueST_silver year if source=="Brezis via Crouzet") ///
+	(line log10_valueST_silver year if source=="Federico_Tena"), ///
+	legend (order(2 "England (official values)" 3 "Great-Britain (official values)" 1 "Cuenca" 5 "Federico_Tena" 4 "Brezis via Crouzet" )) ///
+	scheme(stsj)
 
 
-gen vaulueST_silver_tena=total*ST_silver/(1000*1000) 
-gen vaulueST_silverGB= value*ST_silver/(1000*1000) if country=="Great-Britain"
-gen vaulueST_silverEN= value*ST_silver/(1000*1000) if country=="England"
 
-gen log10_valueST_silverGB=log10(vaulueST_silverGB)
-gen log10_valueST_silverEN=log10(vaulueST_silverEN)
-gen log10_valueST_silver_tena=log10(vaulueST_silver_tena)
+gen valueST_silver_tena=value_ST_silver  if source=="Federico_Tena" & year >=1823
+gen valueST_silver_cuenca=value_ST_silver  if source=="Cuenca" & year <=1822 & year >=1764
+gen valueST_silverEN= value_ST_silver if country=="England-official" & year <=1763
+
+gen log10_valueST_silver_tena=log10(valueST_silver_tena)
+gen log10_valueST_silver_cuenca=log10(valueST_silver_cuenca)
+gen log10_valueST_silverEN=log10(valueST_silverEN)
 
 
-collapse (sum) log10_valueST_silverGB log10_valueST_silverEN ///
+collapse (sum) log10_valueST_silver_cuenca log10_valueST_silverEN ///
 				log10_valueST_silver_tena ///
-				vaulueST_silverGB vaulueST_silverEN ///
-				vaulueST_silver_tena, by(year)
+				valueST_silver_cuenca valueST_silverEN ///
+				valueST_silver_tena, by(year)
 				
-replace log10_valueST_silverGB=. if log10_valueST_silverGB==0
-replace log10_valueST_silverEN=. if log10_valueST_silverEN==0
-replace log10_valueST_silver_tena=. if log10_valueST_silver_tena==0
+replace log10_valueST_silver_cuenca=. 	if log10_valueST_silver_cuenca==0
+replace log10_valueST_silverEN=. 		if log10_valueST_silverEN==0
+replace log10_valueST_silver_tena=. 	if log10_valueST_silver_tena==0
 
-
-save "$hamburg/database_dta/UKfederico_tena.dta", replace
+save "$hamburg/database_dta/UK_trade_Best_Guess.dta", replace
 
 
 /*------------------------------------------------------------------------------
 				VALUE OF TRADE BETWEEN 1716 AND 1821
 ------------------------------------------------------------------------------*/
 
+******For bilateral trade
 if "`c(username)'" =="guillaumedaudin"{
+	/*
 	tempfile bdd_courante
 	unzipfile "~/Répertoires Git/toflit18_data_GIT/base/bdd courante.csv.zip", replace
 	import delimited using "~/Répertoires Git/toflit18_data_GIT/base/bdd courante.csv", clear
+	*/
+	use "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta", clear
 }
 
 if "`c(username)'" !="guillaumedaudin"{
 use "$hamburg/Données Stata/bdd courante.dta", clear
 }
 
-keep if best_guess_national_partner==1
+
+
+keep if best_guess_national_partner==1 
  
 
 drop if product_sitc=="9a"
@@ -212,8 +230,36 @@ replace valueFR_silver=0 if value==0
 
 save "$hamburg/database_dta/Best guess FR bilateral trade.dta", replace
 
+******For total trade
+if "`c(username)'" =="guillaumedaudin"{
+	/*
+	tempfile bdd_courante
+	unzipfile "~/Répertoires Git/toflit18_data_GIT/base/bdd courante.csv.zip", replace
+	import delimited using "~/Répertoires Git/toflit18_data_GIT/base/bdd courante.csv", clear
+	*/
+	use "~/Documents/Recherche/Commerce International Français XVIIIe.xls/Balance du commerce/Retranscriptions_Commerce_France/Données Stata/bdd courante.dta", clear
+}
+
+if "`c(username)'" !="guillaumedaudin"{
+use "$hamburg/Données Stata/bdd courante.dta", clear
+}
+
+
+
+keep if best_guess_national==1 
+
+replace year=1806 if year==1805.75
+merge m:1 year using "$hamburg/database_dta/FR_silver.dta"
+
+drop if _merge==2
+drop _merge
+gen valueFR_silver=FR_silver*value/(1000*1000)
+drop if year>1840
+
 
 collapse (sum) value , by (year export_import)
+
+
 
 insobs 1
 
@@ -261,7 +307,7 @@ drop if year>1840
 rename value valueFR
 
 
-merge m:1 year using "$hamburg/database_dta/UKfederico_tena.dta"
+merge m:1 year using "$hamburg/database_dta/UK_trade_Best_Guess.dta"
 
 
 drop _merge
@@ -314,7 +360,7 @@ graph twoway (area warla year, color(gs9)) ///
 			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
 			 (line log10_valueFR_silver year, lpattern(solid) msize(large)) ///
 			 (line log10_valueST_silverEN year, lpattern(shortdash)  lcolor(black)) ///
-			 (line log10_valueST_silverGB year, lpattern(shortdash)  lcolor(black)) ///
+			 (line log10_valueST_silver_cuenca year, lpattern(shortdash)  lcolor(black)) ///
 			 (line log10_valueST_silver_tena year, lpattern(shortdash)  lcolor(black)), ///
 			 legend(order(11 "French trade" 12 "English/GB/UK trade")) ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
@@ -322,6 +368,12 @@ graph twoway (area warla year, color(gs9)) ///
 
 *graph save "$hamburggit/Paper/Total silver trade FR GB.png", replace
 graph export "$hamburggit/Paper - Impact of War/Paper/Total silver trade FR GB.png", as(png) replace
+
+preserve
+keep year war* blockade* log10_value*
+codebook
+export delimited using "~/Library/CloudStorage/Dropbox/2022 Economic Warfare/2025 02 Graphs/DataFigure4.csv", delimiter(,) replace
+restore
 
 		 
 gen log10_Imps_Exps_silver = log10(Imports_specialFR_silver + Exports_specialFR_silver)
