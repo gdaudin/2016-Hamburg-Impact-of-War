@@ -42,7 +42,7 @@ gen allyandneutral_vs_foe=(ally+neutral+France)/(foe+Angleterre)
 *drop if year == 1792 | year <=1740
 
 
-local maxvalue 2.5
+local maxvalue 3
 
 generate wara		=`maxvalue' if year >=1733 & year <=1738 
 generate warb		=`maxvalue' if year >=1740 & year <=1744
@@ -84,26 +84,29 @@ graph twoway (area wara year, color(gs14%30)) ///
 			 (area war1 year, color(gs9%30)) (area war2 year, color(gs9%30)) ///
 			 (area war3 year, color(gs9%30)) (area war4 year, color(gs9%30)) ///
 			 (area war5 year, color(gs9%30)) (area blockade year, color(gs4%30)) ///
-			 (line France_vs_GB year,  lcolor(red) cmissing(n) lwidth(thick)) ///
-			 (line ally_vs_foe year, cmissing(n) lwidth(thick) lcolor(gray)) ///
-			 (line allyandneutral_vs_foe year , lpattern(dash)  lwidth(thick) cmissing(n)) if (year!=1792 & year >=1740), ///
+			 (line France_vs_GB year,  cmissing(n) lwidth(medium) lcolor(black)) ///
+			 (line ally_vs_foe year, cmissing(n) lpattern(dash) lwidth(medium) lcolor(black)) ///
+			 (line allyandneutral_vs_foe year , lpattern(shortdash)  lwidth(medium) lcolor(black) cmissing(n)) if (year!=1792 & year >=1740), ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			 yline(1, lwidth(medium) lcolor(grey)) ///
-			 yscale(range(0 2.5)) ylabel(0 (0.5) 2.5) ///
-			 xtitle(ship ratio) ///
-			 legend (position(bottom) order(9 "France/GB" 10 "France and its allies/GB and its allies" 11 "France and its allies and neutrals/GB and its allies") rows(3))
+			 yscale(range(0.33 2.5) log) ylabel(0.33 0.5 0.75 1.33 2 3) ///
+			 ytitle(ship ratio) ///
+			 legend (position(bottom) order(9 "France/GB" 10 "France and its allies/GB and its allies" 11 "France and its allies and neutrals/GB and its allies") rows(3)) ///
+			 scheme(s1mono)
 			 
 graph export "$hamburggit/Paper - Impact of War/Paper/naval_supremacy_ratios.png", as(png) replace
 
 
-graph twoway (line France_vs_GB year,  lcolor(red) cmissing(n) lwidth(thick)) ///
-			 (line ally_vs_foe year, cmissing(n) lwidth(thick) lcolor(gray)) ///
-			 (line allyandneutral_vs_foe year , lpattern(dash) lwidth(thick) cmissing(n)) if (year!=1792), ///
+graph twoway (line France_vs_GB year,   cmissing(n) lwidth(medium) lcolor(black)) ///
+			 (line ally_vs_foe year, lpattern(dash) cmissing(n) lwidth(medium) lcolor(black)) ///
+			 (line allyandneutral_vs_foe year , lpattern(shortdash) lwidth(medium) lcolor(black) cmissing(n)) if (year!=1792), ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			 yline(1, lwidth(medium) lcolor(grey)) ///
-			 yscale(range(0 2.5)) ylabel(0 (0.5) 2.5) ///
-			 xtitle(ship ratio) xlabel(1680(20)1820) ///
-			 legend (position(bottom) order(1 "France/GB" 2 "France and its allies/GB and its allies" 3 "France and its allies and neutrals/GB and its allies") rows(3))
+			 yscale(range(0.33 2.5) log) ylabel(0.33 0.5 0.75 1.33 2 3) ///
+			 ytitle(ship ratio) xlabel(1680(20)1820) ///
+			 legend (position(bottom) order(1 "France/GB" 2 "France and its allies/GB and its allies" 3 "France and its allies and neutrals/GB and its allies") rows(3)) ///
+			 scheme(s1mono)
+
 			 
 graph export "$hamburggit/Paper - Impact of War/Paper/naval_supremacy_ratios_from1688.png", as(png) replace
 
