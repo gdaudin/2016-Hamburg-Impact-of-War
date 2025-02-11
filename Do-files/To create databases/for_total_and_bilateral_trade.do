@@ -163,6 +163,10 @@ gen valueST_silver_tena=value_ST_silver  if source=="Federico_Tena" & year >=182
 gen valueST_silver_cuenca=value_ST_silver  if source=="Cuenca" & year <=1822 & year >=1764
 gen valueST_silverEN= value_ST_silver if country=="England-official" & year <=1763
 
+replace valueST_silverEN  =. if valueST_silverEN  ==0
+replace valueST_silver_tena  =. if valueST_silver_tena==0
+replace valueST_silver_cuenca  =. if valueST_silver_cuenca==0
+
 gen log10_valueST_silver_tena=log10(valueST_silver_tena)
 gen log10_valueST_silver_cuenca=log10(valueST_silver_cuenca)
 gen log10_valueST_silverEN=log10(valueST_silverEN)
@@ -321,7 +325,7 @@ local maxvalue 4.5
 generate warla=`maxvalue' if year >=1688 & year <=1697 
 generate warsp=`maxvalue' if year >=1702 & year <=1713 
 generate wara=`maxvalue' if year >=1733 & year <=1738 
-generate warb=`maxvalue' if year >=1740 & year <=1744
+generate warb=`maxvalue' if year >=1741 & year <=1744
 generate war1=`maxvalue' if year >=1744 & year <=1748
 generate war2=`maxvalue' if year >=1756 & year <=1763
 generate war3=`maxvalue' if year >=1778 & year <=1783
@@ -332,100 +336,6 @@ generate blockade=`maxvalue' if year >=1807 & year <=1815
 sort year
 export delimited "$hamburg/database_csv/Total_silver_trade_FR_GB.csv", replace
 save "$hamburg/database_dta/Total silver trade FR GB.dta", replace
-
-/*Color graph
-graph twoway (area warla year, color(gs9)) ///
-			 (area warsp year, color(gs9)) ///
-			 (area wara year, color(gs14)) ///
-			 (area warb year, color(gs14)) ///
-			 (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
-			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
-			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
-			 (connected log10_valueFR_silver year, lcolor(blue) ///
-			 msize(tiny) mcolor(blue) ) ///
-			 (line log10_valueST_silverEN year, lcolor(black)) ///
-			 (line log10_valueST_silverGB year, lcolor(black)) ///
-			 (line log10_valueST_silver_tena year, lcolor(black)), ///
-			 legend(order(11 "French trade" 12 "English/GB/UK trade")) ///
-			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-			 ytitle("Tons of silver, log10")
-
-*/
-graph twoway (area warla year, color(gs9)) ///
-			 (area warsp year, color(gs9)) ///
-			 (area wara year, color(gs14)) ///
-			 (area warb year, color(gs14)) ///
-			 (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
-			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
-			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
-			 (line log10_valueFR_silver year, lpattern(solid) msize(large)) ///
-			 (line log10_valueST_silverEN year, lpattern(shortdash)  lcolor(black)) ///
-			 (line log10_valueST_silver_cuenca year, lpattern(shortdash)  lcolor(black)) ///
-			 (line log10_valueST_silver_tena year, lpattern(shortdash)  lcolor(black)), ///
-			 legend(order(11 "French trade" 12 "English/GB/UK trade")) ///
-			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-			 ytitle("Tons of silver, log10") scheme(stsj)
-
-*graph save "$hamburggit/Paper/Total silver trade FR GB.png", replace
-graph export "$hamburggit/Paper - Impact of War/Paper/Total silver trade FR GB.png", as(png) replace
-
-preserve
-keep year war* blockade* log10_value*
-codebook
-export delimited using "~/Library/CloudStorage/Dropbox/2022 Economic Warfare/2025 02 Graphs/DataFigure4.csv", delimiter(,) replace
-restore
-
-		 
-gen log10_Imps_Exps_silver = log10(Imports_specialFR_silver + Exports_specialFR_silver)
-
-graph twoway (area wara year, color(gs14)) ///
-			 (area warb year, color(gs14)) ///
-			 (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
-			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
-			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
-			 (connected log10_valueFR_silver year, lcolor(blue) msize(tiny) mcolor(blue) ) ///
-			 (connected log10_Imps_Exps_silver year, lcolor(red) msize(tiny) mcolor(red)) ///
-			 (connected log10_Imports_specialFR_silver year, lcolor(green) msize(tiny) mcolor(green)) ///
-			 (area warsp year, color(gs9)), ///
-			 legend(order(11 "Special imports" 10 "Special trade (I+X)" ///
-			 9 "Total trade")) ///
-			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-			 ytitle("Tons of silver, log10")
-
-
-graph export "$hamburggit/Paper - Impact of War/Paper/Breakdown of FR trade (log10-silver).png", as(png) replace
-
-local maxvalue 10000
-
-
-replace warla=`maxvalue' if year >=1688 & year <=1697 
-replace warsp=`maxvalue' if year >=1702 & year <=1713 
-replace wara=`maxvalue' if year >=1733 & year <=1738 
-replace warb=`maxvalue' if year >=1740 & year <=1744
-replace war1=`maxvalue' if year >=1744 & year <=1748
-replace war2=`maxvalue' if year >=1756 & year <=1763
-replace war3=`maxvalue' if year >=1778 & year <=1783
-replace war4=`maxvalue' if year >=1793 & year <=1802
-replace war5=`maxvalue' if year >=1803 & year <=1807
-replace blockade=`maxvalue' if year >=1807 & year <=1815
-
-gen Imps_Exps_silver = Imports_specialFR_silver + Exports_specialFR_silver
-graph twoway (area wara year, color(gs14)) ///
-			 (area warb year, color(gs14)) ///
-			 (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
-			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///
-			 (area war5 year, color(gs9)) (area blockade year, color(gs4)) ///
-			 (connected valueFR_silver year, lcolor(blue) msize(tiny) mcolor(blue) ) ///
-			 (connected Imps_Exps_silver year, lcolor(red) msize(tiny) mcolor(red)) ///
-			 (connected Imports_specialFR_silver year, lcolor(green) msize(tiny) mcolor(green)) ///
-			 (area warsp year, color(gs9)), ///
-			 legend(order(11 "Special imports" 10 "Special trade (I+X)" ///
-			 9 "Total trade")) ///
-			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
-			 ytitle("Tons of silver")
-			 
-graph export "$hamburggit/Paper - Impact of War/Paper/Breakdown of FR trade (silver).png", as(png) replace
-
 
 
 
