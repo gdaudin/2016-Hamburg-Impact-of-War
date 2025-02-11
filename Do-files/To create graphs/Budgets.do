@@ -66,8 +66,8 @@ graph twoway (area warminus1 year, color(gs9)) (area warminus2 year, color(gs9))
 			 (line NavyNet  year, lcolor(black)) (line NavyGross  year, lcolor(black) lpattern(dash)) ///
 			 (line FrenchBudget year, lcolor(gray)) ///
 			 if year >=1680 & year<=1830, scheme(s1mono) ///
-			 legend(order (9 10 11) label(9 "Net British Navy expenditures") label(10 "Gross British Navy expenditures") ///
-			 label(11 "French Navy expenditures") rows(3)) ///
+			 legend(order (10 11 12) label(10 "Net British Navy expenditures") label(11 "Gross British Navy expenditures") ///
+			 label(12 "French Navy expenditures") rows(3)) ///
 			 ytitle("Tons of silver") yscale(log) ylabel(25 50 100 250 500 1000 2500) /// 
              xlabel(1680(20)1820) 
 	
