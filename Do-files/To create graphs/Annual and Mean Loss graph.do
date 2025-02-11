@@ -107,7 +107,7 @@ replace minwar3=1 if war3!=.
 replace minwar4=1 if war4!=.
 replace minwar5=1 if war5!=.
 replace minblockade=1 if blockade!=.
-keep if year >=1740
+keep if year >=1741
 
 
 
@@ -156,7 +156,7 @@ replace minblockade=0 if blockade!=.
 
 merge 1:1 year using "$hamburg/database_dta/English&French_prizes.dta"
 drop _merge
-keep if year >=1740
+keep if year >=1741
 keep if year <=1825
 replace NavyGross=10^NavyGross
 replace NavyNet=10^NavyNet		

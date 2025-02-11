@@ -45,7 +45,7 @@ gen allyandneutral_vs_foe=(ally+neutral+France)/(foe+Angleterre)
 local maxvalue 3
 
 generate wara		=`maxvalue' if year >=1733 & year <=1738 
-generate warb		=`maxvalue' if year >=1740 & year <=1744
+generate warb		=`maxvalue' if year >=1741 & year <=1744
 generate war1		=`maxvalue' if year >=1744 & year <=1748
 generate war2		=`maxvalue' if year >=1756 & year <=1762
 generate war3		=`maxvalue' if year >=1778 & year <=1782
@@ -64,7 +64,7 @@ graph twoway (area wara year, color(gs14%30)) ///
 			 (area war5 year, color(gs9%30)) (area blockade year, color(gs4%30))  ///
 			 (line France_vs_GB year, lpattern(dash)) ///
 			 (line ally_vs_foe year, lpattern(dot) lcolor(gray)) ///
-			 (line allyandneutral_vs_foe year) if (year!=1792 & year >=1740) , ///
+			 (line allyandneutral_vs_foe year) if (year!=1792 & year >=1741) , ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			 yline(1, lwidth(medium) lcolor(grey)) ///
 			 yscale(range(0 2.5)) ///
@@ -86,7 +86,7 @@ graph twoway (area wara year, color(gs14%30)) ///
 			 (area war5 year, color(gs9%30)) (area blockade year, color(gs4%30)) ///
 			 (line France_vs_GB year,  cmissing(n) lwidth(medium) lcolor(black)) ///
 			 (line ally_vs_foe year, cmissing(n) lpattern(dash) lwidth(medium) lcolor(black)) ///
-			 (line allyandneutral_vs_foe year , lpattern(shortdash)  lwidth(medium) lcolor(black) cmissing(n)) if (year!=1792 & year >=1740), ///
+			 (line allyandneutral_vs_foe year , lpattern(shortdash)  lwidth(medium) lcolor(black) cmissing(n)) if (year!=1792 & year >=1741), ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			 yline(1, lwidth(medium) lcolor(grey)) ///
 			 yscale(range(0.33 2.5) log) ylabel(0.33 0.5 0.75 1 1.33 2 3) ///

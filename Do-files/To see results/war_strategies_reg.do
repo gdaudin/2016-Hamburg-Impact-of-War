@@ -65,7 +65,7 @@ rename weight_france colonial_empire
 // Create war variable
 
 generate byte wara=1 if year >=1733 & year <=1738 
-generate byte warb=1 if year >=1740 & year <=1744
+generate byte warb=1 if year >=1741 & year <=1744
 generate byte war1=1 if year >=1744 & year <=1748
 generate byte war2=1 if year >=1756 & year <=1763
 generate byte war3=1 if year >=1778 & year <=1783
@@ -142,32 +142,32 @@ regress loss num_prizes_RN_All cum_num_prizes_RN_All num_prizes_priv_All cum_num
 **All this suggests that num_prizes_RN explains better that num_prizes_priv, but I am not sure we can make much of that. It is very much a time trend.
 **Certainly, and that is interesting, the cumulated measure is much better than the single shock measure. 
 
-regress loss num_prizes_All cum_num_prizes_All num_prizes_FR cum_num_prizes_FR if war==1 & year >=1740
-regress loss num_prizes_All cum_num_prizes_All num_prizes_FR cum_num_prizes_FR if year >=1740
+regress loss num_prizes_All cum_num_prizes_All num_prizes_FR cum_num_prizes_FR if war==1 & year >=1741
+regress loss num_prizes_All cum_num_prizes_All num_prizes_FR cum_num_prizes_FR if year >=1741
 **En temps de guerre, les pertes (cumulées) françaises sont plus importantes que les pertes totales
 **Sur l’ensemble des périodes, c’est l’inverse.
 
 **With the cumulated and normalized value data (no effect in war time ; positive (!) effect in peace time)
 
-regress loss normalized_m_cum_val_prizes_All if war==1 & year >=1740
-regress loss normalized_m_cum_val_prizes_FR if war==1 & year >=1740
+regress loss normalized_m_cum_val_prizes_All if war==1 & year >=1741
+regress loss normalized_m_cum_val_prizes_FR if war==1 & year >=1741
 
-regress loss normalized_m_cum_val_prizes_All if war!=1 & year >=1740
-regress loss normalized_m_cum_val_prizes_FR if war!=1 & year >=1740
+regress loss normalized_m_cum_val_prizes_All if war!=1 & year >=1741
+regress loss normalized_m_cum_val_prizes_FR if war!=1 & year >=1741
 
-regress loss normalized_m_cum_val_prizes_All if year >=1740
-regress loss normalized_m_cum_val_prizes_FR if year >=1740
+regress loss normalized_m_cum_val_prizes_All if year >=1741
+regress loss normalized_m_cum_val_prizes_FR if year >=1741
 
 **With the normalized value data (basically no effect)
 
-regress loss normalized_m_val_prizes_All if war==1 & year >=1740
-regress loss normalized_m_val_prizes_FR if war==1 & year >=1740
+regress loss normalized_m_val_prizes_All if war==1 & year >=1741
+regress loss normalized_m_val_prizes_FR if war==1 & year >=1741
 
-regress loss normalized_m_val_prizes_All if war!=1 & year >=1740
-regress loss normalized_m_val_prizes_FR if war!=1 & year >=1740
+regress loss normalized_m_val_prizes_All if war!=1 & year >=1741
+regress loss normalized_m_val_prizes_FR if war!=1 & year >=1741
 
-regress loss normalized_m_val_prizes_All if year >=1740
-regress loss normalized_m_val_prizes_FR if year >=1740
+regress loss normalized_m_val_prizes_All if year >=1741
+regress loss normalized_m_val_prizes_FR if year >=1741
 
 
 

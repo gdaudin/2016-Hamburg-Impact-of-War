@@ -70,7 +70,7 @@ reshape wide FrenchBudget, i(year) j(SourceID)
 
 rename FrenchBudget* Source*
 
-*keep if year >=1740
+*keep if year >=1741
 
 *Avant 1690, 2 sources (20 et 2). 2 est une moyenne sur plusieurs années, 20 a l’air plus plausible
 generate FrenchBudget=Source20 if year <1690
@@ -126,7 +126,7 @@ generate diff_10_6 = (Source10-Source6)/Source6
 summ diff_11_6, det
 summ diff_10_6, det
 egen Blif=rowmax(Source1 Source10 Source11 Source13 Source14)
-replace FrenchBudget=Blif if year >=1740
+replace FrenchBudget=Blif if year >=1741
 drop Blif
 
 
@@ -178,7 +178,7 @@ graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area minwar5 year, color(gs9)) (area minblockade year, color(gs4)) ///
 			 (line NavyNet  year,lcolor(red)) (line NavyGross  year,lcolor(red) lpattern(dash)) ///
 			 (line FrenchBudget year, lcolor(blue)) ///
-			 if year >=1740 & year<=1830, scheme(s1color) ///
+			 if year >=1741 & year<=1830, scheme(s1color) ///
 			 legend(order (13 14 15) label(13 "Net British Navy expenditures") label(14 "Gross British Navy expenditures") ///
 			 label(15 "French Navy expenditures") rows(3)) ///
 			 ytitle("Tons of silver, log(10)") xlabel(1740(20)1820) ///

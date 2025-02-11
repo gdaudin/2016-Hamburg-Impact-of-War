@@ -153,7 +153,7 @@ local minvalue =r(min)+0.2
 
 
 generate wara=`maxvalue' if year >=1733 & year <=1738 
-generate warb=`maxvalue' if year >=1740 & year <=1744
+generate warb=`maxvalue' if year >=1741 & year <=1744
 generate war1=`maxvalue' if year >=1744 & year <=1748
 generate war2=`maxvalue' if year >=1756 & year <=1763
 generate war3=`maxvalue' if year >=1778 & year <=1783

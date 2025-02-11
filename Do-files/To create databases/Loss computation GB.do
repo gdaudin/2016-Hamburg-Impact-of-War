@@ -95,7 +95,7 @@ gen minwar3=-0.2 if war3!=.
 gen minwar4=-0.2 if war4!=.
 gen minwar5=-0.2 if war5!=.
 gen minblockade=-0.2 if blockade!=.
-keep if year >=1740
+keep if year >=1741
 
 graph twoway (area war1 year, color(gs9)) (area war2 year, color(gs9)) ///
 			 (area war3 year, color(gs9)) (area war4 year, color(gs9)) ///

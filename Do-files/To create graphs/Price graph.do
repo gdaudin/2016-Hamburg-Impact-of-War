@@ -47,7 +47,7 @@ foreach i in Export Import {
 	destring `i'_prices, replace
 	gen log_`i'_prices = ln(`i'_prices)
 	reg log_`i'_prices year war
-	reg log_`i'_prices year war if year >=1740
+	reg log_`i'_prices year war if year >=1741
 }
 
 
@@ -58,7 +58,7 @@ gen Terms_of_trade = Export_prices/Import_prices
 
 gen log_Terms_of_trade=ln(Terms_of_trade)
 reg log_Terms_of_trade year war
-reg log_Terms_of_trade year war if year >=1740
+reg log_Terms_of_trade year war if year >=1741
 
 gen war1=2 if year >=1744 & year<=1748
 gen war2=2 if year >=1756 & year<=1762

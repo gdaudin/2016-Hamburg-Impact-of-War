@@ -53,7 +53,7 @@ drop pays_grouping warships
 reshape wide side_warships, i(year) j(war_status) string
 
 rename side_warships* *
-replace foe=Angleterre if foe ==. & year >=1740 
+replace foe=Angleterre if foe ==. & year >=1741 
 replace ally=France if ally==. & year>=1740
 
 gen France_vs_GB = France/Angleterre

@@ -178,7 +178,7 @@ foreach var of global vardinteret {
 	gen minwar4=-0.2 if war4!=.
 	gen minwar5=-0.2 if war5!=.
 	gen minblockade=-0.2 if blockade!=.
-	keep if year >=1740
+	keep if year >=1741
 	export delimited "$hamburg/database_csv/mean_annual_loss `var'.csv", replace
 	
 	
@@ -262,7 +262,7 @@ replace minwar3=-0.2 if war3!=.
 replace minwar4=-0.2 if war4!=.
 replace minwar5=-0.2 if war5!=.
 replace minblockade=-0.2 if blockade!=.
-keep if year >=1740
+keep if year >=1741
 
 /*
 graph twoway 	(area war1 year, color(gs9)) (area war2 year, color(gs9)) ///

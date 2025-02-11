@@ -34,7 +34,7 @@ replace war = 0 if year <= 1743 | (year >= 1749 & year <=1755) | (year >= 1763 &
 generate warla=1 if year >=1688 & year <=1697 
 generate warsp=1 if year >=1702 & year <=1713 
 generate wara=1 if year >=1733 & year <=1738 
-generate warb=1 if year >=1740 & year <=1743
+generate warb=1 if year >=1741 & year <=1743
 generate war1=1 if year >=1744 & year <=1748
 generate war2=1 if year >=1756 & year <=1762
 generate war3=1 if year >=1778 & year <=1783

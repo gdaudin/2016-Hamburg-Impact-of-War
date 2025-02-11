@@ -20,7 +20,7 @@ if "`c(username)'" =="Tirindelli" {
 
 use "$hamburg/database_dta/English&French_prizes.dta",  clear
 
-keep if year >=1740 & year <=1820
+keep if year >=1741 & year <=1820
  
  twoway(connected Total_Prize_value year,  cmissing(n)) (connected FR_Prize_value year,  cmissing(n)) (line Frenchincome year, cmissing(n)), /*
   */ ytitle("tons of silver", axis(1)) scheme(s1mono) /*

@@ -572,7 +572,7 @@ twoway(bar Total_Prize_value year) (bar FR_Prize_value year) (line Privateers_In
 
  merge 1:1 year using "$hamburg/database_dta/English_prizes.dta"
  drop _merge
- *keep if year >=1740 & year <=1820
+ *keep if year >=1741 & year <=1820
 capture drop FR_silver
  merge 1:1 year using "$hamburg/database_dta/FR_silver.dta"
  drop _merge
