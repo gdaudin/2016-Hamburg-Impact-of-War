@@ -75,7 +75,7 @@ graph export "$hamburggit/Paper - Impact of War/Paper/FR_GB_Budgetfrom1688.png",
 
 
 
-keep  if year > 1680 & year <=1815
+keep  if year > 1680 & year <=1825
 keep year war* NavyNet NavyGross FrenchBudget blockade
 
 export delimited using "~/Library/CloudStorage/Dropbox/2022 Economic Warfare/2025 02 Graphs/DataFigure3.csv", delimiter(,) replace
