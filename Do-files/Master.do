@@ -21,6 +21,11 @@ do "$git_path/Do-files/To create databases/For prizes db.do"
 do "$git_path/Do-files/To create databases/Transformation prizes db.do"
 
 
+*Budget DB and graph
+do "$git_path/Do-files/To create databases/For FR and GB budgets.do"
+do "$git_path/Do-files/To create graphs/Budgets.do"
+
+
 
 do "$git_path/Do-files/To create databases/To gen loss of colony variable.do"
 do "$git_path/Do-files/To create databases/To gen battle variable.do"
