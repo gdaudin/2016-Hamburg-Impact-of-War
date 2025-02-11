@@ -89,8 +89,8 @@ graph twoway (area wara year, color(gs14%30)) ///
 			 (line allyandneutral_vs_foe year , lpattern(shortdash)  lwidth(medium) lcolor(black) cmissing(n)) if (year!=1792 & year >=1740), ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			 yline(1, lwidth(medium) lcolor(grey)) ///
-			 yscale(range(0.33 2.5) log) ylabel(0.33 0.5 0.75 1.33 2 3) ///
-			 ytitle(ship ratio) ///
+			 yscale(range(0.33 2.5) log) ylabel(0.33 0.5 0.75 1 1.33 2 3) ///
+			 ytitle(ratio between the number of warships) ///
 			 legend (position(bottom) order(9 "France/GB" 10 "France and its allies/GB and its allies" 11 "France and its allies and neutrals/GB and its allies") rows(3)) ///
 			 scheme(s1mono)
 			 
@@ -102,8 +102,8 @@ graph twoway (line France_vs_GB year,   cmissing(n) lwidth(medium) lcolor(black)
 			 (line allyandneutral_vs_foe year , lpattern(shortdash) lwidth(medium) lcolor(black) cmissing(n)) if (year!=1792), ///
 			 plotregion(fcolor(white)) graphregion(fcolor(white)) ///
 			 yline(1, lwidth(medium) lcolor(grey)) ///
-			 yscale(range(0.33 2.5) log) ylabel(0.33 0.5 0.75 1.33 2 3) ///
-			 ytitle(ship ratio) xlabel(1680(20)1820) ///
+			 yscale(range(0.33 2.5) log) ylabel(0.33 0.5 0.75 1 1.33 2 3) ///
+			 ytitle(ratio between the number of warships) xlabel(1680(20)1820) ///
 			 legend (position(bottom) order(1 "France/GB" 2 "France and its allies/GB and its allies" 3 "France and its allies and neutrals/GB and its allies") rows(3)) ///
 			 scheme(s1mono)
 
